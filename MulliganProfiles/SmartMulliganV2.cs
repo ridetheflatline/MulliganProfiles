@@ -3073,7 +3073,14 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     var zoolock = new List<string> {FlameImp, Voidcaller, PowerOverwhelming, Doomguard}; //1
+                    var relinquary = new List<string> {ReliquarySeeker, Voidcaller, DarkPeddler, SeaGiant}; //1
                     if (CoreComparison(CurrentDeck.Intersect(zoolock).ToList(), zoolock, 1, DeckType.Zoolock))
+                    {
+                        info.DeckStyle = Style.Aggro;
+                        info.DeckType = DeckType.Zoolock;
+                        return info;
+                    }
+                    if (CoreComparison(CurrentDeck.Intersect(relinquary).ToList(), relinquary, 1, DeckType.Zoolock))
                     {
                         info.DeckStyle = Style.Aggro;
                         info.DeckType = DeckType.Zoolock;
