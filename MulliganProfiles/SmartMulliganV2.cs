@@ -941,15 +941,18 @@ namespace SmartBotUI.SmartMulliganV2
 
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
-            //myInfo.DeckType = DeckType.Zoolock;
+
+            //myInfo.DeckStyle = Style.Face;
+            //myInfo.DeckType = DeckType.FaceShaman;
 
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
             var supported = true;
-
+            //myInfo.DeckStyle = GetStyle();
             ArchiveDeck(myInfo.DeckType);
             switch (myInfo.DeckType)
             {
                 case DeckType.Unknown:
+                    myInfo.DeckStyle = GetStyle();
                     HandleMinions(choices, _whiteList, opponentClass, ownClass, 0);
                     HandleWeapons(choices, ownClass, _whiteList);
                     break;
@@ -1066,17 +1069,25 @@ namespace SmartBotUI.SmartMulliganV2
                 case DeckType.FatigueWarrior:
                     HandleControlWarrior(choices, opponentClass, myInfo.DeckType);
                     break;
+                case DeckType.RelinquaryZoo:
+                    HandleZoo(choices, _oc, myInfo);
+                    break;
+                case DeckType.FaceShaman:
+                    supported = false;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
             if (myInfo.DeckType == DeckType.Unknown)
+            {
                 Bot.Log(
                     string.Format(
                         "[SmartMulligan] Current deck is {0}.  " +
                         "Mulligan will treat it as if it was arena. " +
                         "If that is wrong and your deck is supported, please report it to Arthur",
                         myInfo.DeckType));
+            }
 
             if (!supported)
             {
@@ -1086,11 +1097,12 @@ namespace SmartBotUI.SmartMulliganV2
                         myInfo.DeckType));
                 Bot.Log(
                     string.Format(
-                        "[SmartMulligan] But this mulligan will try to adjust properly with {0} Mulligan logic.",DeckType.Arena));
+                        "[SmartMulligan] But this mulligan will try to adjust properly with {0} Mulligan logic.", DeckType.Arena));
                 Bot.Log(
                     string.Format(
                         "[SmartMulligan] Mulligan will treat it as {0} style deck ", myInfo.DeckStyle));
-                HandleMinions(choices, _whiteList, opponentClass, ownClass, 0);
+                SetDefaultsForStyle(myInfo.DeckStyle);
+                HandleMinions(choices, _whiteList, opponentClass, ownClass, 0, null, null, myInfo.DeckStyle);
                 HandleWeapons(choices, ownClass, _whiteList);
                 HandleSpells(choices, _whiteList);
             }
@@ -1107,7 +1119,6 @@ namespace SmartBotUI.SmartMulliganV2
                 _cardsToKeep.Add(s);
 
             _ctk = _cardsToKeep;
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (TrackMulligan) DisplayMulligans(choices, opponentClass, ownClass);
 
             return _cardsToKeep;
@@ -1175,7 +1186,7 @@ namespace SmartBotUI.SmartMulliganV2
                     file.Write("\"{0}\",", q);
                 file.WriteLine(" ");
                 foreach (var q in CurrentDeck)
-                    file.Write("{0};", q);
+                    file.Write("{0}:", q);
                 file.WriteLine(" ");
                 foreach (var q in CurrentDeck)
                     file.Write("{0}, ", CardTemplate.LoadFromId(q).Name);
@@ -1184,6 +1195,7 @@ namespace SmartBotUI.SmartMulliganV2
                 file.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- ");
             }
         }
+        
         //such lazy work
         private void HandleOilRogues(List<Card.Cards> choices, Card.CClass opponentClass)
         {
@@ -2334,7 +2346,7 @@ namespace SmartBotUI.SmartMulliganV2
             var OneManaSpell = false;
             var TwoManaSpell = false;
             var ThreeManaSpell = false;
-            
+
             var allowedSpells = new List<string>
             {
                 Frostbolt, Flamecannon, UnstablePortal, ArcaneMissiles, MirrorImage, ForgottenTorch, //Mage
@@ -2372,7 +2384,7 @@ namespace SmartBotUI.SmartMulliganV2
                 var spells = CardTemplate.LoadFromId(q.ToString());
 
                 if (spells.Type == Card.CType.SPELL && allowedSpells.Contains(q.ToString()))
-                if (badSecrets.Contains(q.ToString())) continue;
+                    if (badSecrets.Contains(q.ToString())) continue;
                 if (spells.Cost == 1 && spells.IsSecret && !_has1Drop)
                 {
                     whiteList.AddOrUpdate(q.ToString(), false);
@@ -2383,7 +2395,7 @@ namespace SmartBotUI.SmartMulliganV2
                 if (spells.Cost == 3 && spells.IsSecret && !_has3Drop && _hasCoin && choices.All(w => w.ToString() != MadScientist)) //toss away any secret if I have mad scientist
                     whiteList.AddOrUpdate(q.ToString(), false);
             }
-            
+
         }
 
         private static void HandleWeapons(List<Card.Cards> choices, Card.CClass ownClass, Dictionary<string, bool> whiteList)
@@ -2420,7 +2432,7 @@ namespace SmartBotUI.SmartMulliganV2
             //return StormforgedAxe;
         }
 
-        private static void HandleMinions(List<Card.Cards> choices, IDictionary<string, bool> whiteList, Card.CClass opponentClass, Card.CClass ownClass, int valueMod = 0, List<string> activators = null, List<string> needActivation = null)
+        private static void HandleMinions(List<Card.Cards> choices, IDictionary<string, bool> whiteList, Card.CClass opponentClass, Card.CClass ownClass, int valueMod = 0, List<string> activators = null, List<string> needActivation = null, Style deckStyle = Style.Tempo)
         {
             if (valueMod > 6)
                 valueMod = 0;
@@ -2436,7 +2448,6 @@ namespace SmartBotUI.SmartMulliganV2
                         CardTemplate.LoadFromId(c.ToString()).Type == Card.CType.WEAPON &&
                         CardTemplate.LoadFromId(c.ToString()).Cost <= 4);
 
-            var NumDragons = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Race == Card.CRace.DRAGON);
             foreach (var c in choices)
             {
                 var minion = CardTemplate.LoadFromId(c.ToString());
@@ -2445,6 +2456,8 @@ namespace SmartBotUI.SmartMulliganV2
                 {
                     case 1:
                         {
+                            if(minion.Id.ToString() == LeperGnome)
+                            modifier += 33;
                             switch (_ownC)
                             {
                                 case Card.CClass.SHAMAN:
@@ -2458,7 +2471,7 @@ namespace SmartBotUI.SmartMulliganV2
                                 case Card.CClass.WARRIOR:
                                     break;
                                 case Card.CClass.WARLOCK:
-                                    modifier += minion.Id.ToString() == ReliquarySeeker ? -10: 10 ;
+                                    modifier += minion.Id.ToString() == ReliquarySeeker ? -10 : 10;
                                     break;
                                 case Card.CClass.HUNTER:
                                     break;
@@ -2468,79 +2481,79 @@ namespace SmartBotUI.SmartMulliganV2
                                     break;
                                 case Card.CClass.NONE:
                                     break;
-                                
+
                             }
                             mychoices.AddOrUpdate(minion.Id.ToString(), GetPriority(minion, opponentClass, ownClass, modifier));
                             break;
                         }
                     case 2:
-                    {
-                        switch (minion.Class)
                         {
-                            case Card.CClass.SHAMAN:
-                                if (minion.Race != Card.CRace.TOTEM)
-                                    modifier += 2;
-                                break;
-                            case Card.CClass.PRIEST:
-                                if (minion.Id.ToString() == WyrmrestAgent && NumDragons < 3)
-                                    modifier -= 2;
-                                else modifier += 2;
-                                break;
-                            case Card.CClass.MAGE:
-                                break;
-                            case Card.CClass.PALADIN:
-                                break;
-                            case Card.CClass.WARRIOR:
-                                break;
-                            case Card.CClass.WARLOCK:
-                                break;
-                            case Card.CClass.HUNTER:
-                                break;
-                            case Card.CClass.ROGUE:
-                                if (HasCombo(minion))
-                                    modifier += 1;
-                                break;
-                            case Card.CClass.DRUID:
-                                break;
-                            case Card.CClass.NONE:
-                                if (minion.Id.ToString() == NerubianEgg && ChoicesIntersectList(choices, activators))
-                                    modifier += 9;
-                                if (minion.Id.ToString() == IronbeakOwl && _aggro)
-                                    modifier += 4;
-                                break;
-                        }
+                            switch (minion.Class)
+                            {
+                                case Card.CClass.SHAMAN:
+                                    if (minion.Race != Card.CRace.TOTEM)
+                                        modifier += 2;
+                                    break;
+                                case Card.CClass.PRIEST:
+                                    if (minion.Id.ToString() == WyrmrestAgent && NumDragons < 3)
+                                        modifier -= 2;
+                                    else modifier += 2;
+                                    break;
+                                case Card.CClass.MAGE:
+                                    break;
+                                case Card.CClass.PALADIN:
+                                    break;
+                                case Card.CClass.WARRIOR:
+                                    break;
+                                case Card.CClass.WARLOCK:
+                                    break;
+                                case Card.CClass.HUNTER:
+                                    break;
+                                case Card.CClass.ROGUE:
+                                    if (HasCombo(minion))
+                                        modifier += 1;
+                                    break;
+                                case Card.CClass.DRUID:
+                                    break;
+                                case Card.CClass.NONE:
+                                    if (minion.Id.ToString() == NerubianEgg && ChoicesIntersectList(choices, activators))
+                                        modifier += 9;
+                                    if (minion.Id.ToString() == IronbeakOwl && _aggro)
+                                        modifier += 4;
+                                    break;
+                            }
 
-                        mychoices2.AddOrUpdate(minion.Id.ToString(), GetPriority(minion, opponentClass, ownClass, modifier));
-                        break;
-                    }
+                            mychoices2.AddOrUpdate(minion.Id.ToString(), GetPriority(minion, opponentClass, ownClass, modifier));
+                            break;
+                        }
                     case 3:
-                    {
-                        if (!IsArena() && _aggro)
-                            modifier-=8;
-                        mychoices3.AddOrUpdate(minion.Id.ToString(), GetPriority(minion, opponentClass, ownClass, modifier));
-                        break;
-                    }
+                        {
+                            if (!IsArena() && _aggro)
+                                modifier -= 8;
+                            mychoices3.AddOrUpdate(minion.Id.ToString(), GetPriority(minion, opponentClass, ownClass, modifier));
+                            break;
+                        }
                     case 4:
-                    {
-                        if (BadFourDrop(minion))
-                            modifier -= 20;
-                        if (_has1Drop || _has2Drop)
                         {
-                            allowFourDrop = true;
-                            modifier += 2;
+                            if (BadFourDrop(minion))
+                                modifier -= 20;
+                            if (_has1Drop || _has2Drop)
+                            {
+                                allowFourDrop = true;
+                                modifier += 2;
+                            }
+                            if (_has2Drop && _has3Drop)
+                            {
+                                allowFourDrop = true;
+                                modifier += 2;
+                            }
+                            if (_hasWeapon)
+                                allowFourDrop = true;
+                            mychoices4.AddOrUpdate(minion.Id.ToString(), GetPriority(minion, opponentClass, ownClass, modifier));
+                            break;
                         }
-                        if (_has2Drop && _has3Drop)
-                        {
-                            allowFourDrop = true;
-                            modifier += 2;
-                        }
-                        if (_hasWeapon)
-                            allowFourDrop = true;
-                        mychoices4.AddOrUpdate(minion.Id.ToString(), GetPriority(minion, opponentClass, ownClass, modifier));
-                        break;
-                    }
                     case 5:
-                        whiteList.AddOrUpdate(_oc == Card.CClass.PALADIN ? DarkIronSkulker: "", false);
+                        whiteList.AddOrUpdate(_oc == Card.CClass.PALADIN ? DarkIronSkulker : "", false);
                         break;
 
                 }
@@ -2615,7 +2628,7 @@ namespace SmartBotUI.SmartMulliganV2
 
         private static bool HasCombo(CardTemplate minion)
         {
-            List<string> comboList = new List<string> {GoblinAutoBarber, UndercityValiant, EdwinVanCleef, SI7Agent, DefiasRingleader};
+            List<string> comboList = new List<string> { GoblinAutoBarber, UndercityValiant, EdwinVanCleef, SI7Agent, DefiasRingleader };
             return comboList.Any(c => c.ToString() == minion.Id.ToString());
         }
 
@@ -2644,124 +2657,124 @@ namespace SmartBotUI.SmartMulliganV2
             switch (c.Cost)
             {
                 case 1:
-                {
-                    if (opponentClass == Card.CClass.MAGE || opponentClass == Card.CClass.ROGUE || opponentClass == Card.CClass.DRUID && c.Health == 1 && !c.Divineshield)
-                        value--;
-                    if (c.Name.Contains("Cogmaster") && numMechs > 3)
-                        value++;
-                    if (c.Race == Card.CRace.BEAST && ownClass == Card.CClass.HUNTER)
-                        value++;
-                    if (c.Name.Contains("Injured") && ownClass != Card.CClass.PRIEST)
-                        value -= 7;
-                    if (c.Name.Contains("secret") && numSecret > 2)
-                        value++;
-                    if (c.Name.Contains("Voodoo"))
-                        value -= 2;
-                    if (c.Overload > 0)
-                        value -= 4;
-                    if (c.Health == 3)
-                        value++;
-                    if (c.Race == Card.CRace.DEMON && c.Atk == 3)
-                        value += 4;
-                    if (c.Health == c.Atk && c.HasBattlecry)
-                        value += 2;
-                    if (c.Quality == Card.CQuality.Epic)
-                        value -= 2;
-                    if (c.Quality == Card.CQuality.Rare && c.Atk > c.Health)
-                        value--;
-                    if (c.Atk > c.Health && c.Class == Card.CClass.ROGUE)
-                        value += 2;
-                    if (c.Stealth && c.Atk == 2)
-                        value++;
-                    if (c.Divineshield)
-                        value++;
-                    if (c.HasDeathrattle)
-                        value++;
-                    if (c.Race == Card.CRace.MURLOC)
-                        value--;
-                    if (c.Class == Card.CClass.NONE && c.Atk == 2 || c.HasBattlecry)
-                        value++;
-                    if (c.Taunt && c.Class != Card.CClass.WARLOCK)
-                        value -= 2;
-                    if (c.Class == Card.CClass.HUNTER && !c.HasDeathrattle)
-                        value--;
-                    if (c.Class == Card.CClass.HUNTER && c.HasDeathrattle)
-                        value++;
-                    break;
-                }
-                case 2:
-                {
-                    value--;
-                    if ((c.Health == 1 && !c.HasDeathrattle) || (c.Atk > c.Health + 1) || (c.Health > c.Atk + 1) || (c.Atk == 1 && c.Health == 1))
                     {
-                        value -= 2;
+                        if (opponentClass == Card.CClass.MAGE || opponentClass == Card.CClass.ROGUE || opponentClass == Card.CClass.DRUID && c.Health == 1 && !c.Divineshield)
+                            value--;
+                        if (c.Name.Contains("Cogmaster") && numMechs > 3)
+                            value++;
+                        if (c.Race == Card.CRace.BEAST && ownClass == Card.CClass.HUNTER)
+                            value++;
+                        if (c.Name.Contains("Injured") && ownClass != Card.CClass.PRIEST)
+                            value -= 7;
+                        if (c.Name.Contains("secret") && numSecret > 2)
+                            value++;
+                        if (c.Name.Contains("Voodoo"))
+                            value -= 2;
+                        if (c.Overload > 0)
+                            value -= 4;
+                        if (c.Health == 3)
+                            value++;
+                        if (c.Race == Card.CRace.DEMON && c.Atk == 3)
+                            value += 4;
+                        if (c.Health == c.Atk && c.HasBattlecry)
+                            value += 2;
+                        if (c.Quality == Card.CQuality.Epic)
+                            value -= 2;
+                        if (c.Quality == Card.CQuality.Rare && c.Atk > c.Health)
+                            value--;
+                        if (c.Atk > c.Health && c.Class == Card.CClass.ROGUE)
+                            value += 2;
+                        if (c.Stealth && c.Atk == 2)
+                            value++;
+                        if (c.Divineshield)
+                            value++;
+                        if (c.HasDeathrattle)
+                            value++;
+                        if (c.Race == Card.CRace.MURLOC)
+                            value--;
+                        if (c.Class == Card.CClass.NONE && c.Atk == 2 || c.HasBattlecry)
+                            value++;
+                        if (c.Taunt && c.Class != Card.CClass.WARLOCK)
+                            value -= 2;
+                        if (c.Class == Card.CClass.HUNTER && !c.HasDeathrattle)
+                            value--;
+                        if (c.Class == Card.CClass.HUNTER && c.HasDeathrattle)
+                            value++;
                         break;
                     }
-
-                    if (c.Charge)
+                case 2:
+                    {
                         value--;
-                    if (c.Taunt)
-                        value--;
-                    value++;
+                        if ((c.Health == 1 && !c.HasDeathrattle) || (c.Atk > c.Health + 1) || (c.Health > c.Atk + 1) || (c.Atk == 1 && c.Health == 1))
+                        {
+                            value -= 2;
+                            break;
+                        }
 
-                    if (c.Name.Equals("Sunfury Protector") && numMechs > 3)
-                        value -= 4;
-                    if (c.Name.Equals("Mechwarper") && numMechs > 3)
-                        value += 2;
-                    if (c.Stealth)
-                        value++;
-                    if (c.Race == Card.CRace.DEMON && c.HasBattlecry)
-                        value -= 5;
-                    value++;
-                    if (vanila && opponentClass == Card.CClass.PALADIN)
+                        if (c.Charge)
+                            value--;
+                        if (c.Taunt)
+                            value--;
                         value++;
 
+                        if (c.Name.Equals("Sunfury Protector") && numMechs > 3)
+                            value -= 4;
+                        if (c.Name.Equals("Mechwarper") && numMechs > 3)
+                            value += 2;
+                        if (c.Stealth)
+                            value++;
+                        if (c.Race == Card.CRace.DEMON && c.HasBattlecry)
+                            value -= 5;
+                        value++;
+                        if (vanila && opponentClass == Card.CClass.PALADIN)
+                            value++;
 
-                    break;
-                }
+
+                        break;
+                    }
                 case 3:
-                {
-                    value += 2;
-                    if (opponentClass == Card.CClass.PALADIN && c.Health == 2)
-                        value--;
-                    if (c.Charge && c.Divineshield)
-                        value++;
-                    if (c.Quality == Card.CQuality.Legendary)
-                        value++;
-                    if (c.Race == Card.CRace.DEMON)
-                        value++;
-                    if (c.Quality == Card.CQuality.Epic && opponentClass != Card.CClass.PALADIN)
-                        value -= 7;
-                    if (c.Health == 1 && !c.Divineshield && !c.HasDeathrattle)
-                        value -= 5;
-                    if (vanila3)
+                    {
                         value += 2;
-                    if (c.Health == c.Cost && c.Atk == c.Cost && c.Quality == Card.CQuality.Rare && !c.Inspire)
-                        value -= 7;
-                    if (c.Health < c.Cost && c.Atk < c.Cost)
-                        value -= 5;
-                    if (c.Health == 2 && c.Atk == 2 && c.Class == Card.CClass.DRUID)
-                        value += 5;
-                    if (c.Class == Card.CClass.ROGUE && c.Race != Card.CRace.MECH)
-                        value += 5;
-                    if (c.HasBattlecry)
-                        value++;
-                    if (c.HasDeathrattle)
-                        value++;
-                    break;
-                }
+                        if (opponentClass == Card.CClass.PALADIN && c.Health == 2)
+                            value--;
+                        if (c.Charge && c.Divineshield)
+                            value++;
+                        if (c.Quality == Card.CQuality.Legendary)
+                            value++;
+                        if (c.Race == Card.CRace.DEMON)
+                            value++;
+                        if (c.Quality == Card.CQuality.Epic && opponentClass != Card.CClass.PALADIN)
+                            value -= 7;
+                        if (c.Health == 1 && !c.Divineshield && !c.HasDeathrattle)
+                            value -= 5;
+                        if (vanila3)
+                            value += 2;
+                        if (c.Health == c.Cost && c.Atk == c.Cost && c.Quality == Card.CQuality.Rare && !c.Inspire)
+                            value -= 7;
+                        if (c.Health < c.Cost && c.Atk < c.Cost)
+                            value -= 5;
+                        if (c.Health == 2 && c.Atk == 2 && c.Class == Card.CClass.DRUID)
+                            value += 5;
+                        if (c.Class == Card.CClass.ROGUE && c.Race != Card.CRace.MECH)
+                            value += 5;
+                        if (c.HasBattlecry)
+                            value++;
+                        if (c.HasDeathrattle)
+                            value++;
+                        break;
+                    }
                 case 4:
-                {
-                    if (numDrag > 2 && c.Quality == Card.CQuality.Epic)
-                        value += 5;
-                    if (c.Health == 5 && c.Atk == 4)
-                        value += 2;
-                    if (c.Health < c.Cost && !c.HasDeathrattle)
-                        value -= 8;
+                    {
+                        if (numDrag > 2 && c.Quality == Card.CQuality.Epic)
+                            value += 5;
+                        if (c.Health == 5 && c.Atk == 4)
+                            value += 2;
+                        if (c.Health < c.Cost && !c.HasDeathrattle)
+                            value -= 8;
 
-                    value++;
-                    break;
-                }
+                        value++;
+                        break;
+                    }
             }
             if (c.Health >= c.Atk + 1)
             {
@@ -2873,7 +2886,7 @@ namespace SmartBotUI.SmartMulliganV2
 
         private DeckData GetDeckInfo(Card.CClass ownClass)
         {
-            var info = new DeckData {Cards = CurrentDeck};
+            var info = new DeckData { Cards = CurrentDeck };
             if (Bot.CurrentMode() == Bot.Mode.Arena || Bot.CurrentMode() == Bot.Mode.ArenaAuto)
             {
                 info.DeckStyle = GetStyle();
@@ -2884,36 +2897,44 @@ namespace SmartBotUI.SmartMulliganV2
             switch (ownClass)
             {
                 case Card.CClass.SHAMAN:
-                    var mechShaman = new List<string> {Crackle, Powermace, Mechwarper, HarvestGolem, TinkertownTechnician, ArcaneNullifierX21, MechanicalYeti, AntiqueHealbot, PilotedSkyGolem}; //1
+                    var faceShaman = new List<string> { RockbiterWeapon, LeperGnome, TunnelTrogg, LavaBurst, LightningBolt };
+                    if (CoreComparison(CurrentDeck.Intersect(faceShaman).ToList(), faceShaman, 1, DeckType.FaceShaman))
+                    {
+                        info.DeckStyle = Style.Face;
+                        info.DeckType = DeckType.FaceShaman;
+                        return info;
+                    }
+                    var mechShaman = new List<string> { Crackle, Powermace, Mechwarper, MechanicalYeti, PilotedShredder }; //1
                     if (CoreComparison(CurrentDeck.Intersect(mechShaman).ToList(), mechShaman, 1, DeckType.MechShaman))
                     {
+
                         info.DeckStyle = Style.Aggro;
                         info.DeckType = DeckType.MechShaman;
                         return info;
                     }
-                    var dragonShaman = new List<string> {BlackwingTechnician, BlackwingCorruptor, AzureDrake, TwilightGuardian, Nefarian, Ysera}; //2
+                    var dragonShaman = new List<string> { BlackwingTechnician, BlackwingCorruptor, AzureDrake, TwilightGuardian, Nefarian, Ysera }; //2
                     if (CoreComparison(CurrentDeck.Intersect(dragonShaman).ToList(), dragonShaman, 1, DeckType.DragonShaman))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.DragonShaman;
                         return info;
                     }
-                    var totemShaman = new List<string> {TotemGolem, ThunderBluffValiant, FlametongueTotem, ManaTideTotem, TuskarrTotemic, FireElemental}; //1
+                    var totemShaman = new List<string> { TotemGolem, ThunderBluffValiant, ManaTideTotem }; //1
                     if (CoreComparison(CurrentDeck.Intersect(totemShaman).ToList(), totemShaman, 1, DeckType.TotemShaman))
                     {
                         info.DeckStyle = Style.Tempo;
                         info.DeckType = DeckType.TotemShaman;
                         return info;
                     }
-                    var malygosShaman = new List<string> {AncestorsCall, Malygos}; //0
+                    var malygosShaman = new List<string> { AncestorsCall, Malygos }; //0
                     if (CoreComparison(CurrentDeck.Intersect(malygosShaman).ToList(), malygosShaman, 1, DeckType.MalygosShaman))
                     {
                         info.DeckStyle = Style.Combo;
                         info.DeckType = DeckType.MalygosShaman;
                         return info;
                     }
-                    var controlShaman = new List<string> {DrBoom, SneedsOldShredder, SludgeBelcher, Hex, FeralSpirit, LightningStorm, EarthShock, Loatheb, SylvanasWindrunner}; //2
-                    if (CoreComparison(CurrentDeck.Intersect(controlShaman).ToList(), controlShaman, 1, DeckType.ControlShaman))
+                    var controlShaman = new List<string> { DrBoom, SludgeBelcher, Hex, FeralSpirit, LightningStorm, EarthShock, Loatheb, SylvanasWindrunner }; //2
+                    if (CoreComparison(CurrentDeck.Intersect(controlShaman).ToList(), controlShaman, 2, DeckType.ControlShaman))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.ControlShaman;
@@ -2921,21 +2942,21 @@ namespace SmartBotUI.SmartMulliganV2
                     }
                     break;
                 case Card.CClass.PRIEST:
-                    var comboPriest = new List<string> {InnerFire, DivineSpirit, MindBlast, ProphetVelen}; //1
+                    var comboPriest = new List<string> { InnerFire, DivineSpirit, MindBlast, ProphetVelen }; //1
                     if (CoreComparison(CurrentDeck.Intersect(comboPriest).ToList(), comboPriest, 2, DeckType.ComboPriest))
                     {
                         info.DeckStyle = Style.Combo;
                         info.DeckType = DeckType.ComboPriest;
                         return info;
                     }
-                    var dragonPriest = new List<string> {TwilightGuardian, WyrmrestAgent, TwilightWhelp, BlackwingCorruptor, Ysera}; //1
+                    var dragonPriest = new List<string> { TwilightGuardian, WyrmrestAgent, TwilightWhelp, BlackwingCorruptor, Ysera }; //1
                     if (CoreComparison(CurrentDeck.Intersect(dragonPriest).ToList(), dragonPriest, 1, DeckType.DragonPriest))
                     {
                         info.DeckStyle = Style.Tempo;
                         info.DeckType = DeckType.DragonPriest;
                         return info;
                     }
-                    var controlPriest = new List<string> {PowerWordShield, CircleofHealing, NorthshireCleric, DarkCultist, AuchenaiSoulpriest, HolyNova, Lightbomb, Entomb, CabalShadowPriest}; //1
+                    var controlPriest = new List<string> { PowerWordShield, CircleofHealing, NorthshireCleric, DarkCultist, AuchenaiSoulpriest, HolyNova, Lightbomb, Entomb, CabalShadowPriest }; //1
                     if (CoreComparison(CurrentDeck.Intersect(controlPriest).ToList(), controlPriest, 2, DeckType.ControlPriest))
                     {
                         info.DeckStyle = Style.Control;
@@ -2944,7 +2965,7 @@ namespace SmartBotUI.SmartMulliganV2
                     }
                     break;
                 case Card.CClass.MAGE:
-                    var tempoMage = new List<string> {AzureDrake, Flamewaker, Frostbolt, Fireball, MadScientist, Flamecannon, MadScientist, SorcerersApprentice, ManaWyrm, UnstablePortal}; //1
+                    var tempoMage = new List<string> { AzureDrake, Flamewaker, Frostbolt, Fireball, MadScientist, Flamecannon, MadScientist, SorcerersApprentice, ManaWyrm, UnstablePortal }; //1
                     if (CoreComparison(CurrentDeck.Intersect(tempoMage).ToList(), tempoMage, 1, DeckType.TempoMage))
                     {
                         info.DeckStyle = Style.Tempo;
@@ -2952,38 +2973,38 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
 
-                    var freezeMage = new List<string> {IceBlock, IceBarrier, Alexstrasza, Frostbolt, IceLance, EmperorThaurissan, Fireball, ArchmageAntonidas, BloodmageThalnos, ArcaneIntellect}; //1
+                    var freezeMage = new List<string> { IceBlock, IceBarrier, Alexstrasza, Frostbolt, IceLance, EmperorThaurissan, Fireball, ArchmageAntonidas, BloodmageThalnos, ArcaneIntellect }; //1
                     if (CoreComparison(CurrentDeck.Intersect(freezeMage).ToList(), freezeMage, 0, DeckType.FreezeMage))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.FreezeMage;
                         return info;
                     }
-                    var mechMage = new List<string> {ClockworkGnome, Mechwarper, SpiderTank, GoblinBlastmage, Fireball, Frostbolt, TinkertownTechnician}; //1
+                    var mechMage = new List<string> { ClockworkGnome, Mechwarper, SpiderTank, GoblinBlastmage, Fireball, Frostbolt, TinkertownTechnician }; //1
                     if (CoreComparison(CurrentDeck.Intersect(mechMage).ToList(), mechMage, 1, DeckType.MechMage))
                     {
                         info.DeckStyle = Style.Face;
                         info.DeckType = DeckType.MechMage;
                         return info;
                     }
-                    var echoMage = new List<string> {EchoofMedivh, IceBlock, Duplicate}; //1
+                    var echoMage = new List<string> { EchoofMedivh, IceBlock, Duplicate }; //1
                     if (CoreComparison(CurrentDeck.Intersect(echoMage).ToList(), echoMage, 1, DeckType.EchoMage))
                     {
-                        
+
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.EchoMage;
                         return info;
                     }
                     break;
                 case Card.CClass.PALADIN:
-                    var secretPaladin = new List<string> {MysteriousChallenger, Avenge, NobleSacrifice, CompetitiveSpirit, Redemption}; //0
+                    var secretPaladin = new List<string> { MysteriousChallenger, Avenge, NobleSacrifice, CompetitiveSpirit, Redemption }; //0
                     if (CoreComparison(CurrentDeck.Intersect(secretPaladin).ToList(), secretPaladin, 1, DeckType.SecretPaladin))
                     {
                         info.DeckStyle = Style.Aggro;
                         info.DeckType = DeckType.SecretPaladin;
                         return info;
                     }
-                    var midRangePaladin = new List<string> {LayonHands, AldorPeacekeeper, TirionFordring, ZombieChow, BigGameHunter, JusticarTrueheart, SylvanasWindrunner, Quartermaster, MusterforBattle, Equality, Consecration}; //2
+                    var midRangePaladin = new List<string> { LayonHands, AldorPeacekeeper, TirionFordring, ZombieChow, BigGameHunter, JusticarTrueheart, SylvanasWindrunner, Quartermaster, MusterforBattle, Equality, Consecration }; //2
                     if (CoreComparison(CurrentDeck.Intersect(midRangePaladin).ToList(), midRangePaladin, 2, DeckType.MidRangePaladin))
                     {
                         info.DeckStyle = Style.Control;
@@ -2991,7 +3012,7 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
 
-                    var aggroPaladin = new List<string> {BlessingofMight, BlessingofKings, TruesilverChampion, KnifeJuggler, ArcaneGolem, LeeroyJenkins, WorgenInfiltrator, LeperGnome, AbusiveSergeant, ArgentSquire, ShieldedMinibot, DivineFavor}; //2
+                    var aggroPaladin = new List<string> { BlessingofMight, BlessingofKings, TruesilverChampion, KnifeJuggler, ArcaneGolem, LeeroyJenkins, WorgenInfiltrator, LeperGnome, AbusiveSergeant, ArgentSquire, ShieldedMinibot, DivineFavor }; //2
                     if (CoreComparison(CurrentDeck.Intersect(aggroPaladin).ToList(), aggroPaladin, 2, DeckType.AggroPaladin))
                     {
                         info.DeckStyle = Style.Face;
@@ -3000,42 +3021,42 @@ namespace SmartBotUI.SmartMulliganV2
                     }
                     break;
                 case Card.CClass.WARRIOR:
-                    var corePatron = new List<string> {GrimPatron, Whirlwind, DeathsBite, FieryWarAxe, EmperorThaurissan, AcolyteofPain, FrothingBerserker}; //0
+                    var corePatron = new List<string> { GrimPatron, Whirlwind, DeathsBite, FieryWarAxe, EmperorThaurissan, AcolyteofPain, FrothingBerserker }; //0
                     if (CoreComparison(CurrentDeck.Intersect(corePatron).ToList(), corePatron, 1, DeckType.PatronWarrior))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.PatronWarrior;
                         return info;
                     }
-                    var controlWarrior = new List<string> {Execute, ShieldSlam, GrommashHellscream, Alexstrasza, JusticarTrueheart, Shieldmaiden, Brawl, DeathsBite, AcolyteofPain, SylvanasWindrunner, DrBoom}; //1   
+                    var controlWarrior = new List<string> { Execute, ShieldSlam, GrommashHellscream, Alexstrasza, JusticarTrueheart, Shieldmaiden, Brawl, DeathsBite, AcolyteofPain, SylvanasWindrunner, DrBoom }; //1   
                     if (CoreComparison(CurrentDeck.Intersect(controlWarrior).ToList(), controlWarrior, 2, DeckType.ControlWarrior))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.ControlWarrior;
                         return info;
                     }
-                    var fatigueWarrior = new List<string> {JusticarTrueheart, Deathlord, RenoJackson, BouncingBlade, SludgeBelcher, ShieldSlam, Execute, Brawl}; //1
+                    var fatigueWarrior = new List<string> { JusticarTrueheart, Deathlord, RenoJackson, BouncingBlade, SludgeBelcher, ShieldSlam, Execute, Brawl }; //1
                     if (CoreComparison(CurrentDeck.Intersect(fatigueWarrior).ToList(), fatigueWarrior, 1, DeckType.FatigueWarrior))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.FatigueWarrior;
                         return info;
                     }
-                    var faceWarrior = new List<string> {FieryWarAxe, DeathsBite, LeperGnome, ArcaniteReaper}; //0
+                    var faceWarrior = new List<string> { FieryWarAxe, DeathsBite, LeperGnome, ArcaniteReaper }; //0
                     if (CoreComparison(CurrentDeck.Intersect(faceWarrior).ToList(), faceWarrior, 1, DeckType.FaceWarrior))
                     {
                         info.DeckStyle = Style.Face;
                         info.DeckType = DeckType.FaceWarrior;
                         return info;
                     }
-                    var dragonWarrior = new List<string> {BlackwingTechnician, BlackwingCorruptor, Nefarian, TwilightGuardian, Alexstrasza, AlexstraszasChampion}; //1
+                    var dragonWarrior = new List<string> { BlackwingTechnician, BlackwingCorruptor, Nefarian, TwilightGuardian, Alexstrasza, AlexstraszasChampion }; //1
                     if (CoreComparison(CurrentDeck.Intersect(dragonWarrior).ToList(), dragonWarrior, 1, DeckType.DragonWarrior))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.DragonWarrior;
                         return info;
                     }
-                    var mechWarrior = new List<string> {ClockworkGnome, Mechwarper, PilotedShredder, SpiderTank, FieryWarAxe, DeathsBite, ArcaniteReaper}; //1
+                    var mechWarrior = new List<string> { ClockworkGnome, Mechwarper, PilotedShredder, SpiderTank, FieryWarAxe, DeathsBite, ArcaniteReaper }; //1
                     if (CoreComparison(CurrentDeck.Intersect(mechWarrior).ToList(), mechWarrior, 1, DeckType.MechWarrior))
                     {
                         info.DeckStyle = Style.Aggro;
@@ -3044,36 +3065,36 @@ namespace SmartBotUI.SmartMulliganV2
                     }
                     break;
                 case Card.CClass.WARLOCK:
-                    var demonHandlock = new List<string> {Voidcaller, MoltenGiant, MountainGiant, MalGanis, TwilightDrake}; //1
+                    var demonHandlock = new List<string> { Voidcaller, MoltenGiant, MountainGiant, MalGanis, TwilightDrake }; //1
                     if (CoreComparison(CurrentDeck.Intersect(demonHandlock).ToList(), demonHandlock, 1, DeckType.DemonHandlock))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.DemonHandlock;
                         return info;
                     }
-                    var dragonHandlock = new List<string> {TwilightGuardian, TwilightDrake, AzureDrake, Malygos, BlackwingCorruptor}; //1
+                    var dragonHandlock = new List<string> { TwilightGuardian, TwilightDrake, AzureDrake, Malygos, BlackwingCorruptor }; //1
                     if (CoreComparison(CurrentDeck.Intersect(dragonHandlock).ToList(), dragonHandlock, 1, DeckType.DragonHandlock))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.DragonHandlock;
                         return info;
                     }
-                    var demonZooWarlock = new List<string> {FlameImp, Implosion, ImpGangBoss, Voidcaller, MalGanis, PowerOverwhelming}; //1
+                    var demonZooWarlock = new List<string> { FlameImp, Implosion, ImpGangBoss, Voidcaller, MalGanis, PowerOverwhelming }; //1
                     if (CoreComparison(CurrentDeck.Intersect(demonZooWarlock).ToList(), demonZooWarlock, 1, DeckType.DemonZooWarlock))
                     {
                         info.DeckStyle = Style.Aggro;
                         info.DeckType = DeckType.DemonZooWarlock;
                         return info;
                     }
-                    var handlock = new List<string> {TwilightDrake, MoltenGiant, MoltenGiant, MountainGiant, Shadowflame, MortalCoil, LordJaraxxus, Hellfire, AntiqueHealbot}; //1
+                    var handlock = new List<string> { TwilightDrake, MoltenGiant, MoltenGiant, MountainGiant, Shadowflame, MortalCoil, LordJaraxxus, Hellfire, AntiqueHealbot }; //1
                     if (CoreComparison(CurrentDeck.Intersect(handlock).ToList(), handlock, 1, DeckType.Handlock))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.Handlock;
                         return info;
                     }
-                    var zoolock = new List<string> {FlameImp, Voidcaller, PowerOverwhelming, Doomguard}; //1
-                    var relinquary = new List<string> {ReliquarySeeker, Voidcaller, DarkPeddler, SeaGiant}; //1
+                    var zoolock = new List<string> { FlameImp, Voidcaller, PowerOverwhelming, Doomguard }; //1
+                    var relinquary = new List<string> { ReliquarySeeker, Voidcaller, DarkPeddler, SeaGiant }; //1
                     if (CoreComparison(CurrentDeck.Intersect(zoolock).ToList(), zoolock, 1, DeckType.Zoolock))
                     {
                         info.DeckStyle = Style.Aggro;
@@ -3088,9 +3109,9 @@ namespace SmartBotUI.SmartMulliganV2
                     }
                     break;
                 case Card.CClass.HUNTER:
-                    List<string> midRangeHunter = new List<string> {Webspinner, KillCommand, MadScientist, FreezingTrap, SavannahHighmane}; //1
-                    List<string> hybridHunter = new List<string> {LeperGnome, PilotedShredder, ArcaneGolem, SavannahHighmane}; //1
-                    List<string> faceHunter = new List<string> {AbusiveSergeant, UnleashtheHounds, KnifeJuggler, ArcaneGolem, Wolfrider}; //1
+                    List<string> midRangeHunter = new List<string> { Webspinner, KillCommand, MadScientist, FreezingTrap, SavannahHighmane }; //1
+                    List<string> hybridHunter = new List<string> { LeperGnome, PilotedShredder, ArcaneGolem, SavannahHighmane }; //1
+                    List<string> faceHunter = new List<string> { AbusiveSergeant, UnleashtheHounds, KnifeJuggler, ArcaneGolem, Wolfrider }; //1
 
                     if (CoreComparison(CurrentDeck.Intersect(midRangeHunter).ToList(), midRangeHunter, 1, DeckType.MidRangeHunter))
                     {
@@ -3104,7 +3125,7 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.MidRangeHunter;
                         return info;
                     }
-                    
+
                     if (CoreComparison(CurrentDeck.Intersect(faceHunter).ToList(), faceHunter, 0, DeckType.FaceHunter))
                     {
                         info.DeckStyle = Style.Face;
@@ -3113,21 +3134,21 @@ namespace SmartBotUI.SmartMulliganV2
                     }
                     break;
                 case Card.CClass.ROGUE:
-                    var oilRogue = new List<string> {TinkersSharpswordOil, BloodmageThalnos, EdwinVanCleef, Eviscerate, Sap, Sprint, DeadlyPoison, PilotedShredder, DrBoom}; //1
+                    var oilRogue = new List<string> { TinkersSharpswordOil, BloodmageThalnos, Eviscerate, Sap, Sprint, DeadlyPoison }; //1
                     if (CoreComparison(CurrentDeck.Intersect(oilRogue).ToList(), oilRogue, 1, DeckType.OilRogue))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.OilRogue;
                         return info;
                     }
-                    var pirateRogue = new List<string> {ShipsCannon, SouthseaCaptain, SouthseaDeckhand, SkycapnKragg, DreadCorsair, BloodsailRaider, Buccaneer}; //1
+                    var pirateRogue = new List<string> { ShipsCannon, SouthseaCaptain, SouthseaDeckhand, SkycapnKragg, DreadCorsair, BloodsailRaider, Buccaneer }; //1
                     if (CoreComparison(CurrentDeck.Intersect(pirateRogue).ToList(), pirateRogue, 1, DeckType.PirateRogue))
                     {
                         info.DeckStyle = Style.Aggro;
                         info.DeckType = DeckType.PirateRogue;
                         return info;
                     }
-                    var burstRogue = new List<string> {LeperGnome, SouthseaDeckhand, ArcaneGolem, ArgentHorserider, PilotedShredder, DefiasRingleader, DeadlyPoison, ColdBlood, AssassinsBlade}; //1
+                    var burstRogue = new List<string> { LeperGnome, SouthseaDeckhand, ArcaneGolem, ArgentHorserider, PilotedShredder, DefiasRingleader, DeadlyPoison, ColdBlood, AssassinsBlade }; //1
                     if (CoreComparison(CurrentDeck.Intersect(burstRogue).ToList(), burstRogue, 1, DeckType.BurstRogue))
                     {
                         info.DeckStyle = Style.Face;
@@ -3136,28 +3157,28 @@ namespace SmartBotUI.SmartMulliganV2
                     }
                     break;
                 case Card.CClass.DRUID:
-                    var midRangeDruid = new List<string> {ForceofNature, SavageRoar, AncientofLore}; //0
+                    var midRangeDruid = new List<string> { ForceofNature, SavageRoar, AncientofLore }; //0
                     if (CoreComparison(CurrentDeck.Intersect(midRangeDruid).ToList(), midRangeDruid, 1, DeckType.MidRangeDruid))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.MidRangeDruid;
                         return info;
                     }
-                    var tokenDruid = new List<string> {LivingRoots, VioletTeacher, PoweroftheWild}; //1
+                    var tokenDruid = new List<string> { LivingRoots, VioletTeacher, PoweroftheWild }; //1
                     if (CoreComparison(CurrentDeck.Intersect(tokenDruid).ToList(), tokenDruid, 1, DeckType.TokenDruid))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.TokenDruid;
                         return info;
                     }
-                    var rampDruid = new List<string> {Innervate, AncientofWar, AncientofLore, KeeperoftheGrove, WildGrowth, Cenarius, ShadeofNaxxramas, Swipe, BigGameHunter};
+                    var rampDruid = new List<string> { Innervate, AncientofWar, AncientofLore, KeeperoftheGrove, WildGrowth, Cenarius, ShadeofNaxxramas, Swipe, BigGameHunter };
                     if (CoreComparison(CurrentDeck.Intersect(rampDruid).ToList(), rampDruid, 3, DeckType.RampDruid))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.RampDruid;
                         return info;
                     }
-                    var aggroDruid = new List<string> {LeperGnome, DarnassusAspirant, KnifeJuggler, SavageRoar, LivingRoots, FelReaver, ForceofNature}; //1
+                    var aggroDruid = new List<string> { LeperGnome, DarnassusAspirant, KnifeJuggler, SavageRoar, LivingRoots, FelReaver, ForceofNature }; //1
                     if (CoreComparison(CurrentDeck.Intersect(aggroDruid).ToList(), aggroDruid, 2, DeckType.AggroDruid))
                     {
                         info.DeckStyle = Style.Face;
@@ -3193,6 +3214,16 @@ namespace SmartBotUI.SmartMulliganV2
                     Allowed3Drops = _hasCoin ? 2 : 1; //allows 2 on coin, 1 without
                     Allowed4Drops = 1;
                     break;
+                case Style.Face:
+                    Allowed1Drops = _hasCoin ? 4 : 3;
+                    Allowed2Drops = _hasCoin ? 3 : 2; //allow 3 on coin, 1 wihtout
+                    Allowed3Drops = _hasCoin ? 1 : 0; //allows 2 on coin, 1 without
+                    Allowed4Drops = 0;
+                    break;
+                case Style.Midrange:
+                    break;
+                case Style.Combo:
+                    break;
                 default:
                     Allowed1Drops = 1;
                     Allowed2Drops = _hasCoin ? 3 : 2; //allow 3 on coin, 1 wihtout
@@ -3202,10 +3233,11 @@ namespace SmartBotUI.SmartMulliganV2
             }
         }
 
-
         private Style GetStyle()
         {
-            return !ExperimentalArenaStyleIdentifier ? Style.Tempo : AverageCost >= ControlConst ? Style.Control : AverageCost < ControlConst && AverageCost >= TempoConst ? Style.Tempo : Style.Aggro;
+            Style res = !ExperimentalArenaStyleIdentifier ? Style.Tempo : AverageCost >= ControlConst ? Style.Control : AverageCost < ControlConst && AverageCost >= TempoConst ? Style.Tempo : Style.Aggro;
+            SetDefaultsForStyle(res);
+            return res;
         }
 
         private static bool CoreComparison(List<string> test, List<string> core, int acceptableError, DeckType type)
@@ -3245,6 +3277,7 @@ namespace SmartBotUI.SmartMulliganV2
         TokenDruid, //Complete
         Handlock,
         Zoolock,
+        RelinquaryZoo,
         DemonHandlock,
         DemonZooWarlock,
         DragonHandlock, //Missing ZooLock, DemonZoo
@@ -3261,6 +3294,7 @@ namespace SmartBotUI.SmartMulliganV2
         OilRogue,
         PirateRogue,
         BurstRogue, //Complete
+        FaceShaman,
         MechShaman,
         DragonShaman,
         TotemShaman,
