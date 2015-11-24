@@ -941,7 +941,7 @@ namespace SmartBotUI.SmartMulliganV2
 
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
-
+            //TODO quickjump
             //myInfo.DeckStyle = Style.Face;
             //myInfo.DeckType = DeckType.FaceShaman;
 
@@ -2949,7 +2949,7 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.ComboPriest;
                         return info;
                     }
-                    var dragonPriest = new List<string> { TwilightGuardian, WyrmrestAgent, TwilightWhelp, BlackwingCorruptor, Ysera }; //1
+                    var dragonPriest = new List<string> { TwilightGuardian, WyrmrestAgent, TwilightWhelp}; //1
                     if (CoreComparison(CurrentDeck.Intersect(dragonPriest).ToList(), dragonPriest, 1, DeckType.DragonPriest))
                     {
                         info.DeckStyle = Style.Tempo;
@@ -3028,7 +3028,7 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.PatronWarrior;
                         return info;
                     }
-                    var controlWarrior = new List<string> { Execute, ShieldSlam, GrommashHellscream, Alexstrasza, JusticarTrueheart, Shieldmaiden, Brawl, DeathsBite, AcolyteofPain, SylvanasWindrunner, DrBoom }; //1   
+                    var controlWarrior = new List<string> { Execute, ShieldSlam, Alexstrasza, JusticarTrueheart, Shieldmaiden, Brawl, DeathsBite, AcolyteofPain, DrBoom }; //1   
                     if (CoreComparison(CurrentDeck.Intersect(controlWarrior).ToList(), controlWarrior, 2, DeckType.ControlWarrior))
                     {
                         info.DeckStyle = Style.Control;
@@ -3095,18 +3095,19 @@ namespace SmartBotUI.SmartMulliganV2
                     }
                     var zoolock = new List<string> { FlameImp, Voidcaller, PowerOverwhelming, Doomguard }; //1
                     var relinquary = new List<string> { ReliquarySeeker, Voidcaller, DarkPeddler, SeaGiant }; //1
-                    if (CoreComparison(CurrentDeck.Intersect(zoolock).ToList(), zoolock, 1, DeckType.Zoolock))
-                    {
-                        info.DeckStyle = Style.Aggro;
-                        info.DeckType = DeckType.Zoolock;
-                        return info;
-                    }
                     if (CoreComparison(CurrentDeck.Intersect(relinquary).ToList(), relinquary, 1, DeckType.Zoolock))
                     {
                         info.DeckStyle = Style.Aggro;
                         info.DeckType = DeckType.Zoolock;
                         return info;
                     }
+                    if (CoreComparison(CurrentDeck.Intersect(zoolock).ToList(), zoolock, 1, DeckType.Zoolock))
+                    {
+                        info.DeckStyle = Style.Aggro;
+                        info.DeckType = DeckType.Zoolock;
+                        return info;
+                    }
+                   
                     break;
                 case Card.CClass.HUNTER:
                     List<string> midRangeHunter = new List<string> { Webspinner, KillCommand, MadScientist, FreezingTrap, SavannahHighmane }; //1
