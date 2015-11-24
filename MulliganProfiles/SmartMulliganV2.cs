@@ -29,8 +29,8 @@ namespace SmartBotUI.SmartMulliganV2
         /******************************************/
         /******************************************/
         /******************************************/
-        private const int ControlConst = 4;
-        private const int TempoConst = 3;
+        private const int ControlConst = 4;//don't touch me
+        private const int TempoConst = 3;//don't touch me
         /*
          * If set to false, it will have the same minion limit as did AS_AutoArena, 
          * however it is not ideal in situation with all types of decks. AA is coded for tempo
@@ -1068,13 +1068,14 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 Bot.Log(
                     string.Format(
-                        "[SmartMulligan] Analysis showed that you are not running a supported deck archetype: {0}.",
+                        "[SmartMulligan] I haven't extensively tested: {0}.",
                         myInfo.DeckType));
                 Bot.Log(
                     string.Format(
-                        "[SmartMulligan] Mulligan will try to guess best choices by using {0} Mulligan logic. " +
-                        "If you wish to see this archetype supported, send Arthur a mulligan guide for this deck archetype",
-                        DeckType.Arena));
+                        "[SmartMulligan] But this mulligan will try to adjust properly with {0} Mulligan logic.",DeckType.Arena));
+                Bot.Log(
+                    string.Format(
+                        "[SmartMulligan] Mulligan will treat it as {0} style deck ", myInfo.DeckStyle));
                 HandleMinions(choices, _whiteList, opponentClass, ownClass, 0);
                 HandleWeapons(choices, ownClass, _whiteList);
                 HandleSpells(choices, _whiteList);
