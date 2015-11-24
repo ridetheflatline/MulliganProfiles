@@ -1101,7 +1101,6 @@ namespace SmartBotUI.SmartMulliganV2
 
         private void HandleZoo(List<Card.Cards> choices, Card.CClass oc, DeckData info)
         {
-            //TODO ZOO
             SetDefaultsForStyle(info.DeckStyle);
             List<string> activators = new List<string> { PowerOverwhelming, VoidTerror, AbusiveSergeant, DefenderofArgus };
             List<string> needActivation = new List<string> { NerubianEgg };
