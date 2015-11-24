@@ -3159,14 +3159,14 @@ namespace SmartBotUI.SmartMulliganV2
                     break;
                 case Card.CClass.DRUID:
                     var midRangeDruid = new List<string> { ForceofNature, SavageRoar, AncientofLore }; //0
-                    if (CoreComparison(CurrentDeck.Intersect(midRangeDruid).ToList(), midRangeDruid, 1, DeckType.MidRangeDruid))
+                    if (CoreComparison(CurrentDeck.Intersect(midRangeDruid).ToList(), midRangeDruid, 0, DeckType.MidRangeDruid))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.MidRangeDruid;
                         return info;
                     }
-                    var tokenDruid = new List<string> { LivingRoots, VioletTeacher, PoweroftheWild }; //1
-                    if (CoreComparison(CurrentDeck.Intersect(tokenDruid).ToList(), tokenDruid, 1, DeckType.TokenDruid))
+                    var tokenDruid = new List<string> { LivingRoots, VioletTeacher, PoweroftheWild }; //0
+                    if (CoreComparison(CurrentDeck.Intersect(tokenDruid).ToList(), tokenDruid, 0, DeckType.TokenDruid))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.TokenDruid;
@@ -3179,7 +3179,7 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.RampDruid;
                         return info;
                     }
-                    var aggroDruid = new List<string> { LeperGnome, DarnassusAspirant, KnifeJuggler, SavageRoar, LivingRoots, FelReaver, ForceofNature }; //1
+                    var aggroDruid = new List<string> { LeperGnome, AbusiveSergeant, PoweroftheWild, SavageRoar, LivingRoots }; //1
                     if (CoreComparison(CurrentDeck.Intersect(aggroDruid).ToList(), aggroDruid, 2, DeckType.AggroDruid))
                     {
                         info.DeckStyle = Style.Face;
