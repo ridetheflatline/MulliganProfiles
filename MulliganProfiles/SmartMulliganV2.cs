@@ -1,4 +1,6 @@
-﻿using System;
+﻿//===========================================================================^^^SAVE AS
+//                                                                           THAT RAW BUTTON
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,7 +19,7 @@ using SmartBot.Plugins.API;
  * ==============NON-Coach===========================
  * Should work as intended. 
  * ==================================================
- * Also please read line 47-56
+ * Also please read line 48-56
  */
 namespace SmartBotUI.SmartMulliganV2
 {
