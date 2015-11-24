@@ -936,12 +936,12 @@ namespace SmartBotUI.SmartMulliganV2
         {
 
             DefaultIni(opponentClass, ownClass);
-            CurrentDeck = new List<string> { "CS2_108", "EX1_383" };
-            //CurrentDeck = Bot.CurrentDeck().Cards.ToList();
+            //CurrentDeck = new List<string> { "CS2_108", "EX1_383" };
+            CurrentDeck = Bot.CurrentDeck().Cards.ToList();
 
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
-            myInfo.DeckType = DeckType.Zoolock;
+            //myInfo.DeckType = DeckType.Zoolock;
 
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
             var supported = true;
