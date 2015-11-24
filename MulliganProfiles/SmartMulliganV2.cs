@@ -936,12 +936,12 @@ namespace SmartBotUI.SmartMulliganV2
         {
 
             DefaultIni(opponentClass, ownClass);
-            //CurrentDeck = new List<string> { "CS2_108", "EX1_383" };
-            CurrentDeck = Bot.CurrentDeck().Cards.ToList();
+            CurrentDeck = new List<string> { "CS2_108", "EX1_383" };
+            //CurrentDeck = Bot.CurrentDeck().Cards.ToList();
 
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
-            //myInfo.DeckType = DeckType.Arena;
+            myInfo.DeckType = DeckType.Zoolock;
 
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
             var supported = true;
@@ -1119,7 +1119,7 @@ namespace SmartBotUI.SmartMulliganV2
             List<string> activators = new List<string> { PowerOverwhelming, VoidTerror, AbusiveSergeant, DefenderofArgus };
             List<string> needActivation = new List<string> { NerubianEgg };
             _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == NerubianEgg) ? PowerOverwhelming : "", false);
-            HandleMinions(choices, _whiteList, oc, _ownC, 0, activators);
+            HandleMinions(choices, _whiteList, oc, _ownC, 0, activators, needActivation);
             _whiteList.AddOrUpdate(_has2Drop && _hasCoin && ChoicesIntersectList(choices, needActivation) ? DefenderofArgus : "", false);
         }
 
@@ -2420,7 +2420,7 @@ namespace SmartBotUI.SmartMulliganV2
             //return StormforgedAxe;
         }
 
-        private static void HandleMinions(List<Card.Cards> choices, IDictionary<string, bool> whiteList, Card.CClass opponentClass, Card.CClass ownClass, int valueMod = 0, List<string> activators = null)
+        private static void HandleMinions(List<Card.Cards> choices, IDictionary<string, bool> whiteList, Card.CClass opponentClass, Card.CClass ownClass, int valueMod = 0, List<string> activators = null, List<string> needActivation = null)
         {
             if (valueMod > 6)
                 valueMod = 0;
@@ -2445,8 +2445,6 @@ namespace SmartBotUI.SmartMulliganV2
                 {
                     case 1:
                         {
-                            if (activators != null)
-                                modifier += activators.Any(w => w.ToString() == minion.Id.ToString()) ? 1 : modifier + 0;
                             switch (_ownC)
                             {
                                 case Card.CClass.SHAMAN:
@@ -2460,7 +2458,7 @@ namespace SmartBotUI.SmartMulliganV2
                                 case Card.CClass.WARRIOR:
                                     break;
                                 case Card.CClass.WARLOCK:
-                                    modifier += 10;
+                                    modifier += minion.Id.ToString() == ReliquarySeeker ? -10: 10 ;
                                     break;
                                 case Card.CClass.HUNTER:
                                     break;
@@ -2507,6 +2505,8 @@ namespace SmartBotUI.SmartMulliganV2
                             case Card.CClass.NONE:
                                 if (minion.Id.ToString() == NerubianEgg && ChoicesIntersectList(choices, activators))
                                     modifier += 9;
+                                if (minion.Id.ToString() == IronbeakOwl && _aggro)
+                                    modifier += 4;
                                 break;
                         }
 
