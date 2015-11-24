@@ -6,7 +6,19 @@ using SmartBot.Database;
 using SmartBot.Mulligan;
 using SmartBot.Plugins.API;
 
-
+/*
+ * PLEASE READ ME:
+ * ==============COACH===============================
+ * In case you decide to test with coach:
+ *      Due to the nature of coach and how it handles
+ *      selected decks, you MUST select proper deck
+ *      to have right mulligan choices with coach
+ *      enabled.
+ * ==============NON-Coach===========================
+ * Should work as intended. 
+ * ==================================================
+ * Also please read line 47-56
+ */
 namespace SmartBotUI.SmartMulliganV2
 {
     public static class Extension
