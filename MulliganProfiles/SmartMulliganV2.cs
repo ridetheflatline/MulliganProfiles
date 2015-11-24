@@ -3191,7 +3191,7 @@ namespace SmartBotUI.SmartMulliganV2
         {
             if (test.Count <= core.Count && test.Count >= core.Count - acceptableError)
                 Bot.Log(string.Format("[SmartMulligan] Deck passed accepted tolerance level for {0}", type));
-            else Bot.Log(string.Format("[SmartMulligan] Deck failed accepted tolerance level for {0}", type));
+            //else Bot.Log(string.Format("[SmartMulligan] Deck failed accepted tolerance level for {0}", type));
             return test.Count <= core.Count && test.Count >= core.Count - acceptableError;
         }
 
