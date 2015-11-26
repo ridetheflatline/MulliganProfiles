@@ -1079,7 +1079,7 @@ namespace SmartBotUI.SmartMulliganV2
                     supported = false;
                     break;
                 case DeckType.RaptorRogue:
-                    supported = false;
+                    //supported = false;
                     HandleRaptorRogue(choices, _oc, myInfo);
                     break;
                 default:
