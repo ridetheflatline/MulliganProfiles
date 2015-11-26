@@ -1157,6 +1157,8 @@ namespace SmartBotUI.SmartMulliganV2
         {
             try
             {
+                //TODO resharper ancor
+                //Not used, but has potential in future expansion that might utilize quality
                 _oc = opponentClass;
                 _ownC = ownClass;
                 _aggro = _oc == Card.CClass.PALADIN || _oc == Card.CClass.DRUID || _oc == Card.CClass.HUNTER;
@@ -1174,8 +1176,6 @@ namespace SmartBotUI.SmartMulliganV2
                 Num3DropsDeck = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Cost == 3);
                 Num4DropsDeck = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Cost == 4);
                 EarlyCardsWight = Num1DropsDeck + Num2DropsDeck + Num3DropsDeck/30;
-                //TODO resharper ancor
-                //Not used, but has potential in future expansion that might utilize quality
                 NumFreeCards = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Quality == Card.CQuality.Free);
                 NumCommonCards = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Quality == Card.CQuality.Common);
                 NumRareCards = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Quality == Card.CQuality.Rare);
@@ -1186,11 +1186,10 @@ namespace SmartBotUI.SmartMulliganV2
                 NumMinions = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Type == Card.CType.MINION);
                 AverageCost = CurrentDeck.Average(c => CardTemplate.LoadFromId(c).Cost);
             }
-            catch
+            catch (Exception e)
             {
-                Exception e;
+                // ignored
             }
-
         }
 
         //In case something wrong happens, it will save files for debug purposes
@@ -3163,8 +3162,6 @@ namespace SmartBotUI.SmartMulliganV2
                     break;
                 case Card.CClass.ROGUE:
                     var raptorRogue = new List<string> {UnearthedRaptor, NerubianEgg};
-                    foreach( var q in CurrentDeck)
-                        Bot.Log("Card In Deck: " +CardTemplate.LoadFromId(q).Name );
                     if (CoreComparison(CurrentDeck.Intersect(raptorRogue).ToList(), raptorRogue, 1, DeckType.RaptorRogue, UnearthedRaptor))
                     {
                         info.DeckStyle = Style.Tempo;
