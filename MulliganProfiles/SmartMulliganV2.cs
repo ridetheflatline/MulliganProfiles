@@ -45,6 +45,7 @@ namespace SmartBotUI.SmartMulliganV2
         /******************************************/
         private const int ControlConst = 4;//don't touch me
         private const int TempoConst = 3;//don't touch me
+        private const double Face = 0.8;//don't touch me
         /*
          * If set to false, it will have the same minion limit as did AS_AutoArena, 
          * however it is not ideal in situation with all types of decks. AA is coded for tempo
@@ -903,6 +904,7 @@ namespace SmartBotUI.SmartMulliganV2
         public static int NumFreeCards { get; private set; }
         //TODO Ancor
         public static double AverageCost { get; set; }
+        public static double EarlyCardsWight { get; set; }
         public static int NumMinions { get; set; }
         public static int NumWeapons { get; set; }
         public static int NumSpells { get; set; }
@@ -942,8 +944,8 @@ namespace SmartBotUI.SmartMulliganV2
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
-            //myInfo.DeckStyle = Style.Face;
-            //myInfo.DeckType = DeckType.FaceShaman;
+            //myInfo.DeckStyle = Style.Tempo;
+            //myInfo.DeckType = DeckType.RaptorRogue;
 
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
             var supported = true;
@@ -955,6 +957,7 @@ namespace SmartBotUI.SmartMulliganV2
                     myInfo.DeckStyle = GetStyle();
                     HandleMinions(choices, _whiteList, opponentClass, ownClass, 0);
                     HandleWeapons(choices, ownClass, _whiteList);
+                    HandleSpells(choices, _whiteList);
                     break;
                 case DeckType.PatronWarrior:
                     HandlePatronMulligan(choices, opponentClass);
@@ -1075,6 +1078,10 @@ namespace SmartBotUI.SmartMulliganV2
                 case DeckType.FaceShaman:
                     supported = false;
                     break;
+                case DeckType.RaptorRogue:
+                    supported = false;
+                    HandleRaptorRogue(choices, _oc, myInfo);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -1084,32 +1091,34 @@ namespace SmartBotUI.SmartMulliganV2
                 Bot.Log(
                     string.Format(
                         "[SmartMulligan] Current deck is {0}.  " +
-                        "Mulligan will treat it as if it was arena. " +
-                        "If that is wrong and your deck is supported, please report it to Arthur",
-                        myInfo.DeckType));
-            }
-
-            if (!supported)
-            {
-                Bot.Log(
-                    string.Format(
-                        "[SmartMulligan] I haven't extensively tested: {0}.",
-                        myInfo.DeckType));
-                Bot.Log(
-                    string.Format(
-                        "[SmartMulligan] But this mulligan will try to adjust properly with {0} Mulligan logic.", DeckType.Arena));
-                Bot.Log(
-                    string.Format(
-                        "[SmartMulligan] Mulligan will treat it as {0} style deck ", myInfo.DeckStyle));
-                SetDefaultsForStyle(myInfo.DeckStyle);
-                HandleMinions(choices, _whiteList, opponentClass, ownClass, 0, null, null, myInfo.DeckStyle);
-                HandleWeapons(choices, ownClass, _whiteList);
-                HandleSpells(choices, _whiteList);
+                        "However, my analysis shows that you are running {1} deck, so mulligan will treat it as normal {2} {3} deck",
+                        myInfo.DeckType, myInfo.DeckStyle, myInfo.DeckStyle, _ownC.ToString().ToLower()));
             }
             else
             {
-                Bot.Log(string.Format("[SmartMulligan] Recognized {0} deck." +
-                                      " If that is not true, please report it to Arthur", myInfo.DeckType));
+                if (!supported)
+                {
+                    Bot.Log(
+                        string.Format(
+                            "[SmartMulligan] I haven't extensively tested: {0}.",
+                            myInfo.DeckType));
+                    Bot.Log(
+                        string.Format(
+                            "[SmartMulligan] But this mulligan will try to adjust properly with {0} Mulligan logic.",
+                            DeckType.Arena));
+                    Bot.Log(
+                        string.Format(
+                            "[SmartMulligan] Mulligan will treat it as {0} style deck ", myInfo.DeckStyle));
+                    SetDefaultsForStyle(myInfo.DeckStyle);
+                    HandleMinions(choices, _whiteList, opponentClass, ownClass, 0, null, null, myInfo.DeckStyle);
+                    HandleWeapons(choices, ownClass, _whiteList);
+                    HandleSpells(choices, _whiteList);
+                }
+                else
+                {
+                    Bot.Log(string.Format("[SmartMulligan] Recognized {0} deck." +
+                                          " If that is not true, please report it to Arthur", myInfo.DeckType));
+                }
             }
             foreach (var s in from s in choices
                               let keptOneAlready = _cardsToKeep.Any(c => c.ToString() == s.ToString())
@@ -1122,6 +1131,15 @@ namespace SmartBotUI.SmartMulliganV2
             if (TrackMulligan) DisplayMulligans(choices, opponentClass, ownClass);
 
             return _cardsToKeep;
+        }
+
+        private void HandleRaptorRogue(List<Card.Cards> choices, Card.CClass oc, DeckData myInfo)
+        {
+            SetDefaultsForStyle(myInfo.DeckStyle);
+            List<string> activators = new List<string> { UnearthedRaptor, AbusiveSergeant};
+            List<string> needActivation = new List<string> { NerubianEgg };
+            HandleMinions(choices, _whiteList, oc, _ownC, 0, activators, needActivation);
+            _whiteList.AddOrUpdate(_hasCoin ? UnearthedRaptor:"", false);
         }
 
         private void HandleZoo(List<Card.Cards> choices, Card.CClass oc, DeckData info)
@@ -1155,6 +1173,7 @@ namespace SmartBotUI.SmartMulliganV2
                 Num2DropsDeck = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Cost == 2);
                 Num3DropsDeck = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Cost == 3);
                 Num4DropsDeck = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Cost == 4);
+                EarlyCardsWight = Num1DropsDeck + Num2DropsDeck + Num3DropsDeck/30;
                 //TODO resharper ancor
                 //Not used, but has potential in future expansion that might utilize quality
                 NumFreeCards = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Quality == Card.CQuality.Free);
@@ -1186,10 +1205,10 @@ namespace SmartBotUI.SmartMulliganV2
                     file.Write("\"{0}\",", q);
                 file.WriteLine(" ");
                 foreach (var q in CurrentDeck)
-                    file.Write("{0}:", q);
+                    file.Write("{0};", q);
                 file.WriteLine(" ");
                 foreach (var q in CurrentDeck)
-                    file.Write("{0}, ", CardTemplate.LoadFromId(q).Name);
+                    file.WriteLine("{0} ", CardTemplate.LoadFromId(q).Name);
 
                 file.WriteLine(" ");
                 file.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- ");
@@ -2339,7 +2358,7 @@ namespace SmartBotUI.SmartMulliganV2
         }
         //Arena gets a personal block because it's huge, and I need a cheat sheet to actually follow it xD
         //Improved AutoArena
-        #region AutoArena
+        //TODO ARENA ANCOR
 
         private static void HandleSpells(List<Card.Cards> choices, Dictionary<string, bool> whiteList)
         {
@@ -2363,6 +2382,9 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 Snipe, Misdirection, Spellbender, Counterspell, Vaporize, EyeforanEye, Redemption, Repentance, CompetitiveSpirit, SacredTrial, DartTrap
             };
+            foreach (var c in (from c in choices let spells = CardTemplate.LoadFromId(c.ToString()) where spells.Type == Card.CType.SPELL && allowedSpells.Contains(c.ToString()) where !spells.IsSecret && spells.Cost == 0 select c))
+                whiteList.AddOrUpdate(c.ToString(), false);
+            
             foreach (var c in (from c in choices let spells = CardTemplate.LoadFromId(c.ToString()) where spells.Type == Card.CType.SPELL && allowedSpells.Contains(c.ToString()) where !spells.IsSecret && spells.Cost == 1 && !_has1Drop select c))
             {
                 OneManaSpell = true;
@@ -2457,7 +2479,11 @@ namespace SmartBotUI.SmartMulliganV2
                     case 1:
                         {
                             if(minion.Id.ToString() == LeperGnome)
-                            modifier += 33;
+                                modifier += 5;
+                            if (activators != null && ChoicesIntersectList(choices, needActivation))
+                                if (activators.Any(e => e.ToString() == minion.Id.ToString()))
+                                    modifier += 5;
+                                
                             switch (_ownC)
                             {
                                 case Card.CClass.SHAMAN:
@@ -2878,11 +2904,11 @@ namespace SmartBotUI.SmartMulliganV2
             }
         }
 
-        #endregion
+        
 
         //Half of this project
 
-        #region DeckIdentifier
+      
 
         private DeckData GetDeckInfo(Card.CClass ownClass)
         {
@@ -2912,8 +2938,8 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.MechShaman;
                         return info;
                     }
-                    var dragonShaman = new List<string> { BlackwingTechnician, BlackwingCorruptor, AzureDrake, TwilightGuardian, Nefarian, Ysera }; //2
-                    if (CoreComparison(CurrentDeck.Intersect(dragonShaman).ToList(), dragonShaman, 1, DeckType.DragonShaman))
+                    var dragonShaman = new List<string> { BlackwingTechnician, BlackwingCorruptor, AzureDrake, TwilightGuardian }; //2
+                    if (CoreComparison(CurrentDeck.Intersect(dragonShaman).ToList(), dragonShaman, 1, DeckType.DragonShaman) || NumDragons > 8)
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.DragonShaman;
@@ -2988,7 +3014,7 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     var echoMage = new List<string> { EchoofMedivh, IceBlock, Duplicate }; //1
-                    if (CoreComparison(CurrentDeck.Intersect(echoMage).ToList(), echoMage, 1, DeckType.EchoMage))
+                    if (CoreComparison(CurrentDeck.Intersect(echoMage).ToList(), echoMage, 1, DeckType.EchoMage, EchoofMedivh))
                     {
 
                         info.DeckStyle = Style.Control;
@@ -2998,7 +3024,7 @@ namespace SmartBotUI.SmartMulliganV2
                     break;
                 case Card.CClass.PALADIN:
                     var secretPaladin = new List<string> { MysteriousChallenger, Avenge, NobleSacrifice, CompetitiveSpirit, Redemption }; //0
-                    if (CoreComparison(CurrentDeck.Intersect(secretPaladin).ToList(), secretPaladin, 1, DeckType.SecretPaladin))
+                    if (CoreComparison(CurrentDeck.Intersect(secretPaladin).ToList(), secretPaladin, 1, DeckType.SecretPaladin, MysteriousChallenger))
                     {
                         info.DeckStyle = Style.Aggro;
                         info.DeckType = DeckType.SecretPaladin;
@@ -3094,11 +3120,11 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     var zoolock = new List<string> { FlameImp, Voidcaller, PowerOverwhelming, Doomguard }; //1
-                    var relinquary = new List<string> { ReliquarySeeker, Voidcaller, DarkPeddler, SeaGiant }; //1
-                    if (CoreComparison(CurrentDeck.Intersect(relinquary).ToList(), relinquary, 1, DeckType.Zoolock))
+                    var relinquary = new List<string> { ReliquarySeeker, Voidcaller, DarkPeddler, Implosion }; //1
+                    if (CoreComparison(CurrentDeck.Intersect(relinquary).ToList(), relinquary, 1, DeckType.RelinquaryZoo, ReliquarySeeker))
                     {
                         info.DeckStyle = Style.Aggro;
-                        info.DeckType = DeckType.Zoolock;
+                        info.DeckType = DeckType.RelinquaryZoo;
                         return info;
                     }
                     if (CoreComparison(CurrentDeck.Intersect(zoolock).ToList(), zoolock, 1, DeckType.Zoolock))
@@ -3114,7 +3140,7 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> hybridHunter = new List<string> { LeperGnome, PilotedShredder, ArcaneGolem, SavannahHighmane }; //1
                     List<string> faceHunter = new List<string> { AbusiveSergeant, UnleashtheHounds, KnifeJuggler, ArcaneGolem, Wolfrider }; //1
 
-                    if (CoreComparison(CurrentDeck.Intersect(midRangeHunter).ToList(), midRangeHunter, 1, DeckType.MidRangeHunter))
+                    if (CoreComparison(CurrentDeck.Intersect(midRangeHunter).ToList(), midRangeHunter, 1, DeckType.MidRangeHunter, SavannahHighmane))
                     {
                         if (CoreComparison(CurrentDeck.Intersect(hybridHunter).ToList(), hybridHunter, 1, DeckType.HybridHunter))
                         {
@@ -3127,14 +3153,24 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
 
-                    if (CoreComparison(CurrentDeck.Intersect(faceHunter).ToList(), faceHunter, 0, DeckType.FaceHunter))
+                    if (CoreComparison(CurrentDeck.Intersect(faceHunter).ToList(), faceHunter, 1, DeckType.FaceHunter) || EarlyCardsWight >= Face)
                     {
                         info.DeckStyle = Style.Face;
                         info.DeckType = DeckType.FaceHunter;
                         return info;
                     }
+                    
                     break;
                 case Card.CClass.ROGUE:
+                    var raptorRogue = new List<string> {UnearthedRaptor, NerubianEgg};
+                    foreach( var q in CurrentDeck)
+                        Bot.Log("Card In Deck: " +CardTemplate.LoadFromId(q).Name );
+                    if (CoreComparison(CurrentDeck.Intersect(raptorRogue).ToList(), raptorRogue, 1, DeckType.RaptorRogue, UnearthedRaptor))
+                    {
+                        info.DeckStyle = Style.Tempo;
+                        info.DeckType = DeckType.RaptorRogue;
+                        return info;
+                    }
                     var oilRogue = new List<string> { TinkersSharpswordOil, BloodmageThalnos, Eviscerate, Sap, Sprint, DeadlyPoison }; //1
                     if (CoreComparison(CurrentDeck.Intersect(oilRogue).ToList(), oilRogue, 1, DeckType.OilRogue))
                     {
@@ -3236,20 +3272,29 @@ namespace SmartBotUI.SmartMulliganV2
 
         private Style GetStyle()
         {
-            Style res = !ExperimentalArenaStyleIdentifier ? Style.Tempo : AverageCost >= ControlConst ? Style.Control : AverageCost < ControlConst && AverageCost >= TempoConst ? Style.Tempo : Style.Aggro;
+            Style res = !ExperimentalArenaStyleIdentifier ? Style.Tempo : AverageCost >= ControlConst 
+                ? Style.Control 
+                : (AverageCost < ControlConst) && (AverageCost >= TempoConst) 
+                    ? Style.Tempo 
+                    : (AverageCost < 3) ? Style.Aggro: Style.Tempo;
+            Bot.Log(string.Format("Average Cost {0}",  AverageCost));
             SetDefaultsForStyle(res);
-            return res;
+            return EarlyCardsWight >= Face ? Style.Face : res;
         }
 
-        private static bool CoreComparison(List<string> test, List<string> core, int acceptableError, DeckType type)
+        private static bool CoreComparison(List<string> intersectedWithCoreList, List<string> core, int acceptableError, DeckType type, string required="")
         {
-            if (test.Count <= core.Count && test.Count >= core.Count - acceptableError)
+            bool flag = true;
+            if (required != "")
+                flag = intersectedWithCoreList.Any(c => c.ToString() == required.ToString());
+              
+            if (intersectedWithCoreList.Count <= core.Count && intersectedWithCoreList.Count >= core.Count - acceptableError)
                 Bot.Log(string.Format("[SmartMulligan] Deck passed accepted tolerance level for {0}", type));
             //else Bot.Log(string.Format("[SmartMulligan] Deck failed accepted tolerance level for {0}", type));
-            return test.Count <= core.Count && test.Count >= core.Count - acceptableError;
+            return flag && intersectedWithCoreList.Count <= core.Count && intersectedWithCoreList.Count >= core.Count - acceptableError;
         }
 
-        #endregion
+       
     }
 
     public class DeckData
@@ -3301,6 +3346,7 @@ namespace SmartBotUI.SmartMulliganV2
         TotemShaman,
         MalygosShaman,
         ControlShaman, //Missing Dragon Shaman, MalyShaman
+        RaptorRogue
     }
 
     public enum DragonDeck
