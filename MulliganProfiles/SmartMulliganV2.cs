@@ -922,7 +922,7 @@ namespace SmartBotUI.SmartMulliganV2
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
             //myInfo.DeckStyle = Style.Tempo;
-            //myInfo.DeckType = DeckType.SecretPaladin;
+            //myInfo.DeckType = DeckType.TempoMage;
 
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
             var supported = true;
@@ -970,7 +970,7 @@ namespace SmartBotUI.SmartMulliganV2
                     HandleDragons(choices, opponentClass, DragonDeck.DragonWarlock);
                     break;
                 case DeckType.TempoMage:
-                    supported = false;
+                    HandleMage(choices, myInfo);
                     break;
                 case DeckType.DragonPriest:
                     HandleDragons(choices, opponentClass, DragonDeck.DragonPriest);
@@ -1121,6 +1121,39 @@ namespace SmartBotUI.SmartMulliganV2
             if (TrackMulligan) DisplayMulligans(choices, opponentClass, ownClass);
 
             return _cardsToKeep;
+        }
+
+        private void HandleMage(List<Card.Cards> choices, DeckData myInfo)
+        {
+            //nmc is a never mulligan card list. Those cards are always kept with at least 1 copy
+            List<string> nmc = new List<string>{ArcaneBlast, ManaWyrm, Frostbolt, UnstablePortal, MadScientist, SorcerersApprentice};
+            var hasRem = choices.Any(c => CardTemplate.LoadFromId(c).Type == Card.CType.SPELL && nmc.Any(q=> q.ToString() == c.ToString()));
+            var hasMin = choices.Any(c => CardTemplate.LoadFromId(c).Type == Card.CType.MINION && nmc.Any(q => q.ToString() == c.ToString()));
+            var oneDropPrio = choices.Any(c => CardTemplate.LoadFromId(c).Id.ToString() == ClockworkGnome) &&
+                              choices.Any(c => CardTemplate.LoadFromId(c).Id.ToString() == ManaWyrm);
+            foreach (var q in from q in nmc let card = CardTemplate.LoadFromId(q) where card.Type == Card.CType.SPELL select q)
+                _whiteList.AddOrUpdate(q, q == UnstablePortal && _hasCoin);
+           
+            foreach (var q in from q in nmc let card = CardTemplate.LoadFromId(q) where card.Type == Card.CType.MINION select q)
+                _whiteList.AddOrUpdate(q, false);
+            
+            foreach (var q in choices)
+            {
+                CardTemplate card = CardTemplate.LoadFromId(q);
+                if(card.Type == Card.CType.MINION && card.Cost == 1)
+                    _whiteList.AddOrUpdate(q.ToString(), _hasCoin);
+                if(card.Type == Card.CType.MINION && card.Cost == 2)
+                    _whiteList.AddOrUpdate(q.ToString(), _hasCoin && card.HasDeathrattle);
+                if(card.Type == Card.CType.MINION && card.Class == Card.CClass.MAGE && card.Cost == 3)
+                    _whiteList.AddOrUpdate(!hasMin ? q.ToString(): "", false);
+            }
+            if (oneDropPrio)
+                _whiteList.Remove(ClockworkGnome);
+            _whiteList.AddOrUpdate(_oc == Card.CClass.PRIEST && _hasCoin ? Fireball: "", false); //against dragons
+            _whiteList.AddOrUpdate(_oc == Card.CClass.WARRIOR || _oc == Card.CClass.PRIEST && !hasRem ? ArcaneMissiles : "", false);
+            _whiteList.AddOrUpdate(_aggro || _oc == Card.CClass.WARRIOR|| !hasRem ? ArcaneMissiles : "", false);
+            _whiteList.AddOrUpdate(_oc != Card.CClass.ROGUE && _oc != Card.CClass.SHAMAN && _oc != Card.CClass.PALADIN? Flamecannon : "", false);
+            _whiteList.AddOrUpdate(_oc == Card.CClass.PALADIN ||_oc == Card.CClass.HUNTER ? ArcaneExplosion : "", false);
         }
 
         private void HandleRaptorRogue(List<Card.Cards> choices, Card.CClass oc, DeckData myInfo)
@@ -2377,8 +2410,7 @@ namespace SmartBotUI.SmartMulliganV2
                 return;
             Directory.CreateDirectory(MAIN_DIR + "/" + subdir + "/" + subdir2);
         }
-        //Arena gets a personal block because it's huge, and I need a cheat sheet to actually follow it xD
-        //Improved AutoArena
+       
         //TODO ARENA ANCOR
 
         private static void HandleSpells(List<Card.Cards> choices, Dictionary<string, bool> whiteList)
@@ -3018,7 +3050,7 @@ namespace SmartBotUI.SmartMulliganV2
                     break;
                 case Card.CClass.MAGE:
                     var tempoMage = new List<string> { AzureDrake, Flamewaker, Frostbolt, Fireball, MadScientist, Flamecannon, MadScientist, SorcerersApprentice, ManaWyrm, UnstablePortal }; //1
-                    if (CoreComparison(CurrentDeck.Intersect(tempoMage).ToList(), tempoMage, 1, DeckType.TempoMage))
+                    if (CoreComparison(CurrentDeck.Intersect(tempoMage).ToList(), tempoMage, 2, DeckType.TempoMage))
                     {
                         info.DeckStyle = Style.Tempo;
                         info.DeckType = DeckType.TempoMage;
