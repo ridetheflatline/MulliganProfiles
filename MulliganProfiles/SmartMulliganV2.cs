@@ -915,9 +915,9 @@ namespace SmartBotUI.SmartMulliganV2
         {
 
             DefaultIni(opponentClass, ownClass);
+
             //CurrentDeck = new List<string> { "CS2_046", "CS2_046", "EX1_587", "EX1_565", "EX1_565", "CS2_042", "CS2_042", "EX1_005", "CS2_045", "CS2_045", "CS2_196", "CS2_196", "CS2_147", "CS2_147", "CS2_226", "CS2_226", "EX1_025", "EX1_025", "EX1_019", "EX1_019", "CS2_171", "CS2_171", "CS2_222", "CS2_222", "EX1_246", "EX1_246", "EX1_506", "EX1_506", "CS2_122", "CS2_122" };
             CurrentDeck = Bot.CurrentDeck().Cards.ToList();
-
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
@@ -1109,6 +1109,7 @@ namespace SmartBotUI.SmartMulliganV2
                                           " If that is not true, please report it to Arthur", myInfo.DeckType));
                 }
             }
+           
             foreach (var s in from s in choices
                               let keptOneAlready = _cardsToKeep.Any(c => c.ToString() == s.ToString())
                               where _whiteList.ContainsKey(s.ToString())
@@ -1716,7 +1717,7 @@ namespace SmartBotUI.SmartMulliganV2
             _whiteList.AddOrUpdate(Innervate, true);
             _whiteList.AddOrUpdate(WildGrowth, false);
             _whiteList.AddOrUpdate(DarnassusAspirant, true);
-
+            _whiteList.AddOrUpdate(ZombieChow, _hasCoin);
             _whiteList.AddOrUpdate(SpiderTank, hasInnervate);
             _whiteList.AddOrUpdate(FjolaLightbane, false);
             _whiteList.AddOrUpdate(EydisDarkbane, false);
@@ -3302,10 +3303,20 @@ namespace SmartBotUI.SmartMulliganV2
                     : (AverageCost < 3) ? Style.Aggro : Style.Tempo;
             Bot.Log(string.Format("Average Cost {0}", AverageCost));
             SetDefaultsForStyle(res);
-            Bot.Log(string.Format("Num1 {0}, Num2{1} Num3{2} Weight{3} ", Num1DropsDeck, Num2DropsDeck, Num3DropsDeck, EarlyCardsWight));
+            //Bot.Log(string.Format("Num1 {0}, Num2{1} Num3{2} Weight{3} ", Num1DropsDeck, Num2DropsDeck, Num3DropsDeck, EarlyCardsWight));
             return EarlyCardsWight >= Face ? Style.Face : res;
         }
-
+        /// <summary>
+        /// Method copares your intersected with core list with the core. If it passes an accepted tolerance leven and 
+        /// posseses a required card, it passes. 
+        /// [Note] Reason I pass whole lists is to easily debug them in this method if needed. Ideally I would just pass List.Count 
+        /// </summary>
+        /// <param name="intersectedWithCoreList">List of core cards that intersect your deck</param>
+        /// <param name="core">List of core cards used in comparison</param>
+        /// <param name="acceptableError">Number of cards you are allowd to be off</param>
+        /// <param name="type">Deck type, used for debugging only</param>
+        /// <param name="required">Require card even if it satisfied the tolerance level</param>
+        /// <returns>True, if your deck is similar to the core within the accepted tolerance level</returns>
         private static bool CoreComparison(List<string> intersectedWithCoreList, List<string> core, int acceptableError, DeckType type, string required = "")
         {
             bool flag = true;
