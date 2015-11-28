@@ -25,7 +25,6 @@ namespace SmartBotUI.SmartMulliganV2
         /******************************************/
         /**************EDIT THIS LINE ONLY*********/
         /******************************************/
-        private const bool newvar = true;
         private const bool TrackMulligan = true;
         private const bool OldMysteriousChallenger = false;
         /*If you chose not to be tracked, I won't be
@@ -1069,7 +1068,6 @@ namespace SmartBotUI.SmartMulliganV2
                     supported = false;
                     break;
                 case DeckType.RaptorRogue:
-                    //supported = false;
                     HandleRaptorRogue(choices, _oc, myInfo);
                     break;
                 default:
@@ -1185,7 +1183,7 @@ namespace SmartBotUI.SmartMulliganV2
                 //Not used, but has potential in future expansion that might utilize quality
                 _oc = opponentClass;
                 _ownC = ownClass;
-                _aggro = _oc == Card.CClass.PALADIN || _oc == Card.CClass.DRUID || _oc == Card.CClass.HUNTER;
+                _aggro = _oc == Card.CClass.PALADIN || _oc == Card.CClass.DRUID || _oc == Card.CClass.HUNTER || _oc == Card.CClass.WARLOCK;
                 _wc = _oc == Card.CClass.WARRIOR || _oc == Card.CClass.PALADIN || _oc == Card.CClass.HUNTER ||
                       _oc == Card.CClass.ROGUE;
                 NumMechs = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Race == Card.CRace.MECH);
@@ -1311,6 +1309,7 @@ namespace SmartBotUI.SmartMulliganV2
                 _has2Drop = true;
                 _whiteList.AddOrUpdate(q.ToString(), false);
             }
+            _whiteList.AddOrUpdate(FierceMonkey, _hasWeapon && _hasCoin && _aggro);
             if (_hasCoin && (_has2Drop || _has4Drop))
             {
                 _whiteList.AddOrUpdate(ShieldBlock, false);
