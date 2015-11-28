@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using SmartBot.Database;
 using SmartBot.Plugins.API;
 
 namespace SmartBot.Mulligan
@@ -16,7 +14,5 @@ namespace SmartBot.Mulligan
             var HasCoin = choices.Count == 4;
             return CardsToKeep;
         }
-
-        
     }
 }
