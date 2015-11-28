@@ -1,4 +1,4 @@
-﻿
+﻿//revision 2
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,6 +25,7 @@ namespace SmartBotUI.SmartMulliganV2
         /******************************************/
         /**************EDIT THIS LINE ONLY*********/
         /******************************************/
+        private const bool newvar = true;
         private const bool TrackMulligan = true;
         private const bool OldMysteriousChallenger = false;
         /*If you chose not to be tracked, I won't be
@@ -999,9 +1000,7 @@ namespace SmartBotUI.SmartMulliganV2
                 case DeckType.Zoolock:
                     HandleZoo(choices, _oc, myInfo);
                     break;
-                    //test
                 case DeckType.HybridHunter:
-                    var randomvar = true;
                     HandleHunter(choices, opponentClass, myInfo.DeckStyle);
                     break;
                 case DeckType.EchoMage:
