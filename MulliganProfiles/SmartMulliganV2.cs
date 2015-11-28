@@ -1001,6 +1001,7 @@ namespace SmartBotUI.SmartMulliganV2
                     break;
                     //test
                 case DeckType.HybridHunter:
+                    var randomvar = true;
                     HandleHunter(choices, opponentClass, myInfo.DeckStyle);
                     break;
                 case DeckType.EchoMage:
