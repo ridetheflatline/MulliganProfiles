@@ -932,7 +932,7 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 case DeckType.Unknown:
                     myInfo.DeckStyle = GetStyle();
-                    HandleMinions(choices, _whiteList, opponentClass, ownClass, 0, null, null, Style.Tempo, myInfo.DeckType);
+                    HandleMinions(choices, _whiteList, opponentClass, ownClass, 0, null, null, myInfo.DeckStyle, myInfo.DeckType);
                     HandleWeapons(choices, ownClass, _whiteList);
                     HandleSpells(choices, _whiteList);
                     break;
