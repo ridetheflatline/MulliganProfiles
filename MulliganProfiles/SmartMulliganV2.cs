@@ -916,13 +916,13 @@ namespace SmartBotUI.SmartMulliganV2
 
             DefaultIni(opponentClass, ownClass);
 
-            //CurrentDeck = new List<string> { "CS2_046", "CS2_046", "EX1_587", "EX1_565", "EX1_565", "CS2_042", "CS2_042", "EX1_005", "CS2_045", "CS2_045", "CS2_196", "CS2_196", "CS2_147", "CS2_147", "CS2_226", "CS2_226", "EX1_025", "EX1_025", "EX1_019", "EX1_019", "CS2_171", "CS2_171", "CS2_222", "CS2_222", "EX1_246", "EX1_246", "EX1_506", "EX1_506", "CS2_122", "CS2_122" };
-            CurrentDeck = Bot.CurrentDeck().Cards.ToList();
+            CurrentDeck = new List<string> { "CS2_046", "CS2_046", "EX1_587", "EX1_565", "EX1_565", "CS2_042", "CS2_042", "EX1_005", "CS2_045", "CS2_045", "CS2_196", "CS2_196", "CS2_147", "CS2_147", "CS2_226", "CS2_226", "EX1_025", "EX1_025", "EX1_019", "EX1_019", "CS2_171", "CS2_171", "CS2_222", "CS2_222", "EX1_246", "EX1_246", "EX1_506", "EX1_506", "CS2_122", "CS2_122" };
+            //CurrentDeck = Bot.CurrentDeck().Cards.ToList();
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
-            //myInfo.DeckStyle = Style.Tempo;
-            //myInfo.DeckType = DeckType.TempoMage;
+            myInfo.DeckStyle = Style.Tempo;
+            myInfo.DeckType = DeckType.Arena;
 
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
             var supported = true;
@@ -2427,9 +2427,9 @@ namespace SmartBotUI.SmartMulliganV2
                 Frostbolt, Flamecannon, UnstablePortal, ArcaneMissiles, MirrorImage, ForgottenTorch, //Mage
                 RockbiterWeapon, FeralSpirit, //Shaman
                 HolySmite, VelensChosen, Thoughtsteal, PowerWordShield, //Priest
-                NobleSacrifice, Avenge, SealofChampions, MusterforBattle, //Paladin
+                NobleSacrifice, Avenge, MusterforBattle, //Paladin
                 Bash, Slam, ShieldBlock, //Warrior
-                MortalCoil, Darkbomb, Implosion, CurseofRafaam, //Warlock
+                MortalCoil, Darkbomb, CurseofRafaam, //Warlock
                 Tracking, AnimalCompanion, UnleashtheHounds, //Hunter
                 DeadlyPoison, Burgle, BeneaththeGrounds, Backstab, //Rogue
                 Innervate, WildGrowth, LivingRoots, PoweroftheWild, RavenIdol //Druid
@@ -2438,25 +2438,9 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 Snipe, Misdirection, Spellbender, Counterspell, Vaporize, EyeforanEye, Redemption, Repentance, CompetitiveSpirit, SacredTrial, DartTrap
             };
-            foreach (var c in (from c in choices let spells = CardTemplate.LoadFromId(c.ToString()) where spells.Type == Card.CType.SPELL && allowedSpells.Contains(c.ToString()) where !spells.IsSecret && spells.Cost == 0 select c))
+            foreach (var c in (from c in choices let spells = CardTemplate.LoadFromId(c.ToString()) where spells.Type == Card.CType.SPELL && allowedSpells.Contains(c.ToString()) where !spells.IsSecret select c))
                 whiteList.AddOrUpdate(c.ToString(), false);
 
-            foreach (var c in (from c in choices let spells = CardTemplate.LoadFromId(c.ToString()) where spells.Type == Card.CType.SPELL && allowedSpells.Contains(c.ToString()) where !spells.IsSecret && spells.Cost == 1 && !_has1Drop select c))
-            {
-                OneManaSpell = true;
-                whiteList.AddOrUpdate(c.ToString(), false);
-            }
-            foreach (var c in (from c in choices let spells = CardTemplate.LoadFromId(c.ToString()) where spells.Type == Card.CType.SPELL && allowedSpells.Contains(c.ToString()) where !spells.IsSecret && spells.Cost == 2 && !_has1Drop select c))
-            {
-                TwoManaSpell = true;
-                whiteList.AddOrUpdate(c.ToString(), false);
-            }
-            foreach (var c in (from c in choices let spells = CardTemplate.LoadFromId(c.ToString()) where spells.Type == Card.CType.SPELL && allowedSpells.Contains(c.ToString()) where !spells.IsSecret && spells.Cost == 3 && !_has1Drop select c).TakeWhile(c => !TwoManaSpell))
-            {
-                ThreeManaSpell = true;
-                whiteList.AddOrUpdate(c.ToString(), false);
-                break;
-            }
             foreach (var q in choices)
             {
                 var spells = CardTemplate.LoadFromId(q.ToString());
