@@ -1070,6 +1070,9 @@ namespace SmartBotUI.SmartMulliganV2
                 case DeckType.RaptorRogue:
                     HandleRaptorRogue(choices, _oc, myInfo);
                     break;
+                case DeckType.BloodlustShaman:
+                    supported = false;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
