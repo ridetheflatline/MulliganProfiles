@@ -166,7 +166,7 @@ namespace SmartBot.Plugins
             }
             catch (NullReferenceException ex)
             {
-                Bot.Log(string.Format("[AutoUpdater] Unexpected error, if you keep seeing this, report it to Arthur. Source {0}", ex.Source));
+                Bot.Log(string.Format("[AutoUpdater] Unexpected error, shouldn't hurt you, but if you keep seeing this, report it to Arthur. Source {0}", ex.Source));
             }
 
         }
