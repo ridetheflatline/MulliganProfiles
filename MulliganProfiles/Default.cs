@@ -12,8 +12,9 @@ namespace SmartBot.Mulligan
         {
             var CardsToKeep = new List<Card.Cards>();
             var HasCoin = choices.Count == 4;
-            CardsToKeep.Add(Card.Cards.EX1_029);
+            //CardsToKeep.Add(Card.Cards.EX1_029);
             return CardsToKeep;
         }
     }
 }
+
