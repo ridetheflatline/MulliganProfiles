@@ -1332,7 +1332,6 @@ namespace SmartBotUI.SmartMulliganV2
 
 
         }
-        //Midrage
         private void HandlePaladin(List<Card.Cards> choices, Card.CClass opponentClass, Style dStyle)
         {
             var gotEarly = false;
@@ -3446,3 +3445,4 @@ namespace SmartBotUI.SmartMulliganV2
         Tempo
     }
 }
+
