@@ -16,13 +16,14 @@ namespace SmartBot.Mulligan
             foreach (Card.Cards q in choices)
             {
                 var w = CardTemplate.LoadFromId(q);
-                //CardsToKeep.Add(q);
+                CardsToKeep.Add(q);
             }
             //CardsToKeep.Add(Card.Cards.EX1_029);
             return CardsToKeep;
         }
     }
 }
+
 
 
 
