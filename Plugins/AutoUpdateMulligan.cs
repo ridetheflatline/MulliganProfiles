@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Text.RegularExpressions;
 using SmartBot.Plugins;
@@ -11,39 +12,40 @@ using SmartBot.Plugins;
 namespace SmartBot.Plugins
 {
     [Serializable]
-    public class auContainer : PluginDataContainer
+    public class AuContainer : PluginDataContainer
     {
-        public string GitLink1 { get; private set; }
-        public string GitLink2 { get; set; }
-        public string GitLink3 { get; set; }
+        public bool CheckAfterEachGame { get; set; }
+        public string MulliganRawGitHub1 { get; private set; }
+        public string MulliganRawGitHub2 { get; set; }
+        public string MulliganRawGitHub3 { get; set; }
+        public string MulliganRawGitHub4 { get; set; }
+        public string MulliganRawGitHub5 { get; set; }
+        public string MulliganRawGitHub6 { get; set; }
+        public string MulliganRawGitHub7 { get; set; }
+        public string MulliganRawGitHub8 { get; set; }
+        public string MulliganRawGitHub9 { get; set; }
 
-        public string GitLink4 { get; set; }
-        public string GitLink5 { get; set; }
-        public string GitLink6 { get; set; }
-        public string GitLink7 { get; set; }
-        public string GitLink8 { get; set; }
-        public string GitLink9 { get; set; }
-
-        public auContainer()
+        public AuContainer()
         {
             Name = "AutoUpdateMulligan";
             Enabled = true;
-            GitLink1 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/MulliganProfiles/SmartMulliganV2.cs";
+            MulliganRawGitHub1 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/MulliganProfiles/SmartMulliganV2.cs";
+            
         }
     }
 
     public class BPlugin : Plugin
     {
-        private static string _gitLink1;
-        private static string _gitLink2;
-        private static string _gitLink3;
-        private static string _gitLink4;
-        private static string _gitLink5;
-        private static string _gitLink6;
-        private static string _gitLink7;
-        private static string _gitLink8;
-        private static string _gitLink9;
-
+        private static string _mulliganRawGitHub1;
+        private static string _mulliganRawGitHub2;
+        private static string _mulliganRawGitHub3;
+        private static string _mulliganRawGitHub4;
+        private static string _mulliganRawGitHub5;
+        private static string _mulliganRawGitHub6;
+        private static string _mulliganRawGitHub7;
+        private static string _mulliganRawGitHub8;
+        private static string _mulliganRawGitHub9;
+        private static bool _frequentChecks;
 
         private WebRequest _request;
         private WebResponse _respons;
@@ -58,6 +60,9 @@ namespace SmartBot.Plugins
 
         private void Reset()
         {
+            _curMull.Dispose();
+            _responsText.Dispose();
+            _respons.Dispose();
             _request = null;
             _respons = null;
             _responsText = null;
@@ -75,86 +80,93 @@ namespace SmartBot.Plugins
             if (!DataContainer.Enabled)
                 return;
             Initialize();
+            {
+                Bot.Log("================================");
+                LookForUpdates(_gitCollection);
+                Bot.Log("================================");
+            }
         }
 
         private void Initialize()
         {
             if (!DataContainer.Enabled)
                 return;
-            _gitLink1 = ((auContainer)DataContainer).GitLink1;
-            _gitLink2 = ((auContainer)DataContainer).GitLink2;
-            _gitLink3 = ((auContainer)DataContainer).GitLink3;
-            _gitLink4 = ((auContainer)DataContainer).GitLink4;
-            _gitLink5 = ((auContainer)DataContainer).GitLink5;
-            _gitLink6 = ((auContainer)DataContainer).GitLink6;
-            _gitLink7 = ((auContainer)DataContainer).GitLink7;
-            _gitLink8 = ((auContainer)DataContainer).GitLink8;
-            _gitLink9 = ((auContainer)DataContainer).GitLink9;
+            _frequentChecks = ((AuContainer) DataContainer).CheckAfterEachGame;
+            _mulliganRawGitHub1 = ((AuContainer)DataContainer).MulliganRawGitHub1;
+            _mulliganRawGitHub2 = ((AuContainer)DataContainer).MulliganRawGitHub2;
+            _mulliganRawGitHub3 = ((AuContainer)DataContainer).MulliganRawGitHub3;
+            _mulliganRawGitHub4 = ((AuContainer)DataContainer).MulliganRawGitHub4;
+            _mulliganRawGitHub5 = ((AuContainer)DataContainer).MulliganRawGitHub5;
+            _mulliganRawGitHub6 = ((AuContainer)DataContainer).MulliganRawGitHub6;
+            _mulliganRawGitHub7 = ((AuContainer)DataContainer).MulliganRawGitHub7;
+            _mulliganRawGitHub8 = ((AuContainer)DataContainer).MulliganRawGitHub8;
+            _mulliganRawGitHub9 = ((AuContainer)DataContainer).MulliganRawGitHub9;
 
-            _gitCollection = new List<string> { _gitLink1, _gitLink2, _gitLink3, _gitLink4, _gitLink5, _gitLink6, _gitLink7, _gitLink8, _gitLink9};
+            _gitCollection = new List<string> { _mulliganRawGitHub1, _mulliganRawGitHub2, _mulliganRawGitHub3, _mulliganRawGitHub4, _mulliganRawGitHub5, _mulliganRawGitHub6, _mulliganRawGitHub7, _mulliganRawGitHub8, _mulliganRawGitHub9 };
+        }
+        public override void OnGameEnd()
+        {
+            if (!_frequentChecks) return;
+            Bot.Log(string.Format("[AutoUpdater] FrequentChecks are enabled. Checking for mulligan updates"));
+            Bot.Log("===================================");
+            Initialize();
+            LookForUpdates(_gitCollection);
+            Bot.Log("===================================");
         }
 
-        public override void OnGameEnd()
+        private void LookForUpdates(List<string> listOfMulliganRawGitHubs)
         {
             try
             {
-                LookForUpdates(_gitCollection);
-            }
-            catch (Exception ex)
-            {
-                Bot.Log("Error while looking for updates: " +ex.Message);
-            }
-        }
-
-        private void LookForUpdates(List<string> listOfGitLinks)
-        {
-
-            foreach (string gitLink in listOfGitLinks.Where(gitLink => gitLink != null))
-            {
-                try
+                foreach (string mulliganRawGitHub in listOfMulliganRawGitHubs.Where(MulliganRawGitHub => MulliganRawGitHub != null))
                 {
-                    int index = gitLink.LastIndexOf('/') + 1;
-                    _request = WebRequest.Create(gitLink);
+                    int index = mulliganRawGitHub.LastIndexOf('/') + 1;
+                    _request = WebRequest.Create(mulliganRawGitHub);
                     _respons = _request.GetResponse();
                     _responsText = new StreamReader(_respons.GetResponseStream());
                     _strResponse = _responsText.ReadToEnd();
                     string savedCopy = _strResponse;
                     Regex rgx = new Regex("[^a-zA-Z0-9 -]");
                     _strResponse = rgx.Replace(_strResponse, "");
-
-                    _curMull = new StreamReader(MAIN_DIR + gitLink.Substring(index));
+                    try
+                    {
+                        _curMull = new StreamReader(MAIN_DIR + mulliganRawGitHub.Substring(index));
+                    }
+                    catch (FileNotFoundException nofilException)
+                    {
+                        Bot.Log(string.Format("[AutoUpdater] {0} . Downloading it now", nofilException.Message));
+                        Update(savedCopy, mulliganRawGitHub.Substring(index));
+                        Reset();
+                        Bot.RefreshMulliganProfiles();
+                        return;
+                    }
                     _strCurMulligan = _curMull.ReadToEnd();
                     _strCurMulligan = rgx.Replace(_strCurMulligan, "");
 
                     Bot.Log(_strCurMulligan.Equals(_strResponse)
-                        ? string.Format("[AutoUpdater] {0} is up to date", gitLink.Substring(index))
-                        : string.Format("[AutoUpdater] newer version for {0} is available ", gitLink.Substring(index)));
+                        ? string.Format("[AutoUpdater] {0} is up to date", mulliganRawGitHub.Substring(index))
+                        : string.Format("[AutoUpdater] newer version for {0} is available. Update in process ", mulliganRawGitHub.Substring(index)));
                     if (!_strCurMulligan.Equals(_strResponse))
                     {
-                        _curMull.Dispose();
-                        _responsText.Dispose();
-                        _respons.Dispose();
                         Reset();
-                        Update(savedCopy, gitLink.Substring(index));
+                        Update(savedCopy, mulliganRawGitHub.Substring(index));
                         try
                         {
                             Bot.RefreshMulliganProfiles();
                         }
                         catch (ArgumentException e)
                         {
-                            Bot.Log("Error while refreshing mulligans " +e.Message);
+                            Bot.Log("[AutoUpdater] Error while refreshing mulligans " + e.Message);
                         }
                         return;
                     }
-                    _curMull.Dispose();
-                    _responsText.Dispose();
-                    _respons.Dispose();
                     Reset();
                 }
-                catch (NullReferenceException ex)
-                {
-                    Bot.Log(string.Format("{0} is caused by {1}" ,ex.Message, ex.Source));
-                }
+
+            }
+            catch (NullReferenceException ex)
+            {
+                Bot.Log(string.Format("[AutoUpdater] Unexpected error, if you keep seeing this, report it to Arthur. Source {0}", ex.Source));
             }
 
         }
