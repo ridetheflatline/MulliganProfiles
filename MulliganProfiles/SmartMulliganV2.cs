@@ -3166,6 +3166,7 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.DemonHandlock;
                         return info;
                     }
+                    //what
                     var dragonHandlock = new List<string> { TwilightGuardian, TwilightDrake, AzureDrake, Malygos, BlackwingCorruptor }; //1
                     if (CoreComparison(CurrentDeck.Intersect(dragonHandlock).ToList(), dragonHandlock, 1, DeckType.DragonHandlock))
                     {
@@ -3201,7 +3202,6 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.Zoolock;
                         return info;
                     }
-
                     break;
                 case Card.CClass.HUNTER:
                     List<string> midRangeHunter = new List<string> { Webspinner, KillCommand, MadScientist, FreezingTrap, SavannahHighmane }; //1
@@ -3294,7 +3294,11 @@ namespace SmartBotUI.SmartMulliganV2
             info.DeckType = DeckType.Unknown;
             return info;
         }
-
+        /// <summary>
+        /// Returs true if card is in the deck
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns></returns>
         private bool CheckCard(string card)
         {
             return CurrentDeck.Any(c => c.ToString() == card);
