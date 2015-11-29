@@ -1225,8 +1225,8 @@ namespace SmartBotUI.SmartMulliganV2
                 foreach (var q in CurrentDeck)
                     file.Write("\"{0}\",", q);
                 file.WriteLine(" ");
-                foreach (var q in CurrentDeck)
-                    file.Write("{0};", q);
+                foreach (var q in CurrentDeck.Distinct().ToList())
+                    file.Write("{0}, ", CardTemplate.LoadFromId(q).Name.Replace(" ", ""));
                 file.WriteLine(" ");
                 foreach (var q in CurrentDeck)
                     file.WriteLine("{0} ", CardTemplate.LoadFromId(q).Name);
@@ -2981,6 +2981,7 @@ namespace SmartBotUI.SmartMulliganV2
             switch (ownClass)
             {
                 case Card.CClass.SHAMAN:
+                    var totemShaman = new List<string> { TotemGolem, ThunderBluffValiant, ManaTideTotem }; //1
                     var faceShaman = new List<string> { RockbiterWeapon, LeperGnome, TunnelTrogg, LavaBurst, LightningBolt };
                     if (CoreComparison(CurrentDeck.Intersect(faceShaman).ToList(), faceShaman, 1, DeckType.FaceShaman))
                     {
@@ -2991,7 +2992,6 @@ namespace SmartBotUI.SmartMulliganV2
                     var mechShaman = new List<string> { Crackle, Powermace, Mechwarper, MechanicalYeti, PilotedShredder }; //1
                     if (CoreComparison(CurrentDeck.Intersect(mechShaman).ToList(), mechShaman, 1, DeckType.MechShaman))
                     {
-
                         info.DeckStyle = Style.Aggro;
                         info.DeckType = DeckType.MechShaman;
                         return info;
@@ -3003,13 +3003,8 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.DragonShaman;
                         return info;
                     }
-                    var totemShaman = new List<string> { TotemGolem, ThunderBluffValiant, ManaTideTotem }; //1
-                    if (CoreComparison(CurrentDeck.Intersect(totemShaman).ToList(), totemShaman, 1, DeckType.TotemShaman))
-                    {
-                        info.DeckStyle = Style.Tempo;
-                        info.DeckType = DeckType.TotemShaman;
-                        return info;
-                    }
+                    
+                   
                     var malygosShaman = new List<string> { AncestorsCall, Malygos }; //0
                     if (CoreComparison(CurrentDeck.Intersect(malygosShaman).ToList(), malygosShaman, 1, DeckType.MalygosShaman))
                     {
@@ -3017,9 +3012,21 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.MalygosShaman;
                         return info;
                     }
-                    var controlShaman = new List<string> { DrBoom, SludgeBelcher, Hex, FeralSpirit, LightningStorm, EarthShock, Loatheb, SylvanasWindrunner }; //2
-                    if (CoreComparison(CurrentDeck.Intersect(controlShaman).ToList(), controlShaman, 2, DeckType.ControlShaman))
+                    var controlShaman = new List<string> { AlAkirtheWindlord, FeralSpirit, Doomhammer, ManaTideTotem, EarthShock, AzureDrake, StormforgedAxe, BigGameHunter, AcolyteofPain, ZombieChow, HauntedCreeper, SludgeBelcher, PilotedShredder, DrBoom, HealingWave, FireElemental, RockbiterWeapon, LightningStorm, Hex, FlametongueTotem}; //2
+                    if (CoreComparison(CurrentDeck.Intersect(controlShaman).ToList(), controlShaman, 11, DeckType.ControlShaman))
                     {
+                        if (CheckCard(Bloodlust))
+                        {
+                            info.DeckStyle = Style.Tempo;
+                            info.DeckType = DeckType.BloodlustShaman;
+                            return info;
+                        }
+                        if (CoreComparison(CurrentDeck.Intersect(totemShaman).ToList(), totemShaman, 1, DeckType.TotemShaman, ThunderBluffValiant))
+                        {
+                            info.DeckStyle = Style.Tempo;
+                            info.DeckType = DeckType.TotemShaman;
+                            return info;
+                        }
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.ControlShaman;
                         return info;
@@ -3285,6 +3292,15 @@ namespace SmartBotUI.SmartMulliganV2
             return info;
         }
 
+        private bool CheckCard(string card)
+        {
+            return CurrentDeck.Any(c => c.ToString() == card);
+        }
+        private bool CheckCards(List<string> cards)
+        {
+            return !cards.Except(CurrentDeck).Any();
+        }
+
         private void SetDefaultsForStyle(Style ds)
         {
             switch (ds)
@@ -3413,6 +3429,7 @@ namespace SmartBotUI.SmartMulliganV2
         TotemShaman,
         MalygosShaman,
         ControlShaman, //Missing Dragon Shaman, MalyShaman
+        BloodlustShaman,
         RaptorRogue
     }
 
