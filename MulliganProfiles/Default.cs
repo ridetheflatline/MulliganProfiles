@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SmartBot.Database;
 using SmartBot.Plugins.API;
 
 namespace SmartBot.Mulligan
@@ -12,9 +13,15 @@ namespace SmartBot.Mulligan
         {
             var CardsToKeep = new List<Card.Cards>();
             var HasCoin = choices.Count == 4;
+            foreach (Card.Cards q in choices)
+            {
+                var w = CardTemplate.LoadFromId(q);
+                CardsToKeep.Add(q);
+            }
             //CardsToKeep.Add(Card.Cards.EX1_029);
             return CardsToKeep;
         }
     }
 }
+
 
