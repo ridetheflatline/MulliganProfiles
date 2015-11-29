@@ -1,4 +1,3 @@
-﻿//revision 2
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -1164,7 +1163,9 @@ namespace SmartBotUI.SmartMulliganV2
             List<string> activators = new List<string> { UnearthedRaptor, AbusiveSergeant };
             List<string> needActivation = new List<string> { NerubianEgg };
             HandleMinions(choices, _whiteList, oc, _ownC, 0, activators, needActivation);
+            HandleSpells(choices, _whiteList);
             _whiteList.AddOrUpdate(_hasCoin ? UnearthedRaptor : "", false);
+            _whiteList.AddOrUpdate(NerubianEgg, _hasCoin);
         }
 
         private void HandleZoo(List<Card.Cards> choices, Card.CClass oc, DeckData info)
