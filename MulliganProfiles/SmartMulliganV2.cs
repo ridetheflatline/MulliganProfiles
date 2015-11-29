@@ -3294,11 +3294,7 @@ namespace SmartBotUI.SmartMulliganV2
             info.DeckType = DeckType.Unknown;
             return info;
         }
-        /// <summary>
-        /// Returs true if card is in the deck
-        /// </summary>
-        /// <param name="card"></param>
-        /// <returns></returns>
+
         private bool CheckCard(string card)
         {
             return CurrentDeck.Any(c => c.ToString() == card);
