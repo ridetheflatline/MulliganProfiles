@@ -3219,7 +3219,13 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.DemonHandlock;
                         return info;
                     }
-                    //what
+                    var zoolock = new List<string> { FlameImp, Voidcaller, PowerOverwhelming, NerubianEgg, DireWolfAlpha, HauntedCreeper, KnifeJuggler, DefenderofArgus }; //1
+                    if (CoreComparison(CurrentDeck.Intersect(zoolock).ToList(), zoolock, 3, DeckType.Zoolock))
+                    {
+                        info.DeckStyle = Style.Aggro;
+                        info.DeckType = DeckType.Zoolock;
+                        return info;
+                    }
                     var dragonHandlock = new List<string> { TwilightGuardian, TwilightDrake, AzureDrake, Malygos, BlackwingCorruptor }; //1
                     if (CoreComparison(CurrentDeck.Intersect(dragonHandlock).ToList(), dragonHandlock, 1, DeckType.DragonHandlock))
                     {
@@ -3234,14 +3240,13 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.DemonZooWarlock;
                         return info;
                     }
-                    var handlock = new List<string> { TwilightDrake, MoltenGiant, MoltenGiant, MountainGiant, Shadowflame, MortalCoil, LordJaraxxus, Hellfire, AntiqueHealbot }; //1
-                    if (CoreComparison(CurrentDeck.Intersect(handlock).ToList(), handlock, 1, DeckType.Handlock))
+                    var handlock = new List<string> { Alexstrasza, Shadowflame, IronbeakOwl, AncientWatcher, DefenderofArgus, SunfuryProtector, MountainGiant, TwilightDrake, MoltenGiant, BigGameHunter, SludgeBelcher, AntiqueHealbot, Darkbomb, EmperorThaurissan, Hellfire}; //1
+                    if (CoreComparison(CurrentDeck.Intersect(handlock).ToList(), handlock, 7, DeckType.Handlock, MoltenGiant))
                     {
                         info.DeckStyle = Style.Control;
                         info.DeckType = DeckType.Handlock;
                         return info;
                     }
-                    var zoolock = new List<string> { FlameImp, Voidcaller, PowerOverwhelming, Doomguard }; //1
                     var relinquary = new List<string> { ReliquarySeeker, Voidcaller, DarkPeddler, Implosion }; //1
                     if (CoreComparison(CurrentDeck.Intersect(relinquary).ToList(), relinquary, 1, DeckType.RelinquaryZoo, ReliquarySeeker))
                     {
@@ -3249,12 +3254,7 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.RelinquaryZoo;
                         return info;
                     }
-                    if (CoreComparison(CurrentDeck.Intersect(zoolock).ToList(), zoolock, 1, DeckType.Zoolock))
-                    {
-                        info.DeckStyle = Style.Aggro;
-                        info.DeckType = DeckType.Zoolock;
-                        return info;
-                    }
+                    
                     break;
                 case Card.CClass.HUNTER:
                     List<string> midRangeHunter = new List<string> { Webspinner, KillCommand, MadScientist, FreezingTrap, SavannahHighmane }; //1
