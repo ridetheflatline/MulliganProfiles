@@ -1151,7 +1151,7 @@ namespace SmartBotUI.SmartMulliganV2
 
         }
 
-       private void HandleMage(List<Card.Cards> choices)
+        private void HandleMage(List<Card.Cards> choices)
         {
             //nmc is a never mulligan card list. Those cards are always kept with at least 1 copy
             List<string> nmc = new List<string>{ArcaneBlast, ManaWyrm, Frostbolt, UnstablePortal, MadScientist, SorcerersApprentice};
