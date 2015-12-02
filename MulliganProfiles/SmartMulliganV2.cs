@@ -1245,7 +1245,7 @@ namespace SmartBotUI.SmartMulliganV2
             }
             catch (Exception e)
             {
-                Bot.Log(string.Format("[SmartMulligan] Unexpected {0} has occured. If stopping and starting the bot doesn't fix it, please inform Arthur on how and when", e.Message));
+                Bot.Log(string.Format("[SmartMulligan] If you see this message, that means something went wrong reading your deck. Stoppong and starting the bot (not restarting smartbot client) should fix this problem. If not, let Arthur know about it {0}", e.Message));
             }
         }
 
