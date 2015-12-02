@@ -1,0 +1,46 @@
+Card CS2_235[1/3] Northshire Cleric || Priority 4
+Card CS2_188[2/1] Abusive Sergeant || Priority 4
+Card EX1_010[2/1] Worgen Infiltrator || Priority 4
+Card EX1_319[3/2] Flame Imp || Priority 4
+Card NEW1_012[1/3] Mana Wyrm || Priority 4
+Card FP1_001[2/3] Zombie Chow || Priority 4
+Card AT_133[1/2] Gadgetzan Jouster || Priority 4
+Card CS2_189[1/1] Elven Archer || Priority 3
+Card EX1_008[1/1] Argent Squire || Priority 3
+Card FP1_011[1/1] Webspinner || Priority 3
+Card GVG_082[2/1] Clockwork Gnome || Priority 3
+Card CS2_065[1/3] Voidwalker || Priority 2
+Card CS2_171[1/1] Stonetusk Boar || Priority 2
+Card EX1_004[2/1] Young Priestess || Priority 2
+Card LOE_010[2/1] Pit Snake || Priority 2
+Card LOE_018[1/3] Tunnel Trogg || Priority 2
+Card AT_082[1/2] Lowly Squire || Priority 2
+Card CS2_168[2/1] Murloc Raider || Priority 1
+Card EX1_011[2/1] Voodoo Doctor || Priority 1
+Card CS2_146[2/1] Southsea Deckhand || Priority 1
+Card EX1_029[2/1] Leper Gnome || Priority 1
+Card GVG_051[1/3] Warbot || Priority 1
+Card BRM_004[2/1] Twilight Whelp || Priority 1
+Card AT_097[2/1] Tournament Attendee || Priority 1
+Card AT_105[2/4] Injured Kvaldir || Priority 1
+Card CS1_042[1/2] Goldshire Footman || Priority 0
+Card DS1_175[1/1] Timber Wolf || Priority 0
+Card EX1_508[1/1] Grimscale Oracle || Priority 0
+Card CS2_059[0/1] Blood Imp || Priority 0
+Card CS2_169[1/1] Young Dragonhawk || Priority 0
+Card EX1_001[1/2] Lightwarden || Priority 0
+Card EX1_009[1/1] Angry Chicken || Priority 0
+Card EX1_080[1/2] Secretkeeper || Priority 0
+Card EX1_243[3/1] Dust Devil || Priority 0
+Card EX1_405[0/4] Shieldbearer || Priority 0
+Card EX1_509[1/2] Murloc Tidecaller || Priority 0
+Card NEW1_017[1/2] Hungry Crab || Priority 0
+Card NEW1_025[1/2] Bloodsail Corsair || Priority 0
+Card LOE_076[1/3] Sir Finley Mrrgglton || Priority 0
+Card LOE_116[1/1] Reliquary Seeker || Priority 0
+Card FP1_028[1/2] Undertaker || Priority 0
+Card GVG_009[2/1] Shadowbomber || Priority 0
+Card GVG_013[1/2] Cogmaster || Priority 0
+Card BRM_022[0/2] Dragon Egg || Priority 0
+Card AT_029[2/1] Buccaneer || Priority 0
+Card AT_059[2/1] Brave Archer || Priority 0
