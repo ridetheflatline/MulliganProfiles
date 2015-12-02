@@ -1,88 +1,88 @@
-Card EX1_012[1/1] Bloodmage Thalnos || Priority 4
-Card EX1_096[2/1] Loot Hoarder || Priority 4
-Card LOE_046[3/2] Huge Toad || Priority 4
-Card FP1_002[1/2] Haunted Creeper || Priority 4
-Card FP1_004[2/2] Mad Scientist || Priority 4
-Card FP1_007[0/2] Nerubian Egg || Priority 4
-Card FP1_024[1/3] Unstable Ghoul || Priority 4
-Card GVG_058[2/2] Shielded Minibot || Priority 4
-Card GVG_076[1/1] Explosive Sheep || Priority 4
-Card GVG_085[1/2] Annoy-o-Tron || Priority 4
-Card AT_038[2/3] Darnassus Aspirant || Priority 4
-Card AT_089[3/2] Boneguard Lieutenant || Priority 4
-Card AT_109[2/4] Argent Watchman || Priority 4
-Card CS2_120[2/3] River Crocolisk || Priority 2
-Card CS2_121[2/2] Frostwolf Grunt || Priority 2
-Card CS2_142[2/2] Kobold Geomancer || Priority 2
-Card CS2_172[3/2] Bloodfen Raptor || Priority 2
-Card CS2_173[2/1] Bluegill Warrior || Priority 2
-Card EX1_015[1/1] Novice Engineer || Priority 2
-Card EX1_066[3/2] Acidic Swamp Ooze || Priority 2
-Card EX1_306[4/3] Succubus || Priority 2
-Card EX1_506[2/1] Murloc Tidehunter || Priority 2
-Card EX1_565[0/3] Flametongue Totem || Priority 2
-Card CS2_203[2/1] Ironbeak Owl || Priority 2
-Card EX1_045[4/5] Ancient Watcher || Priority 2
-Card EX1_049[3/2] Youthful Brewmaster || Priority 2
-Card EX1_055[1/3] Mana Addict || Priority 2
-Card EX1_058[2/3] Sunfury Protector || Priority 2
-Card EX1_059[2/2] Crazed Alchemist || Priority 2
-Card EX1_076[2/2] Pint-Sized Summoner || Priority 2
-Card EX1_082[3/2] Mad Bomber || Priority 2
-Card EX1_100[0/4] Lorewalker Cho || Priority 2
-Card EX1_131[2/2] Defias Ringleader || Priority 2
-Card EX1_162[2/2] Dire Wolf Alpha || Priority 2
-Card EX1_341[0/5] Lightwell || Priority 2
-Card EX1_362[2/2] Argent Protector || Priority 2
-Card EX1_393[2/3] Amani Berserker || Priority 2
-Card EX1_402[1/4] Armorsmith || Priority 2
-Card EX1_522[1/1] Patient Assassin || Priority 2
-Card EX1_531[2/2] Scavenging Hyena || Priority 2
-Card EX1_557[0/4] Nat Pagle || Priority 2
-Card EX1_603[2/2] Cruel Taskmaster || Priority 2
-Card EX1_608[3/2] Sorcerer's Apprentice || Priority 2
-Card EX1_616[2/2] Mana Wraith || Priority 2
-Card NEW1_018[2/3] Bloodsail Raider || Priority 2
-Card NEW1_019[3/2] Knife Juggler || Priority 2
-Card NEW1_020[3/2] Wild Pyromancer || Priority 2
-Card NEW1_021[0/7] Doomsayer || Priority 2
-Card NEW1_023[3/2] Faerie Dragon || Priority 2
-Card NEW1_029[4/4] Millhouse Manastorm || Priority 2
-Card NEW1_037[1/3] Master Swordsmith || Priority 2
-Card LOE_006[1/2] Museum Curator || Priority 2
-Card LOE_023[2/2] Dark Peddler || Priority 2
-Card LOE_029[1/1] Jeweled Scarab || Priority 2
-Card NEW1_016[1/1] Captain's Parrot || Priority 2
-Card FP1_003[1/2] Echoing Ooze || Priority 2
-Card FP1_017[1/4] Nerub'ar Weblord || Priority 2
-Card GVG_002[2/3] Snowchugger || Priority 2
-Card GVG_006[2/3] Mechwarper || Priority 2
-Card GVG_011[3/2] Shrinkmeister || Priority 2
-Card GVG_018[1/4] Mistress of Pain || Priority 2
-Card GVG_023[3/2] Goblin Auto-Barber || Priority 2
-Card GVG_025[4/1] One-eyed Cheat || Priority 2
-Card GVG_030[2/2] Anodized Robo Cub || Priority 2
-Card GVG_037[3/2] Whirling Zap-o-matic || Priority 2
-Card GVG_039[0/3] Vitality Totem || Priority 2
-Card GVG_064[3/2] Puddlestomper || Priority 2
-Card GVG_067[2/3] Stonesplinter Trogg || Priority 2
-Card GVG_072[2/3] Shadowboxer || Priority 2
-Card GVG_075[2/3] Ship's Cannon || Priority 2
-Card GVG_081[2/3] Gilblin Stalker || Priority 2
-Card GVG_087[2/3] Steamwheedle Sniper || Priority 2
-Card GVG_103[1/2] Micro Machine || Priority 2
-Card GVG_108[3/2] Recombobulator || Priority 2
-Card AT_003[3/2] Fallen Hero || Priority 2
-Card AT_021[3/2] Tiny Knight of Evil || Priority 2
-Card AT_026[4/3] Wrathguard || Priority 2
-Card AT_030[3/2] Undercity Valiant || Priority 2
-Card AT_031[2/2] Cutpurse || Priority 2
-Card AT_042[2/1] Druid of the Saber || Priority 2
-Card AT_052[3/4] Totem Golem || Priority 2
-Card AT_058[3/2] King's Elekk || Priority 2
-Card AT_069[3/2] Sparring Partner || Priority 2
-Card AT_071[2/3] Alexstrasza's Champion || Priority 2
-Card AT_080[2/3] Garrison Commander || Priority 2
-Card AT_084[1/2] Lance Carrier || Priority 2
-Card AT_094[2/3] Flame Juggler || Priority 2
-Card AT_116[1/4] Wyrmrest Agent || Priority 2
+Card GVG_058[2/2] Shielded Minibot || Priority 6
+Card EX1_096[2/1] Loot Hoarder || Priority 5
+Card LOE_046[3/2] Huge Toad || Priority 5
+Card FP1_004[2/2] Mad Scientist || Priority 5
+Card AT_038[2/3] Darnassus Aspirant || Priority 5
+Card AT_089[3/2] Boneguard Lieutenant || Priority 5
+Card GVG_002[2/3] Snowchugger || Priority 4
+Card GVG_006[2/3] Mechwarper || Priority 4
+Card GVG_023[3/2] Goblin Auto-Barber || Priority 4
+Card GVG_030[2/2] Anodized Robo Cub || Priority 4
+Card GVG_037[3/2] Whirling Zap-o-matic || Priority 4
+Card GVG_072[2/3] Shadowboxer || Priority 4
+Card CS2_120[2/3] River Crocolisk || Priority 3
+Card CS2_121[2/2] Frostwolf Grunt || Priority 3
+Card CS2_142[2/2] Kobold Geomancer || Priority 3
+Card CS2_172[3/2] Bloodfen Raptor || Priority 3
+Card CS2_173[2/1] Bluegill Warrior || Priority 3
+Card EX1_015[1/1] Novice Engineer || Priority 3
+Card EX1_066[3/2] Acidic Swamp Ooze || Priority 3
+Card EX1_306[4/3] Succubus || Priority 3
+Card EX1_506[2/1] Murloc Tidehunter || Priority 3
+Card EX1_565[0/3] Flametongue Totem || Priority 3
+Card CS2_203[2/1] Ironbeak Owl || Priority 3
+Card EX1_012[1/1] Bloodmage Thalnos || Priority 3
+Card EX1_045[4/5] Ancient Watcher || Priority 3
+Card EX1_049[3/2] Youthful Brewmaster || Priority 3
+Card EX1_055[1/3] Mana Addict || Priority 3
+Card EX1_058[2/3] Sunfury Protector || Priority 3
+Card EX1_059[2/2] Crazed Alchemist || Priority 3
+Card EX1_076[2/2] Pint-Sized Summoner || Priority 3
+Card EX1_082[3/2] Mad Bomber || Priority 3
+Card EX1_100[0/4] Lorewalker Cho || Priority 3
+Card EX1_131[2/2] Defias Ringleader || Priority 3
+Card EX1_162[2/2] Dire Wolf Alpha || Priority 3
+Card EX1_341[0/5] Lightwell || Priority 3
+Card EX1_362[2/2] Argent Protector || Priority 3
+Card EX1_393[2/3] Amani Berserker || Priority 3
+Card EX1_402[1/4] Armorsmith || Priority 3
+Card EX1_522[1/1] Patient Assassin || Priority 3
+Card EX1_531[2/2] Scavenging Hyena || Priority 3
+Card EX1_557[0/4] Nat Pagle || Priority 3
+Card EX1_603[2/2] Cruel Taskmaster || Priority 3
+Card EX1_608[3/2] Sorcerer's Apprentice || Priority 3
+Card EX1_616[2/2] Mana Wraith || Priority 3
+Card NEW1_018[2/3] Bloodsail Raider || Priority 3
+Card NEW1_019[3/2] Knife Juggler || Priority 3
+Card NEW1_020[3/2] Wild Pyromancer || Priority 3
+Card NEW1_021[0/7] Doomsayer || Priority 3
+Card NEW1_023[3/2] Faerie Dragon || Priority 3
+Card NEW1_029[4/4] Millhouse Manastorm || Priority 3
+Card NEW1_037[1/3] Master Swordsmith || Priority 3
+Card LOE_006[1/2] Museum Curator || Priority 3
+Card LOE_023[2/2] Dark Peddler || Priority 3
+Card LOE_029[1/1] Jeweled Scarab || Priority 3
+Card NEW1_016[1/1] Captain's Parrot || Priority 3
+Card FP1_002[1/2] Haunted Creeper || Priority 3
+Card FP1_003[1/2] Echoing Ooze || Priority 3
+Card FP1_007[0/2] Nerubian Egg || Priority 3
+Card FP1_017[1/4] Nerub'ar Weblord || Priority 3
+Card FP1_024[1/3] Unstable Ghoul || Priority 3
+Card GVG_011[3/2] Shrinkmeister || Priority 3
+Card GVG_018[1/4] Mistress of Pain || Priority 3
+Card GVG_025[4/1] One-eyed Cheat || Priority 3
+Card GVG_039[0/3] Vitality Totem || Priority 3
+Card GVG_064[3/2] Puddlestomper || Priority 3
+Card GVG_067[2/3] Stonesplinter Trogg || Priority 3
+Card GVG_075[2/3] Ship's Cannon || Priority 3
+Card GVG_076[1/1] Explosive Sheep || Priority 3
+Card GVG_081[2/3] Gilblin Stalker || Priority 3
+Card GVG_085[1/2] Annoy-o-Tron || Priority 3
+Card GVG_087[2/3] Steamwheedle Sniper || Priority 3
+Card GVG_103[1/2] Micro Machine || Priority 3
+Card GVG_108[3/2] Recombobulator || Priority 3
+Card AT_003[3/2] Fallen Hero || Priority 3
+Card AT_021[3/2] Tiny Knight of Evil || Priority 3
+Card AT_026[4/3] Wrathguard || Priority 3
+Card AT_030[3/2] Undercity Valiant || Priority 3
+Card AT_031[2/2] Cutpurse || Priority 3
+Card AT_042[2/1] Druid of the Saber || Priority 3
+Card AT_052[3/4] Totem Golem || Priority 3
+Card AT_058[3/2] King's Elekk || Priority 3
+Card AT_069[3/2] Sparring Partner || Priority 3
+Card AT_071[2/3] Alexstrasza's Champion || Priority 3
+Card AT_080[2/3] Garrison Commander || Priority 3
+Card AT_084[1/2] Lance Carrier || Priority 3
+Card AT_094[2/3] Flame Juggler || Priority 3
+Card AT_109[2/4] Argent Watchman || Priority 3
+Card AT_116[1/4] Wyrmrest Agent || Priority 3
