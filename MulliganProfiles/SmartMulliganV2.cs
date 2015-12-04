@@ -2102,6 +2102,7 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 _whiteList.AddOrUpdate(_oc == Card.CClass.DRUID ? AldorPeacekeeper : "", false);
                 _whiteList.AddOrUpdate(Consecration, false);
+                _whiteList.AddOrUpdate(_hasCoin ? PilotedShredder:"", false);
             }
             else
             {
