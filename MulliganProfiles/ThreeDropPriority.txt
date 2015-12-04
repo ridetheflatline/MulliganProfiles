@@ -1,6 +1,12 @@
-Card EX1_556[2/3] Harvest Golem || Priority 5
+Card EX1_014[5/5] King Mukla || Priority 7
+Card FP1_029[4/4] Dancing Swords || Priority 7
+Card EX1_556[2/3] Harvest Golem || Priority 6
+Card AT_095[2/2] Silent Knight || Priority 6
+Card CS2_181[4/7] Injured Blademaster || Priority 5
 Card FP1_023[3/4] Dark Cultist || Priority 5
-Card EX1_014[5/5] King Mukla || Priority 4
+Card GVG_044[3/4] Spider Tank || Priority 5
+Card GVG_065[4/4] Ogre Brute || Priority 5
+Card EX1_017[4/2] Jungle Panther || Priority 4
 Card EX1_020[3/1] Scarlet Crusader || Priority 4
 Card EX1_134[3/3] SI:7 Agent || Priority 4
 Card EX1_301[3/5] Felguard || Priority 4
@@ -8,32 +14,23 @@ Card EX1_304[3/3] Void Terror || Priority 4
 Card EX1_575[0/3] Mana Tide Totem || Priority 4
 Card EX1_613[2/2] Edwin VanCleef || Priority 4
 Card LOE_050[3/2] Mounted Raptor || Priority 4
+Card FP1_005[2/2] Shade of Naxxramas || Priority 4
 Card FP1_009[2/8] Deathlord || Priority 4
-Card FP1_029[4/4] Dancing Swords || Priority 4
-Card GVG_044[3/4] Spider Tank || Priority 4
+Card GVG_027[2/2] Iron Sensei || Priority 4
+Card GVG_048[3/3] Metaltooth Leaper || Priority 4
+Card GVG_123[3/3] Soot Spewer || Priority 4
 Card BRM_006[2/4] Imp Gang Boss || Priority 4
 Card AT_066[3/3] Orgrimmar Aspirant || Priority 4
 Card AT_083[3/3] Dragonhawk Rider || Priority 4
 Card AT_087[2/1] Argent Horserider || Priority 4
-Card AT_095[2/2] Silent Knight || Priority 4
 Card AT_100[3/3] Silver Hand Regent || Priority 4
 Card AT_110[2/5] Coliseum Manager || Priority 4
-Card EX1_612[4/3] Kirin Tor Mage || Priority 3
 Card LOE_019[3/4] Unearthed Raptor || Priority 3
 Card LOE_022[3/4] Fierce Monkey || Priority 3
-Card GVG_027[2/2] Iron Sensei || Priority 3
-Card GVG_048[3/3] Metaltooth Leaper || Priority 3
-Card GVG_101[4/3] Scarlet Purifier || Priority 3
-Card GVG_123[3/3] Soot Spewer || Priority 3
 Card AT_007[3/4] Spellslinger || Priority 3
-Card AT_032[4/3] Shady Dealer || Priority 3
-Card AT_086[4/3] Saboteur || Priority 3
-Card AT_106[4/3] Light's Champion || Priority 3
 Card AT_129[3/4] Fjola Lightbane || Priority 3
 Card AT_131[3/4] Eydis Darkbane || Priority 3
-Card CS2_118[5/1] Magma Rager || Priority 2
 Card CS2_122[2/2] Raid Leader || Priority 2
-Card CS2_124[3/1] Wolfrider || Priority 2
 Card CS2_125[3/3] Ironfur Grizzly || Priority 2
 Card CS2_127[1/4] Silverback Patriarch || Priority 2
 Card CS2_141[2/2] Ironforge Rifleman || Priority 2
@@ -42,11 +39,9 @@ Card EX1_019[3/2] Shattered Sun Cleric || Priority 2
 Card EX1_084[2/3] Warsong Commander || Priority 2
 Card EX1_582[1/4] Dalaran Mage || Priority 2
 Card CS2_117[3/3] Earthen Ring Farseer || Priority 2
-Card CS2_181[4/7] Injured Blademaster || Priority 2
 Card EX1_005[4/2] Big Game Hunter || Priority 2
 Card EX1_006[0/3] Alarm-o-Bot || Priority 2
 Card EX1_007[1/3] Acolyte of Pain || Priority 2
-Card EX1_017[4/2] Jungle Panther || Priority 2
 Card EX1_021[2/3] Thrallmar Farseer || Priority 2
 Card EX1_044[2/2] Questing Adventurer || Priority 2
 Card EX1_050[2/2] Coldlight Oracle || Priority 2
@@ -64,30 +59,35 @@ Card EX1_507[3/3] Murloc Warleader || Priority 2
 Card EX1_590[3/3] Blood Knight || Priority 2
 Card EX1_597[1/5] Imp Master || Priority 2
 Card EX1_604[2/4] Frothing Berserker || Priority 2
+Card EX1_612[4/3] Kirin Tor Mage || Priority 2
 Card NEW1_027[3/3] Southsea Captain || Priority 2
 Card tt_004[2/3] Flesheating Ghoul || Priority 2
 Card LOE_020[2/4] Desert Camel || Priority 2
 Card LOE_077[2/4] Brann Bronzebeard || Priority 2
-Card FP1_005[2/2] Shade of Naxxramas || Priority 2
 Card FP1_027[1/4] Stoneskin Gargoyle || Priority 2
 Card GVG_032[2/4] Grove Tender || Priority 2
-Card GVG_065[4/4] Ogre Brute || Priority 2
 Card GVG_084[1/4] Flying Machine || Priority 2
 Card GVG_089[2/4] Illuminator || Priority 2
 Card GVG_092[3/2] Gnomish Experimenter || Priority 2
 Card GVG_095[2/4] Goblin Sapper || Priority 2
 Card GVG_097[2/3] Lil' Exorcist || Priority 2
 Card GVG_098[1/4] Gnomeregan Infantry || Priority 2
+Card GVG_101[4/3] Scarlet Purifier || Priority 2
 Card GVG_102[3/3] Tinkertown Technician || Priority 2
 Card GVG_104[2/3] Hobgoblin || Priority 2
 Card BRM_002[2/4] Flamewaker || Priority 2
 Card BRM_010[2/2] Druid of the Flame || Priority 2
 Card BRM_033[2/4] Blackwing Technician || Priority 2
 Card AT_014[3/3] Shadowfiend || Priority 2
+Card AT_032[4/3] Shady Dealer || Priority 2
 Card AT_046[3/2] Tuskarr Totemic || Priority 2
 Card AT_057[4/2] Stablemaster || Priority 2
 Card AT_063t[4/2] Dreadscale || Priority 2
 Card AT_075[2/4] Warhorse Trainer || Priority 2
+Card AT_086[4/3] Saboteur || Priority 2
 Card AT_092[5/2] Ice Rager || Priority 2
+Card AT_106[4/3] Light's Champion || Priority 2
 Card AT_115[2/2] Fencing Coach || Priority 2
 Card AT_117[4/2] Master of Ceremonies || Priority 2
+Card CS2_118[5/1] Magma Rager || Priority -1
+Card CS2_124[3/1] Wolfrider || Priority -1
