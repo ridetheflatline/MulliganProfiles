@@ -892,10 +892,10 @@ namespace SmartBotUI.SmartMulliganV2
 
                     break;
                 case DeckType.MidRangeDruid:
-                    HandleDruid(choices, myInfo.DeckStyle);
+                    HandleDruid(choices, myInfo);
                     break;
                 case DeckType.TokenDruid:
-                    HandleDruid(choices, myInfo.DeckStyle);
+                    HandleDruid(choices, myInfo);
                     break;
                 case DeckType.DemonHandlock:
                     HandleHandlock(choices, myInfo);
@@ -979,7 +979,7 @@ namespace SmartBotUI.SmartMulliganV2
                     HandleBurstRogue(choices);
                     break;
                 case DeckType.AggroDruid:
-                    HandleDruid(choices, myInfo.DeckStyle);
+                    HandleDruid(choices, myInfo);
                     break;
                 case DeckType.ComboPriest:
                     supported = false;
