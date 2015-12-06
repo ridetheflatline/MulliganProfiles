@@ -871,7 +871,7 @@ namespace SmartBotUI.SmartMulliganV2
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
             //myInfo.DeckStyle = Style.Control;
-            //myInfo.DeckType = DeckType.Arena;
+            //arcmyInfo.DeckType = DeckType.Arena;
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
@@ -3186,44 +3186,54 @@ namespace SmartBotUI.SmartMulliganV2
 
         private static void HandleMinions(List<Card.Cards> choices, Dictionary<string, bool> whiteList, DeckData dataContainer)
         {
-            List<string> mychoices1 =
-                CardTemplate.TemplateList.Keys.Select(c => c.ToString())
-                    .Where(q => CardTemplate.LoadFromId(q).Cost < 5
-                              && CardTemplate.LoadFromId(q).IsCollectible
-                              && CardTemplate.LoadFromId(q).Type == Card.CType.MINION)
-                    .ToList()
-                    .OrderByDescending(q => GetPriority(q))
-                    .ToList();
+            
             #region debug
-            if (ArthursReasonToDrink)
-            {
-                using (var file = new StreamWriter(MainDir + "FinalPriorities.txt", false))
-                {
-                    file.WriteLine("1 Drops");
-                    foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 1))
-                    {
 
-                    }
-                    file.WriteLine("2 Drops");
-                    foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 2))
+            try
+            {
+                if (ArthursReasonToDrink)
+                {
+                    List<string> mychoices1 =
+                        CardTemplate.TemplateList.Keys.Select(c => c.ToString())
+                            .Where(q => CardTemplate.LoadFromId(q).Cost < 5
+                                        && CardTemplate.LoadFromId(q).IsCollectible
+                                        && CardTemplate.LoadFromId(q).Type == Card.CType.MINION)
+                            .ToList()
+                            .OrderByDescending(q => GetPriority(q))
+                            .ToList();
+                    using (var file = new StreamWriter(MainDir + "FinalPriorities.txt", false))
                     {
-                        file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk,
-                             CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
-                    }
-                    file.WriteLine("3 Drops");
-                    foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 3))
-                    {
-                        file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk,
-                             CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
-                    }
-                    file.WriteLine("4 Drops");
-                    foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 4))
-                    {
-                        file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk,
-                             CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
+                        file.WriteLine("1 Drops");
+                        foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 1))
+                        {
+
+                        }
+                        file.WriteLine("2 Drops");
+                        foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 2))
+                        {
+                            file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk,
+                                CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
+                        }
+                        file.WriteLine("3 Drops");
+                        foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 3))
+                        {
+                            file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk,
+                                CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
+                        }
+                        file.WriteLine("4 Drops");
+                        foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 4))
+                        {
+                            file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk,
+                                CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
+                        }
                     }
                 }
             }
+            catch (Exception botOutdatedException)
+            {
+                Bot.Log("[SmartMulliga_Debug] Your SmartBot client is outdated and no longer supported by SmartMulligan. Please run SBAutoUpdater to fix it");
+            }
+
             #endregion
             foreach (var q in choices.Where(c => GetPriority(c.ToString()) >= 2))
             {
@@ -3301,7 +3311,7 @@ namespace SmartBotUI.SmartMulliganV2
                 while (choisesList.Count != cardsKept.Count)
                     cardsKept.Add("");
             }
-            using (var file = new StreamWriter(MainDir + "MulliganArchives\\" + _ownC + "_" + Bot.CurrentMode() + "new.txt", false))
+            using (var file = new StreamWriter(MainDir + "\\MulliganArchives\\" + _ownC + "_" + Bot.CurrentMode() + "new.txt", true))
             {
                 file.WriteLine("==============================================");
                 //file.WriteLine("CURRENT MODE IS: "+Bot.CurrentMode());
@@ -3329,9 +3339,17 @@ namespace SmartBotUI.SmartMulliganV2
                         printed.Add(choisesList.ElementAt(i));
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
-                string str = MainDir + "MulliganArchives/SmartMulligan_debug/" + dataContainer.DeckType + ".txt";
-                string[] parts = str.Split('\\');
-                str = str.Replace(parts[2], "<your lovely name>");
+                string str = AppDomain.CurrentDomain.BaseDirectory + "MulliganArchives\\SmartMulligan_debug\\" + dataContainer.DeckType + ".txt";
+                try
+                {
+                    string[] parts = str.Split('\\');
+                    if (String.Equals(parts[1], "Users", StringComparison.CurrentCultureIgnoreCase) || String.Equals(parts[1], "user", StringComparison.CurrentCultureIgnoreCase))
+                        str = str.Replace(parts[2], "<your lovely name>");
+                }
+                catch (ArgumentException e)
+                {
+                    str = str;
+                }
                 file.WriteLine("\n[Pro Comment][agree? no? why? ]: \n[Pro Comment]\n[Pro Comment]\n[Reporting wrong picks] If you disagree, then post this file along with " +
                                "\n[Reporting wrong picks] " + str);
                 file.WriteLine("\n\t\t\t\t|DECK SPECS|");
@@ -3617,8 +3635,9 @@ namespace SmartBotUI.SmartMulliganV2
 
                     break;
                 case Card.CClass.ROGUE:
-                    var raptorRogue = new List<string> { UnearthedRaptor, NerubianEgg };
-                    if (CoreComparison(CurrentDeck.Intersect(raptorRogue).ToList(), raptorRogue, 1, DeckType.RaptorRogue, UnearthedRaptor))
+                    var raptorRogue = new List<string> { Backstab, AbusiveSergeant, LootHoarder, ColdBlood, Sap, DefenderofArgus, Eviscerate, SI7Agent, HauntedCreeper, NerubianEgg, SludgeBelcher, PilotedShredder, UnearthedRaptor, FanofKnives, AzureDrake,  
+};
+                    if (CoreComparison(CurrentDeck.Intersect(raptorRogue).ToList(), raptorRogue, 7, DeckType.RaptorRogue, UnearthedRaptor))
                     {
                         info.DeckStyle = Style.Tempo;
                         info.DeckType = DeckType.RaptorRogue;
