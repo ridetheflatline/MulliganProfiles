@@ -859,19 +859,19 @@ namespace SmartBotUI.SmartMulliganV2
         {
             _ch = choices;
 
-            CurrentDeck = new List<string>
-            {
-              "EX1_010","FP1_001","CS2_024","EX1_066","EX1_393","FP1_002","EX1_096","GVG_002","EX1_608","CS2_023","CS2_026","EX1_294","FP1_009","AT_086","GVG_044","CS2_022","GVG_068","EX1_046","DS1_055","LOE_003","CS2_028","CS2_200","GVG_079","AT_103", 
+            //CurrentDeck = new List<string>
+            //{
+            //  "EX1_010","FP1_001","CS2_024","EX1_066","EX1_393","FP1_002","EX1_096","GVG_002","EX1_608","CS2_023","CS2_026","EX1_294","FP1_009","AT_086","GVG_044","CS2_022","GVG_068","EX1_046","DS1_055","LOE_003","CS2_028","CS2_200","GVG_079","AT_103", 
 
-            };
-            //CurrentDeck = Bot.CurrentDeck().Cards.ToList();
+            //};
+            CurrentDeck = Bot.CurrentDeck().Cards.ToList();
             DefaultIni(opponentClass, ownClass);
 
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
-            myInfo.DeckStyle = Style.Control;
-            myInfo.DeckType = DeckType.Arena;
+            //myInfo.DeckStyle = Style.Control;
+            //myInfo.DeckType = DeckType.Arena;
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
