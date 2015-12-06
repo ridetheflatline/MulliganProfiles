@@ -3311,7 +3311,7 @@ namespace SmartBotUI.SmartMulliganV2
                 while (choisesList.Count != cardsKept.Count)
                     cardsKept.Add("");
             }
-            using (var file = new StreamWriter(MainDir + "\\MulliganArchives\\" + _ownC + "_" + Bot.CurrentMode() + "new.txt", true))
+            using (var file = new StreamWriter(MainDir + "\\MulliganArchives\\" + _ownC + "_" + Bot.CurrentMode() + ".txt", true))
             {
                 file.WriteLine("==============================================");
                 //file.WriteLine("CURRENT MODE IS: "+Bot.CurrentMode());
