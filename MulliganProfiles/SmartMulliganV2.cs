@@ -27,7 +27,7 @@ namespace SmartBotUI.SmartMulliganV2
         /**************EDIT THIS LINE ONLY*********/
         /******************************************/
         private const bool TrackMulligan = true;
-        private static bool DonationMessage = true;
+        private static bool IntroMessage = true;
         /*If you chose not to be tracked, I won't be
          *             able to fix mulligan errors*/
         /******************************************/
@@ -858,16 +858,34 @@ namespace SmartBotUI.SmartMulliganV2
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             _ch = choices;
-            if (DonationMessage)
+            if (IntroMessage)
             {
-                Bot.Log("=============================================================================================");
+                Bot.Log("============================================================================");
                 Bot.Log("[SmartMulligan] Thank you for using SMV2. If you wish to support my work, you may donate to");
                 Bot.Log("\t\t\t http://j.mp/SmartMulliganV2Donation");
-                Bot.Log("\t\t\t ");
-                Bot.Log("[Note] This message will appear only once every time you completely restart the bot");
-                Bot.Log("[Note] You may disable this by unchecking it on line 30. ");
-                Bot.Log("=============================================================================================");
-                DonationMessage = false;
+                Bot.Log("\t\t\t  ");
+                Bot.Log("----------------SmartMulligan is capable of fully handeling----------------");
+                Bot.Log("\t\t\t  ");
+                Bot.Log("Druids:\t\t MidrangeDruid, Token[EGG!!!], Ramp, Aggro");
+                Bot.Log("Mage:\t\t Tempo, Mech, Freeze Mage, Echo Mage");
+                Bot.Log("Hunter:\t\t Midrange, Face and Hybrid race between two warrior classes that will rule the galaxy");
+                Bot.Log("Warrior:\t Control, Fatigue, Dragon, Mech, Face, Patron ");
+                Bot.Log("Shaman:\t Face, Control, Totem ");
+                Bot.Log("Rogue:\t\t Oil Rogue, Chris Pratt Rogue (Raptor), Burst[Face] Rogue");
+                Bot.Log("Warlock:\t Handlock, DemonHandlock, RenoLock, Zoolock, ReliquaryTokenZoo ");
+                Bot.Log("Priest:\t\t Dragon, Control");
+                Bot.Log("Paladin:\t\t [Hot!]Secret Paladin, Midrange Paladin, Aggro Paladin ");
+                Bot.Log("  ");
+                Bot.Log("--------------------------------[Arena]---------------- ");
+                Bot.Log("[SmartMulligan] Fully supports all types of arena decks that you can throw at it");
+                Bot.Log("\t\tAlso underwent enourmouse testing and takes into account bots behavior to ");
+                Bot.Log("\t\tensure your curving out well no matter how you built your deck. ");
+                Bot.Log("\t\tit is the best mulligan for arena. And there is absolutely nothing that tops it");
+                Bot.Log("============================================================================");
+                Bot.Log("[Note] This message will appear only once per bot session");
+                Bot.Log("\tYou may disable this by unchecking it on line 30. ");
+                Bot.Log("============================================================================");
+                IntroMessage = false;
             }
             
             //CurrentDeck = new List<string>
