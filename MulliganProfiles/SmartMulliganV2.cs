@@ -887,19 +887,19 @@ namespace SmartBotUI.SmartMulliganV2
                 Bot.Log("============================================================================");
                 IntroMessage = false;
             }
-            
+
             //CurrentDeck = new List<string>
-            //{
-            //  "CS1_130","GVG_012","CS2_004","BRM_017","CS2_234","GVG_085","AT_094","EX1_082","EX1_076","GVG_072","GVG_011","FP1_023","EX1_170","EX1_017","BRM_020","GVG_096","EX1_048","CS2_131","CS1_112","AT_090","CS2_151","CS2_150","BRM_024","EX1_283","EX1_032","BRM_025","AT_102","AT_103","CS1_113", 
-            //};
+ //           {
+ //             "EX1_248","CS2_188","EX1_567","EX1_567","EX1_238","EX1_238","EX1_029","EX1_029","EX1_245","EX1_241","EX1_241","NEW1_019","GVG_038","GVG_038","BRM_011","BRM_011","AT_087","AT_087","AT_053","AT_052","LOE_018","LOE_018","LOE_076","EX1_248","CS2_045","CS2_045","CS2_124","EX1_565","AT_053","AT_052", 
+ //};
             CurrentDeck = Bot.CurrentDeck().Cards.ToList();
             DefaultIni(opponentClass, ownClass);
 
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
-            //myInfo.DeckStyle = Style.Tempo;
-            //myInfo.DeckType = DeckType.Arena;
+            //myInfo.DeckStyle = Style.Face;
+            //myInfo.DeckType = DeckType.FaceShaman;
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
             //Bot.ChangeMode(Bot.Mode.ArenaAuto); 
@@ -1033,7 +1033,7 @@ namespace SmartBotUI.SmartMulliganV2
                     HandleZoo(choices, myInfo);
                     break;
                 case DeckType.FaceShaman:
-                    supported = false;
+                    HandleFaceShaman(choices,myInfo);
                     break;
                 case DeckType.RaptorRogue:
                     HandleRaptorRogue(choices, myInfo);
@@ -1095,6 +1095,39 @@ namespace SmartBotUI.SmartMulliganV2
             if (TrackMulligan) DisplayMulligans(choices, myInfo);
 
             return _cardsToKeep;
+        }
+
+        private void HandleFaceShaman(List<Card.Cards> choices, DeckData myInfo)
+        {
+            var Coin2 = 1;
+            foreach (var card in choices.Where(choice => CardTemplate.LoadFromId(choice).Cost <= 3 && CardTemplate.LoadFromId(choice).Type == Card.CType.MINION))
+            {
+                switch (CardTemplate.LoadFromId(card).Cost)
+                {
+                    case 1:
+                        _has1Drop = true;
+                        _whiteList.AddOrUpdate(card.ToString(), _hasCoin || GetPriority(card.ToString()) >= 4);
+                        break;
+                    case 2:
+                        if (!HasGoodDrop(1, 2) && !_hasCoin) continue;
+                        if(_hasCoin) _whiteList.AddOrUpdate(card.ToString(), false);
+                        _has2Drop = true;
+                        _whiteList.AddOrUpdate(card.ToString(), GetPriority(card.ToString()) > 4 && _hasCoin && CardTemplate.LoadFromId(card).Overload == 0);
+                        Num2Drops ++;
+                        break;
+                    case 3:
+                        if (!HasGoodDrop(1, 2) || !HasGoodDrop(2, 2)) continue;
+                        _has3Drop = true;
+                        _whiteList.AddOrUpdate(card.ToString(), false);
+                        break;
+                }
+                //_whiteList.AddOrUpdate(card.ToString(), _hasCoin && GetPriority(card.ToString()) > 4);
+                
+            }
+            if(_oc == Card.CClass.ROGUE || _oc == Card.CClass.WARRIOR)
+                _whiteList.AddOrUpdate(_has1Drop && _has2Drop && _has3Drop ? Doomhammer : "", false);
+            if(_oc == Card.CClass.MAGE || _oc == Card.CClass.DRUID)
+                _whiteList.AddOrUpdate(ChoicesHasCard(LightningBolt) ? LightningBolt : HasGoodDrop(1, 2) && _hasCoin? RockbiterWeapon: "", false);
         }
 
         private void DefinePriorities(DeckData data)
@@ -3825,5 +3858,6 @@ namespace SmartBotUI.SmartMulliganV2
         Tempo
     }
 }
+
 
 
