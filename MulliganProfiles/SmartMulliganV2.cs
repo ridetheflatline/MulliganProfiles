@@ -27,8 +27,7 @@ namespace SmartBotUI.SmartMulliganV2
         /**************EDIT THIS LINE ONLY*********/
         /******************************************/
         private const bool TrackMulligan = true;
-        private const bool OldMysteriousChallenger = false;
-        private const bool DonationMessage = false;
+        private static bool DonationMessage = true;
         /*If you chose not to be tracked, I won't be
          *             able to fix mulligan errors*/
         /******************************************/
@@ -832,6 +831,7 @@ namespace SmartBotUI.SmartMulliganV2
         private static bool _has3Drop;
         private static bool _has4Drop;
         private static bool _hasWeapon;
+       
         public static List<string> CurrentDeck;
         private const string Coin = "GAME_005";
 
@@ -858,11 +858,21 @@ namespace SmartBotUI.SmartMulliganV2
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             _ch = choices;
-
+            if (DonationMessage)
+            {
+                Bot.Log("=============================================================================================");
+                Bot.Log("[SmartMulligan] Thank you for using SMV2. If you wish to support my work, you may donate to");
+                Bot.Log("\t\t\t http://j.mp/SmartMulliganV2Donation");
+                Bot.Log("\t\t\t ");
+                Bot.Log("[Note] This message will appear only once every time you completely restart the bot");
+                Bot.Log("[Note] You may disable this by unchecking it on line 30. ");
+                Bot.Log("=============================================================================================");
+                DonationMessage = false;
+            }
+            
             //CurrentDeck = new List<string>
             //{
-            //  "EX1_010","FP1_001","CS2_024","EX1_066","EX1_393","FP1_002","EX1_096","GVG_002","EX1_608","CS2_023","CS2_026","EX1_294","FP1_009","AT_086","GVG_044","CS2_022","GVG_068","EX1_046","DS1_055","LOE_003","CS2_028","CS2_200","GVG_079","AT_103", 
-
+            //  "CS1_130","GVG_012","CS2_004","BRM_017","CS2_234","GVG_085","AT_094","EX1_082","EX1_076","GVG_072","GVG_011","FP1_023","EX1_170","EX1_017","BRM_020","GVG_096","EX1_048","CS2_131","CS1_112","AT_090","CS2_151","CS2_150","BRM_024","EX1_283","EX1_032","BRM_025","AT_102","AT_103","CS1_113", 
             //};
             CurrentDeck = Bot.CurrentDeck().Cards.ToList();
             DefaultIni(opponentClass, ownClass);
@@ -870,10 +880,11 @@ namespace SmartBotUI.SmartMulliganV2
             _hasCoin = choices.Count > 3;
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
-            //myInfo.DeckStyle = Style.Control;
-            //arcmyInfo.DeckType = DeckType.Arena;
+            //myInfo.DeckStyle = Style.Tempo;
+            //myInfo.DeckType = DeckType.Arena;
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
+            //Bot.ChangeMode(Bot.Mode.ArenaAuto); 
             CheckDirectory("MulliganArchives", "SmartMulligan_debug");
             var supported = true;
             //myInfo.DeckStyle = GetStyle();
@@ -893,22 +904,7 @@ namespace SmartBotUI.SmartMulliganV2
                     HandleControlWarrior(choices);
                     break;
                 case DeckType.SecretPaladin:
-                    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                    if (OldMysteriousChallenger)
-                    {
-                        Bot.Log(
-                            "[SmartMulligan] You are running old and greedy MC logic, to change to improved version change line 29 to false");
-                        Bot.Log("[SmartMulligan] See forum for more details regarding their differences");
-                        HandleSecretPaladin(choices);
-                    }
-                    else
-                    {
-                        Bot.Log(
-                            "[SmartMulligan] You are running improved MC logic. If for some reason you wish to return back to previous logic, open this mulligan with notepad and change line 29 to true");
-                        Bot.Log("[SmartMulligan] See forum for more details regarding their differences");
-                        HandleSecretPaladin(choices, myInfo.DeckStyle);
-                    }
-
+                    HandleSecretPaladin(choices, myInfo.DeckStyle);
                     break;
                 case DeckType.MidRangeDruid:
                     HandleDruid(choices, myInfo);
@@ -2735,138 +2731,6 @@ namespace SmartBotUI.SmartMulliganV2
 
         }
 
-        //Mysterious Challenger 3.4
-        private void HandleSecretPaladin(List<Card.Cards> choices)
-        {
-            var hasCoin = choices.Count > 3;
-            var has2Drop = (choices.Any(c => c.ToString() == ShieldedMinibot) ||
-                            choices.Any(c => c.ToString() == MadScientist) ||
-                            choices.Any(c => c.ToString() == KnifeJuggler));
-            var lazyFlag = false;
-            if (CurrentDeck.Any(c => c == TirionFordring || c == DrBoom))
-            {
-                var comSpirit = choices.Any(c => c.ToString() == CompetitiveSpirit) &&
-                                choices.Any(c => c.ToString() == MusterforBattle) && _hasCoin;
-                _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == ShieldedMinibot) ? Redemption : "", false);
-                if (_oc != Card.CClass.ROGUE || _oc != Card.CClass.DRUID)
-                    _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == KnifeJuggler) ? NobleSacrifice : "", false);
-                _whiteList.AddOrUpdate(comSpirit ? CompetitiveSpirit : "", false);
-                _whiteList.AddOrUpdate(MusterforBattle, false);
-
-            }
-
-            #region Default Mulligan
-
-            _whiteList.AddOrUpdate(AbusiveSergeant, false);
-            _whiteList.AddOrUpdate(ArgentSquire, true);
-            _whiteList.AddOrUpdate(Coin, true); // Would be nice to keep double
-            if (_oc != Card.CClass.WARRIOR)
-                _whiteList.AddOrUpdate(HauntedCreeper, false);
-            _whiteList.AddOrUpdate(KnifeJuggler, false);
-            _whiteList.AddOrUpdate(LeperGnome, true);
-            _whiteList.AddOrUpdate(MadScientist, true);
-            _whiteList.AddOrUpdate(Secretkeeper, false);
-            _whiteList.AddOrUpdate(ShieldedMinibot, true);
-            _whiteList.AddOrUpdate(ZombieChow, true);
-            _whiteList.AddOrUpdate(has2Drop ? HarvestGolem : "", false);
-            _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == KnifeJuggler) ? MusterforBattle : "", false);
-
-            #endregion Default Mulligan
-
-            _whiteList.AddOrUpdate(hasCoin ? MysteriousChallenger : "", false);
-            _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == KnifeJuggler) ? NobleSacrifice : "", false);
-            _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == ShieldedMinibot) ? Redemption : "", false);
-            switch (_oc)
-            {
-                case Card.CClass.DRUID:
-                    {
-                        lazyFlag = hasCoin;
-                        _whiteList.AddOrUpdate(MusterforBattle, false);
-                        _whiteList.AddOrUpdate(hasCoin || has2Drop ? AldorPeacekeeper : "", false);
-                        _whiteList.AddOrUpdate(PilotedShredder, false);
-
-                        break;
-                    }
-                case Card.CClass.HUNTER:
-                    {
-                        _whiteList.AddOrUpdate(has2Drop ? Coghammer : "", false);
-                        _whiteList.AddOrUpdate(AnnoyoTron, false);
-                        _whiteList.AddOrUpdate(hasCoin ? Consecration : "", false);
-                        break;
-                    }
-                case Card.CClass.MAGE:
-                    {
-                        lazyFlag = hasCoin;
-                        _whiteList.AddOrUpdate(MusterforBattle, false);
-
-                        break;
-                    }
-                case Card.CClass.PALADIN:
-                    {
-                        _whiteList.AddOrUpdate(hasCoin || has2Drop ? BloodKnight : "", false);
-                        _whiteList.AddOrUpdate(hasCoin || has2Drop ? IronbeakOwl : "", false);
-                        _whiteList.AddOrUpdate(AnnoyoTron, false);
-                        _whiteList.AddOrUpdate(Consecration, false);
-                        _whiteList.AddOrUpdate(Consecration, false);
-                        _whiteList.AddOrUpdate(MusterforBattle, false);
-                        _whiteList.AddOrUpdate(hasCoin ? MysteriousChallenger : "", false);
-                        break;
-                    }
-                case Card.CClass.PRIEST:
-                    {
-
-                        _whiteList.AddOrUpdate(PilotedShredder, false);
-
-                        break;
-                    }
-                case Card.CClass.ROGUE:
-                    {
-                        if (hasCoin)
-                            lazyFlag = true;
-                        _whiteList.AddOrUpdate(MusterforBattle, false);
-                        _whiteList.AddOrUpdate(PilotedShredder, false);
-                        break;
-                    }
-                case Card.CClass.SHAMAN:
-                    {
-                        _whiteList.AddOrUpdate(MusterforBattle, false);
-                        _whiteList.AddOrUpdate(PilotedShredder, false);
-                        break;
-                    }
-                case Card.CClass.WARLOCK:
-                    {
-                        _whiteList.AddOrUpdate(Consecration, false);
-                        _whiteList.AddOrUpdate(MusterforBattle, false);
-                        break;
-                    }
-                case Card.CClass.WARRIOR:
-                    {
-                        _whiteList.AddOrUpdate(AnnoyoTron, false);
-                        _whiteList.AddOrUpdate(MusterforBattle, false);
-                        _whiteList.AddOrUpdate(PilotedShredder, hasCoin);
-
-                        break;
-                    }
-            }
-            if ((choices.Any(c => c.ToString() == Coghammer) && has2Drop && (_oc != Card.CClass.WARRIOR)))
-                _whiteList.AddOrUpdate(Coghammer, false);
-            else if ((_oc == Card.CClass.WARRIOR) || (_oc == Card.CClass.PRIEST) || (_oc == Card.CClass.ROGUE) ||
-                     (_oc == Card.CClass.DRUID))
-                _whiteList.AddOrUpdate(TruesilverChampion, false);
-
-            if ((lazyFlag) &&
-                (choices.Any(c => c.ToString() == CompetitiveSpirit) &&
-                 choices.Any(c => c.ToString() == MusterforBattle)))
-            {
-                _whiteList.AddOrUpdate(MusterforBattle, false);
-                _whiteList.AddOrUpdate(CompetitiveSpirit, false);
-            }
-
-            if (!hasCoin) return;
-            _whiteList.AddOrUpdate(AnnoyoTron, false);
-
-        }
-
         //Obvious, I hope
         private void HandleMechMage(List<Card.Cards> choices)
         {
@@ -3318,7 +3182,7 @@ namespace SmartBotUI.SmartMulliganV2
                 file.WriteLineAsync(string.Format("[{2}]You were {0} vs {1}", _ownC.ToString().ToLower(), _oc.ToString().ToLower(), _hasCoin ? "Coin" : "No Coin"));
                 file.WriteLineAsync("[Kept]\t\t[Offered]\t[Card Name]");
                 int value = _hasCoin ? 4 : 3;
-                var printed = new List<string> { };
+                var printed = new List<string> { };//wellhellothere
                 for (int i = 0; i < value; i++)
                 {
                     file.WriteLine(string.Format("{0}{5} {1}{3}//{2} {4}",
