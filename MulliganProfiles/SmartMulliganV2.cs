@@ -3589,36 +3589,32 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 case Style.Aggro:
                     Allowed1Drops = _hasCoin ? 4 : 3;
-                    Allowed2Drops = _hasCoin ? 3 : 2; //allow 3 on coin, 1 wihtout
-                    Allowed3Drops = _hasCoin ? 2 : 1; //allows 2 on coin, 1 without
-                    Allowed4Drops = 1;
+                    Allowed2Drops = _hasCoin ? 3 : 2;
+                    Allowed3Drops = _hasCoin ? 2 : 1; 
+                    Allowed4Drops = _hasCoin ? 1 : 0;
                     break;
                 case Style.Control:
                     Allowed1Drops = 1;
-                    Allowed2Drops = _hasCoin ? 3 : 2; //allow 3 on coin, 1 wihtout
-                    Allowed3Drops = _hasCoin ? 2 : 1; //allows 2 on coin, 1 without
-                    Allowed4Drops = 2;
+                    Allowed2Drops = _hasCoin ? 3 : 2; 
+                    Allowed3Drops = _hasCoin ? 2 : 1; 
+                    Allowed4Drops = _hasCoin ? 2 : 1;
                     break;
                 case Style.Tempo:
                     Allowed1Drops = 1;
-                    Allowed2Drops = _hasCoin ? 3 : 2; //allow 3 on coin, 1 wihtout
-                    Allowed3Drops = _hasCoin ? 2 : 1; //allows 2 on coin, 1 without
+                    Allowed2Drops = _hasCoin ? 3 : 2; 
+                    Allowed3Drops = _hasCoin ? 2 : 1; 
                     Allowed4Drops = 1;
                     break;
                 case Style.Face:
                     Allowed1Drops = _hasCoin ? 4 : 3;
-                    Allowed2Drops = _hasCoin ? 3 : 2; //allow 3 on coin, 1 wihtout
-                    Allowed3Drops = _hasCoin ? 1 : 0; //allows 2 on coin, 1 without
+                    Allowed2Drops = _hasCoin ? 3 : 2; 
+                    Allowed3Drops = _hasCoin ? 1 : 0;
                     Allowed4Drops = 0;
                     break;
-                case Style.Midrange:
-                    break;
-                case Style.Combo:
-                    break;
-                default:
+                default: //all other styles
                     Allowed1Drops = 1;
-                    Allowed2Drops = _hasCoin ? 3 : 2; //allow 3 on coin, 1 wihtout
-                    Allowed3Drops = _hasCoin ? 2 : 1; //allows 2 on coin, 1 without
+                    Allowed2Drops = _hasCoin ? 3 : 2; 
+                    Allowed3Drops = _hasCoin ? 2 : 1; 
                     Allowed4Drops = 1;
                     break;
             }
