@@ -3193,7 +3193,6 @@ namespace SmartBotUI.SmartMulliganV2
                 }
 
             }
-            //whiteList.AddOrUpdate(JeweledScarab, false);
         }
 
         public static Dictionary<string, int> PreFiveDrops { get; set; }
@@ -3233,7 +3232,7 @@ namespace SmartBotUI.SmartMulliganV2
                 file.WriteLineAsync(string.Format("[{2}]You were {0} vs {1}", _ownC.ToString().ToLower(), _oc.ToString().ToLower(), _hasCoin ? "Coin" : "No Coin"));
                 file.WriteLineAsync("[Kept]\t\t[Offered]\t[Card Name]");
                 int value = _hasCoin ? 4 : 3;
-                var printed = new List<string> { };//wellhellothere
+                var printed = new List<string> { };
                 for (int i = 0; i < value; i++)
                 {
                     file.WriteLine(string.Format("{0}{5} {1}{3}//{2} {4}",
@@ -3247,7 +3246,7 @@ namespace SmartBotUI.SmartMulliganV2
                               )
                             ? choisesList.ElementAt(i)
                             : " \t",
-                        choisesList.ElementAt(i),
+                        choisesList.ElementAt(i),//rrr
                         CardTemplate.LoadFromId(choisesList.ElementAt(i)).Name, choisesList.ElementAt(i).Length == 6 ? "\t\t" : "\t", GetPriority(choisesList.ElementAt(i)),
                         choisesList.ElementAt(i).Length == 8 ? "\t" : "\t\t"));
                     if (cardsKept.Any(c => c.ToString() == choisesList.ElementAt(i)))
