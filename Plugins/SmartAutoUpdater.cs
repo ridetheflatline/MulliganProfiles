@@ -57,7 +57,7 @@ namespace SmartBot.Plugins
                 return;
             Initialize();
             {
-                Bot.Log("[SmartAutoUpdater] History of updates can be found here: " + AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
+                Bot.Log("[SmartAutoUpdater] History of updates can be found here:\n\t\t " + AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
                 Bot.Log("========================================");
                 LookForUpdates(_gitCollection);
                 Bot.Log("========================================");
