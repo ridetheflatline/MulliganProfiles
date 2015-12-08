@@ -57,7 +57,7 @@ namespace SmartBot.Plugins
                 return;
             Initialize();
             {
-                Bot.Log("[SmartAutoUpdater] History of updates can be found here:\n\t\t " + AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
+                Bot.Log("[SmartAutoUpdater] History of updates can be found here:\n\t\t\t " + AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
                 Bot.Log("========================================");
                 LookForUpdates(_gitCollection);
                 Bot.Log("========================================");
@@ -190,7 +190,7 @@ namespace SmartBot.Plugins
                 Bot.Log(string.Format("[SmartAutoUpdater] Completed update for {0} {1}", fileName, fileStr.Contains("PluginDataContainer") ? "plugin" : ""));
                 updateLog.WriteLine("====================================================");
                 updateLog.WriteLine("{0} has been updated at {1}", fileName, DateTime.Now );
-                updateLog.WriteLine("Consult corresponding forum thread for more details");//will finish this later
+                updateLog.WriteLine("Consult corresponding forum thread for more details");//will finish this later ish, or never
                 updateLog.WriteLine("====================================================");
             }
         }
@@ -202,3 +202,4 @@ namespace SmartBot.Plugins
         }
     }
 }
+
