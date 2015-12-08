@@ -57,6 +57,7 @@ namespace SmartBot.Plugins
                 return;
             Initialize();
             {
+                Bot.Log("[SmartAutoUpdater] History of updates can be found here: " + AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
                 Bot.Log("========================================");
                 LookForUpdates(_gitCollection);
                 Bot.Log("========================================");
@@ -84,7 +85,8 @@ namespace SmartBot.Plugins
         public override void OnGameEnd()
         {
             if (!_frequentChecks) return;
-            Bot.Log(string.Format("[AutoUpdater] FrequentChecks are enabled. Checking for plugin and mulligan updates"));
+            Bot.Log(string.Format("[SmartAutoUpdater] FrequentChecks are enabled. Checking for plugin and mulligan updates"));
+            Bot.Log("You may view update log at: " +AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
             Bot.Log("===================================");
             Initialize();
             LookForUpdates(_gitCollection);
@@ -103,7 +105,7 @@ namespace SmartBot.Plugins
                     HttpWebRequest request = WebRequest.Create(link) as HttpWebRequest;
                     if (request == null)
                     {
-                        Bot.Log(string.Format("Could not get data from gitlink {0}", link));
+                        Bot.Log(string.Format("[SmartAutoUpdater]Could not get data from gitlink {0}", link));
                         continue;
                     }
                     //using (StreamWriter debugFile = new StreamWriter(MAIN_DIR + "Debug" + link.Substring(index), false)) //debug writer
@@ -136,7 +138,7 @@ namespace SmartBot.Plugins
 
                         if (!string.Equals(cleanGit, cleanFolderFile))
                         {
-                            Bot.Log(string.Format("[AutoUpdater] Outdated {0} {1}",
+                            Bot.Log(string.Format("[SmartAutoUpdater] Outdated {0} {1}",
                                 plugin ? "pluign detected" : "mulligan detected", link.Substring(index)));
                             Update(copy, link.Substring(index));
                             if (plugin)
@@ -146,7 +148,7 @@ namespace SmartBot.Plugins
                         }
                         else
                         {
-                            Bot.Log(string.Format("[AutoUpdater] {0} {1} is up to date", link.Substring(index),
+                            Bot.Log(string.Format("[SmartAutoUpdater] {0} {1} is up to date", link.Substring(index),
                                 plugin ? "pluign" : "mulligan file"));
                         }
                     }
@@ -154,7 +156,7 @@ namespace SmartBot.Plugins
             }
             catch (NullReferenceException ex)
             {
-                Bot.Log("[AutoUpdater] Report this to Arthur:" + ex.Message);
+                Bot.Log("[SmartAutoUpdater] Report this to Arthur:" + ex.Message);
             }
             catch (FileNotFoundException nofile)
             {
@@ -170,22 +172,33 @@ namespace SmartBot.Plugins
             }
             catch (FormatException formatException)
             {
-                Bot.Log("[AutoUpdater] Report this to Arthur: " + formatException.Message);
+                Bot.Log("[SmartAutoUpdater] Report this to Arthur: " + formatException.Message);
             }
             catch (DirectoryNotFoundException eDirectoryNotFoundException)
             {
-                Bot.Log("[AutoUpdater] Report this to Arthur:" + eDirectoryNotFoundException.Message);
+                Bot.Log("[SmartAutoUpdater] Report this to Arthur:" + eDirectoryNotFoundException.Message);
             }
         }
         
         private void Update(string fileStr, string fileName)
         {
+            CheckDirectory("SmartAutoUpdaterLog");
             using (var file = new StreamWriter(fileStr.Contains("PluginDataContainer") ? MainDirPlugin + fileName : MainDir + fileName, false))
+            using (var updateLog = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt", true))
             {
                 file.WriteLine(fileStr);
-                Bot.Log(string.Format("[AutoUpdater] Completed update for {0} {1}", fileName, fileStr.Contains("PluginDataContainer") ? "plugin" : ""));
+                Bot.Log(string.Format("[SmartAutoUpdater] Completed update for {0} {1}", fileName, fileStr.Contains("PluginDataContainer") ? "plugin" : ""));
+                updateLog.WriteLine("====================================================");
+                updateLog.WriteLine("{0} has been updated at {1}", fileName, DateTime.Now );
+                updateLog.WriteLine("Consult corresponding forum thread for more details");
+                updateLog.WriteLine("====================================================");
             }
         }
-
+        private static void CheckDirectory(string subdir, string subdir2 = "")
+        {
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + subdir + "/" + subdir2))
+                return;
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "/" + subdir + "/" + subdir2);
+        }
     }
 }
