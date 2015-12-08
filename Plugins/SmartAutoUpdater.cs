@@ -1,4 +1,4 @@
-﻿using SmartBot.Plugins.API;
+using SmartBot.Plugins.API;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -192,3 +192,4 @@ namespace SmartBot.Plugins
 
     }
 }
+
