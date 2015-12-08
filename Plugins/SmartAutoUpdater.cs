@@ -190,7 +190,7 @@ namespace SmartBot.Plugins
                 file.WriteLine(fileStr);
                 Bot.Log(string.Format("[SmartAutoUpdater] Completed update for {0} {1}", fileName, fileStr.Contains("PluginDataContainer") ? "plugin" : ""));
                 updateLog.WriteLine("====================================================");
-                updateLog.WriteLine("{0} has been updated on {1} at {2}", fileName, DateTime.Now.Date, DateTime.Now.TimeOfDay );
+                updateLog.WriteLine("{0} has been updated on {1} ", fileName, DateTime.Now);
                 updateLog.WriteLine("Consult corresponding forum thread for more details");//will finish this later
                 updateLog.WriteLine("====================================================");
             }
