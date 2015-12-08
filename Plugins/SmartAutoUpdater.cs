@@ -1,4 +1,4 @@
-using SmartBot.Plugins.API;
+﻿using SmartBot.Plugins.API;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ namespace SmartBot.Plugins
     {
         public bool CheckAfterEachGame { get; set; }
         public string GithubRawLink { get; private set; }
-        public string GithubRawLink2 { get; set; }
+        public string GithubRawLink2 { get; private set; }
         public string GithubRawLink3 { get; set; }
         public string GithubRawLink4 { get; set; }
         public string GithubRawLink5 { get; set; }
@@ -28,7 +28,7 @@ namespace SmartBot.Plugins
             Name = "SmartAutoUpdater";
             Enabled = true;
             GithubRawLink = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/MulliganProfiles/SmartMulliganV2.cs";
-
+            GithubRawLink2 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartAutoUpdater.cs";
         }
     }
 
@@ -59,8 +59,6 @@ namespace SmartBot.Plugins
             {
                 Bot.Log("========================================");
                 LookForUpdates(_gitCollection);
-                //LookForMulliganUpdates(_gitCollection);
-                //LookForPluginUpdates(_gitCollectionPlugins);
                 Bot.Log("========================================");
             }
         }
@@ -86,7 +84,7 @@ namespace SmartBot.Plugins
         public override void OnGameEnd()
         {
             if (!_frequentChecks) return;
-            Bot.Log(string.Format("[AutoUpdater] FrequentChecks are enabled. Checking for mulligan updates"));
+            Bot.Log(string.Format("[AutoUpdater] FrequentChecks are enabled. Checking for plugin and mulligan updates"));
             Bot.Log("===================================");
             Initialize();
             LookForUpdates(_gitCollection);
@@ -179,8 +177,7 @@ namespace SmartBot.Plugins
                 Bot.Log("[AutoUpdater] Report this to Arthur:" + eDirectoryNotFoundException.Message);
             }
         }
-
-
+        
         private void Update(string fileStr, string fileName)
         {
             using (var file = new StreamWriter(fileStr.Contains("PluginDataContainer") ? MainDirPlugin + fileName : MainDir + fileName, false))
@@ -192,4 +189,3 @@ namespace SmartBot.Plugins
 
     }
 }
-
