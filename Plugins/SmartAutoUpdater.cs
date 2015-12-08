@@ -143,7 +143,7 @@ namespace SmartBot.Plugins
                                 plugin ? "pluign detected" : "mulligan detected", link.Substring(index)));
                             Update(copy, link.Substring(index));
                             if (plugin)
-                                Bot.Log("You will need to reload your plugins in the plugin tab for updte to take effect");
+                                Bot.Log("You will need to reload your plugins in the plugin tab for update to take effect");
                             else Bot.RefreshMulliganProfiles();
 
                         }
