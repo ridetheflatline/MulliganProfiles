@@ -1044,43 +1044,60 @@ namespace SmartBotUI.SmartMulliganV2
                 case DeckType.RenoLock:
                     HandleRenoLock(myInfo);
                     break;
+                case DeckType.MurglMurgl:
+                    HandleMurglMurgl(choices, myInfo);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (myInfo.DeckType == DeckType.Unknown)
+            switch (myInfo.DeckType)
             {
-                Bot.Log(
-                    string.Format(
-                        "[SmartMulligan] Current deck is {0}.  " +
-                        "However, my analysis shows that you are running {1} deck, so mulligan will treat it as normal {2} {3} deck",
-                        myInfo.DeckType, myInfo.DeckStyle, myInfo.DeckStyle, _ownC.ToString().ToLower()));
-            }
-            else
-            {
-                if (!supported)
-                {
+                case DeckType.Unknown:
                     Bot.Log(
                         string.Format(
-                            "[SmartMulligan] I haven't extensively tested: {0}.",
+                            "[SmartMulligan] Current deck is {0}.  " +
+                            "However, my analysis shows that you are running {1} deck, so mulligan will treat it as normal {2} {3} deck",
+                            myInfo.DeckType, myInfo.DeckStyle, myInfo.DeckStyle, _ownC.ToString().ToLower()));
+                    break;
+                case DeckType.MurglMurgl:
+                    Bot.Log(
+                        string.Format(
+                            "[SmartMulligan] Rwlrwl! {0} lgrlg. Raaauuorgrlgelgshmurglefurgleauugburlge auuurlr Arthur",
                             myInfo.DeckType));
+                    break;
+                case DeckType.FaceShaman:
                     Bot.Log(
                         string.Format(
-                            "[SmartMulligan] But this mulligan will try to adjust properly with {0} Mulligan logic.",
-                            DeckType.Arena));
-                    Bot.Log(
-                        string.Format(
-                            "[SmartMulligan] Mulligan will treat it as {0} style deck ", myInfo.DeckStyle));
-                    SetDefaultsForStyle(myInfo.DeckStyle);
-                    HandleMinions(choices, _whiteList, myInfo);
-                    HandleWeapons(choices, _whiteList);
-                    HandleSpells(choices, _whiteList);
-                }
-                else
-                {
-                    Bot.Log(string.Format("[SmartMulligan] Recognized {0} deck." +
-                                          " If that is not true, please report it to Arthur", myInfo.DeckType));
-                }
+                            "[SmartMulligan] All hail the, {0} overlord is coming.",
+                            myInfo.DeckType));
+                    break;
+                default:
+                    if (!supported)
+                    {
+                        Bot.Log(
+                            string.Format(
+                                "[SmartMulligan] I haven't extensively tested: {0}.",
+                                myInfo.DeckType));
+                        Bot.Log(
+                            string.Format(
+                                "[SmartMulligan] But this mulligan will try to adjust properly with {0} Mulligan logic.",
+                                DeckType.Arena));
+                        Bot.Log(
+                            string.Format(
+                                "[SmartMulligan] Mulligan will treat it as {0} style deck ", myInfo.DeckStyle));
+                        SetDefaultsForStyle(myInfo.DeckStyle);
+                        HandleMinions(choices, _whiteList, myInfo);
+                        HandleWeapons(choices, _whiteList);
+                        HandleSpells(choices, _whiteList);
+                    }
+                
+                    else
+                        Bot.Log(
+                            string.Format(
+                                "[SmartMulligan] Recognized {0} deck. If that is not true, please report it to Arthur",
+                                myInfo.DeckType));
+                    break;
             }
 
             foreach (var s in from s in choices
@@ -1095,6 +1112,37 @@ namespace SmartBotUI.SmartMulliganV2
             if (TrackMulligan) DisplayMulligans(choices, myInfo);
 
             return _cardsToKeep;
+        }
+
+        private void HandleMurglMurgl(List<Card.Cards> choices, DeckData myInfo)
+        {
+            PreFiveDrops.AddOrUpdate(WildPyromancer, 0);
+            HandleSpells(choices, _whiteList);
+            HandleWeapons(choices, _whiteList);
+            foreach (var card in choices.Where(choice => CardTemplate.LoadFromId(choice).Cost <= 4 && CardTemplate.LoadFromId(choice).Type == Card.CType.MINION && CardTemplate.LoadFromId(choice).Race != Card.CRace.MURLOC))
+            {
+                switch (CardTemplate.LoadFromId(card).Cost)
+                {
+                    case 1:
+                        _has1Drop = true;
+                        _whiteList.AddOrUpdate(card.ToString(), _hasCoin || GetPriority(card.ToString()) >= 4);
+                        break;
+                    case 2:
+                        if (!HasGoodDrop(1, 2) && !_hasCoin) continue;
+                        if (_hasCoin) _whiteList.AddOrUpdate(card.ToString(), false);
+                        _has2Drop = true;
+                        _whiteList.AddOrUpdate(card.ToString(), GetPriority(card.ToString()) > 4 && _hasCoin && CardTemplate.LoadFromId(card).Overload == 0);
+                        Num2Drops++;
+                        break;
+                    case 3:
+                        if (!HasGoodDrop(1, 2) || !HasGoodDrop(2, 2)) continue;
+                        _has3Drop = true;
+                        _whiteList.AddOrUpdate(card.ToString(), false);
+                        break;
+                }
+                //_whiteList.AddOrUpdate(card.ToString(), _hasCoin && GetPriority(card.ToString()) > 4);
+
+            }
         }
 
         private void HandleFaceShaman(List<Card.Cards> choices, DeckData myInfo)
@@ -1479,7 +1527,7 @@ namespace SmartBotUI.SmartMulliganV2
                 _secretClassEnemy = _oc == Card.CClass.PALADIN || _oc == Card.CClass.MAGE ||
                                            _oc == Card.CClass.HUNTER;
                 _aggro = _oc == Card.CClass.PALADIN || _oc == Card.CClass.DRUID || _oc == Card.CClass.HUNTER ||
-                         _oc == Card.CClass.WARLOCK;
+                         _oc == Card.CClass.WARLOCK || _oc == Card.CClass.SHAMAN;
                 _wc = _oc == Card.CClass.WARRIOR || _oc == Card.CClass.PALADIN || _oc == Card.CClass.HUNTER ||
                       _oc == Card.CClass.ROGUE;
                 NumMechs = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Race == Card.CRace.MECH);
@@ -1646,7 +1694,7 @@ namespace SmartBotUI.SmartMulliganV2
                 choices.Any(q => CardTemplate.LoadFromId(q).HasDeathrattle
                                  && CardTemplate.LoadFromId(q).Cost <= 2
                                  && CardTemplate.LoadFromId(q).Quality != Card.CQuality.Legendary);
-            _whiteList.AddOrUpdate(UnearthedRaptor, hasDeathRattle);
+            _whiteList.AddOrUpdate(hasDeathRattle ? UnearthedRaptor :"", hasDeathRattle && _hasCoin);
             _whiteList.AddOrUpdate(has2 && has3 ? PilotedShredder : "", false);
             if (_aggro) _whiteList.AddOrUpdate(Backstab, false);
             _whiteList.AddOrUpdate(_hasCoin ? Sap : "", false);
@@ -3229,13 +3277,13 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 file.WriteLine("==============================================");
                 //file.WriteLine("CURRENT MODE IS: "+Bot.CurrentMode());
-                file.WriteLineAsync(string.Format("[{2}]You were {0} vs {1}", _ownC.ToString().ToLower(), _oc.ToString().ToLower(), _hasCoin ? "Coin" : "No Coin"));
-                file.WriteLineAsync("[Kept]\t\t[Offered]\t[Card Name]");
+                file.WriteLine("[{2}]You were {0} vs {1}", _ownC.ToString().ToLower(), _oc.ToString().ToLower(), _hasCoin ? "Coin" : "No Coin");
+                file.WriteLine("[Kept]\t\t[Offered]\t[Card Name]");
                 int value = _hasCoin ? 4 : 3;
                 var printed = new List<string> { };
                 for (int i = 0; i < value; i++)
                 {
-                    file.WriteLine(string.Format("{0}{5} {1}{3}//{2} {4}",
+                    file.WriteLine("{0}{5} {1}{3}//{2} {4}",
                         cardsKept.Any(c => c.ToString() == choisesList.ElementAt(i) &&
                             (!printed.Contains(choisesList.ElementAt(i)) &&
                               cardsKept.Count(w => w.ToString() == choisesList.ElementAt(i)) == 1) ||
@@ -3248,7 +3296,7 @@ namespace SmartBotUI.SmartMulliganV2
                             : " \t",
                         choisesList.ElementAt(i),//rrr
                         CardTemplate.LoadFromId(choisesList.ElementAt(i)).Name, choisesList.ElementAt(i).Length == 6 ? "\t\t" : "\t", GetPriority(choisesList.ElementAt(i)),
-                        choisesList.ElementAt(i).Length == 8 ? "\t" : "\t\t"));
+                        choisesList.ElementAt(i).Length == 8 ? "\t" : "\t\t");
                     if (cardsKept.Any(c => c.ToString() == choisesList.ElementAt(i)))
                         printed.Add(choisesList.ElementAt(i));
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
@@ -3293,6 +3341,12 @@ namespace SmartBotUI.SmartMulliganV2
                 info.DeckStyle = GetStyle();
                 info.DeckType = DeckType.Arena;
                 SetDefaultsForStyle(info.DeckStyle);
+                return info;
+            }
+            if (NumMurlocs > 4)
+            {
+                info.DeckStyle = Style.Combo;
+                info.DeckType = DeckType.MurglMurgl;
                 return info;
             }
             switch (ownClass)
@@ -3797,7 +3851,8 @@ namespace SmartBotUI.SmartMulliganV2
         FaceWarrior, //Missing Fatigue tweaks
         SecretPaladin,
         MidRangePaladin,
-        AggroPaladin, //Complete
+        AggroPaladin,
+        MurglMurgl,//Complete
         RampDruid,
         AggroDruid,
         MidRangeDruid,
@@ -3857,6 +3912,7 @@ namespace SmartBotUI.SmartMulliganV2
         Tempo
     }
 }
+
 
 
 
