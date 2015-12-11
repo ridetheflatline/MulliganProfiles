@@ -892,7 +892,7 @@ namespace SmartBotUI.SmartMulliganV2
                 IntroMessage = false;
             }
 
-            //            CurrentDeck = new List<string>
+            //CurrentDeck = new List<string>
             //                       {
             //                         "EX1_379","FP1_012","LOE_017","CS2_097","CS2_093","CS2_092","GVG_058","GVG_059","GVG_061","EX1_349","EX1_136","EX1_080","EX1_080","EX1_130","EX1_130","EX1_383","NEW1_019","NEW1_019","FP1_002","FP1_020","FP1_020","FP1_030","GVG_058","GVG_061","GVG_096","GVG_096","GVG_110","AT_073","AT_079","AT_079", 
             //};
@@ -3308,7 +3308,8 @@ namespace SmartBotUI.SmartMulliganV2
                         printed.Add(choisesList.ElementAt(i));
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
-                if (ShortTracker && (Bot.CurrentMode() != Bot.Mode.Arena || Bot.CurrentMode() != Bot.Mode.ArenaAuto)) return;
+                if (ShortTracker && (Bot.CurrentMode() != Bot.Mode.Arena || Bot.CurrentMode() != Bot.Mode.ArenaAuto)
+                    && dataContainer.DeckType != DeckType.Unknown) return;
                 string str = AppDomain.CurrentDomain.BaseDirectory + "MulliganArchives\\DeckStringsForDebugging\\" + dataContainer.DeckType + ".txt";
                 try
                 {
