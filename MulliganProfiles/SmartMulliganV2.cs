@@ -27,6 +27,7 @@ namespace SmartBotUI.SmartMulliganV2
         /**************EDIT THIS LINE ONLY*********/
         /******************************************/
         private const bool TrackMulligan = true;
+        private const bool ShortTracker = true;
         private static bool IntroMessage = true;
         /*If you chose not to be tracked, I won't be
          *             able to fix mulligan errors*/
@@ -38,6 +39,8 @@ namespace SmartBotUI.SmartMulliganV2
         private const int ControlConst = 4; //don't touch me
         private const int TempoConst = 3; //don't touch me
         private const double Face = 0.9; //don't touch me
+        private const string FirstSubfolder = "MulliganArchives";
+        private const string DebugSubfolder = "DeckStringsForDebugging";
 
         #region cards
 
@@ -831,7 +834,7 @@ namespace SmartBotUI.SmartMulliganV2
         private static bool _has3Drop;
         private static bool _has4Drop;
         private static bool _hasWeapon;
-       
+
         public static List<string> CurrentDeck;
         private const string Coin = "GAME_005";
 
@@ -851,13 +854,14 @@ namespace SmartBotUI.SmartMulliganV2
 
         public bMulliganProfile()
         {
-            _whiteList = new Dictionary<string, bool>();
+            _whiteList = new Dictionary<string, bool> { { Coin, true }, { Innervate, true }, { WildGrowth, false } };
             _cardsToKeep = new List<Card.Cards>();
         }
 
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             _ch = choices;
+            _hasCoin = choices.Count > 3;
             if (IntroMessage)
             {
                 Bot.Log("============================================================================");
@@ -888,14 +892,14 @@ namespace SmartBotUI.SmartMulliganV2
                 IntroMessage = false;
             }
 
-            //CurrentDeck = new List<string>
- //           {
- //             "EX1_248","CS2_188","EX1_567","EX1_567","EX1_238","EX1_238","EX1_029","EX1_029","EX1_245","EX1_241","EX1_241","NEW1_019","GVG_038","GVG_038","BRM_011","BRM_011","AT_087","AT_087","AT_053","AT_052","LOE_018","LOE_018","LOE_076","EX1_248","CS2_045","CS2_045","CS2_124","EX1_565","AT_053","AT_052", 
- //};
+            //            CurrentDeck = new List<string>
+            //                       {
+            //                         "EX1_379","FP1_012","LOE_017","CS2_097","CS2_093","CS2_092","GVG_058","GVG_059","GVG_061","EX1_349","EX1_136","EX1_080","EX1_080","EX1_130","EX1_130","EX1_383","NEW1_019","NEW1_019","FP1_002","FP1_020","FP1_020","FP1_030","GVG_058","GVG_061","GVG_096","GVG_096","GVG_110","AT_073","AT_079","AT_079", 
+            //};
             CurrentDeck = Bot.CurrentDeck().Cards.ToList();
             DefaultIni(opponentClass, ownClass);
 
-            _hasCoin = choices.Count > 3;
+
             var myInfo = GetDeckInfo(ownClass);
             //TODO quickjump
             //myInfo.DeckStyle = Style.Face;
@@ -903,9 +907,9 @@ namespace SmartBotUI.SmartMulliganV2
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
             //Bot.ChangeMode(Bot.Mode.ArenaAuto); 
-            CheckDirectory("MulliganArchives", "SmartMulligan_debug");
+            CheckDirectory(FirstSubfolder, DebugSubfolder);
+
             var supported = true;
-            //myInfo.DeckStyle = GetStyle();
             ArchiveDeck(myInfo.DeckType);
             switch (myInfo.DeckType)
             {
@@ -1033,7 +1037,7 @@ namespace SmartBotUI.SmartMulliganV2
                     HandleZoo(choices, myInfo);
                     break;
                 case DeckType.FaceShaman:
-                    HandleFaceShaman(choices,myInfo);
+                    HandleFaceShaman(choices, myInfo);
                     break;
                 case DeckType.RaptorRogue:
                     HandleRaptorRogue(choices, myInfo);
@@ -1091,7 +1095,7 @@ namespace SmartBotUI.SmartMulliganV2
                         HandleWeapons(choices, _whiteList);
                         HandleSpells(choices, _whiteList);
                     }
-                
+
                     else
                         Bot.Log(
                             string.Format(
@@ -1158,10 +1162,10 @@ namespace SmartBotUI.SmartMulliganV2
                         break;
                     case 2:
                         if (!HasGoodDrop(1, 2) && !_hasCoin) continue;
-                        if(_hasCoin) _whiteList.AddOrUpdate(card.ToString(), false);
+                        if (_hasCoin) _whiteList.AddOrUpdate(card.ToString(), false);
                         _has2Drop = true;
                         _whiteList.AddOrUpdate(card.ToString(), GetPriority(card.ToString()) > 4 && _hasCoin && CardTemplate.LoadFromId(card).Overload == 0);
-                        Num2Drops ++;
+                        Num2Drops++;
                         break;
                     case 3:
                         if (!HasGoodDrop(1, 2) || !HasGoodDrop(2, 2)) continue;
@@ -1170,12 +1174,12 @@ namespace SmartBotUI.SmartMulliganV2
                         break;
                 }
                 //_whiteList.AddOrUpdate(card.ToString(), _hasCoin && GetPriority(card.ToString()) > 4);
-                
+
             }
-            if(_oc == Card.CClass.ROGUE || _oc == Card.CClass.WARRIOR)
+            if (_oc == Card.CClass.ROGUE || _oc == Card.CClass.WARRIOR)
                 _whiteList.AddOrUpdate(_has1Drop && _has2Drop && _has3Drop ? Doomhammer : "", false);
-            if(_oc == Card.CClass.MAGE || _oc == Card.CClass.DRUID)
-                _whiteList.AddOrUpdate(ChoicesHasCard(LightningBolt) ? LightningBolt : HasGoodDrop(1, 2) && _hasCoin? RockbiterWeapon: "", false);
+            if (_oc == Card.CClass.MAGE || _oc == Card.CClass.DRUID)
+                _whiteList.AddOrUpdate(ChoicesHasCard(LightningBolt) ? LightningBolt : HasGoodDrop(1, 2) && _hasCoin ? RockbiterWeapon : "", false);
         }
 
         private void DefinePriorities(DeckData data)
@@ -1566,7 +1570,7 @@ namespace SmartBotUI.SmartMulliganV2
         private static void ArchiveDeck(DeckType deckType)
         {
             using (
-                var file = new StreamWriter(MainDir + "MulliganArchives/SmartMulligan_debug/" + deckType + ".txt", true)
+                var file = new StreamWriter(MainDir + "MulliganArchives/DeckStringsForDebugging/" + deckType + ".txt", true)
                 )
             {
                 foreach (var q in CurrentDeck)
@@ -1694,7 +1698,7 @@ namespace SmartBotUI.SmartMulliganV2
                 choices.Any(q => CardTemplate.LoadFromId(q).HasDeathrattle
                                  && CardTemplate.LoadFromId(q).Cost <= 2
                                  && CardTemplate.LoadFromId(q).Quality != Card.CQuality.Legendary);
-            _whiteList.AddOrUpdate(hasDeathRattle ? UnearthedRaptor :"", hasDeathRattle && _hasCoin);
+            _whiteList.AddOrUpdate(hasDeathRattle ? UnearthedRaptor : "", hasDeathRattle && _hasCoin);
             _whiteList.AddOrUpdate(has2 && has3 ? PilotedShredder : "", false);
             if (_aggro) _whiteList.AddOrUpdate(Backstab, false);
             _whiteList.AddOrUpdate(_hasCoin ? Sap : "", false);
@@ -3001,11 +3005,11 @@ namespace SmartBotUI.SmartMulliganV2
         #endregion
 
         //Archive stuff
-        private static void CheckDirectory(string subdir, string subdir2 = "")
+        private static void CheckDirectory(string subdir, string subdir2 = "", string subdir3 = "", string subdir4 = "", string subdir5 = "")
         {
-            if (Directory.Exists(MainDir + "/" + subdir + "/" + subdir2))
+            if (Directory.Exists(MainDir + "/" + subdir + "/" + subdir2 + "/" + subdir3 + "/" + subdir4 + "/" + subdir5))
                 return;
-            Directory.CreateDirectory(MainDir + "/" + subdir + "/" + subdir2);
+            Directory.CreateDirectory(MainDir + "/" + subdir + "/" + subdir2 + "/" + subdir3 + "/" + subdir4 + "/" + subdir5);
         }
 
         //TODO ARENA ANCOR
@@ -3149,7 +3153,7 @@ namespace SmartBotUI.SmartMulliganV2
 
         private static void HandleMinions(List<Card.Cards> choices, Dictionary<string, bool> whiteList, DeckData dataContainer)
         {
-            
+
             #region debug
 
             try
@@ -3273,7 +3277,10 @@ namespace SmartBotUI.SmartMulliganV2
                 while (choisesList.Count != cardsKept.Count)
                     cardsKept.Add("");
             }
-            using (var file = new StreamWriter(MainDir + "\\MulliganArchives\\" + _ownC + "_" + Bot.CurrentMode() + ".txt", true))
+            CheckDirectory(FirstSubfolder, Bot.CurrentMode().ToString().ToLower() + "_VS_" + _oc.ToString().ToLower());
+            using (var file = new StreamWriter(MainDir + "\\MulliganArchives\\" +
+                "\\" + Bot.CurrentMode().ToString().ToLower() + "_VS_" + _oc.ToString().ToLower() + "\\"
+                + "as_" + dataContainer.DeckType + ".txt", true))
             {
                 file.WriteLine("==============================================");
                 //file.WriteLine("CURRENT MODE IS: "+Bot.CurrentMode());
@@ -3301,6 +3308,7 @@ namespace SmartBotUI.SmartMulliganV2
                         printed.Add(choisesList.ElementAt(i));
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
+                if (ShortTracker && (Bot.CurrentMode() != Bot.Mode.Arena || Bot.CurrentMode() != Bot.Mode.ArenaAuto)) return;
                 string str = AppDomain.CurrentDomain.BaseDirectory + "MulliganArchives\\SmartMulligan_debug\\" + dataContainer.DeckType + ".txt";
                 try
                 {
@@ -3676,31 +3684,31 @@ namespace SmartBotUI.SmartMulliganV2
                 case Style.Aggro:
                     Allowed1Drops = _hasCoin ? 4 : 3;
                     Allowed2Drops = _hasCoin ? 3 : 2;
-                    Allowed3Drops = _hasCoin ? 2 : 1; 
+                    Allowed3Drops = _hasCoin ? 2 : 1;
                     Allowed4Drops = _hasCoin ? 1 : 0;
                     break;
                 case Style.Control:
                     Allowed1Drops = 1;
-                    Allowed2Drops = _hasCoin ? 3 : 2; 
-                    Allowed3Drops = _hasCoin ? 2 : 1; 
+                    Allowed2Drops = _hasCoin ? 3 : 2;
+                    Allowed3Drops = _hasCoin ? 2 : 1;
                     Allowed4Drops = _hasCoin ? 2 : 1;
                     break;
                 case Style.Tempo:
                     Allowed1Drops = 1;
-                    Allowed2Drops = _hasCoin ? 3 : 2; 
-                    Allowed3Drops = _hasCoin ? 2 : 1; 
+                    Allowed2Drops = _hasCoin ? 3 : 2;
+                    Allowed3Drops = _hasCoin ? 2 : 1;
                     Allowed4Drops = 1;
                     break;
                 case Style.Face:
                     Allowed1Drops = _hasCoin ? 4 : 3;
-                    Allowed2Drops = _hasCoin ? 3 : 2; 
+                    Allowed2Drops = _hasCoin ? 3 : 2;
                     Allowed3Drops = _hasCoin ? 1 : 0;
                     Allowed4Drops = 0;
                     break;
                 default: //all other styles
                     Allowed1Drops = 1;
-                    Allowed2Drops = _hasCoin ? 3 : 2; 
-                    Allowed3Drops = _hasCoin ? 2 : 1; 
+                    Allowed2Drops = _hasCoin ? 3 : 2;
+                    Allowed3Drops = _hasCoin ? 2 : 1;
                     Allowed4Drops = 1;
                     break;
             }
@@ -3912,7 +3920,3 @@ namespace SmartBotUI.SmartMulliganV2
         Tempo
     }
 }
-
-
-
-
