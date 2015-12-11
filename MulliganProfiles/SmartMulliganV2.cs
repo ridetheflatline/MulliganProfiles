@@ -3309,7 +3309,7 @@ namespace SmartBotUI.SmartMulliganV2
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
                 if (ShortTracker && (Bot.CurrentMode() != Bot.Mode.Arena || Bot.CurrentMode() != Bot.Mode.ArenaAuto)) return;
-                string str = AppDomain.CurrentDomain.BaseDirectory + "MulliganArchives\\SmartMulligan_debug\\" + dataContainer.DeckType + ".txt";
+                string str = AppDomain.CurrentDomain.BaseDirectory + "MulliganArchives\\DeckStringsForDebugging\\" + dataContainer.DeckType + ".txt";
                 try
                 {
                     string[] parts = str.Split('\\');
