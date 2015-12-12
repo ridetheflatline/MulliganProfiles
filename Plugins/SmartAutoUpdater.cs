@@ -180,21 +180,31 @@ namespace SmartBot.Plugins
                 Bot.Log("[SmartAutoUpdater] Report this to Arthur:" + eDirectoryNotFoundException.Message);
             }
         }
-        
+
         private void Update(string fileStr, string fileName)
         {
             CheckDirectory("SmartAutoUpdaterLog");
+            string logOnFile;
+            using (var oldLog = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt"))
+            {
+                logOnFile = oldLog.ReadToEnd();
+            }
             using (var file = new StreamWriter(fileStr.Contains("PluginDataContainer") ? MainDirPlugin + fileName : MainDir + fileName, false))
-            using (var updateLog = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt", true))
+            using (var updateLog = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt", false))
             {
                 file.WriteLine(fileStr);
                 Bot.Log(string.Format("[SmartAutoUpdater] Completed update for {0} {1}", fileName, fileStr.Contains("PluginDataContainer") ? "plugin" : ""));
-                updateLog.WriteLine("====================================================");
-                updateLog.WriteLine("{0} has been updated on {1} ", fileName, DateTime.Now);
-                updateLog.WriteLine("Consult corresponding forum thread for more details");//will finish this later
-                updateLog.WriteLine("====================================================");
+                string update = string.Format(
+                    "\n====================================================" +
+                    "\n{0} has been updated on {1} " +
+                    "\nConsult corresponding forum thread for more details" //will finish this later
+                    , fileName, DateTime.Now);
+
+
+                updateLog.WriteLine(update + logOnFile);
             }
         }
+
         private static void CheckDirectory(string subdir, string subdir2 = "")
         {
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + subdir + "/" + subdir2))
@@ -203,5 +213,6 @@ namespace SmartBot.Plugins
         }
     }
 }
+
 
 
