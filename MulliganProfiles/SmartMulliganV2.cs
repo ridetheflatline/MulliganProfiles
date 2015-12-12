@@ -2956,6 +2956,7 @@ namespace SmartBotUI.SmartMulliganV2
                         printed.Add(choisesList.ElementAt(i));
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
+                file.WriteLine("[Comment]: ");
                 if (ShortTracker && (Bot.CurrentMode() != Bot.Mode.Arena || Bot.CurrentMode() != Bot.Mode.ArenaAuto) && dataContainer.DeckType != DeckType.Unknown) return;
                 string str = AppDomain.CurrentDomain.BaseDirectory + "DeckStringsForDebugging\\" + dataContainer.DeckType + ".txt";
                 try
