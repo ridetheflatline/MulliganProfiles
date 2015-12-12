@@ -1061,7 +1061,7 @@ namespace SmartBotUI.SmartMulliganV2
                     Bot.Log(string.Format("[SmartMulligan] Rwlrwl! {0} lgrlg. Raaauuorgrlgelgshmurglefurgleauugburlge auuurlr Arthur", myInfo.DeckType));
                     break;
                 case DeckType.FaceShaman:
-                    Bot.Log(string.Format("[SmartMulligan] All hail the, {0} overlord is coming.", myInfo.DeckType));
+                    Bot.Log(string.Format("[SmartMulligan] All hail the, {0}, bow down you faul creatures to the overlord of the ladder!", myInfo.DeckType));
                     break;
                 default:
                     if (!supported)
