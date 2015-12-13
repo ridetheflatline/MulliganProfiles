@@ -1991,9 +1991,8 @@ namespace SmartBotUI.SmartMulliganV2
         //Midrange, Hybrid and Face
         private void HandleHunter(List<Card.Cards> choices, Style dStyle)
         {
-            var hasCoin = choices.Count > 3;
-            _has2Drop = choices.Any(c => c.ToString() == HauntedCreeper) || choices.Any(c => c.ToString() == MadScientist) || choices.Any(c => c.ToString() == KnifeJuggler);
-            // Kings Elek is not a legitimate 2 drop in my eyes
+
+            HandleWeapons(choices, _whiteList);
             var allowHunterMark = (choices.Any(c => c.ToString() == Webspinner) || (choices.Any(c => c.ToString() == HauntedCreeper)));
             if (dStyle == Style.Face || dStyle == Style.Aggro)
             {
@@ -2016,128 +2015,54 @@ namespace SmartBotUI.SmartMulliganV2
                 _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
                 if (dStyle == Style.Face) return;
             }
-
-            _whiteList.AddOrUpdate(Webspinner, false);
-            _whiteList.AddOrUpdate(KnifeJuggler, false);
-            _whiteList.AddOrUpdate(HauntedCreeper, false);
-            _whiteList.AddOrUpdate(MadScientist, hasCoin); //keeps 2 scientists on coin
-            _whiteList.AddOrUpdate(LeperGnome, false);
-            _whiteList.AddOrUpdate(AbusiveSergeant, false);
-            _whiteList.AddOrUpdate(WorgenInfiltrator, false);
-            _whiteList.AddOrUpdate(ArgentSquire, false);
-            _whiteList.AddOrUpdate(LanceCarrier, false);
-
-            _whiteList.AddOrUpdate(!_has2Drop ? KingsElekk : ArgentHorserider, false);
-            _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == KnifeJuggler) && _hasCoin ? SnakeTrap : "", false);
-
-            switch (_oc)
+            PreFiveDrops.AddOrUpdate(InjuredKvaldir, -1);
+            PreFiveDrops.AddOrUpdate(IronbeakOwl, -1);
+            foreach (var q in choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION))
             {
-                case Card.CClass.DRUID:
-                    {
-                        if (allowHunterMark)
-                            _whiteList.AddOrUpdate(HuntersMark, false);
-                        if (_has2Drop)
-                        {
-                            _whiteList.AddOrUpdate(EaglehornBow, false);
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-                        }
-                        if (_has2Drop && hasCoin)
-                            _whiteList.AddOrUpdate(PilotedShredder, false);
-
-                        _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-
-
+                switch (CardTemplate.LoadFromId(q).Cost)
+                {
+                    case 1:
+                        _whiteList.AddOrUpdate(PreFiveDrops[q.ToString()] > 1 ? q.ToString() : "", false);
                         break;
-                    }
-                case Card.CClass.HUNTER:
-                    {
-                        if (_has2Drop)
-                        {
-                            _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-                        }
-                        _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-                        if (_has2Drop || hasCoin)
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-                        _whiteList.AddOrUpdate(UnleashtheHounds, false);
+                    case 2:
+                        _whiteList.AddOrUpdate(_aggro ? IronbeakOwl : "", false);
+                        _whiteList.AddOrUpdate(PreFiveDrops[q.ToString()] > 1 ? q.ToString() : "", PreFiveDrops[q.ToString()] >= 3 && _hasCoin);
                         break;
-                    }
-                case Card.CClass.MAGE:
-                    {
-                        if (_has2Drop)
-                        {
-                            _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-
-                            _whiteList.AddOrUpdate(QuickShot, false);
-                            _whiteList.AddOrUpdate(IronbeakOwl, false);
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-                        }
-                        if (hasCoin)
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-                        _whiteList.AddOrUpdate(BearTrap, false); //It is a justifiable secret against tempo mages
+                    case 3:
+                        _has3Drop = true;
+                        _whiteList.AddOrUpdate(PreFiveDrops[q.ToString()] > 1 ? q.ToString() : "", false);
                         break;
-                    }
-                case Card.CClass.PALADIN:
-                    {
-                        if (_has2Drop)
-                        {
-                            _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-                        }
-                        _whiteList.AddOrUpdate(Flare, false);
-                        _whiteList.AddOrUpdate(UnleashtheHounds, false);
-                        if (hasCoin && _has2Drop)
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-
+                    case 4:
+                        _whiteList.AddOrUpdate(PreFiveDrops[q.ToString()] > 6 && _hasCoin ? q.ToString() : "", false);
                         break;
-                    }
-                case Card.CClass.PRIEST:
-                    {
-                        _whiteList.AddOrUpdate(KingsElekk, false);
-                        _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-                        if (hasCoin)
-                            _whiteList.AddOrUpdate(PilotedShredder, false);
-                        if (_has2Drop)
-                        {
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-                            _whiteList.AddOrUpdate(QuickShot, false);
-                        }
-                        break;
-                    }
-                case Card.CClass.ROGUE:
-                    {
-                        _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-                        if (_has2Drop)
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-                        break;
-                    }
-                case Card.CClass.SHAMAN:
-                    {
-                        if (allowHunterMark)
-                            _whiteList.AddOrUpdate(HuntersMark, false);
-                        _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-                        break;
-                    }
-                case Card.CClass.WARLOCK:
-                    {
-                        _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-                        if (hasCoin || _has2Drop)
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-                        if (_has2Drop)
-                            _whiteList.AddOrUpdate(QuickShot, false);
-
-                        break;
-                    }
-                case Card.CClass.WARRIOR:
-                    {
-                        _whiteList.AddOrUpdate(IronbeakOwl, false);
-                        _whiteList.AddOrUpdate(Wolfrider, false);
-                        _whiteList.AddOrUpdate(choices.Any(c => c.ToString() == MadScientist) ? EaglehornBow : choices.Any(c => c.ToString() == Glaivezooka) ? Glaivezooka : EaglehornBow, false);
-                        if (_has2Drop || hasCoin)
-                            _whiteList.AddOrUpdate(AnimalCompanion, false);
-                        if (_has2Drop && hasCoin)
-                            _whiteList.AddOrUpdate(AnimalCompanion, true);
-                        break;
-                    }
+                }
             }
+            foreach (var q in choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && !CardTemplate.LoadFromId(c).IsSecret && CardTemplate.LoadFromId(c).Type == Card.CType.SPELL))
+            {
+                switch (CardTemplate.LoadFromId(q).Cost)
+                {
+                    case 1:
+                        _whiteList.AddOrUpdate(q.ToString(), false);
+                        break;
+                    case 2:
+                        _whiteList.AddOrUpdate(q.ToString(), false);
+                        break;
+                    case 3:
+                        _has3Drop = true;
+                        _whiteList.AddOrUpdate(_aggro ? UnleashtheHounds : "", false);
+                        _whiteList.AddOrUpdate(_hasCoin || HasGoodDrop(2, 2) ? AnimalCompanion : "", _hasCoin);
+                        break;
+                    case 4:
+                        _whiteList.AddOrUpdate(q.ToString(), false);
+                        break;
+                }
+            }
+            _whiteList.AddOrUpdate(HasGoodDrop(2, 2) && ChoicesHasCard(AnimalCompanion) && _hasCoin && _oc == Card.CClass.WARRIOR ? SavannahHighmane : "", false);
+            _whiteList.AddOrUpdate(ChoiceOr(HauntedCreeper, Webspinner) ? HuntersMark : "", false);
+            _whiteList.AddOrUpdate(ChoicesHasCard(KnifeJuggler) && _hasCoin ? SnakeTrap : "", false);
+            _whiteList.AddOrUpdate(!HasGoodDrop(2, 2) && !HasGoodDrop(1, 2) && !_hasCoin ? FreezingTrap : "", false);
+
+
         }
 
         //Ramp, Midrange, FelFace
