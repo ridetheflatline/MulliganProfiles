@@ -898,7 +898,7 @@ namespace SmartBotUI.SmartMulliganV2
             //};
             CurrentDeck = Bot.CurrentDeck().Cards.ToList();
             DefaultIni(opponentClass, ownClass);
-
+            SoftReset();
             var myInfo = GetDeckInfo(ownClass);
             //OpponentDeckData opponentInfo = GetDeckInfo(readData);
             //TODO quickjump
@@ -1047,11 +1047,10 @@ namespace SmartBotUI.SmartMulliganV2
                     HandleRenoLock(myInfo);
                     break;
                 case DeckType.MurglMurgl:
-                    HandleMurglMurgl(choices, myInfo);
-                    break;
+                HandleMurglMurgl(choices, myInfo);
+                break;
 
             }
-
             switch (myInfo.DeckType)
             {
                 case DeckType.Unknown:
@@ -1088,6 +1087,19 @@ namespace SmartBotUI.SmartMulliganV2
             if (TrackMulligan) DisplayMulligans(choices, myInfo);
 
             return _cardsToKeep;
+        }
+
+        private void SoftReset()
+        {
+            Num1Drops = 0;
+            Num2Drops = 0;
+            Num3Drops = 0;
+            Num4Drops = 0;
+            _has1Drop = false;
+            _has2Drop = false;
+            _has3Drop = false;
+            _has4Drop = false;
+            _hasWeapon = false;
         }
 
         //TODO: not done;
@@ -2882,7 +2894,7 @@ namespace SmartBotUI.SmartMulliganV2
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
                 file.WriteLine("[Comment]: ");
-                if (ShortTracker && (Bot.CurrentMode() != Bot.Mode.Arena || Bot.CurrentMode() != Bot.Mode.ArenaAuto) && dataContainer.DeckType != DeckType.Unknown) return;
+                if (ShortTracker && !IsArena() && dataContainer.DeckType != DeckType.Unknown) return;
                 string str = AppDomain.CurrentDomain.BaseDirectory + "DeckStringsForDebugging\\" + dataContainer.DeckType + ".txt";
                 try
                 {
