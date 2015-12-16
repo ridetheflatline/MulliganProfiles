@@ -86,8 +86,9 @@ namespace SmartBot.Plugins
         public override void OnGameEnd()
         {
             if (!_frequentChecks) return;
+            CheckDirectory("SmartAutoUpdaterLog");
             Bot.Log("[SmartAutoUpdater] FrequentChecks are enabled. Checking for plugin and mulligan updates");
-            Bot.Log("You may view update log at: " +AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
+            Bot.Log("You may view update log at: " +AppDomain.CurrentDomain.BaseDirectory + "SmartAutoUpdaterLog\\SmartAU_Log.txt");
             Bot.Log("===================================");
             Initialize();
             LookForUpdates(_gitCollection);
