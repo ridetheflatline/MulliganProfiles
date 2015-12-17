@@ -5,7 +5,7 @@ using SmartBot.Plugins;
 using SmartBot.Plugins.API;
 
 
-namespace RopeToVictory
+namespace SmartBot.PluginsSpammer
 {
     [Serializable]
     public class EmoteSpammerForTip32 : PluginDataContainer
@@ -13,12 +13,12 @@ namespace RopeToVictory
         //Init vars
         public EmoteSpammerForTip32()
         {
-            Name = "RopeToVictory";
+            Name = "EmoteSpammerForTip32";
         }
 
     }
 
-    public class EmoteSpammerForTip32 : Plugin
+    public class spammerPlugin : Plugin
     {
         public override async void OnTurnBegin()
         {
