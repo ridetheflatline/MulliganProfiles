@@ -28,7 +28,8 @@ namespace RopeToVictory
         }
         public override void OnTick()
         {
-            Bot.SendEmote(1);
+            Bot.Log(string.Format("[TiP32] Spamming {0}", Bot.EmoteType.Greetings));
+            Bot.SendEmote(Bot.EmoteType.Greetings);
         }
 
     }
