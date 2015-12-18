@@ -32,7 +32,7 @@ namespace SmartBotUI.SmartMulliganV2
         /*If you chose not to be tracked, I won't be
          *             able to fix mulligan errors*/
         /******************************************/
-        private const bool ArthursReasonToDrink = true; // I am not responsible for nuclear explosions in your archive folder if you chose to enable it
+        private const bool ArthursReasonToDrink = false; // I am not responsible for nuclear explosions in your archive folder if you chose to enable it
         /***********************************************************/
         /***********DO NOT EDIT ANYTHING BELOW THIS LINE************/
         /***********************************************************/
@@ -2760,6 +2760,12 @@ namespace SmartBotUI.SmartMulliganV2
                     whiteList.AddOrUpdate(PoweroftheWild, false); // [2 Cost]
                     whiteList.AddOrUpdate(LivingRoots, _hasCoin); // [1 Cost]
                     break;
+            }
+            foreach (var card in _ch)
+            {
+                CardTemplate cardQ = CardTemplate.LoadFromId(card);
+                if (whiteList.ContainsKey(card.ToString()) && cardQ.IsSecret && ChoicesHasCard(MadScientist))
+                    whiteList.Remove(card.ToString());
             }
         }
 
