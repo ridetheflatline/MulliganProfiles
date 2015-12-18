@@ -32,7 +32,7 @@ namespace SmartBotUI.SmartMulliganV2
         /*If you chose not to be tracked, I won't be
          *             able to fix mulligan errors*/
         /******************************************/
-        private const bool ArthursReasonToDrink = false; // I am not responsible for nuclear explosions in your archive folder if you chose to enable it
+        private const bool ArthursReasonToDrink = true; // I am not responsible for nuclear explosions in your archive folder if you chose to enable it
         /***********************************************************/
         /***********DO NOT EDIT ANYTHING BELOW THIS LINE************/
         /***********************************************************/
@@ -868,6 +868,10 @@ namespace SmartBotUI.SmartMulliganV2
                 Bot.Log("[SmartMulligan] Thank you for using SMV2. If you wish to support my work, you may donate to");
                 Bot.Log("\t\t\t http://j.mp/SmartMulliganV2Donation");
                 Bot.Log("\t\t\t  ");
+                Bot.Log("============================================================================");
+                Bot.Log("Special thank you to the following people for constantly contributing with misspick reports as well as bug reports found in SmartMulligan:");
+                Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Reincarnation, Sylvanas2077, Masterwai");
+                Bot.Log("============================================================================");
                 Bot.Log("----------------SmartMulligan is capable of fully handeling----------------");
                 Bot.Log("\t\t\t  ");
                 Bot.Log("Druids:\t\t MidrangeDruid, Token[EGG!!!], Ramp, Aggro");
@@ -892,18 +896,19 @@ namespace SmartBotUI.SmartMulliganV2
                 IntroMessage = false;
             }
             #endregion
+
             //CurrentDeck = new List<string>
             //{
-            //     "EX1_379","LOE_017","CS2_097","EX1_298","EX1_383","EX1_558","CS2_093","CS2_093","CS2_092","GVG_058","GVG_059","GVG_061","EX1_349","EX1_136","EX1_080","EX1_130","EX1_130","NEW1_019","NEW1_019","FP1_020","FP1_020","FP1_030","GVG_058","GVG_061","GVG_096","GVG_096","GVG_110","AT_073","AT_079","AT_079", 
+            //     "FP1_020","EX1_371","EX1_136","EX1_379","EX1_362","EX1_162","FP1_002","FP1_007","GVG_075","AT_074","AT_087","tt_004","GVG_092","CS2_196","GVG_044","CS2_092","CS2_093","EX1_093","AT_114","BRM_026","GVG_078","CS2_131","EX1_043","NEW1_026","AT_101","CS2_151","AT_079","AT_103",
             //};
             CurrentDeck = Bot.CurrentDeck().Cards.ToList();
             DefaultIni(opponentClass, ownClass);
-            SoftReset();
+
             var myInfo = GetDeckInfo(ownClass);
             //OpponentDeckData opponentInfo = GetDeckInfo(readData);
             //TODO quickjump
-            //myInfo.DeckStyle = Style.Tempo;
-            //myInfo.DeckType = DeckType.SecretPaladin;
+            myInfo.DeckStyle = Style.Tempo;
+            myInfo.DeckType = DeckType.Arena;
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
             //Bot.ChangeMode(Bot.Mode.ArenaAuto); 
@@ -1047,10 +1052,11 @@ namespace SmartBotUI.SmartMulliganV2
                     HandleRenoLock(myInfo);
                     break;
                 case DeckType.MurglMurgl:
-                HandleMurglMurgl(choices, myInfo);
-                break;
+                    HandleMurglMurgl(choices, myInfo);
+                    break;
 
             }
+
             switch (myInfo.DeckType)
             {
                 case DeckType.Unknown:
@@ -1087,19 +1093,6 @@ namespace SmartBotUI.SmartMulliganV2
             if (TrackMulligan) DisplayMulligans(choices, myInfo);
 
             return _cardsToKeep;
-        }
-
-        private void SoftReset()
-        {
-            Num1Drops = 0;
-            Num2Drops = 0;
-            Num3Drops = 0;
-            Num4Drops = 0;
-            _has1Drop = false;
-            _has2Drop = false;
-            _has3Drop = false;
-            _has4Drop = false;
-            _hasWeapon = false;
         }
 
         //TODO: not done;
@@ -1140,7 +1133,6 @@ namespace SmartBotUI.SmartMulliganV2
 
         private void HandleFaceShaman(List<Card.Cards> choices, DeckData myInfo)
         {
-            var Coin2 = 1;
             foreach (var card in choices.Where(choice => CardTemplate.LoadFromId(choice).Cost <= 3 && CardTemplate.LoadFromId(choice).Type == Card.CType.MINION))
             {
                 switch (CardTemplate.LoadFromId(card).Cost)
@@ -1275,7 +1267,7 @@ namespace SmartBotUI.SmartMulliganV2
                 {"FP1_002", 4}, //[1/2]Haunted Creeper [2 mana] [NONE card]
                 {"FP1_003", 3}, //[1/2]Echoing Ooze [2 mana] [NONE card]
                 {"FP1_004", _secretClass && NumSecrets > 0 ? 8 : 3}, //[2/2]Mad Scientist [2 mana] [NONE card]
-                {"FP1_007", ChoicesHasCard(AbusiveSergeant) ? 5 : 2}, //[0/2]Nerubian Egg [2 mana] [NONE card]
+                {"FP1_007", ChoiceOr(AbusiveSergeant, DireWolfAlpha, PowerOverwhelming) ? 5 : 0}, //[0/2]Nerubian Egg [2 mana] [NONE card]
                 {"FP1_017", 2}, //[1/4]Nerub'ar Weblord [2 mana] [NONE card]
                 {"FP1_024", 2}, //[1/3]Unstable Ghoul [2 mana] [NONE card]
                 {"GVG_002", 4}, //[2/3]Snowchugger [2 mana] [MAGE card]
@@ -1376,7 +1368,7 @@ namespace SmartBotUI.SmartMulliganV2
                 {"GVG_065", 5}, //[4/4]Ogre Brute [3 mana] [NONE card]
                 {"GVG_084", 0}, //[1/4]Flying Machine [3 mana] [NONE card]
                 {"GVG_089", 0}, //[2/4]Illuminator [3 mana] [NONE card]
-                {"GVG_092", 3}, //[3/2]Gnomish Experimenter [3 mana] [NONE card]
+                {"GVG_092", 2}, //[3/2]Gnomish Experimenter [3 mana] [NONE card]
                 {"GVG_095", 0}, //[2/4]Goblin Sapper [3 mana] [NONE card]
                 {"GVG_097", 2}, //[2/3]Lil' Exorcist [3 mana] [NONE card]
                 {"GVG_098", 0}, //[1/4]Gnomeregan Infantry [3 mana] [NONE card]
@@ -1398,7 +1390,7 @@ namespace SmartBotUI.SmartMulliganV2
                 {"AT_075", 0}, //[2/4]Warhorse Trainer [3 mana] [PALADIN card]
                 {"AT_083", 4}, //[3/3]Dragonhawk Rider [3 mana] [NONE card]
                 {"AT_086", 3}, //[4/3]Saboteur [3 mana] [NONE card]
-                {"AT_087", 2}, //[2/1]Argent Horserider [3 mana] [NONE card]
+                {"AT_087", 3}, //[2/1]Argent Horserider [3 mana] [NONE card]
                 {"AT_092", 0}, //[5/2]Ice Rager [3 mana] [NONE card]
                 {"AT_095", 5}, //[2/2]Silent Knight [3 mana] [NONE card]
                 {"AT_100", 6}, //[3/3]Silver Hand Regent [3 mana] [NONE card]
@@ -1437,7 +1429,7 @@ namespace SmartBotUI.SmartMulliganV2
                 {"EX1_595", 0}, //[4/2]Cult Master [4 mana] [NONE card]
                 {"NEW1_014", 0}, //[4/4]Master of Disguise [4 mana] [ROGUE card]
                 {"NEW1_022", _hasWeapon ? 5 : 0}, //[3/3]Dread Corsair [4 mana] [NONE card]
-                {"NEW1_026", _hasCoin && NumSpells > 1 ? 5 : 0}, //[3/5]Violet Teacher [4 mana] [NONE card]
+                {"NEW1_026", 0}, //[3/5]Violet Teacher [4 mana] [NONE card]
                 {"LOE_012", _hasCoin ? 5 : 0}, //[5/4]Tomb Pillager [4 mana] [ROGUE card]
                 {"LOE_016", 0}, //[2/6]Rumbling Elemental [4 mana] [SHAMAN card]
                 {"LOE_017", 0}, //[3/4]Keeper of Uldaman [4 mana] [PALADIN card]
@@ -1495,6 +1487,8 @@ namespace SmartBotUI.SmartMulliganV2
                 #endregion
         }
 
+
+
         private static void ModifySpecialPriorities()
         {
             PreFiveDrops.AddOrUpdate(PintSizedSummoner, HasGoodDrop(2, 3) ? 1 : 2);
@@ -1503,6 +1497,7 @@ namespace SmartBotUI.SmartMulliganV2
             PreFiveDrops.AddOrUpdate(KingMukla, HasGoodDrop(1, 4) && HasGoodDrop(2, 4) ? 10 : 5);
             PreFiveDrops.AddOrUpdate(UnboundElemental, HasGoodDrop(2, 4) ? 4 : 2);
             PreFiveDrops.AddOrUpdate(ShadeofNaxxramas, HasGoodDrop(2, 3) || (ChoicesHasCard(WildGrowth) && _hasCoin) ? 4 : 0);
+            PreFiveDrops.AddOrUpdate(VioletTeacher, _hasCoin && NumSpells > 1 && HasGoodDrop(2, 3) && HasGoodDrop(3, 3) ? 5 : 0);
         }
 
         //Necessary Preparations
@@ -2681,50 +2676,107 @@ namespace SmartBotUI.SmartMulliganV2
             Directory.CreateDirectory(subdir);
         }
 
-        //TODO ARENA ANCOR
-
         private static void HandleSpells(List<Card.Cards> choices, Dictionary<string, bool> whiteList)
         {
-            var allowedSpells = new List<string>
+            HandleSpells(whiteList);
+        }
+
+        public const Card.CClass Paladin = Card.CClass.PALADIN;
+        private static void HandleSpells(Dictionary<string, bool> whiteList)
+        {
+
+            bool hasGood1 = HasGoodDrop(1, 3);
+            bool hasGood2 = HasGoodDrop(2, 3);
+            bool hasGood1Or2 = HasGoodDrop(1, 3) || HasGoodDrop(2, 3);
+            bool hasGood1And2 = HasGoodDrop(1, 3) && HasGoodDrop(2, 3);
+            switch (_ownC)
             {
-                Frostbolt, Flamecannon, UnstablePortal, ArcaneMissiles, MirrorImage, ForgottenTorch, //Mage
-                RockbiterWeapon, LavaShock, FeralSpirit, //Shaman
-                HolySmite, VelensChosen, Thoughtsteal, PowerWordShield, //Priest
-                NobleSacrifice, Avenge, MusterforBattle, //Paladin
-                Bash, Slam, ShieldBlock, //Warrior
-                MortalCoil, Darkbomb, CurseofRafaam, //Warlock
-                Tracking, AnimalCompanion, UnleashtheHounds, //Hunter
-                DeadlyPoison, Burgle, BeneaththeGrounds, Backstab, //Rogue
-                Innervate, WildGrowth, LivingRoots, PoweroftheWild, RavenIdol //Druid
-            };
-            var badSecrets = new List<string>
-            {
-                Snipe, Misdirection, Spellbender, Counterspell, Vaporize, EyeforanEye, Redemption, Repentance, CompetitiveSpirit, SacredTrial, DartTrap
-            };
-            foreach (var c in (from c in choices let spells = CardTemplate.LoadFromId(c.ToString()) where spells.Type == Card.CType.SPELL && allowedSpells.Contains(c.ToString()) where !spells.IsSecret select c))
+                case Card.CClass.SHAMAN:
+                    whiteList.AddOrUpdate(RockbiterWeapon, false); // [1 Cost]
+                    whiteList.AddOrUpdate(!hasGood2 && _hasCoin ? FarSight : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(FeralSpirit, false); // [3 Cost]
+                    break;
+                case Card.CClass.PRIEST:
+                    whiteList.AddOrUpdate(hasGood1Or2 ? HolySmite : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(!_hasCoin ? MindVision : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(PowerWordShield, false); // [1 Cost] 
+                    whiteList.AddOrUpdate(ShadowWordPain, false); // [2 Cost]
+                    whiteList.AddOrUpdate(Shadowform, false); // [3 Cost]
+                    whiteList.AddOrUpdate((hasGood1Or2 && _hasCoin) || hasGood2 ? VelensChosen : "", false); // [3 Cost]
+                    break;
+                case Card.CClass.MAGE:
+                    whiteList.AddOrUpdate(hasGood1 ? Frostbolt : "", false); // [2 Cost]
+                    whiteList.AddOrUpdate(ChoicesHasCard(ManaWyrm) && _hasCoin ? MirrorImage : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(hasGood1 ? ArcaneMissiles : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(!hasGood1And2 ? MirrorEntity : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(!hasGood1And2 || hasGood2 ? ForgottenTorch : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(hasGood1 || _hasCoin ? Flamecannon : "", false); // [2 Cost]
+                    whiteList.AddOrUpdate(UnstablePortal, _hasCoin); // [2 Cost]
+                    whiteList.AddOrUpdate(hasGood1Or2 ? ArcaneBlast : "", false); // [1 Cost]
+                    break;
+                case Card.CClass.PALADIN:
+                    whiteList.AddOrUpdate(hasGood2 ? NobleSacrifice : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(Avenge, false); // [1 Cost]
+                    whiteList.AddOrUpdate(MusterforBattle, false); // [3 Cost]
+                    break;
+                case Card.CClass.WARRIOR:
+                    whiteList.AddOrUpdate(Against(Paladin) ? Whirlwind : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(hasGood2 && ChoicesHasCard(ShieldSlam) ? ShieldBlock : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(Slam, false); // [2 Cost]
+                    whiteList.AddOrUpdate(!hasGood1 ? Upgrade : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(hasGood2 && ChoicesHasCard(ShieldBlock) ? ShieldSlam : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(hasGood1Or2 && !HasGoodDrop(3, 3) ? Bash : "", false); // [3 Cost]
+                    break;
+                case Card.CClass.WARLOCK:
+                    whiteList.AddOrUpdate(MortalCoil, false); // [1 Cost]
+                    whiteList.AddOrUpdate(ChoicesHasCard(NerubianEgg) ? PowerOverwhelming : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(NumDemons > 5 && _hasCoin && !hasGood2 ? SenseDemons : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(!hasGood2 ? CurseofRafaam : "", false); // [2 Cost]
+                    whiteList.AddOrUpdate(hasGood1Or2 || _hasCoin ? Darkbomb : "", false); // [2 Cost]
+                    break;
+                case Card.CClass.HUNTER:
+                    whiteList.AddOrUpdate(!hasGood1Or2 ? Tracking : "", false); // [1 Cost]
+                    whiteList.AddOrUpdate(AnimalCompanion, _hasCoin); // [3 Cost]
+                    whiteList.AddOrUpdate(Against(Paladin) ? UnleashtheHounds : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(ChoicesHasCard(KnifeJuggler) ? SnakeTrap : "", false); // [2 Cost]
+                    whiteList.AddOrUpdate(!hasGood1Or2 ? FreezingTrap : "", false); // [2 Cost]
+                    whiteList.AddOrUpdate(NumBeasts > 5 ? CallPet : "", false); // [2 Cost]
+                    whiteList.AddOrUpdate(hasGood1Or2 && _hasCoin ? QuickShot : "", false); // [2 Cost]
+                    whiteList.AddOrUpdate(hasGood1And2 ? Powershot : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(_hasCoin ? BearTrap : "", false); // [2 Cost]
+                    break;
+                case Card.CClass.ROGUE:
+                    whiteList.AddOrUpdate(Backstab, false); // [0 Cost]
+                    whiteList.AddOrUpdate(DeadlyPoison, false); // [1 Cost]
+                    whiteList.AddOrUpdate(Against(Paladin) ? FanofKnives : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(ChoicesHasCard(Burgle) || ChoicesHasCard(BeneaththeGrounds) ? Preparation : "", false); // [0 Cost]
+                    whiteList.AddOrUpdate(ChoicesHasCard(Preparation) ? Burgle : "", false); // [3 Cost]
+                    whiteList.AddOrUpdate(ChoicesHasCard(Preparation) ? BeneaththeGrounds : "", false); // [3 Cost]
 
-                whiteList.AddOrUpdate(c.ToString(), false);
-
-
-            var gotOne = false;
-            foreach (var q in choices)
-            {
-                var spells = CardTemplate.LoadFromId(q.ToString());
-
-                if (spells.Type == Card.CType.SPELL && allowedSpells.Contains(q.ToString()))
-                    if (badSecrets.Contains(q.ToString())) continue;
-                if (spells.Cost == 1 && spells.IsSecret && !_has1Drop && HasGoodDropCount(2, 4) < 2)
-                {
-                    if (gotOne) continue;
-                    gotOne = true;
-                    whiteList.AddOrUpdate(q.ToString(), false);
-                }
-                if (spells.Cost == 2 && spells.IsSecret && !_has2Drop && choices.All(w => w.ToString() != MadScientist))
-                    // toss away any secrets if I have mad scientist
-                    whiteList.AddOrUpdate(q.ToString(), false);
-                if (spells.Cost == 3 && spells.IsSecret && !_has3Drop && _hasCoin && choices.All(w => w.ToString() != MadScientist)) //toss away any secret if I have mad scientist
-                    whiteList.AddOrUpdate(q.ToString(), false);
+                    break;
+                case Card.CClass.DRUID:
+                    whiteList.AddOrUpdate(hasGood1 ? MarkoftheWild : "", false); // [2 Cost]
+                    whiteList.AddOrUpdate(Wrath, false); // [2 Cost]
+                    whiteList.AddOrUpdate(PoweroftheWild, false); // [2 Cost]
+                    whiteList.AddOrUpdate(LivingRoots, _hasCoin); // [1 Cost]
+                    break;
             }
+        }
+
+        private static bool Against(Card.CClass ocCClass, Card.CClass ocCClass2, Card.CClass ocCClass3 = Card.CClass.NONE, Card.CClass ocCClass4 = Card.CClass.NONE, Card.CClass ocCClass5 = Card.CClass.NONE)
+        {
+            if (ocCClass3 == Card.CClass.NONE)
+                return _oc == ocCClass || _oc == ocCClass2;
+            if (ocCClass4 == Card.CClass.NONE)
+                return _oc == ocCClass || _oc == ocCClass2 || _oc == ocCClass3;
+            if (ocCClass5 == Card.CClass.NONE)
+                return _oc == ocCClass || _oc == ocCClass2;
+            return _oc == ocCClass || _oc == ocCClass2;
+        }
+
+        private static bool Against(Card.CClass opponentCClass)
+        {
+            return _oc == opponentCClass;
         }
 
         private static void HandleWeapons(List<Card.Cards> choices, Dictionary<string, bool> whiteList)
@@ -2866,7 +2918,6 @@ namespace SmartBotUI.SmartMulliganV2
             return PreFiveDrops[id] + modifier + extra;
         }
 
-
         private static void DisplayMulligans(List<Card.Cards> choices, DeckData dataContainer)
         {
             List<string> choisesList = choices.Select(c => c.ToString()).ToList(); //.OrderBy(q=>CardTemplate.LoadFromId(q).Cost).ToList();
@@ -2893,8 +2944,7 @@ namespace SmartBotUI.SmartMulliganV2
                         printed.Add(choisesList.ElementAt(i));
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
-                file.WriteLine("[Comment]: ");
-                if (ShortTracker && !IsArena() && dataContainer.DeckType != DeckType.Unknown) return;
+                if (ShortTracker && (Bot.CurrentMode() != Bot.Mode.Arena || Bot.CurrentMode() != Bot.Mode.ArenaAuto) && dataContainer.DeckType != DeckType.Unknown) return;
                 string str = AppDomain.CurrentDomain.BaseDirectory + "DeckStringsForDebugging\\" + dataContainer.DeckType + ".txt";
                 try
                 {
@@ -2943,6 +2993,8 @@ namespace SmartBotUI.SmartMulliganV2
             }
             switch (ownClass)
             {
+                #region shaman
+
                 case Card.CClass.SHAMAN:
                     var totemShaman = new List<string> { TotemGolem, ThunderBluffValiant, ManaTideTotem }; //1
                     var faceShaman = new List<string> { RockbiterWeapon, LeperGnome, TunnelTrogg, LavaBurst, LightningBolt };
@@ -2995,6 +3047,11 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     break;
+
+                #endregion
+
+                #region priest
+
                 case Card.CClass.PRIEST:
                     var comboPriest = new List<string> { InnerFire, DivineSpirit, MindBlast, ProphetVelen }; //1
                     if (CoreComparison(CurrentDeck.Intersect(comboPriest).ToList(), comboPriest, 2, DeckType.ComboPriest))
@@ -3018,6 +3075,11 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     break;
+
+                #endregion
+
+                #region mage
+
                 case Card.CClass.MAGE:
                     var tempoMage = new List<string> { AzureDrake, Flamewaker, Frostbolt, Fireball, MadScientist, Flamecannon, MadScientist, SorcerersApprentice, ManaWyrm, UnstablePortal }; //1
                     if (CoreComparison(CurrentDeck.Intersect(tempoMage).ToList(), tempoMage, 2, DeckType.TempoMage))
@@ -3049,6 +3111,11 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     break;
+
+                #endregion
+
+                #region paladin
+
                 case Card.CClass.PALADIN:
                     var secretPaladin = new List<string> { MysteriousChallenger, Avenge, NobleSacrifice, CompetitiveSpirit, Redemption }; //0
                     if (CoreComparison(CurrentDeck.Intersect(secretPaladin).ToList(), secretPaladin, 1, DeckType.SecretPaladin, MysteriousChallenger))
@@ -3073,6 +3140,11 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     break;
+
+                #endregion
+
+                #region warrior
+
                 case Card.CClass.WARRIOR:
                     var corePatron = new List<string> { GrimPatron, Whirlwind, DeathsBite, FieryWarAxe, EmperorThaurissan, AcolyteofPain, FrothingBerserker }; //0
                     if (CoreComparison(CurrentDeck.Intersect(corePatron).ToList(), corePatron, 1, DeckType.PatronWarrior))
@@ -3117,6 +3189,11 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     break;
+
+                #endregion
+
+                #region warlock
+
                 case Card.CClass.WARLOCK:
                     if (CheckCard(RenoJackson))
                     {
@@ -3168,6 +3245,11 @@ namespace SmartBotUI.SmartMulliganV2
                     }
 
                     break;
+
+                #endregion
+
+                #region hunter
+
                 case Card.CClass.HUNTER:
                     List<string> midRangeHunter = new List<string> { Webspinner, KillCommand, MadScientist, FreezingTrap, SavannahHighmane }; //1
                     List<string> hybridHunter = new List<string> { LeperGnome, PilotedShredder, ArcaneGolem, SavannahHighmane }; //1
@@ -3194,6 +3276,11 @@ namespace SmartBotUI.SmartMulliganV2
                     }
 
                     break;
+
+                #endregion
+
+                #region rogue
+
                 case Card.CClass.ROGUE:
                     var raptorRogue = new List<string>
                     {
@@ -3205,13 +3292,6 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.RaptorRogue;
                         return info;
                     }
-                    var oilRogue = new List<string> { TinkersSharpswordOil, BloodmageThalnos, Eviscerate, Sap, Sprint, DeadlyPoison }; //1
-                    if (CoreComparison(CurrentDeck.Intersect(oilRogue).ToList(), oilRogue, 1, DeckType.OilRogue))
-                    {
-                        info.DeckStyle = Style.Control;
-                        info.DeckType = DeckType.OilRogue;
-                        return info;
-                    }
                     var pirateRogue = new List<string> { ShipsCannon, SouthseaCaptain, SouthseaDeckhand, SkycapnKragg, DreadCorsair, BloodsailRaider, Buccaneer }; //1
                     if (CoreComparison(CurrentDeck.Intersect(pirateRogue).ToList(), pirateRogue, 1, DeckType.PirateRogue))
                     {
@@ -3219,6 +3299,14 @@ namespace SmartBotUI.SmartMulliganV2
                         info.DeckType = DeckType.PirateRogue;
                         return info;
                     }
+                    var oilRogue = new List<string> { TinkersSharpswordOil, BloodmageThalnos, Eviscerate, Sap, Sprint, DeadlyPoison }; //1
+                    if (CoreComparison(CurrentDeck.Intersect(oilRogue).ToList(), oilRogue, 1, DeckType.OilRogue))
+                    {
+                        info.DeckStyle = Style.Control;
+                        info.DeckType = DeckType.OilRogue;
+                        return info;
+                    }
+
                     var burstRogue = new List<string> { LeperGnome, SouthseaDeckhand, ArcaneGolem, ArgentHorserider, PilotedShredder, DefiasRingleader, DeadlyPoison, ColdBlood, AssassinsBlade }; //1
                     if (CoreComparison(CurrentDeck.Intersect(burstRogue).ToList(), burstRogue, 1, DeckType.BurstRogue))
                     {
@@ -3227,6 +3315,11 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     break;
+
+                #endregion
+
+                #region druid
+
                 case Card.CClass.DRUID:
                     var midRangeDruid = new List<string> { ForceofNature, SavageRoar, AncientofLore }; //0
                     if (CoreComparison(CurrentDeck.Intersect(midRangeDruid).ToList(), midRangeDruid, 0, DeckType.MidRangeDruid))
@@ -3257,6 +3350,8 @@ namespace SmartBotUI.SmartMulliganV2
                         return info;
                     }
                     break;
+
+                #endregion
             }
             info.DeckStyle = Style.Unknown;
             info.DeckType = DeckType.Unknown;
