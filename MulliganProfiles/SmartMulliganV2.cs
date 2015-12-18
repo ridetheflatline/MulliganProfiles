@@ -907,8 +907,8 @@ namespace SmartBotUI.SmartMulliganV2
             var myInfo = GetDeckInfo(ownClass);
             //OpponentDeckData opponentInfo = GetDeckInfo(readData);
             //TODO quickjump
-            myInfo.DeckStyle = Style.Tempo;
-            myInfo.DeckType = DeckType.Arena;
+            //myInfo.DeckStyle = Style.Tempo;
+            //myInfo.DeckType = DeckType.Arena; wdaw
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
             //Bot.ChangeMode(Bot.Mode.ArenaAuto); 
