@@ -1,0 +1,58 @@
+using System;
+using SmartBot.Plugins.API;
+using SmartBotProfiles;
+
+/* Explanation on profiles :
+ * 
+ * All the values defined in profiles are percentage modifiers, it means that it will affect base profile's default values.
+ * 
+ * parameters.GlobalSpellsModifier ---> Modifier applied to all spells no matter what they are. The higher is the modifier, the less likely the AI will be to play the spell
+ * parameters.GlobalMinionsModifier ---> Modifier applied to all minions no matter what they are. The higher is the modifier, the less likely the AI will be to play the minion
+ * 
+ * parameters.GlobalAggroModifier ---> Modifier applied to enemy's health value, the higher it is, the more aggressive will be the AI
+ * parameters.GlobalDefenseModifier ---> Modifier applied to friendly's health value, the higher it is, the more hp conservative will be the AI
+ * 
+ * parameters.SpellsModifiers ---> You can set individual modifiers to each spells there, those are ADDED to the GLOBAL modifiers !!
+ * parameters.MinionsModifiers ---> You can set individual modifiers to each minions there, those are ADDED to the GLOBAL modifiers !!
+ * 
+ */
+
+namespace SmartBot.Profiles
+{
+    [Serializable]
+    public class MidrangeRush : Profile
+    {
+        public ProfileParameters GetParameters(Board board) //Current board from the game
+        {
+            var parameters = new ProfileParameters(BaseProfile.Rush); //Init profile parameter based on rush profile
+
+            parameters.GlobalAggroModifier.Value = 300; //300% of default "Rush" profile value -> the bot will be more aggressive
+
+            if (board.TurnCount < 6 || board.HeroEnemy.CurrentHealth > 12) //If current turn < 6 or enemy's hp > 12
+            {
+                //Set lightning bolt spell modifier to 250% of the base spell value defined in "Rush" profile, the bot will try to keep this spell in hand before turn 6
+                parameters.SpellsModifiers.Rules.Add(Card.Cards.EX1_238, new Range(250));
+
+                //Set crackle spell modifier to 250% of the base spell value defined in "Rush" profile, the bot will try to keep this spell in hand before turn 6
+                parameters.SpellsModifiers.Rules.Add(Card.Cards.GVG_038, new Range(250));
+
+                //Set lava burst spell modifier to 250% of the base spell value defined in "Rush" profile, the bot will try to keep this spell in hand before turn 6
+                parameters.SpellsModifiers.Rules.Add(Card.Cards.EX1_241, new Range(250));
+            }
+
+            if (board.WeaponFriend == null) //If we don't have doomhammer this turn
+            {
+                //Set rockbiter spell modifier to 350% of the base spell value defined in "Rush" profile, the bot will try to keep this spell in hand
+                parameters.SpellsModifiers.Rules.Add(Card.Cards.CS2_045, new Range(350));
+            }
+
+            if (board.OverloadedMana == 0 && board.LockedMana == 0) //If we don't have any overloaded or locked crystals
+            {
+                //Set lava shock spell modifier to 250% of the base spell value defined in "Rush" profile, the bot will try to keep this spell in hand without any overloaded mana
+                parameters.SpellsModifiers.Rules.Add(Card.Cards.BRM_011, new Range(250));
+            }
+
+            return parameters;
+        }
+    }
+}
