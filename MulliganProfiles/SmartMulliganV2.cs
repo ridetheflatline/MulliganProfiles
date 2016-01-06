@@ -897,10 +897,10 @@ namespace SmartBotUI.SmartMulliganV2
             }
             #endregion
 
-            //CurrentDeck = new List<string>
-            //{
-            //     "FP1_020","EX1_371","EX1_136","EX1_379","EX1_362","EX1_162","FP1_002","FP1_007","GVG_075","AT_074","AT_087","tt_004","GVG_092","CS2_196","GVG_044","CS2_092","CS2_093","EX1_093","AT_114","BRM_026","GVG_078","CS2_131","EX1_043","NEW1_026","AT_101","CS2_151","AT_079","AT_103",
-            //};
+//            CurrentDeck = new List<string>
+//            {
+//                 "EX1_008","EX1_029","NEW1_012","FP1_028","FP1_001","CS2_024","LOE_029","NEW1_019","EX1_096","GVG_075","GVG_002","EX1_050","BRM_002","EX1_556","EX1_019","EX1_595","AT_006","CS2_197","LOE_047","AT_001","LOE_003","AT_090","EX1_028","CS2_032","AT_102","EX1_279",
+//};
             CurrentDeck = Bot.CurrentDeck().Cards.ToList();
             DefaultIni(opponentClass, ownClass);
 
@@ -2822,45 +2822,15 @@ namespace SmartBotUI.SmartMulliganV2
 
         private static void HandleMinions(List<Card.Cards> choices, Dictionary<string, bool> whiteList, DeckData dataContainer)
         {
-            #region debug
-
-            try
-            {
-                if (ArthursReasonToDrink)
-                {
-                    List<string> mychoices1 = CardTemplate.TemplateList.Keys.Select(c => c.ToString()).Where(q => CardTemplate.LoadFromId(q).Cost < 5 && CardTemplate.LoadFromId(q).IsCollectible && CardTemplate.LoadFromId(q).Type == Card.CType.MINION).ToList().OrderByDescending(q => GetPriority(q)).ToList();
-                    using (var file = new StreamWriter(MainDir + "FinalPriorities.txt", false))
-                    {
-                        file.WriteLine("1 Drops");
-                        foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 1))
-                        {
-                        }
-                        file.WriteLine("2 Drops");
-                        foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 2))
-                        {
-                            file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk, CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
-                        }
-                        file.WriteLine("3 Drops");
-                        foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 3))
-                        {
-                            file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk, CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
-                        }
-                        file.WriteLine("4 Drops");
-                        foreach (var q in mychoices1.Where(c => CardTemplate.LoadFromId(c).Cost == 4))
-                        {
-                            file.WriteLine("[{0}/{1}] {2} || {3}", CardTemplate.LoadFromId(q).Atk, CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Name, GetPriority(q));
-                        }
-                    }
-                }
-            }
-            catch (Exception botOutdatedException)
-            {
-                Bot.Log("[SmartMulliga_Debug] Your SmartBot client is outdated and no longer supported by SmartMulligan. Please run SBAutoUpdater to fix it");
-            }
-
-            #endregion
-
-            foreach (var q in choices.Where(c => GetPriority(c.ToString()) >= 2))
+            _has1Drop = false;
+            Num1Drops = 0;
+            _has2Drop = false;
+            Num2Drops = 0;
+            _has3Drop = false;
+            Num3Drops = 0;
+            _has3Drop = false;
+            Num4Drops = 0;
+            foreach (var q in choices)
             {
                 switch (CardTemplate.LoadFromId(q).Cost)
                 {
@@ -2936,7 +2906,7 @@ namespace SmartBotUI.SmartMulliganV2
             CheckDirectory(string.Format("{0}\\{1}\\{2}\\", MainDir, Archive, Bot.CurrentMode()));
             using (var file = new StreamWriter(string.Format("{0}\\{1}\\{2}\\[{3}]{4}_vs_{5}.txt", MainDir, Archive, Bot.CurrentMode(), dataContainer.DeckType, _ownC, _oc), true))
             {
-                file.WriteLine("==============================================");
+                file.WriteLine("==================START COPY=======================");
                 //file.WriteLine("CURRENT MODE IS: "+Bot.CurrentMode());
                 file.WriteLine("[{2}]You were {0} vs {1}", _ownC.ToString().ToLower(), _oc.ToString().ToLower(), _hasCoin ? "Coin" : "No Coin");
                 file.WriteLine("[Kept]\t\t[Offered]\t[Card Name]");
@@ -2950,29 +2920,29 @@ namespace SmartBotUI.SmartMulliganV2
                         printed.Add(choisesList.ElementAt(i));
                     //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
-                if (ShortTracker && (Bot.CurrentMode() != Bot.Mode.Arena || Bot.CurrentMode() != Bot.Mode.ArenaAuto) && dataContainer.DeckType != DeckType.Unknown) return;
-                string str = AppDomain.CurrentDomain.BaseDirectory + "DeckStringsForDebugging\\" + dataContainer.DeckType + ".txt";
-                try
+                file.WriteLine(" ");
+                file.Write("{0}|{1}~~", choices.Count, _ctk.Count );
+                foreach (var q in choices)
+                    file.Write("{0}*", q);
+                file.Write("~~");
+                foreach(var q in _ctk)
+                    file.Write("{0}*", q);
+                file.WriteLine(" ");
+                foreach (var q in CurrentDeck)
+                    file.Write("\"{0}\",", q);
+                file.WriteLine("");
+                file.WriteLine("{19}|{0}~{1}*{2}*{3}~{4}*{5}*{6}~{7}*{8}*{9}~{10}*{11}*{12}~!~{13}*{14}*{15}*{16}||{17}||{18}", _hasCoin, Allowed1Drops, Num1Drops, Num1DropsDeck, Allowed2Drops, Num2Drops, Num2DropsDeck, Allowed3Drops, Num3Drops
+                    , Num3DropsDeck, Allowed4Drops, Num4Drops, Num4DropsDeck, _hasWeapon, NumWeapons, NumSecrets, NumSpells, AverageCost, EarlyCardsWight, dataContainer.DeckType);
+
+                if (!IsArena() && !ArthursReasonToDrink)
                 {
-                    string[] parts = str.Split('\\');
-                    if (String.Equals(parts[1], "Users", StringComparison.CurrentCultureIgnoreCase) || String.Equals(parts[1], "user", StringComparison.CurrentCultureIgnoreCase))
-                        str = str.Replace(parts[2], "<your lovely name>");
+                    file.WriteLine("==================END COPY=======================");
+                    return;
                 }
-                catch (ArgumentException e)
-                {
-                    str = str;
-                }
-                file.WriteLine("\n[Pro Comment][agree? no? why? ]: \n[Pro Comment]\n[Pro Comment]\n[Reporting wrong picks] If you disagree, then post this file along with " + "\n[Reporting wrong picks] " + str);
-                file.WriteLine("\n\t\t\t\t|DECK SPECS|");
-                file.WriteLine("[Style] \t{0} \n[Archetype] {1}\n ", dataContainer.DeckStyle, dataContainer.DeckType);
-                file.WriteLine("Num1Drops\tNum2Drops\tNum3Drops\tNum4Drops");
-                file.WriteLine("{0}\t\t\t{1}\t\t\t{2}\t\t\t{3}", Num1DropsDeck, Num2DropsDeck, Num3DropsDeck, Num4DropsDeck);
-                file.WriteLine("NumSpells\tNumSecrets\tNumWeapons\tAverageDeckCost");
-                file.WriteLine("{0}\t\t\t{1}\t\t\t{2}\t\t\t{3}", NumSpells, NumSecrets, NumWeapons, AverageCost);
-                if (!IsArena() && !ArthursReasonToDrink) return;
                 file.WriteLine("\n\t\t\t[ArenaValues]");
                 foreach (var q in CurrentDeck.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION).OrderByDescending(c => PreFiveDrops.ContainsKey(c.ToString()) ? PreFiveDrops[c.ToString()] : 0))
                     file.WriteLine("[{0} mana] {1} had priority: {2}", CardTemplate.LoadFromId(q).Cost, CardTemplate.LoadFromId(q).Name, PreFiveDrops.ContainsKey(q) ? GetPriority(q) : 0);
+                file.WriteLine("==================END COPY=======================");
             }
         }
 
