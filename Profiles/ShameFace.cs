@@ -790,13 +790,13 @@ namespace SmartBot.Profiles
             if (board.WeaponFriend == null || !(board.HeroEnemy.CurrentHealth + board.HeroEnemy.CurrentArmor <= 3)) //If we don't have doomhammer this turn
             {
                 //Set rockbiter spell modifier to 350% of the base spell value defined in "Rush" profile, the bot will try to keep this spell in hand
-                parameters.SpellsModifiers.Rules.Add(Card.Cards.CS2_045, new Range(350));
+                parameters.SpellsModifiers.Rules.Add(RockbiterWeapon, new Range(350));
             }
 
             if (board.OverloadedMana == 0 && board.LockedMana == 0) //If we don't have any overloaded or locked crystals
             {
                 //Set lava shock spell modifier to 250% of the base spell value defined in "Rush" profile, the bot will try to keep this spell in hand without any overloaded mana
-                parameters.SpellsModifiers.Rules.Add(Card.Cards.BRM_011, new Range(250));
+                parameters.SpellsModifiers.Rules.Add(LavaShock, new Range(250));
             }
 
             return parameters;
