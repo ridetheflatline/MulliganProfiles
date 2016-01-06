@@ -2830,47 +2830,38 @@ namespace SmartBotUI.SmartMulliganV2
             Num3Drops = 0;
             _has3Drop = false;
             Num4Drops = 0;
-            foreach (var q in choices)
+            bool deepSearchOne = CurrentDeck.Count(c => GetPriority(c) >= 3) > 1;
+            bool deepSearchTwo = CurrentDeck.Count(c => GetPriority(c) >= 3) > 1;
+
+            List<string> ones = choices.Where(card => CardTemplate.LoadFromId(card).Cost == 1).Select(q => GetPriority(q.ToString()) > 0 ? q.ToString() : "").OrderByDescending(c => GetPriority(c)).ToList();
+            List<string> two = choices.Where(card => CardTemplate.LoadFromId(card).Cost == 2).Select(q => GetPriority(q.ToString()) > 0 ? q.ToString() : "").ToList().OrderByDescending(c => GetPriority(c)).ToList();
+            List<string> three = choices.Where(card => CardTemplate.LoadFromId(card).Cost == 3).Select(q => GetPriority(q.ToString()) > 0 ? q.ToString() : "").ToList().OrderByDescending(c => GetPriority(c)).ToList();
+            List<string> four = choices.Where(card => CardTemplate.LoadFromId(card).Cost == 4).Select(q => GetPriority(q.ToString()) > 0 ? q.ToString() : "").ToList().OrderByDescending(c => GetPriority(c)).ToList();
+            foreach (var q in ones)
             {
-                switch (CardTemplate.LoadFromId(q).Cost)
-                {
-                    case 1:
-                        if (HasGoodDrop(1, 3) && GetPriority(q.ToString()) == 2) continue;
-                        if (Num1Drops == Allowed1Drops) continue;
-                        if (!_hasCoin && HasGoodDrop(1, PreFiveDrops[q.ToString()], false)) continue;
-                        Num1Drops = GetPriority(q.ToString()) >= 4 ? Num1Drops + 2 : Num1Drops + 1;
-                        _has1Drop = true;
-                        whiteList.AddOrUpdate(q.ToString(), PreFiveDrops[q.ToString()] > 5);
-                        continue;
-                    case 2:
-                        if (HasGoodDrop(2, 3) && GetPriority(q.ToString()) == 2) continue;
-                        if (GetPriority(q.ToString()) < 3 && CountGoodDropsDeck(1, 3) > 2 && !_hasCoin) continue;
-                        if (Num2Drops == Allowed2Drops) continue;
-                        whiteList.AddOrUpdate(q.ToString(), false);
-                        if (HasGoodDropCount(2, PreFiveDrops[q.ToString()]) == 2)
-                            Num2Drops++;
-                        _has2Drop = true;
-                        Num2Drops = Num2Drops++;
-                        if (HasGoodDrop(2, PreFiveDrops[q.ToString()])) continue;
-                        whiteList.AddOrUpdate(q.ToString(), GetPriority(q.ToString()) > 3 && _hasCoin);
-                        continue;
-                    case 3:
-                        if ((HasGoodDrop(3, 3) || !HasGoodDrop(2, 3)) && GetPriority(q.ToString()) == 2) continue;
-                        if (GetPriority(q.ToString()) < 3 && CountGoodDropsDeck(2, 3) > 2) continue;
-                        if (Num3Drops == Allowed3Drops) continue;
-                        Num3Drops++;
-                        _has3Drop = true;
-                        whiteList.AddOrUpdate(q.ToString(), _has1Drop && GetPriority(q.ToString()) > 4 && _hasCoin);
-                        continue;
-                    case 4:
-                        if (HasGoodDrop(4, 5) && GetPriority(q.ToString()) < 4) continue;
-                        if (HasGoodDrop(4, PreFiveDrops[q.ToString()], false)) continue;
-                        if (GetPriority(q.ToString()) < 3 && CountGoodDropsDeck(4, 4) >= 1) continue;
-                        Num4Drops++;
-                        _has4Drop = true;
-                        whiteList.AddOrUpdate((_has2Drop || _has3Drop) && GetPriority(q.ToString()) > 5 || _hasCoin ? q.ToString() : "", PreFiveDrops[q.ToString()] > 5);
-                        continue;
-                }
+                var priority = GetPriority(q);
+                if ((priority <= 1 && deepSearchOne && !HasGoodDrop(2, 3)) || (Num1Drops == Allowed1Drops)) continue;
+                Num1Drops++;
+                _has1Drop = true;
+                whiteList.AddOrUpdate(q, _hasCoin && priority > 5);
+            }
+            foreach (var q in from q in two let priority = GetPriority(q) where (priority > 1 || !deepSearchTwo) && (Num2Drops != Allowed2Drops) select q)
+            {
+                _has2Drop = true;
+                Num2Drops++;
+                whiteList.AddOrUpdate(q, false);
+            }
+            foreach (var q in from q in three let priority = GetPriority(q) where (priority > 1) && _has2Drop && _hasCoin && (Num3Drops != Allowed3Drops) select q)
+            {
+                whiteList.AddOrUpdate((_has1Drop || _has2Drop) && _hasCoin ? q : "", false);
+                _has3Drop = true;
+                Num3Drops++;
+            }
+            foreach (var q in from q in four let priority = GetPriority(q) where (priority > 1) && (Num4Drops != Allowed4Drops) select q)
+            {
+                whiteList.AddOrUpdate(_has1Drop && _has2Drop ? q : "", _hasCoin);
+                _has4Drop = true;
+                Num4Drops++;
             }
         }
 
