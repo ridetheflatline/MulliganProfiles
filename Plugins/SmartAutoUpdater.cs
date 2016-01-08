@@ -48,6 +48,7 @@ namespace SmartBot.Plugins
 
         public static readonly string MainDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
         public static readonly string MainDirPlugin = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\";
+        public static readonly string MainDirProfile = AppDomain.CurrentDomain.BaseDirectory + "Profiles\\";
         private List<string> _gitCollection;
         public static string Templink;
 
@@ -102,6 +103,7 @@ namespace SmartBot.Plugins
         private void LookForUpdates(List<string> list)
         {
             var plugin = false;
+            var profile = false;
             try
             {
                 foreach (var link in list.Where(link => !string.IsNullOrEmpty(link)))
@@ -133,6 +135,17 @@ namespace SmartBot.Plugins
                                 cleanFolderFile = new string(fileInFolder.Where(Char.IsLetter).ToArray());
                             }
                         }
+                        else if (githubReaderContent.Contains("public ProfileParameters"))
+                        {
+                            using (
+                                StreamReader profileStreamReader =
+                                    new StreamReader(MainDirProfile + link.Substring(index)))
+                            {
+                                profile = true;
+                                string fileInFolder = profileStreamReader.ReadToEnd();
+                                cleanFolderFile = new string(fileInFolder.Where(Char.IsLetter).ToArray());
+                            }
+                        }
                         else
                         {
                             using (StreamReader mulliStreamReader = new StreamReader(MainDir + link.Substring(index)))
@@ -145,17 +158,18 @@ namespace SmartBot.Plugins
                         if (!string.Equals(cleanGit, cleanFolderFile))
                         {
                             Bot.Log(string.Format("[SmartAutoUpdater] Outdated {0} {1}",
-                                plugin ? "pluign detected" : "mulligan detected", link.Substring(index)));
+                                plugin ? "pluign detected" : profile ? "profile detected" : "mulligan detected", link.Substring(index)));
                             Update(copy, link.Substring(index));
                             if (plugin)
                                 Bot.Log("You will need to reload your plugins in the plugin tab for update to take effect");
+                            else if(profile) Bot.RefreshProfiles();
                             else Bot.RefreshMulliganProfiles();
 
                         }
                         else
                         {
                             Bot.Log(string.Format("[SmartAutoUpdater] {0} {1} is up to date", link.Substring(index),
-                                plugin ? "pluign" : "mulligan file"));
+                                plugin ? "pluign" : profile? "profile": "mulligan file"));
                         }
                     }
                 }
@@ -193,7 +207,9 @@ namespace SmartBot.Plugins
             {
                 logOnFile = oldLog.ReadToEnd();
             }
-            using (var file = new StreamWriter(fileStr.Contains("PluginDataContainer") ? MainDirPlugin + fileName : MainDir + fileName, false))
+            using (var file = new StreamWriter(fileStr.Contains("PluginDataContainer") ? MainDirPlugin + fileName 
+                                             : fileStr.Contains("public ProfileParameters") ? MainDirProfile + fileName :
+                                                                                              MainDir + fileName, false))
             using (var updateLog = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt", false))
             {
                 file.WriteLine(fileStr);
