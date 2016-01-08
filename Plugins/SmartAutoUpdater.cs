@@ -53,6 +53,11 @@ namespace SmartBot.Plugins
 
         public override void OnStarted()
         {
+            CheckDirectory("SmartAutoUpdaterLog");
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt"))
+            {
+                File.Create(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
+            }
             if (!DataContainer.Enabled)
                 return;
             Initialize();
@@ -86,7 +91,6 @@ namespace SmartBot.Plugins
         public override void OnGameEnd()
         {
             if (!_frequentChecks) return;
-            CheckDirectory("SmartAutoUpdaterLog");
             Bot.Log("[SmartAutoUpdater] FrequentChecks are enabled. Checking for plugin and mulligan updates");
             Bot.Log("You may view update log at: " +AppDomain.CurrentDomain.BaseDirectory + "SmartAutoUpdaterLog\\SmartAU_Log.txt");
             Bot.Log("===================================");
@@ -184,7 +188,6 @@ namespace SmartBot.Plugins
 
         private void Update(string fileStr, string fileName)
         {
-            CheckDirectory("SmartAutoUpdaterLog");
             string logOnFile;
             using (var oldLog = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt"))
             {
