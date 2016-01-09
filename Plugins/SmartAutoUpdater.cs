@@ -49,15 +49,17 @@ namespace SmartBot.Plugins
         public static readonly string MainDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
         public static readonly string MainDirPlugin = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\";
         public static readonly string MainDirProfile = AppDomain.CurrentDomain.BaseDirectory + "Profiles\\";
+        public static readonly string LogFile =  AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt";
         private List<string> _gitCollection;
         public static string Templink;
 
         public override void OnStarted()
         {
             CheckDirectory("SmartAutoUpdaterLog");
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt"))
+            if (!File.Exists(LogFile))
             {
-                File.Create(AppDomain.CurrentDomain.BaseDirectory + "\\SmartAutoUpdaterLog\\SmartAU_Log.txt");
+                File.Create(LogFile);
+                File.SetAttributes(LogFile, File.GetAttributes(LogFile) & ~FileAttributes.ReadOnly);
             }
             if (!DataContainer.Enabled)
                 return;
