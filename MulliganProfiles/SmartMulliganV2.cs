@@ -2014,7 +2014,7 @@ namespace SmartBotUI.SmartMulliganV2
                 {"NEW1_025", _wc ? 2 : 0}, //[1/2]Bloodsail Corsair [1 mana] [NONE card]
                 {"LOE_010", 2}, //[2/1]Pit Snake [1 mana] [ROGUE card]
                 {"LOE_018", 3}, //[1/3]Tunnel Trogg [1 mana] [SHAMAN card]
-                {"LOE_076", _ownC == Card.CClass.SHAMAN ? 10 : 1}, //[1/3] Sir Finley Mrrgglton [1 mana] [NONE card]
+                {"LOE_076", _ownC == Card.CClass.SHAMAN ? 10 : 4}, //[1/3] Sir Finley Mrrgglton [1 mana] [NONE card]
                 {"LOE_116", -1}, //[1/1]Reliquary Seeker [1 mana] [WARLOCK card]
                 {"FP1_001", 10}, //[2/3]Zombie Chow [1 mana] [NONE card]
                 {"FP1_011", 3}, //[1/1]Webspinner [1 mana] [HUNTER card]
