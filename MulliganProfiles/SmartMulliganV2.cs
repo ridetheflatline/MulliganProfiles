@@ -2171,7 +2171,7 @@ namespace SmartBotUI.SmartMulliganV2
                 {"EX1_304", ChoicesHasCard(NerubianEgg) ? 7 : 2}, //[3/3]Void Terror [3 mana] [WARLOCK card]
                 {"EX1_382", 3}, //[3/3]Aldor Peacekeeper [3 mana] [PALADIN card]
                 {"EX1_390", 1}, //[2/3]Tauren Warrior [3 mana] [NONE card]
-                {"EX1_412", 1}, //[3/3]Raging Worgen [3 mana] [NONE card]
+                {"EX1_412", 2}, //[3/3]Raging Worgen [3 mana] [NONE card]
                 {"EX1_507", ChoicesHasRace(Card.CRace.MURLOC) ? 4 : 2}, //[3/3]Murloc Warleader [3 mana] [NONE card]
                 {"EX1_556", 6}, //[2/3]Harvest Golem [3 mana] [NONE card]
                 {"EX1_575", 0}, //[0/3]Mana Tide Totem [3 mana] [SHAMAN card]
@@ -3681,15 +3681,15 @@ namespace SmartBotUI.SmartMulliganV2
                 Num2Drops++;
                 whiteList.AddOrUpdate(q, false);
             }
-            foreach (var q in from q in three let priority = GetPriority(q) where (priority > 1) && _has2Drop && _hasCoin && (Num3Drops != Allowed3Drops) select q)
+            foreach (var q in from q in three let priority = GetPriority(q) where (priority > 1) && (Num3Drops != Allowed3Drops) select q)
             {
-                whiteList.AddOrUpdate((_has1Drop || _has2Drop) && _hasCoin ? q : "", false);
+                whiteList.AddOrUpdate((_has1Drop && _hasCoin)||(_has2Drop) ? q : "", false);
                 _has3Drop = true;
                 Num3Drops++;
             }
             foreach (var q in from q in four let priority = GetPriority(q) where (priority > 3) && (Num4Drops != Allowed4Drops) select q)
             {
-                whiteList.AddOrUpdate(_has1Drop && _has2Drop ? q : "", _hasCoin);
+                whiteList.AddOrUpdate((_has1Drop && _has2Drop) || _has3Drop ? q : "", _hasCoin);
                 _has4Drop = true;
                 Num4Drops++;
             }
