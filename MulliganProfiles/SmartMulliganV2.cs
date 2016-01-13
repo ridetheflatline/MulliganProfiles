@@ -1912,7 +1912,7 @@ namespace SmartBotUI.SmartMulliganV2
                     }
 
                     else
-                        Bot.Log(string.Format("[SmartMulligan] Recognized {0} deck. If that is not true, please report it to Arthur", myInfo.DeckType));
+                        Bot.Log(string.Format("[SmartMulligan] Recognized {0} deck. If that is not true, please report it in SmartMulligan report thread", myInfo.DeckType));
                     break;
             }
 
