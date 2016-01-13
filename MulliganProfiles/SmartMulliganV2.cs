@@ -3801,8 +3801,10 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
 
                     #endregion
@@ -3822,8 +3824,10 @@ namespace SmartBotUI.SmartMulliganV2
                    
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
 
                     #endregion
@@ -3842,9 +3846,10 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
                     #endregion
 
@@ -3861,8 +3866,10 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
 
                     #endregion
@@ -3883,8 +3890,10 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
 
                     #endregion
@@ -3906,8 +3915,10 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
 
                     #endregion
@@ -3925,8 +3936,10 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
                     break;
 
@@ -3946,8 +3959,10 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
 
                     #endregion
@@ -3966,15 +3981,17 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    Bot.Log("===========================");
                     foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
+                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
+                    Bot.Log("===========================");
                     break;
 
                     #endregion
             }
             if (DeckDictionary != null && DeckDictionary[BestDeck] < UnknownTreshhold)
             {
-                Bot.Log(string.Format("[SmartMulligan] Current deck didn't pass the threshholold ({0}) of any known decks in SmartMulligan database.", UnknownTreshhold));
+                Bot.Log(string.Format("[SmartMulligan] Current deck didn't pass the threshold ({0}) of any known decks in SmartMulligan database.", UnknownTreshhold));
                 return SetUnknown(info, DeckDictionary);
             }
             return info;
