@@ -1551,6 +1551,7 @@ namespace SmartBotUI.SmartMulliganV2
 
         #region variables
 
+        private const int UnknownTreshhold = 5;
         private static List<Card.Cards> _ch;
         private static bool _hasCoin;
         public static int Allowed1Drops = 1;
@@ -1657,9 +1658,25 @@ namespace SmartBotUI.SmartMulliganV2
                 IntroMessage = false;
             }
             #endregion
-
+           
+            Dictionary<Card.Cards, CardTemplate>.KeyCollection idsCards = CardTemplate.TemplateList.Keys;
+            using (
+                    StreamWriter testingwater = new StreamWriter(string.Format(MainDir + "CardDefinitions.txt"), false))
+                {
+                    foreach (var q in idsCards.Where(c=> CardTemplate.LoadFromId(c).IsCollectible))
+                    {
+                        testingwater.WriteLine("public const Card.Cards {0} = Card.Cards.{1}; \t\t\t //[{4} Mana] [{2}/{3}] {5}",
+                            CardTemplate.LoadFromId(q).Name.Replace(" ", "")
+                                .Replace("!", " ")
+                                .Replace("-", "")
+                                .Replace(".", "")
+                                .Replace(":", "").Replace("'", ""), q, CardTemplate.LoadFromId(q).Atk, CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Cost
+                                , CardTemplate.LoadFromId(q).Name);
+                    }
+                }
             try
             {
+
                 CurrentDeck = Bot.CurrentDeck().Cards.ToList();
                 using (StreamWriter LastPlayedDeck = new StreamWriter(MainDir + "LastPlayedDeck.txt", false))
                 {
@@ -3764,8 +3781,8 @@ namespace SmartBotUI.SmartMulliganV2
                 SetDefaultsForStyle(info.DeckStyle);
                 return info;
             }
-            Dictionary<Dictionary<DeckType, Style>, int> DeckDictionary;
-            Dictionary<DeckType, Style> BestDeck;
+            Dictionary<Dictionary<DeckType, Style>, int> DeckDictionary = null;
+            Dictionary<DeckType, Style> BestDeck = null;
             switch (ownClass)
             {
                     #region shaman
@@ -3786,7 +3803,7 @@ namespace SmartBotUI.SmartMulliganV2
                     info.DeckStyle = BestDeck.Values.First();
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
+                    break;
 
                     #endregion
 
@@ -3802,11 +3819,12 @@ namespace SmartBotUI.SmartMulliganV2
                         {new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}}, CurrentDeck.Intersect(comboPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}}, CurrentDeck.Intersect(controlPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MechPriest, Style.Aggro}}, CurrentDeck.Intersect(mechPriest).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                   
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
+                    break;
 
                     #endregion
 
@@ -3824,11 +3842,10 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
+                    
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
                     break;
-
                     #endregion
 
                     #region paladin
@@ -3846,7 +3863,7 @@ namespace SmartBotUI.SmartMulliganV2
                     info.DeckStyle = BestDeck.Values.First();
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
+                    break;
 
                     #endregion
 
@@ -3868,7 +3885,7 @@ namespace SmartBotUI.SmartMulliganV2
                     info.DeckStyle = BestDeck.Values.First();
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
+                    break;
 
                     #endregion
 
@@ -3891,7 +3908,7 @@ namespace SmartBotUI.SmartMulliganV2
                     info.DeckStyle = BestDeck.Values.First();
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
+                    break;
 
                     #endregion
 
@@ -3910,7 +3927,7 @@ namespace SmartBotUI.SmartMulliganV2
                     info.DeckStyle = BestDeck.Values.First();
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
+                    break;
                     break;
 
                     #endregion
@@ -3931,7 +3948,7 @@ namespace SmartBotUI.SmartMulliganV2
                     info.DeckStyle = BestDeck.Values.First();
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
+                    break;
 
                     #endregion
 
@@ -3951,12 +3968,22 @@ namespace SmartBotUI.SmartMulliganV2
                     info.DeckStyle = BestDeck.Values.First();
                     foreach (var q in DeckDictionary)
                         Bot.Log(string.Format("{0}-------{1}", q.Key.First().Key, q.Value));
-                    return info;
+                    break;
 
                     #endregion
             }
-            info.DeckStyle = Style.Unknown;
+            if (DeckDictionary != null && DeckDictionary[BestDeck] < UnknownTreshhold)
+            {
+                Bot.Log(string.Format("[SmartMulligan] Current deck didn't pass the threshholold ({0}) of any known decks in SmartMulligan database.", UnknownTreshhold));
+                return SetUnknown(info, DeckDictionary);
+            }
+            return info;
+        }
+
+        private DeckData SetUnknown(DeckData info, Dictionary<Dictionary<DeckType, Style>, int> deckDictionary)
+        {
             info.DeckType = DeckType.Unknown;
+            info.DeckStyle = GetStyle();
             return info;
         }
 
@@ -4000,7 +4027,7 @@ namespace SmartBotUI.SmartMulliganV2
         private Style GetStyle()
         {
             Style res = AverageCost >= ControlConst ? Style.Control : (AverageCost < ControlConst) && (AverageCost >= TempoConst) ? Style.Tempo : (AverageCost < 3) ? Style.Aggro : Style.Tempo;
-            Bot.Log(string.Format("Average Cost {0}", AverageCost));
+            //Bot.Log(string.Format("Average Cost {0}", AverageCost));
             SetDefaultsForStyle(res);
             //Bot.Log(string.Format("Num1 {0}, Num2{1} Num3{2} Weight{3} ", Num1DropsDeck, Num2DropsDeck, Num3DropsDeck, EarlyCardsWight));
             return EarlyCardsWight >= Face ? Style.Face : res;
