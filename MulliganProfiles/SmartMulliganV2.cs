@@ -1631,8 +1631,8 @@ namespace SmartBotUI.SmartMulliganV2
                 Bot.Log("\t\t\t http://j.mp/SmartMulliganV2Donation");
                 Bot.Log("\t\t\t  ");
                 Bot.Log("============================================================================");
-                Bot.Log("Special thank you to the following people for constantly contributing with misspick reports as well as bug reports found in SmartMulligan:");
-                Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Reincarnation, Sylvanas2077, Masterwai");
+                Bot.Log("\t\t[SmartMulligan - Hall of Fame]");
+                Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai");
                 Bot.Log("============================================================================");
                 Bot.Log("----------------SmartMulligan is capable of fully handeling----------------");
                 Bot.Log("\t\t\t  ");
