@@ -1659,21 +1659,6 @@ namespace SmartBotUI.SmartMulliganV2
             }
             #endregion
            
-            Dictionary<Card.Cards, CardTemplate>.KeyCollection idsCards = CardTemplate.TemplateList.Keys;
-            using (
-                    StreamWriter testingwater = new StreamWriter(string.Format(MainDir + "CardDefinitions.txt"), false))
-                {
-                    foreach (var q in idsCards.Where(c=> CardTemplate.LoadFromId(c).IsCollectible))
-                    {
-                        testingwater.WriteLine("public const Card.Cards {0} = Card.Cards.{1}; \t\t\t //[{4} Mana] [{2}/{3}] {5}",
-                            CardTemplate.LoadFromId(q).Name.Replace(" ", "")
-                                .Replace("!", " ")
-                                .Replace("-", "")
-                                .Replace(".", "")
-                                .Replace(":", "").Replace("'", ""), q, CardTemplate.LoadFromId(q).Atk, CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Cost
-                                , CardTemplate.LoadFromId(q).Name);
-                    }
-                }
             try
             {
 
