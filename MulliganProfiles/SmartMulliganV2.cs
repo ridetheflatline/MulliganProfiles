@@ -1617,7 +1617,7 @@ namespace SmartBotUI.SmartMulliganV2
             _whiteList = new Dictionary<string, bool> { { Coin, true }, { Innervate, true }, { WildGrowth, false } };
             _cardsToKeep = new List<Card.Cards>();
         }
-
+        
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             #region intro
@@ -1658,7 +1658,7 @@ namespace SmartBotUI.SmartMulliganV2
                 IntroMessage = false;
             }
             #endregion
-           
+
             try
             {
 
@@ -3657,6 +3657,7 @@ namespace SmartBotUI.SmartMulliganV2
                 var priority = GetPriority(q);
                 if ((priority <= 1 && deepSearchOne && !HasGoodDrop(2, 3)) || (Num1Drops == Allowed1Drops)) continue;
                 Num1Drops++;
+                
                 _has1Drop = true;
                 whiteList.AddOrUpdate(q, _hasCoin && priority > 5);
             }
@@ -3669,12 +3670,16 @@ namespace SmartBotUI.SmartMulliganV2
             foreach (var q in from q in three let priority = GetPriority(q) where (priority > 1) && (Num3Drops != Allowed3Drops) select q)
             {
                 whiteList.AddOrUpdate((_has1Drop && _hasCoin)||(_has2Drop) ? q : "", false);
+                if (!(_has1Drop && _hasCoin) || !_has2Drop)
+                    continue;
                 _has3Drop = true;
                 Num3Drops++;
             }
             foreach (var q in from q in four let priority = GetPriority(q) where (priority > 3) && (Num4Drops != Allowed4Drops) select q)
             {
                 whiteList.AddOrUpdate((_has1Drop && _has2Drop) || _has3Drop ? q : "", _hasCoin);
+                if (!(_has1Drop && _has2Drop) || !_has3Drop)
+                    continue;
                 _has4Drop = true;
                 Num4Drops++;
             }
@@ -3710,7 +3715,7 @@ namespace SmartBotUI.SmartMulliganV2
                     cardsKept.Add("");
             }
             CheckDirectory(string.Format("{0}\\{1}\\{2}\\", MainDir, Archive, Bot.CurrentMode()));
-            using (var file = new StreamWriter(string.Format("{0}\\{1}\\{2}\\[{3}]{4}_vs_{5}.txt", MainDir, Archive, Bot.CurrentMode(), dataContainer.DeckType, _ownC, _oc), true))
+            using (var file = new StreamWriter(string.Format("{0}\\{1}\\{2}\\[{3}]{4}.txt", MainDir, Archive, Bot.CurrentMode(), dataContainer.DeckType, _ownC), true))
             {
                 file.WriteLine("==================START COPY=======================");
                 //file.WriteLine("CURRENT MODE IS: "+Bot.CurrentMode());
@@ -3724,12 +3729,10 @@ namespace SmartBotUI.SmartMulliganV2
                         CardTemplate.LoadFromId(choisesList.ElementAt(i)).Name, choisesList.ElementAt(i).Length == 6 ? "\t\t" : "\t", GetPriority(choisesList.ElementAt(i)), choisesList.ElementAt(i).Length == 8 ? "\t" : "\t\t");
                     if (cardsKept.Any(c => c.ToString() == choisesList.ElementAt(i)))
                         printed.Add(choisesList.ElementAt(i));
-                    //file.WriteLine(CardTemplate.LoadFromId(choices.First().ToString()).Cost + " mana card: " + CardTemplate.LoadFromId(_ctk.ToList()[i].ToString()).Name);
                 }
                 file.WriteLine(" ");
                 file.Write("{0}|{1}~~", choices.Count, _ctk.Count);
-                foreach (var q in choices)
-                    file.Write("{0}*", q);
+                file.Write("{0}*{1}*{2}*{3}",_has1Drop, _has2Drop, _has3Drop, _has4Drop);
                 file.Write("~~");
                 foreach (var q in _ctk)
                     file.Write("{0}*", q);
@@ -3737,7 +3740,7 @@ namespace SmartBotUI.SmartMulliganV2
                 foreach (var q in CurrentDeck)
                     file.Write("\"{0}\",", q);
                 file.WriteLine("");
-                file.WriteLine("{19}|{0}~{1}*{2}*{3}~{4}*{5}*{6}~{7}*{8}*{9}~{10}*{11}*{12}~!~{13}*{14}*{15}*{16}||{17}||{18}", _hasCoin, Allowed1Drops, Num1Drops, Num1DropsDeck, Allowed2Drops, Num2Drops, Num2DropsDeck, Allowed3Drops, Num3Drops, Num3DropsDeck, Allowed4Drops, Num4Drops, Num4DropsDeck, _hasWeapon, NumWeapons, NumSecrets, NumSpells, AverageCost, EarlyCardsWight, dataContainer.DeckType);
+                file.WriteLine("{19}|{0}~A{1}*C{2}*D{3}~A{4}*C{5}*D{6}~A{7}*C{8}*D{9}~A{10}*C{11}*D{12}~!~{13}*{14}*{15}*{16}||{17}||{18}", _hasCoin, Allowed1Drops, Num1Drops, Num1DropsDeck, Allowed2Drops, Num2Drops, Num2DropsDeck, Allowed3Drops, Num3Drops, Num3DropsDeck, Allowed4Drops, Num4Drops, Num4DropsDeck, _hasWeapon, NumWeapons, NumSecrets, NumSpells, AverageCost, EarlyCardsWight, dataContainer.DeckType);
 
                 if (!IsArena() && !ArthursReasonToDrink)
                 {
@@ -3745,8 +3748,8 @@ namespace SmartBotUI.SmartMulliganV2
                     return;
                 }
                 file.WriteLine("\n\t\t\t[ArenaValues]");
-                foreach (var q in CurrentDeck.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION).OrderByDescending(c => PreFiveDrops.ContainsKey(c.ToString()) ? PreFiveDrops[c.ToString()] : 0))
-                    file.WriteLine("[{0} mana] {1} had priority: {2}", CardTemplate.LoadFromId(q).Cost, CardTemplate.LoadFromId(q).Name, PreFiveDrops.ContainsKey(q) ? GetPriority(q) : 0);
+                foreach (var q in CurrentDeck.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION).OrderByDescending(c => CardTemplate.LoadFromId(c).Cost).ThenBy(c => PreFiveDrops.ContainsKey(c.ToString()) ? PreFiveDrops[c.ToString()] : 0))
+                    file.WriteLine("[{0} mana] {1} had priority: {2}", CardTemplate.LoadFromId(q).Cost, CardTemplate.LoadFromId(q).Name, PreFiveDrops.ContainsKey(q) ? GetPriority(q) : 0);//
                 file.WriteLine("==================END COPY=======================");
             }
         }
@@ -4035,18 +4038,6 @@ namespace SmartBotUI.SmartMulliganV2
             return EarlyCardsWight >= Face ? Style.Face : res;
         }
 
-        private static bool CoreComparison(List<string> intersectedWithCoreList, List<string> core, int acceptableError, DeckType type, string required = "")
-        {
-            bool flag = true;
-            if (required != "")
-                flag = intersectedWithCoreList.Any(c => c.ToString() == required.ToString());
-
-            if (intersectedWithCoreList.Count <= core.Count && intersectedWithCoreList.Count >= core.Count - acceptableError)
-                Bot.Log(string.Format("[SmartMulligan] Deck passed accepted tolerance level for {0}", type));
-            //else Bot.Log(string.Format("[SmartMulligan] Deck failed accepted tolerance level for {0}", type));
-            return flag && intersectedWithCoreList.Count <= core.Count && intersectedWithCoreList.Count >= core.Count - acceptableError;
-        }
-
         //TODO: HELPER STUFF
         //=====================================================================================
         public static bool ChoiceAnd(List<string> listMinionId)
@@ -4105,13 +4096,6 @@ namespace SmartBotUI.SmartMulliganV2
             return _ch.Any(c => CardTemplate.LoadFromId(c).HasDeathrattle && CardTemplate.LoadFromId(c).Cost >= lowerBound && CardTemplate.LoadFromId(c).Cost <= upperBound);
         }
 
-        private static bool HasGoodDrop(int cost, int treshhold, bool b)
-        {
-            if (!b)
-                return _ch.Any(q => CardTemplate.LoadFromId(q).Cost == cost && (PreFiveDrops.ContainsKey(q.ToString()) && PreFiveDrops[q.ToString()] > treshhold));
-            else return HasGoodDrop(cost, treshhold);
-        }
-
         private static bool HasGoodDrop(int cost, int treshhold)
         {
             return _ch.Any(q => CardTemplate.LoadFromId(q).Cost == cost && (PreFiveDrops.ContainsKey(q.ToString()) && PreFiveDrops[q.ToString()] >= treshhold));
@@ -4122,11 +4106,6 @@ namespace SmartBotUI.SmartMulliganV2
             return _ch.Count(q => CardTemplate.LoadFromId(q).Cost == cost && (GetPriority(q.ToString()) >= treshhold));
         }
 
-        private static int CountGoodDropsDeck(int cost, int treshhold)
-        {
-            return CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Cost == cost && (PreFiveDrops.ContainsKey(q.ToString()) && PreFiveDrops[q.ToString()] >= treshhold));
-        }
-
         private static bool ChoicesIntersectList(List<string> list)
         {
             if (list == null || list.All(string.IsNullOrWhiteSpace))
@@ -4134,15 +4113,7 @@ namespace SmartBotUI.SmartMulliganV2
             return _ch.Select(q => CardTemplate.LoadFromId(q).Id.ToString()).ToList().Intersect(list).ToList().Count == list.Count;
         }
 
-        private bool CheckCard(string card)
-        {
-            return CurrentDeck.Any(c => c.ToString() == card);
-        }
-
-        private bool CheckCards(List<string> cards)
-        {
-            return !cards.Except(CurrentDeck).Any();
-        }
+       
 
         //=====================================================================================
     }
