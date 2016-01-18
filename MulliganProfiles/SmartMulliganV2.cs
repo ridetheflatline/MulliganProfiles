@@ -1659,6 +1659,13 @@ namespace SmartBotUI.SmartMulliganV2
             }
             #endregion
 
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SMTracker.cs"))
+            {
+                Bot.Log("[SmartMulligan] [SmartMulliganOpponentTracker.cs] not found. Loading basic assumption");
+                Bot.Log("[SmartMulligan] Aggro Classes: Paladin, Druid, Warlock, Shaman, Hunter");
+                Bot.Log("[SmartMulligan] Control classes: Priest, Warrior, Mage, Rogue");
+            }
+
             try
             {
 
