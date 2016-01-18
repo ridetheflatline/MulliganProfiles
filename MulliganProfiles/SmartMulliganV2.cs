@@ -1659,11 +1659,6 @@ namespace SmartBotUI.SmartMulliganV2
             }
             #endregion
 
-            if (!File.Exists(MainDir + "smv2file"))
-            {
-                Directory.Delete(MainDir + "\\MulliganArchives\\", true);
-                File.Create(MainDir + "smv2file");
-            }
             try
             {
 
