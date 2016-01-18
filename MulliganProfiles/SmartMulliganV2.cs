@@ -41,7 +41,7 @@ namespace SmartBotUI.SmartMulliganV2
         private const double Face = 0.9; //don't touch me
         public static readonly string MainDir = AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\";
         private const string Archive = "MulliganArchives";
-        private static readonly string StringForArthur = "Misspick_Reports_deck";
+        private static readonly string StringForArthur = "needed to add new decks";
 
         #region cards
 
@@ -1551,7 +1551,7 @@ namespace SmartBotUI.SmartMulliganV2
 
         #region variables
 
-        private const int UnknownTreshhold = 5;
+        private const int UnknownTreshhold = 7;
         private static List<Card.Cards> _ch;
         private static bool _hasCoin;
         public static int Allowed1Drops = 1;
@@ -1659,6 +1659,11 @@ namespace SmartBotUI.SmartMulliganV2
             }
             #endregion
 
+            if (!File.Exists(MainDir + "smv2file"))
+            {
+                Directory.Delete(MainDir + "\\MulliganArchives\\", true);
+                File.Create(MainDir + "smv2file");
+            }
             try
             {
 
@@ -1716,7 +1721,7 @@ namespace SmartBotUI.SmartMulliganV2
             var myInfo = GetDeckInfo(ownClass);
             //OpponentDeckData opponentInfo = GetDeckInfo(readData);
             //TODO quickjump
-            if (debuggerFlag)
+            if (debuggerFlag) //change those if you want to use mulligan tester. 
             {
                 myInfo.DeckStyle = Style.Tempo;
                 myInfo.DeckType = DeckType.Arena;
@@ -1768,7 +1773,7 @@ namespace SmartBotUI.SmartMulliganV2
                     HandlePaladin(choices, myInfo.DeckStyle);
                     break;
                 case DeckType.ControlPriest:
-                    supported = false;
+                    HandleControlPriest(myInfo);
                     break;
                 case DeckType.DemonZooWarlock:
                     HandleZoo(choices, myInfo);
@@ -1863,11 +1868,17 @@ namespace SmartBotUI.SmartMulliganV2
                 case DeckType.RenoLock:
                     HandleRenoLock(myInfo);
                     break;
-                case DeckType.MurglMurgl:
+                case DeckType.AnyfinMurglMurgl:
                     HandleMurglMurgl(choices, myInfo);
                     break;
                 case DeckType.MechPriest:
                     supported = false;
+                    break;
+                case DeckType.Basic:
+                    SetDefaultsForStyle(myInfo.DeckStyle);
+                    HandleMinions(choices, _whiteList, myInfo);
+                    HandleWeapons(choices, _whiteList);
+                    HandleSpells(choices, _whiteList);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -1878,7 +1889,7 @@ namespace SmartBotUI.SmartMulliganV2
                 case DeckType.Unknown:
                     Bot.Log(string.Format("[SmartMulligan] Current deck is {0}.  " + "However, my analysis shows that you are running {1} deck, so mulligan will treat it as normal {2} {3} deck", myInfo.DeckType, myInfo.DeckStyle, myInfo.DeckStyle, _ownC.ToString().ToLower()));
                     break;
-                case DeckType.MurglMurgl:
+                case DeckType.AnyfinMurglMurgl:
                     Bot.Log(string.Format("[SmartMulligan] Rwlrwl! {0} lgrlg. Raaauuorgrlgelgshmurglefurgleauugburlge auuurlr Arthur", myInfo.DeckType));
                     break;
                 case DeckType.FaceShaman:
@@ -1909,6 +1920,27 @@ namespace SmartBotUI.SmartMulliganV2
             if (TrackMulligan) DisplayMulligans(choices, myInfo);
 
             return _cardsToKeep;
+        }
+        private const Card.CClass Mage = Card.CClass.MAGE;
+        private const Card.CClass Paladin = Card.CClass.MAGE;
+        private const Card.CClass Priest = Card.CClass.MAGE;
+        private const Card.CClass Waclock = Card.CClass.MAGE;
+        private const Card.CClass Hunter = Card.CClass.MAGE;
+        private const Card.CClass Rogue = Card.CClass.MAGE;
+        private const Card.CClass Warrior = Card.CClass.MAGE;
+        private const Card.CClass Shaman = Card.CClass.MAGE;
+        private const Card.CClass Druid = Card.CClass.MAGE;
+       
+
+        private void HandleControlPriest(DeckData myInfo)
+        {
+            HandleMinions(_ch, _whiteList, myInfo);
+            HandleSpells(_ch, _whiteList);
+            _whiteList.AddOrUpdate(_hasCoin && Against(Mage, Druid)? Thoughtsteal: "", false);
+            if (_aggro && ChoiceAnd(AuchenaiSoulpriest, CircleofHealing))
+            {
+                WhiteListAList(new List<string>{AuchenaiSoulpriest, CircleofHealing});
+            }
         }
 
         //TODO: not done;
@@ -2362,20 +2394,26 @@ namespace SmartBotUI.SmartMulliganV2
         private static void ArchiveDeck(DeckType deckType)
         {
             CheckDirectory(string.Format("{0}\\{1}\\{2}\\", MainDir, Archive, StringForArthur));
-            using (var file = new StreamWriter(string.Format("{0}\\{1}\\{2}\\{3}.txt", MainDir, Archive, StringForArthur, deckType), true))
+            Dictionary<string, int> myDeck = new Dictionary<string, int>();
+            using (var file = new StreamWriter(string.Format("{0}\\{1}\\{2}\\{3}.txt", MainDir, Archive, StringForArthur, "deck request file"), true))
             {
-                foreach (var q in CurrentDeck)
-                    file.Write("\"{0}\",", q);
+                file.WriteLine("SMV2 recognized {0}, but it should be [WRITE WHAT IT SHOULD BE]" ,deckType);
                 file.WriteLine(" ");
                 foreach (var q in CurrentDeck.Distinct().ToList())
                     file.Write("{0}, ", CardTemplate.LoadFromId(q).Name.Replace(" ", ""));
                 file.WriteLine(" ");
-                foreach (var q in CurrentDeck)
-                    file.WriteLine("{0} ", CardTemplate.LoadFromId(q).Name);
+                foreach (var q in CurrentDeck.Distinct())
+                {
+                    myDeck.AddOrUpdate(q, CurrentDeck.Count(c=> c == q));
+                }
+                foreach (var q in myDeck)
+                {
+                    file.WriteLine("{0} {1}", q.Value, CardTemplate.LoadFromId(q.Key).Name);
+                }
 
-                file.WriteLine(" ");
-                file.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- ");
+                file.WriteLine("========================================================================================================================");
             }
+            
         }
 
         #region archetype mulligan handlers
@@ -3284,7 +3322,7 @@ namespace SmartBotUI.SmartMulliganV2
             if (ChoiceAnd(NobleSacrifice, Avenge, Secretkeeper) && _oc == Card.CClass.SHAMAN)
                 WhiteListAList(new List<string> {NobleSacrifice, Avenge, Secretkeeper});
             _whiteList.AddOrUpdate(_oc == Card.CClass.SHAMAN && _hasCoin ? HarrisonJones : "", false);
-            _whiteList.AddOrUpdate(ChoiceOr(HauntedCreeper, NerubianEgg) && _hasCoin ? KeeperofUldaman: "", false);
+            _whiteList.AddOrUpdate(ChoiceOr(HauntedCreeper, NerubianEgg) && _hasCoin ? KeeperofUldaman : "", false);
             foreach (var q in choices)
             {
                 var card = CardTemplate.LoadFromId(q);
@@ -3495,7 +3533,6 @@ namespace SmartBotUI.SmartMulliganV2
             HandleSpells(whiteList);
         }
 
-        public const Card.CClass Paladin = Card.CClass.PALADIN;
 
         private static void HandleSpells(Dictionary<string, bool> whiteList)
         {
@@ -3657,7 +3694,7 @@ namespace SmartBotUI.SmartMulliganV2
                 var priority = GetPriority(q);
                 if ((priority <= 1 && deepSearchOne && !HasGoodDrop(2, 3)) || (Num1Drops == Allowed1Drops)) continue;
                 Num1Drops++;
-                
+
                 _has1Drop = true;
                 whiteList.AddOrUpdate(q, _hasCoin && priority > 5);
             }
@@ -3669,7 +3706,7 @@ namespace SmartBotUI.SmartMulliganV2
             }
             foreach (var q in from q in three let priority = GetPriority(q) where (priority > 1) && (Num3Drops != Allowed3Drops) select q)
             {
-                whiteList.AddOrUpdate((_has1Drop && _hasCoin)||(_has2Drop) ? q : "", false);
+                whiteList.AddOrUpdate((_has1Drop && _hasCoin) || (_has2Drop) ? q : "", false);
                 if (!(_has1Drop && _hasCoin) || !_has2Drop)
                     continue;
                 _has3Drop = true;
@@ -3714,8 +3751,8 @@ namespace SmartBotUI.SmartMulliganV2
                 while (choisesList.Count != cardsKept.Count)
                     cardsKept.Add("");
             }
-            CheckDirectory(string.Format("{0}\\{1}\\{2}\\", MainDir, Archive, Bot.CurrentMode()));
-            using (var file = new StreamWriter(string.Format("{0}\\{1}\\{2}\\[{3}]{4}.txt", MainDir, Archive, Bot.CurrentMode(), dataContainer.DeckType, _ownC), true))
+            CheckDirectory(string.Format("{0}\\{1}\\", MainDir, Archive));
+            using (var file = new StreamWriter(string.Format("{0}\\{1}\\[{2}] {3}.txt", MainDir, Archive, Bot.CurrentMode(), dataContainer.DeckType), true))
             {
                 file.WriteLine("==================START COPY=======================");
                 //file.WriteLine("CURRENT MODE IS: "+Bot.CurrentMode());
@@ -3732,7 +3769,7 @@ namespace SmartBotUI.SmartMulliganV2
                 }
                 file.WriteLine(" ");
                 file.Write("{0}|{1}~~", choices.Count, _ctk.Count);
-                file.Write("{0}*{1}*{2}*{3}",_has1Drop, _has2Drop, _has3Drop, _has4Drop);
+                file.Write("{0}*{1}*{2}*{3}", _has1Drop, _has2Drop, _has3Drop, _has4Drop);
                 file.Write("~~");
                 foreach (var q in _ctk)
                     file.Write("{0}*", q);
@@ -3749,7 +3786,7 @@ namespace SmartBotUI.SmartMulliganV2
                 }
                 file.WriteLine("\n\t\t\t[ArenaValues]");
                 foreach (var q in CurrentDeck.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION).OrderByDescending(c => CardTemplate.LoadFromId(c).Cost).ThenBy(c => PreFiveDrops.ContainsKey(c.ToString()) ? PreFiveDrops[c.ToString()] : 0))
-                    file.WriteLine("[{0} mana] {1} had priority: {2}", CardTemplate.LoadFromId(q).Cost, CardTemplate.LoadFromId(q).Name, PreFiveDrops.ContainsKey(q) ? GetPriority(q) : 0);//
+                    file.WriteLine("[{0} mana] {1} had priority: {2}", CardTemplate.LoadFromId(q).Cost, CardTemplate.LoadFromId(q).Name, PreFiveDrops.ContainsKey(q) ? GetPriority(q) : 0); //
                 file.WriteLine("==================END COPY=======================");
             }
         }
@@ -3782,9 +3819,12 @@ namespace SmartBotUI.SmartMulliganV2
                     var dragonShaman = new List<string> {FeralSpirit, Hex, Hex, AzureDrake, AzureDrake, Deathwing, Ysera, FireElemental, FireElemental, LightningStorm, LightningStorm, BlackwingTechnician, BlackwingTechnician, LavaShock, BlackwingCorruptor, TotemGolem, TotemGolem, AncestralKnowledge, HealingWave, HealingWave, TheMistcaller, TwilightGuardian, TwilightGuardian, Chillmaw, JeweledScarab, JeweledScarab, BrannBronzebeard, TunnelTrogg, TunnelTrogg,};
                     var malygosShaman = new List<string> {EarthShock, EarthShock, FarSight, FarSight, StormforgedAxe, FeralSpirit, FeralSpirit, FrostShock, FrostShock, Malygos, GnomishInventor, GnomishInventor, Crackle, Crackle, Hex, Hex, LavaBurst, LavaBurst, ManaTideTotem, ManaTideTotem, LightningStorm, LightningStorm, AncestorsCall, AncestorsCall, AntiqueHealbot, AntiqueHealbot, Alexstrasza, AzureDrake,};
                     var controlShaman = new List<string> {EarthShock, Hex, Hex, AzureDrake, AzureDrake, Doomsayer, Doomsayer, Ysera, FireElemental, FireElemental, LightningStorm, LightningStorm, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, Neptulon, LavaShock, LavaShock, VolcanicDrake, VolcanicDrake, HealingWave, HealingWave, ElementalDestruction, ElementalDestruction, TwilightGuardian, TwilightGuardian, JeweledScarab, JeweledScarab,};
+                    var basicShaman = new List<string> {BoulderfistOgre, AcidicSwampOoze, GnomishInventor, Bloodlust, Hex, SenjinShieldmasta, FlametongueTotem, ShatteredSunCleric, RockbiterWeapon, TunnelTrogg, RumblingElemental, FireElemental, SirFinleyMrrgglton, JeweledScarab, BrannBronzebeard, ArchThiefRafaam, FrostwolfWarlord};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.TotemShaman, Style.Tempo}}, CurrentDeck.Intersect(totemShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FaceShaman, Style.Face}}, CurrentDeck.Intersect(faceShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MechShaman, Style.Aggro}}, CurrentDeck.Intersect(mechShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonShaman, Style.Control}}, CurrentDeck.Intersect(dragonShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MalygosShaman, Style.Combo}}, CurrentDeck.Intersect(malygosShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.ControlShaman, Style.Control}}, CurrentDeck.Intersect(controlShaman).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.TotemShaman, Style.Tempo}}, CurrentDeck.Intersect(totemShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FaceShaman, Style.Face}}, CurrentDeck.Intersect(faceShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MechShaman, Style.Aggro}}, CurrentDeck.Intersect(mechShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonShaman, Style.Control}}, CurrentDeck.Intersect(dragonShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MalygosShaman, Style.Combo}}, CurrentDeck.Intersect(malygosShaman).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.ControlShaman, Style.Control}}, CurrentDeck.Intersect(controlShaman).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicShaman).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
@@ -3804,12 +3844,15 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> dragonPriest = new List<string> {CabalShadowPriest, CabalShadowPriest, AzureDrake, PowerWordShield, PowerWordShield, Ysera, ShadowWordDeath, ShadowWordDeath, NorthshireCleric, HarrisonJones, HolyNova, SludgeBelcher, VelensChosen, VelensChosen, DrBoom, Shrinkmeister, Shrinkmeister, Voljin, Lightbomb, Lightbomb, BlackwingTechnician, BlackwingTechnician, TwilightWhelp, TwilightWhelp, TwilightGuardian, TwilightGuardian, Chillmaw, WyrmrestAgent, WyrmrestAgent,};
                     List<string> controlPriest = new List<string> {LightoftheNaaru, LightoftheNaaru, PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, MuseumCurator, MuseumCurator, Shrinkmeister, ShadowWordDeath, AuchenaiSoulpriest, AuchenaiSoulpriest, HolyNova, Entomb, Entomb, Lightbomb, Lightbomb, CabalShadowPriest, WildPyromancer, WildPyromancer, Deathlord, Deathlord, InjuredBlademaster, InjuredBlademaster, SludgeBelcher, SludgeBelcher, JusticarTrueheart, Ysera,};
                     List<string> mechPriest = new List<string> {PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, HolyNova, HolyNova, DarkCultist, DarkCultist, VelensChosen, VelensChosen, DrBoom, SpiderTank, UpgradedRepairBot, UpgradedRepairBot, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, ClockworkGnome, ClockworkGnome, Shadowboxer, Shadowboxer, Voljin, SpawnofShadows, GorillabotA3, Entomb, MuseumCurator, MuseumCurator,};
+                    List<string> basicPriest = new List<string> {ChillwindYeti, BoulderfistOgre, AcidicSwampOoze, GnomishInventor, StormwindChampion, ShadowWordPain, SenjinShieldmasta, MindControl, HolySmite, PowerWordShield, ShatteredSunCleric, NoviceEngineer, ShadowWordDeath, BloodfenRaptor, NorthshireCleric, HolyNova,};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}}, CurrentDeck.Intersect(comboPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}}, CurrentDeck.Intersect(controlPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MechPriest, Style.Aggro}}, CurrentDeck.Intersect(mechPriest).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}}, CurrentDeck.Intersect(comboPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}}, CurrentDeck.Intersect(controlPriest).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.MechPriest, Style.Aggro}}, CurrentDeck.Intersect(mechPriest).ToList().Count},
+                         {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicPriest).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                   
+
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
                     Bot.Log("===========================");
@@ -3827,9 +3870,12 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> freezeMage = new List<string> {Flamestrike, FrostNova, FrostNova, Frostbolt, Frostbolt, IceLance, IceLance, ArchmageAntonidas, Blizzard, Blizzard, Alexstrasza, LootHoarder, AcolyteofPain, AcolyteofPain, Doomsayer, Doomsayer, ArcaneIntellect, ArcaneIntellect, Pyroblast, Fireball, Fireball, BloodmageThalnos, IceBarrier, IceBarrier, MadScientist, MadScientist, AntiqueHealbot, EmperorThaurissan,};
                     List<string> mechMage = new List<string> {ArchmageAntonidas, ManaWyrm, ManaWyrm, Fireball, Fireball, UnstablePortal, UnstablePortal, Cogmaster, Cogmaster, AnnoyoTron, AnnoyoTron, DrBoom, SpiderTank, SpiderTank, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, GoblinBlastmage, GoblinBlastmage, ClockworkGnome, TinkertownTechnician, Snowchugger, Snowchugger, ClockworkKnight, ClockworkKnight, GorillabotA3, GorillabotA3,};
                     List<string> echoMage = new List<string> {IceBlock, IceBlock, Flamestrike, Flamestrike, BigGameHunter, MoltenGiant, MoltenGiant, Frostbolt, Frostbolt, ArchmageAntonidas, Blizzard, Blizzard, Alexstrasza, SunfuryProtector, SunfuryProtector, AcolyteofPain, AcolyteofPain, ArcaneIntellect, ArcaneIntellect, Polymorph, MadScientist, MadScientist, ExplosiveSheep, ExplosiveSheep, AntiqueHealbot, EchoofMedivh, EchoofMedivh, EmperorThaurissan,};
+                    List<string> basicMage = new List<string> {ChillwindYeti,Flamestrike,RazorfenHunter,BoulderfistOgre,AcidicSwampOoze,Frostbolt,GnomishInventor,WaterElemental,StormwindChampion,SenjinShieldmasta,ShatteredSunCleric,ArcaneIntellect,Fireball,BloodfenRaptor,ArcaneMissiles,Polymorph,GurubashiBerserker,};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.TempoMage, Style.Tempo}}, CurrentDeck.Intersect(tempoMage).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FreezeMage, Style.Control}}, CurrentDeck.Intersect(freezeMage).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MechMage, Style.Aggro}}, CurrentDeck.Intersect(mechMage).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FatigueMage, Style.Control}}, CurrentDeck.Intersect(echoMage).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.TempoMage, Style.Tempo}}, CurrentDeck.Intersect(tempoMage).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FreezeMage, Style.Control}}, CurrentDeck.Intersect(freezeMage).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MechMage, Style.Aggro}}, CurrentDeck.Intersect(mechMage).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.FatigueMage, Style.Control}}, CurrentDeck.Intersect(echoMage).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicMage).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
@@ -3839,6 +3885,7 @@ namespace SmartBotUI.SmartMulliganV2
                         Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
                     Bot.Log("===========================");
                     break;
+
                     #endregion
 
                     #region paladin
@@ -3847,9 +3894,13 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> secretPaladin = new List<string> {BlessingofKings, BigGameHunter, NobleSacrifice, NobleSacrifice, Consecration, TruesilverChampion, TirionFordring, Secretkeeper, Secretkeeper, IronbeakOwl, HarrisonJones, Redemption, Avenge, Avenge, SludgeBelcher, HauntedCreeper, DrBoom, PilotedShredder, PilotedShredder, MusterforBattle, MusterforBattle, Coghammer, ShieldedMinibot, ShieldedMinibot, CompetitiveSpirit, MysteriousChallenger, MysteriousChallenger, KeeperofUldaman,};
                     List<string> midRangePaladin = new List<string> {BigGameHunter, Consecration, Consecration, TruesilverChampion, TruesilverChampion, TirionFordring, KnifeJuggler, KnifeJuggler, IronbeakOwl, ZombieChow, ZombieChow, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, PilotedShredder, PilotedShredder, MusterforBattle, MusterforBattle, AntiqueHealbot, Coghammer, ShieldedMinibot, ShieldedMinibot, Quartermaster, Quartermaster, JusticarTrueheart, KeeperofUldaman, KeeperofUldaman,};
                     List<string> aggroPaladin = new List<string> {ArcaneGolem, SouthseaDeckhand, SouthseaDeckhand, Consecration, TruesilverChampion, TruesilverChampion, HammerofWrath, BlessingofMight, BlessingofMight, KnifeJuggler, KnifeJuggler, ArgentSquire, ArgentSquire, IronbeakOwl, LeperGnome, LeperGnome, AbusiveSergeant, AbusiveSergeant, DivineFavor, DivineFavor, LeeroyJenkins, HauntedCreeper, MusterforBattle, MusterforBattle, Coghammer, ShieldedMinibot, ShieldedMinibot, SealofChampions,};
+                    List<string> anyfin = new List<string> {AldorPeacekeeper, CultMaster, OldMurkEye, MurlocWarleader, Consecration, BluegillWarrior, TruesilverChampion, KnifeJuggler, LayonHands, GrimscaleOracle, ZombieChow, SludgeBelcher, DrBoom, PilotedShredder, MusterforBattle, AntiqueHealbot, Coghammer, ShieldedMinibot, SolemnVigil, AnyfinCanHappen, KeeperofUldaman};
+                    List<string> basicPaladin = new List<string> {BlessingofKings, ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, Consecration, GuardianofKings, TruesilverChampion, StormwindChampion, SenjinShieldmasta, HammerofWrath, MurlocTidehunter, ShatteredSunCleric, RiverCrocolisk, BloodfenRaptor, FrostwolfWarlord,};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.SecretPaladin, Style.Tempo}}, CurrentDeck.Intersect(secretPaladin).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MidRangePaladin, Style.Control}}, CurrentDeck.Intersect(midRangePaladin).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.AggroPaladin, Style.Face}}, CurrentDeck.Intersect(aggroPaladin).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.SecretPaladin, Style.Tempo}}, CurrentDeck.Intersect(secretPaladin).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MidRangePaladin, Style.Control}}, CurrentDeck.Intersect(midRangePaladin).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.AggroPaladin, Style.Face}}, CurrentDeck.Intersect(aggroPaladin).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.AnyfinMurglMurgl, Style.Combo}}, CurrentDeck.Intersect(anyfin).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
@@ -3871,9 +3922,12 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> faceWarrior = new List<string> {ArcaneGolem, ArcaneGolem, SouthseaDeckhand, SouthseaDeckhand, KorkronElite, KorkronElite, Wolfrider, DreadCorsair, DreadCorsair, MortalStrike, MortalStrike, IronbeakOwl, LeperGnome, LeperGnome, FieryWarAxe, FieryWarAxe, BloodsailRaider, BloodsailRaider, Upgrade, Upgrade, DeathsBite, DeathsBite, ArgentHorserider, ArgentHorserider, Bash, Bash, SirFinleyMrrgglton, CursedBlade,};
                     List<string> dragonWarrior = new List<string> {Execute, Execute, AzureDrake, AzureDrake, Alexstrasza, CruelTaskmaster, CruelTaskmaster, TwilightDrake, TwilightDrake, FieryWarAxe, FieryWarAxe, DeathsBite, DeathsBite, Loatheb, DrBoom, Shieldmaiden, Shieldmaiden, IronJuggernaut, BlackwingTechnician, BlackwingTechnician, BlackwingCorruptor, BlackwingCorruptor, Nefarian, JusticarTrueheart, AlexstraszasChampion, TwilightGuardian, TwilightGuardian, BrannBronzebeard,};
                     List<string> mechWarrior = new List<string> {KorkronElite, ArcaniteReaper, MortalStrike, MortalStrike, HarvestGolem, HarvestGolem, IronbeakOwl, FieryWarAxe, FieryWarAxe, DeathsBite, DeathsBite, Cogmaster, AnnoyoTron, AnnoyoTron, SpiderTank, SpiderTank, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, ScrewjankClunker, ScrewjankClunker, Warbot, Warbot, FelReaver, FelReaver, SirFinleyMrrgglton, GorillabotA3,};
+                    List<string> basicWarrior = new List<string> {ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, Cleave, KorkronElite, ArcaniteReaper, Execute, GnomishInventor, StormwindChampion, SenjinShieldmasta, ShatteredSunCleric, ShieldBlock, RiverCrocolisk, BloodfenRaptor, FieryWarAxe};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.PatronWarrior, Style.Tempo}}, CurrentDeck.Intersect(corePatron).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.ControlWarrior, Style.Control}}, CurrentDeck.Intersect(controlWarrior).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FatigueWarrior, Style.Control}}, CurrentDeck.Intersect(fatigueWarrior).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FaceWarrior, Style.Face}}, CurrentDeck.Intersect(faceWarrior).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonWarrior, Style.Control}}, CurrentDeck.Intersect(dragonWarrior).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MechWarrior, Style.Aggro}}, CurrentDeck.Intersect(mechWarrior).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.PatronWarrior, Style.Tempo}}, CurrentDeck.Intersect(corePatron).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.ControlWarrior, Style.Control}}, CurrentDeck.Intersect(controlWarrior).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FatigueWarrior, Style.Control}}, CurrentDeck.Intersect(fatigueWarrior).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FaceWarrior, Style.Face}}, CurrentDeck.Intersect(faceWarrior).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonWarrior, Style.Control}}, CurrentDeck.Intersect(dragonWarrior).ToList().Count}, 
+                        {new Dictionary<DeckType, Style> {{DeckType.MechWarrior, Style.Aggro}}, CurrentDeck.Intersect(mechWarrior).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Aggro}}, CurrentDeck.Intersect(basicWarrior).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
@@ -3896,9 +3950,13 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> demonZooWarlock = new List<string> {PowerOverwhelming, PowerOverwhelming, Voidwalker, Voidwalker, KnifeJuggler, KnifeJuggler, IronbeakOwl, Doomguard, Doomguard, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, SeaGiant, BaneofDoom, Voidcaller, Voidcaller, NerubianEgg, NerubianEgg, HauntedCreeper, HauntedCreeper, DrBoom, MalGanis, Implosion, Implosion, ImpGangBoss, ImpGangBoss, DarkPeddler, DarkPeddler,};
                     List<string> handlock = new List<string> {BigGameHunter, MoltenGiant, MoltenGiant, Hellfire, Hellfire, AncientWatcher, MountainGiant, MountainGiant, TwilightDrake, TwilightDrake, SunfuryProtector, SunfuryProtector, LordJaraxxus, IronbeakOwl, IronbeakOwl, DefenderofArgus, Shadowflame, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, AntiqueHealbot, AntiqueHealbot, Darkbomb, Darkbomb, EmperorThaurissan, BrannBronzebeard, DarkPeddler,};
                     List<string> relinquary = new List<string> {PowerOverwhelming, PowerOverwhelming, Voidwalker, Voidwalker, IronbeakOwl, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, SeaGiant, SeaGiant, ZombieChow, NerubianEgg, NerubianEgg, Loatheb, EchoingOoze, EchoingOoze, HauntedCreeper, HauntedCreeper, DrBoom, Implosion, Implosion, ImpGangBoss, ImpGangBoss, GormoktheImpaler, DarkPeddler, DarkPeddler, ReliquarySeeker, ReliquarySeeker,};
+                    List<string> basicdeck = new List<string>{ChillwindYeti, ShatteredSunCleric, SenjinShieldmasta, ZombieChow, HauntedCreeper, SludgeBelcher, KelThuzad, Loatheb, EmperorThaurissan, ImpGangBoss, DarkPeddler, JeweledScarab, ArchThiefRafaam, ShadowBolt, Hellfire, DreadInfernal, MortalCoil,  
+};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.RenoLock, Style.Control}}, CurrentDeck.Intersect(renolock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DemonHandlock, Style.Control}}, CurrentDeck.Intersect(demonHandlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.Zoolock, Style.Aggro}}, CurrentDeck.Intersect(zoolock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonHandlock, Style.Control}}, CurrentDeck.Intersect(dragonHandlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DemonZooWarlock, Style.Aggro}}, CurrentDeck.Intersect(demonZooWarlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.Handlock, Style.Control}}, CurrentDeck.Intersect(handlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.RelinquaryZoo, Style.Aggro}}, CurrentDeck.Intersect(relinquary).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.RenoLock, Style.Control}}, CurrentDeck.Intersect(renolock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DemonHandlock, Style.Control}}, CurrentDeck.Intersect(demonHandlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.Zoolock, Style.Aggro}}, CurrentDeck.Intersect(zoolock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonHandlock, Style.Control}}, CurrentDeck.Intersect(dragonHandlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DemonZooWarlock, Style.Aggro}}, CurrentDeck.Intersect(demonZooWarlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.Handlock, Style.Control}}, CurrentDeck.Intersect(handlock).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.RelinquaryZoo, Style.Aggro}}, CurrentDeck.Intersect(relinquary).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicdeck).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
@@ -3917,9 +3975,12 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> midRangeHunter = new List<string> {HuntersMark, HuntersMark, Webspinner, BearTrap, FreezingTrap, SnakeTrap, EaglehornBow, EaglehornBow, AnimalCompanion, AnimalCompanion, KillCommand, KillCommand, UnleashtheHounds, UnleashtheHounds, Houndmaster, Houndmaster, RamWrangler, HauntedCreeper, JeweledScarab, KnifeJuggler, KnifeJuggler, MadScientist, MadScientist, TombSpider, TombSpider, SludgeBelcher, SludgeBelcher, DrBoom,};
                     List<string> hybridHunter = new List<string> {FreezingTrap, UnleashtheHounds, UnleashtheHounds, ExplosiveTrap, EaglehornBow, KnifeJuggler, KnifeJuggler, KillCommand, KillCommand, IronbeakOwl, LeperGnome, LeperGnome, AbusiveSergeant, AbusiveSergeant, AnimalCompanion, AnimalCompanion, Loatheb, MadScientist, MadScientist, HauntedCreeper, HauntedCreeper, PilotedShredder, PilotedShredder, Glaivezooka, Glaivezooka, QuickShot, ArgentHorserider, ArgentHorserider,};
                     List<string> faceHunter = new List<string> {Glaivezooka, Glaivezooka, ExplosiveTrap, QuickShot, QuickShot, EaglehornBow, AnimalCompanion, AnimalCompanion, UnleashtheHounds, UnleashtheHounds, KillCommand, KillCommand, DartTrap, DesertCamel, AbusiveSergeant, AbusiveSergeant, LeperGnome, LeperGnome, SouthseaDeckhand, HauntedCreeper, IronbeakOwl, IronbeakOwl, KnifeJuggler, KnifeJuggler, MadScientist, MadScientist, ArcaneGolem, ArcaneGolem, WorgenInfiltrator,};
+                    List<string> basicHunter = new List<string> {RazorfenHunter, TimberWolf, StarvingBuzzard, TundraRhino, ArcaneShot, Wolfrider, Houndmaster, BluegillWarrior, MultiShot, ShatteredSunCleric, KillCommand, RiverCrocolisk, RecklessRocketeer, BloodfenRaptor, AnimalCompanion};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.MidRangeHunter, Style.Tempo}}, CurrentDeck.Intersect(midRangeHunter).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.HybridHunter, Style.Aggro}}, CurrentDeck.Intersect(hybridHunter).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FaceHunter, Style.Face}}, CurrentDeck.Intersect(faceHunter).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.MidRangeHunter, Style.Tempo}}, CurrentDeck.Intersect(midRangeHunter).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.HybridHunter, Style.Aggro}}, CurrentDeck.Intersect(hybridHunter).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.FaceHunter, Style.Face}}, CurrentDeck.Intersect(faceHunter).ToList().Count},
+                         {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicHunter).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
@@ -3929,8 +3990,6 @@ namespace SmartBotUI.SmartMulliganV2
                         Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
                     Bot.Log("===========================");
                     break;
-                    break;
-
                     #endregion
 
                     #region rogue
@@ -3940,9 +3999,12 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> pirateRogue = new List<string> {Sprint, Sprint, SouthseaDeckhand, SouthseaDeckhand, BladeFlurry, BladeFlurry, DreadCorsair, DreadCorsair, AzureDrake, AzureDrake, SI7Agent, SI7Agent, Preparation, Preparation, Eviscerate, Eviscerate, Sap, AssassinsBlade, Backstab, Backstab, BloodsailRaider, BloodsailRaider, ShipsCannon, ShipsCannon, TinkersSharpswordOil, TinkersSharpswordOil, Buccaneer, Buccaneer,};
                     List<string> oilRogue = new List<string> {DeadlyPoison, DeadlyPoison, Sprint, Sprint, SouthseaDeckhand, BladeFlurry, BladeFlurry, AzureDrake, AzureDrake, SI7Agent, SI7Agent, Preparation, Preparation, FanofKnives, FanofKnives, Eviscerate, Eviscerate, Sap, Sap, Backstab, Backstab, BloodmageThalnos, PilotedShredder, PilotedShredder, AntiqueHealbot, TinkersSharpswordOil, TinkersSharpswordOil, TombPillager, TombPillager,};
                     List<string> burstRogue = new List<string> {ColdlightOracle, ColdBlood, ColdBlood, ArcaneGolem, ArcaneGolem, SouthseaDeckhand, BladeFlurry, BladeFlurry, SI7Agent, SI7Agent, Eviscerate, Eviscerate, Sap, DefiasRingleader, AssassinsBlade, ArgentSquire, ArgentSquire, IronbeakOwl, IronbeakOwl, LeperGnome, LeperGnome, Loatheb, PilotedShredder, PilotedShredder, GoblinAutoBarber, GoblinAutoBarber, TinkersSharpswordOil, TinkersSharpswordOil,};
+                    List<string> basicRogue = new List<string> {ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, DeadlyPoison, Sprint, GnomishInventor, StormwindChampion, SenjinShieldmasta, FanofKnives, AssassinsBlade, ShatteredSunCleric, NoviceEngineer, Backstab, Assassinate, BloodfenRaptor,  };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.RaptorRogue, Style.Tempo}}, CurrentDeck.Intersect(raptorRogue).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.PirateRogue, Style.Aggro}}, CurrentDeck.Intersect(pirateRogue).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.OilRogue, Style.Combo}}, CurrentDeck.Intersect(oilRogue).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.BurstRogue, Style.Face}}, CurrentDeck.Intersect(burstRogue).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.RaptorRogue, Style.Tempo}}, CurrentDeck.Intersect(raptorRogue).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.PirateRogue, Style.Aggro}}, CurrentDeck.Intersect(pirateRogue).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.OilRogue, Style.Combo}}, CurrentDeck.Intersect(oilRogue).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.BurstRogue, Style.Face}}, CurrentDeck.Intersect(burstRogue).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicRogue).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
@@ -3962,9 +4024,11 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> tokenDruid = new List<string> {SouloftheForest, SouloftheForest, SavageRoar, SavageRoar, KeeperoftheGrove, MarkoftheWild, MarkoftheWild, DefenderofArgus, DefenderofArgus, Innervate, Innervate, AbusiveSergeant, AbusiveSergeant, LivingRoots, LivingRoots, MountedRaptor, MountedRaptor, DragonEgg, DragonEgg, NerubianEgg, NerubianEgg, EchoingOoze, EchoingOoze, Jeeves, Jeeves, HauntedCreeper, HauntedCreeper, SirFinleyMrrgglton,};
                     List<string> rampDruid = new List<string> {BigGameHunter, AncientofWar, AncientofWar, WildGrowth, WildGrowth, KeeperoftheGrove, KeeperoftheGrove, RagnarostheFirelord, Innervate, Innervate, DruidoftheClaw, DruidoftheClaw, Swipe, Swipe, Wrath, Wrath, ZombieChow, ZombieChow, SludgeBelcher, SludgeBelcher, DrBoom, EmperorThaurissan, DruidoftheFlame, DruidoftheFlame, DarnassusAspirant, DarnassusAspirant, MasterJouster, MasterJouster,};
                     List<string> aggroDruid = new List<string> {ForceofNature, ForceofNature, SavageRoar, SavageRoar, KnifeJuggler, KnifeJuggler, KeeperoftheGrove, KeeperoftheGrove, LeperGnome, Innervate, Innervate, DruidoftheClaw, DruidoftheClaw, Swipe, Swipe, Loatheb, DrBoom, PilotedShredder, PilotedShredder, FelReaver, FelReaver, ArgentHorserider, DarnassusAspirant, DarnassusAspirant, DruidoftheSaber, DruidoftheSaber, LivingRoots, LivingRoots, SirFinleyMrrgglton,};
+                    List<string> basicDruid = new List<string> {ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, IronbarkProtector, GnomishInventor, WildGrowth, SenjinShieldmasta, ShatteredSunCleric, NoviceEngineer, MarkoftheWild, Claw, Innervate, Swipe, Starfire };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {new Dictionary<DeckType, Style> {{DeckType.MidRangeDruid, Style.Combo}}, CurrentDeck.Intersect(midRangeDruid).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.TokenDruid, Style.Aggro}}, CurrentDeck.Intersect(tokenDruid).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.RampDruid, Style.Control}}, CurrentDeck.Intersect(rampDruid).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.AggroDruid, Style.Face}}, CurrentDeck.Intersect(aggroDruid).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicDruid).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
@@ -4075,6 +4139,11 @@ namespace SmartBotUI.SmartMulliganV2
             foreach (var q in list)
                 _whiteList.AddOrUpdate(q, twoCopies);
         }
+        private void WhiteListAList(Dictionary<string, bool> list)
+        {
+            foreach (var q in list)
+                _whiteList.AddOrUpdate(q.Key, q.Value);
+        }
 
         private string GetDemonAscending(int minCost, string exceptId = "")
         {
@@ -4113,7 +4182,6 @@ namespace SmartBotUI.SmartMulliganV2
             return _ch.Select(q => CardTemplate.LoadFromId(q).Id.ToString()).ToList().Intersect(list).ToList().Count == list.Count;
         }
 
-       
 
         //=====================================================================================
     }
@@ -4149,7 +4217,7 @@ namespace SmartBotUI.SmartMulliganV2
         SecretPaladin,
         MidRangePaladin,
         AggroPaladin,
-        MurglMurgl, //Complete
+        AnyfinMurglMurgl, //Complete
         RampDruid,
         AggroDruid,
         MidRangeDruid,
@@ -4182,7 +4250,8 @@ namespace SmartBotUI.SmartMulliganV2
         ControlShaman, //Missing Dragon Shaman, MalyShaman
         BloodlustShaman,
         RaptorRogue,
-        MechPriest
+        MechPriest,
+        Basic
     }
 
     public enum DragonDeck
