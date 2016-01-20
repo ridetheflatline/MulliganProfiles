@@ -29,6 +29,8 @@ namespace SmartBotUI.SmartMulliganV2
         private const bool TrackMulligan = true;
         private const bool ShortTracker = true;
         private static bool IntroMessage = true;
+        private const DeckType DebugDeckType = DeckType.ControlPriest; 
+        private const Style DebugStyle = Style.Control;//no need to set up style for non arena decks
         /*If you chose not to be tracked, I won't be
          *             able to fix mulligan errors*/
         /******************************************/
@@ -1665,7 +1667,32 @@ namespace SmartBotUI.SmartMulliganV2
                 Bot.Log("[SmartMulligan] Aggro Classes: Paladin, Druid, Warlock, Shaman, Hunter");
                 Bot.Log("[SmartMulligan] Control classes: Priest, Warrior, Mage, Rogue");
             }
-
+            else
+            {
+                using (StreamReader HistoryReader = new StreamReader(MainDir + "OpponentDeckInfo.txt"))
+                {
+                    string line;
+                    var OpponentInfo = new OpponentDeckData {Identification = 200, DeckPreferencesDictionary = new Dictionary<Style, DeckType>()};
+                    while ((line = HistoryReader.ReadLine()) != null)
+                    {
+                        string[] check = line.Split(':');
+                        if (check[0] != Bot.GetCurrentOpponentId().ToString()) continue;
+                        OpponentInfo.Identification = Bot.GetCurrentOpponentId();
+                        OpponentInfo.DeckPreferencesDictionary.AddOrUpdate(
+                            (Style) Enum.Parse(typeof(Style), check[2]),
+                            (DeckType) Enum.Parse(typeof(DeckType), check[1]));
+                    }
+                    if (OpponentInfo.Identification != 200)
+                    {
+                        Bot.Log("[Tracker] You have played this opponents before, he played");
+                        foreach (var q in OpponentInfo.DeckPreferencesDictionary)
+                        {
+                            Bot.Log(string.Format("{0}---{1}", q.Value, q.Key));
+                        }
+                        Bot.Log(string.Format("[Tracker] SmartMulligan is making an assumption that your opponent is {0}", OpponentInfo.DeckPreferencesDictionary.First().Key));
+                    }
+                }
+            }
             try
             {
 
@@ -1725,8 +1752,8 @@ namespace SmartBotUI.SmartMulliganV2
             //TODO quickjump
             if (debuggerFlag) //change those if you want to use mulligan tester. 
             {
-                myInfo.DeckStyle = Style.Tempo;
-                myInfo.DeckType = DeckType.Arena;
+                myInfo.DeckStyle = DebugStyle;
+                myInfo.DeckType = DebugDeckType;
             }
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
@@ -4193,9 +4220,8 @@ namespace SmartBotUI.SmartMulliganV2
     /// </summary>
     public class OpponentDeckData
     {
-        public Style DeckStyle { get; set; }
-        public DeckType DeckType { get; set; }
-        public List<string> Cards { get; set; }
+        public Dictionary<Style, DeckType> DeckPreferencesDictionary { get; set; }
+        public bool Aggro { get; set; }
         public long Identification { get; set; }
     }
 
