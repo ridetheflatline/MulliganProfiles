@@ -1642,7 +1642,7 @@ namespace SmartBotUI.SmartMulliganV2
                 Bot.Log("from the bot than they paid for. Average bot user gains 4500 gold a month, which is 45 packs ");
                 Bot.Log("which is almost 50 dollars that you are not spending on packs. Average arena player gets even more value ");
                 Bot.Log(" ");
-                Bot.Log("Sincerely, yours Arthur");
+                Bot.Log("Sincerely, SmartMulligan staff");
                 //Bot.Log("----------------SmartMulligan is capable of fully handeling----------------");
                 //Bot.Log("\t\t\t  ");
                 //Bot.Log("Druids:\t\t MidrangeDruid, Token[EGG!!!], Ramp, Aggro");
@@ -1698,6 +1698,7 @@ namespace SmartBotUI.SmartMulliganV2
                         }
                         Bot.Log(string.Format("[Tracker] SmartMulligan is making an assumption that your opponent is {0}", OpponentInfo.DeckPreferencesDictionary.First().Key));
                     }
+                    else{Bot.Log("[Tracker] This is the first time you are facing this opponent");}
                 }
             }
             try
