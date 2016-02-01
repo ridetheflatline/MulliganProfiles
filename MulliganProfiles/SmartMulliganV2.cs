@@ -27,10 +27,9 @@ namespace SmartBotUI.SmartMulliganV2
         /**************EDIT THIS LINE ONLY*********/
         /******************************************/
         private const bool TrackMulligan = true;
-        private const bool ShortTracker = true;
         private static bool IntroMessage = true;
-        private const DeckType DebugDeckType = DeckType.ControlPriest; 
-        private const Style DebugStyle = Style.Control;//no need to set up style for non arena decks
+        private const DeckType DebugDeckType = DeckType.MidRangeDruid; 
+        private const Style DebugStyle = Style.Combo;//no need to set up style for non arena decks
         /*If you chose not to be tracked, I won't be
          *             able to fix mulligan errors*/
         /******************************************/
@@ -1619,7 +1618,8 @@ namespace SmartBotUI.SmartMulliganV2
             _whiteList = new Dictionary<string, bool> { { Coin, true }, { Innervate, true }, { WildGrowth, false } };
             _cardsToKeep = new List<Card.Cards>();
         }
-        
+
+       
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             #region intro
@@ -1628,79 +1628,47 @@ namespace SmartBotUI.SmartMulliganV2
             bool debuggerFlag = false;
             if (IntroMessage)
             {
-                Bot.Log("============================================================================");
+                Bot.Log("====================================================");
                 Bot.Log("[SmartMulligan] Thank you for using SMV2. If you wish to support my work, you may donate to");
                 Bot.Log("\t\t\t http://j.mp/SmartMulliganV2Donation");
                 Bot.Log("\t\t\t  ");
-                Bot.Log("============================================================================");
+                Bot.Log("====================================================");
                 Bot.Log("\t\t[SmartMulligan - Hall of Fame]");
                 Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai");
-                Bot.Log("============================================================================");
-                Bot.Log("PLEASE TAKE 5 MUNITES OF YOUR TIME AND SHARE YOUR OPINION REGARDING BOTS FUTURE");
-                Bot.Log("http://sb-forum.com/index.php?/topic/6798-license-lifetime-monthly-model/#comment-33773 ");
-                Bot.Log("I ask that people keep an open mind and consider that old members got more than  ");
-                Bot.Log("from the bot than they paid for. Average bot user gains 4500 gold a month, which is 45 packs ");
-                Bot.Log("which is almost 50 dollars that you are not spending on packs. Average arena player gets even more value ");
+                Bot.Log("====================================================");
+                Bot.Log("SMTracker.cs dependancy is still work in progress, ");
+                Bot.Log("SmartMulligan is updated on misspick/bug report basis. Meaning:");
+                Bot.Log("Please avoid playing priests, they are in a rework phase");
                 Bot.Log(" ");
                 Bot.Log("Sincerely, SmartMulligan staff");
-                //Bot.Log("----------------SmartMulligan is capable of fully handeling----------------");
-                //Bot.Log("\t\t\t  ");
-                //Bot.Log("Druids:\t\t MidrangeDruid, Token[EGG!!!], Ramp, Aggro");
-                //Bot.Log("Mage:\t\t Tempo, Mech, Freeze Mage, Echo Mage");
-                //Bot.Log("Hunter:\t\t Midrange, Face and Hybrid race between two warrior classes that will rule the galaxy");
-                //Bot.Log("Warrior:\t Control, Fatigue, Dragon, Mech, Face, Patron ");
-                //Bot.Log("Shaman:\t Face, Control, Totem ");
-                //Bot.Log("Rogue:\t\t Oil Rogue, Chris Pratt Rogue (Raptor), Burst[Face] Rogue");
-                //Bot.Log("Warlock:\t Handlock, DemonHandlock, RenoLock, Zoolock, ReliquaryTokenZoo ");
-                //Bot.Log("Priest:\t\t Dragon, Control");
-                //Bot.Log("Paladin:\t\t [Hot!]Secret Paladin, Midrange Paladin, Aggro Paladin ");
-                //Bot.Log("  ");
-                //Bot.Log("--------------------------------[Arena]---------------- ");
-                //Bot.Log("[SmartMulligan] Fully supports all types of arena decks that you can throw at it");
-                //Bot.Log("\t\tAlso underwent enourmouse testing and takes into account bots behavior to ");
-                //Bot.Log("\t\tensure your curving out well no matter how you built your deck. ");
-                //Bot.Log("\t\tit is the best mulligan for arena. And there is absolutely nothing that tops it");
-                //Bot.Log("============================================================================");
-                //Bot.Log("[Note] This message will appear only once per bot session");
-                //Bot.Log("\tYou may disable this by unchecking it on line 30. ");
-                Bot.Log("============================================================================");
+                Bot.Log("====================================================");
                 IntroMessage = false;
             }
             #endregion
 
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SMTracker.cs"))
+           /* using (StreamWriter dr = new StreamWriter(MainDir + "drminions.txt", false))
             {
-                Bot.Log("[SmartMulligan] [SmartMulliganOpponentTracker.cs] not found. Loading basic assumption");
-                Bot.Log("[SmartMulligan] Aggro Classes: Paladin, Druid, Warlock, Shaman, Hunter");
-                Bot.Log("[SmartMulligan] Control classes: Priest, Warrior, Mage, Rogue");
-            }
-            else
-            {
-                using (StreamReader HistoryReader = new StreamReader(MainDir + "OpponentDeckInfo.txt"))
+                Dictionary<Card.Cards, CardTemplate>.KeyCollection idsCards = CardTemplate.TemplateList.Keys;
+                dr.WriteLine("kawda");
+                foreach (
+                    var q in
+                        idsCards.Where(
+                            c => CardTemplate.LoadFromId(c).IsCollectible && CardTemplate.LoadFromId(c).Cost == 1 &&
+                                (CardTemplate.LoadFromId(c).Class == Card.CClass.WARLOCK || CardTemplate.LoadFromId(c).Class == Card.CClass.NONE)
+                                )
+                                .OrderBy(cl => CardTemplate.LoadFromId(cl).Class))
                 {
-                    string line;
-                    var OpponentInfo = new OpponentDeckData {Identification = 200, DeckPreferencesDictionary = new Dictionary<Style, DeckType>()};
-                    while ((line = HistoryReader.ReadLine()) != null)
-                    {
-                        string[] check = line.Split(':');
-                        if (check[0] != Bot.GetCurrentOpponentId().ToString()) continue;
-                        OpponentInfo.Identification = Bot.GetCurrentOpponentId();
-                        OpponentInfo.DeckPreferencesDictionary.AddOrUpdate(
-                            (Style) Enum.Parse(typeof(Style), check[2]),
-                            (DeckType) Enum.Parse(typeof(DeckType), check[1]));
-                    }
-                    if (OpponentInfo.Identification != 200)
-                    {
-                        Bot.Log("[Tracker] You have played this opponents before, he played");
-                        foreach (var q in OpponentInfo.DeckPreferencesDictionary)
-                        {
-                            Bot.Log(string.Format("{0}---{1}", q.Value, q.Key));
-                        }
-                        Bot.Log(string.Format("[Tracker] SmartMulligan is making an assumption that your opponent is {0}", OpponentInfo.DeckPreferencesDictionary.First().Key));
-                    }
-                    else{Bot.Log("[Tracker] This is the first time you are facing this opponent");}
+                    dr.WriteLine("{{ {0} , 0 }},   \t\t\t //[{3} Mana] [{1}/{2}]",
+                        CardTemplate.LoadFromId(q).Name.Replace(" ", "")
+                            .Replace("!", " ")
+                            .Replace("-", "")
+                            .Replace(".", "")
+                            .Replace(":", "").Replace("'", ""), CardTemplate.LoadFromId(q).Atk,
+                        CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Cost
+                        );
+
                 }
-            }
+            }*/
             try
             {
 
@@ -1714,50 +1682,23 @@ namespace SmartBotUI.SmartMulliganV2
             catch (Exception ex)
             {
                 debuggerFlag = true;
-                var lists = CardTemplate.TemplateList.Keys.Where(c => CardTemplate.LoadFromId(c).IsCollectible);
-                using (StreamWriter kappa = new StreamWriter(MainDir + "kappa.txt"))
-                    foreach (var q in lists)
-                    {
-                        kappa.WriteLine("{{\"{0}\", \"{1}\"}},", CardTemplate.LoadFromId(q).Name, q);
-
-                    }
-                using (StreamWriter e = new StreamWriter(MainDir + "decks.txt", true))
                 using (StreamReader deckReader = new StreamReader(MainDir + "LastPlayedDeck.txt"))
                 {
                     string line;
-                    //int counter = 0;
-                    //while ((line = deckReader.ReadLine()) != null)
-                    //{
-                        while ((line = deckReader.ReadLine()) != null)
+                    while ((line = deckReader.ReadLine()) != null)
                         {
                             if (line == string.Empty) break;
                             CurrentDeck.Add(CardsDictionary[line.Substring(2)]);
                             if (line.Substring(0, 1) == "2")
                                 CurrentDeck.Add(CardsDictionary[line.Substring(2)]);
                         }
-                        //e.WriteLine(" ");
-                        //e.WriteLine("List<string> name{0} = new List<string> {{", counter);
-                        //counter++;
-                        //foreach (var q in CurrentDeck)
-                        //{
-                        //    e.Write("{0}, ",
-                        //        CardTemplate.LoadFromId(q)
-                        //            .Name.Replace(" ", "")
-                        //            .Replace("!", " ")
-                        //            .Replace("-", "")
-                        //            .Replace(".", "")
-                        //            .Replace(":", "").Replace("'", "").Replace(".", ""));
-                        //}
-                        //e.Write("};");
-                        //CurrentDeck.Clear();
-                    }
-                //}
-            }
+                       
+                }
+             }
             DefaultIni(opponentClass, ownClass);
-
+            
             var myInfo = GetDeckInfo(ownClass);
-            //OpponentDeckData opponentInfo = GetDeckInfo(readData);
-            //TODO quickjump
+            var opInfo = GetDeckInfo();
             if (debuggerFlag) //change those if you want to use mulligan tester. 
             {
                 myInfo.DeckStyle = DebugStyle;
@@ -1765,7 +1706,6 @@ namespace SmartBotUI.SmartMulliganV2
             }
             DefinePriorities(myInfo);
             ModifySpecialPriorities();
-            //Bot.ChangeMode(Bot.Mode.ArenaAuto); 
             var supported = true;
             ArchiveDeck(myInfo.DeckType);
             switch (myInfo.DeckType)
@@ -1890,9 +1830,7 @@ namespace SmartBotUI.SmartMulliganV2
                 case DeckType.FatigueWarrior:
                     HandleControlWarrior(choices, myInfo.DeckType);
                     break;
-                case DeckType.RelinquaryZoo:
-                    HandleZoo(choices, myInfo);
-                    break;
+                
                 case DeckType.FaceShaman:
                     HandleFaceShaman(choices, myInfo);
                     break;
@@ -1930,14 +1868,14 @@ namespace SmartBotUI.SmartMulliganV2
                     Bot.Log(string.Format("[SmartMulligan] Rwlrwl! {0} lgrlg. Raaauuorgrlgelgshmurglefurgleauugburlge auuurlr Arthur", myInfo.DeckType));
                     break;
                 case DeckType.FaceShaman:
-                    Bot.Log(string.Format("[SmartMulligan] All hail the, {0}, bow down you faul creatures to the overlord of the ladder!", myInfo.DeckType));
+                    Bot.Log(string.Format("[SmartMulligan] Is that {0}? Shame on you, please go away. ", myInfo.DeckType));
                     break;
                 default:
                     if (!supported)
                     {
-                        Bot.Log(string.Format("[SmartMulligan] I haven't extensively tested: {0}.", myInfo.DeckType));
+                        Bot.Log(string.Format("[SmartMulligan] I haven't coded {0} mulligan logic.", myInfo.DeckType));
                         Bot.Log(string.Format("[SmartMulligan] But this mulligan will try to adjust properly with {0} Mulligan logic.", DeckType.Arena));
-                        Bot.Log(string.Format("[SmartMulligan] Mulligan will treat it as {0} style deck ", myInfo.DeckStyle));
+                        Bot.Log(string.Format("[SmartMulligan] Mulligan will treat it as {0} style deck. But please remember that It's most likely wrong ", myInfo.DeckStyle));
                         SetDefaultsForStyle(myInfo.DeckStyle);
                         HandleMinions(choices, _whiteList, myInfo);
                         HandleWeapons(choices, _whiteList);
@@ -1958,6 +1896,12 @@ namespace SmartBotUI.SmartMulliganV2
 
             return _cardsToKeep;
         }
+
+        private List<string> ParseOpponentList(string[] check)
+        {
+            return new List<string>();
+        }
+
         private const Card.CClass Mage = Card.CClass.MAGE;
         private const Card.CClass Paladin = Card.CClass.MAGE;
         private const Card.CClass Priest = Card.CClass.MAGE;
@@ -1978,12 +1922,46 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 WhiteListAList(new List<string>{AuchenaiSoulpriest, CircleofHealing});
             }
+            
         }
 
-        //TODO: not done;
-        private OpponentDeckData GetDeckInfo(string readData)
+        
+        private OpponentDeckData GetDeckInfo()
         {
-            throw new NotImplementedException();
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SMTracker.cs"))
+            {
+                Bot.Log("[SmartMulligan] [SMTracker.cs] not found. Loading basic assumption");
+                Bot.Log("[SmartMulligan] Aggro Classes: Paladin, Warlock, Shaman, Hunter");
+                Bot.Log("[SmartMulligan] Control classes: Priest, Warrior, Mage, Rogue");
+            }
+            else
+            {
+                using (StreamReader HistoryReader = new StreamReader(MainDir + "OpponentDeckInfo.txt"))
+                {
+                    string line;
+                    var opponentInfo = new OpponentDeckData { Identification = 200, DeckPreferencesDictionary = new Dictionary<DeckType, List<string>>() };
+                    while ((line = HistoryReader.ReadLine()) != null)
+                    {
+                        string[] check = line.Split(':');
+                        if (check[1] != Bot.GetCurrentOpponentId().ToString()) continue;
+                        opponentInfo.Identification = Bot.GetCurrentOpponentId();
+                        opponentInfo.DeckPreferencesDictionary.AddOrUpdate(
+                           (DeckType)Enum.Parse(typeof(DeckType), check[2]), ParseOpponentList(check));
+                    }
+                    if (opponentInfo.Identification != 200)
+                    {
+                        Bot.Log("[Tracker] You have played this opponents before, he played");
+                        foreach (var q in opponentInfo.DeckPreferencesDictionary)
+                        {
+                            Bot.Log(string.Format("{0}---{1}", q.Value, q.Key));
+                        }
+                        Bot.Log(string.Format("[Tracker] SmartMulligan is making an assumption that your opponent is {0}", opponentInfo.DeckPreferencesDictionary.First().Key));
+                    }
+                    else { Bot.Log("[Tracker] This is the first time you are facing this opponent"); }
+                    return opponentInfo;
+                }
+            }
+            return null;
         }
 
         private void HandleMurglMurgl(List<Card.Cards> choices, DeckData myInfo)
@@ -2395,7 +2373,7 @@ namespace SmartBotUI.SmartMulliganV2
                 _ownC = ownClass;
                 _secretClass = _ownC == Card.CClass.PALADIN || _ownC == Card.CClass.MAGE || _ownC == Card.CClass.HUNTER;
                 _secretClassEnemy = _oc == Card.CClass.PALADIN || _oc == Card.CClass.MAGE || _oc == Card.CClass.HUNTER;
-                _aggro = _oc == Card.CClass.PALADIN || _oc == Card.CClass.DRUID || _oc == Card.CClass.HUNTER || _oc == Card.CClass.WARLOCK || _oc == Card.CClass.SHAMAN;
+                _aggro = _oc == Card.CClass.PALADIN || _oc == Card.CClass.HUNTER || _oc == Card.CClass.SHAMAN;
                 _wc = _oc == Card.CClass.WARRIOR || _oc == Card.CClass.PALADIN || _oc == Card.CClass.HUNTER || _oc == Card.CClass.ROGUE;
                 NumMechs = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Race == Card.CRace.MECH);
                 NumDragons = CurrentDeck.Count(q => CardTemplate.LoadFromId(q).Race == Card.CRace.DRAGON);
@@ -3859,19 +3837,23 @@ namespace SmartBotUI.SmartMulliganV2
                     var basicShaman = new List<string> {BoulderfistOgre, AcidicSwampOoze, GnomishInventor, Bloodlust, Hex, SenjinShieldmasta, FlametongueTotem, ShatteredSunCleric, RockbiterWeapon, TunnelTrogg, RumblingElemental, FireElemental, SirFinleyMrrgglton, JeweledScarab, BrannBronzebeard, ArchThiefRafaam, FrostwolfWarlord};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.TotemShaman, Style.Tempo}}, CurrentDeck.Intersect(totemShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.FaceShaman, Style.Face}}, CurrentDeck.Intersect(faceShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MechShaman, Style.Aggro}}, CurrentDeck.Intersect(mechShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonShaman, Style.Control}}, CurrentDeck.Intersect(dragonShaman).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.MalygosShaman, Style.Combo}}, CurrentDeck.Intersect(malygosShaman).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.TotemShaman, Style.Tempo}}, CurrentDeck.Intersect(totemShaman).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.FaceShaman, Style.Face}}, CurrentDeck.Intersect(faceShaman).ToList().Count}, 
+                        {new Dictionary<DeckType, Style> {{DeckType.MechShaman, Style.Aggro}}, CurrentDeck.Intersect(mechShaman).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.DragonShaman, Style.Control}}, CurrentDeck.Intersect(dragonShaman).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.MalygosShaman, Style.Combo}}, CurrentDeck.Intersect(malygosShaman).ToList().Count},
                         {new Dictionary<DeckType, Style> {{DeckType.ControlShaman, Style.Control}}, CurrentDeck.Intersect(controlShaman).ToList().Count},
                         {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicShaman).ToList().Count},
                     };
+                    if (!CurrentDeck.Contains(Malygos))
+                        DeckDictionary.AddOrUpdate(new Dictionary<DeckType, Style>{{DeckType.MalygosShaman, Style.Combo}}, 0);
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                    
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                    
                     break;
-
+                    
                     #endregion
 
                     #region priest
@@ -3892,10 +3874,8 @@ namespace SmartBotUI.SmartMulliganV2
 
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                    
+                   
                     break;
 
                     #endregion
@@ -3917,10 +3897,7 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                    
                     break;
 
                     #endregion
@@ -3942,10 +3919,7 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                    
                     break;
 
                     #endregion
@@ -3969,10 +3943,7 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                    
                     break;
 
                     #endregion
@@ -3986,22 +3957,22 @@ namespace SmartBotUI.SmartMulliganV2
                     List<string> dragonHandlock = new List<string> {MortalCoil, MortalCoil, Darkbomb, Darkbomb, AncientWatcher, AncientWatcher, IronbeakOwl, SunfuryProtector, SunfuryProtector, BigGameHunter, Hellfire, Hellfire, Shadowflame, DefenderofArgus, TwilightDrake, TwilightDrake, TwilightGuardian, TwilightGuardian, AntiqueHealbot, BlackwingCorruptor, BlackwingCorruptor, EmperorThaurissan, Chillmaw, DrBoom, Alexstrasza, MountainGiant, MountainGiant, MoltenGiant, MoltenGiant,};
                     List<string> demonZooWarlock = new List<string> {PowerOverwhelming, PowerOverwhelming, Voidwalker, Voidwalker, KnifeJuggler, KnifeJuggler, IronbeakOwl, Doomguard, Doomguard, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, SeaGiant, BaneofDoom, Voidcaller, Voidcaller, NerubianEgg, NerubianEgg, HauntedCreeper, HauntedCreeper, DrBoom, MalGanis, Implosion, Implosion, ImpGangBoss, ImpGangBoss, DarkPeddler, DarkPeddler,};
                     List<string> handlock = new List<string> {BigGameHunter, MoltenGiant, MoltenGiant, Hellfire, Hellfire, AncientWatcher, MountainGiant, MountainGiant, TwilightDrake, TwilightDrake, SunfuryProtector, SunfuryProtector, LordJaraxxus, IronbeakOwl, IronbeakOwl, DefenderofArgus, Shadowflame, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, AntiqueHealbot, AntiqueHealbot, Darkbomb, Darkbomb, EmperorThaurissan, BrannBronzebeard, DarkPeddler,};
-                    List<string> relinquary = new List<string> {PowerOverwhelming, PowerOverwhelming, Voidwalker, Voidwalker, IronbeakOwl, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, SeaGiant, SeaGiant, ZombieChow, NerubianEgg, NerubianEgg, Loatheb, EchoingOoze, EchoingOoze, HauntedCreeper, HauntedCreeper, DrBoom, Implosion, Implosion, ImpGangBoss, ImpGangBoss, GormoktheImpaler, DarkPeddler, DarkPeddler, ReliquarySeeker, ReliquarySeeker,};
                     List<string> basicdeck = new List<string>{ChillwindYeti, ShatteredSunCleric, SenjinShieldmasta, ZombieChow, HauntedCreeper, SludgeBelcher, KelThuzad, Loatheb, EmperorThaurissan, ImpGangBoss, DarkPeddler, JeweledScarab, ArchThiefRafaam, ShadowBolt, Hellfire, DreadInfernal, MortalCoil,  
 };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.RenoLock, Style.Control}}, CurrentDeck.Intersect(renolock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DemonHandlock, Style.Control}}, CurrentDeck.Intersect(demonHandlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.Zoolock, Style.Aggro}}, CurrentDeck.Intersect(zoolock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonHandlock, Style.Control}}, CurrentDeck.Intersect(dragonHandlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DemonZooWarlock, Style.Aggro}}, CurrentDeck.Intersect(demonZooWarlock).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.Handlock, Style.Control}}, CurrentDeck.Intersect(handlock).ToList().Count},
-                        {new Dictionary<DeckType, Style> {{DeckType.RelinquaryZoo, Style.Aggro}}, CurrentDeck.Intersect(relinquary).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.RenoLock, Style.Control}}, CurrentDeck.Intersect(renolock).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.DemonHandlock, Style.Control}}, CurrentDeck.Intersect(demonHandlock).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.Zoolock, Style.Aggro}}, CurrentDeck.Intersect(zoolock).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.DragonHandlock, Style.Control}}, CurrentDeck.Intersect(dragonHandlock).ToList().Count}, 
+                        {new Dictionary<DeckType, Style> {{DeckType.DemonZooWarlock, Style.Aggro}}, CurrentDeck.Intersect(demonZooWarlock).ToList().Count}, 
+                        {new Dictionary<DeckType, Style> {{DeckType.Handlock, Style.Control}}, CurrentDeck.Intersect(handlock).ToList().Count},
                         {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicdeck).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                   
                     break;
 
                     #endregion
@@ -4022,10 +3993,7 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                   
                     break;
                     #endregion
 
@@ -4046,10 +4014,7 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                    
                     break;
 
                     #endregion
@@ -4070,10 +4035,7 @@ namespace SmartBotUI.SmartMulliganV2
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
                     info.DeckType = BestDeck.Keys.First();
                     info.DeckStyle = BestDeck.Values.First();
-                    Bot.Log("===========================");
-                    foreach (var q in DeckDictionary)
-                        Bot.Log(string.Format("For {0} your deck scored {1}", q.Key.First().Key, q.Value));
-                    Bot.Log("===========================");
+                    
                     break;
 
                     #endregion
@@ -4228,7 +4190,7 @@ namespace SmartBotUI.SmartMulliganV2
     /// </summary>
     public class OpponentDeckData
     {
-        public Dictionary<Style, DeckType> DeckPreferencesDictionary { get; set; }
+        public Dictionary<DeckType, List<string>> DeckPreferencesDictionary { get; set; }
         public bool Aggro { get; set; }
         public long Identification { get; set; }
     }
@@ -4261,7 +4223,6 @@ namespace SmartBotUI.SmartMulliganV2
         Handlock,
         RenoLock,
         Zoolock,
-        RelinquaryZoo,
         DemonHandlock,
         DemonZooWarlock,
         DragonHandlock, //Missing ZooLock, DemonZoo
