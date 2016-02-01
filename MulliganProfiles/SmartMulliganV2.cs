@@ -2401,7 +2401,7 @@ namespace SmartBotUI.SmartMulliganV2
             catch (Exception e)
             {
                 Bot.Log(string.Format("[SmartMulligan] Thank you for using SmartMulligan. If this message exists, then unicorns invaded your world and I need to be informed about them"));
-                Bot.Log(string.Format("[SmartMulligan] If your average deck cost shows 0, that means murlocs took over and you need to sub in hungry crab, or use alternate injection for better AI. PS: Your average deck cost is {0} ", AverageCost));
+                Bot.Log(string.Format("[SmartMulligan] If your average deck cost shows 0, that means murlocs took over and you need dto sub in hungry crab, or use alternate injection for better AI. PS: Your average deck cost is {0} ", AverageCost));
             }
         }
 
@@ -3861,14 +3861,18 @@ namespace SmartBotUI.SmartMulliganV2
                 case Card.CClass.PRIEST:
                     List<string> comboPriest = new List<string> {CircleofHealing, CircleofHealing, InnerFire, InnerFire, Alexstrasza, AcolyteofPain, AcolyteofPain, PowerWordShield, PowerWordShield, Silence, Silence, ShadowWordDeath, DivineSpirit, DivineSpirit, NorthshireCleric, NorthshireCleric, HarrisonJones, StormwindKnight, AuchenaiSoulpriest, HolyNova, Loatheb, Deathlord, Deathlord, VelensChosen, GnomereganInfantry, Lightbomb, Lightbomb, EmperorThaurissan,};
                     List<string> dragonPriest = new List<string> {CabalShadowPriest, CabalShadowPriest, AzureDrake, PowerWordShield, PowerWordShield, Ysera, ShadowWordDeath, ShadowWordDeath, NorthshireCleric, HarrisonJones, HolyNova, SludgeBelcher, VelensChosen, VelensChosen, DrBoom, Shrinkmeister, Shrinkmeister, Voljin, Lightbomb, Lightbomb, BlackwingTechnician, BlackwingTechnician, TwilightWhelp, TwilightWhelp, TwilightGuardian, TwilightGuardian, Chillmaw, WyrmrestAgent, WyrmrestAgent,};
+                    List<string> dragonPriestv2 = new List<string> {CabalShadowPriest, AzureDrake, PowerWordShield, Ysera, ShadowWordDeath, NorthshireCleric, HolyNova, DarkCultist, VelensChosen, Lightbomb, BlackwingTechnician, BlackwingCorruptor, Chromaggus, TwilightWhelp, TwilightGuardian, WyrmrestAgent, BrannBronzebeard, Entomb, MuseumCurator};
                     List<string> controlPriest = new List<string> {LightoftheNaaru, LightoftheNaaru, PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, MuseumCurator, MuseumCurator, Shrinkmeister, ShadowWordDeath, AuchenaiSoulpriest, AuchenaiSoulpriest, HolyNova, Entomb, Entomb, Lightbomb, Lightbomb, CabalShadowPriest, WildPyromancer, WildPyromancer, Deathlord, Deathlord, InjuredBlademaster, InjuredBlademaster, SludgeBelcher, SludgeBelcher, JusticarTrueheart, Ysera,};
                     List<string> mechPriest = new List<string> {PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, HolyNova, HolyNova, DarkCultist, DarkCultist, VelensChosen, VelensChosen, DrBoom, SpiderTank, UpgradedRepairBot, UpgradedRepairBot, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, ClockworkGnome, ClockworkGnome, Shadowboxer, Shadowboxer, Voljin, SpawnofShadows, GorillabotA3, Entomb, MuseumCurator, MuseumCurator,};
                     List<string> basicPriest = new List<string> {ChillwindYeti, BoulderfistOgre, AcidicSwampOoze, GnomishInventor, StormwindChampion, ShadowWordPain, SenjinShieldmasta, MindControl, HolySmite, PowerWordShield, ShatteredSunCleric, NoviceEngineer, ShadowWordDeath, BloodfenRaptor, NorthshireCleric, HolyNova,};
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
-                        {new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}}, CurrentDeck.Intersect(comboPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriest).ToList().Count}, {new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}}, CurrentDeck.Intersect(controlPriest).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}}, CurrentDeck.Intersect(comboPriest).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriest).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriestv2).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}}, CurrentDeck.Intersect(controlPriest).ToList().Count},
                         {new Dictionary<DeckType, Style> {{DeckType.MechPriest, Style.Aggro}}, CurrentDeck.Intersect(mechPriest).ToList().Count},
-                         {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicPriest).ToList().Count},
+                        {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicPriest).ToList().Count},
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
 
