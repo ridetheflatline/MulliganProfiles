@@ -1643,7 +1643,7 @@ namespace SmartBotUI.SmartMulliganV2
                 Bot.Log(" ");
                 Bot.Log("Sincerely, SmartMulligan staff");
                 Bot.Log("====================================================");
-                IntroMessage = false;
+                //IntroMessage = false;
             }
             #endregion
 
