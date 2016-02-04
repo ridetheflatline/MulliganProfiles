@@ -1628,17 +1628,18 @@ namespace SmartBotUI.SmartMulliganV2
             bool debuggerFlag = false;
             if (IntroMessage)
             {
-                Bot.Log("====================================================");
+/*                Bot.Log("====================================================");
                 Bot.Log("[SmartMulligan] Thank you for using SMV2. If you wish to support my work, you may donate to");
                 Bot.Log("\t\t\t http://j.mp/SmartMulliganV2Donation");
-                Bot.Log("\t\t\t  ");
+                Bot.Log("\t\t\t  ");*/
                 Bot.Log("====================================================");
                 Bot.Log("\t\t[SmartMulligan - Hall of Fame]");
                 Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai");
-                Bot.Log("====================================================");
-                Bot.Log("SMTracker.cs dependancy is still work in progress, ");
-                Bot.Log("SmartMulligan is updated on misspick/bug report basis. Meaning:");
-                Bot.Log("Please avoid playing priests, they are in a rework phase");
+                Bot.Log("\n\n====================IMPORTANT===================");
+                Bot.Log("Please take time to read this and vote the poll : https://sb-forum.com/index.php?/topic/6995-smartbot-future/");
+                Bot.Log("During the course of next week, this message will apear after every game");
+                Bot.Log("Sorry for inconvinience, but please vote in the link above");
+                Bot.Log("It's important for the future of SmartBot");
                 Bot.Log(" ");
                 Bot.Log("Sincerely, SmartMulligan staff");
                 Bot.Log("====================================================");
@@ -1646,29 +1647,7 @@ namespace SmartBotUI.SmartMulliganV2
             }
             #endregion
 
-           /* using (StreamWriter dr = new StreamWriter(MainDir + "drminions.txt", false))
-            {
-                Dictionary<Card.Cards, CardTemplate>.KeyCollection idsCards = CardTemplate.TemplateList.Keys;
-                dr.WriteLine("kawda");
-                foreach (
-                    var q in
-                        idsCards.Where(
-                            c => CardTemplate.LoadFromId(c).IsCollectible && CardTemplate.LoadFromId(c).Cost == 1 &&
-                                (CardTemplate.LoadFromId(c).Class == Card.CClass.WARLOCK || CardTemplate.LoadFromId(c).Class == Card.CClass.NONE)
-                                )
-                                .OrderBy(cl => CardTemplate.LoadFromId(cl).Class))
-                {
-                    dr.WriteLine("{{ {0} , 0 }},   \t\t\t //[{3} Mana] [{1}/{2}]",
-                        CardTemplate.LoadFromId(q).Name.Replace(" ", "")
-                            .Replace("!", " ")
-                            .Replace("-", "")
-                            .Replace(".", "")
-                            .Replace(":", "").Replace("'", ""), CardTemplate.LoadFromId(q).Atk,
-                        CardTemplate.LoadFromId(q).Health, CardTemplate.LoadFromId(q).Cost
-                        );
-
-                }
-            }*/
+            
             try
             {
 
