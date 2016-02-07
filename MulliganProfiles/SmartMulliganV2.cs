@@ -5,6 +5,7 @@ using System.Linq;
 using SmartBot.Database;
 using SmartBot.Mulligan;
 using SmartBot.Plugins.API;
+// ReSharper disable UseStringInterpolation
 
 
 // ReSharper disable once CheckNamespace
@@ -1635,13 +1636,15 @@ namespace SmartBotUI.SmartMulliganV2
                 Bot.Log("====================================================");
                 Bot.Log("\t\t[SmartMulligan - Hall of Fame]");
                 Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai");
-                Bot.Log("\n\n====================IMPORTANT===================");
-                Bot.Log("Please take time to read this and vote the poll : https://sb-forum.com/index.php?/topic/6995-smartbot-future/");
-                Bot.Log("During the course of next week, this message will apear after every game");
-                Bot.Log("Sorry for inconvinience, but please vote in the link above");
-                Bot.Log("It's important for the future of SmartBot");
-                Bot.Log(" ");
-                Bot.Log("Sincerely, SmartMulligan staff");
+                Bot.Log("\n\n====================IMPORTANT===================\n" +
+                        "\nPlease take time to read this and vote the poll : https://sb-forum.com/index.php?/topic/6995-smartbot-future/" +
+                        "\nDuring the course of next week, this message will apear after every game" +
+                        "\nSorry for inconvinience, but please vote in the link above" +
+                        "\nIt's important for the future of SmartBot" +
+                        "\nSincerely, SmartMulligan staff");
+                
+                
+
                 Bot.Log("====================================================");
                 //IntroMessage = false;
             }
@@ -1835,7 +1838,11 @@ namespace SmartBotUI.SmartMulliganV2
                     HandleSpells(choices, _whiteList);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    SetDefaultsForStyle(myInfo.DeckStyle);
+                    HandleMinions(choices, _whiteList, myInfo);
+                    HandleWeapons(choices, _whiteList);
+                    HandleSpells(choices, _whiteList);
+                    break;
             }
 
             switch (myInfo.DeckType)
