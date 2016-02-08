@@ -1629,21 +1629,18 @@ namespace SmartBotUI.SmartMulliganV2
             bool debuggerFlag = false;
             if (IntroMessage)
             {
-/*                Bot.Log("====================================================");
+                Bot.Log("====================================================");
                 Bot.Log("[SmartMulligan] Thank you for using SMV2. If you wish to support my work, you may donate to");
                 Bot.Log("\t\t\t http://j.mp/SmartMulliganV2Donation");
-                Bot.Log("\t\t\t  ");*/
+                Bot.Log("\t\t\t  ");
                 Bot.Log("====================================================");
                 Bot.Log("\t\t[SmartMulligan - Hall of Fame]");
                 Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai");
-                Bot.Log("\n\n====================IMPORTANT===================\n" +
-                        "\nPlease take time to read this and vote the poll : https://sb-forum.com/index.php?/topic/6995-smartbot-future/" +
-                        "\nDuring the course of next week, this message will apear after every game" +
-                        "\nSorry for inconvinience, but please vote in the link above" +
-                        "\nIt's important for the future of SmartBot" +
-                        "\nSincerely, SmartMulligan staff");
+                Bot.Log("\n\n====================Updates===================\n" +
+                        "\nInformation about upcoming SmartTracker https://sb-forum.com/index.php?/topic/7015-official-smarttracker-~-deck-requests/#comment-34896" +
+                        "\n====================================================\n");
                 
-                Bot.Log("====================================================");
+                Bot.Log("");
                 //IntroMessage = false;
             }
             #endregion
@@ -2296,7 +2293,7 @@ namespace SmartBotUI.SmartMulliganV2
                 {"FP1_022", ChoicesHasRace(Card.CRace.DEMON) ? 10 : 4}, //[3/4]Voidcaller [4 mana] [WARLOCK card]
                 {"FP1_026", 3}, //[5/5]Anub'ar Ambusher [4 mana] [ROGUE card]
                 {"FP1_031", 0}, //[1/7]Baron Rivendare [4 mana] [NONE card]
-                {"GVG_004", ChoicesHasRace(Card.CRace.MECH) || NumMechs > 4 ? 8 : 3}, //[5/4]Goblin Blastmage [4 mana] [MAGE card]
+                {"GVG_004", ChoicesHasRace(Card.CRace.MECH) || (NumMechs > 4 && _hasCoin) ? 8 : 3}, //[5/4]Goblin Blastmage [4 mana] [MAGE card]
                 {"GVG_020", ChoicesHasRace(Card.CRace.MECH) ? 5 : 0}, //[3/5]Fel Cannon [4 mana] [WARLOCK card]
                 {"GVG_040", 0}, //[2/5]Siltfin Spiritwalker [4 mana] [SHAMAN card]
                 {"GVG_055", 0}, //[2/5]Screwjank Clunker [4 mana] [WARRIOR card]
