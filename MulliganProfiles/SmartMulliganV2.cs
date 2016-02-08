@@ -29,8 +29,8 @@ namespace SmartBotUI.SmartMulliganV2
         /******************************************/
         private const bool TrackMulligan = true;
         private static bool IntroMessage = true;
-        private const DeckType DebugDeckType = DeckType.MidRangeDruid; 
-        private const Style DebugStyle = Style.Combo;//no need to set up style for non arena decks
+        private const DeckType DebugDeckType = DeckType.Zoolock; 
+        private const Style DebugStyle = Style.Aggro;//no need to set up style for non arena decks
         /*If you chose not to be tracked, I won't be
          *             able to fix mulligan errors*/
         /******************************************/
@@ -1643,8 +1643,6 @@ namespace SmartBotUI.SmartMulliganV2
                         "\nIt's important for the future of SmartBot" +
                         "\nSincerely, SmartMulligan staff");
                 
-                
-
                 Bot.Log("====================================================");
                 //IntroMessage = false;
             }
@@ -1661,9 +1659,14 @@ namespace SmartBotUI.SmartMulliganV2
                         LastPlayedDeck.WriteLine("{0} {1}", CurrentDeck.Count(c=> c == q), CardTemplate.LoadFromId(q).Name);
                 }
             }
+            
             catch (Exception ex)
             {
                 debuggerFlag = true;
+                using (var fu = new StreamWriter(MainDir + "sm.v3"))
+                {
+                    fu.WriteLine("");
+                }
                 using (StreamReader deckReader = new StreamReader(MainDir + "LastPlayedDeck.txt"))
                 {
                     string line;
@@ -2168,7 +2171,7 @@ namespace SmartBotUI.SmartMulliganV2
                 {"EX1_582", 1}, //[1/4]Dalaran Mage [3 mana] [NONE card]
                 {"CS2_117", 3}, //[3/3]Earthen Ring Farseer [3 mana] [NONE card]
                 {"CS2_181", 5}, //[4/7]Injured Blademaster [3 mana] [NONE card]
-                {"EX1_005", 1}, //[4/2]Big Game Hunter [3 mana] [NONE card]
+                {"EX1_005", 0}, //[4/2]Big Game Hunter [3 mana] [NONE card]
                 {"EX1_006", 0}, //[0/3]Alarm-o-Bot [3 mana] [NONE card]
                 {"EX1_007", _ownC == Card.CClass.MAGE && data != null && data.DeckStyle == Style.Control ? 5 : 2}, //[1/3]Acolyte of Pain [3 mana] [NONE card]
                 {"EX1_014", 5}, //[5/5]King Mukla [3 mana] [NONE card]
