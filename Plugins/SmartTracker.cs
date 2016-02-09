@@ -8,7 +8,7 @@ using System.Net;
 using SmartBot.Database;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-
+//Version ~0.10 
 namespace SmartBot.Plugins
 {
     public static class Extension
@@ -824,79 +824,50 @@ namespace SmartBot.Plugins
             }
             if (((smPluginDataContainer) DataContainer).AutoUpdateV3)
             {
-                CheckUpdates(((smPluginDataContainer)DataContainer).LSmartMulliganV3);
+                CheckUpdatesMulligan(((smPluginDataContainer)DataContainer).LSmartMulliganV3);
             }
             if (((smPluginDataContainer) DataContainer).AutoUpdateTracker)
             {
-                CheckUpdates(((smPluginDataContainer)DataContainer).LSmartTracker, true);
+                CheckUpdatesTracker(((smPluginDataContainer)DataContainer).LSmartTracker);
             }
         }
 
-        private static void CheckUpdates(string uniResLocator, bool tracker = false)
+        private void CheckUpdatesTracker(string lSmartTracker)
         {
-            try
+            double version = 0.10;
+            HttpWebRequest request = WebRequest.Create(lSmartTracker) as HttpWebRequest;
+            if (request == null)
             {
-                int index = uniResLocator.LastIndexOf('/') + 1;
-                HttpWebRequest request = WebRequest.Create(uniResLocator) as HttpWebRequest;
-                if (request == null)
-                {
-                    Bot.Log(string.Format("[SmartAutoUpdater]Could not get data from gitlink {0}", uniResLocator));
-                    return;
-                }
-                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-                {
-                    Bot.Log("Flag for Response link");
-                    StreamReader reader = new StreamReader(response.GetResponseStream());
-                    string githubReaderContent = reader.ReadToEnd();
-                    string copy = githubReaderContent;
-                    string cleanFolderFile;
-                    var cleanGit = new string(githubReaderContent.Where(Char.IsLetter).ToArray());
-                    if (tracker)
-                    {
-                        using (
-                            StreamReader pluginStreamReader =
-                                new StreamReader(MainDirTracker + uniResLocator.Substring(index)))
-                        {
-                            string fileInFolder = pluginStreamReader.ReadToEnd();
-                            cleanFolderFile = new string(fileInFolder.Where(Char.IsLetter).ToArray());
-                        }
-                    }
-                    else
-                    {
-                        using (
-                            StreamReader mulliStreamReader = new StreamReader(MainDir + uniResLocator.Substring(index)))
-                        {
-                            string fileInFolder = mulliStreamReader.ReadToEnd();
-                            cleanFolderFile = new string(fileInFolder.Where(Char.IsLetter).ToArray());
-                        }
-                    }
-
-                    if (!string.Equals(cleanGit, cleanFolderFile))
-                    {
-                        Bot.Log(string.Format("[SmartTracker] {0} is outdated. Updating... ",
-                            tracker ? "SmartTracker" : "SmartMulligan"));
-                        using (var file = new StreamWriter(tracker ? MainDirTracker + uniResLocator.Substring(index)
-                                            : MainDir + uniResLocator.Substring(index), false))
-                            file.WriteLine(copy);
-                        if (tracker)
-                                Bot.Log("You will need to reload plugins for SmartTracker changes to take effect");
-                            else Bot.RefreshMulliganProfiles();
-
-                    }
-                    else
-                    {
-                        Bot.Log(string.Format("[SmartTracker] Everything looks updated"));
-                    }
-
-                }
+                Bot.Log(string.Format("[SmartTracker] You won’t find too many people at their boss’ grave who aren’t dancing on it."));
+                return;
             }
-            catch (Exception e)
+            //using (StreamWriter debugFile = new StreamWriter(MAIN_DIR + "Debug" + link.Substring(index), false)) //debug writer
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
             {
-                Bot.Log("I am a wild Unicorn. I came here to ruin your day" + e.Message);
+                string content = reader.ReadToEnd();
+                Bot.Log(content.Substring(content.IndexOf('~') + 1, ~content.IndexOf('~') + 3));
+                /*if (
+                    Math.Abs(double.Parse(content.Substring(content.IndexOf('~') + 1, ~content.IndexOf('~') + 3)) -
+                             version) > 0)
+                {
+                    
+                }*/
+
+            }
+            using (
+                var file = new StreamWriter(
+                    MainDirTracker + lSmartTracker.Substring(lSmartTracker.LastIndexOf('/') + 1), false))
+            {
+                
             }
         }
 
-       
+        private void CheckUpdatesMulligan(string lSmartMulliganV3)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public override void OnStopped()
         {
