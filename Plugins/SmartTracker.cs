@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using SmartBot.Database;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -25,14 +26,13 @@ namespace SmartBot.Plugins
         [ItemsSource(typeof(DeckType)) ] //XCeed reference
         public DeckType TestOpponentDeck {get;set;} 
         
-        public int AverageDeckCostHigherThan { get; set; }
         public bool AutoUpdateV3 { get; set; }
         public bool AutoUpdateTracker { get; set; }
         [ItemsSource(typeof(DeckType))] //XCeed reference
         public DeckType TestYourDeck { get; set; }
 
-        public string LSmartMulliganV3 { get; private set; }
-        public string LSmartTracker { get; private set; }
+        public string LSmartMulliganV3 { get;  set; }
+        public string LSmartTracker { get;  set; }
 
         public smPluginDataContainer()
         {
@@ -42,14 +42,14 @@ namespace SmartBot.Plugins
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/MulliganProfiles/SmartMulliganV3.cs";
-            LSmartTracker = "";
+            LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartTracker.cs";
 
         }
     }
 
     public class SMTracker : Plugin
     {
-         #region cards
+        #region cards
 
         private const string GoldshireFootman = "CS1_042";
         private const string HolyNova = "CS1_112";
@@ -797,10 +797,11 @@ namespace SmartBot.Plugins
         #endregion
         public bool alreadyIdentified = false;
         public static readonly string MainDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\";
+        public static readonly string MainDirTracker = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\";
         public Dictionary<string,string> AllOpponentsDictionary = new Dictionary<string, string>(); 
         public override void OnTick()
         {
-            Bot.Log("[SM Tracker] YOU ARE NOT SUPPOSE TO USE THIS YET");
+            //Bot.Log("[SM Tracker] YOU ARE NOT SUPPOSE TO USE THIS YET");
             if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY) alreadyIdentified = false;
             if (Bot.CurrentBoard == null || alreadyIdentified ) return;
             DeckData informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
@@ -821,13 +822,78 @@ namespace SmartBot.Plugins
             }
             if (((smPluginDataContainer) DataContainer).AutoUpdateV3)
             {
-                
+                CheckUpdates(((smPluginDataContainer)DataContainer).LSmartMulliganV3);
             }
             if (((smPluginDataContainer) DataContainer).AutoUpdateTracker)
             {
-
+                CheckUpdates(((smPluginDataContainer)DataContainer).LSmartTracker, true);
             }
         }
+
+        private static void CheckUpdates(string uniResLocator, bool tracker = false)
+        {
+            try
+            {
+                int index = uniResLocator.LastIndexOf('/') + 1;
+                HttpWebRequest request = WebRequest.Create(uniResLocator) as HttpWebRequest;
+                if (request == null)
+                {
+                    Bot.Log(string.Format("[SmartAutoUpdater]Could not get data from gitlink {0}", uniResLocator));
+                    return;
+                }
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    StreamReader reader = new StreamReader(response.GetResponseStream());
+                    string githubReaderContent = reader.ReadToEnd();
+                    string copy = githubReaderContent;
+                    string cleanFolderFile;
+                    var cleanGit = new string(githubReaderContent.Where(Char.IsLetter).ToArray());
+                    if (tracker)
+                    {
+                        using (
+                            StreamReader pluginStreamReader =
+                                new StreamReader(MainDirTracker + uniResLocator.Substring(index)))
+                        {
+                            string fileInFolder = pluginStreamReader.ReadToEnd();
+                            cleanFolderFile = new string(fileInFolder.Where(Char.IsLetter).ToArray());
+                        }
+                    }
+                    else
+                    {
+                        using (
+                            StreamReader mulliStreamReader = new StreamReader(MainDir + uniResLocator.Substring(index)))
+                        {
+                            string fileInFolder = mulliStreamReader.ReadToEnd();
+                            cleanFolderFile = new string(fileInFolder.Where(Char.IsLetter).ToArray());
+                        }
+                    }
+
+                    if (!string.Equals(cleanGit, cleanFolderFile))
+                    {
+                        Bot.Log(string.Format("[SmartTracker] {0} is outdated. Updating... ",
+                            tracker ? "SmartTracker" : "SmartMulligan"));
+                        using (var file = new StreamWriter(tracker ? MainDirTracker + uniResLocator.Substring(index)
+                                            : MainDir + uniResLocator.Substring(index), false))
+                            file.WriteLine(copy);
+                        if (tracker)
+                                Bot.Log("You will need to reload plugins for SmartTracker changes to take effect");
+                            else Bot.RefreshMulliganProfiles();
+
+                    }
+                    else
+                    {
+                        Bot.Log(string.Format("[SmartTracker] Everything looks updated"));
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                Bot.Log("I am a wild Unicorn. I came here to ruin your day");
+            }
+        }
+
+       
 
         public override void OnStopped()
         {
