@@ -30,9 +30,11 @@ namespace SmartBot.Plugins
         public bool AutoUpdateTracker { get; set; }
         [ItemsSource(typeof(DeckType))] //XCeed reference
         public DeckType TestYourDeck { get; set; }
-
-        public string LSmartMulliganV3 { get;  set; }
-        public string LSmartTracker { get;  set; }
+        [Browsable(false)]
+        public string LSmartMulliganV3 { get; set; }
+        [Browsable(false)]
+        public string LSmartTracker { get; set; }
+    
 
         public smPluginDataContainer()
         {
@@ -843,6 +845,7 @@ namespace SmartBot.Plugins
                 }
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
+                    Bot.Log("Flag for Response link");
                     StreamReader reader = new StreamReader(response.GetResponseStream());
                     string githubReaderContent = reader.ReadToEnd();
                     string copy = githubReaderContent;
@@ -889,7 +892,7 @@ namespace SmartBot.Plugins
             }
             catch (Exception e)
             {
-                Bot.Log("I am a wild Unicorn. I came here to ruin your day");
+                Bot.Log("I am a wild Unicorn. I came here to ruin your day" + e.Message);
             }
         }
 
