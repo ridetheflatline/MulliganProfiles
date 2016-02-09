@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using SmartBot.Mulligan;
 using SmartBot.Plugins.API;
-
+//Version ~3.01
 
 
 // ReSharper disable once CheckNamespace
