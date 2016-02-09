@@ -1,4 +1,5 @@
-﻿using SmartBot.Plugins.API;
+﻿//Version ~0.10 
+using SmartBot.Plugins.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using System.Net;
 using SmartBot.Database;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-//Version ~0.10 
+
 namespace SmartBot.Plugins
 {
     public static class Extension
@@ -846,7 +847,7 @@ namespace SmartBot.Plugins
             using (StreamReader reader = new StreamReader(response.GetResponseStream()))
             {
                 string content = reader.ReadToEnd();
-                Bot.Log(content.Substring(content.IndexOf('~') + 1, ~content.IndexOf('~') + 3));
+                Bot.Log(content.Substring(11, 14));
                 /*if (
                     Math.Abs(double.Parse(content.Substring(content.IndexOf('~') + 1, ~content.IndexOf('~') + 3)) -
                              version) > 0)
