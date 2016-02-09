@@ -1631,17 +1631,17 @@ namespace SmartBotUI.SmartMulliganV2
             {
                 Bot.Log("====================================================");
                 Bot.Log("[SmartMulligan] Thank you for using SMV2. If you wish to support my work, you may donate to");
-                Bot.Log("\t\t\t http://j.mp/SmartMulliganV2Donation");
-                Bot.Log("\t\t\t  ");
+                Bot.Log("\t\tPayPal: http://j.mp/SmartMulliganV2Donation");
+                Bot.Log("\t\tB# 16ujoN2p8JaxBvkWFxPRcy1x8roG1XMeBM  ");
                 Bot.Log("====================================================");
                 Bot.Log("\t\t[SmartMulligan - Hall of Fame]");
                 Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai");
-                Bot.Log("\n\n====================Updates===================\n" +
+                Bot.Log("\n====================Updates===================\n" +
                         "\nInformation about upcoming SmartTracker https://sb-forum.com/index.php?/topic/7015-official-smarttracker-~-deck-requests/#comment-34896" +
-                        "\n====================================================\n");
+                        "\n====================================================");
                 
                 Bot.Log("");
-                //IntroMessage = false;
+                IntroMessage = false;
             }
             #endregion
 
