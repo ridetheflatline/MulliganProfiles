@@ -8,7 +8,7 @@ using SmartBot.Plugins.API;
 
 // ReSharper disable once CheckNamespace
 
-namespace SmartBotUI.SmartMulliganV3
+namespace SmartMulliganV3
 {
     public static class Extension
     {
