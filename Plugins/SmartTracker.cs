@@ -1,4 +1,4 @@
-﻿//Version ~0.10 
+﻿//Version:0.10 
 using SmartBot.Plugins.API;
 using System;
 using System.Collections.Generic;
@@ -846,8 +846,8 @@ namespace SmartBot.Plugins
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
             using (StreamReader reader = new StreamReader(response.GetResponseStream()))
             {
-                string content = reader.ReadToEnd();
-                Bot.Log(content.Substring(11, 14));
+                string content = reader.ReadLine();
+                Bot.Log(content.Substring(content.IndexOf(':')+1));
                 /*if (
                     Math.Abs(double.Parse(content.Substring(content.IndexOf('~') + 1, ~content.IndexOf('~') + 3)) -
                              version) > 0)
@@ -856,17 +856,12 @@ namespace SmartBot.Plugins
                 }*/
 
             }
-            using (
-                var file = new StreamWriter(
-                    MainDirTracker + lSmartTracker.Substring(lSmartTracker.LastIndexOf('/') + 1), false))
-            {
-                
-            }
+            
         }
 
         private void CheckUpdatesMulligan(string lSmartMulliganV3)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
 
