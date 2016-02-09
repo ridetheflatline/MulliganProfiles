@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SmartBot.Database;
@@ -18,7 +18,7 @@ namespace SmartBot.PluginsRA
         public bool ShowDrawnCards { get; set; }
     }
 
-    public class bPlugin : Plugin
+    public class qPlugin : Plugin
     {
         private const string BrannBronzebeard = "LOE_077";
         private const string IronJuggernaut = "GVG_056";
@@ -152,7 +152,7 @@ namespace SmartBot.PluginsRA
                 if (Bot.CurrentBoard.Hand.Count > _currentNumberOfCards)
                     CheckWhatWasDrawn(Bot.CurrentBoard.Hand.Count - _currentNumberOfCards);
             }
-            catch (Exception check)
+            catch (Exception)
             {
             }
         }
@@ -163,7 +163,8 @@ namespace SmartBot.PluginsRA
             {
                 _myHand = Bot.CurrentBoard.Hand.Select(q => q.Template.Id.ToString()).ToList();
                 var ownGrave = Bot.CurrentBoard.FriendGraveyard.Select(q => q.ToString()).ToList();
-                _secrets = Bot.CurrentBoard.Secret.Select(q => q.Template.Id.ToString()).ToList();
+                _secrets = Bot.CurrentBoard.Secret.Select(q => q.ToString()).ToList();
+
                 foreach (var q in _duplicatesList.Where(q => _myHand.Contains(q)))
                 {
                     _duplicatesList.Remove(q);
@@ -181,8 +182,9 @@ namespace SmartBot.PluginsRA
                     if (_duplicatesList.Count == 0) _renoFlag = true;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
+                // ignored
             }
         }
 
@@ -229,9 +231,9 @@ namespace SmartBot.PluginsRA
                 {
                     _duplicatesList.Remove(q);
                 }
-                _secrets = Bot.CurrentBoard.Secret.Select(q => q.Template.Id.ToString()).ToList();
+                _secrets = Bot.CurrentBoard.Secret.Select(q => q.ToString()).ToList();
             }
-            catch (NullReferenceException exception)
+            catch (NullReferenceException)
             {
             }
         }
