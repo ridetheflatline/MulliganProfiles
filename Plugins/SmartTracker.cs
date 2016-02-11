@@ -835,16 +835,15 @@ namespace SmartBot.Plugins
 
         private void CheckUpdatesTracker(string lSmartTracker)
         {
-            var build = ((AssemblyInformationalVersionAttribute)Assembly
-   .GetAssembly(typeof(string))
-   .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)[0])
-   .InformationalVersion;
-            Bot.Log(build);
+            var build = ((AssemblyInformationalVersionAttribute)Assembly.GetAssembly(typeof(string))
+                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)[0])
+                .TypeId.ToString();
+            Bot.Log(string.Format("Version {0}", build));
         }
 
         private void CheckUpdatesMulligan(string lSmartMulliganV3)
         {
-           
+
         }
 
 
@@ -2819,88 +2818,88 @@ namespace SmartBot.Plugins
         Tempo
     }
 
-/*    class RepositoryInformation : IDisposable
-    {
-        public static RepositoryInformation GetRepositoryInformationForPath(string path, string gitPath = null)
+    /*    class RepositoryInformation : IDisposable
         {
-            var repositoryInformation = new RepositoryInformation(path, gitPath);
-            return repositoryInformation.IsGitRepository ? repositoryInformation : null;
-        }
-
-        public string CommitHash => RunCommand("rev-parse HEAD");
-
-        public string BranchName => RunCommand("rev-parse --abbrev-ref HEAD");
-
-        public string CommitMessage => RunCommand("svn log -r COMMITTED");
-
-        public string TrackedBranchName => RunCommand("rev-parse --abbrev-ref --symbolic-full-name @{u}");
-
-        public string Summary => RunCommand("git show --summary");
-
-        public string ChangesToMulligan => RunCommand("gitk [SmartMulliganV3.cs]");
-
-        public string ChangesToTracker => RunCommand("gitk [SmartTracker.cs]");
-
-        public bool HasUnpushedCommits => !String.IsNullOrWhiteSpace(RunCommand("log @{u}..HEAD"));
-
-        public bool HasUncommittedChanges => !String.IsNullOrWhiteSpace(RunCommand("status --porcelain"));
-
-
-
-        public IEnumerable<string> Log
-        {
-            get
+            public static RepositoryInformation GetRepositoryInformationForPath(string path, string gitPath = null)
             {
-                int skip = 0;
-                while (true)
-                {
-                    string entry = RunCommand(String.Format("log --skip={0} -n1", skip++));
-                    if (String.IsNullOrWhiteSpace(entry))
-                    {
-                        yield break;
-                    }
+                var repositoryInformation = new RepositoryInformation(path, gitPath);
+                return repositoryInformation.IsGitRepository ? repositoryInformation : null;
+            }
 
-                    yield return entry;
+            public string CommitHash => RunCommand("rev-parse HEAD");
+
+            public string BranchName => RunCommand("rev-parse --abbrev-ref HEAD");
+
+            public string CommitMessage => RunCommand("svn log -r COMMITTED");
+
+            public string TrackedBranchName => RunCommand("rev-parse --abbrev-ref --symbolic-full-name @{u}");
+
+            public string Summary => RunCommand("git show --summary");
+
+            public string ChangesToMulligan => RunCommand("gitk [SmartMulliganV3.cs]");
+
+            public string ChangesToTracker => RunCommand("gitk [SmartTracker.cs]");
+
+            public bool HasUnpushedCommits => !String.IsNullOrWhiteSpace(RunCommand("log @{u}..HEAD"));
+
+            public bool HasUncommittedChanges => !String.IsNullOrWhiteSpace(RunCommand("status --porcelain"));
+
+
+
+            public IEnumerable<string> Log
+            {
+                get
+                {
+                    int skip = 0;
+                    while (true)
+                    {
+                        string entry = RunCommand(String.Format("log --skip={0} -n1", skip++));
+                        if (String.IsNullOrWhiteSpace(entry))
+                        {
+                            yield break;
+                        }
+
+                        yield return entry;
+                    }
                 }
             }
-        }
 
-        public void Dispose()
-        {
-            if (!_disposed)
+            public void Dispose()
             {
-                _disposed = true;
-                _gitProcess.Dispose();
+                if (!_disposed)
+                {
+                    _disposed = true;
+                    _gitProcess.Dispose();
+                }
             }
-        }
 
-        private RepositoryInformation(string path, string gitPath)
-        {
-            var processInfo = new ProcessStartInfo
+            private RepositoryInformation(string path, string gitPath)
             {
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                FileName = Directory.Exists(gitPath) ? gitPath : "git.exe",
-                CreateNoWindow = true,
-                WorkingDirectory = (path != null && Directory.Exists(path)) ? path : Environment.CurrentDirectory
-            };
+                var processInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    FileName = Directory.Exists(gitPath) ? gitPath : "git.exe",
+                    CreateNoWindow = true,
+                    WorkingDirectory = (path != null && Directory.Exists(path)) ? path : Environment.CurrentDirectory
+                };
 
-            _gitProcess = new Process {StartInfo = processInfo};
-        }
+                _gitProcess = new Process {StartInfo = processInfo};
+            }
 
-        private bool IsGitRepository => !String.IsNullOrWhiteSpace(RunCommand("log -1"));
+            private bool IsGitRepository => !String.IsNullOrWhiteSpace(RunCommand("log -1"));
 
-        private string RunCommand(string args)
-        {
-            _gitProcess.StartInfo.Arguments = args;
-            _gitProcess.Start();
-            string output = _gitProcess.StandardOutput.ReadToEnd().Trim();
-            _gitProcess.WaitForExit();
-            return output;
-        }
+            private string RunCommand(string args)
+            {
+                _gitProcess.StartInfo.Arguments = args;
+                _gitProcess.Start();
+                string output = _gitProcess.StandardOutput.ReadToEnd().Trim();
+                _gitProcess.WaitForExit();
+                return output;
+            }
 
-        private bool _disposed;
-        private readonly Process _gitProcess;
-    }*/
+            private bool _disposed;
+            private readonly Process _gitProcess;
+        }*/
 
 }
