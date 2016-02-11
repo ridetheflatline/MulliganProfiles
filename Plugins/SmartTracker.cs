@@ -1,11 +1,11 @@
-﻿//Version:0.10 
-using SmartBot.Plugins.API;
+﻿using SmartBot.Plugins.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
+using System.Reflection;
 using SmartBot.Database;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -20,13 +20,13 @@ namespace SmartBot.Plugins
             map[key] = value;
         }
     }
-   
+
     [Serializable]
     public class smPluginDataContainer : PluginDataContainer
     {
-        [ItemsSource(typeof(DeckType)) ] //XCeed reference
-        public DeckType TestOpponentDeck {get;set;} 
-        
+        [ItemsSource(typeof(DeckType))] //XCeed reference
+        public DeckType TestOpponentDeck { get; set; }
+
         public bool AutoUpdateV3 { get; set; }
         public bool AutoUpdateTracker { get; set; }
         [ItemsSource(typeof(DeckType))] //XCeed reference
@@ -35,7 +35,7 @@ namespace SmartBot.Plugins
         public string LSmartMulliganV3 { get; set; }
         [Browsable(false)]
         public string LSmartTracker { get; set; }
-    
+
 
         public smPluginDataContainer()
         {
@@ -801,17 +801,17 @@ namespace SmartBot.Plugins
         public bool alreadyIdentified = false;
         public static readonly string MainDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\";
         public static readonly string MainDirTracker = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\";
-        public Dictionary<string,string> AllOpponentsDictionary = new Dictionary<string, string>(); 
+        public Dictionary<string, string> AllOpponentsDictionary = new Dictionary<string, string>();
         public override void OnTick()
         {
             //Bot.Log("[SM Tracker] YOU ARE NOT SUPPOSE TO USE THIS YET");
             if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY) alreadyIdentified = false;
-            if (Bot.CurrentBoard == null || alreadyIdentified ) return;
+            if (Bot.CurrentBoard == null || alreadyIdentified) return;
             DeckData informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
             CheckDirectory(MainDir);
             using (StreamWriter readMe = new StreamWriter(MainDir + "our_deck.v3", false))
             {
-                readMe.WriteLine("{0}|{1}|{2}|{3}", informationData.DeckType, informationData.DeckStyle, string.Join(";",informationData.DeckList), "Hi");
+                readMe.WriteLine("{0}|{1}|{2}|{3}", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList), "Hi");
             }
             Bot.Log(string.Format("Succesfully Identified deck\n\n{0}|{1}|{2}|{3}\n\n", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList), "Hi"));
             alreadyIdentified = true;
@@ -823,11 +823,11 @@ namespace SmartBot.Plugins
             {
                 debugStreamWriter.WriteLine("{0}|{1}", ((smPluginDataContainer)DataContainer).TestYourDeck, ((smPluginDataContainer)DataContainer).TestOpponentDeck);
             }
-            if (((smPluginDataContainer) DataContainer).AutoUpdateV3)
+            if (((smPluginDataContainer)DataContainer).AutoUpdateV3)
             {
                 CheckUpdatesMulligan(((smPluginDataContainer)DataContainer).LSmartMulliganV3);
             }
-            if (((smPluginDataContainer) DataContainer).AutoUpdateTracker)
+            if (((smPluginDataContainer)DataContainer).AutoUpdateTracker)
             {
                 CheckUpdatesTracker(((smPluginDataContainer)DataContainer).LSmartTracker);
             }
@@ -835,33 +835,16 @@ namespace SmartBot.Plugins
 
         private void CheckUpdatesTracker(string lSmartTracker)
         {
-            double version = 0.10;
-            HttpWebRequest request = WebRequest.Create(lSmartTracker) as HttpWebRequest;
-            if (request == null)
-            {
-                Bot.Log(string.Format("[SmartTracker] You won’t find too many people at their boss’ grave who aren’t dancing on it."));
-                return;
-            }
-            //using (StreamWriter debugFile = new StreamWriter(MAIN_DIR + "Debug" + link.Substring(index), false)) //debug writer
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-            {
-                string content = reader.ReadLine();
-                Bot.Log(content.Substring(content.IndexOf(':')+1));
-                /*if (
-                    Math.Abs(double.Parse(content.Substring(content.IndexOf('~') + 1, ~content.IndexOf('~') + 3)) -
-                             version) > 0)
-                {
-                    
-                }*/
-
-            }
-            
+            var build = ((AssemblyInformationalVersionAttribute)Assembly
+   .GetAssembly(typeof(string))
+   .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)[0])
+   .InformationalVersion;
+            Bot.Log(build);
         }
 
         private void CheckUpdatesMulligan(string lSmartMulliganV3)
         {
-            //throw new NotImplementedException();
+           
         }
 
 
@@ -880,7 +863,7 @@ namespace SmartBot.Plugins
             using (StreamWriter opponentDeckInfo = new StreamWriter(MainDir + "OpponentDeckInfo.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck);
-                opponentDeckInfo.WriteLine("{0}:{1}:{2}:{3}:{4}",res ,  Bot.GetCurrentOpponentId(), opponentInfo.DeckType, opponentInfo.DeckStyle,  string.Join(",", opponentDeck.Where(c=> CardTemplate.LoadFromId(c).IsCollectible).ToArray()));
+                opponentDeckInfo.WriteLine("{0}:{1}:{2}:{3}:{4}", res, Bot.GetCurrentOpponentId(), opponentInfo.DeckType, opponentInfo.DeckStyle, string.Join(",", opponentDeck.Where(c => CardTemplate.LoadFromId(c).IsCollectible).ToArray()));
                 Bot.Log("[Tracker] Succesfully recorder your opponent shit");
             }
         }
@@ -2720,7 +2703,7 @@ namespace SmartBot.Plugins
 
                     #endregion
             }
-            
+
             return info;
         }
 
@@ -2744,9 +2727,9 @@ namespace SmartBot.Plugins
         public DeckType DeckType { get; set; }
         public Style DeckStyle { get; set; }
         public List<string> DeckList { get; set; }
-        
+
     }
-    
+
 
     public enum DeckType
     {
@@ -2760,7 +2743,7 @@ namespace SmartBot.Plugins
         PatronWarrior,
         WorgenOTKWarrior,
         MechWarrior,
-        FaceWarrior, 
+        FaceWarrior,
         /*Paladin*/
         SecretPaladin,
         MidRangePaladin,
@@ -2780,7 +2763,7 @@ namespace SmartBot.Plugins
         RelinquaryZoo,
         DemonHandlock,
         DemonZooWarlock,
-        DragonHandlock, 
+        DragonHandlock,
         MalyLock,
         /*Mage*/
         TempoMage,
@@ -2790,18 +2773,18 @@ namespace SmartBot.Plugins
         DragonMage,
         MechMage,
         EchoMage,
-        FatigueMage, 
+        FatigueMage,
         /*Priest*/
         DragonPriest,
         ControlPriest,
         [Description("Call me Firebat")]
-        ComboPriest, 
+        ComboPriest,
         MechPriest,
         ShadowPriest,
         /*Huntard*/
         MidRangeHunter,
         HybridHunter,
-        FaceHunter, 
+        FaceHunter,
         HatHunter,
         /**/
         OilRogue,
@@ -2817,13 +2800,13 @@ namespace SmartBot.Plugins
         DragonShaman,
         TotemShaman,
         MalygosShaman,
-        ControlShaman, 
+        ControlShaman,
         BloodlustShaman,
         [Browsable(false)]
         Basic
     }
 
-   
+
 
     public enum Style
     {
@@ -2835,5 +2818,89 @@ namespace SmartBot.Plugins
         Combo,
         Tempo
     }
-   
+
+/*    class RepositoryInformation : IDisposable
+    {
+        public static RepositoryInformation GetRepositoryInformationForPath(string path, string gitPath = null)
+        {
+            var repositoryInformation = new RepositoryInformation(path, gitPath);
+            return repositoryInformation.IsGitRepository ? repositoryInformation : null;
+        }
+
+        public string CommitHash => RunCommand("rev-parse HEAD");
+
+        public string BranchName => RunCommand("rev-parse --abbrev-ref HEAD");
+
+        public string CommitMessage => RunCommand("svn log -r COMMITTED");
+
+        public string TrackedBranchName => RunCommand("rev-parse --abbrev-ref --symbolic-full-name @{u}");
+
+        public string Summary => RunCommand("git show --summary");
+
+        public string ChangesToMulligan => RunCommand("gitk [SmartMulliganV3.cs]");
+
+        public string ChangesToTracker => RunCommand("gitk [SmartTracker.cs]");
+
+        public bool HasUnpushedCommits => !String.IsNullOrWhiteSpace(RunCommand("log @{u}..HEAD"));
+
+        public bool HasUncommittedChanges => !String.IsNullOrWhiteSpace(RunCommand("status --porcelain"));
+
+
+
+        public IEnumerable<string> Log
+        {
+            get
+            {
+                int skip = 0;
+                while (true)
+                {
+                    string entry = RunCommand(String.Format("log --skip={0} -n1", skip++));
+                    if (String.IsNullOrWhiteSpace(entry))
+                    {
+                        yield break;
+                    }
+
+                    yield return entry;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                _gitProcess.Dispose();
+            }
+        }
+
+        private RepositoryInformation(string path, string gitPath)
+        {
+            var processInfo = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                FileName = Directory.Exists(gitPath) ? gitPath : "git.exe",
+                CreateNoWindow = true,
+                WorkingDirectory = (path != null && Directory.Exists(path)) ? path : Environment.CurrentDirectory
+            };
+
+            _gitProcess = new Process {StartInfo = processInfo};
+        }
+
+        private bool IsGitRepository => !String.IsNullOrWhiteSpace(RunCommand("log -1"));
+
+        private string RunCommand(string args)
+        {
+            _gitProcess.StartInfo.Arguments = args;
+            _gitProcess.Start();
+            string output = _gitProcess.StandardOutput.ReadToEnd().Trim();
+            _gitProcess.WaitForExit();
+            return output;
+        }
+
+        private bool _disposed;
+        private readonly Process _gitProcess;
+    }*/
+
 }
