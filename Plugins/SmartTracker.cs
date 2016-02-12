@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using SmartBot.Database;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -43,7 +44,7 @@ namespace SmartBot.Plugins
             TestYourDeck = DeckType.Unknown;
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
-            LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/MulliganProfiles/SmartMulliganV3.cs";
+            LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartTracker.cs";
 
         }
@@ -847,7 +848,16 @@ namespace SmartBot.Plugins
 
         private void CheckUpdatesMulligan(string lSmartMulliganV3)
         {
-
+            HttpWebRequest request = WebRequest.Create(lSmartMulliganV3) as HttpWebRequest;
+            if (request == null)
+            {
+                Bot.Log(string.Format("[SmartAutoUpdater]Could not get data from gitlink {0}", lSmartMulliganV3));
+                return;
+            }
+            //using (StreamWriter debugFile = new StreamWriter(MAIN_DIR + "Debug" + link.Substring(index), false)) //debug writer
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+            {
+            }
         }
 
 
