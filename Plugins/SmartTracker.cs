@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using SmartBot.Database;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -25,23 +23,35 @@ namespace SmartBot.Plugins
     [Serializable]
     public class smPluginDataContainer : PluginDataContainer
     {
-        [ItemsSource(typeof(DeckType))] //XCeed reference
-        public DeckType TestOpponentDeck { get; set; }
-
+        
+        [DisplayName("Update SmartMulliganV3")]
         public bool AutoUpdateV3 { get; set; }
+        [DisplayName("Update SmartTracker")]
         public bool AutoUpdateTracker { get; set; }
+        [DisplayName("Random Intro Messages")]
+        public bool RandomMovieQuotes { get; set; }
+        [DisplayName("Manual Varification")]
+        public bool ManualVarification { get; set; }
+
         [ItemsSource(typeof(DeckType))] //XCeed reference
-        public DeckType TestYourDeck { get; set; }
+        public DeckType MT_YourDeck { get; set; }
+        [DisplayName("Mulligan Tester: enemy")]
+        [ItemsSource(typeof(DeckType))] //XCeed reference
+        public DeckType MT_OpponentDeck { get; set; }
+
+
         [Browsable(false)]
         public string LSmartMulliganV3 { get; set; }
         [Browsable(false)]
         public string LSmartTracker { get; set; }
 
+
+
         public smPluginDataContainer()
         {
             Name = "SmartTracker";
-            TestOpponentDeck = DeckType.Unknown;
-            TestYourDeck = DeckType.Unknown;
+            MT_OpponentDeck = DeckType.Unknown;
+            MT_YourDeck = DeckType.Unknown;
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
@@ -829,7 +839,7 @@ namespace SmartBot.Plugins
 
             using (StreamWriter debugStreamWriter = new StreamWriter(MulliganInformation + "debug_decks.v3", false))
             {
-                debugStreamWriter.WriteLine("{0}|{1}", ((smPluginDataContainer)DataContainer).TestYourDeck, ((smPluginDataContainer)DataContainer).TestOpponentDeck);
+                debugStreamWriter.WriteLine("{0}|{1}", ((smPluginDataContainer)DataContainer).MT_YourDeck, ((smPluginDataContainer)DataContainer).MT_OpponentDeck);
             }
             if (((smPluginDataContainer)DataContainer).AutoUpdateV3)
             {
@@ -854,7 +864,6 @@ namespace SmartBot.Plugins
                 Bot.Log(string.Format("[SmartAutoUpdater]Could not get data from gitlink {0}", lSmartMulliganV3));
                 return;
             }
-            //using (StreamWriter debugFile = new StreamWriter(MAIN_DIR + "Debug" + link.Substring(index), false)) //debug writer
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
             {
             }
