@@ -23,22 +23,32 @@ namespace SmartBot.Plugins
     [Serializable]
     public class smPluginDataContainer : PluginDataContainer
     {
-        
+
+        /// <summary>
+        /// This variable is to add extra two option to SmartTracker that will allow you
+        /// to use Mulligan Tester by Botfanatic
+        /// </summary>
+        private const bool MulliganTesterDebug = false;
+
+
         [DisplayName("Update SmartMulliganV3")]
-        public bool AutoUpdateV3 { get; set; }
+        public bool AutoUpdateV3 { get; private set; }
         [DisplayName("Update SmartTracker")]
-        public bool AutoUpdateTracker { get; set; }
+        public bool AutoUpdateTracker { get; private set; }
         [DisplayName("Random Intro Messages")]
-        public bool RandomMovieQuotes { get; set; }
-        [DisplayName("Manual Varification")]
-        public bool ManualVarification { get; set; }
+        public bool RandomMovieQuotes { get; private set; }
 
-        [ItemsSource(typeof(DeckType))] //XCeed reference
+        [DisplayName("[-] Identifier Mode")]
+        public IdentityMode mode { get; set; }
+
+        [DisplayName("[Manual] Your Deck")]
+        public DeckType ForceDeckType { get; set; }
+        [Browsable(MulliganTesterDebug ? true : false)]
+        [DisplayName("Mulligan Tester: you")]
         public DeckType MT_YourDeck { get; set; }
+        [Browsable(MulliganTesterDebug ? true : false)]
         [DisplayName("Mulligan Tester: enemy")]
-        [ItemsSource(typeof(DeckType))] //XCeed reference
         public DeckType MT_OpponentDeck { get; set; }
-
 
         [Browsable(false)]
         public string LSmartMulliganV3 { get; set; }
@@ -50,10 +60,12 @@ namespace SmartBot.Plugins
         public smPluginDataContainer()
         {
             Name = "SmartTracker";
+            ForceDeckType = DeckType.Unknown;
             MT_OpponentDeck = DeckType.Unknown;
             MT_YourDeck = DeckType.Unknown;
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
+            RandomMovieQuotes = false;
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartTracker.cs";
 
@@ -808,7 +820,7 @@ namespace SmartBot.Plugins
         private const string GadgetzanJouster = "AT_133";
 
         #endregion
-        public bool alreadyIdentified = false;
+        public bool identified = false;
         private readonly string MulliganDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
         private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\";
         private readonly string TrackerDir = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\";
@@ -816,16 +828,67 @@ namespace SmartBot.Plugins
         public Dictionary<string, string> AllOpponentsDictionary = new Dictionary<string, string>();
         public override void OnTick()
         {
-            //Bot.Log("[SM Tracker] YOU ARE NOT SUPPOSE TO USE THIS YET");
-            if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY) alreadyIdentified = false;
-            if (Bot.CurrentBoard == null || alreadyIdentified) return;
-            DeckData informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
-            using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
+            switch (Bot.CurrentScene())
             {
-                readMe.WriteLine("{0}|{1}|{2}|", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList));
+                case Bot.Scene.INVALID:
+                    identified = false;
+                    break;
+                case Bot.Scene.STARTUP:
+                    identified = false;
+                    break;
+                case Bot.Scene.LOGIN:
+                    identified = false;
+                    break;
+                case Bot.Scene.HUB:
+                    identified = false;
+                    break;
+                case Bot.Scene.GAMEPLAY:
+                    if (Bot.CurrentBoard == null || identified) break;
+                    DeckData informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
+                    using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
+                    {
+                        readMe.WriteLine("{0}~{1}~{2}", ((smPluginDataContainer)DataContainer).mode == IdentityMode.Auto ? informationData.DeckType : ((smPluginDataContainer)DataContainer).ForceDeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList));
+                    }
+                    if (((smPluginDataContainer)DataContainer).mode == IdentityMode.Manual
+                        && informationData.DeckType == ((smPluginDataContainer)DataContainer).ForceDeckType)
+                        Bot.Log("[Tracker] Automatic identification yields to the same identification as your forcefully inserted deck.");
+                    //Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|{3}", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList)));
+                    identified = true;
+                    break;
+                case Bot.Scene.COLLECTIONMANAGER:
+                    identified = false;
+                    break;
+                case Bot.Scene.PACKOPENING:
+                    identified = false;
+                    break;
+                case Bot.Scene.TOURNAMENT:
+                    identified = false;
+                    break;
+                case Bot.Scene.FRIENDLY:
+                    identified = false;
+                    break;
+                case Bot.Scene.FATAL_ERROR:
+                    identified = false;
+                    break;
+                case Bot.Scene.DRAFT:
+                    identified = false;
+                    break;
+                case Bot.Scene.CREDITS:
+                    identified = false;
+                    break;
+                case Bot.Scene.RESET:
+                    identified = false;
+                    break;
+                case Bot.Scene.ADVENTURE:
+                    identified = false;
+                    break;
+                case Bot.Scene.TAVERN_BRAWL:
+                    identified = false;
+                    break;
+
             }
-            Bot.Log(string.Format("Succesfully Identified deck\n\n{0}|{1}|{2}|{3}\n\n", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList), "Hi"));
-            alreadyIdentified = true;
+
+
         }
 
         public override void OnPluginCreated()
@@ -849,11 +912,11 @@ namespace SmartBot.Plugins
             {
                 CheckUpdatesTracker(((smPluginDataContainer)DataContainer).LSmartTracker);
             }
+
         }
 
         private void CheckUpdatesTracker(string lSmartTracker)
         {
-           
         }
 
         private void CheckUpdatesMulligan(string lSmartMulliganV3)
@@ -872,7 +935,7 @@ namespace SmartBot.Plugins
 
         public override void OnStopped()
         {
-            alreadyIdentified = false;
+            identified = false;
         }
 
         public void CheckOpponentDeck(string res)
@@ -882,32 +945,29 @@ namespace SmartBot.Plugins
             List<string> opponentDeck = new List<string> { };
             opponentDeck.AddRange(graveyard.Select(q => q.ToString()));
             opponentDeck.AddRange(board.Select(q => q.Template.Id.ToString()));
-            using (StreamWriter opponentDeckInfo = new StreamWriter(MulliganDir + "OpponentDeckInfo.txt", true))
+            using (StreamWriter opponentDeckInfo = new StreamWriter(MulliganInformation + "OpponentDeckInfo.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck);
                 opponentDeckInfo.WriteLine("{0}:{1}:{2}:{3}:{4}", res, Bot.GetCurrentOpponentId(), opponentInfo.DeckType, opponentInfo.DeckStyle, string.Join(",", opponentDeck.Where(c => CardTemplate.LoadFromId(c).IsCollectible).ToArray()));
-                Bot.Log("[Tracker] Succesfully recorder your opponent shit");
+                Bot.Log(string.Format("[Tracker] Succesfully recorder your opponent: {0}", opponentInfo.DeckType));
             }
         }
+
         public override void OnDefeat()
         {
             CheckOpponentDeck("lost");
-            alreadyIdentified = false;
         }
 
         public override void OnVictory()
         {
             CheckOpponentDeck("won");
-            alreadyIdentified = false;
-
         }
 
         public DeckData GetDeckInfo(Card.CClass ownClass, List<string> CurrentDeck)
         {
             var info = new DeckData { DeckList = CurrentDeck };
 
-            Dictionary<Dictionary<DeckType, Style>, int> DeckDictionary =
-                new Dictionary<Dictionary<DeckType, Style>, int>();
+            Dictionary<Dictionary<DeckType, Style>, int> DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>();
             Dictionary<DeckType, Style> BestDeck = new Dictionary<DeckType, Style>();
             switch (ownClass)
             {
@@ -916,246 +976,58 @@ namespace SmartBot.Plugins
                 case Card.CClass.SHAMAN:
                     var totemShaman = new List<string>
                     {
-                        TunnelTrogg,
-                        TunnelTrogg,
-                        FlametongueTotem,
-                        FlametongueTotem,
-                        TotemGolem,
-                        TotemGolem,
-                        LightningStorm,
-                        LightningStorm,
-                        Hex,
-                        Hex,
-                        TuskarrTotemic,
-                        TuskarrTotemic,
-                        FireguardDestroyer,
-                        FireguardDestroyer,
-                        FireElemental,
-                        FireElemental,
-                        ThunderBluffValiant,
-                        ThunderBluffValiant,
-                        Neptulon,
-                        DrBoom,
-                        DefenderofArgus,
-                        PilotedShredder,
-                        PilotedShredder,
-                        SylvanasWindrunner,
-                        JeweledScarab,
-                        JeweledScarab,
-                        AzureDrake,
-                        AzureDrake,
+                        TunnelTrogg, TunnelTrogg, FlametongueTotem, FlametongueTotem, TotemGolem, TotemGolem, LightningStorm, LightningStorm, Hex, Hex, TuskarrTotemic, TuskarrTotemic, FireguardDestroyer, FireguardDestroyer, FireElemental, FireElemental, ThunderBluffValiant, ThunderBluffValiant, Neptulon, DrBoom, DefenderofArgus, PilotedShredder, PilotedShredder, SylvanasWindrunner, JeweledScarab, JeweledScarab, AzureDrake, AzureDrake,
                     };
                     var d1 = new Dictionary<DeckType, Style> { { DeckType.TotemShaman, Style.Tempo } };
                     var faceShaman = new List<string>
                     {
-                        UnboundElemental,
-                        UnboundElemental,
-                        EarthShock,
-                        StormforgedAxe,
-                        Doomhammer,
-                        Doomhammer,
-                        FeralSpirit,
-                        FeralSpirit,
-                        RockbiterWeapon,
-                        RockbiterWeapon,
-                        LeperGnome,
-                        LeperGnome,
-                        AbusiveSergeant,
-                        LavaBurst,
-                        LavaBurst,
-                        Crackle,
-                        Crackle,
-                        LavaShock,
-                        LavaShock,
-                        TotemGolem,
-                        TotemGolem,
-                        ArgentHorserider,
-                        ArgentHorserider,
-                        AncestralKnowledge,
-                        AncestralKnowledge,
-                        SirFinleyMrrgglton,
-                        TunnelTrogg,
-                        TunnelTrogg,
+                        UnboundElemental, UnboundElemental, EarthShock, StormforgedAxe, Doomhammer, Doomhammer, FeralSpirit, FeralSpirit, RockbiterWeapon, RockbiterWeapon, LeperGnome, LeperGnome, AbusiveSergeant, LavaBurst, LavaBurst, Crackle, Crackle, LavaShock, LavaShock, TotemGolem, TotemGolem, ArgentHorserider, ArgentHorserider, AncestralKnowledge, AncestralKnowledge, SirFinleyMrrgglton, TunnelTrogg, TunnelTrogg,
                     };
                     var d2 = new Dictionary<DeckType, Style> { { DeckType.FaceShaman, Style.Face } };
                     var mechShaman = new List<string>
                     {
-                        Hex,
-                        HarvestGolem,
-                        HarvestGolem,
-                        FlametongueTotem,
-                        FlametongueTotem,
-                        RockbiterWeapon,
-                        RockbiterWeapon,
-                        FireElemental,
-                        FireElemental,
-                        Loatheb,
-                        Cogmaster,
-                        Cogmaster,
-                        AnnoyoTron,
-                        AnnoyoTron,
-                        DrBoom,
-                        SpiderTank,
-                        SpiderTank,
-                        Mechwarper,
-                        Mechwarper,
-                        PilotedShredder,
-                        PilotedShredder,
-                        BombLobber,
-                        BombLobber,
-                        WhirlingZapomatic,
-                        WhirlingZapomatic,
-                        Crackle,
-                        Crackle,
-                        Powermace,
-                        Powermace,
+                        Hex, HarvestGolem, HarvestGolem, FlametongueTotem, FlametongueTotem, RockbiterWeapon, RockbiterWeapon, FireElemental, FireElemental, Loatheb, Cogmaster, Cogmaster, AnnoyoTron, AnnoyoTron, DrBoom, SpiderTank, SpiderTank, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, BombLobber, BombLobber, WhirlingZapomatic, WhirlingZapomatic, Crackle, Crackle, Powermace, Powermace,
                     };
                     var d3 = new Dictionary<DeckType, Style> { { DeckType.MechShaman, Style.Aggro } };
                     var dragonShaman = new List<string>
                     {
-                        FeralSpirit,
-                        Hex,
-                        Hex,
-                        AzureDrake,
-                        AzureDrake,
-                        Deathwing,
-                        Ysera,
-                        FireElemental,
-                        FireElemental,
-                        LightningStorm,
-                        LightningStorm,
-                        BlackwingTechnician,
-                        BlackwingTechnician,
-                        LavaShock,
-                        BlackwingCorruptor,
-                        TotemGolem,
-                        TotemGolem,
-                        AncestralKnowledge,
-                        HealingWave,
-                        HealingWave,
-                        TheMistcaller,
-                        TwilightGuardian,
-                        TwilightGuardian,
-                        Chillmaw,
-                        JeweledScarab,
-                        JeweledScarab,
-                        BrannBronzebeard,
-                        TunnelTrogg,
-                        TunnelTrogg,
+                        FeralSpirit, Hex, Hex, AzureDrake, AzureDrake, Deathwing, Ysera, FireElemental, FireElemental, LightningStorm, LightningStorm, BlackwingTechnician, BlackwingTechnician, LavaShock, BlackwingCorruptor, TotemGolem, TotemGolem, AncestralKnowledge, HealingWave, HealingWave, TheMistcaller, TwilightGuardian, TwilightGuardian, Chillmaw, JeweledScarab, JeweledScarab, BrannBronzebeard, TunnelTrogg, TunnelTrogg,
                     };
                     var d4 = new Dictionary<DeckType, Style> { { DeckType.MechShaman, Style.Aggro } };
                     var malygosShaman = new List<string>
                     {
-                        EarthShock,
-                        EarthShock,
-                        FarSight,
-                        FarSight,
-                        StormforgedAxe,
-                        FeralSpirit,
-                        FeralSpirit,
-                        FrostShock,
-                        FrostShock,
-                        Malygos,
-                        GnomishInventor,
-                        GnomishInventor,
-                        Crackle,
-                        Crackle,
-                        Hex,
-                        Hex,
-                        LavaBurst,
-                        LavaBurst,
-                        ManaTideTotem,
-                        ManaTideTotem,
-                        LightningStorm,
-                        LightningStorm,
-                        AncestorsCall,
-                        AncestorsCall,
-                        AntiqueHealbot,
-                        AntiqueHealbot,
-                        Alexstrasza,
-                        AzureDrake,
+                        EarthShock, EarthShock, FarSight, FarSight, StormforgedAxe, FeralSpirit, FeralSpirit, FrostShock, FrostShock, Malygos, GnomishInventor, GnomishInventor, Crackle, Crackle, Hex, Hex, LavaBurst, LavaBurst, ManaTideTotem, ManaTideTotem, LightningStorm, LightningStorm, AncestorsCall, AncestorsCall, AntiqueHealbot, AntiqueHealbot, Alexstrasza, AzureDrake,
                     };
                     var controlShaman = new List<string>
                     {
-                        EarthShock,
-                        Hex,
-                        Hex,
-                        AzureDrake,
-                        AzureDrake,
-                        Doomsayer,
-                        Doomsayer,
-                        Ysera,
-                        FireElemental,
-                        FireElemental,
-                        LightningStorm,
-                        LightningStorm,
-                        Loatheb,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        DrBoom,
-                        Neptulon,
-                        LavaShock,
-                        LavaShock,
-                        VolcanicDrake,
-                        VolcanicDrake,
-                        HealingWave,
-                        HealingWave,
-                        ElementalDestruction,
-                        ElementalDestruction,
-                        TwilightGuardian,
-                        TwilightGuardian,
-                        JeweledScarab,
-                        JeweledScarab,
+                        EarthShock, Hex, Hex, AzureDrake, AzureDrake, Doomsayer, Doomsayer, Ysera, FireElemental, FireElemental, LightningStorm, LightningStorm, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, Neptulon, LavaShock, LavaShock, VolcanicDrake, VolcanicDrake, HealingWave, HealingWave, ElementalDestruction, ElementalDestruction, TwilightGuardian, TwilightGuardian, JeweledScarab, JeweledScarab,
                     };
                     var basicShaman = new List<string>
                     {
-                        BoulderfistOgre,
-                        AcidicSwampOoze,
-                        GnomishInventor,
-                        Bloodlust,
-                        Hex,
-                        SenjinShieldmasta,
-                        FlametongueTotem,
-                        ShatteredSunCleric,
-                        RockbiterWeapon,
-                        TunnelTrogg,
-                        RumblingElemental,
-                        FireElemental,
-                        SirFinleyMrrgglton,
-                        JeweledScarab,
-                        BrannBronzebeard,
-                        ArchThiefRafaam,
-                        FrostwolfWarlord
+                        BoulderfistOgre, AcidicSwampOoze, GnomishInventor, Bloodlust, Hex, SenjinShieldmasta, FlametongueTotem, ShatteredSunCleric, RockbiterWeapon, TunnelTrogg, RumblingElemental, FireElemental, SirFinleyMrrgglton, JeweledScarab, BrannBronzebeard, ArchThiefRafaam, FrostwolfWarlord
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.TotemShaman, Style.Tempo}},
-                            CurrentDeck.Intersect(totemShaman).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.TotemShaman, Style.Tempo}}, CurrentDeck.Intersect(totemShaman).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.FaceShaman, Style.Face}},
-                            CurrentDeck.Intersect(faceShaman).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.FaceShaman, Style.Face}}, CurrentDeck.Intersect(faceShaman).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.MechShaman, Style.Aggro}},
-                            CurrentDeck.Intersect(mechShaman).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.MechShaman, Style.Aggro}}, CurrentDeck.Intersect(mechShaman).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.DragonShaman, Style.Control}},
-                            CurrentDeck.Intersect(dragonShaman).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.DragonShaman, Style.Control}}, CurrentDeck.Intersect(dragonShaman).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.MalygosShaman, Style.Combo}},
-                            CurrentDeck.Intersect(malygosShaman).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.MalygosShaman, Style.Combo}}, CurrentDeck.Intersect(malygosShaman).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.ControlShaman, Style.Control}},
-                            CurrentDeck.Intersect(controlShaman).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.ControlShaman, Style.Control}}, CurrentDeck.Intersect(controlShaman).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}},
-                            CurrentDeck.Intersect(basicShaman).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicShaman).ToList().Count
                         },
                     };
                     //if (DeckHas(CurrentDeck, Malygos))
@@ -1173,169 +1045,40 @@ namespace SmartBot.Plugins
                 case Card.CClass.PRIEST:
                     List<string> comboPriest = new List<string>
                     {
-                        CircleofHealing,
-                        CircleofHealing,
-                        InnerFire,
-                        InnerFire,
-                        Alexstrasza,
-                        AcolyteofPain,
-                        AcolyteofPain,
-                        PowerWordShield,
-                        PowerWordShield,
-                        Silence,
-                        Silence,
-                        ShadowWordDeath,
-                        DivineSpirit,
-                        DivineSpirit,
-                        NorthshireCleric,
-                        NorthshireCleric,
-                        HarrisonJones,
-                        StormwindKnight,
-                        AuchenaiSoulpriest,
-                        HolyNova,
-                        Loatheb,
-                        Deathlord,
-                        Deathlord,
-                        VelensChosen,
-                        GnomereganInfantry,
-                        Lightbomb,
-                        Lightbomb,
-                        EmperorThaurissan,
+                        CircleofHealing, CircleofHealing, InnerFire, InnerFire, Alexstrasza, AcolyteofPain, AcolyteofPain, PowerWordShield, PowerWordShield, Silence, Silence, ShadowWordDeath, DivineSpirit, DivineSpirit, NorthshireCleric, NorthshireCleric, HarrisonJones, StormwindKnight, AuchenaiSoulpriest, HolyNova, Loatheb, Deathlord, Deathlord, VelensChosen, GnomereganInfantry, Lightbomb, Lightbomb, EmperorThaurissan,
                     };
                     List<string> dragonPriest = new List<string>
                     {
-                        CabalShadowPriest,
-                        CabalShadowPriest,
-                        AzureDrake,
-                        PowerWordShield,
-                        PowerWordShield,
-                        Ysera,
-                        ShadowWordDeath,
-                        ShadowWordDeath,
-                        NorthshireCleric,
-                        HarrisonJones,
-                        HolyNova,
-                        SludgeBelcher,
-                        VelensChosen,
-                        VelensChosen,
-                        DrBoom,
-                        Shrinkmeister,
-                        Shrinkmeister,
-                        Voljin,
-                        Lightbomb,
-                        Lightbomb,
-                        BlackwingTechnician,
-                        BlackwingTechnician,
-                        TwilightWhelp,
-                        TwilightWhelp,
-                        TwilightGuardian,
-                        TwilightGuardian,
-                        Chillmaw,
-                        WyrmrestAgent,
-                        WyrmrestAgent,
+                        CabalShadowPriest, CabalShadowPriest, AzureDrake, PowerWordShield, PowerWordShield, Ysera, ShadowWordDeath, ShadowWordDeath, NorthshireCleric, HarrisonJones, HolyNova, SludgeBelcher, VelensChosen, VelensChosen, DrBoom, Shrinkmeister, Shrinkmeister, Voljin, Lightbomb, Lightbomb, BlackwingTechnician, BlackwingTechnician, TwilightWhelp, TwilightWhelp, TwilightGuardian, TwilightGuardian, Chillmaw, WyrmrestAgent, WyrmrestAgent,
                     };
                     List<string> controlPriest = new List<string>
                     {
-                        LightoftheNaaru,
-                        LightoftheNaaru,
-                        PowerWordShield,
-                        PowerWordShield,
-                        NorthshireCleric,
-                        NorthshireCleric,
-                        MuseumCurator,
-                        MuseumCurator,
-                        Shrinkmeister,
-                        ShadowWordDeath,
-                        AuchenaiSoulpriest,
-                        AuchenaiSoulpriest,
-                        HolyNova,
-                        Entomb,
-                        Entomb,
-                        Lightbomb,
-                        Lightbomb,
-                        CabalShadowPriest,
-                        WildPyromancer,
-                        WildPyromancer,
-                        Deathlord,
-                        Deathlord,
-                        InjuredBlademaster,
-                        InjuredBlademaster,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        JusticarTrueheart,
-                        Ysera,
+                        LightoftheNaaru, LightoftheNaaru, PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, MuseumCurator, MuseumCurator, Shrinkmeister, ShadowWordDeath, AuchenaiSoulpriest, AuchenaiSoulpriest, HolyNova, Entomb, Entomb, Lightbomb, Lightbomb, CabalShadowPriest, WildPyromancer, WildPyromancer, Deathlord, Deathlord, InjuredBlademaster, InjuredBlademaster, SludgeBelcher, SludgeBelcher, JusticarTrueheart, Ysera,
                     };
                     List<string> mechPriest = new List<string>
                     {
-                        PowerWordShield,
-                        PowerWordShield,
-                        NorthshireCleric,
-                        NorthshireCleric,
-                        HolyNova,
-                        HolyNova,
-                        DarkCultist,
-                        DarkCultist,
-                        VelensChosen,
-                        VelensChosen,
-                        DrBoom,
-                        SpiderTank,
-                        UpgradedRepairBot,
-                        UpgradedRepairBot,
-                        Mechwarper,
-                        Mechwarper,
-                        PilotedShredder,
-                        PilotedShredder,
-                        ClockworkGnome,
-                        ClockworkGnome,
-                        Shadowboxer,
-                        Shadowboxer,
-                        Voljin,
-                        SpawnofShadows,
-                        GorillabotA3,
-                        Entomb,
-                        MuseumCurator,
-                        MuseumCurator,
+                        PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, HolyNova, HolyNova, DarkCultist, DarkCultist, VelensChosen, VelensChosen, DrBoom, SpiderTank, UpgradedRepairBot, UpgradedRepairBot, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, ClockworkGnome, ClockworkGnome, Shadowboxer, Shadowboxer, Voljin, SpawnofShadows, GorillabotA3, Entomb, MuseumCurator, MuseumCurator,
                     };
                     List<string> basicPriest = new List<string>
                     {
-                        ChillwindYeti,
-                        BoulderfistOgre,
-                        AcidicSwampOoze,
-                        GnomishInventor,
-                        StormwindChampion,
-                        ShadowWordPain,
-                        SenjinShieldmasta,
-                        MindControl,
-                        HolySmite,
-                        PowerWordShield,
-                        ShatteredSunCleric,
-                        NoviceEngineer,
-                        ShadowWordDeath,
-                        BloodfenRaptor,
-                        NorthshireCleric,
-                        HolyNova,
+                        ChillwindYeti, BoulderfistOgre, AcidicSwampOoze, GnomishInventor, StormwindChampion, ShadowWordPain, SenjinShieldmasta, MindControl, HolySmite, PowerWordShield, ShatteredSunCleric, NoviceEngineer, ShadowWordDeath, BloodfenRaptor, NorthshireCleric, HolyNova,
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}},
-                            CurrentDeck.Intersect(comboPriest).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}}, CurrentDeck.Intersect(comboPriest).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}},
-                            CurrentDeck.Intersect(dragonPriest).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriest).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}},
-                            CurrentDeck.Intersect(controlPriest).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}}, CurrentDeck.Intersect(controlPriest).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.MechPriest, Style.Aggro}},
-                            CurrentDeck.Intersect(mechPriest).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.MechPriest, Style.Aggro}}, CurrentDeck.Intersect(mechPriest).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}},
-                            CurrentDeck.Intersect(basicPriest).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicPriest).ToList().Count
                         },
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -1352,169 +1095,40 @@ namespace SmartBot.Plugins
                 case Card.CClass.MAGE:
                     List<string> tempoMage = new List<string>
                     {
-                        MirrorImage,
-                        Frostbolt,
-                        Frostbolt,
-                        ArchmageAntonidas,
-                        ManaWyrm,
-                        ManaWyrm,
-                        AzureDrake,
-                        AzureDrake,
-                        ArcaneIntellect,
-                        ArcaneIntellect,
-                        Fireball,
-                        Fireball,
-                        Counterspell,
-                        MirrorEntity,
-                        ArcaneMissiles,
-                        ArcaneMissiles,
-                        MadScientist,
-                        MadScientist,
-                        UnstablePortal,
-                        UnstablePortal,
-                        DrBoom,
-                        PilotedShredder,
-                        PilotedShredder,
-                        Flamecannon,
-                        ClockworkGnome,
-                        Flamewaker,
-                        Flamewaker,
-                        ArcaneBlast,
+                        MirrorImage, Frostbolt, Frostbolt, ArchmageAntonidas, ManaWyrm, ManaWyrm, AzureDrake, AzureDrake, ArcaneIntellect, ArcaneIntellect, Fireball, Fireball, Counterspell, MirrorEntity, ArcaneMissiles, ArcaneMissiles, MadScientist, MadScientist, UnstablePortal, UnstablePortal, DrBoom, PilotedShredder, PilotedShredder, Flamecannon, ClockworkGnome, Flamewaker, Flamewaker, ArcaneBlast,
                     };
                     List<string> freezeMage = new List<string>
                     {
-                        Flamestrike,
-                        FrostNova,
-                        FrostNova,
-                        Frostbolt,
-                        Frostbolt,
-                        IceLance,
-                        IceLance,
-                        ArchmageAntonidas,
-                        Blizzard,
-                        Blizzard,
-                        Alexstrasza,
-                        LootHoarder,
-                        AcolyteofPain,
-                        AcolyteofPain,
-                        Doomsayer,
-                        Doomsayer,
-                        ArcaneIntellect,
-                        ArcaneIntellect,
-                        Pyroblast,
-                        Fireball,
-                        Fireball,
-                        BloodmageThalnos,
-                        IceBarrier,
-                        IceBarrier,
-                        MadScientist,
-                        MadScientist,
-                        AntiqueHealbot,
-                        EmperorThaurissan,
+                        Flamestrike, FrostNova, FrostNova, Frostbolt, Frostbolt, IceLance, IceLance, ArchmageAntonidas, Blizzard, Blizzard, Alexstrasza, LootHoarder, AcolyteofPain, AcolyteofPain, Doomsayer, Doomsayer, ArcaneIntellect, ArcaneIntellect, Pyroblast, Fireball, Fireball, BloodmageThalnos, IceBarrier, IceBarrier, MadScientist, MadScientist, AntiqueHealbot, EmperorThaurissan,
                     };
                     List<string> mechMage = new List<string>
                     {
-                        ArchmageAntonidas,
-                        ManaWyrm,
-                        ManaWyrm,
-                        Fireball,
-                        Fireball,
-                        UnstablePortal,
-                        UnstablePortal,
-                        Cogmaster,
-                        Cogmaster,
-                        AnnoyoTron,
-                        AnnoyoTron,
-                        DrBoom,
-                        SpiderTank,
-                        SpiderTank,
-                        Mechwarper,
-                        Mechwarper,
-                        PilotedShredder,
-                        PilotedShredder,
-                        GoblinBlastmage,
-                        GoblinBlastmage,
-                        ClockworkGnome,
-                        TinkertownTechnician,
-                        Snowchugger,
-                        Snowchugger,
-                        ClockworkKnight,
-                        ClockworkKnight,
-                        GorillabotA3,
-                        GorillabotA3,
+                        ArchmageAntonidas, ManaWyrm, ManaWyrm, Fireball, Fireball, UnstablePortal, UnstablePortal, Cogmaster, Cogmaster, AnnoyoTron, AnnoyoTron, DrBoom, SpiderTank, SpiderTank, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, GoblinBlastmage, GoblinBlastmage, ClockworkGnome, TinkertownTechnician, Snowchugger, Snowchugger, ClockworkKnight, ClockworkKnight, GorillabotA3, GorillabotA3,
                     };
                     List<string> echoMage = new List<string>
                     {
-                        IceBlock,
-                        IceBlock,
-                        Flamestrike,
-                        Flamestrike,
-                        BigGameHunter,
-                        MoltenGiant,
-                        MoltenGiant,
-                        Frostbolt,
-                        Frostbolt,
-                        ArchmageAntonidas,
-                        Blizzard,
-                        Blizzard,
-                        Alexstrasza,
-                        SunfuryProtector,
-                        SunfuryProtector,
-                        AcolyteofPain,
-                        AcolyteofPain,
-                        ArcaneIntellect,
-                        ArcaneIntellect,
-                        Polymorph,
-                        MadScientist,
-                        MadScientist,
-                        ExplosiveSheep,
-                        ExplosiveSheep,
-                        AntiqueHealbot,
-                        EchoofMedivh,
-                        EchoofMedivh,
-                        EmperorThaurissan,
+                        IceBlock, IceBlock, Flamestrike, Flamestrike, BigGameHunter, MoltenGiant, MoltenGiant, Frostbolt, Frostbolt, ArchmageAntonidas, Blizzard, Blizzard, Alexstrasza, SunfuryProtector, SunfuryProtector, AcolyteofPain, AcolyteofPain, ArcaneIntellect, ArcaneIntellect, Polymorph, MadScientist, MadScientist, ExplosiveSheep, ExplosiveSheep, AntiqueHealbot, EchoofMedivh, EchoofMedivh, EmperorThaurissan,
                     };
                     List<string> basicMage = new List<string>
                     {
-                        ChillwindYeti,
-                        Flamestrike,
-                        RazorfenHunter,
-                        BoulderfistOgre,
-                        AcidicSwampOoze,
-                        Frostbolt,
-                        GnomishInventor,
-                        WaterElemental,
-                        StormwindChampion,
-                        SenjinShieldmasta,
-                        ShatteredSunCleric,
-                        ArcaneIntellect,
-                        Fireball,
-                        BloodfenRaptor,
-                        ArcaneMissiles,
-                        Polymorph,
-                        GurubashiBerserker,
+                        ChillwindYeti, Flamestrike, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, Frostbolt, GnomishInventor, WaterElemental, StormwindChampion, SenjinShieldmasta, ShatteredSunCleric, ArcaneIntellect, Fireball, BloodfenRaptor, ArcaneMissiles, Polymorph, GurubashiBerserker,
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.TempoMage, Style.Tempo}},
-                            CurrentDeck.Intersect(tempoMage).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.TempoMage, Style.Tempo}}, CurrentDeck.Intersect(tempoMage).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.FreezeMage, Style.Control}},
-                            CurrentDeck.Intersect(freezeMage).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.FreezeMage, Style.Control}}, CurrentDeck.Intersect(freezeMage).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.MechMage, Style.Aggro}},
-                            CurrentDeck.Intersect(mechMage).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.MechMage, Style.Aggro}}, CurrentDeck.Intersect(mechMage).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.FatigueMage, Style.Control}},
-                            CurrentDeck.Intersect(echoMage).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.FatigueMage, Style.Control}}, CurrentDeck.Intersect(echoMage).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}},
-                            CurrentDeck.Intersect(basicMage).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicMage).ToList().Count
                         },
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -1530,157 +1144,37 @@ namespace SmartBot.Plugins
                 case Card.CClass.PALADIN:
                     List<string> secretPaladin = new List<string>
                     {
-                        BlessingofKings,
-                        BigGameHunter,
-                        NobleSacrifice,
-                        NobleSacrifice,
-                        Consecration,
-                        TruesilverChampion,
-                        TirionFordring,
-                        Secretkeeper,
-                        Secretkeeper,
-                        IronbeakOwl,
-                        HarrisonJones,
-                        Redemption,
-                        Avenge,
-                        Avenge,
-                        SludgeBelcher,
-                        HauntedCreeper,
-                        DrBoom,
-                        PilotedShredder,
-                        PilotedShredder,
-                        MusterforBattle,
-                        MusterforBattle,
-                        Coghammer,
-                        ShieldedMinibot,
-                        ShieldedMinibot,
-                        CompetitiveSpirit,
-                        MysteriousChallenger,
-                        MysteriousChallenger,
-                        KeeperofUldaman,
+                        BlessingofKings, BigGameHunter, NobleSacrifice, NobleSacrifice, Consecration, TruesilverChampion, TirionFordring, Secretkeeper, Secretkeeper, IronbeakOwl, HarrisonJones, Redemption, Avenge, Avenge, SludgeBelcher, HauntedCreeper, DrBoom, PilotedShredder, PilotedShredder, MusterforBattle, MusterforBattle, Coghammer, ShieldedMinibot, ShieldedMinibot, CompetitiveSpirit, MysteriousChallenger, MysteriousChallenger, KeeperofUldaman,
                     };
                     List<string> midRangePaladin = new List<string>
                     {
-                        BigGameHunter,
-                        Consecration,
-                        Consecration,
-                        TruesilverChampion,
-                        TruesilverChampion,
-                        TirionFordring,
-                        KnifeJuggler,
-                        KnifeJuggler,
-                        IronbeakOwl,
-                        ZombieChow,
-                        ZombieChow,
-                        Loatheb,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        DrBoom,
-                        PilotedShredder,
-                        PilotedShredder,
-                        MusterforBattle,
-                        MusterforBattle,
-                        AntiqueHealbot,
-                        Coghammer,
-                        ShieldedMinibot,
-                        ShieldedMinibot,
-                        Quartermaster,
-                        Quartermaster,
-                        JusticarTrueheart,
-                        KeeperofUldaman,
-                        KeeperofUldaman,
+                        BigGameHunter, Consecration, Consecration, TruesilverChampion, TruesilverChampion, TirionFordring, KnifeJuggler, KnifeJuggler, IronbeakOwl, ZombieChow, ZombieChow, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, PilotedShredder, PilotedShredder, MusterforBattle, MusterforBattle, AntiqueHealbot, Coghammer, ShieldedMinibot, ShieldedMinibot, Quartermaster, Quartermaster, JusticarTrueheart, KeeperofUldaman, KeeperofUldaman,
                     };
                     List<string> aggroPaladin = new List<string>
                     {
-                        ArcaneGolem,
-                        SouthseaDeckhand,
-                        SouthseaDeckhand,
-                        Consecration,
-                        TruesilverChampion,
-                        TruesilverChampion,
-                        HammerofWrath,
-                        BlessingofMight,
-                        BlessingofMight,
-                        KnifeJuggler,
-                        KnifeJuggler,
-                        ArgentSquire,
-                        ArgentSquire,
-                        IronbeakOwl,
-                        LeperGnome,
-                        LeperGnome,
-                        AbusiveSergeant,
-                        AbusiveSergeant,
-                        DivineFavor,
-                        DivineFavor,
-                        LeeroyJenkins,
-                        HauntedCreeper,
-                        MusterforBattle,
-                        MusterforBattle,
-                        Coghammer,
-                        ShieldedMinibot,
-                        ShieldedMinibot,
-                        SealofChampions,
+                        ArcaneGolem, SouthseaDeckhand, SouthseaDeckhand, Consecration, TruesilverChampion, TruesilverChampion, HammerofWrath, BlessingofMight, BlessingofMight, KnifeJuggler, KnifeJuggler, ArgentSquire, ArgentSquire, IronbeakOwl, LeperGnome, LeperGnome, AbusiveSergeant, AbusiveSergeant, DivineFavor, DivineFavor, LeeroyJenkins, HauntedCreeper, MusterforBattle, MusterforBattle, Coghammer, ShieldedMinibot, ShieldedMinibot, SealofChampions,
                     };
                     List<string> anyfin = new List<string>
                     {
-                        AldorPeacekeeper,
-                        CultMaster,
-                        OldMurkEye,
-                        MurlocWarleader,
-                        Consecration,
-                        BluegillWarrior,
-                        TruesilverChampion,
-                        KnifeJuggler,
-                        LayonHands,
-                        GrimscaleOracle,
-                        ZombieChow,
-                        SludgeBelcher,
-                        DrBoom,
-                        PilotedShredder,
-                        MusterforBattle,
-                        AntiqueHealbot,
-                        Coghammer,
-                        ShieldedMinibot,
-                        SolemnVigil,
-                        AnyfinCanHappen,
-                        KeeperofUldaman
+                        AldorPeacekeeper, CultMaster, OldMurkEye, MurlocWarleader, Consecration, BluegillWarrior, TruesilverChampion, KnifeJuggler, LayonHands, GrimscaleOracle, ZombieChow, SludgeBelcher, DrBoom, PilotedShredder, MusterforBattle, AntiqueHealbot, Coghammer, ShieldedMinibot, SolemnVigil, AnyfinCanHappen, KeeperofUldaman
                     };
                     List<string> basicPaladin = new List<string>
                     {
-                        BlessingofKings,
-                        ChillwindYeti,
-                        RazorfenHunter,
-                        BoulderfistOgre,
-                        AcidicSwampOoze,
-                        Consecration,
-                        GuardianofKings,
-                        TruesilverChampion,
-                        StormwindChampion,
-                        SenjinShieldmasta,
-                        HammerofWrath,
-                        MurlocTidehunter,
-                        ShatteredSunCleric,
-                        RiverCrocolisk,
-                        BloodfenRaptor,
-                        FrostwolfWarlord,
+                        BlessingofKings, ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, Consecration, GuardianofKings, TruesilverChampion, StormwindChampion, SenjinShieldmasta, HammerofWrath, MurlocTidehunter, ShatteredSunCleric, RiverCrocolisk, BloodfenRaptor, FrostwolfWarlord,
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.SecretPaladin, Style.Tempo}},
-                            CurrentDeck.Intersect(secretPaladin).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.SecretPaladin, Style.Tempo}}, CurrentDeck.Intersect(secretPaladin).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.MidRangePaladin, Style.Control}},
-                            CurrentDeck.Intersect(midRangePaladin).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.MidRangePaladin, Style.Control}}, CurrentDeck.Intersect(midRangePaladin).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.AggroPaladin, Style.Face}},
-                            CurrentDeck.Intersect(aggroPaladin).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.AggroPaladin, Style.Face}}, CurrentDeck.Intersect(aggroPaladin).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.AnyfinMurglMurgl, Style.Combo}},
-                            CurrentDeck.Intersect(anyfin).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.AnyfinMurglMurgl, Style.Combo}}, CurrentDeck.Intersect(anyfin).ToList().Count
                         },
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -1696,238 +1190,54 @@ namespace SmartBot.Plugins
                 case Card.CClass.WARRIOR:
                     List<string> corePatron = new List<string>
                     {
-                        KorkronElite,
-                        KorkronElite,
-                        Whirlwind,
-                        Whirlwind,
-                        Slam,
-                        Slam,
-                        Execute,
-                        Execute,
-                        DreadCorsair,
-                        InnerRage,
-                        InnerRage,
-                        AcolyteofPain,
-                        AcolyteofPain,
-                        FieryWarAxe,
-                        FieryWarAxe,
-                        GrommashHellscream,
-                        Armorsmith,
-                        Armorsmith,
-                        BattleRage,
-                        BattleRage,
-                        DeathsBite,
-                        DeathsBite,
-                        UnstableGhoul,
-                        UnstableGhoul,
-                        DrBoom,
-                        GrimPatron,
-                        GrimPatron,
-                        SirFinleyMrrgglton,
+                        KorkronElite, KorkronElite, Whirlwind, Whirlwind, Slam, Slam, Execute, Execute, DreadCorsair, InnerRage, InnerRage, AcolyteofPain, AcolyteofPain, FieryWarAxe, FieryWarAxe, GrommashHellscream, Armorsmith, Armorsmith, BattleRage, BattleRage, DeathsBite, DeathsBite, UnstableGhoul, UnstableGhoul, DrBoom, GrimPatron, GrimPatron, SirFinleyMrrgglton,
                     };
                     List<string> controlWarrior = new List<string>
                     {
-                        BigGameHunter,
-                        Slam,
-                        Slam,
-                        Execute,
-                        Execute,
-                        Brawl,
-                        Brawl,
-                        CruelTaskmaster,
-                        AcolyteofPain,
-                        AcolyteofPain,
-                        ShieldBlock,
-                        ShieldBlock,
-                        BaronGeddon,
-                        FieryWarAxe,
-                        FieryWarAxe,
-                        Armorsmith,
-                        Armorsmith,
-                        DeathsBite,
-                        DeathsBite,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        Shieldmaiden,
-                        Shieldmaiden,
-                        JusticarTrueheart,
-                        Bash,
-                        EliseStarseeker,
-                        FierceMonkey,
-                        FierceMonkey,
+                        BigGameHunter, Slam, Slam, Execute, Execute, Brawl, Brawl, CruelTaskmaster, AcolyteofPain, AcolyteofPain, ShieldBlock, ShieldBlock, BaronGeddon, FieryWarAxe, FieryWarAxe, Armorsmith, Armorsmith, DeathsBite, DeathsBite, SludgeBelcher, SludgeBelcher, Shieldmaiden, Shieldmaiden, JusticarTrueheart, Bash, EliseStarseeker, FierceMonkey, FierceMonkey,
                     };
                     List<string> fatigueWarrior = new List<string>
                     {
-                        BigGameHunter,
-                        BigGameHunter,
-                        AcidicSwampOoze,
-                        ColdlightOracle,
-                        ColdlightOracle,
-                        Gorehowl,
-                        Execute,
-                        Execute,
-                        Brawl,
-                        Brawl,
-                        CruelTaskmaster,
-                        CruelTaskmaster,
-                        ShieldBlock,
-                        FieryWarAxe,
-                        Armorsmith,
-                        DeathsBite,
-                        DeathsBite,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        Deathlord,
-                        Deathlord,
-                        Shieldmaiden,
-                        Shieldmaiden,
-                        AntiqueHealbot,
-                        AntiqueHealbot,
-                        IronJuggernaut,
-                        JusticarTrueheart,
-                        BrannBronzebeard,
+                        BigGameHunter, BigGameHunter, AcidicSwampOoze, ColdlightOracle, ColdlightOracle, Gorehowl, Execute, Execute, Brawl, Brawl, CruelTaskmaster, CruelTaskmaster, ShieldBlock, FieryWarAxe, Armorsmith, DeathsBite, DeathsBite, SludgeBelcher, SludgeBelcher, Deathlord, Deathlord, Shieldmaiden, Shieldmaiden, AntiqueHealbot, AntiqueHealbot, IronJuggernaut, JusticarTrueheart, BrannBronzebeard,
                     };
                     List<string> faceWarrior = new List<string>
                     {
-                        ArcaneGolem,
-                        ArcaneGolem,
-                        SouthseaDeckhand,
-                        SouthseaDeckhand,
-                        KorkronElite,
-                        KorkronElite,
-                        Wolfrider,
-                        DreadCorsair,
-                        DreadCorsair,
-                        MortalStrike,
-                        MortalStrike,
-                        IronbeakOwl,
-                        LeperGnome,
-                        LeperGnome,
-                        FieryWarAxe,
-                        FieryWarAxe,
-                        BloodsailRaider,
-                        BloodsailRaider,
-                        Upgrade,
-                        Upgrade,
-                        DeathsBite,
-                        DeathsBite,
-                        ArgentHorserider,
-                        ArgentHorserider,
-                        Bash,
-                        Bash,
-                        SirFinleyMrrgglton,
-                        CursedBlade,
+                        ArcaneGolem, ArcaneGolem, SouthseaDeckhand, SouthseaDeckhand, KorkronElite, KorkronElite, Wolfrider, DreadCorsair, DreadCorsair, MortalStrike, MortalStrike, IronbeakOwl, LeperGnome, LeperGnome, FieryWarAxe, FieryWarAxe, BloodsailRaider, BloodsailRaider, Upgrade, Upgrade, DeathsBite, DeathsBite, ArgentHorserider, ArgentHorserider, Bash, Bash, SirFinleyMrrgglton, CursedBlade,
                     };
                     List<string> dragonWarrior = new List<string>
                     {
-                        Execute,
-                        Execute,
-                        AzureDrake,
-                        AzureDrake,
-                        Alexstrasza,
-                        CruelTaskmaster,
-                        CruelTaskmaster,
-                        TwilightDrake,
-                        TwilightDrake,
-                        FieryWarAxe,
-                        FieryWarAxe,
-                        DeathsBite,
-                        DeathsBite,
-                        Loatheb,
-                        DrBoom,
-                        Shieldmaiden,
-                        Shieldmaiden,
-                        IronJuggernaut,
-                        BlackwingTechnician,
-                        BlackwingTechnician,
-                        BlackwingCorruptor,
-                        BlackwingCorruptor,
-                        Nefarian,
-                        JusticarTrueheart,
-                        AlexstraszasChampion,
-                        TwilightGuardian,
-                        TwilightGuardian,
-                        BrannBronzebeard,
+                        Execute, Execute, AzureDrake, AzureDrake, Alexstrasza, CruelTaskmaster, CruelTaskmaster, TwilightDrake, TwilightDrake, FieryWarAxe, FieryWarAxe, DeathsBite, DeathsBite, Loatheb, DrBoom, Shieldmaiden, Shieldmaiden, IronJuggernaut, BlackwingTechnician, BlackwingTechnician, BlackwingCorruptor, BlackwingCorruptor, Nefarian, JusticarTrueheart, AlexstraszasChampion, TwilightGuardian, TwilightGuardian, BrannBronzebeard,
                     };
                     List<string> mechWarrior = new List<string>
                     {
-                        KorkronElite,
-                        ArcaniteReaper,
-                        MortalStrike,
-                        MortalStrike,
-                        HarvestGolem,
-                        HarvestGolem,
-                        IronbeakOwl,
-                        FieryWarAxe,
-                        FieryWarAxe,
-                        DeathsBite,
-                        DeathsBite,
-                        Cogmaster,
-                        AnnoyoTron,
-                        AnnoyoTron,
-                        SpiderTank,
-                        SpiderTank,
-                        Mechwarper,
-                        Mechwarper,
-                        PilotedShredder,
-                        PilotedShredder,
-                        ScrewjankClunker,
-                        ScrewjankClunker,
-                        Warbot,
-                        Warbot,
-                        FelReaver,
-                        FelReaver,
-                        SirFinleyMrrgglton,
-                        GorillabotA3,
+                        KorkronElite, ArcaniteReaper, MortalStrike, MortalStrike, HarvestGolem, HarvestGolem, IronbeakOwl, FieryWarAxe, FieryWarAxe, DeathsBite, DeathsBite, Cogmaster, AnnoyoTron, AnnoyoTron, SpiderTank, SpiderTank, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, ScrewjankClunker, ScrewjankClunker, Warbot, Warbot, FelReaver, FelReaver, SirFinleyMrrgglton, GorillabotA3,
                     };
                     List<string> basicWarrior = new List<string>
                     {
-                        ChillwindYeti,
-                        RazorfenHunter,
-                        BoulderfistOgre,
-                        AcidicSwampOoze,
-                        Cleave,
-                        KorkronElite,
-                        ArcaniteReaper,
-                        Execute,
-                        GnomishInventor,
-                        StormwindChampion,
-                        SenjinShieldmasta,
-                        ShatteredSunCleric,
-                        ShieldBlock,
-                        RiverCrocolisk,
-                        BloodfenRaptor,
-                        FieryWarAxe
+                        ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, Cleave, KorkronElite, ArcaniteReaper, Execute, GnomishInventor, StormwindChampion, SenjinShieldmasta, ShatteredSunCleric, ShieldBlock, RiverCrocolisk, BloodfenRaptor, FieryWarAxe
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.PatronWarrior, Style.Tempo}},
-                            CurrentDeck.Intersect(corePatron).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.PatronWarrior, Style.Tempo}}, CurrentDeck.Intersect(corePatron).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.ControlWarrior, Style.Control}},
-                            CurrentDeck.Intersect(controlWarrior).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.ControlWarrior, Style.Control}}, CurrentDeck.Intersect(controlWarrior).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.FatigueWarrior, Style.Control}},
-                            CurrentDeck.Intersect(fatigueWarrior).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.FatigueWarrior, Style.Control}}, CurrentDeck.Intersect(fatigueWarrior).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.FaceWarrior, Style.Face}},
-                            CurrentDeck.Intersect(faceWarrior).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.FaceWarrior, Style.Face}}, CurrentDeck.Intersect(faceWarrior).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.DragonWarrior, Style.Control}},
-                            CurrentDeck.Intersect(dragonWarrior).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.DragonWarrior, Style.Control}}, CurrentDeck.Intersect(dragonWarrior).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.MechWarrior, Style.Aggro}},
-                            CurrentDeck.Intersect(mechWarrior).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.MechWarrior, Style.Aggro}}, CurrentDeck.Intersect(mechWarrior).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Aggro}},
-                            CurrentDeck.Intersect(basicWarrior).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Aggro}}, CurrentDeck.Intersect(basicWarrior).ToList().Count
                         },
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -1943,280 +1253,61 @@ namespace SmartBot.Plugins
                 case Card.CClass.WARLOCK:
                     List<string> renolock = new List<string>
                     {
-                        MortalCoil,
-                        Darkbomb,
-                        DarkPeddler,
-                        Demonwrath,
-                        ImpGangBoss,
-                        Hellfire,
-                        Implosion,
-                        Shadowflame,
-                        SiphonSoul,
-                        LordJaraxxus,
-                        AbusiveSergeant,
-                        ZombieChow,
-                        IronbeakOwl,
-                        SunfuryProtector,
-                        BigGameHunter,
-                        BrannBronzebeard,
-                        EarthenRingFarseer,
-                        DefenderofArgus,
-                        PilotedShredder,
-                        TwilightDrake,
-                        AntiqueHealbot,
-                        Feugen,
-                        Loatheb,
-                        SludgeBelcher,
-                        Stalagg,
-                        EmperorThaurissan,
-                        RenoJackson,
-                        DrBoom,
-                        MoltenGiant,
+                        MortalCoil, Darkbomb, DarkPeddler, Demonwrath, ImpGangBoss, Hellfire, Implosion, Shadowflame, SiphonSoul, LordJaraxxus, AbusiveSergeant, ZombieChow, IronbeakOwl, SunfuryProtector, BigGameHunter, BrannBronzebeard, EarthenRingFarseer, DefenderofArgus, PilotedShredder, TwilightDrake, AntiqueHealbot, Feugen, Loatheb, SludgeBelcher, Stalagg, EmperorThaurissan, RenoJackson, DrBoom, MoltenGiant,
                     };
                     List<string> demonHandlock = new List<string>
                     {
-                        MortalCoil,
-                        MortalCoil,
-                        MoltenGiant,
-                        MoltenGiant,
-                        AncientWatcher,
-                        AncientWatcher,
-                        MountainGiant,
-                        MountainGiant,
-                        TwilightDrake,
-                        TwilightDrake,
-                        SunfuryProtector,
-                        SunfuryProtector,
-                        LordJaraxxus,
-                        IronbeakOwl,
-                        DefenderofArgus,
-                        SiphonSoul,
-                        Shadowflame,
-                        Shadowflame,
-                        ZombieChow,
-                        ZombieChow,
-                        Voidcaller,
-                        Voidcaller,
-                        Loatheb,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        DrBoom,
-                        AntiqueHealbot,
-                        MalGanis,
-                        Darkbomb,
+                        MortalCoil, MortalCoil, MoltenGiant, MoltenGiant, AncientWatcher, AncientWatcher, MountainGiant, MountainGiant, TwilightDrake, TwilightDrake, SunfuryProtector, SunfuryProtector, LordJaraxxus, IronbeakOwl, DefenderofArgus, SiphonSoul, Shadowflame, Shadowflame, ZombieChow, ZombieChow, Voidcaller, Voidcaller, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, AntiqueHealbot, MalGanis, Darkbomb,
                     };
                     List<string> zoolock = new List<string>
                     {
-                        FlameImp,
-                        FlameImp,
-                        PowerOverwhelming,
-                        PowerOverwhelming,
-                        DireWolfAlpha,
-                        DireWolfAlpha,
-                        Voidwalker,
-                        Voidwalker,
-                        KnifeJuggler,
-                        KnifeJuggler,
-                        IronbeakOwl,
-                        Doomguard,
-                        Doomguard,
-                        DefenderofArgus,
-                        DefenderofArgus,
-                        AbusiveSergeant,
-                        AbusiveSergeant,
-                        Voidcaller,
-                        Voidcaller,
-                        NerubianEgg,
-                        NerubianEgg,
-                        Loatheb,
-                        HauntedCreeper,
-                        HauntedCreeper,
-                        DrBoom,
-                        Implosion,
-                        Implosion,
-                        ImpGangBoss,
-                        ImpGangBoss,
+                        FlameImp, FlameImp, PowerOverwhelming, PowerOverwhelming, DireWolfAlpha, DireWolfAlpha, Voidwalker, Voidwalker, KnifeJuggler, KnifeJuggler, IronbeakOwl, Doomguard, Doomguard, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, Voidcaller, Voidcaller, NerubianEgg, NerubianEgg, Loatheb, HauntedCreeper, HauntedCreeper, DrBoom, Implosion, Implosion, ImpGangBoss, ImpGangBoss,
                     };
                     List<string> dragonHandlock = new List<string>
                     {
-                        MortalCoil,
-                        MortalCoil,
-                        Darkbomb,
-                        Darkbomb,
-                        AncientWatcher,
-                        AncientWatcher,
-                        IronbeakOwl,
-                        SunfuryProtector,
-                        SunfuryProtector,
-                        BigGameHunter,
-                        Hellfire,
-                        Hellfire,
-                        Shadowflame,
-                        DefenderofArgus,
-                        TwilightDrake,
-                        TwilightDrake,
-                        TwilightGuardian,
-                        TwilightGuardian,
-                        AntiqueHealbot,
-                        BlackwingCorruptor,
-                        BlackwingCorruptor,
-                        EmperorThaurissan,
-                        Chillmaw,
-                        DrBoom,
-                        Alexstrasza,
-                        MountainGiant,
-                        MountainGiant,
-                        MoltenGiant,
-                        MoltenGiant,
+                        MortalCoil, MortalCoil, Darkbomb, Darkbomb, AncientWatcher, AncientWatcher, IronbeakOwl, SunfuryProtector, SunfuryProtector, BigGameHunter, Hellfire, Hellfire, Shadowflame, DefenderofArgus, TwilightDrake, TwilightDrake, TwilightGuardian, TwilightGuardian, AntiqueHealbot, BlackwingCorruptor, BlackwingCorruptor, EmperorThaurissan, Chillmaw, DrBoom, Alexstrasza, MountainGiant, MountainGiant, MoltenGiant, MoltenGiant,
                     };
                     List<string> demonZooWarlock = new List<string>
                     {
-                        PowerOverwhelming,
-                        PowerOverwhelming,
-                        Voidwalker,
-                        Voidwalker,
-                        KnifeJuggler,
-                        KnifeJuggler,
-                        IronbeakOwl,
-                        Doomguard,
-                        Doomguard,
-                        DefenderofArgus,
-                        DefenderofArgus,
-                        AbusiveSergeant,
-                        AbusiveSergeant,
-                        SeaGiant,
-                        BaneofDoom,
-                        Voidcaller,
-                        Voidcaller,
-                        NerubianEgg,
-                        NerubianEgg,
-                        HauntedCreeper,
-                        HauntedCreeper,
-                        DrBoom,
-                        MalGanis,
-                        Implosion,
-                        Implosion,
-                        ImpGangBoss,
-                        ImpGangBoss,
-                        DarkPeddler,
-                        DarkPeddler,
+                        PowerOverwhelming, PowerOverwhelming, Voidwalker, Voidwalker, KnifeJuggler, KnifeJuggler, IronbeakOwl, Doomguard, Doomguard, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, SeaGiant, BaneofDoom, Voidcaller, Voidcaller, NerubianEgg, NerubianEgg, HauntedCreeper, HauntedCreeper, DrBoom, MalGanis, Implosion, Implosion, ImpGangBoss, ImpGangBoss, DarkPeddler, DarkPeddler,
                     };
                     List<string> handlock = new List<string>
                     {
-                        BigGameHunter,
-                        MoltenGiant,
-                        MoltenGiant,
-                        Hellfire,
-                        Hellfire,
-                        AncientWatcher,
-                        MountainGiant,
-                        MountainGiant,
-                        TwilightDrake,
-                        TwilightDrake,
-                        SunfuryProtector,
-                        SunfuryProtector,
-                        LordJaraxxus,
-                        IronbeakOwl,
-                        IronbeakOwl,
-                        DefenderofArgus,
-                        Shadowflame,
-                        Loatheb,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        DrBoom,
-                        AntiqueHealbot,
-                        AntiqueHealbot,
-                        Darkbomb,
-                        Darkbomb,
-                        EmperorThaurissan,
-                        BrannBronzebeard,
-                        DarkPeddler,
+                        BigGameHunter, MoltenGiant, MoltenGiant, Hellfire, Hellfire, AncientWatcher, MountainGiant, MountainGiant, TwilightDrake, TwilightDrake, SunfuryProtector, SunfuryProtector, LordJaraxxus, IronbeakOwl, IronbeakOwl, DefenderofArgus, Shadowflame, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, AntiqueHealbot, AntiqueHealbot, Darkbomb, Darkbomb, EmperorThaurissan, BrannBronzebeard, DarkPeddler,
                     };
                     List<string> relinquary = new List<string>
                     {
-                        PowerOverwhelming,
-                        PowerOverwhelming,
-                        Voidwalker,
-                        Voidwalker,
-                        IronbeakOwl,
-                        DefenderofArgus,
-                        DefenderofArgus,
-                        AbusiveSergeant,
-                        AbusiveSergeant,
-                        SeaGiant,
-                        SeaGiant,
-                        ZombieChow,
-                        NerubianEgg,
-                        NerubianEgg,
-                        Loatheb,
-                        EchoingOoze,
-                        EchoingOoze,
-                        HauntedCreeper,
-                        HauntedCreeper,
-                        DrBoom,
-                        Implosion,
-                        Implosion,
-                        ImpGangBoss,
-                        ImpGangBoss,
-                        GormoktheImpaler,
-                        DarkPeddler,
-                        DarkPeddler,
-                        ReliquarySeeker,
-                        ReliquarySeeker,
+                        PowerOverwhelming, PowerOverwhelming, Voidwalker, Voidwalker, IronbeakOwl, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, SeaGiant, SeaGiant, ZombieChow, NerubianEgg, NerubianEgg, Loatheb, EchoingOoze, EchoingOoze, HauntedCreeper, HauntedCreeper, DrBoom, Implosion, Implosion, ImpGangBoss, ImpGangBoss, GormoktheImpaler, DarkPeddler, DarkPeddler, ReliquarySeeker, ReliquarySeeker,
                     };
                     List<string> basicdeck = new List<string>
                     {
-                        ChillwindYeti,
-                        ShatteredSunCleric,
-                        SenjinShieldmasta,
-                        ZombieChow,
-                        HauntedCreeper,
-                        SludgeBelcher,
-                        KelThuzad,
-                        Loatheb,
-                        EmperorThaurissan,
-                        ImpGangBoss,
-                        DarkPeddler,
-                        JeweledScarab,
-                        ArchThiefRafaam,
-                        ShadowBolt,
-                        Hellfire,
-                        DreadInfernal,
-                        MortalCoil,
+                        ChillwindYeti, ShatteredSunCleric, SenjinShieldmasta, ZombieChow, HauntedCreeper, SludgeBelcher, KelThuzad, Loatheb, EmperorThaurissan, ImpGangBoss, DarkPeddler, JeweledScarab, ArchThiefRafaam, ShadowBolt, Hellfire, DreadInfernal, MortalCoil,
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.RenoLock, Style.Control}},
-                            CurrentDeck.Intersect(renolock).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.RenoLock, Style.Control}}, CurrentDeck.Intersect(renolock).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.DemonHandlock, Style.Control}},
-                            CurrentDeck.Intersect(demonHandlock).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.DemonHandlock, Style.Control}}, CurrentDeck.Intersect(demonHandlock).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Zoolock, Style.Aggro}},
-                            CurrentDeck.Intersect(zoolock).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Zoolock, Style.Aggro}}, CurrentDeck.Intersect(zoolock).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.DragonHandlock, Style.Control}},
-                            CurrentDeck.Intersect(dragonHandlock).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.DragonHandlock, Style.Control}}, CurrentDeck.Intersect(dragonHandlock).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.DemonZooWarlock, Style.Aggro}},
-                            CurrentDeck.Intersect(demonZooWarlock).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.DemonZooWarlock, Style.Aggro}}, CurrentDeck.Intersect(demonZooWarlock).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Handlock, Style.Control}},
-                            CurrentDeck.Intersect(handlock).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Handlock, Style.Control}}, CurrentDeck.Intersect(handlock).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.RelinquaryZoo, Style.Aggro}},
-                            CurrentDeck.Intersect(relinquary).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.RelinquaryZoo, Style.Aggro}}, CurrentDeck.Intersect(relinquary).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}},
-                            CurrentDeck.Intersect(basicdeck).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicdeck).ToList().Count
                         },
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -2232,133 +1323,33 @@ namespace SmartBot.Plugins
                 case Card.CClass.HUNTER:
                     List<string> midRangeHunter = new List<string>
                     {
-                        HuntersMark,
-                        HuntersMark,
-                        Webspinner,
-                        BearTrap,
-                        FreezingTrap,
-                        SnakeTrap,
-                        EaglehornBow,
-                        EaglehornBow,
-                        AnimalCompanion,
-                        AnimalCompanion,
-                        KillCommand,
-                        KillCommand,
-                        UnleashtheHounds,
-                        UnleashtheHounds,
-                        Houndmaster,
-                        Houndmaster,
-                        RamWrangler,
-                        HauntedCreeper,
-                        JeweledScarab,
-                        KnifeJuggler,
-                        KnifeJuggler,
-                        MadScientist,
-                        MadScientist,
-                        TombSpider,
-                        TombSpider,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        DrBoom,
+                        HuntersMark, HuntersMark, Webspinner, BearTrap, FreezingTrap, SnakeTrap, EaglehornBow, EaglehornBow, AnimalCompanion, AnimalCompanion, KillCommand, KillCommand, UnleashtheHounds, UnleashtheHounds, Houndmaster, Houndmaster, RamWrangler, HauntedCreeper, JeweledScarab, KnifeJuggler, KnifeJuggler, MadScientist, MadScientist, TombSpider, TombSpider, SludgeBelcher, SludgeBelcher, DrBoom,
                     };
                     List<string> hybridHunter = new List<string>
                     {
-                        FreezingTrap,
-                        UnleashtheHounds,
-                        UnleashtheHounds,
-                        ExplosiveTrap,
-                        EaglehornBow,
-                        KnifeJuggler,
-                        KnifeJuggler,
-                        KillCommand,
-                        KillCommand,
-                        IronbeakOwl,
-                        LeperGnome,
-                        LeperGnome,
-                        AbusiveSergeant,
-                        AbusiveSergeant,
-                        AnimalCompanion,
-                        AnimalCompanion,
-                        Loatheb,
-                        MadScientist,
-                        MadScientist,
-                        HauntedCreeper,
-                        HauntedCreeper,
-                        PilotedShredder,
-                        PilotedShredder,
-                        Glaivezooka,
-                        Glaivezooka,
-                        QuickShot,
-                        ArgentHorserider,
-                        ArgentHorserider,
+                        FreezingTrap, UnleashtheHounds, UnleashtheHounds, ExplosiveTrap, EaglehornBow, KnifeJuggler, KnifeJuggler, KillCommand, KillCommand, IronbeakOwl, LeperGnome, LeperGnome, AbusiveSergeant, AbusiveSergeant, AnimalCompanion, AnimalCompanion, Loatheb, MadScientist, MadScientist, HauntedCreeper, HauntedCreeper, PilotedShredder, PilotedShredder, Glaivezooka, Glaivezooka, QuickShot, ArgentHorserider, ArgentHorserider,
                     };
                     List<string> faceHunter = new List<string>
                     {
-                        Glaivezooka,
-                        Glaivezooka,
-                        ExplosiveTrap,
-                        QuickShot,
-                        QuickShot,
-                        EaglehornBow,
-                        AnimalCompanion,
-                        AnimalCompanion,
-                        UnleashtheHounds,
-                        UnleashtheHounds,
-                        KillCommand,
-                        KillCommand,
-                        DartTrap,
-                        DesertCamel,
-                        AbusiveSergeant,
-                        AbusiveSergeant,
-                        LeperGnome,
-                        LeperGnome,
-                        SouthseaDeckhand,
-                        HauntedCreeper,
-                        IronbeakOwl,
-                        IronbeakOwl,
-                        KnifeJuggler,
-                        KnifeJuggler,
-                        MadScientist,
-                        MadScientist,
-                        ArcaneGolem,
-                        ArcaneGolem,
-                        WorgenInfiltrator,
+                        Glaivezooka, Glaivezooka, ExplosiveTrap, QuickShot, QuickShot, EaglehornBow, AnimalCompanion, AnimalCompanion, UnleashtheHounds, UnleashtheHounds, KillCommand, KillCommand, DartTrap, DesertCamel, AbusiveSergeant, AbusiveSergeant, LeperGnome, LeperGnome, SouthseaDeckhand, HauntedCreeper, IronbeakOwl, IronbeakOwl, KnifeJuggler, KnifeJuggler, MadScientist, MadScientist, ArcaneGolem, ArcaneGolem, WorgenInfiltrator,
                     };
                     List<string> basicHunter = new List<string>
                     {
-                        RazorfenHunter,
-                        TimberWolf,
-                        StarvingBuzzard,
-                        TundraRhino,
-                        ArcaneShot,
-                        Wolfrider,
-                        Houndmaster,
-                        BluegillWarrior,
-                        MultiShot,
-                        ShatteredSunCleric,
-                        KillCommand,
-                        RiverCrocolisk,
-                        RecklessRocketeer,
-                        BloodfenRaptor,
-                        AnimalCompanion
+                        RazorfenHunter, TimberWolf, StarvingBuzzard, TundraRhino, ArcaneShot, Wolfrider, Houndmaster, BluegillWarrior, MultiShot, ShatteredSunCleric, KillCommand, RiverCrocolisk, RecklessRocketeer, BloodfenRaptor, AnimalCompanion
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.MidRangeHunter, Style.Tempo}},
-                            CurrentDeck.Intersect(midRangeHunter).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.MidRangeHunter, Style.Tempo}}, CurrentDeck.Intersect(midRangeHunter).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.HybridHunter, Style.Aggro}},
-                            CurrentDeck.Intersect(hybridHunter).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.HybridHunter, Style.Aggro}}, CurrentDeck.Intersect(hybridHunter).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.FaceHunter, Style.Face}},
-                            CurrentDeck.Intersect(faceHunter).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.FaceHunter, Style.Face}}, CurrentDeck.Intersect(faceHunter).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}},
-                            CurrentDeck.Intersect(basicHunter).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicHunter).ToList().Count
                         },
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -2374,170 +1365,40 @@ namespace SmartBot.Plugins
                 case Card.CClass.ROGUE:
                     List<string> raptorRogue = new List<string>
                     {
-                        ColdBlood,
-                        ColdBlood,
-                        FanofKnives,
-                        FanofKnives,
-                        Eviscerate,
-                        Eviscerate,
-                        Sap,
-                        LootHoarder,
-                        LootHoarder,
-                        Backstab,
-                        Backstab,
-                        UnearthedRaptor,
-                        UnearthedRaptor,
-                        AbusiveSergeant,
-                        AbusiveSergeant,
-                        LeperGnome,
-                        LeperGnome,
-                        NerubianEgg,
-                        NerubianEgg,
-                        DefenderofArgus,
-                        DefenderofArgus,
-                        PilotedShredder,
-                        PilotedShredder,
-                        Loatheb,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        DrBoom,
-                        HauntedCreeper,
-                        HauntedCreeper,
+                        ColdBlood, ColdBlood, FanofKnives, FanofKnives, Eviscerate, Eviscerate, Sap, LootHoarder, LootHoarder, Backstab, Backstab, UnearthedRaptor, UnearthedRaptor, AbusiveSergeant, AbusiveSergeant, LeperGnome, LeperGnome, NerubianEgg, NerubianEgg, DefenderofArgus, DefenderofArgus, PilotedShredder, PilotedShredder, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, HauntedCreeper, HauntedCreeper,
                     };
                     List<string> pirateRogue = new List<string>
                     {
-                        Sprint,
-                        Sprint,
-                        SouthseaDeckhand,
-                        SouthseaDeckhand,
-                        BladeFlurry,
-                        BladeFlurry,
-                        DreadCorsair,
-                        DreadCorsair,
-                        AzureDrake,
-                        AzureDrake,
-                        SI7Agent,
-                        SI7Agent,
-                        Preparation,
-                        Preparation,
-                        Eviscerate,
-                        Eviscerate,
-                        Sap,
-                        AssassinsBlade,
-                        Backstab,
-                        Backstab,
-                        BloodsailRaider,
-                        BloodsailRaider,
-                        ShipsCannon,
-                        ShipsCannon,
-                        TinkersSharpswordOil,
-                        TinkersSharpswordOil,
-                        Buccaneer,
-                        Buccaneer,
+                        Sprint, Sprint, SouthseaDeckhand, SouthseaDeckhand, BladeFlurry, BladeFlurry, DreadCorsair, DreadCorsair, AzureDrake, AzureDrake, SI7Agent, SI7Agent, Preparation, Preparation, Eviscerate, Eviscerate, Sap, AssassinsBlade, Backstab, Backstab, BloodsailRaider, BloodsailRaider, ShipsCannon, ShipsCannon, TinkersSharpswordOil, TinkersSharpswordOil, Buccaneer, Buccaneer,
                     };
                     List<string> oilRogue = new List<string>
                     {
-                        DeadlyPoison,
-                        DeadlyPoison,
-                        Sprint,
-                        Sprint,
-                        SouthseaDeckhand,
-                        BladeFlurry,
-                        BladeFlurry,
-                        AzureDrake,
-                        AzureDrake,
-                        SI7Agent,
-                        SI7Agent,
-                        Preparation,
-                        Preparation,
-                        FanofKnives,
-                        FanofKnives,
-                        Eviscerate,
-                        Eviscerate,
-                        Sap,
-                        Sap,
-                        Backstab,
-                        Backstab,
-                        BloodmageThalnos,
-                        PilotedShredder,
-                        PilotedShredder,
-                        AntiqueHealbot,
-                        TinkersSharpswordOil,
-                        TinkersSharpswordOil,
-                        TombPillager,
-                        TombPillager,
+                        DeadlyPoison, DeadlyPoison, Sprint, Sprint, SouthseaDeckhand, BladeFlurry, BladeFlurry, AzureDrake, AzureDrake, SI7Agent, SI7Agent, Preparation, Preparation, FanofKnives, FanofKnives, Eviscerate, Eviscerate, Sap, Sap, Backstab, Backstab, BloodmageThalnos, PilotedShredder, PilotedShredder, AntiqueHealbot, TinkersSharpswordOil, TinkersSharpswordOil, TombPillager, TombPillager,
                     };
                     List<string> burstRogue = new List<string>
                     {
-                        ColdlightOracle,
-                        ColdBlood,
-                        ColdBlood,
-                        ArcaneGolem,
-                        ArcaneGolem,
-                        SouthseaDeckhand,
-                        BladeFlurry,
-                        BladeFlurry,
-                        SI7Agent,
-                        SI7Agent,
-                        Eviscerate,
-                        Eviscerate,
-                        Sap,
-                        DefiasRingleader,
-                        AssassinsBlade,
-                        ArgentSquire,
-                        ArgentSquire,
-                        IronbeakOwl,
-                        IronbeakOwl,
-                        LeperGnome,
-                        LeperGnome,
-                        Loatheb,
-                        PilotedShredder,
-                        PilotedShredder,
-                        GoblinAutoBarber,
-                        GoblinAutoBarber,
-                        TinkersSharpswordOil,
-                        TinkersSharpswordOil,
+                        ColdlightOracle, ColdBlood, ColdBlood, ArcaneGolem, ArcaneGolem, SouthseaDeckhand, BladeFlurry, BladeFlurry, SI7Agent, SI7Agent, Eviscerate, Eviscerate, Sap, DefiasRingleader, AssassinsBlade, ArgentSquire, ArgentSquire, IronbeakOwl, IronbeakOwl, LeperGnome, LeperGnome, Loatheb, PilotedShredder, PilotedShredder, GoblinAutoBarber, GoblinAutoBarber, TinkersSharpswordOil, TinkersSharpswordOil,
                     };
                     List<string> basicRogue = new List<string>
                     {
-                        ChillwindYeti,
-                        RazorfenHunter,
-                        BoulderfistOgre,
-                        AcidicSwampOoze,
-                        DeadlyPoison,
-                        Sprint,
-                        GnomishInventor,
-                        StormwindChampion,
-                        SenjinShieldmasta,
-                        FanofKnives,
-                        AssassinsBlade,
-                        ShatteredSunCleric,
-                        NoviceEngineer,
-                        Backstab,
-                        Assassinate,
-                        BloodfenRaptor,
+                        ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, DeadlyPoison, Sprint, GnomishInventor, StormwindChampion, SenjinShieldmasta, FanofKnives, AssassinsBlade, ShatteredSunCleric, NoviceEngineer, Backstab, Assassinate, BloodfenRaptor,
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.RaptorRogue, Style.Tempo}},
-                            CurrentDeck.Intersect(raptorRogue).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.RaptorRogue, Style.Tempo}}, CurrentDeck.Intersect(raptorRogue).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.PirateRogue, Style.Aggro}},
-                            CurrentDeck.Intersect(pirateRogue).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.PirateRogue, Style.Aggro}}, CurrentDeck.Intersect(pirateRogue).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.OilRogue, Style.Combo}},
-                            CurrentDeck.Intersect(oilRogue).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.OilRogue, Style.Combo}}, CurrentDeck.Intersect(oilRogue).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.FaceRogue, Style.Face}},
-                            CurrentDeck.Intersect(burstRogue).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.FaceRogue, Style.Face}}, CurrentDeck.Intersect(burstRogue).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}},
-                            CurrentDeck.Intersect(basicRogue).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicRogue).ToList().Count
                         },
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -2553,168 +1414,40 @@ namespace SmartBot.Plugins
                 case Card.CClass.DRUID:
                     List<string> midRangeDruid = new List<string>
                     {
-                        BigGameHunter,
-                        ForceofNature,
-                        ForceofNature,
-                        AzureDrake,
-                        AzureDrake,
-                        WildGrowth,
-                        WildGrowth,
-                        SavageRoar,
-                        SavageRoar,
-                        KeeperoftheGrove,
-                        KeeperoftheGrove,
-                        Innervate,
-                        Innervate,
-                        DruidoftheClaw,
-                        DruidoftheClaw,
-                        Swipe,
-                        Swipe,
-                        Wrath,
-                        Wrath,
-                        ShadeofNaxxramas,
-                        ShadeofNaxxramas,
-                        Loatheb,
-                        DrBoom,
-                        PilotedShredder,
-                        PilotedShredder,
-                        EmperorThaurissan,
-                        LivingRoots,
-                        LivingRoots,
+                        BigGameHunter, ForceofNature, ForceofNature, AzureDrake, AzureDrake, WildGrowth, WildGrowth, SavageRoar, SavageRoar, KeeperoftheGrove, KeeperoftheGrove, Innervate, Innervate, DruidoftheClaw, DruidoftheClaw, Swipe, Swipe, Wrath, Wrath, ShadeofNaxxramas, ShadeofNaxxramas, Loatheb, DrBoom, PilotedShredder, PilotedShredder, EmperorThaurissan, LivingRoots, LivingRoots,
                     };
                     List<string> tokenDruid = new List<string>
                     {
-                        SouloftheForest,
-                        SouloftheForest,
-                        SavageRoar,
-                        SavageRoar,
-                        KeeperoftheGrove,
-                        MarkoftheWild,
-                        MarkoftheWild,
-                        DefenderofArgus,
-                        DefenderofArgus,
-                        Innervate,
-                        Innervate,
-                        AbusiveSergeant,
-                        AbusiveSergeant,
-                        LivingRoots,
-                        LivingRoots,
-                        MountedRaptor,
-                        MountedRaptor,
-                        DragonEgg,
-                        DragonEgg,
-                        NerubianEgg,
-                        NerubianEgg,
-                        EchoingOoze,
-                        EchoingOoze,
-                        Jeeves,
-                        Jeeves,
-                        HauntedCreeper,
-                        HauntedCreeper,
-                        SirFinleyMrrgglton,
+                        SouloftheForest, SouloftheForest, SavageRoar, SavageRoar, KeeperoftheGrove, MarkoftheWild, MarkoftheWild, DefenderofArgus, DefenderofArgus, Innervate, Innervate, AbusiveSergeant, AbusiveSergeant, LivingRoots, LivingRoots, MountedRaptor, MountedRaptor, DragonEgg, DragonEgg, NerubianEgg, NerubianEgg, EchoingOoze, EchoingOoze, Jeeves, Jeeves, HauntedCreeper, HauntedCreeper, SirFinleyMrrgglton,
                     };
                     List<string> rampDruid = new List<string>
                     {
-                        BigGameHunter,
-                        AncientofWar,
-                        AncientofWar,
-                        WildGrowth,
-                        WildGrowth,
-                        KeeperoftheGrove,
-                        KeeperoftheGrove,
-                        RagnarostheFirelord,
-                        Innervate,
-                        Innervate,
-                        DruidoftheClaw,
-                        DruidoftheClaw,
-                        Swipe,
-                        Swipe,
-                        Wrath,
-                        Wrath,
-                        ZombieChow,
-                        ZombieChow,
-                        SludgeBelcher,
-                        SludgeBelcher,
-                        DrBoom,
-                        EmperorThaurissan,
-                        DruidoftheFlame,
-                        DruidoftheFlame,
-                        DarnassusAspirant,
-                        DarnassusAspirant,
-                        MasterJouster,
-                        MasterJouster,
+                        BigGameHunter, AncientofWar, AncientofWar, WildGrowth, WildGrowth, KeeperoftheGrove, KeeperoftheGrove, RagnarostheFirelord, Innervate, Innervate, DruidoftheClaw, DruidoftheClaw, Swipe, Swipe, Wrath, Wrath, ZombieChow, ZombieChow, SludgeBelcher, SludgeBelcher, DrBoom, EmperorThaurissan, DruidoftheFlame, DruidoftheFlame, DarnassusAspirant, DarnassusAspirant, MasterJouster, MasterJouster,
                     };
                     List<string> aggroDruid = new List<string>
                     {
-                        ForceofNature,
-                        ForceofNature,
-                        SavageRoar,
-                        SavageRoar,
-                        KnifeJuggler,
-                        KnifeJuggler,
-                        KeeperoftheGrove,
-                        KeeperoftheGrove,
-                        LeperGnome,
-                        Innervate,
-                        Innervate,
-                        DruidoftheClaw,
-                        DruidoftheClaw,
-                        Swipe,
-                        Swipe,
-                        Loatheb,
-                        DrBoom,
-                        PilotedShredder,
-                        PilotedShredder,
-                        FelReaver,
-                        FelReaver,
-                        ArgentHorserider,
-                        DarnassusAspirant,
-                        DarnassusAspirant,
-                        DruidoftheSaber,
-                        DruidoftheSaber,
-                        LivingRoots,
-                        LivingRoots,
-                        SirFinleyMrrgglton,
+                        ForceofNature, ForceofNature, SavageRoar, SavageRoar, KnifeJuggler, KnifeJuggler, KeeperoftheGrove, KeeperoftheGrove, LeperGnome, Innervate, Innervate, DruidoftheClaw, DruidoftheClaw, Swipe, Swipe, Loatheb, DrBoom, PilotedShredder, PilotedShredder, FelReaver, FelReaver, ArgentHorserider, DarnassusAspirant, DarnassusAspirant, DruidoftheSaber, DruidoftheSaber, LivingRoots, LivingRoots, SirFinleyMrrgglton,
                     };
                     List<string> basicDruid = new List<string>
                     {
-                        ChillwindYeti,
-                        RazorfenHunter,
-                        BoulderfistOgre,
-                        AcidicSwampOoze,
-                        IronbarkProtector,
-                        GnomishInventor,
-                        WildGrowth,
-                        SenjinShieldmasta,
-                        ShatteredSunCleric,
-                        NoviceEngineer,
-                        MarkoftheWild,
-                        Claw,
-                        Innervate,
-                        Swipe,
-                        Starfire
+                        ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, IronbarkProtector, GnomishInventor, WildGrowth, SenjinShieldmasta, ShatteredSunCleric, NoviceEngineer, MarkoftheWild, Claw, Innervate, Swipe, Starfire
                     };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.MidRangeDruid, Style.Combo}},
-                            CurrentDeck.Intersect(midRangeDruid).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.MidRangeDruid, Style.Combo}}, CurrentDeck.Intersect(midRangeDruid).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.TokenDruid, Style.Aggro}},
-                            CurrentDeck.Intersect(tokenDruid).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.TokenDruid, Style.Aggro}}, CurrentDeck.Intersect(tokenDruid).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.RampDruid, Style.Control}},
-                            CurrentDeck.Intersect(rampDruid).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.RampDruid, Style.Control}}, CurrentDeck.Intersect(rampDruid).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.AggroDruid, Style.Face}},
-                            CurrentDeck.Intersect(aggroDruid).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.AggroDruid, Style.Face}}, CurrentDeck.Intersect(aggroDruid).ToList().Count
                         },
                         {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}},
-                            CurrentDeck.Intersect(basicDruid).ToList().Count
+                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicDruid).ToList().Count
                         },
                     };
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
@@ -2735,13 +1468,13 @@ namespace SmartBot.Plugins
             info.DeckStyle = Style.Unknown;
             return info;
         }
+
         private static void CheckDirectory(string subdir)
         {
             if (Directory.Exists(subdir))
                 return;
             Directory.CreateDirectory(subdir);
         }
-
     }
 
     public class DeckData
@@ -2749,7 +1482,6 @@ namespace SmartBot.Plugins
         public DeckType DeckType { get; set; }
         public Style DeckStyle { get; set; }
         public List<string> DeckList { get; set; }
-
     }
 
 
@@ -2828,7 +1560,11 @@ namespace SmartBot.Plugins
         Basic
     }
 
-
+    public enum IdentityMode
+    {
+        Auto,
+        Manual
+    }
 
     public enum Style
     {
@@ -2924,5 +1660,4 @@ namespace SmartBot.Plugins
             private bool _disposed;
             private readonly Process _gitProcess;
         }*/
-
 }
