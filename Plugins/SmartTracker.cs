@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using SmartBot.Database;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+
 
 
 namespace SmartBot.Plugins
@@ -21,7 +24,7 @@ namespace SmartBot.Plugins
     }
 
     [Serializable]
-    public class smPluginDataContainer : PluginDataContainer
+    public class SmartTracker : PluginDataContainer
     {
 
         /// <summary>
@@ -31,33 +34,39 @@ namespace SmartBot.Plugins
         private const bool MulliganTesterDebug = false;
 
 
-        [DisplayName("Update SmartMulliganV3")]
-        public bool AutoUpdateV3 { get; private set; }
-        [DisplayName("Update SmartTracker")]
-        public bool AutoUpdateTracker { get; private set; }
-        [DisplayName("Random Intro Messages")]
-        public bool RandomMovieQuotes { get; private set; }
-
-        [DisplayName("[-] Identifier Mode")]
+        [DisplayName("[0] Update Mulligan")]
+        public bool AutoUpdateV3 { get; set; }
+        [DisplayName("[0] Update Tracker")]
+        public bool AutoUpdateTracker { get; set; }
+        //[DisplayName("Random Intro Messages")]
+        //public bool RandomMovieQuotes { get; private set; }
+        [DisplayName("[S] B# Public Key")]
+        public string BitCoin { get; private set; }
+        [DisplayName("[1] Identifier Mode")]
         public IdentityMode mode { get; set; }
 
-        [DisplayName("[Manual] Your Deck")]
+        [DisplayName("[1] Your Deck")]
         public DeckType ForceDeckType { get; set; }
         [Browsable(MulliganTesterDebug ? true : false)]
-        [DisplayName("Mulligan Tester: you")]
+        [DisplayName("[test] Mulligan Tester: you")]
         public DeckType MT_YourDeck { get; set; }
         [Browsable(MulliganTesterDebug ? true : false)]
-        [DisplayName("Mulligan Tester: enemy")]
+        [DisplayName("[test] Mulligan Tester: enemy")]
         public DeckType MT_OpponentDeck { get; set; }
 
+        [DisplayName("Donatuib Button")]
+        public bool donate { get; set; }
+
+       
+
         [Browsable(false)]
-        public string LSmartMulliganV3 { get; set; }
+        public string LSmartMulliganV3 { get; private set; }
         [Browsable(false)]
-        public string LSmartTracker { get; set; }
+        public string LSmartTracker { get; private set; }
 
 
 
-        public smPluginDataContainer()
+        public SmartTracker()
         {
             Name = "SmartTracker";
             ForceDeckType = DeckType.Unknown;
@@ -65,7 +74,7 @@ namespace SmartBot.Plugins
             MT_YourDeck = DeckType.Unknown;
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
-            RandomMovieQuotes = false;
+            BitCoin = "16ujoN2p8JaxBvkWFxPRcy1x8roG1XMeBM"; 
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartTracker.cs";
 
@@ -74,752 +83,10 @@ namespace SmartBot.Plugins
 
     public class SMTracker : Plugin
     {
-        #region cards
+        private GuiElementButton buttonCatcher;
+        private bool Started;
 
-        private const string GoldshireFootman = "CS1_042";
-        private const string HolyNova = "CS1_112";
-        private const string MindControl = "CS1_113";
-        private const string HolySmite = "CS1_130";
-        private const string MindVision = "CS2_003";
-        private const string PowerWordShield = "CS2_004";
-        private const string Claw = "CS2_005";
-        private const string HealingTouch = "CS2_007";
-        private const string Moonfire = "CS2_008";
-        private const string MarkoftheWild = "CS2_009";
-        private const string SavageRoar = "CS2_011";
-        private const string Swipe = "CS2_012";
-        private const string WildGrowth = "CS2_013";
-        private const string Polymorph = "CS2_022";
-        private const string ArcaneIntellect = "CS2_023";
-        private const string Frostbolt = "CS2_024";
-        private const string ArcaneExplosion = "CS2_025";
-        private const string FrostNova = "CS2_026";
-        private const string MirrorImage = "CS2_027";
-        private const string Fireball = "CS2_029";
-        private const string Flamestrike = "CS2_032";
-        private const string WaterElemental = "CS2_033";
-        private const string FrostShock = "CS2_037";
-        private const string Windfury = "CS2_039";
-        private const string AncestralHealing = "CS2_041";
-        private const string FireElemental = "CS2_042";
-        private const string RockbiterWeapon = "CS2_045";
-        private const string Bloodlust = "CS2_046";
-        private const string ShadowBolt = "CS2_057";
-        private const string DrainLife = "CS2_061";
-        private const string Hellfire = "CS2_062";
-        private const string Corruption = "CS2_063";
-        private const string DreadInfernal = "CS2_064";
-        private const string Voidwalker = "CS2_065";
-        private const string Backstab = "CS2_072";
-        private const string DeadlyPoison = "CS2_074";
-        private const string SinisterStrike = "CS2_075";
-        private const string Assassinate = "CS2_076";
-        private const string Sprint = "CS2_077";
-        private const string AssassinsBlade = "CS2_080";
-        private const string HuntersMark = "CS2_084";
-        private const string BlessingofMight = "CS2_087";
-        private const string GuardianofKings = "CS2_088";
-        private const string HolyLight = "CS2_089";
-        private const string LightsJustice = "CS2_091";
-        private const string BlessingofKings = "CS2_092";
-        private const string Consecration = "CS2_093";
-        private const string HammerofWrath = "CS2_094";
-        private const string TruesilverChampion = "CS2_097";
-        private const string Charge = "CS2_103";
-        private const string HeroicStrike = "CS2_105";
-        private const string FieryWarAxe = "CS2_106";
-        private const string Execute = "CS2_108";
-        private const string ArcaniteReaper = "CS2_112";
-        private const string Cleave = "CS2_114";
-        private const string MagmaRager = "CS2_118";
-        private const string OasisSnapjaw = "CS2_119";
-        private const string RiverCrocolisk = "CS2_120";
-        private const string FrostwolfGrunt = "CS2_121";
-        private const string RaidLeader = "CS2_122";
-        private const string Wolfrider = "CS2_124";
-        private const string IronfurGrizzly = "CS2_125";
-        private const string SilverbackPatriarch = "CS2_127";
-        private const string StormwindKnight = "CS2_131";
-        private const string IronforgeRifleman = "CS2_141";
-        private const string KoboldGeomancer = "CS2_142";
-        private const string GnomishInventor = "CS2_147";
-        private const string StormpikeCommando = "CS2_150";
-        private const string Archmage = "CS2_155";
-        private const string LordoftheArena = "CS2_162";
-        private const string MurlocRaider = "CS2_168";
-        private const string StonetuskBoar = "CS2_171";
-        private const string BloodfenRaptor = "CS2_172";
-        private const string BluegillWarrior = "CS2_173";
-        private const string SenjinShieldmasta = "CS2_179";
-        private const string ChillwindYeti = "CS2_182";
-        private const string WarGolem = "CS2_186";
-        private const string BootyBayBodyguard = "CS2_187";
-        private const string ElvenArcher = "CS2_189";
-        private const string RazorfenHunter = "CS2_196";
-        private const string OgreMagi = "CS2_197";
-        private const string BoulderfistOgre = "CS2_200";
-        private const string CoreHound = "CS2_201";
-        private const string RecklessRocketeer = "CS2_213";
-        private const string StormwindChampion = "CS2_222";
-        private const string FrostwolfWarlord = "CS2_226";
-        private const string IronbarkProtector = "CS2_232";
-        private const string ShadowWordPain = "CS2_234";
-        private const string NorthshireCleric = "CS2_235";
-        private const string DivineSpirit = "CS2_236";
-        private const string StarvingBuzzard = "CS2_237";
-        private const string DarkscaleHealer = "DS1_055";
-        private const string Houndmaster = "DS1_070";
-        private const string TimberWolf = "DS1_175";
-        private const string TundraRhino = "DS1_178";
-        private const string MultiShot = "DS1_183";
-        private const string Tracking = "DS1_184";
-        private const string ArcaneShot = "DS1_185";
-        private const string MindBlast = "DS1_233";
-        private const string VoodooDoctor = "EX1_011";
-        private const string NoviceEngineer = "EX1_015";
-        private const string ShatteredSunCleric = "EX1_019";
-        private const string DragonlingMechanic = "EX1_025";
-        private const string AcidicSwampOoze = "EX1_066";
-        private const string WarsongCommander = "EX1_084";
-        private const string FanofKnives = "EX1_129";
-        private const string Innervate = "EX1_169";
-        private const string Starfire = "EX1_173";
-        private const string TotemicMight = "EX1_244";
-        private const string Hex = "EX1_246";
-        private const string ArcaneMissiles = "EX1_277";
-        private const string Shiv = "EX1_278";
-        private const string MortalCoil = "EX1_302";
-        private const string Succubus = "EX1_306";
-        private const string Soulfire = "EX1_308";
-        private const string Humility = "EX1_360";
-        private const string HandofProtection = "EX1_371";
-        private const string GurubashiBerserker = "EX1_399";
-        private const string Whirlwind = "EX1_400";
-        private const string MurlocTidehunter = "EX1_506";
-        private const string GrimscaleOracle = "EX1_508";
-        private const string KillCommand = "EX1_539";
-        private const string FlametongueTotem = "EX1_565";
-        private const string Sap = "EX1_581";
-        private const string DalaranMage = "EX1_582";
-        private const string Windspeaker = "EX1_587";
-        private const string Nightblade = "EX1_593";
-        private const string ShieldBlock = "EX1_606";
-        private const string ShadowWordDeath = "EX1_622";
-        private const string SacrificialPact = "NEW1_003";
-        private const string Vanish = "NEW1_004";
-        private const string KorkronElite = "NEW1_011";
-        private const string AnimalCompanion = "NEW1_031";
-        private const string FenCreeper = "CS1_069";
-        private const string InnerFire = "CS1_129";
-        private const string Blizzard = "CS2_028";
-        private const string IceLance = "CS2_031";
-        private const string AncestralSpirit = "CS2_038";
-        private const string FarSight = "CS2_053";
-        private const string BloodImp = "CS2_059";
-        private const string ColdBlood = "CS2_073";
-        private const string Rampage = "CS2_104";
-        private const string EarthenRingFarseer = "CS2_117";
-        private const string SouthseaDeckhand = "CS2_146";
-        private const string SilverHandKnight = "CS2_151";
-        private const string RavenholdtAssassin = "CS2_161";
-        private const string YoungDragonhawk = "CS2_169";
-        private const string InjuredBlademaster = "CS2_181";
-        private const string AbusiveSergeant = "CS2_188";
-        private const string IronbeakOwl = "CS2_203";
-        private const string SpitefulSmith = "CS2_221";
-        private const string VentureCoMercenary = "CS2_227";
-        private const string Wisp = "CS2_231";
-        private const string BladeFlurry = "CS2_233";
-        private const string GladiatorsLongbow = "DS1_188";
-        private const string Lightwarden = "EX1_001";
-        private const string TheBlackKnight = "EX1_002";
-        private const string YoungPriestess = "EX1_004";
-        private const string BigGameHunter = "EX1_005";
-        private const string AlarmoBot = "EX1_006";
-        private const string AcolyteofPain = "EX1_007";
-        private const string ArgentSquire = "EX1_008";
-        private const string AngryChicken = "EX1_009";
-        private const string WorgenInfiltrator = "EX1_010";
-        private const string BloodmageThalnos = "EX1_012";
-        private const string KingMukla = "EX1_014";
-        private const string SylvanasWindrunner = "EX1_016";
-        private const string JunglePanther = "EX1_017";
-        private const string ScarletCrusader = "EX1_020";
-        private const string ThrallmarFarseer = "EX1_021";
-        private const string SilvermoonGuardian = "EX1_023";
-        private const string StranglethornTiger = "EX1_028";
-        private const string LeperGnome = "EX1_029";
-        private const string Sunwalker = "EX1_032";
-        private const string WindfuryHarpy = "EX1_033";
-        private const string TwilightDrake = "EX1_043";
-        private const string QuestingAdventurer = "EX1_044";
-        private const string AncientWatcher = "EX1_045";
-        private const string DarkIronDwarf = "EX1_046";
-        private const string Spellbreaker = "EX1_048";
-        private const string YouthfulBrewmaster = "EX1_049";
-        private const string ColdlightOracle = "EX1_050";
-        private const string ManaAddict = "EX1_055";
-        private const string AncientBrewmaster = "EX1_057";
-        private const string SunfuryProtector = "EX1_058";
-        private const string CrazedAlchemist = "EX1_059";
-        private const string ArgentCommander = "EX1_067";
-        private const string PintSizedSummoner = "EX1_076";
-        private const string Secretkeeper = "EX1_080";
-        private const string MadBomber = "EX1_082";
-        private const string TinkmasterOverspark = "EX1_083";
-        private const string MindControlTech = "EX1_085";
-        private const string ArcaneGolem = "EX1_089";
-        private const string CabalShadowPriest = "EX1_091";
-        private const string DefenderofArgus = "EX1_093";
-        private const string GadgetzanAuctioneer = "EX1_095";
-        private const string LootHoarder = "EX1_096";
-        private const string Abomination = "EX1_097";
-        private const string LorewalkerCho = "EX1_100";
-        private const string Demolisher = "EX1_102";
-        private const string ColdlightSeer = "EX1_103";
-        private const string MountainGiant = "EX1_105";
-        private const string CairneBloodhoof = "EX1_110";
-        private const string LeeroyJenkins = "EX1_116";
-        private const string Eviscerate = "EX1_124";
-        private const string Betrayal = "EX1_126";
-        private const string Conceal = "EX1_128";
-        private const string NobleSacrifice = "EX1_130";
-        private const string DefiasRingleader = "EX1_131";
-        private const string EyeforanEye = "EX1_132";
-        private const string PerditionsBlade = "EX1_133";
-        private const string SI7Agent = "EX1_134";
-        private const string Redemption = "EX1_136";
-        private const string Headcrack = "EX1_137";
-        private const string Shadowstep = "EX1_144";
-        private const string Preparation = "EX1_145";
-        private const string Wrath = "EX1_154";
-        private const string MarkofNature = "EX1_155";
-        private const string SouloftheForest = "EX1_158";
-        private const string PoweroftheWild = "EX1_160";
-        private const string Naturalize = "EX1_161";
-        private const string DireWolfAlpha = "EX1_162";
-        private const string Nourish = "EX1_164";
-        private const string DruidoftheClaw = "EX1_165";
-        private const string KeeperoftheGrove = "EX1_166";
-        private const string EmperorCobra = "EX1_170";
-        private const string AncientofWar = "EX1_178";
-        private const string LightningBolt = "EX1_238";
-        private const string LavaBurst = "EX1_241";
-        private const string DustDevil = "EX1_243";
-        private const string EarthShock = "EX1_245";
-        private const string StormforgedAxe = "EX1_247";
-        private const string FeralSpirit = "EX1_248";
-        private const string BaronGeddon = "EX1_249";
-        private const string EarthElemental = "EX1_250";
-        private const string ForkedLightning = "EX1_251";
-        private const string UnboundElemental = "EX1_258";
-        private const string LightningStorm = "EX1_259";
-        private const string EtherealArcanist = "EX1_274";
-        private const string ConeofCold = "EX1_275";
-        private const string Pyroblast = "EX1_279";
-        private const string FrostElemental = "EX1_283";
-        private const string AzureDrake = "EX1_284";
-        private const string Counterspell = "EX1_287";
-        private const string IceBarrier = "EX1_289";
-        private const string MirrorEntity = "EX1_294";
-        private const string IceBlock = "EX1_295";
-        private const string RagnarostheFirelord = "EX1_298";
-        private const string Felguard = "EX1_301";
-        private const string Shadowflame = "EX1_303";
-        private const string VoidTerror = "EX1_304";
-        private const string SiphonSoul = "EX1_309";
-        private const string Doomguard = "EX1_310";
-        private const string TwistingNether = "EX1_312";
-        private const string PitLord = "EX1_313";
-        private const string SummoningPortal = "EX1_315";
-        private const string PowerOverwhelming = "EX1_316";
-        private const string SenseDemons = "EX1_317";
-        private const string FlameImp = "EX1_319";
-        private const string BaneofDoom = "EX1_320";
-        private const string LordJaraxxus = "EX1_323";
-        private const string Silence = "EX1_332";
-        private const string ShadowMadness = "EX1_334";
-        private const string Lightspawn = "EX1_335";
-        private const string Thoughtsteal = "EX1_339";
-        private const string Lightwell = "EX1_341";
-        private const string Mindgames = "EX1_345";
-        private const string DivineFavor = "EX1_349";
-        private const string ProphetVelen = "EX1_350";
-        private const string LayonHands = "EX1_354";
-        private const string BlessedChampion = "EX1_355";
-        private const string ArgentProtector = "EX1_362";
-        private const string BlessingofWisdom = "EX1_363";
-        private const string HolyWrath = "EX1_365";
-        private const string SwordofJustice = "EX1_366";
-        private const string Repentance = "EX1_379";
-        private const string AldorPeacekeeper = "EX1_382";
-        private const string TirionFordring = "EX1_383";
-        private const string AvengingWrath = "EX1_384";
-        private const string TaurenWarrior = "EX1_390";
-        private const string Slam = "EX1_391";
-        private const string BattleRage = "EX1_392";
-        private const string AmaniBerserker = "EX1_393";
-        private const string MogushanWarden = "EX1_396";
-        private const string ArathiWeaponsmith = "EX1_398";
-        private const string Armorsmith = "EX1_402";
-        private const string Shieldbearer = "EX1_405";
-        private const string Brawl = "EX1_407";
-        private const string MortalStrike = "EX1_408";
-        private const string Upgrade = "EX1_409";
-        private const string ShieldSlam = "EX1_410";
-        private const string Gorehowl = "EX1_411";
-        private const string RagingWorgen = "EX1_412";
-        private const string GrommashHellscream = "EX1_414";
-        private const string MurlocWarleader = "EX1_507";
-        private const string MurlocTidecaller = "EX1_509";
-        private const string PatientAssassin = "EX1_522";
-        private const string ScavengingHyena = "EX1_531";
-        private const string Misdirection = "EX1_533";
-        private const string SavannahHighmane = "EX1_534";
-        private const string EaglehornBow = "EX1_536";
-        private const string ExplosiveShot = "EX1_537";
-        private const string UnleashtheHounds = "EX1_538";
-        private const string KingKrush = "EX1_543";
-        private const string Flare = "EX1_544";
-        private const string BestialWrath = "EX1_549";
-        private const string SnakeTrap = "EX1_554";
-        private const string HarvestGolem = "EX1_556";
-        private const string NatPagle = "EX1_557";
-        private const string HarrisonJones = "EX1_558";
-        private const string ArchmageAntonidas = "EX1_559";
-        private const string Nozdormu = "EX1_560";
-        private const string Alexstrasza = "EX1_561";
-        private const string Onyxia = "EX1_562";
-        private const string Malygos = "EX1_563";
-        private const string FacelessManipulator = "EX1_564";
-        private const string Doomhammer = "EX1_567";
-        private const string Bite = "EX1_570";
-        private const string ForceofNature = "EX1_571";
-        private const string Ysera = "EX1_572";
-        private const string Cenarius = "EX1_573";
-        private const string ManaTideTotem = "EX1_575";
-        private const string TheBeast = "EX1_577";
-        private const string Savagery = "EX1_578";
-        private const string PriestessofElune = "EX1_583";
-        private const string AncientMage = "EX1_584";
-        private const string SeaGiant = "EX1_586";
-        private const string BloodKnight = "EX1_590";
-        private const string AuchenaiSoulpriest = "EX1_591";
-        private const string Vaporize = "EX1_594";
-        private const string CultMaster = "EX1_595";
-        private const string Demonfire = "EX1_596";
-        private const string ImpMaster = "EX1_597";
-        private const string CruelTaskmaster = "EX1_603";
-        private const string FrothingBerserker = "EX1_604";
-        private const string InnerRage = "EX1_607";
-        private const string SorcerersApprentice = "EX1_608";
-        private const string Snipe = "EX1_609";
-        private const string ExplosiveTrap = "EX1_610";
-        private const string FreezingTrap = "EX1_611";
-        private const string KirinTorMage = "EX1_612";
-        private const string EdwinVanCleef = "EX1_613";
-        private const string IllidanStormrage = "EX1_614";
-        private const string ManaWraith = "EX1_616";
-        private const string DeadlyShot = "EX1_617";
-        private const string Equality = "EX1_619";
-        private const string MoltenGiant = "EX1_620";
-        private const string CircleofHealing = "EX1_621";
-        private const string TempleEnforcer = "EX1_623";
-        private const string HolyFire = "EX1_624";
-        private const string Shadowform = "EX1_625";
-        private const string MassDispel = "EX1_626";
-        private const string Kidnapper = "NEW1_005";
-        private const string Starfall = "NEW1_007";
-        private const string AncientofLore = "NEW1_008";
-        private const string AlAkirtheWindlord = "NEW1_010";
-        private const string ManaWyrm = "NEW1_012";
-        private const string MasterofDisguise = "NEW1_014";
-        private const string HungryCrab = "NEW1_017";
-        private const string BloodsailRaider = "NEW1_018";
-        private const string KnifeJuggler = "NEW1_019";
-        private const string WildPyromancer = "NEW1_020";
-        private const string Doomsayer = "NEW1_021";
-        private const string DreadCorsair = "NEW1_022";
-        private const string FaerieDragon = "NEW1_023";
-        private const string CaptainGreenskin = "NEW1_024";
-        private const string BloodsailCorsair = "NEW1_025";
-        private const string VioletTeacher = "NEW1_026";
-        private const string SouthseaCaptain = "NEW1_027";
-        private const string MillhouseManastorm = "NEW1_029";
-        private const string Deathwing = "NEW1_030";
-        private const string CommandingShout = "NEW1_036";
-        private const string MasterSwordsmith = "NEW1_037";
-        private const string Gruul = "NEW1_038";
-        private const string Hogger = "NEW1_040";
-        private const string StampedingKodo = "NEW1_041";
-        private const string FlesheatingGhoul = "tt_004";
-        private const string Spellbender = "tt_010";
-        private const string MurlocTinyfin = "LOEA10_3";
-        private const string ForgottenTorch = "LOE_002";
-        private const string EtherealConjurer = "LOE_003";
-        private const string MuseumCurator = "LOE_006";
-        private const string CurseofRafaam = "LOE_007";
-        private const string ObsidianDestroyer = "LOE_009";
-        private const string PitSnake = "LOE_010";
-        private const string RenoJackson = "LOE_011";
-        private const string TombPillager = "LOE_012";
-        private const string RumblingElemental = "LOE_016";
-        private const string KeeperofUldaman = "LOE_017";
-        private const string TunnelTrogg = "LOE_018";
-        private const string UnearthedRaptor = "LOE_019";
-        private const string DesertCamel = "LOE_020";
-        private const string DartTrap = "LOE_021";
-        private const string FierceMonkey = "LOE_022";
-        private const string DarkPeddler = "LOE_023";
-        private const string AnyfinCanHappen = "LOE_026";
-        private const string SacredTrial = "LOE_027";
-        private const string JeweledScarab = "LOE_029";
-        private const string NagaSeaWitch = "LOE_038";
-        private const string GorillabotA3 = "LOE_039";
-        private const string HugeToad = "LOE_046";
-        private const string TombSpider = "LOE_047";
-        private const string MountedRaptor = "LOE_050";
-        private const string JungleMoonkin = "LOE_051";
-        private const string DjinniofZephyrs = "LOE_053";
-        private const string AnubisathSentinel = "LOE_061";
-        private const string FossilizedDevilsaur = "LOE_073";
-        private const string SirFinleyMrrgglton = "LOE_076";
-        private const string BrannBronzebeard = "LOE_077";
-        private const string EliseStarseeker = "LOE_079";
-        private const string SummoningStone = "LOE_086";
-        private const string WobblingRunts = "LOE_089";
-        private const string ArchThiefRafaam = "LOE_092";
-        private const string Entomb = "LOE_104";
-        private const string ExplorersHat = "LOE_105";
-        private const string EerieStatue = "LOE_107";
-        private const string AncientShade = "LOE_110";
-        private const string ExcavatedEvil = "LOE_111";
-        private const string EveryfinisAwesome = "LOE_113";
-        private const string RavenIdol = "LOE_115";
-        private const string ReliquarySeeker = "LOE_116";
-        private const string CursedBlade = "LOE_118";
-        private const string OldMurkEye = "EX1_062";
-        private const string CaptainsParrot = "NEW1_016";
-        private const string GelbinMekkatorque = "EX1_112";
-        private const string EliteTaurenChieftain = "PRO_001";
-        private const string ZombieChow = "FP1_001";
-        private const string HauntedCreeper = "FP1_002";
-        private const string EchoingOoze = "FP1_003";
-        private const string MadScientist = "FP1_004";
-        private const string ShadeofNaxxramas = "FP1_005";
-        private const string NerubianEgg = "FP1_007";
-        private const string SpectralKnight = "FP1_008";
-        private const string Deathlord = "FP1_009";
-        private const string Maexxna = "FP1_010";
-        private const string Webspinner = "FP1_011";
-        private const string SludgeBelcher = "FP1_012";
-        private const string KelThuzad = "FP1_013";
-        private const string Stalagg = "FP1_014";
-        private const string Feugen = "FP1_015";
-        private const string WailingSoul = "FP1_016";
-        private const string NerubarWeblord = "FP1_017";
-        private const string Duplicate = "FP1_018";
-        private const string PoisonSeeds = "FP1_019";
-        private const string Avenge = "FP1_020";
-        private const string DeathsBite = "FP1_021";
-        private const string Voidcaller = "FP1_022";
-        private const string DarkCultist = "FP1_023";
-        private const string UnstableGhoul = "FP1_024";
-        private const string Reincarnate = "FP1_025";
-        private const string AnubarAmbusher = "FP1_026";
-        private const string StoneskinGargoyle = "FP1_027";
-        private const string Undertaker = "FP1_028";
-        private const string DancingSwords = "FP1_029";
-        private const string Loatheb = "FP1_030";
-        private const string BaronRivendare = "FP1_031";
-        private const string Flamecannon = "GVG_001";
-        private const string Snowchugger = "GVG_002";
-        private const string UnstablePortal = "GVG_003";
-        private const string GoblinBlastmage = "GVG_004";
-        private const string EchoofMedivh = "GVG_005";
-        private const string Mechwarper = "GVG_006";
-        private const string FlameLeviathan = "GVG_007";
-        private const string Lightbomb = "GVG_008";
-        private const string Shadowbomber = "GVG_009";
-        private const string VelensChosen = "GVG_010";
-        private const string Shrinkmeister = "GVG_011";
-        private const string LightoftheNaaru = "GVG_012";
-        private const string Cogmaster = "GVG_013";
-        private const string Voljin = "GVG_014";
-        private const string Darkbomb = "GVG_015";
-        private const string FelReaver = "GVG_016";
-        private const string CallPet = "GVG_017";
-        private const string MistressofPain = "GVG_018";
-        private const string Demonheart = "GVG_019";
-        private const string FelCannon = "GVG_020";
-        private const string MalGanis = "GVG_021";
-        private const string TinkersSharpswordOil = "GVG_022";
-        private const string GoblinAutoBarber = "GVG_023";
-        private const string CogmastersWrench = "GVG_024";
-        private const string OneeyedCheat = "GVG_025";
-        private const string FeignDeath = "GVG_026";
-        private const string IronSensei = "GVG_027";
-        private const string TradePrinceGallywix = "GVG_028";
-        private const string AncestorsCall = "GVG_029";
-        private const string AnodizedRoboCub = "GVG_030";
-        private const string Recycle = "GVG_031";
-        private const string GroveTender = "GVG_032";
-        private const string TreeofLife = "GVG_033";
-        private const string MechBearCat = "GVG_034";
-        private const string Malorne = "GVG_035";
-        private const string Powermace = "GVG_036";
-        private const string WhirlingZapomatic = "GVG_037";
-        private const string Crackle = "GVG_038";
-        private const string VitalityTotem = "GVG_039";
-        private const string SiltfinSpiritwalker = "GVG_040";
-        private const string DarkWispers = "GVG_041";
-        private const string Neptulon = "GVG_042";
-        private const string Glaivezooka = "GVG_043";
-        private const string SpiderTank = "GVG_044";
-        private const string Implosion = "GVG_045";
-        private const string KingofBeasts = "GVG_046";
-        private const string Sabotage = "GVG_047";
-        private const string MetaltoothLeaper = "GVG_048";
-        private const string Gahzrilla = "GVG_049";
-        private const string BouncingBlade = "GVG_050";
-        private const string Warbot = "GVG_051";
-        private const string Crush = "GVG_052";
-        private const string Shieldmaiden = "GVG_053";
-        private const string OgreWarmaul = "GVG_054";
-        private const string ScrewjankClunker = "GVG_055";
-        private const string IronJuggernaut = "GVG_056";
-        private const string SealofLight = "GVG_057";
-        private const string ShieldedMinibot = "GVG_058";
-        private const string Coghammer = "GVG_059";
-        private const string Quartermaster = "GVG_060";
-        private const string MusterforBattle = "GVG_061";
-        private const string CobaltGuardian = "GVG_062";
-        private const string BolvarFordragon = "GVG_063";
-        private const string Puddlestomper = "GVG_064";
-        private const string OgreBrute = "GVG_065";
-        private const string DunemaulShaman = "GVG_066";
-        private const string StonesplinterTrogg = "GVG_067";
-        private const string BurlyRockjawTrogg = "GVG_068";
-        private const string AntiqueHealbot = "GVG_069";
-        private const string SaltyDog = "GVG_070";
-        private const string LostTallstrider = "GVG_071";
-        private const string Shadowboxer = "GVG_072";
-        private const string CobraShot = "GVG_073";
-        private const string KezanMystic = "GVG_074";
-        private const string ShipsCannon = "GVG_075";
-        private const string ExplosiveSheep = "GVG_076";
-        private const string AnimaGolem = "GVG_077";
-        private const string MechanicalYeti = "GVG_078";
-        private const string ForceTankMAX = "GVG_079";
-        private const string DruidoftheFang = "GVG_080";
-        private const string GilblinStalker = "GVG_081";
-        private const string ClockworkGnome = "GVG_082";
-        private const string UpgradedRepairBot = "GVG_083";
-        private const string FlyingMachine = "GVG_084";
-        private const string AnnoyoTron = "GVG_085";
-        private const string SiegeEngine = "GVG_086";
-        private const string SteamwheedleSniper = "GVG_087";
-        private const string OgreNinja = "GVG_088";
-        private const string Illuminator = "GVG_089";
-        private const string MadderBomber = "GVG_090";
-        private const string ArcaneNullifierX21 = "GVG_091";
-        private const string GnomishExperimenter = "GVG_092";
-        private const string TargetDummy = "GVG_093";
-        private const string Jeeves = "GVG_094";
-        private const string GoblinSapper = "GVG_095";
-        private const string PilotedShredder = "GVG_096";
-        private const string LilExorcist = "GVG_097";
-        private const string GnomereganInfantry = "GVG_098";
-        private const string BombLobber = "GVG_099";
-        private const string FloatingWatcher = "GVG_100";
-        private const string ScarletPurifier = "GVG_101";
-        private const string TinkertownTechnician = "GVG_102";
-        private const string MicroMachine = "GVG_103";
-        private const string Hobgoblin = "GVG_104";
-        private const string PilotedSkyGolem = "GVG_105";
-        private const string Junkbot = "GVG_106";
-        private const string EnhanceoMechano = "GVG_107";
-        private const string Recombobulator = "GVG_108";
-        private const string MiniMage = "GVG_109";
-        private const string DrBoom = "GVG_110";
-        private const string MimironsHead = "GVG_111";
-        private const string MogortheOgre = "GVG_112";
-        private const string FoeReaper4000 = "GVG_113";
-        private const string SneedsOldShredder = "GVG_114";
-        private const string Toshley = "GVG_115";
-        private const string MekgineerThermaplugg = "GVG_116";
-        private const string Gazlowe = "GVG_117";
-        private const string TroggzortheEarthinator = "GVG_118";
-        private const string Blingtron3000 = "GVG_119";
-        private const string HemetNesingwary = "GVG_120";
-        private const string ClockworkGiant = "GVG_121";
-        private const string WeeSpellstopper = "GVG_122";
-        private const string SootSpewer = "GVG_123";
-        private const string SolemnVigil = "BRM_001";
-        private const string Flamewaker = "BRM_002";
-        private const string DragonsBreath = "BRM_003";
-        private const string TwilightWhelp = "BRM_004";
-        private const string Demonwrath = "BRM_005";
-        private const string ImpGangBoss = "BRM_006";
-        private const string GangUp = "BRM_007";
-        private const string DarkIronSkulker = "BRM_008";
-        private const string VolcanicLumberer = "BRM_009";
-        private const string DruidoftheFlame = "BRM_010";
-        private const string LavaShock = "BRM_011";
-        private const string FireguardDestroyer = "BRM_012";
-        private const string QuickShot = "BRM_013";
-        private const string CoreRager = "BRM_014";
-        private const string Revenge = "BRM_015";
-        private const string AxeFlinger = "BRM_016";
-        private const string Resurrect = "BRM_017";
-        private const string DragonConsort = "BRM_018";
-        private const string GrimPatron = "BRM_019";
-        private const string DragonkinSorcerer = "BRM_020";
-        private const string DragonEgg = "BRM_022";
-        private const string DrakonidCrusher = "BRM_024";
-        private const string VolcanicDrake = "BRM_025";
-        private const string HungryDragon = "BRM_026";
-        private const string MajordomoExecutus = "BRM_027";
-        private const string EmperorThaurissan = "BRM_028";
-        private const string RendBlackhand = "BRM_029";
-        private const string Nefarian = "BRM_030";
-        private const string Chromaggus = "BRM_031";
-        private const string BlackwingTechnician = "BRM_033";
-        private const string BlackwingCorruptor = "BRM_034";
-        private const string FlameLance = "AT_001";
-        private const string Effigy = "AT_002";
-        private const string FallenHero = "AT_003";
-        private const string ArcaneBlast = "AT_004";
-        private const string PolymorphBoar = "AT_005";
-        private const string DalaranAspirant = "AT_006";
-        private const string Spellslinger = "AT_007";
-        private const string ColdarraDrake = "AT_008";
-        private const string Rhonin = "AT_009";
-        private const string RamWrangler = "AT_010";
-        private const string HolyChampion = "AT_011";
-        private const string SpawnofShadows = "AT_012";
-        private const string PowerWordGlory = "AT_013";
-        private const string Shadowfiend = "AT_014";
-        private const string Convert = "AT_015";
-        private const string Confuse = "AT_016";
-        private const string TwilightGuardian = "AT_017";
-        private const string ConfessorPaletress = "AT_018";
-        private const string Dreadsteed = "AT_019";
-        private const string FearsomeDoomguard = "AT_020";
-        private const string TinyKnightofEvil = "AT_021";
-        private const string FistofJaraxxus = "AT_022";
-        private const string VoidCrusher = "AT_023";
-        private const string Demonfuse = "AT_024";
-        private const string DarkBargain = "AT_025";
-        private const string Wrathguard = "AT_026";
-        private const string WilfredFizzlebang = "AT_027";
-        private const string ShadoPanRider = "AT_028";
-        private const string Buccaneer = "AT_029";
-        private const string UndercityValiant = "AT_030";
-        private const string Cutpurse = "AT_031";
-        private const string ShadyDealer = "AT_032";
-        private const string Burgle = "AT_033";
-        private const string PoisonedBlade = "AT_034";
-        private const string BeneaththeGrounds = "AT_035";
-        private const string Anubarak = "AT_036";
-        private const string LivingRoots = "AT_037";
-        private const string DarnassusAspirant = "AT_038";
-        private const string SavageCombatant = "AT_039";
-        private const string Wildwalker = "AT_040";
-        private const string KnightoftheWild = "AT_041";
-        private const string DruidoftheSaber = "AT_042";
-        private const string AstralCommunion = "AT_043";
-        private const string Mulch = "AT_044";
-        private const string Aviana = "AT_045";
-        private const string TuskarrTotemic = "AT_046";
-        private const string DraeneiTotemcarver = "AT_047";
-        private const string HealingWave = "AT_048";
-        private const string ThunderBluffValiant = "AT_049";
-        private const string ChargedHammer = "AT_050";
-        private const string ElementalDestruction = "AT_051";
-        private const string TotemGolem = "AT_052";
-        private const string AncestralKnowledge = "AT_053";
-        private const string TheMistcaller = "AT_054";
-        private const string FlashHeal = "AT_055";
-        private const string Powershot = "AT_056";
-        private const string Stablemaster = "AT_057";
-        private const string KingsElekk = "AT_058";
-        private const string BraveArcher = "AT_059";
-        private const string BearTrap = "AT_060";
-        private const string LockandLoad = "AT_061";
-        private const string BallofSpiders = "AT_062";
-        private const string Acidmaw = "AT_063";
-        private const string Dreadscale = "AT_063t";
-        private const string Bash = "AT_064";
-        private const string KingsDefender = "AT_065";
-        private const string OrgrimmarAspirant = "AT_066";
-        private const string MagnataurAlpha = "AT_067";
-        private const string Bolster = "AT_068";
-        private const string SparringPartner = "AT_069";
-        private const string SkycapnKragg = "AT_070";
-        private const string AlexstraszasChampion = "AT_071";
-        private const string VarianWrynn = "AT_072";
-        private const string CompetitiveSpirit = "AT_073";
-        private const string SealofChampions = "AT_074";
-        private const string WarhorseTrainer = "AT_075";
-        private const string MurlocKnight = "AT_076";
-        private const string ArgentLance = "AT_077";
-        private const string EntertheColiseum = "AT_078";
-        private const string MysteriousChallenger = "AT_079";
-        private const string GarrisonCommander = "AT_080";
-        private const string EadricthePure = "AT_081";
-        private const string LowlySquire = "AT_082";
-        private const string DragonhawkRider = "AT_083";
-        private const string LanceCarrier = "AT_084";
-        private const string MaidenoftheLake = "AT_085";
-        private const string Saboteur = "AT_086";
-        private const string ArgentHorserider = "AT_087";
-        private const string MogorsChampion = "AT_088";
-        private const string BoneguardLieutenant = "AT_089";
-        private const string MuklasChampion = "AT_090";
-        private const string TournamentMedic = "AT_091";
-        private const string IceRager = "AT_092";
-        private const string FrigidSnobold = "AT_093";
-        private const string FlameJuggler = "AT_094";
-        private const string SilentKnight = "AT_095";
-        private const string ClockworkKnight = "AT_096";
-        private const string TournamentAttendee = "AT_097";
-        private const string SideshowSpelleater = "AT_098";
-        private const string Kodorider = "AT_099";
-        private const string SilverHandRegent = "AT_100";
-        private const string PitFighter = "AT_101";
-        private const string CapturedJormungar = "AT_102";
-        private const string NorthSeaKraken = "AT_103";
-        private const string TuskarrJouster = "AT_104";
-        private const string InjuredKvaldir = "AT_105";
-        private const string LightsChampion = "AT_106";
-        private const string ArmoredWarhorse = "AT_108";
-        private const string ArgentWatchman = "AT_109";
-        private const string ColiseumManager = "AT_110";
-        private const string RefreshmentVendor = "AT_111";
-        private const string MasterJouster = "AT_112";
-        private const string Recruiter = "AT_113";
-        private const string EvilHeckler = "AT_114";
-        private const string FencingCoach = "AT_115";
-        private const string WyrmrestAgent = "AT_116";
-        private const string MasterofCeremonies = "AT_117";
-        private const string GrandCrusader = "AT_118";
-        private const string KvaldirRaider = "AT_119";
-        private const string FrostGiant = "AT_120";
-        private const string CrowdFavorite = "AT_121";
-        private const string GormoktheImpaler = "AT_122";
-        private const string Chillmaw = "AT_123";
-        private const string BolfRamshield = "AT_124";
-        private const string Icehowl = "AT_125";
-        private const string NexusChampionSaraad = "AT_127";
-        private const string TheSkeletonKnight = "AT_128";
-        private const string FjolaLightbane = "AT_129";
-        private const string SeaReaver = "AT_130";
-        private const string EydisDarkbane = "AT_131";
-        private const string JusticarTrueheart = "AT_132";
-        private const string GadgetzanJouster = "AT_133";
 
-        #endregion
         public bool identified = false;
         private readonly string MulliganDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
         private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\";
@@ -828,61 +95,31 @@ namespace SmartBot.Plugins
         public Dictionary<string, string> AllOpponentsDictionary = new Dictionary<string, string>();
         public override void OnTick()
         {
+            if (buttonCatcher != null)
+            {
+                GUI.ClearUI();
+                if (Started)
+                    GUI.AddElement(buttonCatcher);
+            }
+
             switch (Bot.CurrentScene())
             {
-                case Bot.Scene.INVALID:
-                    identified = false;
-                    break;
-                case Bot.Scene.STARTUP:
-                    identified = false;
-                    break;
-                case Bot.Scene.LOGIN:
-                    identified = false;
-                    break;
-                case Bot.Scene.HUB:
-                    identified = false;
-                    break;
                 case Bot.Scene.GAMEPLAY:
                     if (Bot.CurrentBoard == null || identified) break;
+                   
                     DeckData informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
                     using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
                     {
-                        readMe.WriteLine("{0}~{1}~{2}", ((smPluginDataContainer)DataContainer).mode == IdentityMode.Auto ? informationData.DeckType : ((smPluginDataContainer)DataContainer).ForceDeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList));
+                        readMe.WriteLine("{0}~{1}~{2}", ((SmartTracker)DataContainer).mode == IdentityMode.Auto ? informationData.DeckType : ((SmartTracker)DataContainer).ForceDeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList));
                     }
-                    if (((smPluginDataContainer)DataContainer).mode == IdentityMode.Manual
-                        && informationData.DeckType == ((smPluginDataContainer)DataContainer).ForceDeckType)
+                    if (((SmartTracker)DataContainer).mode == IdentityMode.Manual
+                        && informationData.DeckType == ((SmartTracker)DataContainer).ForceDeckType)
                         Bot.Log("[Tracker] Automatic identification yields to the same identification as your forcefully inserted deck.");
                     //Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|{3}", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList)));
                     identified = true;
                     break;
-                case Bot.Scene.COLLECTIONMANAGER:
-                    identified = false;
-                    break;
-                case Bot.Scene.PACKOPENING:
-                    identified = false;
-                    break;
-                case Bot.Scene.TOURNAMENT:
-                    identified = false;
-                    break;
-                case Bot.Scene.FRIENDLY:
-                    identified = false;
-                    break;
-                case Bot.Scene.FATAL_ERROR:
-                    identified = false;
-                    break;
-                case Bot.Scene.DRAFT:
-                    identified = false;
-                    break;
-                case Bot.Scene.CREDITS:
-                    identified = false;
-                    break;
-                case Bot.Scene.RESET:
-                    identified = false;
-                    break;
-                case Bot.Scene.ADVENTURE:
-                    identified = false;
-                    break;
-                case Bot.Scene.TAVERN_BRAWL:
+               
+                default:
                     identified = false;
                     break;
 
@@ -899,22 +136,36 @@ namespace SmartBot.Plugins
 
         public override void OnStarted()
         {
-
+            if (((SmartTracker) DataContainer).donate)
+            {
+                Started = true;
+                buttonCatcher = new GuiElementButton("Donate", delegate
+                {
+                    Bot.Log("===============================");
+                    Bot.Log("Thank you for considering donating to to my work");
+                    Bot.Log("PayPal:  http://j.mp/SmartMulliganV2Donation");
+                    Bot.Log("B#: " + ((SmartTracker) DataContainer).BitCoin);
+                    Bot.Log("===============================");
+                }, 10, 350, 80, 30);
+                if (buttonCatcher != null)
+                    GUI.RemoveElement(buttonCatcher);
+            }
             using (StreamWriter debugStreamWriter = new StreamWriter(MulliganInformation + "debug_decks.v3", false))
             {
-                debugStreamWriter.WriteLine("{0}|{1}", ((smPluginDataContainer)DataContainer).MT_YourDeck, ((smPluginDataContainer)DataContainer).MT_OpponentDeck);
+                debugStreamWriter.WriteLine("{0}|{1}", ((SmartTracker)DataContainer).MT_YourDeck, ((SmartTracker)DataContainer).MT_OpponentDeck);
             }
-            if (((smPluginDataContainer)DataContainer).AutoUpdateV3)
+            if (((SmartTracker)DataContainer).AutoUpdateV3)
             {
-                CheckUpdatesMulligan(((smPluginDataContainer)DataContainer).LSmartMulliganV3);
+                CheckUpdatesMulligan(((SmartTracker)DataContainer).LSmartMulliganV3);
             }
-            if (((smPluginDataContainer)DataContainer).AutoUpdateTracker)
+            if (((SmartTracker)DataContainer).AutoUpdateTracker)
             {
-                CheckUpdatesTracker(((smPluginDataContainer)DataContainer).LSmartTracker);
+                CheckUpdatesTracker(((SmartTracker)DataContainer).LSmartTracker);
             }
 
         }
 
+       
         private void CheckUpdatesTracker(string lSmartTracker)
         {
         }
@@ -924,18 +175,76 @@ namespace SmartBot.Plugins
             HttpWebRequest request = WebRequest.Create(lSmartMulliganV3) as HttpWebRequest;
             if (request == null)
             {
-                Bot.Log(string.Format("[SmartAutoUpdater]Could not get data from gitlink {0}", lSmartMulliganV3));
+                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartMulliganV3));
                 return;
             }
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+            using (StreamReader str = new StreamReader(response.GetResponseStream()))
+            using (StreamReader localVersion = new StreamReader(MulliganInformation + "version.txt"))
+
             {
+                double remoteVer = double.Parse(str.ReadLine());
+                double localVer = double.Parse(localVersion.ReadLine());
+                Bot.Log(remoteVer.ToString(CultureInfo.InvariantCulture));
+                if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartMulliganV3 is up to date");
+                if (localVer > remoteVer)
+                {
+                    Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}", localVer, remoteVer));
+                    Bot.Log("[SmartTracker] Arthur, you are an idiot. Push new update");
+                }
+                if (localVer < remoteVer)
+                {
+                    localVersion.Close();
+                    UpdateMulligan(lSmartMulliganV3 ,remoteVer, localVer);
+                }
+
             }
+        }
+
+        private void UpdateMulligan(string lSmartMulliganV3, double remoteVer, double localVer)
+        {
+            Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
+            HttpWebRequest MulliganRequest = WebRequest
+                .Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3.cs")
+                as HttpWebRequest;
+            if (MulliganRequest == null)
+            {
+                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartMulliganV3));
+                return;
+            }
+            using (HttpWebResponse mulResponse = MulliganRequest.GetResponse() as HttpWebResponse)
+            using (StreamReader mulFile = new StreamReader(mulResponse.GetResponseStream()))
+            using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "SmartMulliganV3.cs"))
+            {
+                string tempfile = mulFile.ReadToEnd();
+                //Bot.Log("");
+                updateLocalCopy.WriteLine(tempfile);
+                Bot.RefreshMulliganProfiles();
+                Bot.Log("[SmartTracker] SmartMulligan is now fully updated");
+                UpdateVersion(remoteVer);
+            }
+
+        }
+    
+    
+
+        private void UpdateVersion(double remoteVer)
+        {
+            using (StreamWriter localVersion = new StreamWriter(MulliganInformation + "version.txt", false))
+            {
+                localVersion.WriteLine(remoteVer);
+            }
+            
         }
 
 
         public override void OnStopped()
         {
             identified = false;
+            base.OnStopped();
+            Started = false;
+            if (buttonCatcher != null)
+                GUI.RemoveElement(buttonCatcher);
         }
 
         public void CheckOpponentDeck(string res)
@@ -963,79 +272,112 @@ namespace SmartBot.Plugins
             CheckOpponentDeck("won");
         }
 
-        public DeckData GetDeckInfo(Card.CClass ownClass, List<string> CurrentDeck)
+        public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
         {
+            
+            {DeckType.Unknown, Style.Unknown},
+            {DeckType.Arena, Style.Control},
+
+            {DeckType.ControlWarrior, Style.Control},
+            {DeckType.FatigueWarrior, Style.Control},
+            {DeckType.DragonWarrior, Style.Control},
+            {DeckType.PatronWarrior, Style.Tempo},
+            {DeckType.WorgenOTKWarrior, Style.Combo},
+            {DeckType.MechWarrior, Style.Aggro},
+            {DeckType.FaceWarrior, Style.Face},
+
+            {DeckType.SecretPaladin, Style.Tempo},
+            {DeckType.MidRangePaladin, Style.Control},
+            {DeckType.DragonPaladin, Style.Control},
+            {DeckType.AggroPaladin, Style.Aggro},
+            {DeckType.AnyfinMurglMurgl, Style.Combo},
+
+            {DeckType.RampDruid, Style.Control},
+            {DeckType.AggroDruid, Style.Aggro},
+            {DeckType.DragonDruid, Style.Control},
+            {DeckType.MidRangeDruid, Style.Combo},
+            {DeckType.TokenDruid, Style.Tempo},
+
+            {DeckType.Handlock, Style.Control},
+            {DeckType.RenoLock, Style.Control},
+            {DeckType.Zoolock, Style.Tempo},
+            {DeckType.DemonHandlock, Style.Control},
+            {DeckType.DemonZooWarlock, Style.Tempo},
+            {DeckType.DragonHandlock, Style.Control},
+            {DeckType.MalyLock, Style.Control},
+
+            {DeckType.TempoMage, Style.Tempo},
+            {DeckType.FreezeMage, Style.Control},
+            {DeckType.FaceFreezeMage, Style.Aggro},
+            {DeckType.DragonMage, Style.Control},
+            {DeckType.MechMage, Style.Aggro},
+            {DeckType.EchoMage, Style.Control},
+            {DeckType.FatigueMage, Style.Control},
+
+            {DeckType.DragonPriest, Style.Tempo},
+            {DeckType.ControlPriest, Style.Control},
+
+            {DeckType.ComboPriest, Style.Combo},
+            {DeckType.MechPriest, Style.Aggro},
+            {DeckType.ShadowPriest, Style.Combo},
+
+            {DeckType.MidRangeHunter, Style.Tempo},
+            {DeckType.HybridHunter, Style.Aggro},
+            {DeckType.FaceHunter, Style.Face},
+            {DeckType.HatHunter, Style.Control},
+
+            {DeckType.OilRogue, Style.Combo},
+            {DeckType.PirateRogue, Style.Aggro},
+            {DeckType.FaceRogue, Style.Face},
+            {DeckType.MalyRogue, Style.Combo},
+            {DeckType.RaptorRogue, Style.Tempo},
+            {DeckType.FatigueRogue, Style.Combo},
+
+            {DeckType.FaceShaman, Style.Face},
+            {DeckType.MechShaman, Style.Aggro},
+            {DeckType.DragonShaman, Style.Control},
+            {DeckType.TotemShaman, Style.Tempo},
+            {DeckType.MalygosShaman, Style.Combo},
+            {DeckType.ControlShaman, Style.Control},
+            {DeckType.BloodlustShaman, Style.Combo},
+
+            {DeckType.Basic, Style.Control}
+        };
+        public DeckData GetDeckInfo(Card.CClass ownClass, List<string> curDeck)
+        {
+            List<Card.Cards> CurrentDeck = curDeck.Select(q => (Card.Cards) Enum.Parse(typeof (Card.Cards), q)).ToList();
             var info = new DeckData { DeckList = CurrentDeck };
 
-            Dictionary<Dictionary<DeckType, Style>, int> DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>();
-            Dictionary<DeckType, Style> BestDeck = new Dictionary<DeckType, Style>();
+            Dictionary<DeckType, int> deckDictionary = new Dictionary<DeckType, int>();
+
             switch (ownClass)
             {
                 #region shaman
 
                 case Card.CClass.SHAMAN:
-                    var totemShaman = new List<string>
-                    {
-                        TunnelTrogg, TunnelTrogg, FlametongueTotem, FlametongueTotem, TotemGolem, TotemGolem, LightningStorm, LightningStorm, Hex, Hex, TuskarrTotemic, TuskarrTotemic, FireguardDestroyer, FireguardDestroyer, FireElemental, FireElemental, ThunderBluffValiant, ThunderBluffValiant, Neptulon, DrBoom, DefenderofArgus, PilotedShredder, PilotedShredder, SylvanasWindrunner, JeweledScarab, JeweledScarab, AzureDrake, AzureDrake,
-                    };
-                    var d1 = new Dictionary<DeckType, Style> { { DeckType.TotemShaman, Style.Tempo } };
-                    var faceShaman = new List<string>
-                    {
-                        UnboundElemental, UnboundElemental, EarthShock, StormforgedAxe, Doomhammer, Doomhammer, FeralSpirit, FeralSpirit, RockbiterWeapon, RockbiterWeapon, LeperGnome, LeperGnome, AbusiveSergeant, LavaBurst, LavaBurst, Crackle, Crackle, LavaShock, LavaShock, TotemGolem, TotemGolem, ArgentHorserider, ArgentHorserider, AncestralKnowledge, AncestralKnowledge, SirFinleyMrrgglton, TunnelTrogg, TunnelTrogg,
-                    };
-                    var d2 = new Dictionary<DeckType, Style> { { DeckType.FaceShaman, Style.Face } };
-                    var mechShaman = new List<string>
-                    {
-                        Hex, HarvestGolem, HarvestGolem, FlametongueTotem, FlametongueTotem, RockbiterWeapon, RockbiterWeapon, FireElemental, FireElemental, Loatheb, Cogmaster, Cogmaster, AnnoyoTron, AnnoyoTron, DrBoom, SpiderTank, SpiderTank, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, BombLobber, BombLobber, WhirlingZapomatic, WhirlingZapomatic, Crackle, Crackle, Powermace, Powermace,
-                    };
-                    var d3 = new Dictionary<DeckType, Style> { { DeckType.MechShaman, Style.Aggro } };
-                    var dragonShaman = new List<string>
-                    {
-                        FeralSpirit, Hex, Hex, AzureDrake, AzureDrake, Deathwing, Ysera, FireElemental, FireElemental, LightningStorm, LightningStorm, BlackwingTechnician, BlackwingTechnician, LavaShock, BlackwingCorruptor, TotemGolem, TotemGolem, AncestralKnowledge, HealingWave, HealingWave, TheMistcaller, TwilightGuardian, TwilightGuardian, Chillmaw, JeweledScarab, JeweledScarab, BrannBronzebeard, TunnelTrogg, TunnelTrogg,
-                    };
-                    var d4 = new Dictionary<DeckType, Style> { { DeckType.MechShaman, Style.Aggro } };
-                    var malygosShaman = new List<string>
-                    {
-                        EarthShock, EarthShock, FarSight, FarSight, StormforgedAxe, FeralSpirit, FeralSpirit, FrostShock, FrostShock, Malygos, GnomishInventor, GnomishInventor, Crackle, Crackle, Hex, Hex, LavaBurst, LavaBurst, ManaTideTotem, ManaTideTotem, LightningStorm, LightningStorm, AncestorsCall, AncestorsCall, AntiqueHealbot, AntiqueHealbot, Alexstrasza, AzureDrake,
-                    };
-                    var controlShaman = new List<string>
-                    {
-                        EarthShock, Hex, Hex, AzureDrake, AzureDrake, Doomsayer, Doomsayer, Ysera, FireElemental, FireElemental, LightningStorm, LightningStorm, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, Neptulon, LavaShock, LavaShock, VolcanicDrake, VolcanicDrake, HealingWave, HealingWave, ElementalDestruction, ElementalDestruction, TwilightGuardian, TwilightGuardian, JeweledScarab, JeweledScarab,
-                    };
-                    var basicShaman = new List<string>
-                    {
-                        BoulderfistOgre, AcidicSwampOoze, GnomishInventor, Bloodlust, Hex, SenjinShieldmasta, FlametongueTotem, ShatteredSunCleric, RockbiterWeapon, TunnelTrogg, RumblingElemental, FireElemental, SirFinleyMrrgglton, JeweledScarab, BrannBronzebeard, ArchThiefRafaam, FrostwolfWarlord
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.TotemShaman, Style.Tempo}}, CurrentDeck.Intersect(totemShaman).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.FaceShaman, Style.Face}}, CurrentDeck.Intersect(faceShaman).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.MechShaman, Style.Aggro}}, CurrentDeck.Intersect(mechShaman).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.DragonShaman, Style.Control}}, CurrentDeck.Intersect(dragonShaman).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.MalygosShaman, Style.Combo}}, CurrentDeck.Intersect(malygosShaman).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.ControlShaman, Style.Control}}, CurrentDeck.Intersect(controlShaman).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicShaman).ToList().Count
-                        },
-                    };
-                    //if (DeckHas(CurrentDeck, Malygos))
-                    // DeckDictionary.Remove(d1);
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
+                    List<Card.Cards> FaceShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.UnboundElemental, Cards.UnboundElemental, Cards.EarthShock, Cards.StormforgedAxe, Cards.Doomhammer, Cards.Doomhammer, Cards.FeralSpirit, Cards.FeralSpirit, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.LeperGnome, Cards.LeperGnome, Cards.AbusiveSergeant, Cards.LavaBurst, Cards.LavaBurst, Cards.Crackle, Cards.Crackle, Cards.LavaShock, Cards.LavaShock, Cards.TotemGolem, Cards.TotemGolem, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.AncestralKnowledge, Cards.AncestralKnowledge, Cards.SirFinleyMrrgglton, Cards.TunnelTrogg, Cards.TunnelTrogg, };
+                    List<Card.Cards> MechShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.Crackle, Cards.Crackle, Cards.TotemGolem, Cards.TotemGolem, Cards.WhirlingZapomatic, Cards.WhirlingZapomatic, Cards.Powermace, Cards.Powermace, Cards.LavaBurst, Cards.LavaBurst, Cards.UnboundElemental, Cards.UnboundElemental, Cards.Doomhammer, Cards.Doomhammer, Cards.Cogmaster, Cards.Cogmaster, Cards.LeperGnome, Cards.SirFinleyMrrgglton, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.Mechwarper, Cards.Mechwarper, Cards.SpiderTank, Cards.SpiderTank, };
+                    List<Card.Cards> DragonShaman = new List<Card.Cards> { Cards.EarthShock, Cards.FeralSpirit, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.Deathwing, Cards.Ysera, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.LavaShock, Cards.BlackwingCorruptor, Cards.TotemGolem, Cards.TotemGolem, Cards.AncestralKnowledge, Cards.HealingWave, Cards.HealingWave, Cards.TheMistcaller, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.Chillmaw, Cards.JeweledScarab, Cards.JeweledScarab, Cards.BrannBronzebeard, Cards.TunnelTrogg, Cards.TunnelTrogg, };
+                    List<Card.Cards> TotemShaman = new List<Card.Cards> { Cards.EarthShock, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.AlAkirtheWindlord, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.DefenderofArgus, Cards.ManaTideTotem, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.ZombieChow, Cards.ZombieChow, Cards.TotemGolem, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.TuskarrTotemic, Cards.ThunderBluffValiant, Cards.ThunderBluffValiant, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.HauntedCreeper, Cards.HauntedCreeper, };
 
+                    if(CurrentDeck.Contains(Cards.Malygos))
+                     {
+                        List<Card.Cards> MalygosShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.EarthShock, Cards.EarthShock, Cards.FarSight, Cards.FarSight, Cards.StormforgedAxe, Cards.FeralSpirit, Cards.FeralSpirit, Cards.FrostShock, Cards.FrostShock, Cards.Malygos, Cards.GnomishInventor, Cards.GnomishInventor, Cards.Crackle, Cards.Crackle, Cards.Hex, Cards.Hex, Cards.LavaBurst, Cards.LavaBurst, Cards.ManaTideTotem, Cards.ManaTideTotem, Cards.LightningStorm, Cards.LightningStorm, Cards.AncestorsCall, Cards.AncestorsCall, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Alexstrasza, Cards.AzureDrake, };
+                        deckDictionary.AddOrUpdate(DeckType.MalygosShaman, CurrentDeck.Intersect(MalygosShaman).Count());
+                    }
+
+                    List<Card.Cards> ControlShaman = new List<Card.Cards> { Cards.BigGameHunter, Cards.FeralSpirit, Cards.FeralSpirit, Cards.Bloodlust, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.AbusiveSergeant, Cards.ManaTideTotem, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.ZombieChow, Cards.ZombieChow, Cards.NerubianEgg, Cards.NerubianEgg, Cards.Loatheb, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.BrannBronzebeard, };
+                    List<Card.Cards> BloodlustShaman = new List<Card.Cards> { Cards.BigGameHunter, Cards.AcidicSwampOoze, Cards.EarthShock, Cards.FeralSpirit, Cards.FeralSpirit, Cards.Bloodlust, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.DefenderofArgus, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.ZombieChow, Cards.ZombieChow, Cards.NerubianEgg, Cards.NerubianEgg, Cards.Loatheb, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.PilotedShredder, Cards.TuskarrTotemic, };
+                    List<Card.Cards> BasicChaman = new List<Card.Cards> { Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.Hex, Cards.Hex, Cards.Bloodlust, Cards.FireElemental, Cards.FireElemental, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.MurlocTidehunter, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.FrostwolfWarlord, Cards.FrostwolfWarlord, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, Cards.StormwindChampion, };
+                    deckDictionary.AddOrUpdate(DeckType.FaceShaman, CurrentDeck.Intersect(FaceShaman).Count());
+                    deckDictionary.AddOrUpdate(DeckType.MechShaman, CurrentDeck.Intersect(MechShaman).Count());
+                    deckDictionary.AddOrUpdate(DeckType.DragonShaman, CurrentDeck.Intersect(DragonShaman).Count());
+                    deckDictionary.AddOrUpdate(DeckType.TotemShaman, CurrentDeck.Intersect(TotemShaman).Count());
+                    
+                    deckDictionary.AddOrUpdate(DeckType.ControlShaman, CurrentDeck.Intersect(ControlShaman).Count());
+                    deckDictionary.AddOrUpdate(DeckType.BloodlustShaman, CurrentDeck.Intersect(BloodlustShaman).Count());
+                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicChaman).Count());
+                   
                     break;
 
                 #endregion
@@ -1043,49 +385,28 @@ namespace SmartBot.Plugins
                 #region priest
 
                 case Card.CClass.PRIEST:
-                    List<string> comboPriest = new List<string>
+                    if (CurrentDeck.Contains(Cards.WyrmrestAgent))
                     {
-                        CircleofHealing, CircleofHealing, InnerFire, InnerFire, Alexstrasza, AcolyteofPain, AcolyteofPain, PowerWordShield, PowerWordShield, Silence, Silence, ShadowWordDeath, DivineSpirit, DivineSpirit, NorthshireCleric, NorthshireCleric, HarrisonJones, StormwindKnight, AuchenaiSoulpriest, HolyNova, Loatheb, Deathlord, Deathlord, VelensChosen, GnomereganInfantry, Lightbomb, Lightbomb, EmperorThaurissan,
-                    };
-                    List<string> dragonPriest = new List<string>
+                        List<Card.Cards> dragonPriest = new List<Card.Cards> { Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.AzureDrake, Cards.AzureDrake, Cards.PowerWordShield, Cards.PowerWordShield, Cards.Ysera, Cards.ShadowWordDeath, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HolyNova, Cards.HolyNova, Cards.VelensChosen, Cards.Shrinkmeister, Cards.Shrinkmeister, Cards.Lightbomb, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.RendBlackhand, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.TwilightWhelp, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.Chillmaw, Cards.WyrmrestAgent, Cards.WyrmrestAgent, Cards.BrannBronzebeard, };
+                        deckDictionary.AddOrUpdate(DeckType.DragonPriest, CurrentDeck.Intersect(dragonPriest).Count());
+                    }
+                    List<Card.Cards> ContrlPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.CircleofHealing, Cards.CircleofHealing, Cards.Thoughtsteal, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.InjuredBlademaster, Cards.InjuredBlademaster, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.AuchenaiSoulpriest, Cards.AuchenaiSoulpriest, Cards.HolyNova, Cards.ZombieChow, Cards.ZombieChow, Cards.Deathlord, Cards.Deathlord, Cards.LightoftheNaaru, Cards.LightoftheNaaru, Cards.Lightbomb, Cards.Lightbomb, Cards.JusticarTrueheart, Cards.EliseStarseeker, Cards.Entomb, Cards.Entomb, Cards.MuseumCurator, };
+                    deckDictionary.AddOrUpdate(DeckType.ControlPriest, CurrentDeck.Intersect(ContrlPriest).Count());
+                    if (CurrentDeck.Any(c => c == Cards.InnerFire || c == Cards.ProphetVelen))
                     {
-                        CabalShadowPriest, CabalShadowPriest, AzureDrake, PowerWordShield, PowerWordShield, Ysera, ShadowWordDeath, ShadowWordDeath, NorthshireCleric, HarrisonJones, HolyNova, SludgeBelcher, VelensChosen, VelensChosen, DrBoom, Shrinkmeister, Shrinkmeister, Voljin, Lightbomb, Lightbomb, BlackwingTechnician, BlackwingTechnician, TwilightWhelp, TwilightWhelp, TwilightGuardian, TwilightGuardian, Chillmaw, WyrmrestAgent, WyrmrestAgent,
-                    };
-                    List<string> controlPriest = new List<string>
+                        List<Card.Cards> ComboPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.ProphetVelen, Cards.Malygos, Cards.AzureDrake, Cards.ShadowWordPain, Cards.LootHoarder, Cards.LootHoarder, Cards.HolySmite, Cards.HolySmite, Cards.MindBlast, Cards.MindBlast, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.HolyFire, Cards.HolyFire, Cards.BloodmageThalnos, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HarrisonJones, Cards.HolyNova, Cards.HolyNova, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.VelensChosen, Cards.VelensChosen, Cards.EmperorThaurissan, };
+                        deckDictionary.AddOrUpdate(DeckType.ComboPriest, CurrentDeck.Intersect(ComboPriest).Count());
+                    }
+                    List<Card.Cards> MechPriest = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.ShadowWordPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowMadness, Cards.CairneBloodhoof, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HolyNova, Cards.Shrinkmeister, Cards.Shrinkmeister, Cards.VelensChosen, Cards.VelensChosen, Cards.DarkCultist, Cards.DarkCultist, Cards.UpgradedRepairBot, Cards.UpgradedRepairBot, Cards.Voljin, Cards.Mechwarper, Cards.Mechwarper, Cards.SpiderTank, Cards.SpiderTank, Cards.MechanicalYeti, Cards.MechanicalYeti, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Loatheb, Cards.TroggzortheEarthinator, };
+                    deckDictionary.AddOrUpdate(DeckType.MechPriest, CurrentDeck.Intersect(MechPriest).Count());
+                    if (CurrentDeck.Contains(Cards.Shadowform))
                     {
-                        LightoftheNaaru, LightoftheNaaru, PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, MuseumCurator, MuseumCurator, Shrinkmeister, ShadowWordDeath, AuchenaiSoulpriest, AuchenaiSoulpriest, HolyNova, Entomb, Entomb, Lightbomb, Lightbomb, CabalShadowPriest, WildPyromancer, WildPyromancer, Deathlord, Deathlord, InjuredBlademaster, InjuredBlademaster, SludgeBelcher, SludgeBelcher, JusticarTrueheart, Ysera,
-                    };
-                    List<string> mechPriest = new List<string>
-                    {
-                        PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, HolyNova, HolyNova, DarkCultist, DarkCultist, VelensChosen, VelensChosen, DrBoom, SpiderTank, UpgradedRepairBot, UpgradedRepairBot, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, ClockworkGnome, ClockworkGnome, Shadowboxer, Shadowboxer, Voljin, SpawnofShadows, GorillabotA3, Entomb, MuseumCurator, MuseumCurator,
-                    };
-                    List<string> basicPriest = new List<string>
-                    {
-                        ChillwindYeti, BoulderfistOgre, AcidicSwampOoze, GnomishInventor, StormwindChampion, ShadowWordPain, SenjinShieldmasta, MindControl, HolySmite, PowerWordShield, ShatteredSunCleric, NoviceEngineer, ShadowWordDeath, BloodfenRaptor, NorthshireCleric, HolyNova,
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}}, CurrentDeck.Intersect(comboPriest).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriest).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}}, CurrentDeck.Intersect(controlPriest).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.MechPriest, Style.Aggro}}, CurrentDeck.Intersect(mechPriest).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicPriest).ToList().Count
-                        },
-                    };
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
-
+                        List<Card.Cards> ShadowPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.Thoughtsteal, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.ProphetVelen, Cards.Alexstrasza, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.HolySmite, Cards.MindBlast, Cards.MindBlast, Cards.Shadowform, Cards.Shadowform, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowMadness, Cards.HolyFire, Cards.ShadowWordDeath, Cards.HolyNova, Cards.ZombieChow, Cards.Deathlord, Cards.Deathlord, Cards.Voljin, Cards.Lightbomb, Cards.Lightbomb, Cards.EmperorThaurissan, Cards.Entomb, };
+                        deckDictionary.AddOrUpdate(DeckType.ShadowPriest, CurrentDeck.Intersect(ShadowPriest).Count());
+                    }
+                    List<Card.Cards> BasicPriest = new List<Card.Cards> { Cards.HolySmite, Cards.HolySmite, Cards.PowerWordShield, Cards.PowerWordShield, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.DivineSpirit, Cards.ShadowWordPain, Cards.ShadowWordPain, Cards.ShadowWordDeath, Cards.HolyNova, Cards.HolyNova, Cards.MindControl, Cards.VoodooDoctor, Cards.AcidicSwampOoze, Cards.RiverCrocolisk, Cards.RiverCrocolisk, Cards.IronfurGrizzly, Cards.IronfurGrizzly, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.DarkscaleHealer, Cards.DarkscaleHealer, Cards.GurubashiBerserker, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, };
+                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicPriest).Count());
+                    
                     break;
 
                 #endregion
@@ -1093,48 +414,20 @@ namespace SmartBot.Plugins
                 #region mage
 
                 case Card.CClass.MAGE:
-                    List<string> tempoMage = new List<string>
-                    {
-                        MirrorImage, Frostbolt, Frostbolt, ArchmageAntonidas, ManaWyrm, ManaWyrm, AzureDrake, AzureDrake, ArcaneIntellect, ArcaneIntellect, Fireball, Fireball, Counterspell, MirrorEntity, ArcaneMissiles, ArcaneMissiles, MadScientist, MadScientist, UnstablePortal, UnstablePortal, DrBoom, PilotedShredder, PilotedShredder, Flamecannon, ClockworkGnome, Flamewaker, Flamewaker, ArcaneBlast,
-                    };
-                    List<string> freezeMage = new List<string>
-                    {
-                        Flamestrike, FrostNova, FrostNova, Frostbolt, Frostbolt, IceLance, IceLance, ArchmageAntonidas, Blizzard, Blizzard, Alexstrasza, LootHoarder, AcolyteofPain, AcolyteofPain, Doomsayer, Doomsayer, ArcaneIntellect, ArcaneIntellect, Pyroblast, Fireball, Fireball, BloodmageThalnos, IceBarrier, IceBarrier, MadScientist, MadScientist, AntiqueHealbot, EmperorThaurissan,
-                    };
-                    List<string> mechMage = new List<string>
-                    {
-                        ArchmageAntonidas, ManaWyrm, ManaWyrm, Fireball, Fireball, UnstablePortal, UnstablePortal, Cogmaster, Cogmaster, AnnoyoTron, AnnoyoTron, DrBoom, SpiderTank, SpiderTank, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, GoblinBlastmage, GoblinBlastmage, ClockworkGnome, TinkertownTechnician, Snowchugger, Snowchugger, ClockworkKnight, ClockworkKnight, GorillabotA3, GorillabotA3,
-                    };
-                    List<string> echoMage = new List<string>
-                    {
-                        IceBlock, IceBlock, Flamestrike, Flamestrike, BigGameHunter, MoltenGiant, MoltenGiant, Frostbolt, Frostbolt, ArchmageAntonidas, Blizzard, Blizzard, Alexstrasza, SunfuryProtector, SunfuryProtector, AcolyteofPain, AcolyteofPain, ArcaneIntellect, ArcaneIntellect, Polymorph, MadScientist, MadScientist, ExplosiveSheep, ExplosiveSheep, AntiqueHealbot, EchoofMedivh, EchoofMedivh, EmperorThaurissan,
-                    };
-                    List<string> basicMage = new List<string>
-                    {
-                        ChillwindYeti, Flamestrike, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, Frostbolt, GnomishInventor, WaterElemental, StormwindChampion, SenjinShieldmasta, ShatteredSunCleric, ArcaneIntellect, Fireball, BloodfenRaptor, ArcaneMissiles, Polymorph, GurubashiBerserker,
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.TempoMage, Style.Tempo}}, CurrentDeck.Intersect(tempoMage).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.FreezeMage, Style.Control}}, CurrentDeck.Intersect(freezeMage).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.MechMage, Style.Aggro}}, CurrentDeck.Intersect(mechMage).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.FatigueMage, Style.Control}}, CurrentDeck.Intersect(echoMage).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicMage).ToList().Count
-                        },
-                    };
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
-
+                    List<Card.Cards> tempoMage = new List<Card.Cards> { Cards.SorcerersApprentice, Cards.SorcerersApprentice, Cards.MirrorImage, Cards.MirrorImage, Cards.Frostbolt, Cards.Frostbolt, Cards.ArchmageAntonidas, Cards.ManaWyrm, Cards.ManaWyrm, Cards.WaterElemental, Cards.WaterElemental, Cards.MindControlTech, Cards.ArcaneIntellect, Cards.ArcaneIntellect, Cards.Fireball, Cards.Fireball, Cards.Counterspell, Cards.MirrorEntity, Cards.ArcaneMissiles, Cards.ArcaneMissiles, Cards.MadScientist, Cards.MadScientist, Cards.UnstablePortal, Cards.UnstablePortal, Cards.Flamecannon, Cards.Flamecannon, Cards.Flamewaker, Cards.Flamewaker, Cards.EtherealConjurer, Cards.EtherealConjurer, };
+                    List<Card.Cards> freeze = new List<Card.Cards> { Cards.IceBlock, Cards.IceBlock, Cards.Flamestrike, Cards.FrostNova, Cards.FrostNova, Cards.Frostbolt, Cards.Frostbolt, Cards.IceLance, Cards.IceLance, Cards.ArchmageAntonidas, Cards.Blizzard, Cards.Blizzard, Cards.Alexstrasza, Cards.LootHoarder, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.Doomsayer, Cards.Doomsayer, Cards.ArcaneIntellect, Cards.ArcaneIntellect, Cards.Pyroblast, Cards.Fireball, Cards.Fireball, Cards.BloodmageThalnos, Cards.IceBarrier, Cards.IceBarrier, Cards.MadScientist, Cards.MadScientist, Cards.AntiqueHealbot, Cards.EmperorThaurissan, };
+                    List<Card.Cards> faceFreeze = new List<Card.Cards> { Cards.SorcerersApprentice, Cards.SorcerersApprentice, Cards.IceBlock, Cards.IceBlock, Cards.MirrorImage, Cards.FrostNova, Cards.FrostNova, Cards.Frostbolt, Cards.Frostbolt, Cards.IceLance, Cards.IceLance, Cards.ManaWyrm, Cards.ManaWyrm, Cards.AzureDrake, Cards.AzureDrake, Cards.LootHoarder, Cards.LootHoarder, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.ArcaneIntellect, Cards.ArcaneIntellect, Cards.Fireball, Cards.Fireball, Cards.BloodmageThalnos, Cards.MadScientist, Cards.MadScientist, Cards.PilotedShredder, Cards.PilotedShredder, Cards.ForgottenTorch, Cards.ForgottenTorch, };
+                    List<Card.Cards> dragonMage = new List<Card.Cards> { Cards.Frostbolt, Cards.Frostbolt, Cards.Duplicate, Cards.IceBarrier, Cards.IceBlock, Cards.Polymorph, Cards.Polymorph, Cards.Flamestrike, Cards.Flamestrike, Cards.ZombieChow, Cards.MadScientist, Cards.MadScientist, Cards.BigGameHunter, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.TwilightDrake, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.AzureDrake, Cards.AzureDrake, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.EmperorThaurissan, Cards.DrBoom, Cards.Alexstrasza, Cards.Ysera, };
+                    List<Card.Cards> mechMage = new List<Card.Cards> { Cards.Frostbolt, Cards.Frostbolt, Cards.ArchmageAntonidas, Cards.ManaWyrm, Cards.ManaWyrm, Cards.Fireball, Cards.Fireball, Cards.UnstablePortal, Cards.UnstablePortal, Cards.Cogmaster, Cards.Cogmaster, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.DrBoom, Cards.SpiderTank, Cards.SpiderTank, Cards.Mechwarper, Cards.Mechwarper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.GoblinBlastmage, Cards.GoblinBlastmage, Cards.ClockworkGnome, Cards.TinkertownTechnician, Cards.Snowchugger, Cards.Snowchugger, Cards.ClockworkKnight, Cards.ClockworkKnight, Cards.GorillabotA3, Cards.GorillabotA3, };
+                    List<Card.Cards> grinderMage = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.Flamestrike, Cards.Flamestrike, Cards.BigGameHunter, Cards.Frostbolt, Cards.Frostbolt, Cards.MindControlTech, Cards.MirrorEntity, Cards.Polymorph, Cards.ZombieChow, Cards.ZombieChow, Cards.Duplicate, Cards.MadScientist, Cards.MadScientist, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.ExplosiveSheep, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.EchoofMedivh, Cards.EmperorThaurissan, Cards.RefreshmentVendor, Cards.JeweledScarab, Cards.JeweledScarab, Cards.BrannBronzebeard, Cards.EtherealConjurer, Cards.EtherealConjurer, };
+                    List<Card.Cards> basicMage = new List<Card.Cards> { Cards.Frostbolt, Cards.Frostbolt, Cards.ArcaneIntellect, Cards.ArcaneIntellect, Cards.Fireball, Cards.Fireball, Cards.Polymorph, Cards.Polymorph, Cards.WaterElemental, Cards.WaterElemental, Cards.Flamestrike, Cards.Flamestrike, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.KoboldGeomancer, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.GurubashiBerserker, Cards.Archmage, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, };
+                    deckDictionary.AddOrUpdate(DeckType.TempoMage, CurrentDeck.Intersect(tempoMage).Count());
+                    deckDictionary.AddOrUpdate(DeckType.FreezeMage, CurrentDeck.Intersect(freeze).Count());
+                    deckDictionary.AddOrUpdate(DeckType.FaceFreezeMage, CurrentDeck.Intersect(faceFreeze).Count());
+                    deckDictionary.AddOrUpdate(DeckType.DragonMage, CurrentDeck.Intersect(dragonMage).Count());
+                    deckDictionary.AddOrUpdate(DeckType.MechMage, CurrentDeck.Intersect(mechMage).Count());
+                    deckDictionary.AddOrUpdate(DeckType.FatigueMage, CurrentDeck.Intersect(grinderMage).Count());
+                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicMage).Count());
                     break;
 
                 #endregion
@@ -1142,45 +435,22 @@ namespace SmartBot.Plugins
                 #region paladin
 
                 case Card.CClass.PALADIN:
-                    List<string> secretPaladin = new List<string>
+                    List<Card.Cards> SecretPaladin = new List<Card.Cards> { Cards.AldorPeacekeeper, Cards.BlessingofKings, Cards.NobleSacrifice, Cards.NobleSacrifice, Cards.Consecration, Cards.Consecration, Cards.TruesilverChampion, Cards.TruesilverChampion, Cards.TirionFordring, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.LayonHands, Cards.Avenge, Cards.Avenge, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.MusterforBattle, Cards.MusterforBattle, Cards.Coghammer, Cards.ShieldedMinibot, Cards.ShieldedMinibot, Cards.Quartermaster, Cards.CompetitiveSpirit, Cards.MysteriousChallenger, };
+                    List<Card.Cards> midrangePaladin = new List<Card.Cards> { Cards.AldorPeacekeeper, Cards.AldorPeacekeeper, Cards.BigGameHunter, Cards.Consecration, Cards.Consecration, Cards.TruesilverChampion, Cards.TruesilverChampion, Cards.Equality, Cards.TirionFordring, Cards.KnifeJuggler, Cards.LayonHands, Cards.DefenderofArgus, Cards.ZombieChow, Cards.ZombieChow, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.MusterforBattle, Cards.MusterforBattle, Cards.Coghammer, Cards.ShieldedMinibot, Cards.ShieldedMinibot, Cards.Quartermaster, Cards.Quartermaster, Cards.JusticarTrueheart, Cards.MurlocKnight, Cards.KeeperofUldaman, };
+                    List<Card.Cards> dragonPaladin = new List<Card.Cards> { Cards.AldorPeacekeeper, Cards.AldorPeacekeeper, Cards.BigGameHunter, Cards.Consecration, Cards.Consecration, Cards.TruesilverChampion, Cards.TruesilverChampion, Cards.Alexstrasza, Cards.Equality, Cards.Ysera, Cards.IronbeakOwl, Cards.ZombieChow, Cards.ZombieChow, Cards.SludgeBelcher, Cards.MusterforBattle, Cards.MusterforBattle, Cards.AntiqueHealbot, Cards.ShieldedMinibot, Cards.ShieldedMinibot, Cards.HungryDragon, Cards.HungryDragon, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.BlackwingCorruptor, Cards.VolcanicDrake, Cards.Chromaggus, Cards.DragonConsort, Cards.DragonConsort, Cards.SolemnVigil, Cards.EmperorThaurissan, };
+                    List<Card.Cards> AggroPaladin = new List<Card.Cards> { Cards.BlessingofMight, Cards.BlessingofMight, Cards.ShieldedMinibot, Cards.ShieldedMinibot, Cards.Coghammer, Cards.DivineFavor, Cards.DivineFavor, Cards.MusterforBattle, Cards.MusterforBattle, Cards.TruesilverChampion, Cards.BlessingofKings, Cards.BlessingofKings, Cards.KeeperofUldaman, Cards.KeeperofUldaman, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.ArgentSquire, Cards.ArgentSquire, Cards.LeperGnome, Cards.LeperGnome, Cards.SirFinleyMrrgglton, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.IronbeakOwl, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.ArcaneGolem, Cards.PilotedShredder, Cards.LeeroyJenkins, Cards.Loatheb, };
+                    if (CurrentDeck.Contains(Cards.AnyfinCanHappen))
                     {
-                        BlessingofKings, BigGameHunter, NobleSacrifice, NobleSacrifice, Consecration, TruesilverChampion, TirionFordring, Secretkeeper, Secretkeeper, IronbeakOwl, HarrisonJones, Redemption, Avenge, Avenge, SludgeBelcher, HauntedCreeper, DrBoom, PilotedShredder, PilotedShredder, MusterforBattle, MusterforBattle, Coghammer, ShieldedMinibot, ShieldedMinibot, CompetitiveSpirit, MysteriousChallenger, MysteriousChallenger, KeeperofUldaman,
-                    };
-                    List<string> midRangePaladin = new List<string>
-                    {
-                        BigGameHunter, Consecration, Consecration, TruesilverChampion, TruesilverChampion, TirionFordring, KnifeJuggler, KnifeJuggler, IronbeakOwl, ZombieChow, ZombieChow, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, PilotedShredder, PilotedShredder, MusterforBattle, MusterforBattle, AntiqueHealbot, Coghammer, ShieldedMinibot, ShieldedMinibot, Quartermaster, Quartermaster, JusticarTrueheart, KeeperofUldaman, KeeperofUldaman,
-                    };
-                    List<string> aggroPaladin = new List<string>
-                    {
-                        ArcaneGolem, SouthseaDeckhand, SouthseaDeckhand, Consecration, TruesilverChampion, TruesilverChampion, HammerofWrath, BlessingofMight, BlessingofMight, KnifeJuggler, KnifeJuggler, ArgentSquire, ArgentSquire, IronbeakOwl, LeperGnome, LeperGnome, AbusiveSergeant, AbusiveSergeant, DivineFavor, DivineFavor, LeeroyJenkins, HauntedCreeper, MusterforBattle, MusterforBattle, Coghammer, ShieldedMinibot, ShieldedMinibot, SealofChampions,
-                    };
-                    List<string> anyfin = new List<string>
-                    {
-                        AldorPeacekeeper, CultMaster, OldMurkEye, MurlocWarleader, Consecration, BluegillWarrior, TruesilverChampion, KnifeJuggler, LayonHands, GrimscaleOracle, ZombieChow, SludgeBelcher, DrBoom, PilotedShredder, MusterforBattle, AntiqueHealbot, Coghammer, ShieldedMinibot, SolemnVigil, AnyfinCanHappen, KeeperofUldaman
-                    };
-                    List<string> basicPaladin = new List<string>
-                    {
-                        BlessingofKings, ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, Consecration, GuardianofKings, TruesilverChampion, StormwindChampion, SenjinShieldmasta, HammerofWrath, MurlocTidehunter, ShatteredSunCleric, RiverCrocolisk, BloodfenRaptor, FrostwolfWarlord,
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.SecretPaladin, Style.Tempo}}, CurrentDeck.Intersect(secretPaladin).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.MidRangePaladin, Style.Control}}, CurrentDeck.Intersect(midRangePaladin).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.AggroPaladin, Style.Face}}, CurrentDeck.Intersect(aggroPaladin).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.AnyfinMurglMurgl, Style.Combo}}, CurrentDeck.Intersect(anyfin).ToList().Count
-                        },
-                    };
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
-
+                        List<Card.Cards> AnyfinPaladin = new List<Card.Cards> { Cards.AldorPeacekeeper, Cards.AldorPeacekeeper, Cards.CultMaster, Cards.OldMurkEye, Cards.MurlocWarleader, Cards.MurlocWarleader, Cards.Consecration, Cards.Consecration, Cards.BluegillWarrior, Cards.BluegillWarrior, Cards.TruesilverChampion, Cards.KnifeJuggler, Cards.LayonHands, Cards.GrimscaleOracle, Cards.GrimscaleOracle, Cards.ZombieChow, Cards.SludgeBelcher, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.MusterforBattle, Cards.MusterforBattle, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Coghammer, Cards.ShieldedMinibot, Cards.ShieldedMinibot, Cards.SolemnVigil, Cards.AnyfinCanHappen, Cards.KeeperofUldaman, };
+                        deckDictionary.AddOrUpdate(DeckType.AnyfinMurglMurgl, CurrentDeck.Intersect(AnyfinPaladin).Count());
+                    }
+                    List<Card.Cards> basicPaladin = new List<Card.Cards> { Cards.TruesilverChampion, Cards.TruesilverChampion, Cards.BlessingofKings, Cards.BlessingofKings, Cards.Consecration, Cards.Consecration, Cards.HammerofWrath, Cards.HammerofWrath, Cards.GuardianofKings, Cards.GuardianofKings, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.MurlocTidehunter, Cards.MurlocTidehunter, Cards.RiverCrocolisk, Cards.RiverCrocolisk, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.FrostwolfWarlord, Cards.FrostwolfWarlord, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, Cards.StormwindChampion, };
+                    deckDictionary.AddOrUpdate(DeckType.SecretPaladin, CurrentDeck.Intersect(SecretPaladin).Count());
+                    deckDictionary.AddOrUpdate(DeckType.MidRangePaladin, CurrentDeck.Intersect(midrangePaladin).Count());
+                    deckDictionary.AddOrUpdate(DeckType.DragonPaladin, CurrentDeck.Intersect(dragonPaladin).Count());
+                    deckDictionary.AddOrUpdate(DeckType.AggroPaladin, CurrentDeck.Intersect(AggroPaladin).Count());
+                    
+                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicPaladin).Count());
                     break;
 
                 #endregion
@@ -1188,62 +458,24 @@ namespace SmartBot.Plugins
                 #region warrior
 
                 case Card.CClass.WARRIOR:
-                    List<string> corePatron = new List<string>
+                    List<Card.Cards> controlWarriorCards = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Brawl, Cards.Deathwing, Cards.ShieldBlock, Cards.ShieldBlock, Cards.BaronGeddon, Cards.HarrisonJones, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Armorsmith, Cards.DeathsBite, Cards.DeathsBite, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.Shieldmaiden, Cards.Shieldmaiden, Cards.Revenge, Cards.Revenge, Cards.JusticarTrueheart, Cards.Bash, Cards.JeweledScarab, Cards.JeweledScarab, };
+                   
+                    if (CurrentDeck.Contains(Cards.Deathlord))
                     {
-                        KorkronElite, KorkronElite, Whirlwind, Whirlwind, Slam, Slam, Execute, Execute, DreadCorsair, InnerRage, InnerRage, AcolyteofPain, AcolyteofPain, FieryWarAxe, FieryWarAxe, GrommashHellscream, Armorsmith, Armorsmith, BattleRage, BattleRage, DeathsBite, DeathsBite, UnstableGhoul, UnstableGhoul, DrBoom, GrimPatron, GrimPatron, SirFinleyMrrgglton,
-                    };
-                    List<string> controlWarrior = new List<string>
-                    {
-                        BigGameHunter, Slam, Slam, Execute, Execute, Brawl, Brawl, CruelTaskmaster, AcolyteofPain, AcolyteofPain, ShieldBlock, ShieldBlock, BaronGeddon, FieryWarAxe, FieryWarAxe, Armorsmith, Armorsmith, DeathsBite, DeathsBite, SludgeBelcher, SludgeBelcher, Shieldmaiden, Shieldmaiden, JusticarTrueheart, Bash, EliseStarseeker, FierceMonkey, FierceMonkey,
-                    };
-                    List<string> fatigueWarrior = new List<string>
-                    {
-                        BigGameHunter, BigGameHunter, AcidicSwampOoze, ColdlightOracle, ColdlightOracle, Gorehowl, Execute, Execute, Brawl, Brawl, CruelTaskmaster, CruelTaskmaster, ShieldBlock, FieryWarAxe, Armorsmith, DeathsBite, DeathsBite, SludgeBelcher, SludgeBelcher, Deathlord, Deathlord, Shieldmaiden, Shieldmaiden, AntiqueHealbot, AntiqueHealbot, IronJuggernaut, JusticarTrueheart, BrannBronzebeard,
-                    };
-                    List<string> faceWarrior = new List<string>
-                    {
-                        ArcaneGolem, ArcaneGolem, SouthseaDeckhand, SouthseaDeckhand, KorkronElite, KorkronElite, Wolfrider, DreadCorsair, DreadCorsair, MortalStrike, MortalStrike, IronbeakOwl, LeperGnome, LeperGnome, FieryWarAxe, FieryWarAxe, BloodsailRaider, BloodsailRaider, Upgrade, Upgrade, DeathsBite, DeathsBite, ArgentHorserider, ArgentHorserider, Bash, Bash, SirFinleyMrrgglton, CursedBlade,
-                    };
-                    List<string> dragonWarrior = new List<string>
-                    {
-                        Execute, Execute, AzureDrake, AzureDrake, Alexstrasza, CruelTaskmaster, CruelTaskmaster, TwilightDrake, TwilightDrake, FieryWarAxe, FieryWarAxe, DeathsBite, DeathsBite, Loatheb, DrBoom, Shieldmaiden, Shieldmaiden, IronJuggernaut, BlackwingTechnician, BlackwingTechnician, BlackwingCorruptor, BlackwingCorruptor, Nefarian, JusticarTrueheart, AlexstraszasChampion, TwilightGuardian, TwilightGuardian, BrannBronzebeard,
-                    };
-                    List<string> mechWarrior = new List<string>
-                    {
-                        KorkronElite, ArcaniteReaper, MortalStrike, MortalStrike, HarvestGolem, HarvestGolem, IronbeakOwl, FieryWarAxe, FieryWarAxe, DeathsBite, DeathsBite, Cogmaster, AnnoyoTron, AnnoyoTron, SpiderTank, SpiderTank, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, ScrewjankClunker, ScrewjankClunker, Warbot, Warbot, FelReaver, FelReaver, SirFinleyMrrgglton, GorillabotA3,
-                    };
-                    List<string> basicWarrior = new List<string>
-                    {
-                        ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, Cleave, KorkronElite, ArcaniteReaper, Execute, GnomishInventor, StormwindChampion, SenjinShieldmasta, ShatteredSunCleric, ShieldBlock, RiverCrocolisk, BloodfenRaptor, FieryWarAxe
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.PatronWarrior, Style.Tempo}}, CurrentDeck.Intersect(corePatron).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.ControlWarrior, Style.Control}}, CurrentDeck.Intersect(controlWarrior).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.FatigueWarrior, Style.Control}}, CurrentDeck.Intersect(fatigueWarrior).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.FaceWarrior, Style.Face}}, CurrentDeck.Intersect(faceWarrior).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.DragonWarrior, Style.Control}}, CurrentDeck.Intersect(dragonWarrior).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.MechWarrior, Style.Aggro}}, CurrentDeck.Intersect(mechWarrior).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Aggro}}, CurrentDeck.Intersect(basicWarrior).ToList().Count
-                        },
-                    };
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
-
+                        List<Card.Cards> fatigueWarrior = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Gorehowl, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Brawl, Cards.BaronGeddon, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Revenge, Cards.Bash, Cards.Bash, Cards.BouncingBlade, Cards.DeathsBite, Cards.DeathsBite, Cards.Shieldmaiden, Cards.Shieldmaiden, Cards.Deathlord, Cards.Deathlord, Cards.JusticarTrueheart, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.UnstableGhoul, Cards.RenoJackson, };
+                        deckDictionary.AddOrUpdate(DeckType.FatigueWarrior, CurrentDeck.Intersect(fatigueWarrior).Count());
+                    }
+                    List<Card.Cards> dragonWarrior = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Alexstrasza, Cards.Deathwing, Cards.Ysera, Cards.BaronGeddon, Cards.HarrisonJones, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.DeathsBite, Cards.DeathsBite, Cards.Shieldmaiden, Cards.EmperorThaurissan, Cards.Nefarian, Cards.Revenge, Cards.Revenge, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.JusticarTrueheart, Cards.Chillmaw, Cards.Bash, Cards.Bash, Cards.TwilightGuardian, Cards.TwilightGuardian, };
+                    List<Card.Cards> patronWarrior = new List<Card.Cards> { Cards.FrothingBerserker, Cards.KorkronElite, Cards.Whirlwind, Cards.Whirlwind, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.DreadCorsair, Cards.DreadCorsair, Cards.InnerRage, Cards.InnerRage, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Armorsmith, Cards.Armorsmith, Cards.BattleRage, Cards.BattleRage, Cards.DeathsBite, Cards.DeathsBite, Cards.Loatheb, Cards.SludgeBelcher, Cards.UnstableGhoul, Cards.DrBoom, Cards.GrimPatron, Cards.GrimPatron, Cards.ArchThiefRafaam, };
+                    List<Card.Cards> worgen = new List<Card.Cards> { Cards.ShieldSlam, Cards.RagingWorgen, Cards.RagingWorgen, Cards.Whirlwind, Cards.Execute, Cards.Execute, Cards.GnomishInventor, Cards.GnomishInventor, Cards.Brawl, Cards.Brawl, Cards.CruelTaskmaster, Cards.CruelTaskmaster, Cards.InnerRage, Cards.InnerRage, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.NoviceEngineer, Cards.NoviceEngineer, Cards.Rampage, Cards.Rampage, Cards.ShieldBlock, Cards.ShieldBlock, Cards.IronbeakOwl, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.Charge, Cards.Charge, Cards.DeathsBite, Cards.DeathsBite, Cards.AntiqueHealbot, };
+                    List<Card.Cards> mechWar = new List<Card.Cards> { Cards.HeroicStrike, Cards.HeroicStrike, Cards.KorkronElite, Cards.KorkronElite, Cards.ArcaniteReaper, Cards.ArcaniteReaper, Cards.MortalStrike, Cards.MortalStrike, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.DeathsBite, Cards.DeathsBite, Cards.Cogmaster, Cards.Cogmaster, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.SpiderTank, Cards.SpiderTank, Cards.Mechwarper, Cards.Mechwarper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.TinkertownTechnician, Cards.ScrewjankClunker, Cards.ScrewjankClunker, Cards.Warbot, Cards.Warbot, Cards.FelReaver, Cards.FelReaver, Cards.ClockworkKnight, };
+                    List<Card.Cards> faceWar = new List<Card.Cards> { Cards.HeroicStrike, Cards.HeroicStrike, Cards.ArcaneGolem, Cards.ArcaneGolem, Cards.SouthseaDeckhand, Cards.SouthseaDeckhand, Cards.KorkronElite, Cards.KorkronElite, Cards.Wolfrider, Cards.DreadCorsair, Cards.DreadCorsair, Cards.MortalStrike, Cards.MortalStrike, Cards.IronbeakOwl, Cards.LeperGnome, Cards.LeperGnome, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.BloodsailRaider, Cards.BloodsailRaider, Cards.Upgrade, Cards.Upgrade, Cards.DeathsBite, Cards.DeathsBite, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.Bash, Cards.Bash, Cards.SirFinleyMrrgglton, Cards.CursedBlade, };
+                    deckDictionary.AddOrUpdate(DeckType.ControlWarrior, CurrentDeck.Intersect(controlWarriorCards).Count());
+                    deckDictionary.AddOrUpdate(DeckType.DragonWarrior, CurrentDeck.Intersect(dragonWarrior).Count());
+                    deckDictionary.AddOrUpdate(DeckType.PatronWarrior, CurrentDeck.Intersect(patronWarrior).Count());
+                    deckDictionary.AddOrUpdate(DeckType.WorgenOTKWarrior, CurrentDeck.Intersect(worgen).Count());
+                    deckDictionary.AddOrUpdate(DeckType.MechWarrior, CurrentDeck.Intersect(mechWar).Count());
+                    deckDictionary.AddOrUpdate(DeckType.FaceWarrior, CurrentDeck.Intersect(faceWar).Count());
                     break;
 
                 #endregion
@@ -1251,69 +483,7 @@ namespace SmartBot.Plugins
                 #region warlock
 
                 case Card.CClass.WARLOCK:
-                    List<string> renolock = new List<string>
-                    {
-                        MortalCoil, Darkbomb, DarkPeddler, Demonwrath, ImpGangBoss, Hellfire, Implosion, Shadowflame, SiphonSoul, LordJaraxxus, AbusiveSergeant, ZombieChow, IronbeakOwl, SunfuryProtector, BigGameHunter, BrannBronzebeard, EarthenRingFarseer, DefenderofArgus, PilotedShredder, TwilightDrake, AntiqueHealbot, Feugen, Loatheb, SludgeBelcher, Stalagg, EmperorThaurissan, RenoJackson, DrBoom, MoltenGiant,
-                    };
-                    List<string> demonHandlock = new List<string>
-                    {
-                        MortalCoil, MortalCoil, MoltenGiant, MoltenGiant, AncientWatcher, AncientWatcher, MountainGiant, MountainGiant, TwilightDrake, TwilightDrake, SunfuryProtector, SunfuryProtector, LordJaraxxus, IronbeakOwl, DefenderofArgus, SiphonSoul, Shadowflame, Shadowflame, ZombieChow, ZombieChow, Voidcaller, Voidcaller, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, AntiqueHealbot, MalGanis, Darkbomb,
-                    };
-                    List<string> zoolock = new List<string>
-                    {
-                        FlameImp, FlameImp, PowerOverwhelming, PowerOverwhelming, DireWolfAlpha, DireWolfAlpha, Voidwalker, Voidwalker, KnifeJuggler, KnifeJuggler, IronbeakOwl, Doomguard, Doomguard, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, Voidcaller, Voidcaller, NerubianEgg, NerubianEgg, Loatheb, HauntedCreeper, HauntedCreeper, DrBoom, Implosion, Implosion, ImpGangBoss, ImpGangBoss,
-                    };
-                    List<string> dragonHandlock = new List<string>
-                    {
-                        MortalCoil, MortalCoil, Darkbomb, Darkbomb, AncientWatcher, AncientWatcher, IronbeakOwl, SunfuryProtector, SunfuryProtector, BigGameHunter, Hellfire, Hellfire, Shadowflame, DefenderofArgus, TwilightDrake, TwilightDrake, TwilightGuardian, TwilightGuardian, AntiqueHealbot, BlackwingCorruptor, BlackwingCorruptor, EmperorThaurissan, Chillmaw, DrBoom, Alexstrasza, MountainGiant, MountainGiant, MoltenGiant, MoltenGiant,
-                    };
-                    List<string> demonZooWarlock = new List<string>
-                    {
-                        PowerOverwhelming, PowerOverwhelming, Voidwalker, Voidwalker, KnifeJuggler, KnifeJuggler, IronbeakOwl, Doomguard, Doomguard, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, SeaGiant, BaneofDoom, Voidcaller, Voidcaller, NerubianEgg, NerubianEgg, HauntedCreeper, HauntedCreeper, DrBoom, MalGanis, Implosion, Implosion, ImpGangBoss, ImpGangBoss, DarkPeddler, DarkPeddler,
-                    };
-                    List<string> handlock = new List<string>
-                    {
-                        BigGameHunter, MoltenGiant, MoltenGiant, Hellfire, Hellfire, AncientWatcher, MountainGiant, MountainGiant, TwilightDrake, TwilightDrake, SunfuryProtector, SunfuryProtector, LordJaraxxus, IronbeakOwl, IronbeakOwl, DefenderofArgus, Shadowflame, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, AntiqueHealbot, AntiqueHealbot, Darkbomb, Darkbomb, EmperorThaurissan, BrannBronzebeard, DarkPeddler,
-                    };
-                    List<string> relinquary = new List<string>
-                    {
-                        PowerOverwhelming, PowerOverwhelming, Voidwalker, Voidwalker, IronbeakOwl, DefenderofArgus, DefenderofArgus, AbusiveSergeant, AbusiveSergeant, SeaGiant, SeaGiant, ZombieChow, NerubianEgg, NerubianEgg, Loatheb, EchoingOoze, EchoingOoze, HauntedCreeper, HauntedCreeper, DrBoom, Implosion, Implosion, ImpGangBoss, ImpGangBoss, GormoktheImpaler, DarkPeddler, DarkPeddler, ReliquarySeeker, ReliquarySeeker,
-                    };
-                    List<string> basicdeck = new List<string>
-                    {
-                        ChillwindYeti, ShatteredSunCleric, SenjinShieldmasta, ZombieChow, HauntedCreeper, SludgeBelcher, KelThuzad, Loatheb, EmperorThaurissan, ImpGangBoss, DarkPeddler, JeweledScarab, ArchThiefRafaam, ShadowBolt, Hellfire, DreadInfernal, MortalCoil,
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.RenoLock, Style.Control}}, CurrentDeck.Intersect(renolock).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.DemonHandlock, Style.Control}}, CurrentDeck.Intersect(demonHandlock).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Zoolock, Style.Aggro}}, CurrentDeck.Intersect(zoolock).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.DragonHandlock, Style.Control}}, CurrentDeck.Intersect(dragonHandlock).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.DemonZooWarlock, Style.Aggro}}, CurrentDeck.Intersect(demonZooWarlock).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Handlock, Style.Control}}, CurrentDeck.Intersect(handlock).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.RelinquaryZoo, Style.Aggro}}, CurrentDeck.Intersect(relinquary).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicdeck).ToList().Count
-                        },
-                    };
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
-
+                   
                     break;
 
                 #endregion
@@ -1321,41 +491,7 @@ namespace SmartBot.Plugins
                 #region hunter
 
                 case Card.CClass.HUNTER:
-                    List<string> midRangeHunter = new List<string>
-                    {
-                        HuntersMark, HuntersMark, Webspinner, BearTrap, FreezingTrap, SnakeTrap, EaglehornBow, EaglehornBow, AnimalCompanion, AnimalCompanion, KillCommand, KillCommand, UnleashtheHounds, UnleashtheHounds, Houndmaster, Houndmaster, RamWrangler, HauntedCreeper, JeweledScarab, KnifeJuggler, KnifeJuggler, MadScientist, MadScientist, TombSpider, TombSpider, SludgeBelcher, SludgeBelcher, DrBoom,
-                    };
-                    List<string> hybridHunter = new List<string>
-                    {
-                        FreezingTrap, UnleashtheHounds, UnleashtheHounds, ExplosiveTrap, EaglehornBow, KnifeJuggler, KnifeJuggler, KillCommand, KillCommand, IronbeakOwl, LeperGnome, LeperGnome, AbusiveSergeant, AbusiveSergeant, AnimalCompanion, AnimalCompanion, Loatheb, MadScientist, MadScientist, HauntedCreeper, HauntedCreeper, PilotedShredder, PilotedShredder, Glaivezooka, Glaivezooka, QuickShot, ArgentHorserider, ArgentHorserider,
-                    };
-                    List<string> faceHunter = new List<string>
-                    {
-                        Glaivezooka, Glaivezooka, ExplosiveTrap, QuickShot, QuickShot, EaglehornBow, AnimalCompanion, AnimalCompanion, UnleashtheHounds, UnleashtheHounds, KillCommand, KillCommand, DartTrap, DesertCamel, AbusiveSergeant, AbusiveSergeant, LeperGnome, LeperGnome, SouthseaDeckhand, HauntedCreeper, IronbeakOwl, IronbeakOwl, KnifeJuggler, KnifeJuggler, MadScientist, MadScientist, ArcaneGolem, ArcaneGolem, WorgenInfiltrator,
-                    };
-                    List<string> basicHunter = new List<string>
-                    {
-                        RazorfenHunter, TimberWolf, StarvingBuzzard, TundraRhino, ArcaneShot, Wolfrider, Houndmaster, BluegillWarrior, MultiShot, ShatteredSunCleric, KillCommand, RiverCrocolisk, RecklessRocketeer, BloodfenRaptor, AnimalCompanion
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.MidRangeHunter, Style.Tempo}}, CurrentDeck.Intersect(midRangeHunter).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.HybridHunter, Style.Aggro}}, CurrentDeck.Intersect(hybridHunter).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.FaceHunter, Style.Face}}, CurrentDeck.Intersect(faceHunter).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicHunter).ToList().Count
-                        },
-                    };
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
-
+                   
                     break;
 
                 #endregion
@@ -1363,48 +499,7 @@ namespace SmartBot.Plugins
                 #region rogue
 
                 case Card.CClass.ROGUE:
-                    List<string> raptorRogue = new List<string>
-                    {
-                        ColdBlood, ColdBlood, FanofKnives, FanofKnives, Eviscerate, Eviscerate, Sap, LootHoarder, LootHoarder, Backstab, Backstab, UnearthedRaptor, UnearthedRaptor, AbusiveSergeant, AbusiveSergeant, LeperGnome, LeperGnome, NerubianEgg, NerubianEgg, DefenderofArgus, DefenderofArgus, PilotedShredder, PilotedShredder, Loatheb, SludgeBelcher, SludgeBelcher, DrBoom, HauntedCreeper, HauntedCreeper,
-                    };
-                    List<string> pirateRogue = new List<string>
-                    {
-                        Sprint, Sprint, SouthseaDeckhand, SouthseaDeckhand, BladeFlurry, BladeFlurry, DreadCorsair, DreadCorsair, AzureDrake, AzureDrake, SI7Agent, SI7Agent, Preparation, Preparation, Eviscerate, Eviscerate, Sap, AssassinsBlade, Backstab, Backstab, BloodsailRaider, BloodsailRaider, ShipsCannon, ShipsCannon, TinkersSharpswordOil, TinkersSharpswordOil, Buccaneer, Buccaneer,
-                    };
-                    List<string> oilRogue = new List<string>
-                    {
-                        DeadlyPoison, DeadlyPoison, Sprint, Sprint, SouthseaDeckhand, BladeFlurry, BladeFlurry, AzureDrake, AzureDrake, SI7Agent, SI7Agent, Preparation, Preparation, FanofKnives, FanofKnives, Eviscerate, Eviscerate, Sap, Sap, Backstab, Backstab, BloodmageThalnos, PilotedShredder, PilotedShredder, AntiqueHealbot, TinkersSharpswordOil, TinkersSharpswordOil, TombPillager, TombPillager,
-                    };
-                    List<string> burstRogue = new List<string>
-                    {
-                        ColdlightOracle, ColdBlood, ColdBlood, ArcaneGolem, ArcaneGolem, SouthseaDeckhand, BladeFlurry, BladeFlurry, SI7Agent, SI7Agent, Eviscerate, Eviscerate, Sap, DefiasRingleader, AssassinsBlade, ArgentSquire, ArgentSquire, IronbeakOwl, IronbeakOwl, LeperGnome, LeperGnome, Loatheb, PilotedShredder, PilotedShredder, GoblinAutoBarber, GoblinAutoBarber, TinkersSharpswordOil, TinkersSharpswordOil,
-                    };
-                    List<string> basicRogue = new List<string>
-                    {
-                        ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, DeadlyPoison, Sprint, GnomishInventor, StormwindChampion, SenjinShieldmasta, FanofKnives, AssassinsBlade, ShatteredSunCleric, NoviceEngineer, Backstab, Assassinate, BloodfenRaptor,
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.RaptorRogue, Style.Tempo}}, CurrentDeck.Intersect(raptorRogue).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.PirateRogue, Style.Aggro}}, CurrentDeck.Intersect(pirateRogue).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.OilRogue, Style.Combo}}, CurrentDeck.Intersect(oilRogue).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.FaceRogue, Style.Face}}, CurrentDeck.Intersect(burstRogue).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicRogue).ToList().Count
-                        },
-                    };
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
-
+                    
                     break;
 
                 #endregion
@@ -1412,56 +507,28 @@ namespace SmartBot.Plugins
                 #region druid
 
                 case Card.CClass.DRUID:
-                    List<string> midRangeDruid = new List<string>
-                    {
-                        BigGameHunter, ForceofNature, ForceofNature, AzureDrake, AzureDrake, WildGrowth, WildGrowth, SavageRoar, SavageRoar, KeeperoftheGrove, KeeperoftheGrove, Innervate, Innervate, DruidoftheClaw, DruidoftheClaw, Swipe, Swipe, Wrath, Wrath, ShadeofNaxxramas, ShadeofNaxxramas, Loatheb, DrBoom, PilotedShredder, PilotedShredder, EmperorThaurissan, LivingRoots, LivingRoots,
-                    };
-                    List<string> tokenDruid = new List<string>
-                    {
-                        SouloftheForest, SouloftheForest, SavageRoar, SavageRoar, KeeperoftheGrove, MarkoftheWild, MarkoftheWild, DefenderofArgus, DefenderofArgus, Innervate, Innervate, AbusiveSergeant, AbusiveSergeant, LivingRoots, LivingRoots, MountedRaptor, MountedRaptor, DragonEgg, DragonEgg, NerubianEgg, NerubianEgg, EchoingOoze, EchoingOoze, Jeeves, Jeeves, HauntedCreeper, HauntedCreeper, SirFinleyMrrgglton,
-                    };
-                    List<string> rampDruid = new List<string>
-                    {
-                        BigGameHunter, AncientofWar, AncientofWar, WildGrowth, WildGrowth, KeeperoftheGrove, KeeperoftheGrove, RagnarostheFirelord, Innervate, Innervate, DruidoftheClaw, DruidoftheClaw, Swipe, Swipe, Wrath, Wrath, ZombieChow, ZombieChow, SludgeBelcher, SludgeBelcher, DrBoom, EmperorThaurissan, DruidoftheFlame, DruidoftheFlame, DarnassusAspirant, DarnassusAspirant, MasterJouster, MasterJouster,
-                    };
-                    List<string> aggroDruid = new List<string>
-                    {
-                        ForceofNature, ForceofNature, SavageRoar, SavageRoar, KnifeJuggler, KnifeJuggler, KeeperoftheGrove, KeeperoftheGrove, LeperGnome, Innervate, Innervate, DruidoftheClaw, DruidoftheClaw, Swipe, Swipe, Loatheb, DrBoom, PilotedShredder, PilotedShredder, FelReaver, FelReaver, ArgentHorserider, DarnassusAspirant, DarnassusAspirant, DruidoftheSaber, DruidoftheSaber, LivingRoots, LivingRoots, SirFinleyMrrgglton,
-                    };
-                    List<string> basicDruid = new List<string>
-                    {
-                        ChillwindYeti, RazorfenHunter, BoulderfistOgre, AcidicSwampOoze, IronbarkProtector, GnomishInventor, WildGrowth, SenjinShieldmasta, ShatteredSunCleric, NoviceEngineer, MarkoftheWild, Claw, Innervate, Swipe, Starfire
-                    };
-                    DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
-                    {
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.MidRangeDruid, Style.Combo}}, CurrentDeck.Intersect(midRangeDruid).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.TokenDruid, Style.Aggro}}, CurrentDeck.Intersect(tokenDruid).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.RampDruid, Style.Control}}, CurrentDeck.Intersect(rampDruid).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.AggroDruid, Style.Face}}, CurrentDeck.Intersect(aggroDruid).ToList().Count
-                        },
-                        {
-                            new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicDruid).ToList().Count
-                        },
-                    };
-                    BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                    info.DeckType = BestDeck.Keys.First();
-                    info.DeckStyle = BestDeck.Values.First();
-
+                   
                     break;
 
                     #endregion
             }
-
+            try
+            {
+                var BestDeck = deckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                info.DeckType = BestDeck;
+                info.DeckStyle = DeckStyles[BestDeck];
+                Bot.Log(String.Format("{0}|||{1}", info.DeckType, info.DeckStyle));
+            }
+            catch (Exception e)
+            {
+                Bot.Log(e.Message);
+            }
             return info;
         }
 
+
+
+       
         private DeckData SetUnknown(DeckData info, Dictionary<Dictionary<DeckType, Style>, int> deckDictionary)
         {
             info.DeckType = DeckType.Unknown;
@@ -1481,7 +548,7 @@ namespace SmartBot.Plugins
     {
         public DeckType DeckType { get; set; }
         public Style DeckStyle { get; set; }
-        public List<string> DeckList { get; set; }
+        public List<Card.Cards> DeckList { get; set; }
     }
 
 
@@ -1577,87 +644,5 @@ namespace SmartBot.Plugins
         Tempo
     }
 
-    /*    class RepositoryInformation : IDisposable
-        {
-            public static RepositoryInformation GetRepositoryInformationForPath(string path, string gitPath = null)
-            {
-                var repositoryInformation = new RepositoryInformation(path, gitPath);
-                return repositoryInformation.IsGitRepository ? repositoryInformation : null;
-            }
-
-            public string CommitHash => RunCommand("rev-parse HEAD");
-
-            public string BranchName => RunCommand("rev-parse --abbrev-ref HEAD");
-
-            public string CommitMessage => RunCommand("svn log -r COMMITTED");
-
-            public string TrackedBranchName => RunCommand("rev-parse --abbrev-ref --symbolic-full-name @{u}");
-
-            public string Summary => RunCommand("git show --summary");
-
-            public string ChangesToMulligan => RunCommand("gitk [SmartMulliganV3.cs]");
-
-            public string ChangesToTracker => RunCommand("gitk [SmartTracker.cs]");
-
-            public bool HasUnpushedCommits => !String.IsNullOrWhiteSpace(RunCommand("log @{u}..HEAD"));
-
-            public bool HasUncommittedChanges => !String.IsNullOrWhiteSpace(RunCommand("status --porcelain"));
-
-
-
-            public IEnumerable<string> Log
-            {
-                get
-                {
-                    int skip = 0;
-                    while (true)
-                    {
-                        string entry = RunCommand(String.Format("log --skip={0} -n1", skip++));
-                        if (String.IsNullOrWhiteSpace(entry))
-                        {
-                            yield break;
-                        }
-
-                        yield return entry;
-                    }
-                }
-            }
-
-            public void Dispose()
-            {
-                if (!_disposed)
-                {
-                    _disposed = true;
-                    _gitProcess.Dispose();
-                }
-            }
-
-            private RepositoryInformation(string path, string gitPath)
-            {
-                var processInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    FileName = Directory.Exists(gitPath) ? gitPath : "git.exe",
-                    CreateNoWindow = true,
-                    WorkingDirectory = (path != null && Directory.Exists(path)) ? path : Environment.CurrentDirectory
-                };
-
-                _gitProcess = new Process {StartInfo = processInfo};
-            }
-
-            private bool IsGitRepository => !String.IsNullOrWhiteSpace(RunCommand("log -1"));
-
-            private string RunCommand(string args)
-            {
-                _gitProcess.StartInfo.Arguments = args;
-                _gitProcess.Start();
-                string output = _gitProcess.StandardOutput.ReadToEnd().Trim();
-                _gitProcess.WaitForExit();
-                return output;
-            }
-
-            private bool _disposed;
-            private readonly Process _gitProcess;
-        }*/
+   
 }
