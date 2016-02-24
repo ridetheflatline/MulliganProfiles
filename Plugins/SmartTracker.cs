@@ -74,7 +74,7 @@ namespace SmartBot.Plugins
             AutoUpdateTracker = false;
             BitCoin = "16ujoN2p8JaxBvkWFxPRcy1x8roG1XMeBM"; 
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
-            LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartTracker.cshttps://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
+            LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
 
         }
     }
@@ -161,8 +161,22 @@ namespace SmartBot.Plugins
 
         public override void OnPluginCreated()
         {
-            CheckDirectory(MulliganInformation);
-            CheckDirectory(TrackerVersion);
+            try
+            {
+                CheckDirectory(MulliganInformation);
+            }
+            catch (Exception mulliganException)
+            {
+                Bot.Log("Error Updating Mulligan" + mulliganException.Message + " " +mulliganException.TargetSite);
+            }
+            try
+            {
+                CheckDirectory(TrackerVersion);
+            }
+            catch (Exception trackerException)
+            {
+                Bot.Log("Error Updating Tracker" + trackerException.Message + " " + trackerException.TargetSite);
+            }
         }
 
         public override void OnStarted()
@@ -180,16 +194,7 @@ namespace SmartBot.Plugins
             {
                 CheckUpdatesTracker(((SmartTracker)DataContainer).LSmartTracker);
             }
-            if (Bot.CurrentBoard == null || identified) return;
-
-            informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
-            using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
-            {
-                readMe.WriteLine("{0}~{1}~{2}", ((SmartTracker)DataContainer).mode == IdentityMode.Auto ? informationData.DeckType : ((SmartTracker)DataContainer).ForceDeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList));
-            }
-
-            Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList)));
-            identified = true;
+            
 
         }
 
@@ -204,12 +209,13 @@ namespace SmartBot.Plugins
             }
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
             using (StreamReader str = new StreamReader(response.GetResponseStream()))
-            using (StreamReader localVersion = new StreamReader(TrackerVersion + "version.txt"))
+            using (StreamReader localVersion = new StreamReader(TrackerVersion + "tracker.version"))
 
             {
-                double remoteVer = double.Parse(str.ReadLine());
+                string strline = str.ReadLine();
+                double remoteVer = double.Parse(strline);
                 double localVer = double.Parse(localVersion.ReadLine());
-                Bot.Log(remoteVer.ToString(CultureInfo.InvariantCulture));
+               
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartTracker is up to date");
                 if (localVer > remoteVer)
                 {
@@ -238,10 +244,10 @@ namespace SmartBot.Plugins
             }
             using (HttpWebResponse mulResponse = trackeRequest.GetResponse() as HttpWebResponse)
             using (StreamReader trFile = new StreamReader(mulResponse.GetResponseStream()))
-            using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "SmartMulliganV3.cs"))
+            using (StreamWriter updateLocalCopy = new StreamWriter(TrackerDir + "SmartTracker.cs"))
             {
                 string tempfile = trFile.ReadToEnd();
-                //Bot.Log("");
+                Bot.Log("[IGOT HERE]");
                 updateLocalCopy.WriteLine(tempfile);
                 Bot.RefreshMulliganProfiles();
                 Bot.Log("[SmartTracker] SmartTracker is now fully updated");
@@ -310,7 +316,7 @@ namespace SmartBot.Plugins
         private void UpdateVersion(double remoteVer, bool value = false)
         {
             
-            using (StreamWriter localVersion = new StreamWriter(value ? TrackerVersion +"version.txt" : MulliganInformation + "version.txt", false))
+            using (StreamWriter localVersion = new StreamWriter(value ? TrackerVersion +"tracker.version" : MulliganInformation + "version.txt", false))
             {
                 localVersion.WriteLine(remoteVer);
             }
