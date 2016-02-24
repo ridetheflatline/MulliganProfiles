@@ -6,8 +6,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using SmartBot.Database;
 
 
@@ -76,56 +74,89 @@ namespace SmartBot.Plugins
             AutoUpdateTracker = false;
             BitCoin = "16ujoN2p8JaxBvkWFxPRcy1x8roG1XMeBM"; 
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
-            LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartTracker.cs";
+            LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartTracker.cshttps://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
 
         }
     }
 
     public class SMTracker : Plugin
     {
-        private GuiElementButton buttonCatcher;
-        private bool Started;
-
-
         public bool identified = false;
+        private DeckData informationData;
         private readonly string MulliganDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
         private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\";
         private readonly string TrackerDir = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\";
         private readonly string TrackerVersion = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\SmartTracker\\";
-        public Dictionary<string, string> AllOpponentsDictionary = new Dictionary<string, string>();
+
         public override void OnTick()
         {
-            if (buttonCatcher != null)
-            {
-                GUI.ClearUI();
-                if (Started)
-                    GUI.AddElement(buttonCatcher);
-            }
-
             switch (Bot.CurrentScene())
             {
                 case Bot.Scene.GAMEPLAY:
                     if (Bot.CurrentBoard == null || identified) break;
                    
-                    DeckData informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
+                    informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
                     using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
                     {
-                        readMe.WriteLine("{0}~{1}~{2}", ((SmartTracker)DataContainer).mode == IdentityMode.Auto ? informationData.DeckType : ((SmartTracker)DataContainer).ForceDeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList));
+                        readMe.WriteLine("{0}~{1}~{2}~{3}", 
+                            ((SmartTracker)DataContainer).mode,
+                            ((SmartTracker)DataContainer).mode == IdentityMode.Auto ? informationData.DeckType : ((SmartTracker)DataContainer).ForceDeckType,
+                            informationData.DeckStyle, string.Join(";", informationData.DeckList));
                     }
                     if (((SmartTracker)DataContainer).mode == IdentityMode.Manual
                         && informationData.DeckType == ((SmartTracker)DataContainer).ForceDeckType)
                         Bot.Log("[Tracker] Automatic identification yields to the same identification as your forcefully inserted deck.");
-                    //Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|{3}", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList)));
+                    Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList)));
                     identified = true;
                     break;
-               
+
+                case Bot.Scene.INVALID:
+                    identified = false;
+                    break;
+                case Bot.Scene.STARTUP:
+                    identified = false;
+                    break;
+                case Bot.Scene.LOGIN:
+                    identified = false;
+                    break;
+                case Bot.Scene.HUB:
+                    identified = false;
+                    break;
+                case Bot.Scene.COLLECTIONMANAGER:
+                    identified = false;
+                    break;
+                case Bot.Scene.PACKOPENING:
+                    identified = false;
+                    break;
+                case Bot.Scene.TOURNAMENT:
+                    identified = false;
+                    break;
+                case Bot.Scene.FRIENDLY:
+                    identified = false;
+                    break;
+                case Bot.Scene.FATAL_ERROR:
+                    identified = false;
+                    break;
+                case Bot.Scene.DRAFT:
+                    identified = false;
+                    break;
+                case Bot.Scene.CREDITS:
+                    identified = false;
+                    break;
+                case Bot.Scene.RESET:
+                    identified = false;
+                    break;
+                case Bot.Scene.ADVENTURE:
+                    identified = false;
+                    break;
+                case Bot.Scene.TAVERN_BRAWL:
+                    identified = false;
+                    break;
                 default:
                     identified = false;
                     break;
 
             }
-
-
         }
 
         public override void OnPluginCreated()
@@ -136,20 +167,7 @@ namespace SmartBot.Plugins
 
         public override void OnStarted()
         {
-            if (((SmartTracker) DataContainer).donate)
-            {
-                Started = true;
-                buttonCatcher = new GuiElementButton("Donate", delegate
-                {
-                    Bot.Log("===============================");
-                    Bot.Log("Thank you for considering donating to to my work");
-                    Bot.Log("PayPal:  http://j.mp/SmartMulliganV2Donation");
-                    Bot.Log("B#: " + ((SmartTracker) DataContainer).BitCoin);
-                    Bot.Log("===============================");
-                }, 10, 350, 80, 30);
-                if (buttonCatcher != null)
-                    GUI.RemoveElement(buttonCatcher);
-            }
+
             using (StreamWriter debugStreamWriter = new StreamWriter(MulliganInformation + "debug_decks.v3", false))
             {
                 debugStreamWriter.WriteLine("{0}|{1}", ((SmartTracker)DataContainer).MT_YourDeck, ((SmartTracker)DataContainer).MT_OpponentDeck);
@@ -162,12 +180,73 @@ namespace SmartBot.Plugins
             {
                 CheckUpdatesTracker(((SmartTracker)DataContainer).LSmartTracker);
             }
+            if (Bot.CurrentBoard == null || identified) return;
+
+            informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
+            using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
+            {
+                readMe.WriteLine("{0}~{1}~{2}", ((SmartTracker)DataContainer).mode == IdentityMode.Auto ? informationData.DeckType : ((SmartTracker)DataContainer).ForceDeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList));
+            }
+
+            Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList)));
+            identified = true;
 
         }
 
        
         private void CheckUpdatesTracker(string lSmartTracker)
         {
+            HttpWebRequest request = WebRequest.Create(lSmartTracker) as HttpWebRequest;
+            if (request == null)
+            {
+                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartTracker));
+                return;
+            }
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+            using (StreamReader str = new StreamReader(response.GetResponseStream()))
+            using (StreamReader localVersion = new StreamReader(TrackerVersion + "version.txt"))
+
+            {
+                double remoteVer = double.Parse(str.ReadLine());
+                double localVer = double.Parse(localVersion.ReadLine());
+                Bot.Log(remoteVer.ToString(CultureInfo.InvariantCulture));
+                if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartTracker is up to date");
+                if (localVer > remoteVer)
+                {
+                    Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}", localVer, remoteVer));
+                    Bot.Log("[SmartTracker] Arthur, you are an idiot. Push new update");
+                }
+                if (localVer < remoteVer)
+                {
+                    localVersion.Close();
+                    UpdateTracker(lSmartTracker, remoteVer, localVer);
+                }
+
+            }
+        }
+
+        private void UpdateTracker(string lSmartTracker, double remoteVer, double localVer)
+        {
+            Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
+            HttpWebRequest trackeRequest = WebRequest
+                .Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker.cs")
+                as HttpWebRequest;
+            if (trackeRequest == null)
+            {
+                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartTracker));
+                return;
+            }
+            using (HttpWebResponse mulResponse = trackeRequest.GetResponse() as HttpWebResponse)
+            using (StreamReader trFile = new StreamReader(mulResponse.GetResponseStream()))
+            using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "SmartMulliganV3.cs"))
+            {
+                string tempfile = trFile.ReadToEnd();
+                //Bot.Log("");
+                updateLocalCopy.WriteLine(tempfile);
+                Bot.RefreshMulliganProfiles();
+                Bot.Log("[SmartTracker] SmartTracker is now fully updated");
+                UpdateVersion(remoteVer, true);
+            }
         }
 
         private void CheckUpdatesMulligan(string lSmartMulliganV3)
@@ -228,9 +307,10 @@ namespace SmartBot.Plugins
     
     
 
-        private void UpdateVersion(double remoteVer)
+        private void UpdateVersion(double remoteVer, bool value = false)
         {
-            using (StreamWriter localVersion = new StreamWriter(MulliganInformation + "version.txt", false))
+            
+            using (StreamWriter localVersion = new StreamWriter(value ? TrackerVersion +"version.txt" : MulliganInformation + "version.txt", false))
             {
                 localVersion.WriteLine(remoteVer);
             }
@@ -241,10 +321,7 @@ namespace SmartBot.Plugins
         public override void OnStopped()
         {
             identified = false;
-            base.OnStopped();
-            Started = false;
-            if (buttonCatcher != null)
-                GUI.RemoveElement(buttonCatcher);
+
         }
 
         public void CheckOpponentDeck(string res)
@@ -345,6 +422,7 @@ namespace SmartBot.Plugins
         };
         public DeckData GetDeckInfo(Card.CClass ownClass, List<string> curDeck)
         {
+            Bot.Log("I AM HERE PHAGGOT I AM HERE PHAGGOT I AM HERE PHAGGOT I AM HERE PHAGGOT");
             List<Card.Cards> CurrentDeck = curDeck.Select(q => (Card.Cards) Enum.Parse(typeof (Card.Cards), q)).ToList();
             var info = new DeckData { DeckList = CurrentDeck };
 
@@ -521,8 +599,9 @@ namespace SmartBot.Plugins
             }
             catch (Exception e)
             {
-                Bot.Log(e.Message);
+                Bot.Log(" Me? " + e.Message);
             }
+            Bot.Log(info.DeckType +"||"+ info.DeckStyle);
             return info;
         }
 
