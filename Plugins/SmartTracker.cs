@@ -614,13 +614,6 @@ namespace SmartBot.Plugins
 
 
        
-        private DeckData SetUnknown(DeckData info, Dictionary<Dictionary<DeckType, Style>, int> deckDictionary)
-        {
-            info.DeckType = DeckType.Unknown;
-            info.DeckStyle = Style.Unknown;
-            return info;
-        }
-
         private static void CheckDirectory(string subdir)
         {
             if (Directory.Exists(subdir))
