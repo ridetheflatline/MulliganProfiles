@@ -8,8 +8,6 @@ using System.Linq;
 using System.Net;
 using SmartBot.Database;
 
-
-
 namespace SmartBot.Plugins
 {
     public static class Extension
@@ -79,7 +77,7 @@ namespace SmartBot.Plugins
         }
     }
 
-    public class SMTracker : Plugin
+    public class SmTracker : Plugin
     {
         public bool identified = false;
         private DeckData informationData;
