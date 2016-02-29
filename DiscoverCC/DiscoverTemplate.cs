@@ -43,44 +43,51 @@ namespace Discover
             bool Even = BoardCondition == BoardState.Even;
             bool Losing = BoardCondition == BoardState.Losing;
             bool Winning = BoardCondition == BoardState.Winning;
-
-            switch (originCard)
+            Card.Cards returnCard = choices[0];
+            switch (originCard)//will override return card from being left choice
             {
                 case Cards.DarkPeddler:
-                    return DarkPeddlerHandler(choices, board, BoardCondition);
+                    returnCard = DarkPeddlerHandler(choices, board, BoardCondition);
+                    break;
 
                 case Cards.EtherealConjurer:
-                    return EtherealConjurerHandler(choices, board, BoardCondition);
+                    returnCard = EtherealConjurerHandler(choices, board, BoardCondition);
                     //return EtherealConjurerHandler(true, choices, board, BoardCondition);
+                    break;
 
                 case Cards.GorillabotA3:
-                    return GorillabotA3Handler(choices, board, BoardCondition);
+                    returnCard =  GorillabotA3Handler(choices, board, BoardCondition);
+                    break;
 
                 case Cards.JeweledScarab:
-                    return JeweledScarabHandler(choices, board, BoardCondition);
+                    returnCard = JeweledScarabHandler(choices, board, BoardCondition);
+                    break;
 
                 case Cards.MuseumCurator:
-                    return MuseumCuratorHandler(choices, board, BoardCondition);
+                    returnCard = MuseumCuratorHandler(choices, board, BoardCondition);
+                    break;
 
                 case Cards.RavenIdol:
-                    return choices[0];
+                    returnCard = choices[0];
+                    break;
 
                 case Cards.TombSpider:
-                    return TombSpiderHandler(choices, board, BoardCondition);
+                    returnCard = TombSpiderHandler(choices, board, BoardCondition);
+                    break;
 
                 case Cards.ArchThiefRafaam:
                     //TODO: This should be easy, opponent without aoe? mummies, winning? lantern, opponent health below 5 and no board on both sides Clock? 
-                    return Winning ? choices[0] : Losing ? choices[1] : board.HeroEnemy.CurrentHealth < 5 ? choices[2] : choices[0];
+                    returnCard = Winning ? choices[0] : Losing ? choices[1] : board.HeroEnemy.CurrentHealth < 5 ? choices[2] : choices[0];
+                    break;
 
                 case Cards.SirFinleyMrrgglton:
                     //TODO: Take into account mode and deck you are playing. 
                     //TODO: Arena <Fireblast > Dagger > Tokens > else> || and so on. 
                     List<KeyValuePair<Card.Cards, int>> filteredTable = _heroPowersPriorityTable.Where(x => choices.Contains(x.Key)).ToList();
-                    return filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
-
-
+                    returnCard = filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
+                    break;
             }
-            return choices[0];
+            return returnCard;
         }
         //TODO: ==================================================DARK PEDDLER=================================================
         //Corruption = Card.Cards.CS2_063; 			         //[1 Mana] [0/0] Corruption                ||| [WARLOCK]
