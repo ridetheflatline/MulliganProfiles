@@ -41,6 +41,7 @@ namespace Discover
 
         public Card.Cards HandlePickDecision(Card.Cards originCard, List<Card.Cards> choices, Board board)
         {
+            Bot.Log("[Discover] This is a custom handler");
             BoardState BoardCondition = GetBoardCondition(board);
             bool Even = BoardCondition == BoardState.Even;
             bool Losing = BoardCondition == BoardState.Losing;
