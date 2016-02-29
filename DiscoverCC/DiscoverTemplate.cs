@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using SmartBot.Database;
 using SmartBot.Discover;
 using SmartBot.Plugins.API;
 
@@ -86,6 +88,21 @@ namespace Discover
                     List<KeyValuePair<Card.Cards, int>> filteredTable = _heroPowersPriorityTable.Where(x => choices.Contains(x.Key)).ToList();
                     returnCard = filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
                     break;
+            }
+            using (
+                StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\DiscoverCC\\DiscoverLog.txt")
+                )
+            {
+                log.WriteLine("{0} Your choices were\n", CardTemplate.LoadFromId(originCard).Name);
+                foreach (var template in choices.Select(CardTemplate.LoadFromId))
+                {
+                    log.Write("{0} ", template.Name);
+                }
+                log.WriteLine("[Best Choice according to Arthur's template] {0}",
+                CardTemplate.LoadFromId(returnCard).Name);
+                log.WriteLine("==============================");
+                log.WriteLine(Bot.CurrentBoard.ToSeed());
+                log.WriteLine("\n==============================");
             }
             return returnCard;
         }
