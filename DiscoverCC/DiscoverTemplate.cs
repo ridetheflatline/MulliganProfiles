@@ -59,7 +59,7 @@ namespace Discover
                     break;
 
                 case Cards.GorillabotA3:
-                    returnCard =  GorillabotA3Handler(choices, board, BoardCondition);
+                    returnCard = GorillabotA3Handler(choices, board, BoardCondition);
                     break;
 
                 case Cards.JeweledScarab:
@@ -260,7 +260,7 @@ namespace Discover
 
         private Card.Cards EtherealConjurerHandler(List<Card.Cards> choices, Board board, BoardState boardCondition)
         {
-            
+
             Dictionary<Card.Cards, int> etherealConjurerDictionary = new Dictionary<Card.Cards, int>
             {
                 {Cards.Polymorph, 0},            //[4 Mana] [0/0] Polymorph             ||| [MAGE]
@@ -752,8 +752,18 @@ namespace Discover
                 {Cards.FjolaLightbane, 0},
                 {Cards.EydisDarkbane, 0},
             };
-            if(board.Hand.Any(c=> c.Template.IsSecret))
+            var damageTuple = CalculateNeededDamageForLethal(board);
+            int withTaunt = damageTuple.Item1;
+            int withoutTaunt = damageTuple.Item2;
+            if (board.Hand.Any(c => c.Template.IsSecret))
                 jeweledScarabDictionary.AddOrUpdate(Cards.KirinTorMage, 100);
+            //This would look like crap with ternary operator
+            if (board.MinionFriend.Any(minion => minion.Template.Race == Card.CRace.BEAST)
+                && withTaunt <= 5 //has a beast and needs 5 damage for lethal
+                || withoutTaunt <= 3) //or needs to deal 3 damage to kill
+            {
+                jeweledScarabDictionary.AddOrUpdate(Cards.KillCommand, 100);
+            }
             List<KeyValuePair<Card.Cards, int>> filteredTable = jeweledScarabDictionary.Where(x => choices.Contains(x.Key)).ToList();
             return filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
         }
