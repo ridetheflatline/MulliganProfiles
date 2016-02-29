@@ -15,7 +15,7 @@ namespace Discover
             map[key] = value;
         }
     }
-    internal class DiscoverTemplate : DiscoverPickHandler
+    public class DiscoverTemplate : DiscoverPickHandler
     {
 
         private const Card.Cards SteadyShot = Card.Cards.DS1h_292;
@@ -156,9 +156,8 @@ namespace Discover
             int BoardLethal = BoardLethals.Item1;
             bool aggro = board.EnemyClass == Card.CClass.PALADIN || board.EnemyClass == Card.CClass.SHAMAN;
 
-            Dictionary<Card.Cards, int> oneDropPriorityTable = new Dictionary<Card.Cards, int>
+            Dictionary<Card.Cards, int> darkPeddlerDictionary = new Dictionary<Card.Cards, int>
             {
-
                 //TODO: all cards should have a value based on board condition via special method. 
                 {Cards.Corruption, 50}, //[1 Mana] [0/0]
                 {Cards.Voidwalker, aggro ? 50 : 30}, //[1 Mana] [1/3]
@@ -201,7 +200,7 @@ namespace Discover
 
 
             };
-            List<KeyValuePair<Card.Cards, int>> filteredTable = oneDropPriorityTable.Where(x => choices.Contains(x.Key)).ToList();
+            List<KeyValuePair<Card.Cards, int>> filteredTable = darkPeddlerDictionary.Where(x => choices.Contains(x.Key)).ToList();
             return filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
 
         }
@@ -224,14 +223,6 @@ namespace Discover
             return new Tuple<int, int>(withTaunt, enemyHealth);
         }
 
-        /// <summary>
-        /// TODO: calculate if you are missing 4 damage to lethal
-        /// </summary>
-        /// <returns></returns>
-        private bool Lethal()
-        {
-            return true;
-        }
 
         //TODO: ==================================================ETHEREAL CONJURER=================================================
         //TODO: ===================================================ALL MAGE SPELLS=================================================
@@ -270,7 +261,7 @@ namespace Discover
         private Card.Cards EtherealConjurerHandler(List<Card.Cards> choices, Board board, BoardState boardCondition)
         {
             
-            Dictionary<Card.Cards, int> spellsTable = new Dictionary<Card.Cards, int>
+            Dictionary<Card.Cards, int> etherealConjurerDictionary = new Dictionary<Card.Cards, int>
             {
                 {Cards.Polymorph, 0},            //[4 Mana] [0/0] Polymorph             ||| [MAGE]
                 {Cards.ArcaneIntellect, 0},      //[3 Mana] [0/0] Arcane Intellect      ||| [MAGE]
@@ -303,7 +294,7 @@ namespace Discover
                 {Cards.PolymorphBoar, 0},        //[3 Mana] [0/0] Polymorph: Boar       ||| [MAGE]
             };
 
-            List<KeyValuePair<Card.Cards, int>> filteredTable = spellsTable.Where(x => choices.Contains(x.Key)).ToList();
+            List<KeyValuePair<Card.Cards, int>> filteredTable = etherealConjurerDictionary.Where(x => choices.Contains(x.Key)).ToList();
             return filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
         }
         /// <summary>
@@ -403,7 +394,7 @@ namespace Discover
 
         private Card.Cards TombSpiderHandler(List<Card.Cards> choices, Board board, BoardState boardCondition)
         {
-            Dictionary<Card.Cards, int> beastTDictionary = new Dictionary<Card.Cards, int>
+            Dictionary<Card.Cards, int> tombSpiderDictionary = new Dictionary<Card.Cards, int>
             {
                 {Cards.FierceMonkey, 0},
                 {Cards.StarvingBuzzard, 0},
@@ -454,7 +445,7 @@ namespace Discover
                 {Cards.CapturedJormungar, 0},
                 {Cards.ArmoredWarhorse, 0},
             };
-            List<KeyValuePair<Card.Cards, int>> filteredTable = beastTDictionary.Where(x => choices.Contains(x.Key)).ToList();
+            List<KeyValuePair<Card.Cards, int>> filteredTable = tombSpiderDictionary.Where(x => choices.Contains(x.Key)).ToList();
             return filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
         }
 
@@ -610,7 +601,7 @@ namespace Discover
 
         private Card.Cards JeweledScarabHandler(List<Card.Cards> choices, Board board, BoardState boardCondition)
         {
-            Dictionary<Card.Cards, int> jeweledScarabList = new Dictionary<Card.Cards, int>
+            Dictionary<Card.Cards, int> jeweledScarabDictionary = new Dictionary<Card.Cards, int>
             {
                 {Cards.Hex, 0},
                 {Cards.FarSight, 0},
@@ -761,8 +752,9 @@ namespace Discover
                 {Cards.FjolaLightbane, 0},
                 {Cards.EydisDarkbane, 0},
             };
-            //jeweledScarabList.AddOrUpdate(Fireblast, 5);
-            List<KeyValuePair<Card.Cards, int>> filteredTable = jeweledScarabList.Where(x => choices.Contains(x.Key)).ToList();
+            if(board.Hand.Any(c=> c.Template.IsSecret))
+                jeweledScarabDictionary.AddOrUpdate(Cards.KirinTorMage, 100);
+            List<KeyValuePair<Card.Cards, int>> filteredTable = jeweledScarabDictionary.Where(x => choices.Contains(x.Key)).ToList();
             return filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
         }
 
@@ -908,7 +900,7 @@ namespace Discover
 
         private Card.Cards MuseumCuratorHandler(List<Card.Cards> choices, Board board, BoardState boardCondition)
         {
-            Dictionary<Card.Cards, int> curatorList = new Dictionary<Card.Cards, int>
+            Dictionary<Card.Cards, int> museumCuratorDictionary = new Dictionary<Card.Cards, int>
             {
                 {Cards.DarkCultist, 0},
                 {Cards.BloodmageThalnos, 0},
@@ -943,7 +935,7 @@ namespace Discover
                 {Cards.Chillmaw, 0},
                 {Cards.TheSkeletonKnight, 0},
             };
-            List<KeyValuePair<Card.Cards, int>> filteredTable = curatorList.Where(x => choices.Contains(x.Key)).ToList();
+            List<KeyValuePair<Card.Cards, int>> filteredTable = museumCuratorDictionary.Where(x => choices.Contains(x.Key)).ToList();
             return filteredTable.First(x => x.Value == filteredTable.Max(y => y.Value)).Key;
         }
 
