@@ -3847,20 +3847,26 @@ namespace SmartBotUI.SmartMulliganV2
 
                 case Card.CClass.PRIEST:
                     List<string> comboPriest = new List<string> { CircleofHealing, CircleofHealing, InnerFire, InnerFire, Alexstrasza, AcolyteofPain, AcolyteofPain, PowerWordShield, PowerWordShield, Silence, Silence, ShadowWordDeath, DivineSpirit, DivineSpirit, NorthshireCleric, NorthshireCleric, HarrisonJones, StormwindKnight, AuchenaiSoulpriest, HolyNova, Loatheb, Deathlord, Deathlord, VelensChosen, GnomereganInfantry, Lightbomb, Lightbomb, EmperorThaurissan, };
-                    List<string> dragonPriest = new List<string> { CabalShadowPriest, CabalShadowPriest, AzureDrake, PowerWordShield, PowerWordShield, Ysera, ShadowWordDeath, ShadowWordDeath, NorthshireCleric, HarrisonJones, HolyNova, SludgeBelcher, VelensChosen, VelensChosen, DrBoom, Shrinkmeister, Shrinkmeister, Voljin, Lightbomb, Lightbomb, BlackwingTechnician, BlackwingTechnician, TwilightWhelp, TwilightWhelp, TwilightGuardian, TwilightGuardian, Chillmaw, WyrmrestAgent, WyrmrestAgent, };
-                    List<string> dragonPriestv2 = new List<string> { CabalShadowPriest, AzureDrake, PowerWordShield, Ysera, ShadowWordDeath, NorthshireCleric, HolyNova, DarkCultist, VelensChosen, Lightbomb, BlackwingTechnician, BlackwingCorruptor, Chromaggus, TwilightWhelp, TwilightGuardian, WyrmrestAgent, BrannBronzebeard, Entomb, MuseumCurator };
+                    
                     List<string> controlPriest = new List<string> { LightoftheNaaru, LightoftheNaaru, PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, MuseumCurator, MuseumCurator, Shrinkmeister, ShadowWordDeath, AuchenaiSoulpriest, AuchenaiSoulpriest, HolyNova, Entomb, Entomb, Lightbomb, Lightbomb, CabalShadowPriest, WildPyromancer, WildPyromancer, Deathlord, Deathlord, InjuredBlademaster, InjuredBlademaster, SludgeBelcher, SludgeBelcher, JusticarTrueheart, Ysera, };
                     List<string> mechPriest = new List<string> { PowerWordShield, PowerWordShield, NorthshireCleric, NorthshireCleric, HolyNova, HolyNova, DarkCultist, DarkCultist, VelensChosen, VelensChosen, DrBoom, SpiderTank, UpgradedRepairBot, UpgradedRepairBot, Mechwarper, Mechwarper, PilotedShredder, PilotedShredder, ClockworkGnome, ClockworkGnome, Shadowboxer, Shadowboxer, Voljin, SpawnofShadows, GorillabotA3, Entomb, MuseumCurator, MuseumCurator, };
                     List<string> basicPriest = new List<string> { ChillwindYeti, BoulderfistOgre, AcidicSwampOoze, GnomishInventor, StormwindChampion, ShadowWordPain, SenjinShieldmasta, MindControl, HolySmite, PowerWordShield, ShatteredSunCleric, NoviceEngineer, ShadowWordDeath, BloodfenRaptor, NorthshireCleric, HolyNova, };
                     DeckDictionary = new Dictionary<Dictionary<DeckType, Style>, int>
                     {
                         {new Dictionary<DeckType, Style> {{DeckType.ComboPriest, Style.Combo}}, CurrentDeck.Intersect(comboPriest).ToList().Count},
-                        {new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriest).ToList().Count},
-                        {new Dictionary<DeckType, Style> {{DeckType.DragonPriest, Style.Tempo}}, CurrentDeck.Intersect(dragonPriestv2).ToList().Count},
                         {new Dictionary<DeckType, Style> {{DeckType.ControlPriest, Style.Control}}, CurrentDeck.Intersect(controlPriest).ToList().Count},
                         {new Dictionary<DeckType, Style> {{DeckType.MechPriest, Style.Aggro}}, CurrentDeck.Intersect(mechPriest).ToList().Count},
                         {new Dictionary<DeckType, Style> {{DeckType.Basic, Style.Control}}, CurrentDeck.Intersect(basicPriest).ToList().Count},
                     };
+                    if (NumDragons > 3 && CurrentDeck.Contains(WyrmrestAgent))
+                    {
+                        List<string> dragonPriest = new List<string> { CabalShadowPriest, CabalShadowPriest, AzureDrake, PowerWordShield, PowerWordShield, Ysera, ShadowWordDeath, ShadowWordDeath, NorthshireCleric, HarrisonJones, HolyNova, SludgeBelcher, VelensChosen, VelensChosen, DrBoom, Shrinkmeister, Shrinkmeister, Voljin, Lightbomb, Lightbomb, BlackwingTechnician, BlackwingTechnician, TwilightWhelp, TwilightWhelp, TwilightGuardian, TwilightGuardian, Chillmaw, WyrmrestAgent, WyrmrestAgent, };
+                        List<string> dragonPriestv2 = new List<string> { CabalShadowPriest, AzureDrake, PowerWordShield, Ysera, ShadowWordDeath, NorthshireCleric, HolyNova, DarkCultist, VelensChosen, Lightbomb, BlackwingTechnician, BlackwingCorruptor, Chromaggus, TwilightWhelp, TwilightGuardian, WyrmrestAgent, BrannBronzebeard, Entomb, MuseumCurator };
+                        DeckDictionary.AddOrUpdate(new Dictionary<DeckType, Style> { { DeckType.DragonPriest, Style.Tempo } }, CurrentDeck.Intersect(dragonPriest).ToList().Count);
+                        DeckDictionary.AddOrUpdate(
+                            new Dictionary<DeckType, Style> { { DeckType.DragonPriest, Style.Tempo } },
+                            CurrentDeck.Intersect(dragonPriestv2).ToList().Count);
+                    }
                     BestDeck = DeckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
 
                     info.DeckType = BestDeck.Keys.First();
