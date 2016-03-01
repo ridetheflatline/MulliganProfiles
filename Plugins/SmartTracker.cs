@@ -36,8 +36,6 @@ namespace SmartBot.Plugins
         public bool AutoUpdateTracker { get; set; }
         //[DisplayName("Random Intro Messages")]
         //public bool RandomMovieQuotes { get; private set; }
-        [DisplayName("[S] B# Public Key")]
-        public string BitCoin { get; private set; }
         [DisplayName("[1] Identifier Mode")]
         public IdentityMode mode { get; set; }
 
@@ -50,11 +48,7 @@ namespace SmartBot.Plugins
         [DisplayName("[test] Mulligan Tester: enemy")]
         public DeckType MT_OpponentDeck { get; set; }
 
-        [DisplayName("Donatuib Button")]
-        public bool donate { get; set; }
-
-       
-
+        
         [Browsable(false)]
         public string LSmartMulliganV3 { get; private set; }
         [Browsable(false)]
@@ -70,7 +64,6 @@ namespace SmartBot.Plugins
             MT_YourDeck = DeckType.Unknown;
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
-            BitCoin = "16ujoN2p8JaxBvkWFxPRcy1x8roG1XMeBM"; 
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
 
