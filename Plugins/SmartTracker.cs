@@ -17,6 +17,17 @@ namespace SmartBot.Plugins
         {
             map[key] = value;
         }
+
+        public static bool ContainsAll<T1>(this List<T1> list, params T1[] items)
+        {
+            return !items.Except(list).Any();
+
+
+        }
+        public static bool ContainsSome<T1>(this List<T1> list, params T1[] items)
+        {
+            return list.Intersect(items).Any();
+        }
     }
 
     [Serializable]
@@ -27,7 +38,7 @@ namespace SmartBot.Plugins
         /// This variable is to add extra two option to SmartTracker that will allow you
         /// to use Mulligan Tester by Botfanatic
         /// </summary>
-        private const bool MulliganTesterDebug = false;
+        private const bool MulliganTesterDebug = true;
 
 
         [DisplayName("[0] Update Mulligan")]
@@ -42,10 +53,10 @@ namespace SmartBot.Plugins
         [DisplayName("[1] Your Deck")]
         public DeckType ForceDeckType { get; set; }
         [Browsable(MulliganTesterDebug ? true : false)]
-        [DisplayName("[test] Mulligan Tester: you")]
+        [DisplayName("Mulligan Tester: you")]
         public DeckType MT_YourDeck { get; set; }
         [Browsable(MulliganTesterDebug ? true : false)]
-        [DisplayName("[test] Mulligan Tester: enemy")]
+        [DisplayName("Mulligan Tester: enemy")]
         public DeckType MT_OpponentDeck { get; set; }
 
         
@@ -81,74 +92,47 @@ namespace SmartBot.Plugins
 
         public override void OnTick()
         {
-            switch (Bot.CurrentScene())
+            if (!started) return;
+            
+            if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
             {
-                case Bot.Scene.GAMEPLAY:
-                    if (Bot.CurrentBoard == null || identified) break;
-                   
-                    informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
-                    using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
-                    {
-                        readMe.WriteLine("{0}~{1}~{2}~{3}", 
-                            ((SmartTracker)DataContainer).mode,
-                            ((SmartTracker)DataContainer).mode == IdentityMode.Auto ? informationData.DeckType : ((SmartTracker)DataContainer).ForceDeckType,
-                            informationData.DeckStyle, string.Join(";", informationData.DeckList));
-                    }
-                    if (((SmartTracker)DataContainer).mode == IdentityMode.Manual
-                        && informationData.DeckType == ((SmartTracker)DataContainer).ForceDeckType)
-                        Bot.Log("[Tracker] Automatic identification yields to the same identification as your forcefully inserted deck.");
-                    Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|", informationData.DeckType, informationData.DeckStyle, string.Join(";", informationData.DeckList)));
-                    identified = true;
-                    break;
-
-                case Bot.Scene.INVALID:
-                    identified = false;
-                    break;
-                case Bot.Scene.STARTUP:
-                    identified = false;
-                    break;
-                case Bot.Scene.LOGIN:
-                    identified = false;
-                    break;
-                case Bot.Scene.HUB:
-                    identified = false;
-                    break;
-                case Bot.Scene.COLLECTIONMANAGER:
-                    identified = false;
-                    break;
-                case Bot.Scene.PACKOPENING:
-                    identified = false;
-                    break;
-                case Bot.Scene.TOURNAMENT:
-                    identified = false;
-                    break;
-                case Bot.Scene.FRIENDLY:
-                    identified = false;
-                    break;
-                case Bot.Scene.FATAL_ERROR:
-                    identified = false;
-                    break;
-                case Bot.Scene.DRAFT:
-                    identified = false;
-                    break;
-                case Bot.Scene.CREDITS:
-                    identified = false;
-                    break;
-                case Bot.Scene.RESET:
-                    identified = false;
-                    break;
-                case Bot.Scene.ADVENTURE:
-                    identified = false;
-                    break;
-                case Bot.Scene.TAVERN_BRAWL:
-                    identified = false;
-                    break;
-                default:
-                    identified = false;
-                    break;
-
+                IdentifyMyStuff();
+            }
+            if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY)
+            {
+                identified = false;
             }
         }
+
+        public void IdentifyMyStuff()
+        {
+            if (Bot.CurrentBoard == null || identified) return;
+            
+            informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
+            if (((SmartTracker)DataContainer).mode == IdentityMode.Manual)
+            {
+                DeckType tempType = informationData.DeckType;
+                informationData.DeckType = ((SmartTracker)DataContainer).ForceDeckType;
+                informationData.DeckStyle = DeckStyles[((SmartTracker)DataContainer).ForceDeckType];
+                Bot.Log(string.Format("[SmartTracker] You are forcing SmartMulliganV3 to treat your deck as {0}, {1}, \n List: {2}" +
+                                      "\n[Debug] Tracker would have recognized it as {3}, {4}", informationData.DeckType,
+                informationData.DeckStyle, string.Join(";", informationData.DeckList), tempType, DeckStyles[tempType]));
+            }
+            using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
+            {
+                readMe.WriteLine("{0}~{1}~{2}~{3}",
+                    ((SmartTracker)DataContainer).mode,
+                    informationData.DeckType,
+                    informationData.DeckStyle,
+                    string.Join(";", informationData.DeckList));
+            }
+            if (((SmartTracker)DataContainer).mode == IdentityMode.Auto)
+                Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|", informationData.DeckType,
+                informationData.DeckStyle, string.Join(";", informationData.DeckList)));
+            identified = true;
+            return;
+        }
+    
 
         public override void OnPluginCreated()
         {
@@ -170,9 +154,17 @@ namespace SmartBot.Plugins
             }
         }
 
+        private static bool started = false; 
         public override void OnStarted()
         {
-
+            started = true;
+            if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
+            {
+                Bot.Log((Bot.CurrentBoard == null) +" " +identified);
+                IdentifyMyStuff();
+            }
+            Bot.Log(Bot.CurrentScene().ToString());
+            
             using (StreamWriter debugStreamWriter = new StreamWriter(MulliganInformation + "debug_decks.v3", false))
             {
                 debugStreamWriter.WriteLine("{0}|{1}", ((SmartTracker)DataContainer).MT_YourDeck, ((SmartTracker)DataContainer).MT_OpponentDeck);
@@ -318,7 +310,7 @@ namespace SmartBot.Plugins
         public override void OnStopped()
         {
             identified = false;
-
+            started = false;
         }
 
         public void CheckOpponentDeck(string res)
@@ -351,7 +343,7 @@ namespace SmartBot.Plugins
             
             {DeckType.Unknown, Style.Unknown},
             {DeckType.Arena, Style.Control},
-
+            /*Warrior*/
             {DeckType.ControlWarrior, Style.Control},
             {DeckType.FatigueWarrior, Style.Control},
             {DeckType.DragonWarrior, Style.Control},
@@ -359,27 +351,31 @@ namespace SmartBot.Plugins
             {DeckType.WorgenOTKWarrior, Style.Combo},
             {DeckType.MechWarrior, Style.Aggro},
             {DeckType.FaceWarrior, Style.Face},
-
+            /*Paladin*/
             {DeckType.SecretPaladin, Style.Tempo},
             {DeckType.MidRangePaladin, Style.Control},
             {DeckType.DragonPaladin, Style.Control},
             {DeckType.AggroPaladin, Style.Aggro},
             {DeckType.AnyfinMurglMurgl, Style.Combo},
-
+            /*Druid*/
             {DeckType.RampDruid, Style.Control},
             {DeckType.AggroDruid, Style.Aggro},
             {DeckType.DragonDruid, Style.Control},
             {DeckType.MidRangeDruid, Style.Combo},
             {DeckType.TokenDruid, Style.Tempo},
-
+            {DeckType.SilenceDruid,Style.Control},
+            {DeckType.MechDruid,Style.Combo},
+            {DeckType.AstralDruid,Style.Control},
+            /*Warlock*/
             {DeckType.Handlock, Style.Control},
             {DeckType.RenoLock, Style.Control},
-            {DeckType.Zoolock, Style.Tempo},
+            {DeckType.Zoolock, Style.Tempo},//Same handler as flood zoo and reliquary
             {DeckType.DemonHandlock, Style.Control},
             {DeckType.DemonZooWarlock, Style.Tempo},
             {DeckType.DragonHandlock, Style.Control},
-            {DeckType.MalyLock, Style.Control},
-
+            {DeckType.MalyLock, Style.Combo},
+            {DeckType.RenoComboLock, Style.Combo},
+            /*Mage*/
             {DeckType.TempoMage, Style.Tempo},
             {DeckType.FreezeMage, Style.Control},
             {DeckType.FaceFreezeMage, Style.Aggro},
@@ -387,26 +383,27 @@ namespace SmartBot.Plugins
             {DeckType.MechMage, Style.Aggro},
             {DeckType.EchoMage, Style.Control},
             {DeckType.FatigueMage, Style.Control},
-
+            /*Priest*/
             {DeckType.DragonPriest, Style.Tempo},
             {DeckType.ControlPriest, Style.Control},
-
             {DeckType.ComboPriest, Style.Combo},
             {DeckType.MechPriest, Style.Aggro},
             {DeckType.ShadowPriest, Style.Combo},
-
+            /*Hunter*/
             {DeckType.MidRangeHunter, Style.Tempo},
             {DeckType.HybridHunter, Style.Aggro},
             {DeckType.FaceHunter, Style.Face},
             {DeckType.HatHunter, Style.Control},
-
+            {DeckType.CamelHunter, Style.Control },
+            /*Rogue*/
             {DeckType.OilRogue, Style.Combo},
             {DeckType.PirateRogue, Style.Aggro},
             {DeckType.FaceRogue, Style.Face},
             {DeckType.MalyRogue, Style.Combo},
             {DeckType.RaptorRogue, Style.Tempo},
             {DeckType.FatigueRogue, Style.Combo},
-
+            {DeckType.MiracleRogue, Style.Combo},
+            /*Cance... I mean Shaman*/
             {DeckType.FaceShaman, Style.Face},
             {DeckType.MechShaman, Style.Aggro},
             {DeckType.DragonShaman, Style.Control},
@@ -414,12 +411,12 @@ namespace SmartBot.Plugins
             {DeckType.MalygosShaman, Style.Combo},
             {DeckType.ControlShaman, Style.Control},
             {DeckType.BloodlustShaman, Style.Combo},
-
-            {DeckType.Basic, Style.Control}
+            {DeckType.BattleryShaman, Style.Control }, //TODO: me
+            /*Poor Kids*/
+            {DeckType.Basic, Style.Tempo}
         };
         public DeckData GetDeckInfo(Card.CClass ownClass, List<string> curDeck)
         {
-            Bot.Log("I AM HERE PHAGGOT I AM HERE PHAGGOT I AM HERE PHAGGOT I AM HERE PHAGGOT");
             List<Card.Cards> CurrentDeck = curDeck.Select(q => (Card.Cards) Enum.Parse(typeof (Card.Cards), q)).ToList();
             var info = new DeckData { DeckList = CurrentDeck };
 
@@ -434,8 +431,8 @@ namespace SmartBot.Plugins
                     List<Card.Cards> MechShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.Crackle, Cards.Crackle, Cards.TotemGolem, Cards.TotemGolem, Cards.WhirlingZapomatic, Cards.WhirlingZapomatic, Cards.Powermace, Cards.Powermace, Cards.LavaBurst, Cards.LavaBurst, Cards.UnboundElemental, Cards.UnboundElemental, Cards.Doomhammer, Cards.Doomhammer, Cards.Cogmaster, Cards.Cogmaster, Cards.LeperGnome, Cards.SirFinleyMrrgglton, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.Mechwarper, Cards.Mechwarper, Cards.SpiderTank, Cards.SpiderTank, };
                     List<Card.Cards> DragonShaman = new List<Card.Cards> { Cards.EarthShock, Cards.FeralSpirit, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.Deathwing, Cards.Ysera, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.LavaShock, Cards.BlackwingCorruptor, Cards.TotemGolem, Cards.TotemGolem, Cards.AncestralKnowledge, Cards.HealingWave, Cards.HealingWave, Cards.TheMistcaller, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.Chillmaw, Cards.JeweledScarab, Cards.JeweledScarab, Cards.BrannBronzebeard, Cards.TunnelTrogg, Cards.TunnelTrogg, };
                     List<Card.Cards> TotemShaman = new List<Card.Cards> { Cards.EarthShock, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.AlAkirtheWindlord, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.DefenderofArgus, Cards.ManaTideTotem, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.ZombieChow, Cards.ZombieChow, Cards.TotemGolem, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.TuskarrTotemic, Cards.ThunderBluffValiant, Cards.ThunderBluffValiant, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.HauntedCreeper, Cards.HauntedCreeper, };
-
-                    if(CurrentDeck.Contains(Cards.Malygos))
+                    List<Card.Cards> battlecryShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.StormforgedAxe, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.ZombieChow, Cards.ZombieChow, Cards.Loatheb, Cards.DrBoom, Cards.TotemGolem, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.TuskarrTotemic, Cards.JusticarTrueheart, Cards.JeweledScarab, Cards.JeweledScarab, Cards.BrannBronzebeard, Cards.RumblingElemental, Cards.RumblingElemental, Cards.TunnelTrogg, Cards.TunnelTrogg, };
+                    if (CurrentDeck.Contains(Cards.Malygos))
                      {
                         List<Card.Cards> MalygosShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.EarthShock, Cards.EarthShock, Cards.FarSight, Cards.FarSight, Cards.StormforgedAxe, Cards.FeralSpirit, Cards.FeralSpirit, Cards.FrostShock, Cards.FrostShock, Cards.Malygos, Cards.GnomishInventor, Cards.GnomishInventor, Cards.Crackle, Cards.Crackle, Cards.Hex, Cards.Hex, Cards.LavaBurst, Cards.LavaBurst, Cards.ManaTideTotem, Cards.ManaTideTotem, Cards.LightningStorm, Cards.LightningStorm, Cards.AncestorsCall, Cards.AncestorsCall, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Alexstrasza, Cards.AzureDrake, };
                         deckDictionary.AddOrUpdate(DeckType.MalygosShaman, CurrentDeck.Intersect(MalygosShaman).Count());
@@ -446,11 +443,26 @@ namespace SmartBot.Plugins
                     List<Card.Cards> BasicChaman = new List<Card.Cards> { Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.Hex, Cards.Hex, Cards.Bloodlust, Cards.FireElemental, Cards.FireElemental, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.MurlocTidehunter, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.FrostwolfWarlord, Cards.FrostwolfWarlord, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, Cards.StormwindChampion, };
                     deckDictionary.AddOrUpdate(DeckType.FaceShaman, CurrentDeck.Intersect(FaceShaman).Count());
                     deckDictionary.AddOrUpdate(DeckType.MechShaman, CurrentDeck.Intersect(MechShaman).Count());
-                    deckDictionary.AddOrUpdate(DeckType.DragonShaman, CurrentDeck.Intersect(DragonShaman).Count());
+                    if (CurrentDeck.ContainsSome(Cards.Malygos, Cards.TwilightGuardian, Cards.AzureDrake))
+                    {
+                        deckDictionary.AddOrUpdate(DeckType.DragonShaman,
+                            CurrentDeck.Intersect(DragonShaman).Count());
+                    }
                     deckDictionary.AddOrUpdate(DeckType.TotemShaman, CurrentDeck.Intersect(TotemShaman).Count());
                     
-                    deckDictionary.AddOrUpdate(DeckType.ControlShaman, CurrentDeck.Intersect(ControlShaman).Count());
-                    deckDictionary.AddOrUpdate(DeckType.BloodlustShaman, CurrentDeck.Intersect(BloodlustShaman).Count());
+                        deckDictionary.AddOrUpdate(DeckType.ControlShaman, 
+                            CurrentDeck.Intersect(ControlShaman).Count());
+                    if (CurrentDeck.Contains(Cards.Bloodlust))
+                    {
+                        deckDictionary.AddOrUpdate(DeckType.BloodlustShaman,
+                            CurrentDeck.Intersect(BloodlustShaman).Count());
+                    }
+                    if (CurrentDeck.Contains(Cards.RumblingElemental))
+                    {
+                        deckDictionary.AddOrUpdate(DeckType.BloodlustShaman,
+                            CurrentDeck.Intersect(battlecryShaman).Count());
+                    }
+
                     deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicChaman).Count());
                    
                     break;
@@ -467,7 +479,7 @@ namespace SmartBot.Plugins
                     }
                     List<Card.Cards> ContrlPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.CircleofHealing, Cards.CircleofHealing, Cards.Thoughtsteal, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.InjuredBlademaster, Cards.InjuredBlademaster, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.AuchenaiSoulpriest, Cards.AuchenaiSoulpriest, Cards.HolyNova, Cards.ZombieChow, Cards.ZombieChow, Cards.Deathlord, Cards.Deathlord, Cards.LightoftheNaaru, Cards.LightoftheNaaru, Cards.Lightbomb, Cards.Lightbomb, Cards.JusticarTrueheart, Cards.EliseStarseeker, Cards.Entomb, Cards.Entomb, Cards.MuseumCurator, };
                     deckDictionary.AddOrUpdate(DeckType.ControlPriest, CurrentDeck.Intersect(ContrlPriest).Count());
-                    if (CurrentDeck.Any(c => c == Cards.InnerFire || c == Cards.ProphetVelen))
+                    if (CurrentDeck.ContainsSome(Cards.InnerFire,Cards.ProphetVelen))
                     {
                         List<Card.Cards> ComboPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.ProphetVelen, Cards.Malygos, Cards.AzureDrake, Cards.ShadowWordPain, Cards.LootHoarder, Cards.LootHoarder, Cards.HolySmite, Cards.HolySmite, Cards.MindBlast, Cards.MindBlast, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.HolyFire, Cards.HolyFire, Cards.BloodmageThalnos, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HarrisonJones, Cards.HolyNova, Cards.HolyNova, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.VelensChosen, Cards.VelensChosen, Cards.EmperorThaurissan, };
                         deckDictionary.AddOrUpdate(DeckType.ComboPriest, CurrentDeck.Intersect(ComboPriest).Count());
@@ -547,26 +559,81 @@ namespace SmartBot.Plugins
                     List<Card.Cards> faceWar = new List<Card.Cards> { Cards.HeroicStrike, Cards.HeroicStrike, Cards.ArcaneGolem, Cards.ArcaneGolem, Cards.SouthseaDeckhand, Cards.SouthseaDeckhand, Cards.KorkronElite, Cards.KorkronElite, Cards.Wolfrider, Cards.DreadCorsair, Cards.DreadCorsair, Cards.MortalStrike, Cards.MortalStrike, Cards.IronbeakOwl, Cards.LeperGnome, Cards.LeperGnome, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.BloodsailRaider, Cards.BloodsailRaider, Cards.Upgrade, Cards.Upgrade, Cards.DeathsBite, Cards.DeathsBite, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.Bash, Cards.Bash, Cards.SirFinleyMrrgglton, Cards.CursedBlade, };
                     deckDictionary.AddOrUpdate(DeckType.ControlWarrior, CurrentDeck.Intersect(controlWarriorCards).Count());
                     deckDictionary.AddOrUpdate(DeckType.DragonWarrior, CurrentDeck.Intersect(dragonWarrior).Count());
-                    deckDictionary.AddOrUpdate(DeckType.PatronWarrior, CurrentDeck.Intersect(patronWarrior).Count());
-                    deckDictionary.AddOrUpdate(DeckType.WorgenOTKWarrior, CurrentDeck.Intersect(worgen).Count());
+                    if (CurrentDeck.Contains(Cards.GrimPatron))
+                    {
+                        deckDictionary.AddOrUpdate(DeckType.PatronWarrior, CurrentDeck.Intersect(patronWarrior).Count());
+                    }
+                    if (CurrentDeck.ContainsAll(Cards.RagingWorgen, Cards.Charge))
+                    {
+                        deckDictionary.AddOrUpdate(DeckType.WorgenOTKWarrior, CurrentDeck.Intersect(worgen).Count());
+                    }
                     deckDictionary.AddOrUpdate(DeckType.MechWarrior, CurrentDeck.Intersect(mechWar).Count());
                     deckDictionary.AddOrUpdate(DeckType.FaceWarrior, CurrentDeck.Intersect(faceWar).Count());
                     break;
 
-                #endregion
+                    #endregion
 
-                #region warlock
+                    #region warlock
 
                 case Card.CClass.WARLOCK:
-                   
+                    if (CurrentDeck.ContainsAll(Cards.MountainGiant, Cards.TwilightDrake))
+                    {
+                        List<Card.Cards> handlock = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.MortalCoil, Cards.MortalCoil, Cards.BigGameHunter, Cards.MoltenGiant, Cards.MoltenGiant, Cards.Hellfire, Cards.AncientWatcher, Cards.AncientWatcher, Cards.MountainGiant, Cards.MountainGiant, Cards.TwilightDrake, Cards.TwilightDrake, Cards.SunfuryProtector, Cards.SunfuryProtector, Cards.LordJaraxxus, Cards.IronbeakOwl, Cards.IronbeakOwl, Cards.DefenderofArgus, Cards.EarthenRingFarseer, Cards.Shadowflame, Cards.ZombieChow, Cards.ZombieChow, Cards.SludgeBelcher, Cards.DrBoom, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Darkbomb, Cards.Darkbomb, Cards.BrannBronzebeard, };
+                        deckDictionary.AddOrUpdate(DeckType.Handlock, CurrentDeck.Intersect(handlock).Count());
+                    }
+                    if (CurrentDeck.Contains(Cards.RenoJackson))
+                    {
+                        List<Card.Cards> renoLock = new List<Card.Cards> { Cards.MortalCoil, Cards.BigGameHunter, Cards.AcidicSwampOoze, Cards.MoltenGiant, Cards.Hellfire, Cards.AncientWatcher, Cards.MountainGiant, Cards.TwilightDrake, Cards.MindControlTech, Cards.SunfuryProtector, Cards.LordJaraxxus, Cards.IronbeakOwl, Cards.RagnarostheFirelord, Cards.DefenderofArgus, Cards.SiphonSoul, Cards.AbusiveSergeant, Cards.Shadowflame, Cards.Voidcaller, Cards.SludgeBelcher, Cards.DrBoom, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.MalGanis, Cards.Darkbomb, Cards.Implosion, Cards.ImpGangBoss, Cards.EmperorThaurissan, Cards.Demonwrath, Cards.RefreshmentVendor, Cards.RenoJackson, };
+                        deckDictionary.AddOrUpdate(DeckType.RenoLock, CurrentDeck.Intersect(renoLock).Count());
+                        if (CurrentDeck.ContainsAll(Cards.ArcaneGolem, Cards.FacelessManipulator))
+                        {
+                            List<Card.Cards> RenoCombo = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.MortalCoil, Cards.BigGameHunter, Cards.AcidicSwampOoze, Cards.Hellfire, Cards.PowerOverwhelming, Cards.TwilightDrake, Cards.TwistingNether, Cards.FacelessManipulator, Cards.LordJaraxxus, Cards.IronbeakOwl, Cards.DefenderofArgus, Cards.EarthenRingFarseer, Cards.SiphonSoul, Cards.AbusiveSergeant, Cards.Shadowflame, Cards.LeeroyJenkins, Cards.ZombieChow, Cards.Loatheb, Cards.SludgeBelcher, Cards.DrBoom, Cards.AntiqueHealbot, Cards.Darkbomb, Cards.ImpGangBoss, Cards.EmperorThaurissan, Cards.Demonwrath, Cards.RefreshmentVendor, Cards.BrannBronzebeard, Cards.RenoJackson, Cards.DarkPeddler, };
+                            deckDictionary.AddOrUpdate(DeckType.RenoComboLock, CurrentDeck.Intersect(RenoCombo).Count()+1);//addomg some extra weight
+                        }
+                    }
+                    List<Card.Cards> zoolock = new List<Card.Cards> { Cards.BigGameHunter, Cards.AcidicSwampOoze, Cards.FlameImp, Cards.FlameImp, Cards.DarkIronDwarf, Cards.PowerOverwhelming, Cards.PowerOverwhelming, Cards.DireWolfAlpha, Cards.Voidwalker, Cards.Voidwalker, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.IronbeakOwl, Cards.Doomguard, Cards.Doomguard, Cards.DarkPeddler, Cards.DarkPeddler, Cards.ImpGangBoss, Cards.ImpGangBoss, Cards.Implosion, Cards.Implosion, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.NerubianEgg, Cards.NerubianEgg, Cards.BrannBronzebeard, Cards.DefenderofArgus, Cards.DefenderofArgus, };
+                    List<Card.Cards> demonzoolock = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.BigGameHunter, Cards.FlameImp, Cards.VoidTerror, Cards.PowerOverwhelming, Cards.PowerOverwhelming, Cards.DireWolfAlpha, Cards.Voidwalker, Cards.Voidwalker, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.IronbeakOwl, Cards.Doomguard, Cards.Doomguard, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.Voidcaller, Cards.Voidcaller, Cards.NerubianEgg, Cards.NerubianEgg, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.MalGanis, Cards.Implosion, Cards.Implosion, Cards.ImpGangBoss, Cards.ImpGangBoss, };
+                    List<Card.Cards> demonHandLock = new List<Card.Cards> { Cards.DreadInfernal, Cards.MortalCoil, Cards.MortalCoil, Cards.MoltenGiant, Cards.MoltenGiant, Cards.AncientWatcher, Cards.AncientWatcher, Cards.MountainGiant, Cards.MountainGiant, Cards.TwilightDrake, Cards.TwilightDrake, Cards.SunfuryProtector, Cards.SunfuryProtector, Cards.LordJaraxxus, Cards.IronbeakOwl, Cards.DefenderofArgus, Cards.SiphonSoul, Cards.Shadowflame, Cards.Shadowflame, Cards.ZombieChow, Cards.ZombieChow, Cards.Voidcaller, Cards.Voidcaller, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.DrBoom, Cards.AntiqueHealbot, Cards.MalGanis, Cards.Darkbomb, };
+                    deckDictionary.AddOrUpdate(DeckType.Zoolock, CurrentDeck.Intersect(zoolock).Count());
+                    deckDictionary.AddOrUpdate(DeckType.DemonZooWarlock, CurrentDeck.Intersect(demonzoolock).Count());
+                    deckDictionary.AddOrUpdate(DeckType.DemonHandlock, CurrentDeck.Intersect(demonHandLock).Count());
+                    if (CurrentDeck.ContainsAll(Cards.TwilightGuardian, Cards.MountainGiant))
+                    {
+                        List<Card.Cards> dragonHandlock = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.MortalCoil, Cards.MortalCoil, Cards.Darkbomb, Cards.Darkbomb, Cards.AncientWatcher, Cards.AncientWatcher, Cards.IronbeakOwl, Cards.SunfuryProtector, Cards.SunfuryProtector, Cards.BigGameHunter, Cards.Hellfire, Cards.Hellfire, Cards.Shadowflame, Cards.DefenderofArgus, Cards.TwilightDrake, Cards.TwilightDrake, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.AntiqueHealbot, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.EmperorThaurissan, Cards.Chillmaw, Cards.DrBoom, Cards.Alexstrasza, Cards.MountainGiant, Cards.MountainGiant, Cards.MoltenGiant, Cards.MoltenGiant, };
+                        deckDictionary.AddOrUpdate(DeckType.DragonHandlock, CurrentDeck.Intersect(dragonHandlock).Count());
+                    }
+                    if (CurrentDeck.Contains(Cards.Malygos))
+                    {
+                        List<Card.Cards> malyLock = new List<Card.Cards> { Cards.MortalCoil, Cards.MortalCoil, Cards.BigGameHunter, Cards.BigGameHunter, Cards.Hellfire, Cards.Hellfire, Cards.Malygos, Cards.AzureDrake, Cards.TwilightDrake, Cards.TwilightDrake, Cards.IronbeakOwl, Cards.Soulfire, Cards.EarthenRingFarseer, Cards.AbusiveSergeant, Cards.ZombieChow, Cards.ZombieChow, Cards.Loatheb, Cards.SludgeBelcher, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Darkbomb, Cards.Darkbomb, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.EmperorThaurissan, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.BrannBronzebeard, Cards.DarkPeddler, Cards.DarkPeddler, };
+                        deckDictionary.AddOrUpdate(DeckType.MalyLock, CurrentDeck.Intersect(malyLock).Count());
+                    }
                     break;
-
                 #endregion
 
                 #region hunter
 
                 case Card.CClass.HUNTER:
-                   
+                    if (CurrentDeck.ContainsAll(Cards.DesertCamel, Cards.InjuredKvaldir))
+                    {
+                        List<Card.Cards> injuredCamel = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.HuntersMark, Cards.HuntersMark, Cards.CultMaster, Cards.CultMaster, Cards.Houndmaster, Cards.Houndmaster, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.Webspinner, Cards.Webspinner, Cards.Loatheb, Cards.SludgeBelcher, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.PilotedShredder, Cards.Glaivezooka, Cards.Glaivezooka, Cards.FlameJuggler, Cards.FlameJuggler, Cards.InjuredKvaldir, Cards.InjuredKvaldir, Cards.DesertCamel, Cards.DesertCamel, };
+                        deckDictionary.AddOrUpdate(DeckType.CamelHunter, CurrentDeck.Intersect(injuredCamel).Count());
+                    }
+                    if (CurrentDeck.ContainsAll(Cards.SavannahHighmane, Cards.LeperGnome))
+                    {
+                        List<Card.Cards> hybridHunter = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.FreezingTrap, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.ExplosiveTrap, Cards.EaglehornBow, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KillCommand, Cards.KillCommand, Cards.IronbeakOwl, Cards.LeperGnome, Cards.LeperGnome, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.Loatheb, Cards.MadScientist, Cards.MadScientist, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Glaivezooka, Cards.Glaivezooka, Cards.QuickShot, Cards.ArgentHorserider, Cards.ArgentHorserider, };
+                        deckDictionary.AddOrUpdate(DeckType.HybridHunter, CurrentDeck.Intersect(hybridHunter).Count());
+                    }
+                    if (CurrentDeck.Contains(Cards.ExplorersHat))
+                    {
+                        List<Card.Cards> hatHunter = new List<Card.Cards> { Cards.HuntersMark, Cards.HuntersMark, Cards.SylvanasWindrunner, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.Flare, Cards.ZombieChow, Cards.NerubianEgg, Cards.NerubianEgg, Cards.Webspinner, Cards.Webspinner, Cards.Loatheb, Cards.HauntedCreeper, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Glaivezooka, Cards.Glaivezooka, Cards.QuickShot, Cards.QuickShot, Cards.BallofSpiders, Cards.BearTrap, Cards.ExplorersHat, Cards.ExplorersHat, Cards.JeweledScarab, Cards.JeweledScarab, };
+                        deckDictionary.AddOrUpdate(DeckType.HatHunter, CurrentDeck.Intersect(hatHunter).Count());
+
+                    }
+                    List<Card.Cards> midRangeHunter = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.HuntersMark, Cards.FreezingTrap, Cards.FreezingTrap, Cards.Houndmaster, Cards.Houndmaster, Cards.UnleashtheHounds, Cards.StranglethornTiger, Cards.EaglehornBow, Cards.EaglehornBow, Cards.KillCommand, Cards.KillCommand, Cards.IronbeakOwl, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.Webspinner, Cards.Webspinner, Cards.Loatheb, Cards.MadScientist, Cards.MadScientist, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Glaivezooka, Cards.QuickShot, Cards.KingsElekk, Cards.KingsElekk, };
+                    List<Card.Cards> faceHunter = new List<Card.Cards> { Cards.ArcaneGolem, Cards.WorgenInfiltrator, Cards.WorgenInfiltrator, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.ExplosiveTrap, Cards.EaglehornBow, Cards.EaglehornBow, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KillCommand, Cards.KillCommand, Cards.IronbeakOwl, Cards.LeperGnome, Cards.LeperGnome, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.LeeroyJenkins, Cards.MadScientist, Cards.MadScientist, Cards.Glaivezooka, Cards.QuickShot, Cards.QuickShot, Cards.FlameJuggler, Cards.FlameJuggler, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.BearTrap, };
+                    deckDictionary.AddOrUpdate(DeckType.MidRangeHunter, CurrentDeck.Intersect(midRangeHunter).Count());
+                    deckDictionary.AddOrUpdate(DeckType.FaceHunter, CurrentDeck.Intersect(faceHunter).Count());
+
                     break;
 
                 #endregion
@@ -574,7 +641,43 @@ namespace SmartBot.Plugins
                 #region rogue
 
                 case Card.CClass.ROGUE:
-                    
+
+
+                    if (CurrentDeck.Contains(Cards.GadgetzanAuctioneer))
+                    {
+                        List<Card.Cards> miracleRogue = new List<Card.Cards> { Cards.EdwinVanCleef, Cards.DeadlyPoison, Cards.ColdBlood, Cards.ColdBlood, Cards.GadgetzanAuctioneer, Cards.GadgetzanAuctioneer, Cards.Shiv, Cards.Shiv, Cards.BladeFlurry, Cards.AzureDrake, Cards.AzureDrake, Cards.Conceal, Cards.SI7Agent, Cards.SI7Agent, Cards.Preparation, Cards.Preparation, Cards.FanofKnives, Cards.FanofKnives, Cards.Eviscerate, Cards.Eviscerate, Cards.Sap, Cards.Sap, Cards.Backstab, Cards.Backstab, Cards.BloodmageThalnos, Cards.Shadowstep, Cards.Shadowstep, Cards.EarthenRingFarseer, Cards.EarthenRingFarseer, Cards.LeeroyJenkins, };
+                        deckDictionary.AddOrUpdate(DeckType.MiracleRogue, CurrentDeck.Intersect(miracleRogue).Count());
+                    }
+                    if (CurrentDeck.Contains(Cards.TinkersSharpswordOil))
+                    {
+                        List<Card.Cards> oilRogue = new List<Card.Cards> { Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.Sprint, Cards.Sprint, Cards.SouthseaDeckhand, Cards.BladeFlurry, Cards.BladeFlurry, Cards.AzureDrake, Cards.AzureDrake, Cards.SI7Agent, Cards.SI7Agent, Cards.Preparation, Cards.Preparation, Cards.FanofKnives, Cards.FanofKnives, Cards.Eviscerate, Cards.Eviscerate, Cards.Sap, Cards.Sap, Cards.Backstab, Cards.Backstab, Cards.VioletTeacher, Cards.BloodmageThalnos, Cards.EarthenRingFarseer, Cards.PilotedShredder, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.Sabotage, Cards.TinkersSharpswordOil, Cards.TinkersSharpswordOil, };
+                        deckDictionary.AddOrUpdate(DeckType.OilRogue, CurrentDeck.Intersect(oilRogue).Count());
+                    }
+
+                    if (CurrentDeck.Contains(Cards.ShipsCannon))
+                    {
+                        List<Card.Cards> pirateRogue = new List<Card.Cards> { Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.Sprint, Cards.Sprint, Cards.SouthseaDeckhand, Cards.SouthseaDeckhand, Cards.BladeFlurry, Cards.BladeFlurry, Cards.DreadCorsair, Cards.DreadCorsair, Cards.AzureDrake, Cards.AzureDrake, Cards.SI7Agent, Cards.SI7Agent, Cards.Preparation, Cards.Preparation, Cards.Eviscerate, Cards.Eviscerate, Cards.Sap, Cards.AssassinsBlade, Cards.Backstab, Cards.Backstab, Cards.BloodsailRaider, Cards.BloodsailRaider, Cards.ShipsCannon, Cards.ShipsCannon, Cards.TinkersSharpswordOil, Cards.TinkersSharpswordOil, Cards.Buccaneer, Cards.Buccaneer, };
+                        deckDictionary.AddOrUpdate(DeckType.PirateRogue, CurrentDeck.Intersect(pirateRogue).Count());
+                    }
+                    if (CurrentDeck.Contains(Cards.Malygos))
+                    {
+                        List<Card.Cards> malyRogue = new List<Card.Cards> { Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.GadgetzanAuctioneer, Cards.GadgetzanAuctioneer, Cards.Shiv, Cards.Shiv, Cards.Malygos, Cards.BladeFlurry, Cards.BladeFlurry, Cards.AzureDrake, Cards.AzureDrake, Cards.SI7Agent, Cards.SI7Agent, Cards.Preparation, Cards.Preparation, Cards.FanofKnives, Cards.FanofKnives, Cards.Eviscerate, Cards.Eviscerate, Cards.Sap, Cards.Sap, Cards.Backstab, Cards.Backstab, Cards.TombPillager, Cards.TombPillager, Cards.BloodmageThalnos, Cards.VioletTeacher, Cards.EmperorThaurissan, Cards.AntiqueHealbot, Cards.AntiqueHealbot, };
+                        deckDictionary.AddOrUpdate(DeckType.MalyRogue, CurrentDeck.Intersect(malyRogue).Count());
+                    }
+                    if (CurrentDeck.Contains(Cards.ColdlightOracle))
+                    {
+                        List<Card.Cards> fatigueRogue = new List<Card.Cards> { Cards.BigGameHunter, Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.ColdlightOracle, Cards.ColdlightOracle, Cards.BladeFlurry, Cards.BladeFlurry, Cards.SI7Agent, Cards.SI7Agent, Cards.Preparation, Cards.Preparation, Cards.FanofKnives, Cards.FanofKnives, Cards.Eviscerate, Cards.Eviscerate, Cards.Sap, Cards.Sap, Cards.Backstab, Cards.Backstab, Cards.BloodmageThalnos, Cards.Shadowstep, Cards.Shadowstep, Cards.Vanish, Cards.Vanish, Cards.Deathlord, Cards.Deathlord, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.TinkersSharpswordOil, Cards.GangUp, };
+                        deckDictionary.AddOrUpdate(DeckType.FatigueRogue, CurrentDeck.Intersect(fatigueRogue).Count());
+                    }
+                    if (CurrentDeck.Contains(Cards.UnearthedRaptor))
+                    {
+                        List<Card.Cards> raptorRogue = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ColdBlood, Cards.ColdBlood, Cards.FanofKnives, Cards.FanofKnives, Cards.Eviscerate, Cards.Eviscerate, Cards.Sap, Cards.LootHoarder, Cards.LootHoarder, Cards.Backstab, Cards.Backstab, Cards.UnearthedRaptor, Cards.UnearthedRaptor, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.LeperGnome, Cards.LeperGnome, Cards.NerubianEgg, Cards.NerubianEgg, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.DrBoom, Cards.HauntedCreeper, Cards.HauntedCreeper, };
+                        deckDictionary.AddOrUpdate(DeckType.RaptorRogue, CurrentDeck.Intersect(raptorRogue).Count());
+                    }
+                    List<Card.Cards> faceRogue = new List<Card.Cards> { Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.ColdlightOracle, Cards.ColdlightOracle, Cards.ColdBlood, Cards.ColdBlood, Cards.ArcaneGolem, Cards.ArcaneGolem, Cards.SouthseaDeckhand, Cards.SouthseaDeckhand, Cards.Wolfrider, Cards.Wolfrider, Cards.BladeFlurry, Cards.BladeFlurry, Cards.SI7Agent, Cards.SI7Agent, Cards.Eviscerate, Cards.Eviscerate, Cards.Sap, Cards.Sap, Cards.LeperGnome, Cards.LeperGnome, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.TinkersSharpswordOil, Cards.TinkersSharpswordOil, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.Buccaneer, Cards.Buccaneer, };
+                    List<Card.Cards> basic = new List<Card.Cards> { Cards.Backstab, Cards.Backstab, Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.Sap, Cards.Shiv, Cards.Shiv, Cards.FanofKnives, Cards.FanofKnives, Cards.AssassinsBlade, Cards.AssassinsBlade, Cards.Assassinate, Cards.Assassinate, Cards.Sprint, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.KoboldGeomancer, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.BoulderfistOgre, Cards.BoulderfistOgre, };
+                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basic).Count());
+                    deckDictionary.AddOrUpdate(DeckType.FaceRogue, CurrentDeck.Intersect(faceRogue).Count());
                     break;
 
                 #endregion
@@ -582,21 +685,37 @@ namespace SmartBot.Plugins
                 #region druid
 
                 case Card.CClass.DRUID:
-                   
+                    List<Card.Cards> rampDruid = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.BigGameHunter, Cards.ForceofNature, Cards.ForceofNature, Cards.AncientofWar, Cards.AzureDrake, Cards.AzureDrake, Cards.WildGrowth, Cards.WildGrowth, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.ShadeofNaxxramas, Cards.ShadeofNaxxramas, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.LivingRoots, };
+                    List<Card.Cards> aggroDruid = new List<Card.Cards> { Cards.ForceofNature, Cards.ForceofNature, Cards.SavageRoar, Cards.SavageRoar, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.LeperGnome, Cards.LeperGnome, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.ShadeofNaxxramas, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.FelReaver, Cards.FelReaver, Cards.SavageCombatant, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.DruidoftheSaber, Cards.DruidoftheSaber, Cards.LivingRoots, Cards.LivingRoots, };
+                    List<Card.Cards> midRangeDruid = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.BigGameHunter, Cards.ForceofNature, Cards.ForceofNature, Cards.AzureDrake, Cards.AzureDrake, Cards.WildGrowth, Cards.WildGrowth, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.ShadeofNaxxramas, Cards.Loatheb, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.LivingRoots, Cards.LivingRoots, };
+                    List<Card.Cards> tokenDruid = new List<Card.Cards> { Cards.PoweroftheWild, Cards.PoweroftheWild, Cards.SouloftheForest, Cards.SouloftheForest, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.MarkoftheWild, Cards.MarkoftheWild, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.Innervate, Cards.Innervate, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.LivingRoots, Cards.LivingRoots, Cards.MountedRaptor, Cards.MountedRaptor, Cards.DragonEgg, Cards.DragonEgg, Cards.NerubianEgg, Cards.NerubianEgg, Cards.EchoingOoze, Cards.EchoingOoze, Cards.Jeeves, Cards.Jeeves, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.SirFinleyMrrgglton, };
+                    List<Card.Cards> mechDruid = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.PoweroftheWild, Cards.ForceofNature, Cards.ForceofNature, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.Starfire, Cards.HauntedCreeper, Cards.Cogmaster, Cards.Cogmaster, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.DrBoom, Cards.SpiderTank, Cards.SpiderTank, Cards.Mechwarper, Cards.Mechwarper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.TinkertownTechnician, };
+                    deckDictionary.AddOrUpdate(DeckType.MechDruid, CurrentDeck.Intersect(mechDruid).Count());
+                    deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid).Count());
+                    deckDictionary.AddOrUpdate(DeckType.AggroDruid, CurrentDeck.Intersect(aggroDruid).Count());
+                    deckDictionary.AddOrUpdate(DeckType.MidRangeDruid, CurrentDeck.Intersect(midRangeDruid).Count());
+                    deckDictionary.AddOrUpdate(DeckType.TokenDruid, CurrentDeck.Intersect(tokenDruid).Count()); //EGG 
+                    if (CurrentDeck.ContainsSome(Cards.AncientWatcher, Cards.EerieStatue, Cards.WailingSoul))
+                    {
+                        List<Card.Cards> silenceDruid = new List<Card.Cards> { Cards.AncientWatcher, Cards.AncientWatcher, Cards.ForceofNature, Cards.ForceofNature, Cards.AzureDrake, Cards.AzureDrake, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.IronbeakOwl, Cards.IronbeakOwl, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.Deathlord, Cards.Deathlord, Cards.WailingSoul, Cards.WailingSoul, Cards.DrBoom, Cards.FelReaver, Cards.FelReaver, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.Mulch, Cards.EerieStatue, Cards.EerieStatue, };
+                        deckDictionary.AddOrUpdate(DeckType.SilenceDruid, CurrentDeck.Intersect(silenceDruid).Count());
+                    }
+
                     break;
 
                     #endregion
             }
+            var BestDeck = deckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
             try
             {
-                var BestDeck = deckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+                
                 info.DeckType = BestDeck;
                 info.DeckStyle = DeckStyles[BestDeck];
                 Bot.Log(String.Format("{0}|||{1}", info.DeckType, info.DeckStyle));
             }
             catch (Exception e)
             {
-                Bot.Log(" Me? " + e.Message);
+                Bot.Log(String.Format("\n\n[WARNING] Arthur forgot to add PlayStyle for {0}. Feel free to go and make fun of him\n Error: {1} \n\n" , BestDeck, e.Message));
             }
             Bot.Log(info.DeckType +"||"+ info.DeckStyle);
             return info;
@@ -646,9 +765,13 @@ namespace SmartBot.Plugins
         DragonDruid,
         MidRangeDruid,
         TokenDruid,
+        SilenceDruid,
+        MechDruid,
+        AstralDruid,
         /*Warlock*/
         Handlock,
         RenoLock,
+        RenoComboLock,
         Zoolock,
         RelinquaryZoo,
         DemonHandlock,
@@ -676,6 +799,7 @@ namespace SmartBot.Plugins
         HybridHunter,
         FaceHunter,
         HatHunter,
+        CamelHunter,
         /**/
         OilRogue,
         PirateRogue,
@@ -684,6 +808,7 @@ namespace SmartBot.Plugins
         RaptorRogue,
         [Description("Those who hate fun")]
         FatigueRogue,
+        MiracleRogue,
         /**/
         FaceShaman,
         MechShaman,
@@ -692,8 +817,11 @@ namespace SmartBot.Plugins
         MalygosShaman,
         ControlShaman,
         BloodlustShaman,
+        BattleryShaman,
         [Browsable(false)]
-        Basic
+        Basic,
+
+        
     }
 
     public enum IdentityMode
