@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Windows.Forms;
 using SmartBot.Database;
 
 namespace SmartBot.Plugins
@@ -104,6 +105,11 @@ namespace SmartBot.Plugins
             }
         }
 
+        public override void OnGameBegin()
+        {
+            IdentifyMyStuff();
+        }
+
         public void IdentifyMyStuff()
         {
             if (Bot.CurrentBoard == null || identified) return;
@@ -114,43 +120,45 @@ namespace SmartBot.Plugins
                 DeckType tempType = informationData.DeckType;
                 informationData.DeckType = ((SmartTracker)DataContainer).ForceDeckType;
                 informationData.DeckStyle = DeckStyles[((SmartTracker)DataContainer).ForceDeckType];
-                Bot.Log(string.Format("[SmartTracker] You are forcing SmartMulliganV3 to treat your deck as {0}, {1}, \n List: {2}" +
-                                      "\n[Debug] Tracker would have recognized it as {3}, {4}", informationData.DeckType,
-                informationData.DeckStyle, string.Join(";", informationData.DeckList), tempType, DeckStyles[tempType]));
+                Bot.Log(string.Format("[SmartTracker] You are forcing SmartMulliganV3 to treat your deck as {0}, {1}," +
+                                      "\n\t\t[Debug] Tracker would have recognized it as {2}, {3}", informationData.DeckType,
+                informationData.DeckStyle, tempType, DeckStyles[tempType]));
             }
             using (StreamWriter readMe = new StreamWriter(MulliganInformation + "our_deck.v3", false))
             {
-                readMe.WriteLine("{0}~{1}~{2}~{3}",
+                readMe.WriteLine("{0}~{1}~{2}~{3}~{4}",
+                    DateTime.UtcNow,
                     ((SmartTracker)DataContainer).mode,
                     informationData.DeckType,
                     informationData.DeckStyle,
                     string.Join(";", informationData.DeckList));
             }
             if (((SmartTracker)DataContainer).mode == IdentityMode.Auto)
-                Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|{2}|", informationData.DeckType,
-                informationData.DeckStyle, string.Join(";", informationData.DeckList)));
+                Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|", informationData.DeckType,
+                informationData.DeckStyle));
             identified = true;
-            return;
+            
         }
     
 
         public override void OnPluginCreated()
         {
-            try
+            CheckDirectory(MulliganInformation);
+            CheckDirectory(TrackerVersion);
+            CheckFiles();
+        }
+
+        private void CheckFiles()
+        {
+            if (!File.Exists(TrackerVersion + "tracker.version"))
             {
-                CheckDirectory(MulliganInformation);
+                string createText = "0.001" + Environment.NewLine;
+                File.WriteAllText(TrackerVersion + "tracker.version", createText);
             }
-            catch (Exception mulliganException)
+            if (!File.Exists(MulliganInformation + "version.txt"))
             {
-                Bot.Log("Error Updating Mulligan" + mulliganException.Message + " " +mulliganException.TargetSite);
-            }
-            try
-            {
-                CheckDirectory(TrackerVersion);
-            }
-            catch (Exception trackerException)
-            {
-                Bot.Log("Error Updating Tracker" + trackerException.Message + " " + trackerException.TargetSite);
+                string createText = "0.001" + Environment.NewLine;
+                File.WriteAllText(TrackerVersion + "version.txt", createText);
             }
         }
 
@@ -230,7 +238,7 @@ namespace SmartBot.Plugins
             using (StreamWriter updateLocalCopy = new StreamWriter(TrackerDir + "SmartTracker.cs"))
             {
                 string tempfile = trFile.ReadToEnd();
-                Bot.Log("[IGOT HERE]");
+                //Bot.Log("[IGOT HERE]");
                 updateLocalCopy.WriteLine(tempfile);
                 Bot.RefreshMulliganProfiles();
                 Bot.Log("[SmartTracker] SmartTracker is now fully updated");
@@ -324,7 +332,7 @@ namespace SmartBot.Plugins
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck);
                 opponentDeckInfo.WriteLine("{0}:{1}:{2}:{3}:{4}", res, Bot.GetCurrentOpponentId(), opponentInfo.DeckType, opponentInfo.DeckStyle, string.Join(",", opponentDeck.Where(c => CardTemplate.LoadFromId(c).IsCollectible).ToArray()));
-                Bot.Log(string.Format("[Tracker] Succesfully recorder your opponent: {0}", opponentInfo.DeckType));
+                Bot.Log(string.Format("[Tracker] Succesfully recorded your opponent: {0}", opponentInfo.DeckType));
             }
         }
 
@@ -472,7 +480,7 @@ namespace SmartBot.Plugins
                 #region priest
 
                 case Card.CClass.PRIEST:
-                    if (CurrentDeck.Contains(Cards.WyrmrestAgent))
+                    if (CurrentDeck.ContainsSome(Cards.WyrmrestAgent, Cards.TwilightWhelp, Cards.TwilightGuardian))
                     {
                         List<Card.Cards> dragonPriest = new List<Card.Cards> { Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.AzureDrake, Cards.AzureDrake, Cards.PowerWordShield, Cards.PowerWordShield, Cards.Ysera, Cards.ShadowWordDeath, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HolyNova, Cards.HolyNova, Cards.VelensChosen, Cards.Shrinkmeister, Cards.Shrinkmeister, Cards.Lightbomb, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.RendBlackhand, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.TwilightWhelp, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.Chillmaw, Cards.WyrmrestAgent, Cards.WyrmrestAgent, Cards.BrannBronzebeard, };
                         deckDictionary.AddOrUpdate(DeckType.DragonPriest, CurrentDeck.Intersect(dragonPriest).Count());
@@ -509,11 +517,18 @@ namespace SmartBot.Plugins
                     List<Card.Cards> grinderMage = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.Flamestrike, Cards.Flamestrike, Cards.BigGameHunter, Cards.Frostbolt, Cards.Frostbolt, Cards.MindControlTech, Cards.MirrorEntity, Cards.Polymorph, Cards.ZombieChow, Cards.ZombieChow, Cards.Duplicate, Cards.MadScientist, Cards.MadScientist, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.ExplosiveSheep, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.EchoofMedivh, Cards.EmperorThaurissan, Cards.RefreshmentVendor, Cards.JeweledScarab, Cards.JeweledScarab, Cards.BrannBronzebeard, Cards.EtherealConjurer, Cards.EtherealConjurer, };
                     List<Card.Cards> basicMage = new List<Card.Cards> { Cards.Frostbolt, Cards.Frostbolt, Cards.ArcaneIntellect, Cards.ArcaneIntellect, Cards.Fireball, Cards.Fireball, Cards.Polymorph, Cards.Polymorph, Cards.WaterElemental, Cards.WaterElemental, Cards.Flamestrike, Cards.Flamestrike, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.KoboldGeomancer, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.GurubashiBerserker, Cards.Archmage, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, };
                     deckDictionary.AddOrUpdate(DeckType.TempoMage, CurrentDeck.Intersect(tempoMage).Count());
-                    deckDictionary.AddOrUpdate(DeckType.FreezeMage, CurrentDeck.Intersect(freeze).Count());
-                    deckDictionary.AddOrUpdate(DeckType.FaceFreezeMage, CurrentDeck.Intersect(faceFreeze).Count());
+                    if (CurrentDeck.ContainsSome(Cards.IceBarrier, Cards.IceBlock, Cards.AcolyteofPain, Cards.LootHoarder))
+                    {
+                        deckDictionary.AddOrUpdate(DeckType.FreezeMage, CurrentDeck.Intersect(freeze).Count());
+                        deckDictionary.AddOrUpdate(DeckType.FaceFreezeMage, CurrentDeck.Intersect(faceFreeze).Count());
+                    }
+                    
                     deckDictionary.AddOrUpdate(DeckType.DragonMage, CurrentDeck.Intersect(dragonMage).Count());
                     deckDictionary.AddOrUpdate(DeckType.MechMage, CurrentDeck.Intersect(mechMage).Count());
-                    deckDictionary.AddOrUpdate(DeckType.FatigueMage, CurrentDeck.Intersect(grinderMage).Count());
+                    if (CurrentDeck.ContainsSome(Cards.Duplicate, Cards.EmperorThaurissan, Cards.EtherealConjurer))
+                    {
+                        deckDictionary.AddOrUpdate(DeckType.FatigueMage, CurrentDeck.Intersect(grinderMage).Count());
+                    }
                     deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicMage).Count());
                     break;
 
@@ -573,7 +588,7 @@ namespace SmartBot.Plugins
 
                     #endregion
 
-                    #region warlock
+                #region warlock
 
                 case Card.CClass.WARLOCK:
                     if (CurrentDeck.ContainsAll(Cards.MountainGiant, Cards.TwilightDrake))
@@ -705,17 +720,17 @@ namespace SmartBot.Plugins
 
                     #endregion
             }
-            var BestDeck = deckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+            var bestDeck = deckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
             try
             {
                 
-                info.DeckType = BestDeck;
-                info.DeckStyle = DeckStyles[BestDeck];
-                Bot.Log(String.Format("{0}|||{1}", info.DeckType, info.DeckStyle));
+                info.DeckType = bestDeck;
+                info.DeckStyle = DeckStyles[bestDeck];
+                //Bot.Log(String.Format("{0}|||{1}", info.DeckType, info.DeckStyle));
             }
             catch (Exception e)
             {
-                Bot.Log(String.Format("\n\n[WARNING] Arthur forgot to add PlayStyle for {0}. Feel free to go and make fun of him\n Error: {1} \n\n" , BestDeck, e.Message));
+                Bot.Log(String.Format("\n\n[WARNING] Arthur forgot to add PlayStyle for {0}. Feel free to go and make fun of him\n Error: {1} \n\n" , bestDeck, e.Message));
             }
             Bot.Log(info.DeckType +"||"+ info.DeckStyle);
             return info;
