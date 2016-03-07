@@ -6,7 +6,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Windows.Forms;
 using SmartBot.Database;
 
 namespace SmartBot.Plugins
@@ -65,17 +64,22 @@ namespace SmartBot.Plugins
         public string LSmartMulliganV3 { get; private set; }
         [Browsable(false)]
         public string LSmartTracker { get; private set; }
+        [Browsable(false)]
+        public DeckType AutoRecognizeDeckType { get; set; }
 
-
+        [Browsable(false)]
+        public int synchEnums { get; set; }
 
         public SmartTracker()
         {
+
             Name = "SmartTracker";
             ForceDeckType = DeckType.Unknown;
             MT_OpponentDeck = DeckType.Unknown;
             MT_YourDeck = DeckType.Unknown;
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
+            AutoRecognizeDeckType = DeckType.Unknown;
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
 
@@ -114,7 +118,8 @@ namespace SmartBot.Plugins
         {
             if (Bot.CurrentBoard == null || identified) return;
             
-            informationData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
+            informationData = GetDeckInfo(Bot.CurrentDeck().Class, Bot.CurrentDeck().Cards);
+            ((SmartTracker) DataContainer).AutoRecognizeDeckType = informationData.DeckType;
             if (((SmartTracker)DataContainer).mode == IdentityMode.Manual)
             {
                 DeckType tempType = informationData.DeckType;
@@ -143,6 +148,7 @@ namespace SmartBot.Plugins
 
         public override void OnPluginCreated()
         {
+            ((SmartTracker)DataContainer).synchEnums = Enum.GetNames(typeof(DeckType)).Length;
             CheckDirectory(MulliganInformation);
             CheckDirectory(TrackerVersion);
             CheckFiles();
@@ -150,6 +156,7 @@ namespace SmartBot.Plugins
 
         private void CheckFiles()
         {
+            
             if (!File.Exists(TrackerVersion + "tracker.version"))
             {
                 string createText = "0.001" + Environment.NewLine;
@@ -338,12 +345,27 @@ namespace SmartBot.Plugins
 
         public override void OnDefeat()
         {
-            CheckOpponentDeck("lost");
+            try
+            {
+                CheckOpponentDeck("lost");
+            }
+            catch (Exception)
+            {
+                 Bot.Log("Something happened that wasn't intended");
+            }
+           
         }
 
         public override void OnVictory()
         {
-            CheckOpponentDeck("won");
+            try
+            {
+                CheckOpponentDeck("won");
+            }
+            catch (Exception)
+            {
+                Bot.Log("Something happened that wasn't intended");
+            }
         }
 
         public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
@@ -757,7 +779,6 @@ namespace SmartBot.Plugins
 
     public enum DeckType
     {
-        [Browsable(false)]
         Unknown,
         Arena,
         /*Warrior*/
@@ -797,7 +818,6 @@ namespace SmartBot.Plugins
         TempoMage,
         FreezeMage,
         FaceFreezeMage,
-        [Description("KiblerMage")]
         DragonMage,
         MechMage,
         EchoMage,
@@ -805,7 +825,6 @@ namespace SmartBot.Plugins
         /*Priest*/
         DragonPriest,
         ControlPriest,
-        [Description("Call me Firebat")]
         ComboPriest,
         MechPriest,
         ShadowPriest,
@@ -821,7 +840,6 @@ namespace SmartBot.Plugins
         FaceRogue,
         MalyRogue,
         RaptorRogue,
-        [Description("Those who hate fun")]
         FatigueRogue,
         MiracleRogue,
         /**/
@@ -833,7 +851,7 @@ namespace SmartBot.Plugins
         ControlShaman,
         BloodlustShaman,
         BattleryShaman,
-        [Browsable(false)]
+
         Basic,
 
         
