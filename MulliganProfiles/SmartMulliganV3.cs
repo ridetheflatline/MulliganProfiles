@@ -18,11 +18,18 @@ namespace MulliganProfiles
         {
             map[key] = value;
         }
-    }
 
-    public class Game : SmTracker
+        public static bool Exist<TObject>(this IList<TObject> deck, TObject race)
+        {
+            return deck.Contains(race);
+        }
+    }
+    
+    public class GameContainer 
+
     {
-        public DeckType MyDeckType;
+
+        public DeckType MyDeckType { get; set; }
         public Style MyStyle;
         public List<Card.Cards> MyDeck;
         public DeckType EneDeckType;
@@ -31,16 +38,108 @@ namespace MulliganProfiles
         public Dictionary<Dictionary<DeckType, Style>, List<Card.Cards>> EnemyHistory;
         public long UniqueUlong;
 
-        public Game()
+        public GameContainer()
         {
-            var MyData = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards);
-            MyDeckType = (DeckType)MyData.DeckType;
-            MyStyle = (Style)MyData.DeckStyle;
-            MyDeck = MyData.DeckList;
+            Plugin tracker = Bot.GetPlugins().Find(plugin => plugin.DataContainer.Name == "SmartTracker");
+            if (!tracker.DataContainer.Enabled)
+            {
+                Bot.Log("[SmartMulliganV3] This mulligan relies on having SmartTracker active at all times in order to function. Please enable SmartTracker, or chose different mulligan");
+                Bot.StopBot();
+            }
+            Dictionary<string, object> properties = tracker.GetProperties();
+            if (Enum.GetNames(typeof (DeckType)).Length != (int) properties["synchEnums"])
+            {
+                Bot.Log("[URGENT!!!!] Arthur, your enums are out of synch");
+            }
+            MyDeckType = properties["mode"].ToString() == "Manual" 
+                    ? (DeckType) properties["ForceDeckType"]
+                    : (DeckType)properties["AutoRecognizeDeckType"]; //if Manual
+            
+            if (properties["mode"].ToString() == "Manual")
+                Bot.Log("[SmartMulliganV3] Dear friends, I notice that you are forcing deck recognition." +
+                        " I do not make failsafe checks on whether or not you are using a proper deck, " +
+                        "so if you decide to force Camel Hunter while playing FaceFreeze mage. It will let you. I hope you know what you are doing.");
+                Bot.Log(string.Format("[You chose {0} Detection] {1} [Default: AutoDetection] {2}", properties["mode"], MyDeckType, properties["AutoRecognizeDeckType"]));
 
+            MyStyle = DeckStyles[MyDeckType];
         }
+        public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
+        {
 
-
+            {DeckType.Unknown, Style.Unknown},
+            {DeckType.Arena, Style.Control},
+            /*Warrior*/
+            {DeckType.ControlWarrior, Style.Control},
+            {DeckType.FatigueWarrior, Style.Control},
+            {DeckType.DragonWarrior, Style.Control},
+            {DeckType.PatronWarrior, Style.Tempo},
+            {DeckType.WorgenOTKWarrior, Style.Combo},
+            {DeckType.MechWarrior, Style.Aggro},
+            {DeckType.FaceWarrior, Style.Face},
+            /*Paladin*/
+            {DeckType.SecretPaladin, Style.Tempo},
+            {DeckType.MidRangePaladin, Style.Control},
+            {DeckType.DragonPaladin, Style.Control},
+            {DeckType.AggroPaladin, Style.Aggro},
+            {DeckType.AnyfinMurglMurgl, Style.Combo},
+            /*Druid*/
+            {DeckType.RampDruid, Style.Control},
+            {DeckType.AggroDruid, Style.Aggro},
+            {DeckType.DragonDruid, Style.Control},
+            {DeckType.MidRangeDruid, Style.Combo},
+            {DeckType.TokenDruid, Style.Tempo},
+            {DeckType.SilenceDruid,Style.Control},
+            {DeckType.MechDruid,Style.Combo},
+            {DeckType.AstralDruid,Style.Control},
+            /*Warlock*/
+            {DeckType.Handlock, Style.Control},
+            {DeckType.RenoLock, Style.Control},
+            {DeckType.Zoolock, Style.Tempo},//Same handler as flood zoo and reliquary
+            {DeckType.DemonHandlock, Style.Control},
+            {DeckType.DemonZooWarlock, Style.Tempo},
+            {DeckType.DragonHandlock, Style.Control},
+            {DeckType.MalyLock, Style.Combo},
+            {DeckType.RenoComboLock, Style.Combo},
+            /*Mage*/
+            {DeckType.TempoMage, Style.Tempo},
+            {DeckType.FreezeMage, Style.Control},
+            {DeckType.FaceFreezeMage, Style.Aggro},
+            {DeckType.DragonMage, Style.Control},
+            {DeckType.MechMage, Style.Aggro},
+            {DeckType.EchoMage, Style.Control},
+            {DeckType.FatigueMage, Style.Control},
+            /*Priest*/
+            {DeckType.DragonPriest, Style.Tempo},
+            {DeckType.ControlPriest, Style.Control},
+            {DeckType.ComboPriest, Style.Combo},
+            {DeckType.MechPriest, Style.Aggro},
+            {DeckType.ShadowPriest, Style.Combo},
+            /*Hunter*/
+            {DeckType.MidRangeHunter, Style.Tempo},
+            {DeckType.HybridHunter, Style.Aggro},
+            {DeckType.FaceHunter, Style.Face},
+            {DeckType.HatHunter, Style.Control},
+            {DeckType.CamelHunter, Style.Control },
+            /*Rogue*/
+            {DeckType.OilRogue, Style.Combo},
+            {DeckType.PirateRogue, Style.Aggro},
+            {DeckType.FaceRogue, Style.Face},
+            {DeckType.MalyRogue, Style.Combo},
+            {DeckType.RaptorRogue, Style.Tempo},
+            {DeckType.FatigueRogue, Style.Combo},
+            {DeckType.MiracleRogue, Style.Combo},
+            /*Cance... I mean Shaman*/
+            {DeckType.FaceShaman, Style.Face},
+            {DeckType.MechShaman, Style.Aggro},
+            {DeckType.DragonShaman, Style.Control},
+            {DeckType.TotemShaman, Style.Tempo},
+            {DeckType.MalygosShaman, Style.Combo},
+            {DeckType.ControlShaman, Style.Control},
+            {DeckType.BloodlustShaman, Style.Combo},
+            {DeckType.BattleryShaman, Style.Control }, //TODO: me
+            /*Poor Kids*/
+            {DeckType.Basic, Style.Tempo}
+        };
     }
     [Serializable]
     // ReSharper disable once InconsistentNaming
@@ -83,9 +182,13 @@ namespace MulliganProfiles
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
 
-            Game newGame = new Game();
-            Bot.Log(string.Format("My deck is {0} style {1} ", newGame.MyDeckType, newGame.MyStyle));
-                    
+            GameContainer newGame = new GameContainer();
+            _whiteList.AddOrUpdate(Cards.AcolyteofPain, false);
+            //Bot.Log(string.Format("My deck is {0} style {1} ", newGame.MyDeckType, newGame.MyStyle));
+            
+            
+
+
             //HandleMinions(choices, _whiteList, myInfo);
             foreach (var s in from s in choices
                                   let keptOneAlready = _cardsToKeep.Any(c => c.ToString() == s.ToString())
@@ -97,7 +200,7 @@ namespace MulliganProfiles
             return _cardsToKeep;
         }
 
-        private void ParseOpponentInformation(Game newGame)
+        private void ParseOpponentInformation(GameContainer newGame)
         {
             try
             {
@@ -164,11 +267,12 @@ namespace MulliganProfiles
         {
             return CurrentDeck.Count(c => c == card.ToString());
         }
+       
 
-   
 
     }
     #region enums
+
     public enum DeckType
     {
         Unknown,
@@ -193,9 +297,13 @@ namespace MulliganProfiles
         DragonDruid,
         MidRangeDruid,
         TokenDruid,
+        SilenceDruid,
+        MechDruid,
+        AstralDruid,
         /*Warlock*/
         Handlock,
         RenoLock,
+        RenoComboLock,
         Zoolock,
         RelinquaryZoo,
         DemonHandlock,
@@ -219,17 +327,17 @@ namespace MulliganProfiles
         /*Huntard*/
         MidRangeHunter,
         HybridHunter,
-        DragonHunter,
         FaceHunter,
         HatHunter,
+        CamelHunter,
         /**/
         OilRogue,
         PirateRogue,
         FaceRogue,
         MalyRogue,
-        DragonRogue,
         RaptorRogue,
         FatigueRogue,
+        MiracleRogue,
         /**/
         FaceShaman,
         MechShaman,
@@ -238,9 +346,12 @@ namespace MulliganProfiles
         MalygosShaman,
         ControlShaman,
         BloodlustShaman,
-        Basic
-    }
+        BattleryShaman,
 
+        Basic,
+
+
+    }
 
     public enum Style
     {
