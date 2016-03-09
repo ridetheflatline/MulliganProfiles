@@ -41,11 +41,10 @@ namespace SmartBot.Plugins
         /// This variable is to add extra two option to SmartTracker that will allow you
         /// to use Mulligan Tester by Botfanatic
         /// </summary>
-        private const bool MulliganTesterDebug = true;
-
+        private const bool MulliganTesterDebug = false;
 
         [DisplayName("[0] Update Mulligan")]
-        public bool AutoUpdateV3 { get; set; }
+        public bool AutoUpdateV3 { get; private set;  }
         [DisplayName("[0] Update Tracker")]
         public bool AutoUpdateTracker { get; set; }
         //[DisplayName("Random Intro Messages")]
@@ -378,6 +377,10 @@ namespace SmartBot.Plugins
             List<string> opponentDeck = new List<string> { };
             opponentDeck.AddRange(graveyard.Select(q => q.ToString()));
             opponentDeck.AddRange(board.Select(q => q.Template.Id.ToString()));
+            foreach (var q in opponentDeck.Where(q => !CardTemplate.LoadFromId(q).IsCollectible))
+            {
+                opponentDeck.Remove(q);
+            }
             string str= opponentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
             using (StreamWriter opponentDeckInfo = new StreamWriter(MulliganInformation + "OpponentDeckInfo.txt", true))
             {
