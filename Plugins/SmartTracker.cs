@@ -55,7 +55,7 @@ namespace SmartBot.Plugins
         private const bool MulliganTesterDebug = false;
 
         [DisplayName("[0] AU SmartMulligan")]
-        public bool AutoUpdateV3 { get; set; }
+        public bool AutoUpdateV3 { get; private set; }
         [DisplayName("[1] SM version")]
         public double Mversion { get; private set; }
         [DisplayName("[2] AU Tracker")]
