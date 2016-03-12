@@ -1148,3 +1148,4 @@ namespace SmartBot.Plugins
         Manual
     }
 }
+
