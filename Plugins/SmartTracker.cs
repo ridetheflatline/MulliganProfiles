@@ -54,6 +54,9 @@ namespace SmartBot.Plugins
         /// </summary>
         private const bool MulliganTesterDebug = false;
 
+        public double Mversion { get; private set; }
+        public double Tversion { get; private set; }
+
         [DisplayName("[0] Update Mulligan")]
         public bool AutoUpdateV3 { get; private set;  }
         [DisplayName("[0] Update Tracker")]
@@ -82,9 +85,9 @@ namespace SmartBot.Plugins
         public string LSmartTracker { get; private set; }
 
         [Browsable(false)]
-        public DeckType AutoRecognizeDeckType { get; set; }
+        public DeckType AutoFriendlyDeckType { get; set; }
         [Browsable(false)]
-        public Style AutoRecognizeDeckStyle { get; set; }
+        public Style AutoFriendlyStyle { get; set; }
         [Browsable(false)]
         public DeckType EnemyDeckTypeGuess { get; set; }
         [Browsable(false)]
@@ -101,11 +104,35 @@ namespace SmartBot.Plugins
             MulliganTesterYourDeck = DeckType.Unknown;
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
-            AutoRecognizeDeckType = DeckType.Unknown;
+            AutoFriendlyDeckType = DeckType.Unknown;
             EnemyDeckTypeGuess = DeckType.Unknown;
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
 
+        }
+
+        public void VersionCheck()
+        {
+            try
+            {
+                using (
+                    StreamReader Tversionl =
+                        new StreamReader(AppDomain.CurrentDomain.BaseDirectory +
+                                         "Plugins\\SmartTracker\\tracker.version"))
+                using (
+                    StreamReader Mversionl =
+                        new StreamReader(AppDomain.CurrentDomain.BaseDirectory +
+                                         "MulliganProfiles\\SmartMulliganV3\\version.txt"))
+
+                {
+                    Tversion = double.Parse(Tversionl.ReadLine());
+                    Mversion = double.Parse(Mversionl.ReadLine());
+                }
+            }
+            catch (Exception e)
+            {
+                Bot.Log("[Version Update Failed]");
+            }
         }
     }
 
@@ -137,7 +164,8 @@ namespace SmartBot.Plugins
         {
             GUI.ClearUI();
             if(((SmartTracker)DataContainer).predictionDisplay)
-            GUI.AddElement(new GuiElementText("Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess, (_screenWidth) / 64, PercToPixHeight(40), 155,
+            GUI.AddElement(new GuiElementText("Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess
+                 + "|" + ((SmartTracker)DataContainer).EnemyDeckStyleGuess, (_screenWidth) / 64, PercToPixHeight(40), 155,
                 30,
                 16, 255, 215, 0));
             if (!_started) return;
@@ -156,7 +184,7 @@ namespace SmartBot.Plugins
         {
             base.OnGameEnd();
             ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
-            Bot.Log("[SmartTracker_debug] Resetting Guess");
+            Log("[SmartTracker_debug] Resetting Guess");
         }
 
         public override void OnGameBegin()
@@ -169,8 +197,8 @@ namespace SmartBot.Plugins
             if (Bot.CurrentBoard == null || identified) return;
             
             informationData = GetDeckInfo(Bot.CurrentDeck().Class, Bot.CurrentDeck().Cards);
-            ((SmartTracker) DataContainer).AutoRecognizeDeckType = informationData.DeckType;
-            ((SmartTracker) DataContainer).AutoRecognizeDeckStyle = DeckStyles[informationData.DeckType];
+            ((SmartTracker) DataContainer).AutoFriendlyDeckType = informationData.DeckType;
+            ((SmartTracker) DataContainer).AutoFriendlyStyle = DeckStyles[informationData.DeckType];
             if (((SmartTracker)DataContainer).Mode == IdentityMode.Manual)
             {
                 DeckType tempType = informationData.DeckType;
@@ -194,6 +222,7 @@ namespace SmartBot.Plugins
             ((SmartTracker)DataContainer).SynchEnums = Enum.GetNames(typeof(DeckType)).Length;
             CheckDirectory(MulliganInformation);
             CheckDirectory(TrackerVersion);
+            CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs\\SmartTracker\\");
             CheckFiles();
         }
 
@@ -221,15 +250,16 @@ namespace SmartBot.Plugins
                 Bot.Log((Bot.CurrentBoard == null) +" " +identified);
                 IdentifyMyStuff();
             }
-            Bot.Log(Bot.CurrentScene().ToString());
             
             if (((SmartTracker)DataContainer).AutoUpdateV3)
             {
                 CheckUpdatesMulligan(((SmartTracker)DataContainer).LSmartMulliganV3);
+                ((SmartTracker)DataContainer).VersionCheck();
             }
             if (((SmartTracker)DataContainer).AutoUpdateTracker)
             {
                 CheckUpdatesTracker(((SmartTracker)DataContainer).LSmartTracker);
+                ((SmartTracker)DataContainer).VersionCheck();
             }
             
 
@@ -386,7 +416,7 @@ namespace SmartBot.Plugins
                 Bot.Log("[SmartTracker_debug] Your opponent is playing "+opponentInfo.DeckType + ":" +opponentInfo.DeckStyle);
                 return;
             }
-            Bot.Log(string.Format("[SmartTracker_debug] New signature detected in your opponent decks {0} => {1}", ((SmartTracker)DataContainer).EnemyDeckTypeGuess, opponentInfo.DeckType));
+            Log(string.Format("[SmartTracker_debug] New signature detected in your opponent decks {0} => {1}", ((SmartTracker)DataContainer).EnemyDeckTypeGuess, opponentInfo.DeckType));
             ((SmartTracker) DataContainer).EnemyDeckTypeGuess = opponentInfo.DeckType;
             ((SmartTracker) DataContainer).EnemyDeckStyleGuess = DeckStyles[opponentInfo.DeckType];
 
@@ -398,12 +428,9 @@ namespace SmartBot.Plugins
             List<string> opponentDeck = new List<string> { };
             opponentDeck.AddRange(graveyard.Select(q => q.ToString()));
             opponentDeck.AddRange(board.Select(q => q.Template.Id.ToString()));
-            foreach (var q in opponentDeck.Where(q => !CardTemplate.LoadFromId(q).IsCollectible))
-            {
-                opponentDeck.Remove(q);
-            }
-            string str= opponentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
-            using (StreamWriter opponentDeckInfo = new StreamWriter(MulliganInformation + "OpponentDeckInfo.txt", true))
+            var opDeck = opponentDeck.Where(card => CardTemplate.LoadFromId(card).IsCollectible);
+            string str= opDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
+            using (StreamWriter opponentDeckInfo = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck, Bot.CurrentBoard.SecretEnemyCount);
                 opponentDeckInfo.WriteLine("{0}||{1}||{2}||{3}||{4}||{5}",
@@ -419,9 +446,9 @@ namespace SmartBot.Plugins
             {
                 CheckOpponentDeck("lost");
             }
-            catch (Exception)
+            catch (Exception e )
             {
-                 Bot.Log("Something happened that wasn't intended");
+                 Bot.Log("Something happened that wasn't intended" + e.Message);
             }
            
         }
@@ -432,9 +459,9 @@ namespace SmartBot.Plugins
             {
                 CheckOpponentDeck("won");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Bot.Log("Something happened that wasn't intended");
+                Bot.Log("Something happened that wasn't intended" + e.Message);
             }
         }
 
@@ -465,7 +492,7 @@ namespace SmartBot.Plugins
             {DeckType.MidRangeDruid, Style.Combo},
             {DeckType.TokenDruid, Style.Tempo},
             {DeckType.SilenceDruid,Style.Control},
-            {DeckType.MechDruid,Style.Combo},
+            {DeckType.MechDruid,Style.Aggro},
             {DeckType.AstralDruid,Style.Control},
             {DeckType.MillDruid,Style.Fatigue},
             {DeckType.BeastDruid,Style.Tempo},
@@ -533,7 +560,7 @@ namespace SmartBot.Plugins
             var info = new DeckData { DeckList = CurrentDeck , DeckType = DeckType.Unknown, DeckStyle = DeckStyles[DeckType.Unknown]};
             if (CurrentDeck.Count == 0) return info;
             string str = CurrentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
-            Bot.Log("[SmartTracker_debug] "+str);
+            Log("[SmartTracker_debug] "+str);
             
             Dictionary<DeckType, int> deckDictionary = new Dictionary<DeckType, int>();
 
@@ -610,8 +637,12 @@ namespace SmartBot.Plugins
                         List<Card.Cards> ComboPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.ProphetVelen, Cards.Malygos, Cards.AzureDrake, Cards.ShadowWordPain, Cards.LootHoarder, Cards.LootHoarder, Cards.HolySmite, Cards.HolySmite, Cards.MindBlast, Cards.MindBlast, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.HolyFire, Cards.HolyFire, Cards.BloodmageThalnos, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HarrisonJones, Cards.HolyNova, Cards.HolyNova, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.VelensChosen, Cards.VelensChosen, Cards.EmperorThaurissan, };
                         deckDictionary.AddOrUpdate(DeckType.ComboPriest, CurrentDeck.Intersect(ComboPriest).Count());
                     }
-                    List<Card.Cards> MechPriest = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.ShadowWordPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowMadness, Cards.CairneBloodhoof, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HolyNova, Cards.Shrinkmeister, Cards.Shrinkmeister, Cards.VelensChosen, Cards.VelensChosen, Cards.DarkCultist, Cards.DarkCultist, Cards.UpgradedRepairBot, Cards.UpgradedRepairBot, Cards.Voljin, Cards.Mechwarper, Cards.Mechwarper, Cards.SpiderTank, Cards.SpiderTank, Cards.MechanicalYeti, Cards.MechanicalYeti, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Loatheb, Cards.TroggzortheEarthinator, };
-                    deckDictionary.AddOrUpdate(DeckType.MechPriest, CurrentDeck.Intersect(MechPriest).Count());
+                    if (CurrentDeck.RaceCount(Card.CRace.MECH) > 2)
+                    {
+                        List<Card.Cards> MechPriest = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.ShadowWordPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowMadness, Cards.CairneBloodhoof, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HolyNova, Cards.Shrinkmeister, Cards.Shrinkmeister, Cards.VelensChosen, Cards.VelensChosen, Cards.DarkCultist, Cards.DarkCultist, Cards.UpgradedRepairBot, Cards.UpgradedRepairBot, Cards.Voljin, Cards.Mechwarper, Cards.Mechwarper, Cards.SpiderTank, Cards.SpiderTank, Cards.MechanicalYeti, Cards.MechanicalYeti, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Loatheb, Cards.TroggzortheEarthinator, };
+                        deckDictionary.AddOrUpdate(DeckType.MechPriest, CurrentDeck.Intersect(MechPriest).Count());
+                    }
+                    
                     if (CurrentDeck.Contains(Cards.Shadowform))
                     {
                         List<Card.Cards> ShadowPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.Thoughtsteal, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.ProphetVelen, Cards.Alexstrasza, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.HolySmite, Cards.MindBlast, Cards.MindBlast, Cards.Shadowform, Cards.Shadowform, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowMadness, Cards.HolyFire, Cards.ShadowWordDeath, Cards.HolyNova, Cards.ZombieChow, Cards.Deathlord, Cards.Deathlord, Cards.Voljin, Cards.Lightbomb, Cards.Lightbomb, Cards.EmperorThaurissan, Cards.Entomb, };
@@ -725,10 +756,15 @@ namespace SmartBot.Plugins
                         List<Card.Cards> fatigueWarrior = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Gorehowl, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Brawl, Cards.BaronGeddon, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Revenge, Cards.Bash, Cards.Bash, Cards.BouncingBlade, Cards.DeathsBite, Cards.DeathsBite, Cards.Shieldmaiden, Cards.Shieldmaiden, Cards.Deathlord, Cards.Deathlord, Cards.JusticarTrueheart, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.UnstableGhoul, Cards.RenoJackson, };
                         deckDictionary.AddOrUpdate(DeckType.FatigueWarrior, CurrentDeck.Intersect(fatigueWarrior).Count());
                     }
-                    List<Card.Cards> dragonWarrior = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Alexstrasza, Cards.Deathwing, Cards.Ysera, Cards.BaronGeddon, Cards.HarrisonJones, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.DeathsBite, Cards.DeathsBite, Cards.Shieldmaiden, Cards.EmperorThaurissan, Cards.Nefarian, Cards.Revenge, Cards.Revenge, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.JusticarTrueheart, Cards.Chillmaw, Cards.Bash, Cards.Bash, Cards.TwilightGuardian, Cards.TwilightGuardian, };
                     List<Card.Cards> faceWar = new List<Card.Cards> { Cards.HeroicStrike, Cards.HeroicStrike, Cards.ArcaneGolem, Cards.ArcaneGolem, Cards.SouthseaDeckhand, Cards.SouthseaDeckhand, Cards.KorkronElite, Cards.KorkronElite, Cards.Wolfrider, Cards.DreadCorsair, Cards.DreadCorsair, Cards.MortalStrike, Cards.MortalStrike, Cards.IronbeakOwl, Cards.LeperGnome, Cards.LeperGnome, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.BloodsailRaider, Cards.BloodsailRaider, Cards.Upgrade, Cards.Upgrade, Cards.DeathsBite, Cards.DeathsBite, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.Bash, Cards.Bash, Cards.SirFinleyMrrgglton, Cards.CursedBlade, };
                     deckDictionary.AddOrUpdate(DeckType.ControlWarrior, CurrentDeck.Intersect(controlWarriorCards).Count());
-                    deckDictionary.AddOrUpdate(DeckType.DragonWarrior, CurrentDeck.Intersect(dragonWarrior).Count());
+                    if (CurrentDeck.RaceCount(Card.CRace.DRAGON) > 2 ||
+                        CurrentDeck.ContainsSome(Cards.AlexstraszasChampion, Cards.TwilightGuardian,
+                            Cards.BlackwingCorruptor, Cards.BlackwingTechnician))
+                    {
+                        List<Card.Cards> dragonWarrior = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Alexstrasza, Cards.Deathwing, Cards.Ysera, Cards.BaronGeddon, Cards.HarrisonJones, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.DeathsBite, Cards.DeathsBite, Cards.Shieldmaiden, Cards.EmperorThaurissan, Cards.Nefarian, Cards.Revenge, Cards.Revenge, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.JusticarTrueheart, Cards.Chillmaw, Cards.Bash, Cards.Bash, Cards.TwilightGuardian, Cards.TwilightGuardian, };
+                        deckDictionary.AddOrUpdate(DeckType.DragonWarrior, CurrentDeck.Intersect(dragonWarrior).Count());
+                    }
                     if (CurrentDeck.ContainsSome(Cards.GrimPatron, Cards.FrothingBerserker))
                     {
                         List<Card.Cards> patronWarrior = new List<Card.Cards> { Cards.FrothingBerserker, Cards.KorkronElite, Cards.Whirlwind, Cards.Whirlwind, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.DreadCorsair, Cards.DreadCorsair, Cards.InnerRage, Cards.InnerRage, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Armorsmith, Cards.Armorsmith, Cards.BattleRage, Cards.BattleRage, Cards.DeathsBite, Cards.DeathsBite, Cards.Loatheb, Cards.SludgeBelcher, Cards.UnstableGhoul, Cards.DrBoom, Cards.GrimPatron, Cards.GrimPatron, Cards.ArchThiefRafaam, };
@@ -745,6 +781,9 @@ namespace SmartBot.Plugins
                         deckDictionary.AddOrUpdate(DeckType.MechWarrior, CurrentDeck.Intersect(mechWar).Count());
                     }
                     deckDictionary.AddOrUpdate(DeckType.FaceWarrior, CurrentDeck.Intersect(faceWar).Count());
+                    List<Card.Cards> basicWarrior = new List<Card.Cards> { Cards.Execute, Cards.Execute, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.Cleave, Cards.ShieldBlock, Cards.KorkronElite, Cards.KorkronElite, Cards.ArcaniteReaper, Cards.ArcaniteReaper, Cards.ElvenArcher, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.RiverCrocolisk, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.StormpikeCommando, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, };
+                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicWarrior).Count());
+
                     break;
 
                     #endregion
@@ -761,7 +800,7 @@ namespace SmartBot.Plugins
                         deckDictionary.AddOrUpdate(DeckType.ControlWarlock, CurrentDeck.Intersect(controlWarlock).Count());
 
                     }
-                    if (CurrentDeck.ContainsAll(Cards.MountainGiant, Cards.TwilightDrake))
+                    if (CurrentDeck.ContainsSome(Cards.MountainGiant, Cards.TwilightDrake, Cards.AncientWatcher, Cards.SunfuryProtector))
                     {
                         List<Card.Cards> handlock = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.MortalCoil, Cards.MortalCoil, Cards.BigGameHunter, Cards.MoltenGiant, Cards.MoltenGiant, Cards.Hellfire, Cards.AncientWatcher, Cards.AncientWatcher, Cards.MountainGiant, Cards.MountainGiant, Cards.TwilightDrake, Cards.TwilightDrake, Cards.SunfuryProtector, Cards.SunfuryProtector, Cards.LordJaraxxus, Cards.IronbeakOwl, Cards.IronbeakOwl, Cards.DefenderofArgus, Cards.EarthenRingFarseer, Cards.Shadowflame, Cards.ZombieChow, Cards.ZombieChow, Cards.SludgeBelcher, Cards.DrBoom, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Darkbomb, Cards.Darkbomb, Cards.BrannBronzebeard, };
                         deckDictionary.AddOrUpdate(DeckType.Handlock, CurrentDeck.Intersect(handlock).Count());
@@ -1013,6 +1052,14 @@ namespace SmartBot.Plugins
             return info;
         }
 
+        private void Log(string str, int location = 0)
+        {
+            string file = location != 0 ? "MatchHistory.txt" : "MidgameIdentificationLog.txt";
+            using (StreamWriter logfile = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory+ "\\Logs\\SmartTracker\\" +file, true))
+            {
+                logfile.WriteLine(str);
+            }
+        }
             
       
         private static void CheckDirectory(string subdir)
@@ -1051,6 +1098,7 @@ namespace SmartBot.Plugins
         DragonPaladin,
         AggroPaladin,
         AnyfinMurglMurgl,
+        RenoPaladin,
         /*Druid*/
         RampDruid,
         AggroDruid,
@@ -1063,7 +1111,6 @@ namespace SmartBot.Plugins
         MillDruid,  
         BeastDruid,  
         RenoDruid, 
-        RenoPaladin, 
         /*Warlock*/
         Handlock,
         RenoLock,
@@ -1139,4 +1186,6 @@ namespace SmartBot.Plugins
         Auto,
         Manual
     }
+
+    
 }
