@@ -67,10 +67,10 @@ namespace SmartBot.Plugins
         
         //[DisplayName("Random Intro Messages")]
         //public bool RandomMovieQuotes { get; private set; }
-        [DisplayName("[4] Identifier Mode")]
+        [DisplayName("[4] ID Mode")]
         public IdentityMode Mode { get; set; }
 
-        [DisplayName("[4] Your Deck")]
+        [DisplayName("[4] Manual -f Deck")]
         public DeckType ForcedDeckType { get; set; }
         [Browsable(MulliganTesterDebug ? true : false)]
         [DisplayName("Mulligan Tester: you")]
@@ -117,7 +117,10 @@ namespace SmartBot.Plugins
 
         public void ReloadDictionary()
         {
-            Dictionary = "AU:\tAuto Update\nSM:\tSmart Mulligan\nST:\tSmart Tracker";
+            Dictionary = "AU:\t\tAuto Update\nSM:\t\tSmart Mulligan\nST:\t\tSmart Tracker" +
+                         "\nID Mode:\tTells Tracker your prefered way of identifying 'your' deck" +
+                         "\nManual -f\tTell tracker the deck you are playing if you chose Manual ID mode" +
+                         "\nDisplay Prediction:\tShows on the top left corner what tracker assumes your opponent is";
             AutoUpdateV3 = false;
 
         }
