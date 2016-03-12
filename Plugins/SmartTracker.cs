@@ -307,7 +307,7 @@ namespace SmartBot.Plugins
             if (!File.Exists(MulliganInformation + "version.txt"))
             {
                 string createText = "0.001" + Environment.NewLine;
-                File.WriteAllText(TrackerVersion + "version.txt", createText);
+                File.WriteAllText(MulliganInformation + "version.txt", createText);
             }
         }
 
