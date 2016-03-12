@@ -152,6 +152,7 @@ namespace SmartBot.Plugins
     public class SmTracker : Plugin
     {
         public bool identified = false;
+        public bool identifiedEnemy = false;
         private DeckData informationData;
         private readonly string MulliganDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
         private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\";
@@ -191,6 +192,7 @@ namespace SmartBot.Plugins
             if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY)
             {
                 identified = false;
+                identifiedEnemy = false;
             }
         }
 
@@ -198,18 +200,19 @@ namespace SmartBot.Plugins
         {
             base.OnGameEnd();
             ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
+            ((SmartTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
             Log("[SmartTracker_debug] Resetting Guess");
         }
 
         public override void OnGameBegin()
         {
             IdentifyMyStuff();
-            CheckHistory();
+            //CheckHistory();
         }
 
         private void CheckHistory()
         {
-            if (Bot.CurrentBoard == null) return;
+            if (Bot.CurrentBoard == null || identifiedEnemy) return;
             Bot.Log("[SmartTracker] Looing up your opponent");
             bool foundCurr = false;
             using (
@@ -287,13 +290,13 @@ namespace SmartBot.Plugins
 
         public override void OnPluginCreated()
         {
+            CheckDirectory(MulliganInformation);
+            CheckDirectory(TrackerVersion);
+            CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs\\SmartTracker\\");
             CheckFiles();
             ((SmartTracker) DataContainer).VersionCheck();
             ((SmartTracker) DataContainer).ReloadDictionary();
             ((SmartTracker) DataContainer).SynchEnums = Enum.GetNames(typeof (DeckType)).Length;
-            CheckDirectory(MulliganInformation);
-            CheckDirectory(TrackerVersion);
-            CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs\\SmartTracker\\");
             
         }
 
@@ -454,6 +457,7 @@ namespace SmartBot.Plugins
         {
             identified = false;
             _started = false;
+            identifiedEnemy = false;
         }
 
         public override void OnTurnBegin()
@@ -662,7 +666,7 @@ namespace SmartBot.Plugins
                         List<Card.Cards> dragonMage = new List<Card.Cards> {Cards.Frostbolt, Cards.Frostbolt, Cards.Duplicate, Cards.IceBarrier, Cards.IceBlock, Cards.Polymorph, Cards.Polymorph, Cards.Flamestrike, Cards.Flamestrike, Cards.ZombieChow, Cards.MadScientist, Cards.MadScientist, Cards.BigGameHunter, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.TwilightDrake, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.AzureDrake, Cards.AzureDrake, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.EmperorThaurissan, Cards.DrBoom, Cards.Alexstrasza, Cards.Ysera,};
                         deckDictionary.AddOrUpdate(DeckType.DragonMage, CurrentDeck.Intersect(dragonMage).Count());
                     }
-                    if (CurrentDeck.RaceCount(Card.CRace.MECH) > 3 || CurrentDeck.ContainsSome(Cards.ClockworkGnome, Cards.Mechwarper, Cards.SpiderTank, Cards.TinkertownTechnician, Cards.Snowchugger))
+                    if (CurrentDeck.RaceCount(Card.CRace.MECH) > 3 || CurrentDeck.ContainsSome(Cards.Cogmaster, Cards.ClockworkGnome, Cards.Mechwarper, Cards.SpiderTank, Cards.TinkertownTechnician, Cards.Snowchugger))
                     {
                         List<Card.Cards> mechMage = new List<Card.Cards> {Cards.Frostbolt, Cards.Frostbolt, Cards.ArchmageAntonidas, Cards.ManaWyrm, Cards.ManaWyrm, Cards.Fireball, Cards.Fireball, Cards.UnstablePortal, Cards.UnstablePortal, Cards.Cogmaster, Cards.Cogmaster, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.DrBoom, Cards.SpiderTank, Cards.SpiderTank, Cards.Mechwarper, Cards.Mechwarper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.GoblinBlastmage, Cards.GoblinBlastmage, Cards.ClockworkGnome, Cards.TinkertownTechnician, Cards.Snowchugger, Cards.Snowchugger, Cards.ClockworkKnight, Cards.ClockworkKnight, Cards.GorillabotA3, Cards.GorillabotA3,};
                         deckDictionary.AddOrUpdate(DeckType.MechMage, CurrentDeck.Intersect(mechMage).Count());
