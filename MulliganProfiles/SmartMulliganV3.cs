@@ -276,8 +276,7 @@ namespace MulliganProfiles
                     break;
                 case DeckType.Basic:
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+               
             }
 
 
