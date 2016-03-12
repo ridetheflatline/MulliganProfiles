@@ -640,10 +640,13 @@ namespace SmartBot.Plugins
                 #region priest
 
                 case Card.CClass.PRIEST:
-                    if (CurrentDeck.ContainsSome(Cards.WyrmrestAgent, Cards.TwilightWhelp, Cards.TwilightGuardian))
+                    if (CurrentDeck.ContainsSome(Cards.WyrmrestAgent, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.BlackwingCorruptor, Cards.BlackwingTechnician))
                     {
-                        List<Card.Cards> dragonPriest = new List<Card.Cards> { Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.AzureDrake, Cards.AzureDrake, Cards.PowerWordShield, Cards.PowerWordShield, Cards.Ysera, Cards.ShadowWordDeath, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HolyNova, Cards.HolyNova, Cards.VelensChosen, Cards.Shrinkmeister, Cards.Shrinkmeister, Cards.Lightbomb, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.RendBlackhand, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.TwilightWhelp, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.Chillmaw, Cards.WyrmrestAgent, Cards.WyrmrestAgent, Cards.BrannBronzebeard, };
-                        deckDictionary.AddOrUpdate(DeckType.DragonPriest, CurrentDeck.Intersect(dragonPriest).Count());
+                        info.DeckType = DeckType.DragonPriest;
+                        info.DeckStyle = DeckStyles[DeckType.DragonPriest];
+                        return info;
+                        //List<Card.Cards> dragonPriest = new List<Card.Cards> { Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.AzureDrake, Cards.AzureDrake, Cards.PowerWordShield, Cards.PowerWordShield, Cards.Ysera, Cards.ShadowWordDeath, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HolyNova, Cards.HolyNova, Cards.VelensChosen, Cards.Shrinkmeister, Cards.Shrinkmeister, Cards.Lightbomb, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.RendBlackhand, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.TwilightWhelp, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.Chillmaw, Cards.WyrmrestAgent, Cards.WyrmrestAgent, Cards.BrannBronzebeard, };
+                        //deckDictionary.AddOrUpdate(DeckType.DragonPriest, CurrentDeck.Intersect(dragonPriest).Count());
                     }
                     List<Card.Cards> ContrlPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.CircleofHealing, Cards.CircleofHealing, Cards.Thoughtsteal, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.InjuredBlademaster, Cards.InjuredBlademaster, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.AuchenaiSoulpriest, Cards.AuchenaiSoulpriest, Cards.HolyNova, Cards.ZombieChow, Cards.ZombieChow, Cards.Deathlord, Cards.Deathlord, Cards.LightoftheNaaru, Cards.LightoftheNaaru, Cards.Lightbomb, Cards.Lightbomb, Cards.JusticarTrueheart, Cards.EliseStarseeker, Cards.Entomb, Cards.Entomb, Cards.MuseumCurator, };
                     deckDictionary.AddOrUpdate(DeckType.ControlPriest, CurrentDeck.Intersect(ContrlPriest).Count());
