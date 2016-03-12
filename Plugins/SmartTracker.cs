@@ -54,19 +54,23 @@ namespace SmartBot.Plugins
         /// </summary>
         private const bool MulliganTesterDebug = false;
 
+        [DisplayName("[0] AU SmartMulligan")]
+        public bool AutoUpdateV3 { get; set; }
+        [DisplayName("[1] SM version")]
         public double Mversion { get; private set; }
+        [DisplayName("[2] AU Tracker")]
+        public bool AutoUpdateTracker { get; set; }
+        [DisplayName("[3] ST version")]
         public double Tversion { get; private set; }
 
-        [DisplayName("[0] Update Mulligan")]
-        public bool AutoUpdateV3 { get; private set;  }
-        [DisplayName("[0] Update Tracker")]
-        public bool AutoUpdateTracker { get; set; }
+        
+        
         //[DisplayName("Random Intro Messages")]
         //public bool RandomMovieQuotes { get; private set; }
-        [DisplayName("[1] Identifier Mode")]
+        [DisplayName("[4] Identifier Mode")]
         public IdentityMode Mode { get; set; }
 
-        [DisplayName("[1] Your Deck")]
+        [DisplayName("[4] Your Deck")]
         public DeckType ForcedDeckType { get; set; }
         [Browsable(MulliganTesterDebug ? true : false)]
         [DisplayName("Mulligan Tester: you")]
@@ -76,8 +80,9 @@ namespace SmartBot.Plugins
         public DeckType MulliganTEsterEnemyDeck { get; set; }
 
         [DisplayName("Display Prediction")]
-        public bool predictionDisplay { get; set; }
-
+        public bool PredictionDisplay { get; set; }
+        [DisplayName("Glossary")]
+        public string Dictionary { get; private set; }
 
         [Browsable(false)]
         public string LSmartMulliganV3 { get; private set; }
@@ -111,6 +116,11 @@ namespace SmartBot.Plugins
 
         }
 
+        public void ReloadDictionary()
+        {
+            Dictionary = "AU:\tAuto Update\nSM:\tSmart Mulligan\nST:\tSmart Tracker";
+
+        }
         public void VersionCheck()
         {
             try
@@ -163,7 +173,7 @@ namespace SmartBot.Plugins
         public override void OnTick()
         {
             GUI.ClearUI();
-            if(((SmartTracker)DataContainer).predictionDisplay)
+            if(((SmartTracker)DataContainer).PredictionDisplay)
             GUI.AddElement(new GuiElementText("Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess
                  + "|" + ((SmartTracker)DataContainer).EnemyDeckStyleGuess, (_screenWidth) / 64, PercToPixHeight(40), 155,
                 30,
@@ -219,6 +229,8 @@ namespace SmartBot.Plugins
 
         public override void OnPluginCreated()
         {
+            ((SmartTracker)DataContainer).VersionCheck();
+            ((SmartTracker)DataContainer).ReloadDictionary();
             ((SmartTracker)DataContainer).SynchEnums = Enum.GetNames(typeof(DeckType)).Length;
             CheckDirectory(MulliganInformation);
             CheckDirectory(TrackerVersion);
