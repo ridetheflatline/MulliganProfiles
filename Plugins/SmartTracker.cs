@@ -102,7 +102,6 @@ namespace SmartBot.Plugins
 
         public SmartTracker()
         {
-
             Name = "SmartTracker";
             ForcedDeckType = DeckType.Unknown;
             MulliganTEsterEnemyDeck = DeckType.Unknown;
@@ -119,6 +118,7 @@ namespace SmartBot.Plugins
         public void ReloadDictionary()
         {
             Dictionary = "AU:\tAuto Update\nSM:\tSmart Mulligan\nST:\tSmart Tracker";
+            AutoUpdateV3 = false;
 
         }
         public void VersionCheck()
