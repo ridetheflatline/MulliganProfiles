@@ -287,13 +287,14 @@ namespace SmartBot.Plugins
 
         public override void OnPluginCreated()
         {
+            CheckFiles();
             ((SmartTracker) DataContainer).VersionCheck();
             ((SmartTracker) DataContainer).ReloadDictionary();
             ((SmartTracker) DataContainer).SynchEnums = Enum.GetNames(typeof (DeckType)).Length;
             CheckDirectory(MulliganInformation);
             CheckDirectory(TrackerVersion);
             CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs\\SmartTracker\\");
-            CheckFiles();
+            
         }
 
         private void CheckFiles()
