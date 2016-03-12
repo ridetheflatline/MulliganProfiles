@@ -186,7 +186,7 @@ namespace SmartBot.Plugins
             if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
             {
                 IdentifyMyStuff();
-                CheckHistory();
+                //CheckHistory();
             }
             if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY)
             {
