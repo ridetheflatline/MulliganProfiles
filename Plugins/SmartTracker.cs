@@ -1086,6 +1086,10 @@ namespace SmartBot.Plugins
                     #endregion
             }
             var bestDeck = deckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+            if (CurrentDeck.Count > 10 && deckDictionary[bestDeck] < 5)
+            {
+                Bot.Log("[Tracker] It appears that your opponent is playing something random");
+            }
             try
             {
                 info.DeckType = bestDeck;
