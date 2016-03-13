@@ -8,7 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using SmartBot.Database;
-using Xceed.Wpf.Toolkit.Core.Converters;
 
 namespace SmartBot.Plugins
 {
@@ -151,7 +150,7 @@ namespace SmartBot.Plugins
            
             ChangeLog = string.Format("[Tracker: {0}]\n[1] Added an option to stop recording time of the game" +
                                       "\n[2] Planted seeds for history reader and shar.... [Actually too soon]" +
-                                      "[3] Next update scheduled: 3/13 11pm (-6 time zone)"+ 
+                                      "\n[3] Next update scheduled: 3/13 11pm (-6 time zone)"+ 
                 "\n[Mulligan: {1}]" + 
                 "\nSmartMulliganV3 will be available soon", version, mversion);
         }
