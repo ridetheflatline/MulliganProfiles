@@ -17,6 +17,7 @@ namespace SmartBot.Plugins
         {
             map[key] = value;
         }
+        
         public static bool ContainsAll<T1>(this IList<T1> list, params T1[] items)
         {
             return !items.Except(list).Any();
@@ -79,7 +80,7 @@ namespace SmartBot.Plugins
         [DisplayName("Mulligan Tester: enemy")]
         public DeckType MulliganTEsterEnemyDeck { get; set; }
 
-        [DisplayName("Display Prediction")]
+        [DisplayName("[5] Coach")]
         public bool PredictionDisplay { get; set; }
         [DisplayName("Glossary")]
         public string Dictionary { get; private set; }
@@ -99,6 +100,10 @@ namespace SmartBot.Plugins
         public Style EnemyDeckStyleGuess { get; set; }
         [Browsable(false)]
         public int SynchEnums { get; set; }
+        
+        public string ChangeLog { get; private set; }
+        [Browsable(false)]
+        public long lastEnemy { get; set; }
 
         public SmartTracker()
         {
@@ -120,9 +125,18 @@ namespace SmartBot.Plugins
             Dictionary = "AU:\t\tAuto Update\nSM:\t\tSmart Mulligan\nST:\t\tSmart Tracker" +
                          "\nID Mode:\tTells Tracker your prefered way of identifying 'your' deck" +
                          "\nManual -f\tTell tracker the deck you are playing if you chose Manual ID mode" +
-                         "\nDisplay Prediction:\tShows on the top left corner what tracker assumes your opponent is";
+                         "\nCoach:\t\tShows on the top left corner what tracker assumes your opponent is";
             AutoUpdateV3 = false;
 
+        }
+
+        private void UpdateChangeLog(double version, double mversion)
+        {
+            ChangeLog = string.Format("[Tracker: {0}]\n[Fix] Issue with first run. Files are now created in proper order" +
+                                      "\n[Fix] Prediction no longer resets if your face same opponent twice in a row" +
+                                      "\n[Prediction]: beter detection for Dragon Priests, Reno Mage"+
+                                      "\n[Mulligan: {1}]" +
+                                      "\nSmartMulliganV3 will be available soon", version, mversion);
         }
         public void VersionCheck()
         {
@@ -140,6 +154,7 @@ namespace SmartBot.Plugins
                 {
                     Tversion = double.Parse(Tversionl.ReadLine());
                     Mversion = double.Parse(Mversionl.ReadLine());
+                    UpdateChangeLog(Tversion, Mversion);
                 }
             }
             catch (Exception e)
@@ -199,31 +214,53 @@ namespace SmartBot.Plugins
         public override void OnGameEnd()
         {
             base.OnGameEnd();
-            ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
-            ((SmartTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
-            Log("[SmartTracker_debug] Resetting Guess");
+            
         }
 
         public override void OnGameBegin()
         {
+            if (Bot.GetCurrentOpponentId() != Bot.GetPreviousOpponentId())
+            {
+                ((SmartTracker) DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
+                ((SmartTracker) DataContainer).EnemyDeckStyleGuess = Style.Unknown;
+                Log("[SmartTracker_debug] Resetting Guess");
+                //CheckHistory();
+            }
             IdentifyMyStuff();
-            //CheckHistory();
+           
         }
-
+        public static Dictionary<long, List<DeckType>> EnemyHistory = new Dictionary<long, List<DeckType>>(); 
         private void CheckHistory()
         {
+            if (identifiedEnemy) return;
+            Bot.Log("{Flag} I am entering lion dent");
             if (Bot.CurrentBoard == null || identifiedEnemy) return;
-            Bot.Log("[SmartTracker] Looing up your opponent");
-            bool foundCurr = false;
+            Bot.Log("[SmartTracker] Looing up your opponent in history");
+            List<DeckType> hisDecks = new List<DeckType>();
             using (
                 StreamReader historyReader =
                     new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt"))
             {
-                if(historyReader.ReadLine().Contains("something"))
-                    foundCurr = true;
+                string line;
+                while ((line = historyReader.ReadLine()) != null)
+                {
+                    string[] check = line.Split(new[] { "||" }, StringSplitOptions.None);
+                    if (long.Parse(check[2]) == Bot.GetCurrentOpponentId())
+                    {
+                        Bot.Log("Found this faggot");
+                        hisDecks.Add((DeckType) Enum.Parse(typeof(DeckType), check[3]));
+                    }
+
+                }
+               
             }
+            foreach (var q in hisDecks)
+            {
+                Bot.Log(q.ToString());
+                identifiedEnemy = true;
+            }
+            if (hisDecks.Count != 0) return;
             //DEFAULTS
-            if (foundCurr) return;
             switch (Bot.CurrentBoard.EnemyClass)
             {
                 case Card.CClass.SHAMAN:
