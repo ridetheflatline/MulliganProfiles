@@ -152,6 +152,7 @@ namespace SmartBot.Plugins
                                       "\n[2] Added resource checker to log files (should prevent race conditions)" +
                                       "\n[3] Some experimental changes to Shaman Identification" +
                                       "\n[4] Removed opponent ID from debug window" +
+                                      "\n[5] Tracker no longer uses non collectible cards for identification(i.e. silver hand recruit, bananas, spare parts)" +
                 "\n[Mulligan: {1}]" +
                 "\nSmartMulliganV3 will be available soon", version, mversion);
         }
@@ -540,8 +541,8 @@ namespace SmartBot.Plugins
             List<Card.Cards> graveyard = Bot.CurrentBoard.EnemyGraveyard.ToList();
             List<Card> board = Bot.CurrentBoard.MinionEnemy.ToList();
             List<string> opponentDeck = new List<string> { };
-            opponentDeck.AddRange(graveyard.Select(q => q.ToString()));
-            opponentDeck.AddRange(board.Select(q => q.Template.Id.ToString()));
+            opponentDeck.AddRange(graveyard.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
+            opponentDeck.AddRange(board.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
             DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck);
             if (((SmartTracker)DataContainer).EnemyDeckTypeGuess == opponentInfo.DeckType)
             {
@@ -558,10 +559,10 @@ namespace SmartBot.Plugins
             List<Card.Cards> graveyard = Bot.CurrentBoard.EnemyGraveyard.ToList();
             List<Card> board = Bot.CurrentBoard.MinionEnemy.ToList();
             List<string> opponentDeck = new List<string> { };
-            opponentDeck.AddRange(graveyard.Select(q => q.ToString()));
-            opponentDeck.AddRange(board.Select(q => q.Template.Id.ToString()));
-            var opDeck = opponentDeck.Where(card => CardTemplate.LoadFromId(card).IsCollectible);
-            string str = opDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
+            opponentDeck.AddRange(graveyard.Where(card=> CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
+            opponentDeck.AddRange(board.Where(card=> card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
+            if (opponentDeck.Count == 0) return;
+            string str = opponentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
             using (StreamWriter opponentDeckInfo = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck, Bot.CurrentBoard.SecretEnemyCount);
