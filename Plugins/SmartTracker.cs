@@ -116,7 +116,7 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public int SynchEnums { get; set; }
 
-        public string ChangeLog { get; private set; }
+        protected string ChangeLog { get; private set; }
 
 
         public SmartTracker()
@@ -226,6 +226,8 @@ namespace SmartBot.Plugins
 
         public override void OnGameEnd()
         {
+            ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
+            ((SmartTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
             base.OnGameEnd();
         }
 
@@ -234,8 +236,7 @@ namespace SmartBot.Plugins
         {
             if (Bot.GetCurrentOpponentId() != Bot.GetPreviousOpponentId())
             {
-                ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
-                ((SmartTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
+                
                 Log("[SmartTracker_debug] Resetting Guess");
                 //CheckHistory();
             }
