@@ -77,6 +77,11 @@ namespace SmartBot.Plugins
         public bool AutoUpdateTracker { get; set; }
         [DisplayName("[3] ST version")]
         public double Tversion { get; private set; }
+
+        [DisplayName("[6] Games to Analyze")]
+        public int AnalyzeGames { get; set; }
+
+
         [DisplayName("[6] Record GT")]
         public bool StoreTime { get; set; }
 
@@ -116,7 +121,7 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public int SynchEnums { get; set; }
 
-        protected string ChangeLog { get; private set; }
+        public string ChangeLog { get; private set; }
 
 
         public SmartTracker()
@@ -129,6 +134,7 @@ namespace SmartBot.Plugins
             AutoUpdateTracker = false;
             AutoFriendlyDeckType = DeckType.Unknown;
             EnemyDeckTypeGuess = DeckType.Unknown;
+            AnalyzeGames = 50;
             LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
 
@@ -165,8 +171,8 @@ namespace SmartBot.Plugins
                 using (StreamReader Mversionl = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\version.txt"))
 
                 {
-                    Tversion = (double) int.Parse(Tversionl.ReadLine(), CultureInfo.InvariantCulture) / 1000;
-                    Mversion = (double) int.Parse(Mversionl.ReadLine(), CultureInfo.InvariantCulture) / 1000;
+                    Tversion = (double) int.Parse(Tversionl.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture) / 1000;
+                    Mversion = (double) int.Parse(Mversionl.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture) / 1000;
                     UpdateChangeLog(Tversion, Mversion);
                 }
             }
@@ -234,108 +240,15 @@ namespace SmartBot.Plugins
         private static Card.CClass previousClass = Card.CClass.NONE;
         public override void OnGameBegin()
         {
-            if (Bot.GetCurrentOpponentId() != Bot.GetPreviousOpponentId())
-            {
-                
-                Log("[SmartTracker_debug] Resetting Guess");
-                //CheckHistory();
-            }
-            if (Bot.GetCurrentOpponentId() == Bot.GetPreviousOpponentId())
-            {
-                //CheckHistory();
-            }
+            
             IdentifyMyStuff();
         }
 
         public static Dictionary<long, List<DeckType>> EnemyHistory = new Dictionary<long, List<DeckType>>();
-
+        public static List<MatchHistoryInstance> PreviousGames = new List<MatchHistoryInstance>(); 
         private void CheckHistory()
         {
-
-            if (Bot.CurrentBoard == null || identifiedEnemy) return;
-            previousClass = Bot.CurrentBoard.EnemyClass;
-            Bot.Log("[SmartTracker] Looing up your opponent in history");
-            List<DeckType> hisDecks = new List<DeckType>();
-            using (StreamReader historyReader = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt"))
-            {
-                string line;
-                while ((line = historyReader.ReadLine()) != null)
-                {
-                    string[] check = line.Split(new[] { "||" }, StringSplitOptions.None);
-                    if (long.Parse(check[2]) == Bot.GetCurrentOpponentId())
-                    {
-                        //Bot.Log("Found this faggot");
-                        if (!hisDecks.Contains((DeckType)Enum.Parse(typeof(DeckType), check[3])))
-                            hisDecks.Add((DeckType)Enum.Parse(typeof(DeckType), check[3]));
-                    }
-                }
-            }
-            Dictionary<Style, int> counter = new Dictionary<Style, int>();
-            foreach (var q in hisDecks)
-            {
-                if (counter.ContainsKey(DeckStyles[q]))
-                    counter[DeckStyles[q]]++;
-                else
-                {
-                    counter.AddOrUpdate(DeckStyles[q], 1);
-                }
-            }
-            foreach (var q in counter)
-            {
-                Bot.Log(string.Format("{0} : {1}", q.Key, q.Value));
-            }
-            List<KeyValuePair<DeckType, Card.CClass>> list = DeckClass.ToList();
-            foreach (var q in list)
-                if (q.Value == Bot.CurrentBoard.EnemyClass)
-                    Bot.Log("[Possible deck] " + q.Key + " " + DeckStyles[q.Key]);
-            foreach (var q in hisDecks)
-            {
-                Bot.Log("[Tracker] " + Bot.GetCurrentOpponentId() + " played " + q.ToString() + " - " + DeckStyles[q]);
-                identifiedEnemy = true;
-            }
-            Bot.Log("[Tracker] since he is playing " + Bot.CurrentBoard.EnemyClass.ToString() + " right now, tracker will guess that he is playing [KappaPride deck]");
-            if (hisDecks.Count != 0) return;
-            //DEFAULTS
-            switch (Bot.CurrentBoard.EnemyClass)
-            {
-                case Card.CClass.SHAMAN:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.FaceShaman;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-                case Card.CClass.PRIEST:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.ControlPriest;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-                case Card.CClass.MAGE:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.FreezeMage;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-                case Card.CClass.PALADIN:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.SecretPaladin;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-                case Card.CClass.WARRIOR:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.ControlWarrior;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-                case Card.CClass.WARLOCK:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Zoolock;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-                case Card.CClass.HUNTER:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.MidRangeHunter;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-                case Card.CClass.ROGUE:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.OilRogue;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-                case Card.CClass.DRUID:
-                    ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.MidRangeDruid;
-                    ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[((SmartTracker)DataContainer).EnemyDeckTypeGuess];
-                    break;
-            }
-            //((SmartTracker) DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
+            
         }
 
         public void IdentifyMyStuff()
@@ -422,8 +335,8 @@ namespace SmartBot.Plugins
 
             {
                 string strline = str.ReadLine();
-                double remoteVer = (double) int.Parse(strline, CultureInfo.InvariantCulture)/1000;
-                double localVer = (double) int.Parse(localVersion.ReadLine(), CultureInfo.InvariantCulture) /1000;
+                double remoteVer = (double) int.Parse(strline.Replace(",", "."), CultureInfo.InvariantCulture)/1000;
+                double localVer = (double) int.Parse(localVersion.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture) /1000;
 
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartTracker is up to date");
                 if (localVer > remoteVer)
@@ -475,8 +388,8 @@ namespace SmartBot.Plugins
             using (StreamReader localVersion = new StreamReader(MulliganInformation + "version.txt"))
 
             {
-                double remoteVer = (double) int.Parse(str.ReadLine(), CultureInfo.InvariantCulture) /1000;
-                double localVer = (double) int.Parse(localVersion.ReadLine(), CultureInfo.InvariantCulture) /1000;
+                double remoteVer = double.Parse(str.ReadLine(), CultureInfo.InvariantCulture) /1000;
+                double localVer = double.Parse(localVersion.ReadLine(), CultureInfo.InvariantCulture) /1000;
                 Bot.Log(remoteVer.ToString(CultureInfo.InvariantCulture));
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartMulliganV3 is up to date");
                 if (localVer > remoteVer)
@@ -1298,6 +1211,14 @@ namespace SmartBot.Plugins
         }
     }
 
+    public class MatchHistoryInstance
+    {
+
+        public MatchHistoryInstance(int numMatches)
+        {
+            
+        }
+    }
     public class DeckData
     {
         public DeckType DeckType { get; set; }
