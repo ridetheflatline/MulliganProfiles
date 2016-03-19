@@ -171,9 +171,13 @@ namespace SmartBot.Plugins
                 using (StreamReader Mversionl = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\version.txt"))
 
                 {
-                    CultureInfo culture = new CultureInfo("en-US");
-                    Tversion = double.Parse(Tversionl.ReadLine(), culture);
-                    Mversion = double.Parse(Mversionl.ReadLine(), culture);
+                    NumberFormatInfo format = new NumberFormatInfo
+                    {
+                        NumberGroupSeparator = ",",
+                        NumberDecimalSeparator = "."
+                    };
+                    Tversion = double.Parse(Tversionl.ReadLine(), format);
+                    Mversion = double.Parse(Mversionl.ReadLine(), format);
                     UpdateChangeLog(Tversion, Mversion);
                 }
             }
@@ -195,7 +199,11 @@ namespace SmartBot.Plugins
         private readonly string TrackerVersion = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\SmartTracker\\";
         private int _screenWidth;
         private int _screenHeight;
-        public CultureInfo culture = new CultureInfo("en-US");
+        NumberFormatInfo format = new NumberFormatInfo
+        {
+            NumberGroupSeparator = ",",
+            NumberDecimalSeparator = "."
+        };
         private int PercToPixWidth(int percent)
         {
             return (int)((_screenWidth / 100.0f) * percent);
@@ -336,8 +344,8 @@ namespace SmartBot.Plugins
 
             {
                 string strline = str.ReadLine();
-                double remoteVer = double.Parse(strline, culture) ;
-                double localVer = double.Parse(localVersion.ReadLine(), culture) ;
+                double remoteVer = double.Parse(strline, format) ;
+                double localVer = double.Parse(localVersion.ReadLine(), format) ;
 
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartTracker is up to date");
                 if (localVer > remoteVer)
@@ -390,8 +398,8 @@ namespace SmartBot.Plugins
 
             {
                 
-                double remoteVer = double.Parse(str.ReadLine(), culture);
-                double localVer = double.Parse(localVersion.ReadLine(), culture) ;
+                double remoteVer = double.Parse(str.ReadLine(), format);
+                double localVer = double.Parse(localVersion.ReadLine(), format) ;
                 //Bot.Log(remoteVer.ToString(CultureInfo.InvariantCulture));
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartMulliganV3 is up to date");
                 if (localVer > remoteVer)
