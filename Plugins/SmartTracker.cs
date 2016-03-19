@@ -154,11 +154,11 @@ namespace SmartBot.Plugins
         private void UpdateChangeLog(double version, double mversion)
         {
 
-            ChangeLog = string.Format("[Tracker: {0}]\n[1] Fixed Reno Warrior identification" +
-                                      "\n[2] Added resource checker to log files (should prevent race conditions)" +
-                                      "\n[3] Some experimental changes to Shaman Identification" +
-                                      "\n[4] Removed opponent ID from debug window" +
-                                      "\n[5] Tracker no longer uses non collectible cards for identification(i.e. silver hand recruit, bananas, spare parts)" +
+            ChangeLog = string.Format("[Tracker: {0}]\n[1] Fixed localization issues" +
+                                      "\n[2] Fixed Arena, Autoarena modes" +
+                                      "\n[3] Fixed the 'Masterwai' error" +
+                                      "\n[4] Reworked last opponent checker. Now it cares only about X games (you can adjust. Default: 50)" +
+                                      "" +
                 "\n[Mulligan: {1}]" +
                 "\nSmartMulliganV3 will be available soon", version, mversion);
         }
@@ -199,7 +199,8 @@ namespace SmartBot.Plugins
         private readonly string TrackerVersion = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\SmartTracker\\";
         private int _screenWidth;
         private int _screenHeight;
-        NumberFormatInfo format = new NumberFormatInfo
+
+        private readonly NumberFormatInfo format = new NumberFormatInfo
         {
             NumberGroupSeparator = ",",
             NumberDecimalSeparator = "."
@@ -218,24 +219,35 @@ namespace SmartBot.Plugins
         {
             return (rgb / (255.0f));
         }
-
+        public static readonly List<Bot.Mode> AllowedModes = new List<Bot.Mode> {Bot.Mode.Unranked, Bot.Mode.Ranked, Bot.Mode.Practice}; 
         public override void OnTick()
         {
             GUI.ClearUI();
-            if (((SmartTracker)DataContainer).PredictionDisplay)
-                GUI.AddElement(new GuiElementText("Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess + "|" + ((SmartTracker)DataContainer).EnemyDeckStyleGuess
-                    , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
-            if (!_started) return;
+            try
+            {
+                if (((SmartTracker) DataContainer).PredictionDisplay)
+                    GUI.AddElement(
+                        new GuiElementText(
+                            "Prediction: " + ((SmartTracker) DataContainer).EnemyDeckTypeGuess + "|" +
+                            ((SmartTracker) DataContainer).EnemyDeckStyleGuess
+                            , (_screenWidth)/64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
+                if (!_started || !_supported) return;
 
-            if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
-            {
-                IdentifyMyStuff();
-                //CheckHistory();
+                if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
+                {
+                    IdentifyMyStuff();
+                    CheckHistory();
+                }
+                if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY)
+                {
+                    identified = false;
+                    identifiedEnemy = false;
+                }
             }
-            if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY)
+            catch (Exception e)
             {
-                identified = false;
-                identifiedEnemy = false;
+                Bot.Log("[SmartTracker] Encountered error: " +e.Message);
+                identified = true;
             }
         }
 
@@ -246,7 +258,6 @@ namespace SmartBot.Plugins
             base.OnGameEnd();
         }
 
-        private static Card.CClass previousClass = Card.CClass.NONE;
         public override void OnGameBegin()
         {
             
@@ -262,7 +273,7 @@ namespace SmartBot.Plugins
 
         public void IdentifyMyStuff()
         {
-            if (Bot.CurrentBoard == null || identified) return;
+            if (Bot.CurrentBoard == null || identified || !_supported) return;
 
             informationData = GetDeckInfo(Bot.CurrentDeck().Class, Bot.CurrentDeck().Cards);
             ((SmartTracker)DataContainer).AutoFriendlyDeckType = informationData.DeckType;
@@ -307,10 +318,19 @@ namespace SmartBot.Plugins
         }
 
         private static bool _started = false;
-
+        private static bool _supported = false;
         public override void OnStarted()
         {
+
+            if (!AllowedModes.Contains(Bot.CurrentMode()))
+            {
+                Bot.Log("[SmartTracker] Sorry, Current mode is not supported with tracker");
+                _supported = false;
+                return;
+            }
+            _supported = true;
             _started = true;
+            
             if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
             {
                 Bot.Log((Bot.CurrentBoard == null) + " " + identified);
@@ -497,6 +517,7 @@ namespace SmartBot.Plugins
 
         public override void OnDefeat()
         {
+            if (!_supported) return;
             try
             {
                 CheckOpponentDeck("lost");
@@ -509,6 +530,7 @@ namespace SmartBot.Plugins
 
         public override void OnVictory()
         {
+            if (!_supported) return;
             try
             {
                 CheckOpponentDeck("won");
