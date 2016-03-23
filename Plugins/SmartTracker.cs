@@ -126,7 +126,8 @@ namespace SmartBot.Plugins
         public string ChangeLog { get; private set; }
         [DisplayName("[5] Show Summary")]
         public bool Summary { get; set; }
-
+        [DisplayName("Hall of Fame")]
+        public string HallOfFame { get; private set; }
 
         public SmartTracker()
         {
@@ -162,10 +163,8 @@ namespace SmartBot.Plugins
                                       "[1] Reorganized menu, not that it affects anything" +
                                       "\n[2] Introduced opponent summary that triggers on Started, and at the beggining of every game" +
                                       "\n[3] Opponent deck identification is 0.001 second faster. Jk, small rework there"+
-                                      "\n[Tracker: 1.07]" +
-                                      "\n[old] Fixed localization issue, Arena, Autoarena modes, Masterwai specific error" +
-                                      "\n[old] Reworked last opponent checker. Now it cares only about X games (you can adjust. Default: 50)" +
-                                      "" +
+                                      "\n[hotfix] Plugins are now reloaded on updates" +
+                                      "\n[4] Added Hall of Fame (list of cool kids)" +
                 "\n------------[Mulligan: {1}]------------" +
                 "\nSmartMulligan Complition status: Halfway closer than last week", version, mversion);
         }
@@ -186,6 +185,10 @@ namespace SmartBot.Plugins
                     Tversion = double.Parse(Tversionl.ReadLine(), format);
                     Mversion = double.Parse(Mversionl.ReadLine(), format);
                     Versions = string.Format("SmartTracker: {0}\nSmartMulligan: {1}", Tversion, Mversion);
+                    HallOfFame = "[SmartMulligan]" +
+                                 "\nTruci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai" +
+                                 "\n[SmartTracker]" +
+                                 "\nWirmate";
                     UpdateChangeLog(Tversion, Mversion);
                 }
             }
@@ -465,7 +468,7 @@ namespace SmartBot.Plugins
                 string tempfile = trFile.ReadToEnd();
                 //Bot.Log("[IGOT HERE]");
                 updateLocalCopy.WriteLine(tempfile);
-                Bot.RefreshMulliganProfiles();
+                Bot.ReloadPlugins();
                 Bot.Log("[SmartTracker] SmartTracker is now fully updated");
                 Bot.Log("[SmartTracker] Please reload plugins for tracker changes take effect");
                 UpdateVersion(remoteVer, true);
