@@ -407,7 +407,7 @@ namespace SmartBot.Plugins
         }
         public void PrintHistory()
         {
-            Bot.Log(string.Format("[Analyzing {0} unique opponents]", EnemyHistory.Count));
+            Bot.Log(string.Format("[Analyzing showed {0} unique opponents]", EnemyHistory.Count));
             //foreach (var q in EnemyHistory.Distinct())
             //{
             //    string deckset = q.Value.Aggregate("", (current, p) => current + ("[" + p + "], "));
