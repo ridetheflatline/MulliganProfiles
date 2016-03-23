@@ -470,7 +470,6 @@ namespace SmartBot.Plugins
                 updateLocalCopy.WriteLine(tempfile);
                 Bot.ReloadPlugins();
                 Bot.Log("[SmartTracker] SmartTracker is now fully updated");
-                Bot.Log("[SmartTracker] Please reload plugins for tracker changes take effect");
                 UpdateVersion(remoteVer, true);
             }
         }
@@ -1475,6 +1474,7 @@ namespace SmartBot.Plugins
         SmartMulligan
     }
 }
+
 
 
 
