@@ -108,7 +108,7 @@ namespace SmartBot.Plugins
         public string Dictionary { get; private set; }
 
         [Browsable(false)]
-        public string LSmartMulliganV3 { get; private set; }
+        public string LSmartMulligan { get; private set; }
         [Browsable(false)]
         public string LSmartTracker { get; private set; }
 
@@ -129,6 +129,11 @@ namespace SmartBot.Plugins
         [DisplayName("Hall of Fame")]
         public string HallOfFame { get; private set; }
 
+        [Browsable(false)]
+        public int CurrentTurn { get; set; }
+        [Browsable(false)]
+        public Card.CClass Enemy { get; set; }
+
         public SmartTracker()
         {
             Name = "SmartTracker";
@@ -140,7 +145,8 @@ namespace SmartBot.Plugins
             AutoFriendlyDeckType = DeckType.Unknown;
             EnemyDeckTypeGuess = DeckType.Unknown;
             AnalyzeGames = 50;
-            LSmartMulliganV3 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
+            Enemy = Card.CClass.JARAXXUS;
+            LSmartMulligan = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
 
         }
@@ -160,13 +166,14 @@ namespace SmartBot.Plugins
         {
 
             ChangeLog = string.Format("[Tracker: {0}]\n" +
-                                      "[1] Reorganized menu, not that it affects anything" +
-                                      "\n[2] Introduced opponent summary that triggers on Started, and at the beggining of every game" +
-                                      "\n[3] Opponent deck identification is 0.001 second faster. Jk, small rework there"+
-                                      "\n[hotfix] Plugins are now reloaded on updates" +
-                                      "\n[4] Added Hall of Fame (list of cool kids)" +
+                                      "[1] Removed Idiotic coding segments, you probably won't notice them, those changes were for me" +
+                                      "\n[2] Your deck identification begins the moment you start the bot, so you know exactly how tracker views your deck without the need to enter the game" +
+                                      "\n[3] Added fields for easy communication with SmartMulligan (again, you will not notice them unless you edit source code of tracker)" +
+                                      "\n[4] OnTick is not less of a cun... I mean pregame identification changes that will flicker less" +
                 "\n------------[Mulligan: {1}]------------" +
-                "\nSmartMulligan Complition status: Halfway closer than last week", version, mversion);
+                "\n[1] SmartMulligan is available for testing purposes only. Only supports Secret Paladin and Arena." +
+                "\n[2] If you are interested in becoming a class consultant, leave me a message.\n     I don't have the time to research matchups for all 70 soon to be 100 deck archetypes" +
+                "\n[3] To access test version you will need to edit line 70 from false to true", version, mversion);
         }
 
         public void VersionCheck()
@@ -231,44 +238,90 @@ namespace SmartBot.Plugins
             return (rgb / (255.0f));
         }
 
-        public Card.CClass enemy;
+        public Card.CClass Enemy;
+        //public bool CaughtState;
+        public Board PregameBoard;
         public static readonly List<Bot.Mode> AllowedModes = new List<Bot.Mode> { Bot.Mode.Unranked, Bot.Mode.Ranked, Bot.Mode.Practice, Bot.Mode.None };
         #region GameEvents()
         public override void OnTick()
         {
-            GUI.ClearUI();
+            if (!_started || !_supported) return;
+            if (((SmartTracker) DataContainer).Enemy != Card.CClass.JARAXXUS && !pregameEnemyIdentified && Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
+            {
+                Bot.Log("[SmartMulligan] I've succesfully communicated with Tracker: " + ((SmartTracker)DataContainer).Enemy.ToString());
+                GuessMyOpponent(((SmartTracker)DataContainer).Enemy , Bot.GetCurrentOpponentId());
+                pregameEnemyIdentified = true;
+            }
+            
             try
             {
-                if (((SmartTracker)DataContainer).PredictionDisplay)
-                    GUI.AddElement(
-                        new GuiElementText(
-                            "Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess + "|" +
-                            ((SmartTracker)DataContainer).EnemyDeckStyleGuess
-                            , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
-                if (!_started || !_supported) return;
-
-                if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
-                {
-                    if (Bot.CurrentBoard != null && !pregameEnemyIdentified)
-                    {
-                        enemy = Bot.CurrentBoard.EnemyClass;
-                        pregameEnemyIdentified = true;
-                    }
-
-                    IdentifyMyStuff();
-                    CheckHistory();
-                }
-                if (Bot.CurrentScene() != Bot.Scene.GAMEPLAY)
-                {
-                    identified = false;
-                    pregameEnemyIdentified = false;
-                }
+                //GUI.AddElement(
+                //       new GuiElementText(
+                //           "PO: " + Bot.GetPreviousOpponentId()
+                //           , (_screenWidth) / 64, PercToPixHeight(60) + 320, 255, 150, 16, 255, 215, 0));
+                //GUI.AddElement(
+                //        new GuiElementText(
+                //            "CO: " + Bot.GetCurrentOpponentId()
+                //            , (_screenWidth) / 64, PercToPixHeight(60) + 340, 255, 150, 16, 255, 215, 0));
+                //GUI.AddElement(
+                //        new GuiElementText(
+                //            "Enemy   " + ((SmartTracker)DataContainer).Enemy
+                //            , (_screenWidth) / 64, PercToPixHeight(60) + 360, 255, 150, 16, 255, 215, 0));
+                //GUI.AddElement(
+                //       new GuiElementText(
+                //           "Turn:   " + ((SmartTracker)DataContainer).CurrentTurn
+                //           , (_screenWidth) / 64, PercToPixHeight(60) + 380, 255, 150, 16, 255, 215, 0));
+                if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY) return;
+                identified = false;
+                pregameEnemyIdentified = false;
+                
             }
             catch (Exception e)
             {
                 Bot.Log("[SmartTracker] Encountered error: " + e.Message);
                 identified = true;
+                pregameEnemyIdentified = true;
             }
+        }
+
+        private void GuessMyOpponent(Card.CClass enemy, long id)
+        {
+            //Bot.Log("I've entered guessing sequence");
+            if (!EnemyHistory.ContainsKey(id))
+            {
+                Bot.Log("[SmartTracker] First time facing this opponent according to data analysys");
+                return;
+            }
+            bool b = false;
+            foreach (var q in EnemyHistory[id])//.Where(q => q != DeckType.Basic ).Where(q => DeckClass[q] == enemy))
+            {
+                if (q == DeckType.Basic)
+                {
+                    //Bot.Log("He played basic, continue");
+                    b = true;
+                    continue;
+                }
+                if (enemy != DeckClass[q]) continue;
+                Bot.Log("Found your opponent, last normal deck he played was " + q +"" +
+                        "\n\t  Full list of his prefered decks: " + ShowUniqueHisotry(id));
+                ((SmartTracker) DataContainer).EnemyDeckTypeGuess = q;
+                ((SmartTracker) DataContainer).EnemyDeckStyleGuess = DeckStyles[q];
+
+                return;
+            }
+            if (!b) return;
+            Bot.Log("Found your opponent, he is a Basic Bitch");
+            ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Basic;
+            ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[DeckType.Basic];
+        }
+
+        private string ShowUniqueHisotry(long id)
+        {
+            Bot.Log(""+EnemyHistory.Count);
+            string result = "";
+            foreach (var type in EnemyHistory[id].Distinct())
+                result = result + (type.ToString() + ", ");
+            return result;
         }
 
         public override void OnGameEnd()
@@ -280,6 +333,7 @@ namespace SmartBot.Plugins
 
         public override void OnGameBegin()
         {
+            ((SmartTracker) DataContainer).CurrentTurn = 0;
             Bot.Log("-----------Game Begun-------------");
             IdentifyMyStuff();
             if(((SmartTracker)DataContainer).Summary)
@@ -315,7 +369,7 @@ namespace SmartBot.Plugins
         }
         public void IdentifyMyStuff()
         {
-            if (Bot.CurrentBoard == null || identified || !_supported) return;
+            if (identified || !_supported) return;
 
             informationData = GetDeckInfo(Bot.CurrentDeck().Class, Bot.CurrentDeck().Cards);
             ((SmartTracker)DataContainer).AutoFriendlyDeckType = informationData.DeckType;
@@ -325,11 +379,9 @@ namespace SmartBot.Plugins
                 DeckType tempType = informationData.DeckType;
                 informationData.DeckType = ((SmartTracker)DataContainer).ForcedDeckType;
                 informationData.DeckStyle = DeckStyles[((SmartTracker)DataContainer).ForcedDeckType];
-                Bot.Log(string.Format("[SmartTracker] You are forcing SmartMulliganV3 to treat your deck as {0}, {1}," + "\n\t\t[Debug] Tracker would have recognized it as {2}, {3}", informationData.DeckType, informationData.DeckStyle, tempType, DeckStyles[tempType]));
+                Bot.Log(string.Format("[SmartTracker] You are forcing SmartMulligan to treat your deck as {0}, {1}," + "\n\t\t[Debug] Tracker would have recognized it as {2}, {3}", informationData.DeckType, informationData.DeckStyle, tempType, DeckStyles[tempType]));
             }
 
-            if (((SmartTracker)DataContainer).Mode == IdentityMode.Auto)
-                Bot.Log(string.Format("Succesfully Identified deck\n{0}|{1}|", informationData.DeckType, informationData.DeckStyle));
             identified = true;
         }
 
@@ -363,7 +415,7 @@ namespace SmartBot.Plugins
         private static bool _supported = false;
         public override void OnStarted()
         {
-
+            SetupMulliganTester();
             if (!AllowedModes.Contains(Bot.CurrentMode()))
             {
                 Bot.Log("[SmartTracker] Sorry, Current mode is not supported with tracker");
@@ -375,15 +427,22 @@ namespace SmartBot.Plugins
             DeckTypeCounter.Clear();
             CheckHistory();
             GetData();
-            if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
-            {
-                Bot.Log((Bot.CurrentBoard == null) + " " + identified);
-                IdentifyMyStuff();
-            }
-
+            IdentifyMyStuff();
+            Bot.Log("--------------This is the deck that Tracker Picked up -------------------"+
+            "\n"+Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
+            Bot.Log("---------------If it's wrong, just start the bot again------------------------");
+            if (((SmartTracker)DataContainer).Mode == IdentityMode.Auto)
+                Bot.Log(string.Format("[SmartTracker] Succesfully Identified your deck as: [{0}:{1}]", informationData.DeckType, informationData.DeckStyle));
+            GUI.ClearUI();
+            if (((SmartTracker)DataContainer).PredictionDisplay)
+                GUI.AddElement(
+                    new GuiElementText(
+                        "Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess + "|" +
+                        ((SmartTracker)DataContainer).EnemyDeckStyleGuess
+                        , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
             if (((SmartTracker)DataContainer).AutoUpdateV3)
             {
-                CheckUpdatesMulligan(((SmartTracker)DataContainer).LSmartMulliganV3);
+                CheckUpdatesMulligan(((SmartTracker)DataContainer).LSmartMulligan);
                 ((SmartTracker)DataContainer).VersionCheck();
             }
             if (((SmartTracker)DataContainer).AutoUpdateTracker)
@@ -395,6 +454,21 @@ namespace SmartBot.Plugins
 
             PrintHistory();
 
+        }
+
+        private void SetupMulliganTester()
+        {
+            using (
+                StreamWriter mt =
+                    new StreamWriter(AppDomain.CurrentDomain.BaseDirectory +
+                                     "\\MulliganProfiles\\SmartMulliganV3\\mt.txt"))
+            {
+                mt.WriteLine("{0}:{1}:{2}:{3}", 
+                    ((SmartTracker)DataContainer).MulliganTesterYourDeck,
+                    DeckStyles[((SmartTracker)DataContainer).MulliganTesterYourDeck],
+                    ((SmartTracker)DataContainer).MulliganTEsterEnemyDeck,
+                    DeckStyles[((SmartTracker)DataContainer).MulliganTEsterEnemyDeck]);
+            }
         }
 
         public void GetData()
@@ -474,12 +548,12 @@ namespace SmartBot.Plugins
             }
         }
 
-        private void CheckUpdatesMulligan(string lSmartMulliganV3)
+        private void CheckUpdatesMulligan(string lSmartMulligan)
         {
-            HttpWebRequest request = WebRequest.Create(lSmartMulliganV3) as HttpWebRequest;
+            HttpWebRequest request = WebRequest.Create(lSmartMulligan) as HttpWebRequest;
             if (request == null)
             {
-                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartMulliganV3));
+                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartMulligan));
                 return;
             }
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
@@ -491,7 +565,7 @@ namespace SmartBot.Plugins
                 double remoteVer = double.Parse(str.ReadLine(), format);
                 double localVer = double.Parse(localVersion.ReadLine(), format);
                 //Bot.Log(remoteVer.ToString(CultureInfo.InvariantCulture));
-                if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartMulliganV3 is up to date");
+                if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartMulligan is up to date");
                 if (localVer > remoteVer)
                 {
                     Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}", localVer, remoteVer));
@@ -500,23 +574,23 @@ namespace SmartBot.Plugins
                 if (localVer < remoteVer)
                 {
                     localVersion.Close();
-                    UpdateMulligan(lSmartMulliganV3, remoteVer, localVer);
+                    UpdateMulligan(lSmartMulligan, remoteVer, localVer);
                 }
             }
         }
 
-        private void UpdateMulligan(string lSmartMulliganV3, double remoteVer, double localVer)
+        private void UpdateMulligan(string lSmartMulligan, double remoteVer, double localVer)
         {
             Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
-            HttpWebRequest MulliganRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3.cs") as HttpWebRequest;
+            HttpWebRequest MulliganRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulligan.cs") as HttpWebRequest;
             if (MulliganRequest == null)
             {
-                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartMulliganV3));
+                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartMulligan));
                 return;
             }
             using (HttpWebResponse mulResponse = MulliganRequest.GetResponse() as HttpWebResponse)
             using (StreamReader mulFile = new StreamReader(mulResponse.GetResponseStream()))
-            using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "SmartMulliganV3.cs"))
+            using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "SmartMulligan.cs"))
             {
                 string tempfile = mulFile.ReadToEnd();
                 //Bot.Log("");
@@ -539,16 +613,29 @@ namespace SmartBot.Plugins
 
         public override void OnStopped()
         {
+            GUI.ClearUI();
+            ((SmartTracker)DataContainer).Enemy = Card.CClass.JARAXXUS;
             identified = false;
             _started = false;
             pregameEnemyIdentified = false;
             EnemyHistory = new Dictionary<long, List<DeckType>>();
         }
 
+        public static int Turn; 
         public override void OnTurnBegin()
         {
             base.OnTurnBegin();
+            ((SmartTracker) DataContainer).CurrentTurn += 1;
+            Turn = ((SmartTracker) DataContainer).CurrentTurn;
             CheckOpponentDeck();
+            GUI.ClearUI();
+            if (((SmartTracker)DataContainer).PredictionDisplay)
+                GUI.AddElement(
+                    new GuiElementText(
+                        "Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess + "|" +
+                        ((SmartTracker)DataContainer).EnemyDeckStyleGuess
+                        , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
+
         }
 
         public void CheckOpponentDeck()
@@ -615,6 +702,7 @@ namespace SmartBot.Plugins
         public override void OnVictory()
         {
             if (!_supported) return;
+
             AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
             UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
             try
@@ -804,7 +892,8 @@ namespace SmartBot.Plugins
             {DeckType.RenoShaman, Card.CClass.SHAMAN},
             {DeckType.BattleryShaman, Card.CClass.SHAMAN},
             /*Poor Kids*/
-            //{DeckType.Basic, Card.CClass.DRUID}
+            
+
         };
 
         #region reference decks
@@ -964,6 +1053,8 @@ namespace SmartBot.Plugins
                 #region priest
 
                 case Card.CClass.PRIEST:
+                    if (Turn < 3 && CurrentDeck.Count == 0)
+                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.ControlPriest, DeckStyle = DeckStyles[DeckType.ControlPriest] };
                     if (CurrentDeck.ContainsSome(Cards.WyrmrestAgent, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.BlackwingCorruptor, Cards.BlackwingTechnician))
                     {
                         if (!CurrentDeck.IsRenoDeck())
@@ -996,6 +1087,8 @@ namespace SmartBot.Plugins
                 #region mage
 
                 case Card.CClass.MAGE:
+                    if (Turn < 3 && CurrentDeck.Count == 0)
+                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.FreezeMage, DeckStyle = DeckStyles[DeckType.FreezeMage] };
                     if (CurrentDeck.IsRenoDeck())
                     {
                         deckDictionary.AddOrUpdate(DeckType.RenoMage, CurrentDeck.Intersect(renoMage).Count());
@@ -1062,6 +1155,8 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.WARRIOR:
 
+                    if(Turn < 3 && CurrentDeck.Count == 0)
+                        return new DeckData {DeckList = CurrentDeck, DeckType = DeckType.ControlWarrior, DeckStyle = DeckStyles[DeckType.ControlWarrior]};
                     if (CurrentDeck.IsRenoDeck())
                     {
                         deckDictionary.AddOrUpdate(DeckType.RenoWarrior, CurrentDeck.Intersect(renoWarrior).Count());
@@ -1103,6 +1198,8 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.WARLOCK:
 
+                    if (Turn < 3 && CurrentDeck.Count == 0)
+                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.RenoLock, DeckStyle = DeckStyles[DeckType.RenoLock] };
                     if (CurrentDeck.ContainsAtLeast(2, Cards.JeweledScarab, Cards.AntiqueHealbot, Cards.Ysera, Cards.EmperorThaurissan, Cards.EliseStarseeker, Cards.Demonfire, Cards.Hellfire, Cards.SiphonSoul))
                     {
                         deckDictionary.AddOrUpdate(DeckType.ControlWarlock, CurrentDeck.Intersect(controlWarlock).Count());
