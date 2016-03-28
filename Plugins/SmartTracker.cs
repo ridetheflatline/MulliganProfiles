@@ -676,8 +676,7 @@ namespace SmartBot.Plugins
         public override void OnDefeat()
         {
             if (!_supported) return;
-            AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
-            UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
+            
 
             try
             {
@@ -687,6 +686,8 @@ namespace SmartBot.Plugins
             {
                 Bot.Log("Something happened that wasn't intended" + e.Message);
             }
+            AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
+            UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
         }
 
         private void UpdateCounter(DeckType dt)
@@ -703,8 +704,6 @@ namespace SmartBot.Plugins
         {
             if (!_supported) return;
 
-            AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
-            UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
             try
             {
                 CheckOpponentDeck("won");
@@ -713,6 +712,8 @@ namespace SmartBot.Plugins
             {
                 Bot.Log("Something happened that wasn't intended" + e.Message);
             }
+            AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
+            UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
         }
         #region deckIdentifier
         public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
