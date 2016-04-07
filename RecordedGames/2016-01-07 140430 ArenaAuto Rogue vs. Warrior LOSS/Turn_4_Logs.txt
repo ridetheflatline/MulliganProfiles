@@ -1,0 +1,8 @@
+Started PlaySequence routine
+Play sequence : [Play] Tomb Pillager[5/4](Pos :1)
+Play sequence : [Attack] Pit Snake[2/1]->Garrosh Hellscream
+Play sequence : [Attack] Zombie Chow[2/1]->Garrosh Hellscream
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

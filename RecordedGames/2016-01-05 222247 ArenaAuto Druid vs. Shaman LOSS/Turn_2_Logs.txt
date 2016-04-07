@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Flame Juggler[2/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,13 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Argent Commander[4/2](Pos :1)
+[COACH] [Attack] Argent Commander[4/2]->Fireguard Destroyer[4/6]
+[COACH] [Play] Shapeshift
+[COACH] [Attack] Darnassus Aspirant[2/3]->Thrall
+[COACH] [Attack] Violet Apprentice[1/1]->Thrall
+[COACH] [Attack] Malfurion Stormrage->Thrall
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

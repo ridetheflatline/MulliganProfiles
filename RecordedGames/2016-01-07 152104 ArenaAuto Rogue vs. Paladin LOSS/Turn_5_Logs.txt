@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Spider Tank[3/4](Pos :1)
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Silver Hand Recruit[1/1]
+[COACH] [Attack] Deathlord[2/8]->Uther Lightbringer
+[COACH] [Attack] Annoy-o-Tron[1/2]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

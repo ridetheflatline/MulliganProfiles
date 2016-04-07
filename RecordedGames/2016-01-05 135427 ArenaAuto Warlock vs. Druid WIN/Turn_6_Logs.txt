@@ -1,0 +1,14 @@
+--> [Play] Life Tap
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Harvest Golem[2/3]->Malfurion Stormrage
+Play sequence : [Play] Ancient Brewmaster[5/4](Pos :1)->Harvest Golem[2/3]
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Imp[1/1]->Ironbeak Owl[2/1]
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

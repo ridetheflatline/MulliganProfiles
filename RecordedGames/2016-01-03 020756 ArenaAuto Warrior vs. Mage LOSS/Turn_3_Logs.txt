@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Acidic Swamp Ooze[3/1]->Mirror Image[0/2]
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

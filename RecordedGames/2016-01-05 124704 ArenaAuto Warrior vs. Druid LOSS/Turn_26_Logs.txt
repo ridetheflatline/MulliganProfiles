@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Spellbreaker[4/3](Pos :1)->Micro Machine[2/2]
+[COACH] [Play] Tomb Spider[3/3](Pos :1)
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [Attack] Obsidian Destroyer[7/7]->Druid of the Flame[2/5]
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Jeeves[1/1]->Malfurion Stormrage
+[COACH] [Attack] Warbot[1/3]->Malfurion Stormrage
+[COACH] [Attack] Frigid Snobold[2/1]->Micro Machine[2/2]
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

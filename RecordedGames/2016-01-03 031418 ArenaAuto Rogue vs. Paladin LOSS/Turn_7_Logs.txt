@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Salty Dog[7/4](Pos :1)
+[COACH] [Play] Defias Ringleader[2/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

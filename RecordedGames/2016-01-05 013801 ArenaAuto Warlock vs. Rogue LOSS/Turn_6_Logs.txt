@@ -1,0 +1,16 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Acolyte of Pain[1/3]->Valeera Sanguinar
+[COACH] [Play] Bane of Doom->Lost Tallstrider[5/2]
+[COACH] [Resimulate] 
+[COACH] [Attack] Deathlord[2/3]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Deathlord[2/3]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

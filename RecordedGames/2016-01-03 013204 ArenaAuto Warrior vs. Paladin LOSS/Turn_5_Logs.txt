@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Saboteur[4/1]->Pit Fighter[5/6]
+[COACH] [Attack] Garrosh Hellscream->Pit Fighter[5/6]
+[COACH] [Play] Earthen Ring Farseer[3/3](Pos :1)->Garrosh Hellscream
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Arathi Weaponsmith[3/3]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

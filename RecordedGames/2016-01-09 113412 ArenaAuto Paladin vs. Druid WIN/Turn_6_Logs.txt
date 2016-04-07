@@ -1,0 +1,10 @@
+--> [Waiting] 
+--> [Play] Hammer of Wrath->Emperor Cobra[2/3]
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Play] Mana Wraith[2/2](Pos :1)
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

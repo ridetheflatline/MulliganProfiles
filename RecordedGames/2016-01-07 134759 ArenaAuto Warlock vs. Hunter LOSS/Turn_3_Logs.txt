@@ -1,0 +1,15 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Djinni of Zephyrs[4/6](Pos :1)
+[COACH] [Attack] Ogre Brute[4/1]->Rexxar
+[COACH] [Resimulate] 
+[COACH] [Attack] Imp Gang Boss[2/4]->Fencing Coach[2/2]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

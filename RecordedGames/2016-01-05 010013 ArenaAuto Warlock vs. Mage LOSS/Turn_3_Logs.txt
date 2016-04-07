@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Argent Horserider[2/1](Pos :1)
+[COACH] [Attack] Argent Horserider[2/1]->Annoy-o-Tron[1/2]
+[COACH] [Attack] Dark Peddler[2/3]->Annoy-o-Tron[1/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

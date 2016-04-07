@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Flame Lance->Ethereal Conjurer[6/3]
+[COACH] [Play] Dagger Mastery
+[COACH] [Play] Sap->Sen'jin Shieldmasta[3/5]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

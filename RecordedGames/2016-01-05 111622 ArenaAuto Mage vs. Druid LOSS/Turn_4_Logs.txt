@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stranglethorn Tiger[5/5](Pos :1)
+[COACH] [Attack] Stranglethorn Tiger[5/5]->Malfurion Stormrage
+[COACH] [Play] The Coin
+[COACH] [Play] Ship's Cannon[2/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

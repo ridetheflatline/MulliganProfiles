@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Silver Hand Regent[3/3](Pos :1)
+[COACH] [Attack] Valeera Sanguinar->Valeera Sanguinar
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Dread Corsair[3/2]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

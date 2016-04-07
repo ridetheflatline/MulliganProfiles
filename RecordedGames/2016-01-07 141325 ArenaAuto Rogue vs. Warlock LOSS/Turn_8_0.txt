@@ -1,0 +1,30 @@
+Board --- Valeera Sanguinar(18/0-6/0)Gul'dan 
+
+WeaponFriend : Wicked Knife[CS2_082][1/1]
+
+AbilityFriend : Dagger Mastery[CS2_083b]
+AbilityEnemy : Life Tap[CS2_056]
+
+Mana : 8
+Enemy secret: False
+
+Friends : 
+Drakonid Crusher[BRM_024][9/2]CAN[False]IDX[0]ENCH[BRM_024-F]
+
+Enemy : 
+Gilblin Stalker[GVG_081][2/3]CAN[False]IDX[0][ST]
+
+Hand : 
+Archmage[CS2_155][4/7]COST[6]
+Frostwolf Grunt[CS2_121][2/2]COST[2]
+Haunted Creeper[FP1_002][1/2]COST[2]
+Sunfury Protector[EX1_058][2/3]COST[2]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 17 -- EnemyDeck : 18
+Value : 137.2
+
+@8~8~1~0~0~17~18~0~False~8~False~3~0~CS2_082*-1*0*1*1*1*2*77*2*0*1*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_03*-1*0*1*0*12*0*64*30*0*8*18*0*False*False*False*False*False*False*False*False*False*False*False*False*False*8*False~HERO_07*-1*0*0*0*24*0*66*30*0*8*6*0*False*False*False*False*False*False*False*False*False*False*False*False*False*8*False~CS2_083b*-1*0*0*2*0*0*65*0*0*8*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*8*False~CS2_056*-1*0*0*2*0*0*67*0*0*8*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*8*False~BRM_024*0*0*9*6*7*0*31*9*1*1*2*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False*BRM_024e=1=31=0~GVG_081*0*0*2*2*0*0*38*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*True*0*False~CS2_155*0*0*4*6*0*0*7*7*0*0*7*1*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_121*1*0*2*2*0*0*8*2*0*0*2*0*False*False*True*False*False*False*True*False*False*False*False*False*False*0*False|FP1_002*2*0*1*2*0*0*17*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_058*3*0*2*2*0*0*23*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~EX1_096|EX1_133|FP1_001|CS2_074|LOE_012|GVG_023|GAME_005|CS2_082|GAME_005|GVG_068|FP1_009~0~AT_094|EX1_319|LOE_023|AT_114|LOE_079|CS2_173|CS1_069|EX1_303|CS2_197|AT_087~0~True=True=False=True=True=False~0~0~0~False~CS2_072,CS2_074,AT_029,LOE_010,FP1_001,EX1_581,GVG_085,AT_089,CS2_121,GVG_023,FP1_002,EX1_096,EX1_058,EX1_133,AT_033,FP1_009,CS2_196,EX1_019,GVG_044,GVG_102,GVG_068,LOE_012,LOE_047,AT_119,CS2_155,BRM_024,EX1_283,GVG_105,CS2_077~0~0~

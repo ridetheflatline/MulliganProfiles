@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Archmage[4/7](Pos :1)
+[COACH] [Attack] Burly Rockjaw Trogg[5/4]->Valeera Sanguinar
+[COACH] [Attack] Valeera Sanguinar->Undercity Valiant[3/2]
+[COACH] [Attack] Annoy-o-Tron[1/2]->Valeera Sanguinar
+[COACH] [EndTurn] 

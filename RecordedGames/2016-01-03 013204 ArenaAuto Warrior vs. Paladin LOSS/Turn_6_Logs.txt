@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Boulderfist Ogre[6/7](Pos :1)
+[COACH] [Attack] Earthen Ring Farseer[3/3]->Uther Lightbringer
+[COACH] [Attack] Arathi Weaponsmith[3/3]->Silver Hand Recruit[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

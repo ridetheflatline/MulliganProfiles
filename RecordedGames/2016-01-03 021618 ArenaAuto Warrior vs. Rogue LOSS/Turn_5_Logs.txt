@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Death's Bite[4/2](Pos :1)
+[COACH] [Attack] Garrosh Hellscream->Nerubian[4/4]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,13 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Gadgetzan Jouster[1/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

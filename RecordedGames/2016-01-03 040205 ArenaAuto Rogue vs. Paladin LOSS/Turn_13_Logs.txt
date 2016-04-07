@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Damaged Golem[2/1]
+[COACH] [Attack] Deathwing[12/6]->Tomb Spider[3/3]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Deathwing[12/6]->Tomb Spider[3/3]
+[COACH] [EndTurn] 

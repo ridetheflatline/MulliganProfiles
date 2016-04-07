@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Zombie Chow[2/3](Pos :1)
+[COACH] [Attack] Flame Imp[3/2]->Zombie Chow[2/3]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

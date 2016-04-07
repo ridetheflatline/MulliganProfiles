@@ -1,0 +1,11 @@
+c:\Users\artur\AppData\Local\Temp\m22qlnft.0.cs(30,73) : error CS1525: Invalid expression term '<'
+c:\Users\artur\AppData\Local\Temp\m22qlnft.0.cs(30,74) : error CS1026: ) expected
+c:\Users\artur\AppData\Local\Temp\m22qlnft.0.cs(30,90) : error CS1002: ; expected
+c:\Users\artur\AppData\Local\Temp\m22qlnft.0.cs(30,90) : error CS1525: Invalid expression term ')'
+c:\Users\artur\AppData\Local\Temp\rzbfyfre.0.cs(30,73) : error CS1525: Invalid expression term '<'
+c:\Users\artur\AppData\Local\Temp\rzbfyfre.0.cs(30,74) : error CS1026: ) expected
+c:\Users\artur\AppData\Local\Temp\rzbfyfre.0.cs(30,90) : error CS1002: ; expected
+c:\Users\artur\AppData\Local\Temp\rzbfyfre.0.cs(30,90) : error CS1525: Invalid expression term ')'
+c:\Users\artur\AppData\Local\Temp\3eiry5jm.0.cs(30,51) : error CS0019: Operator '==' cannot be applied to operands of type 'SmartBot.Plugins.API.Card.CRace' and 'TCrace'
+c:\Users\artur\AppData\Local\Temp\jju3rhnt.0.cs(30,51) : error CS0019: Operator '==' cannot be applied to operands of type 'SmartBot.Plugins.API.Card.CRace' and 'TCrace'
+c:\Users\artur\AppData\Local\Temp\oownv14u.0.cs(30,51) : error CS0019: Operator '==' cannot be applied to operands of type 'SmartBot.Plugins.API.Card.CRace' and 'TCrace'

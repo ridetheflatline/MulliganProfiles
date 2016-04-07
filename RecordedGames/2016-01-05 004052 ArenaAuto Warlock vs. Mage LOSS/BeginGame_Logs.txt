@@ -1,0 +1,127 @@
+Current Rank : 12 - 3 stars
+Ranked
+Ranked
+Ranked
+Game disconnected
+Hearthstone status changed : Uninitialized
+Hearthstone status changed : Opened
+Hearthstone status changed : Ready
+Region Updated : REGION_US
+Refreshing decks -----------
+Game connected
+Refreshing decks -----------
+Hearthstone status changed : Injected
+Refreshing decks -----------
+Bot will stop after : 10 auto drafts
+Bot will stop after : 40 wins
+Bot will stop at rank 0 and lower
+Bot will stop at rank 0 and higher
+Hearthstone FPS set to : 140
+Bot started
+Current draft count : 0
+Region Updated : REGION_US
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Boulderfist Ogre.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Zombie Chow.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Mad Bomber.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Argent Horserider.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Shadow Bolt.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Although we already have a Shadow Bolt in our deck, I still suggest you pick Shadow Bolt as it has the most value out of these options.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : That's what I'm talking about! Siphon Soul has the most value and we need a large removal.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Earthen Ring Farseer.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : That's what I'm talking about! Let's go purely by the tier list: Bane of Doom.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Great! Dark Peddler could compensate for our lack of four drops and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Razorfen Hunter and although Razorfen Hunter could compensate for our lack of four drops, in this situation I suggest you pick Acolyte of Pain because it has some synergy with our deck.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : North Sea Kraken has a positive effect on our deck archetype and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Too bad we have to choose between these cards. Sunwalker has a positive effect on our deck archetype and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : I see value! Imp-losion has the most value and we need a card to play on turn four.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Evil Heckler has the most value and we really need a four drop.
+Received arena result from heartharena
+[ARENA] Choice : Evil Heckler
+[ARENA] Choice : Evil Heckler
+[ARENA] Choice : Evil Heckler
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Evil Heckler has the most value and we really need a four drop.
+Received arena result from heartharena
+[ARENA] Choice : Evil Heckler
+[ARENA] Choice : Evil Heckler
+[ARENA] Choice : Evil Heckler
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Evil Heckler has the most value and we really need a four drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Fearsome Doomguard has a positive effect on our deck archetype and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Stranglethorn Tiger has the most value and we need a five drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Zombie Chow. However, Zombie Chow has a negative effect on our deck archetype, Antique Healbot could fit in our Attrition deck and has a positive effect on our deck archetype. So all in all, I suggest you pick Antique Healbot in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Injured Blademaster. However, Deathlord is less worse for our deck archetype. I suggest you pick Deathlord in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Flame Imp. However, Worgen Infiltrator is less worse for our deck archetype. I suggest you pick Worgen Infiltrator in this situation.
+Received arena result from heartharena
+[ARENA] Choice : Worgen Infiltrator
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Silver Hand Knight has the most value and we need a five drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Although Dire Wolf Alpha has a negative effect on our deck archetype, I still suggest you pick it as it has the most value out of these options.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Frostwolf Warlord. However, Unstable Ghoul compensates for our lack of four drops, has a positive effect on our deck archetype and we need a ping. So all in all, I suggest you pick Unstable Ghoul in this situation.
+Received arena result from heartharena
+[ARENA] Choice : Unstable Ghoul
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Silver Hand Knight. However, we really need a three drop. I suggest you pick Shattered Sun Cleric in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Lost Tallstrider has the most value and we seriously need a four drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Oasis Snapjaw has the most value and we really need a four drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Demonheart. However, Recombobulator has great synergy with our deck and we need a two drop. I suggest you pick Recombobulator in this situation.
+Received arena result from heartharena
+[ARENA] Choice : Recombobulator
+[ARENA] Choice : Recombobulator
+[ARENA] Choice : Recombobulator
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Knife Juggler has the most value and we really need a two drop.
+Received arena result from heartharena
+Mulligan profile : SmartMulliganV2.cs
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,14 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Hammer of Wrath->Bloodfen Raptor[3/2]
+[COACH] [Resimulate] 
+[COACH] [Play] Reinforce
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

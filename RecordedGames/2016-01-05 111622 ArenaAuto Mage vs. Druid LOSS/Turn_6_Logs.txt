@@ -1,0 +1,18 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Cult Master[4/2](Pos :1)
+[COACH] [Attack] Ogre Magi[4/4]->Evil Heckler[5/4]
+[COACH] [Resimulate] 
+[COACH] [Attack] Stranglethorn Tiger[5/5]->Malfurion Stormrage
+[COACH] [Play] Tomb Spider[3/3](Pos :1)
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

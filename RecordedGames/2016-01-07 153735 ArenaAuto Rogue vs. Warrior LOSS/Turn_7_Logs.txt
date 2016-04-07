@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Sunfury Protector[2/3](Pos :1)
+[COACH] [Play] Kvaldir Raider[4/4](Pos :1)
+[COACH] [EndTurn] 
+--> Sending emote : THANKS
+ 
+<-------New Turn-------->
+ 

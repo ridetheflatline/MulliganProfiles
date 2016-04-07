@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stormwind Champion[6/6](Pos :1)
+[COACH] [Attack] Antique Healbot[3/3]->Recruiter[5/4]
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Violet Teacher[3/4]->Squire[2/2]
+[COACH] [Attack] River Crocolisk[2/3]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

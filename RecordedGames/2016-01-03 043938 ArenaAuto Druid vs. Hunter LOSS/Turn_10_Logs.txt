@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] 
+[COACH] [Attack] Flamewaker Acolyte[3/1]->Huffer[4/2]
+[COACH] [Attack] 
+[COACH] [Attack] Flamewaker Acolyte[3/1]
+[COACH] [Attack] Sunwalker[4/1]
+[COACH] [Attack] Snake[1/1]->Rexxar
+[COACH] [EndTurn] 

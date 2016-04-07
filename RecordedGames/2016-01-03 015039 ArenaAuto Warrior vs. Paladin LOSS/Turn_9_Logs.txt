@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stormwind Champion[6/6](Pos :1)
+[COACH] [Attack] Tomb Spider[3/3]->Dire Wolf Alpha[2/2]
+[COACH] [Attack] Big Game Hunter[4/1]->Dalaran Aspirant[3/5]
+[COACH] [Attack] Zombie Chow[2/3]->Amani Berserker[3/3]
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

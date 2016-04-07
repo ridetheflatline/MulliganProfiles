@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Captured Jormungar[5/9](Pos :1)
+[COACH] [Play] Fireblast->Pit Snake[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

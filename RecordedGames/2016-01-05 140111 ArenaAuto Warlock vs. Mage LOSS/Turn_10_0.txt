@@ -1,0 +1,30 @@
+Board --- Gul'dan(18/0-16/0)Jaina Proudmoore 
+
+
+AbilityFriend : Life Tap[CS2_056]
+AbilityEnemy : Fireblast[CS2_034]
+
+Mana : 10
+Enemy secret: False
+
+Friends : 
+Faerie Dragon[NEW1_023][3/2]CAN[True]IDX[0][NT]
+Ancient Brewmaster[EX1_057][5/4]CAN[True]IDX[1]
+Harvest Golem[EX1_556][2/3]CAN[True]IDX[2]
+
+Enemy : 
+Gilblin Stalker[GVG_081][2/3]CAN[True]IDX[0][ST]
+Ancient Brewmaster[EX1_057][5/4]CAN[True]IDX[1]
+
+Hand : 
+Flame Imp[EX1_319][3/2]COST[1]
+Imp Gang Boss[BRM_006][2/4]COST[3]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 15 -- EnemyDeck : 16
+Value : 142
+
+@10~10~1~0~0~15~16~0~False~10~False~5~0~0~HERO_07*-1*0*0*0*12*0*64*30*0*10*18*0*False*False*False*False*False*False*False*False*False*False*False*False*False*10*False~HERO_08*-1*0*0*0*14*0*66*30*0*10*16*0*False*False*False*False*False*False*False*False*False*False*False*False*False*10*False*GAME_004=2=66=0~CS2_056*-1*0*0*2*0*0*65*0*0*10*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*10*False~CS2_034*-1*0*0*2*0*0*67*0*0*10*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*10*False~NEW1_023*0*0*3*2*0*0*5*2*0*2*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False|EX1_057*1*0*5*4*0*0*25*4*0*1*4*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False|EX1_556*2*0*2*3*0*0*18*3*0*1*3*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~GVG_081*0*0*2*2*0*0*40*3*0*1*3*0*False*False*False*False*False*False*False*False*False*False*False*False*True*1*False|EX1_057*1*0*5*4*0*0*58*4*0*1*4*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~EX1_319*0*0*3*1*0*0*11*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|BRM_006*1*0*2*3*0*0*13*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|EX1_082|GVG_064|EX1_556|EX1_313|LOE_046|AT_087|EX1_590|EX1_303|EX1_319|EX1_032~0~EX1_096|CS2_203|CS2_029|EX1_010|FP1_012|NEW1_012|tt_004|FP1_012t|GVG_082~0~True=True=True=True=True=False~0~0~0~False~EX1_316,GVG_082,EX1_319,EX1_010,GVG_015,CS2_172,NEW1_023,AT_080,LOE_046,EX1_082,GVG_064,AT_087,EX1_590,CS2_117,EX1_556,BRM_006,EX1_019,EX1_303,EX1_057,EX1_313,FP1_022,EX1_310,AT_090,EX1_032,AT_020,GVG_079~0~0~

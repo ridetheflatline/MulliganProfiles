@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Coldlight Oracle[2/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Leper Gnome[2/1]->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

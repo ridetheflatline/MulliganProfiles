@@ -70,7 +70,7 @@ namespace SmartBot.Plugins
         private const bool DebugTesting = false;
 
         [DisplayName("[1] AU SmartMulligan")]
-        public bool AutoUpdateV3 { get; private set; }
+        public bool AutoUpdateV3 { get; set; }
         [Browsable(false)]
         public double Mversion { get; private set; }
         [DisplayName("[2] AU Tracker")]
@@ -92,7 +92,6 @@ namespace SmartBot.Plugins
         //public bool RandomMovieQuotes { get; private set; }
         [DisplayName("[3] ID Mode")]
         public IdentityMode Mode { get; set; }
-
         [DisplayName("[3] Manual -f Deck")]
         public DeckType ForcedDeckType { get; set; }
         [Browsable(DebugTesting ? true : false)]
@@ -123,7 +122,6 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public int SynchEnums { get; set; }
 
-        public string ChangeLog { get; private set; }
         [DisplayName("[5] Show Summary")]
         public bool Summary { get; set; }
         [DisplayName("Hall of Fame")]
@@ -139,7 +137,7 @@ namespace SmartBot.Plugins
             Name = "SmartTracker";
             ForcedDeckType = DeckType.Unknown;
             MulliganTEsterEnemyDeck = DeckType.Unknown;
-            MulliganTesterYourDeck = DeckType.Unknown;
+            MulliganTesterYourDeck = DeckType.Arena;
             AutoUpdateV3 = false;
             AutoUpdateTracker = false;
             AutoFriendlyDeckType = DeckType.Unknown;
@@ -162,19 +160,7 @@ namespace SmartBot.Plugins
 
         }
 
-        private void UpdateChangeLog(double version, double mversion)
-        {
 
-            ChangeLog = string.Format("[Tracker: {0}]\n" +
-                                      "[1] Removed Idiotic coding segments, you probably won't notice them, those changes were for me" +
-                                      "\n[2] Your deck identification begins the moment you start the bot, so you know exactly how tracker views your deck without the need to enter the game" +
-                                      "\n[3] Added fields for easy communication with SmartMulligan (again, you will not notice them unless you edit source code of tracker)" +
-                                      "\n[4] OnTick is not less of a cun... I mean pregame identification changes that will flicker less" +
-                "\n------------[Mulligan: {1}]------------" +
-                "\n[1] SmartMulligan is available for testing purposes only. Only supports Secret Paladin and Arena." +
-                "\n[2] If you are interested in becoming a class consultant, leave me a message.\n     I don't have the time to research matchups for all 70 soon to be 100 deck archetypes" +
-                "\n[3] To access test version you will need to edit line 70 from false to true", version, mversion);
-        }
 
         public void VersionCheck()
         {
@@ -196,7 +182,6 @@ namespace SmartBot.Plugins
                                  "\nTruci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai" +
                                  "\n[SmartTracker]" +
                                  "\nWirmate";
-                    UpdateChangeLog(Tversion, Mversion);
                 }
             }
             catch (Exception e)
@@ -218,7 +203,7 @@ namespace SmartBot.Plugins
         private int _screenWidth;
         private int _screenHeight;
 
-        private readonly NumberFormatInfo format = new NumberFormatInfo
+        private readonly NumberFormatInfo _format = new NumberFormatInfo
         {
             NumberGroupSeparator = ",",
             NumberDecimalSeparator = "."
@@ -239,89 +224,39 @@ namespace SmartBot.Plugins
         }
 
         public Card.CClass Enemy;
-        //public bool CaughtState;
         public Board PregameBoard;
         public static readonly List<Bot.Mode> AllowedModes = new List<Bot.Mode> { Bot.Mode.Unranked, Bot.Mode.Ranked, Bot.Mode.Practice, Bot.Mode.None };
+        public static bool talkedWithMulligan = false;
         #region GameEvents()
         public override void OnTick()
         {
             if (!_started || !_supported) return;
-            if (((SmartTracker) DataContainer).Enemy != Card.CClass.JARAXXUS && !pregameEnemyIdentified && Bot.CurrentScene() == Bot.Scene.GAMEPLAY)
+            if (((SmartTracker) DataContainer).EnemyDeckTypeGuess != DeckType.Unknown && !talkedWithMulligan)
             {
-                Bot.Log("[SmartMulligan] I've succesfully communicated with Tracker: " + ((SmartTracker)DataContainer).Enemy.ToString());
-                GuessMyOpponent(((SmartTracker)DataContainer).Enemy , Bot.GetCurrentOpponentId());
-                pregameEnemyIdentified = true;
+                GUI.ClearUI();
+                GUI.AddElement(
+                    new GuiElementText(
+                        "Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess 
+                        , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
+                talkedWithMulligan = true;
             }
-            
             try
             {
-                //GUI.AddElement(
-                //       new GuiElementText(
-                //           "PO: " + Bot.GetPreviousOpponentId()
-                //           , (_screenWidth) / 64, PercToPixHeight(60) + 320, 255, 150, 16, 255, 215, 0));
-                //GUI.AddElement(
-                //        new GuiElementText(
-                //            "CO: " + Bot.GetCurrentOpponentId()
-                //            , (_screenWidth) / 64, PercToPixHeight(60) + 340, 255, 150, 16, 255, 215, 0));
-                //GUI.AddElement(
-                //        new GuiElementText(
-                //            "Enemy   " + ((SmartTracker)DataContainer).Enemy
-                //            , (_screenWidth) / 64, PercToPixHeight(60) + 360, 255, 150, 16, 255, 215, 0));
-                //GUI.AddElement(
-                //       new GuiElementText(
-                //           "Turn:   " + ((SmartTracker)DataContainer).CurrentTurn
-                //           , (_screenWidth) / 64, PercToPixHeight(60) + 380, 255, 150, 16, 255, 215, 0));
                 if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY) return;
+                ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
+                ((SmartTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
                 identified = false;
                 pregameEnemyIdentified = false;
-                
+                talkedWithMulligan = false;
+
             }
             catch (Exception e)
             {
                 Bot.Log("[SmartTracker] Encountered error: " + e.Message);
                 identified = true;
                 pregameEnemyIdentified = true;
+                talkedWithMulligan = true;
             }
-        }
-
-        private void GuessMyOpponent(Card.CClass enemy, long id)
-        {
-            //Bot.Log("I've entered guessing sequence");
-            if (!EnemyHistory.ContainsKey(id))
-            {
-                Bot.Log("[SmartTracker] First time facing this opponent according to data analysys");
-                return;
-            }
-            bool b = false;
-            foreach (var q in EnemyHistory[id])//.Where(q => q != DeckType.Basic ).Where(q => DeckClass[q] == enemy))
-            {
-                if (q == DeckType.Basic)
-                {
-                    //Bot.Log("He played basic, continue");
-                    b = true;
-                    continue;
-                }
-                if (enemy != DeckClass[q]) continue;
-                Bot.Log("Found your opponent, last normal deck he played was " + q +"" +
-                        "\n\t  Full list of his prefered decks: " + ShowUniqueHisotry(id));
-                ((SmartTracker) DataContainer).EnemyDeckTypeGuess = q;
-                ((SmartTracker) DataContainer).EnemyDeckStyleGuess = DeckStyles[q];
-
-                return;
-            }
-            if (!b) return;
-            Bot.Log("Found your opponent, he is a Basic Bitch");
-            ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Basic;
-            ((SmartTracker)DataContainer).EnemyDeckStyleGuess = DeckStyles[DeckType.Basic];
-        }
-
-        private string ShowUniqueHisotry(long id)
-        {
-            Bot.Log(""+EnemyHistory.Count);
-            string result = "";
-            foreach (var type in EnemyHistory[id].Distinct())
-                result = result + (type.ToString() + ", ");
-            return result;
         }
 
         public override void OnGameEnd()
@@ -336,12 +271,9 @@ namespace SmartBot.Plugins
             ((SmartTracker) DataContainer).CurrentTurn = 0;
             Bot.Log("-----------Game Begun-------------");
             IdentifyMyStuff();
-            if(((SmartTracker)DataContainer).Summary)
-                PrintHistory();
         }
         #endregion
         public static Dictionary<long, List<DeckType>> EnemyHistory = new Dictionary<long, List<DeckType>>();
-        public static List<MatchHistoryInstance> PreviousGames = new List<MatchHistoryInstance>();
         private void CheckHistory()
         {
             int numGames = ((SmartTracker)DataContainer).AnalyzeGames;
@@ -429,7 +361,8 @@ namespace SmartBot.Plugins
             GetData();
             IdentifyMyStuff();
             Bot.Log("--------------This is the deck that Tracker Picked up -------------------"+
-            "\n"+Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
+            "\n"+Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current + 
+            ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
             Bot.Log("---------------If it's wrong, just start the bot again------------------------");
             if (((SmartTracker)DataContainer).Mode == IdentityMode.Auto)
                 Bot.Log(string.Format("[SmartTracker] Succesfully Identified your deck as: [{0}:{1}]", informationData.DeckType, informationData.DeckStyle));
@@ -451,7 +384,6 @@ namespace SmartBot.Plugins
                 ((SmartTracker)DataContainer).VersionCheck();
             }
             if (!((SmartTracker)DataContainer).Summary) return;
-
             PrintHistory();
 
         }
@@ -485,14 +417,7 @@ namespace SmartBot.Plugins
         public void PrintHistory()
         {
             Bot.Log(string.Format("[Analyzing showed {0} unique opponents]", EnemyHistory.Count));
-            //foreach (var q in EnemyHistory.Distinct())
-            //{
-            //    string deckset = q.Value.Aggregate("", (current, p) => current + ("[" + p + "], "));
-            //    Bot.Log(string.Format("[{0}:\t {1}] ", q.Key, deckset));
-            //}
-
-            //Bot.Log("=========================");
-            foreach (var q in DeckTypeCounter)
+            foreach (var q in DeckTypeCounter.OrderByDescending(val => val.Value))
                 Bot.Log(string.Format("{0}\t{1}", q.Value, q.Key));
         }
         public Dictionary<DeckType, int> DeckTypeCounter = new Dictionary<DeckType, int>();
@@ -511,8 +436,8 @@ namespace SmartBot.Plugins
 
             {
                 string strline = str.ReadLine();
-                double remoteVer = double.Parse(strline, format);
-                double localVer = double.Parse(localVersion.ReadLine(), format);
+                double remoteVer = double.Parse(strline, _format);
+                double localVer = double.Parse(localVersion.ReadLine(), _format);
 
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartTracker is up to date");
                 if (localVer > remoteVer)
@@ -562,8 +487,8 @@ namespace SmartBot.Plugins
 
             {
 
-                double remoteVer = double.Parse(str.ReadLine(), format);
-                double localVer = double.Parse(localVersion.ReadLine(), format);
+                double remoteVer = double.Parse(str.ReadLine(), _format);
+                double localVer = double.Parse(localVersion.ReadLine(), _format);
                 //Bot.Log(remoteVer.ToString(CultureInfo.InvariantCulture));
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartMulligan is up to date");
                 if (localVer > remoteVer)
@@ -618,6 +543,7 @@ namespace SmartBot.Plugins
             identified = false;
             _started = false;
             pregameEnemyIdentified = false;
+            talkedWithMulligan = false;
             EnemyHistory = new Dictionary<long, List<DeckType>>();
         }
 
@@ -627,7 +553,14 @@ namespace SmartBot.Plugins
             base.OnTurnBegin();
             ((SmartTracker) DataContainer).CurrentTurn += 1;
             Turn = ((SmartTracker) DataContainer).CurrentTurn;
-            CheckOpponentDeck();
+            try
+            {
+                CheckOpponentDeck();
+            }
+            catch (Exception e)
+            {
+                Bot.Log(string.Format("{0} || {1} || {2}", e.Message, e.TargetSite, e.InnerException));
+            }
             GUI.ClearUI();
             if (((SmartTracker)DataContainer).PredictionDisplay)
                 GUI.AddElement(
@@ -688,6 +621,8 @@ namespace SmartBot.Plugins
             }
             AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
             UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
+            Bot.Log("[ST] Adden recent opponent to data set.");
+
         }
 
         private void UpdateCounter(DeckType dt)
@@ -714,6 +649,7 @@ namespace SmartBot.Plugins
             }
             AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
             UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
+            Bot.Log("[ST] Adden recent opponent to data set.");
         }
         #region deckIdentifier
         public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
@@ -806,97 +742,7 @@ namespace SmartBot.Plugins
             {DeckType.Basic, Style.Tempo}
         };
 
-        public readonly Dictionary<DeckType, Card.CClass> DeckClass = new Dictionary<DeckType, Card.CClass>
-        {
-            {DeckType.Unknown, Card.CClass.NONE},
-            {DeckType.Arena, Card.CClass.NONE},
-            /*Warrior*/
-            {DeckType.ControlWarrior, Card.CClass.WARRIOR},
-            {DeckType.FatigueWarrior, Card.CClass.WARRIOR},
-            {DeckType.DragonWarrior, Card.CClass.WARRIOR},
-            {DeckType.PatronWarrior, Card.CClass.WARRIOR},
-            {DeckType.WorgenOTKWarrior, Card.CClass.WARRIOR},
-            {DeckType.MechWarrior, Card.CClass.WARRIOR},
-            {DeckType.FaceWarrior, Card.CClass.WARRIOR},
-            {DeckType.RenoWarrior, Card.CClass.WARRIOR },
-            /*Paladin*/
-            {DeckType.SecretPaladin, Card.CClass.PALADIN},
-            {DeckType.MidRangePaladin, Card.CClass.PALADIN},
-            {DeckType.DragonPaladin, Card.CClass.PALADIN},
-            {DeckType.AggroPaladin, Card.CClass.PALADIN},
-            {DeckType.AnyfinMurglMurgl, Card.CClass.PALADIN},
-            {DeckType.RenoPaladin, Card.CClass.PALADIN},
-            /*Druid*/
-            {DeckType.RampDruid, Card.CClass.DRUID},
-            {DeckType.AggroDruid, Card.CClass.DRUID},
-            {DeckType.DragonDruid, Card.CClass.DRUID},
-            {DeckType.MidRangeDruid, Card.CClass.DRUID},
-            {DeckType.TokenDruid, Card.CClass.DRUID},
-            {DeckType.SilenceDruid, Card.CClass.DRUID},
-            {DeckType.MechDruid, Card.CClass.DRUID},
-            {DeckType.AstralDruid, Card.CClass.DRUID},
-            {DeckType.MillDruid, Card.CClass.DRUID},
-            {DeckType.BeastDruid, Card.CClass.DRUID},
-            {DeckType.RenoDruid, Card.CClass.DRUID},
-            /*Warlock*/
-            {DeckType.Handlock, Card.CClass.WARLOCK},
-            {DeckType.RenoLock, Card.CClass.WARLOCK},
-            {DeckType.Zoolock, Card.CClass.WARLOCK}, //Same handler as flood zoo and reliquary
-            {DeckType.DemonHandlock, Card.CClass.WARLOCK},
-            {DeckType.DemonZooWarlock, Card.CClass.WARLOCK},
-            {DeckType.DragonHandlock, Card.CClass.WARLOCK},
-            {DeckType.MalyLock, Card.CClass.WARLOCK},
-            {DeckType.RenoComboLock, Card.CClass.WARLOCK},
-            {DeckType.ControlWarlock, Card.CClass.WARLOCK},
-            /*Mage*/
-            {DeckType.TempoMage, Card.CClass.MAGE},
-            {DeckType.FreezeMage, Card.CClass.MAGE},
-            {DeckType.FaceFreezeMage, Card.CClass.MAGE},
-            {DeckType.DragonMage, Card.CClass.MAGE},
-            {DeckType.MechMage, Card.CClass.MAGE},
-            {DeckType.EchoMage, Card.CClass.MAGE},
-            {DeckType.FatigueMage, Card.CClass.MAGE},
-            {DeckType.RenoMage, Card.CClass.MAGE},
-            /*Priest*/
-            {DeckType.DragonPriest, Card.CClass.PRIEST},
-            {DeckType.ControlPriest, Card.CClass.PRIEST},
-            {DeckType.ComboPriest, Card.CClass.PRIEST},
-            {DeckType.MechPriest, Card.CClass.PRIEST},
-            {DeckType.ShadowPriest, Card.CClass.PRIEST},
-            /*Hunter*/
-            {DeckType.MidRangeHunter, Card.CClass.HUNTER},
-            {DeckType.HybridHunter, Card.CClass.HUNTER},
-            {DeckType.FaceHunter, Card.CClass.HUNTER},
-            {DeckType.HatHunter, Card.CClass.HUNTER},
-            {DeckType.CamelHunter, Card.CClass.HUNTER},
-            {DeckType.DragonHunter, Card.CClass.HUNTER},
-            {DeckType.RenoHunter, Card.CClass.HUNTER},
-            /*Rogue*/
-            {DeckType.OilRogue, Card.CClass.ROGUE},
-            {DeckType.PirateRogue, Card.CClass.ROGUE},
-            {DeckType.FaceRogue, Card.CClass.ROGUE},
-            {DeckType.MalyRogue, Card.CClass.ROGUE},
-            {DeckType.RaptorRogue, Card.CClass.ROGUE},
-            {DeckType.FatigueRogue, Card.CClass.ROGUE},
-            {DeckType.MiracleRogue, Card.CClass.ROGUE},
-            {DeckType.RenoRogue, Card.CClass.ROGUE},
-            {DeckType.MechRogue, Card.CClass.ROGUE},
-            {DeckType.MillRogue, Card.CClass.ROGUE},
-            /*Cance... I mean Shaman*/
-            {DeckType.FaceShaman, Card.CClass.SHAMAN},
-            {DeckType.MechShaman, Card.CClass.SHAMAN},
-            {DeckType.DragonShaman, Card.CClass.SHAMAN},
-            {DeckType.TotemShaman, Card.CClass.SHAMAN},
-            {DeckType.MalygosShaman, Card.CClass.SHAMAN},
-            {DeckType.ControlShaman, Card.CClass.SHAMAN},
-            {DeckType.BloodlustShaman, Card.CClass.SHAMAN},
-            {DeckType.RenoShaman, Card.CClass.SHAMAN},
-            {DeckType.BattleryShaman, Card.CClass.SHAMAN},
-            /*Poor Kids*/
-            
-
-        };
-
+        
         #region reference decks
         //Reference Decks
         private readonly List<Card.Cards> renoShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.SylvanasWindrunner, Cards.EarthShock, Cards.FarSight, Cards.StormforgedAxe, Cards.Doomhammer, Cards.FeralSpirit, Cards.Hex, Cards.AzureDrake, Cards.AlAkirtheWindlord, Cards.RockbiterWeapon, Cards.RagnarostheFirelord, Cards.BloodmageThalnos, Cards.DefenderofArgus, Cards.ManaTideTotem, Cards.FireElemental, Cards.LightningStorm, Cards.Crackle, Cards.LavaShock, Cards.EmperorThaurissan, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.AncestralKnowledge, Cards.HealingWave, Cards.JeweledScarab, Cards.SirFinleyMrrgglton, Cards.TombSpider, Cards.RenoJackson, Cards.TunnelTrogg, Cards.ArchThiefRafaam, };
@@ -1435,14 +1281,7 @@ namespace SmartBot.Plugins
         }
     }
 
-    public class MatchHistoryInstance
-    {
-
-        public MatchHistoryInstance(int numMatches)
-        {
-
-        }
-    }
+    
     public class DeckData
     {
         public DeckType DeckType { get; set; }

@@ -1,0 +1,31 @@
+Board --- Gul'dan(28/0-30/0)Uther Lightbringer 
+
+
+AbilityFriend : Life Tap[CS2_056]
+AbilityEnemy : Reinforce[CS2_101]
+
+Mana : 3
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+Bloodfen Raptor[CS2_172][3/2]CAN[False]IDX[0]
+
+Hand : 
+Ogre Brute[GVG_065][4/4]COST[3]
+Acidic Swamp Ooze[EX1_066][3/2]COST[2]
+Mind Control Tech[EX1_085][3/3]COST[3]
+Imp Gang Boss[BRM_006][2/4]COST[3]
+Maiden of the Lake[AT_085][2/6]COST[4]
+Stormwind Champion[CS2_222][6/6]COST[7]
+Piloted Shredder[GVG_096][4/3]COST[4]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 23 -- EnemyDeck : 24
+Value : -16.5
+
+@3~3~1~0~0~23~24~0~False~3~False~6~0~0~HERO_07*-1*0*0*0*2*0*64*30*0*3*28*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~HERO_04*-1*0*0*0*0*0*66*30*0*2*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~CS2_056*-1*0*0*2*0*0*65*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_101*-1*0*0*2*0*0*67*0*0*2*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~0~CS2_172*0*0*3*2*0*0*54*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~GVG_065*0*0*4*3*0*0*15*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_066*1*0*3*2*0*0*24*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_085*2*0*3*3*0*0*31*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|BRM_006*3*0*2*3*0*0*7*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|AT_085*4*0*2*4*0*0*19*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_222*5*0*6*7*0*0*8*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_096*6*0*4*4*0*0*26*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~0~0~False=False=False=False=False=False~0~0~0~False~EX1_316,EX1_010,GVG_015,EX1_066,EX1_162,EX1_082,GVG_064,EX1_049,AT_087,CS2_117,BRM_006,CS2_125,EX1_085,GVG_065,EX1_020,EX1_303,AT_114,GVG_074,AT_085,GVG_078,GVG_096,EX1_320,LOE_053,AT_119,CS2_222,GVG_079~0~0~

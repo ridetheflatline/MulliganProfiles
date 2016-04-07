@@ -1,0 +1,30 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Deathwing[12/12](Pos :1)
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Dread Corsair[3/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Defias Ringleader[2/2](Pos :1)
+[COACH] [Play] Silver Hand Regent[3/3](Pos :1)
+[COACH] [Attack] Valeera Sanguinar->Abusive Sergeant[2/2]
+[COACH] [Play] Dagger Mastery
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Abusive Sergeant[2/2]
+[COACH] [Play] Dagger Mastery
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Abusive Sergeant[2/2]
+[COACH] [Play] Dagger Mastery
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

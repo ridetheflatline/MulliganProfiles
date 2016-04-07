@@ -1,0 +1,34 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Nourish
+[COACH] [Choice] -> 2
+[COACH] [Resimulate] 
+[COACH] [Play] Maiden of the Lake[2/6](Pos :1)
+[COACH] [Attack] Volcanic Lumberer[7/8]->Spectral Knight[4/6]
+[COACH] [Attack] Sneed's Old Shredder[5/6]->Garrosh Hellscream
+[COACH] [Attack] Sunwalker[4/5]->Piloted Shredder[4/3]
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Maiden of the Lake[2/6](Pos :1)
+[COACH] [Attack] Volcanic Lumberer[7/8]->Spectral Knight[4/6]
+[COACH] [Attack] Sunwalker[4/5]->Piloted Shredder[4/3]
+[COACH] [Resimulate] 
+[COACH] [Attack] Sneed's Old Shredder[5/6]
+[COACH] [Play] Harvest
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Maiden of the Lake[2/6](Pos :1)
+[COACH] [Attack] Volcanic Lumberer[7/8]->Spectral Knight[4/6]
+[COACH] [Attack] Sneed's Old Shredder[5/6]->Garrosh Hellscream
+[COACH] [Attack] Sunwalker[4/5]->Piloted Shredder[4/3]
+[COACH] [Resimulate] 
+[COACH] [Play] Harvest
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 

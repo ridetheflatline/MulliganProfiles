@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Attack] Zombie Chow[2/3]->Voidwalker[1/3]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

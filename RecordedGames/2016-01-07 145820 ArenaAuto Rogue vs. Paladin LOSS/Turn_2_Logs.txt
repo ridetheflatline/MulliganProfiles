@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Clockwork Gnome[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

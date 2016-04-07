@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Clockwork Knight[5/5](Pos :1)
+[COACH] [Play] SI:7 Agent[3/3](Pos :1)->Spectral Knight[4/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

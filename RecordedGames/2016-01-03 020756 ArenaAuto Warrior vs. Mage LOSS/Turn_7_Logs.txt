@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Obsidian Destroyer[7/7](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

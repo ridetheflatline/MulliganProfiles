@@ -1,0 +1,21 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Burgle
+[COACH] [Resimulate] 
+[COACH] [Attack] Valeera Sanguinar->Annoy-o-Tron[1/2]
+[COACH] [Attack] Loot Hoarder[2/1]->Annoy-o-Tron[1/2]
+[COACH] [Resimulate] 
+[COACH] [Play] Dagger Mastery
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Annoy-o-Tron[1/2]
+[COACH] [Attack] Loot Hoarder[2/1]->Annoy-o-Tron[1/2]
+[COACH] [Resimulate] 
+[COACH] [Play] Dagger Mastery
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

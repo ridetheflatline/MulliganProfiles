@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Snowchugger[2/3](Pos :1)
+[COACH] [Attack] Zombie Chow[2/3]->Malfurion Stormrage
+[COACH] [EndTurn] 
+--> Sending emote : THREATEN
+ 
+<-------New Turn-------->
+ 

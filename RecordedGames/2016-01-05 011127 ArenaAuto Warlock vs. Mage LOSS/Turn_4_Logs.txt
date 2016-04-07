@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Lost Tallstrider[5/4](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

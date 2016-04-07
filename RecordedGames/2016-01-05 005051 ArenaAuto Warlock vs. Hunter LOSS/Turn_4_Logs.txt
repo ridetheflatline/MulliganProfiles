@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Evil Heckler[5/4](Pos :1)
+[COACH] [Attack] Zombie Chow[2/3]->Nightblade[4/4]
+[COACH] [Attack] Mad Bomber[3/2]->Nightblade[4/4]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

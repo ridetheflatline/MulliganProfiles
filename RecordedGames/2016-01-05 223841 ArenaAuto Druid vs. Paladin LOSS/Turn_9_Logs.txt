@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Ragnaros the Firelord[8/8](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 

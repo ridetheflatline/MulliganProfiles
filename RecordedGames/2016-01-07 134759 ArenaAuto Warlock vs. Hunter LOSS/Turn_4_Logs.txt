@@ -1,0 +1,23 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Bane of Doom->Southsea Deckhand[2/1]
+[COACH] [Resimulate] 
+[COACH] [Attack] Djinni of Zephyrs[4/6]->Rexxar
+[COACH] [Attack] Imp Gang Boss[2/2]->Rexxar
+[COACH] [Attack] Imp[1/1]->Rexxar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Attack] Imp[1/1]->Southsea Deckhand[2/1]
+[COACH] [Play] Mad Bomber[3/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Djinni of Zephyrs[4/6]->Rexxar
+[COACH] [Attack] Imp Gang Boss[2/2]->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

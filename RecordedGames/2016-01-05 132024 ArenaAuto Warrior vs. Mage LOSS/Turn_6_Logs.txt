@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Drakonid Crusher[6/6](Pos :1)
+[COACH] [Attack] Zombie Chow[2/2]->Mirror Image[0/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,20 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Pyroblast->Misha[6/6]
+[COACH] [EndTurn] 
+Bot stopped
+Bot will stop after : 27 wins
+Bot will stop at rank 0 and lower
+Bot will stop at rank 0 and higher
+Hearthstone FPS set to : 140
+Bot started
+Region Updated : REGION_US
+Bot stopped
+Bot will stop after : 27 wins
+Bot will stop at rank 0 and lower
+Bot will stop at rank 0 and higher
+Hearthstone FPS set to : 140
+Bot started
+Region Updated : REGION_US
+Ranked

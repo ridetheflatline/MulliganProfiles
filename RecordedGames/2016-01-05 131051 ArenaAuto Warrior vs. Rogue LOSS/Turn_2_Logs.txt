@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Faerie Dragon[3/2]->Valeera Sanguinar
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 
+--> Sending emote : THREATEN
+ 
+<-------New Turn-------->
+ 

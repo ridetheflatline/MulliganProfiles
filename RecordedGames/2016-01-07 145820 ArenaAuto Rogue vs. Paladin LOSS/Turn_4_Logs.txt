@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Play] Goblin Auto-Barber[3/2](Pos :1)
+[COACH] [Attack] Haunted Creeper[2/3]->Lil' Exorcist[3/4]
+[COACH] [Attack] Valeera Sanguinar->Lil' Exorcist[3/4]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

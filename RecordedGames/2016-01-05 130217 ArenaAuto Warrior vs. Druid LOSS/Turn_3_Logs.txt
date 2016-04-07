@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Fierce Monkey[3/4](Pos :1)
+[COACH] [Attack] Zombie Chow[2/3]->Mad Bomber[3/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Evil Heckler[5/4](Pos :1)
+[COACH] [Play] Flame Imp[3/2](Pos :1)
+[COACH] [Attack] Imp[1/1]->Jaina Proudmoore
+[COACH] [Attack] Imp[1/1]->Jaina Proudmoore
+[COACH] [Attack] Imp[1/1]->Frigid Snobold[2/6]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Amani Berserker[2/3](Pos :1)
+[COACH] [Play] Shapeshift
+[COACH] [Attack] Malfurion Stormrage->Thrall
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

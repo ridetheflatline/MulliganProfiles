@@ -1,0 +1,7 @@
+Started PlaySequence routine
+Play sequence : [Play] Acolyte of Pain[1/3](Pos :1)
+Play sequence : [Attack] Shielded Minibot[2/2]->Mana Wraith[2/2]
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

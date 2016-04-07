@@ -1,0 +1,14 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Imp Gang Boss[2/4]->Jaina Proudmoore
+[COACH] [EndTurn] 
+--> Sending emote : WELL_PLAYED
+Bot stopped
+Bot will stop after : 27 wins
+Bot will stop at rank 0 and lower
+Bot will stop at rank 0 and higher
+Hearthstone FPS set to : 140
+Bot started
+Region Updated : REGION_US
+Ranked

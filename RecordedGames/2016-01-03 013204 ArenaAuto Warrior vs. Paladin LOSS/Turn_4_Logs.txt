@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Arathi Weaponsmith[3/3](Pos :1)
+[COACH] [Attack] Saboteur[4/3]->Razorfen Hunter[2/3]
+[COACH] [Attack] Garrosh Hellscream->Boar[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

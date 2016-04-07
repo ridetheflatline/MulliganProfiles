@@ -1,0 +1,27 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Spectral Spider[1/1]->Misha[4/3]
+[COACH] [Attack] Deathlord[2/8]->Misha[4/3]
+[COACH] [Play] Spider Tank[3/4](Pos :1)
+[COACH] [Play] Zombie Chow[2/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Deathlord[2/8]->Misha[4/3]
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Misha[4/3]
+[COACH] [Play] Zombie Chow[2/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Deathlord[2/8]->Misha[4/3]
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Misha[4/3]
+[COACH] [Play] Zombie Chow[2/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

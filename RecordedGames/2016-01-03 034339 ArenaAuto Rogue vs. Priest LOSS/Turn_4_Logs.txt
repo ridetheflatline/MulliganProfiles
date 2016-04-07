@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Silver Hand Regent[3/3]->Lil' Exorcist[2/3]
+[COACH] [Play] Pit Snake[2/1](Pos :1)
+[COACH] [Play] Undercity Valiant[3/2](Pos :1)->Shrinkmeister[5/4]
+[COACH] [Attack] Puddlestomper[3/2]->Shrinkmeister[5/4]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

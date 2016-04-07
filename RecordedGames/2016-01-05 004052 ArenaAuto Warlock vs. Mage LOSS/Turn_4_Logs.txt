@@ -1,0 +1,18 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Imp-losion->Mechwarper[2/3]
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Evil Heckler[5/4](Pos :1)
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

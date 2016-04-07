@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Force-Tank MAX[7/7](Pos :1)
+[COACH] [Attack] Valeera Sanguinar->Booty Bay Bodyguard[6/4]
+[COACH] [Attack] Salty Dog[7/4]->Rexxar
+[COACH] [Attack] Argent Squire[1/1]->Rexxar
+[COACH] [EndTurn] 

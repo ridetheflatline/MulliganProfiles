@@ -1,0 +1,9 @@
+Started PlaySequence routine
+Play sequence : [Play] Questing Adventurer[2/2](Pos :1)
+Play sequence : [Play] Argent Protector[2/2](Pos :1)->Pit Fighter[5/6]
+Play sequence : [Attack] Pit Fighter[5/6]->Silver Hand Regent[3/5]
+Play sequence : [Play] Abusive Sergeant[2/1](Pos :1)->Questing Adventurer[2/2]
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

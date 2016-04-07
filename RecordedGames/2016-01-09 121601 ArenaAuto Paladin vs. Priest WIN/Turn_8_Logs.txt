@@ -1,0 +1,22 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Acolyte of Pain[8/5]->Museum Curator[1/2]
+[COACH] [Resimulate] 
+[COACH] [Play] Pit Fighter[5/6](Pos :1)
+[COACH] [Attack] Silver Hand Knight[4/3]->Flame Juggler[2/3]
+[COACH] [Attack] Squire[2/2]->Acidic Swamp Ooze[3/2]
+[COACH] [Play] Aldor Peacekeeper[3/3](Pos :1)->Piloted Shredder[4/3]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Pit Fighter[5/6](Pos :1)
+[COACH] [Attack] Squire[2/2]->Acidic Swamp Ooze[3/2]
+[COACH] [Play] Solemn Vigil
+[COACH] [Resimulate] 
+[COACH] [Play] Aldor Peacekeeper[3/3](Pos :1)->Piloted Shredder[4/3]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

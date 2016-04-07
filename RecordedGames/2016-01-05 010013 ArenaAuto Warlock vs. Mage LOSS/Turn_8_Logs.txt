@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Play] Siphon Soul->Force-Tank MAX[7/7]
+[COACH] [Attack] Oasis Snapjaw[2/7]->Squire[2/1]
+[COACH] [EndTurn] 

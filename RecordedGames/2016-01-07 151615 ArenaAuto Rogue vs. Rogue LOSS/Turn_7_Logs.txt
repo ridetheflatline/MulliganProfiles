@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Spider Tank[3/4]->Valeera Sanguinar
+[COACH] [Attack] Valeera Sanguinar->Valeera Sanguinar
+[COACH] [Attack] Zombie Chow[2/3]->Valeera Sanguinar
+[COACH] [EndTurn] 
+--> Sending emote : THANKS

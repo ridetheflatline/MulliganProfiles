@@ -1,0 +1,16 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Shapeshift
+[COACH] [Attack] Malfurion Stormrage->Uther Lightbringer
+[COACH] [Play] Starfire->Silver Hand Recruit[1/1]
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Wobbling Runts[2/6](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

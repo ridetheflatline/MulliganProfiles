@@ -1,0 +1,13 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Tomb Pillager[5/4]->Garrosh Hellscream
+[COACH] [Play] Razorfen Hunter[2/3](Pos :1)
+[COACH] [Attack] Zombie Chow[2/1]->Garrosh Hellscream
+[COACH] [Attack] Pit Snake[2/1]->Garrosh Hellscream
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Garrosh Hellscream
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

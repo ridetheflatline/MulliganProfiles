@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Loot Hoarder[2/1]->Uther Lightbringer
+[COACH] [Play] Dalaran Aspirant[3/5](Pos :1)
+[COACH] [Play] Fireblast->Crazed Alchemist[2/1]
+[COACH] [Attack] Jeweled Scarab[1/1]->Warhorse Trainer[6/8]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

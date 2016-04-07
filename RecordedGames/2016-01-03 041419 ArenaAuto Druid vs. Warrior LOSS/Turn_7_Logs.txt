@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Sneed's Old Shredder[5/7]->Unstable Ghoul[1/3]
+[COACH] [Play] Volcanic Lumberer[7/8](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

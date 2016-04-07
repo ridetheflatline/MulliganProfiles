@@ -1,0 +1,9 @@
+Started PlaySequence routine
+Play sequence : [Attack] Drakonid Crusher[9/6]->Darkscale Healer[4/5]
+Play sequence : [Play] Mana Wraith[2/2](Pos :1)
+Play sequence : [Attack] Worgen Infiltrator[2/1]->Puddlestomper[3/2]
+Play sequence : [Play] Reinforce
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

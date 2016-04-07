@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stormwind Champion[6/6](Pos :1)
+[COACH] [Attack] Boulderfist Ogre[6/7]->Anubisath Sentinel[4/4]
+[COACH] [Attack] Tomb Spider[3/2]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

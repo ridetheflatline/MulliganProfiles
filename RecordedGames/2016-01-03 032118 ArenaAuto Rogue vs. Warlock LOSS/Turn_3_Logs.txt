@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Scarlet Crusader[3/1](Pos :1)
+[COACH] [Attack] Annoy-o-Tron[1/2]->Lowly Squire[1/2]
+[COACH] [Attack] Argent Squire[1/1]->Lowly Squire[1/2]
+[COACH] [Attack] Pit Snake[2/1]->Dark Peddler[2/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

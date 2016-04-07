@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Drakonid Crusher[6/6](Pos :1)
+[COACH] [Attack] Silver Hand Knight[4/4]->Twilight Guardian[3/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

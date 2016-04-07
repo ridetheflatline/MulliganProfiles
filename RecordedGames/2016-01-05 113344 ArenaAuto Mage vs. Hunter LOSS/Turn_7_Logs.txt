@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Fireblast->Spiteful Smith[4/6]
+[COACH] [Attack] Stranglethorn Tiger[5/5]->Spiteful Smith[4/6]
+[COACH] [Play] Harvest Golem[2/3](Pos :1)
+[COACH] [Attack] Undertaker[1/2]->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

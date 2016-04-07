@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Raging Worgen[3/3](Pos :1)
+[COACH] [Play] Amani Berserker[2/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

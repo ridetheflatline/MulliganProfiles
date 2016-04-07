@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Archmage[4/7](Pos :1)
+[COACH] [Attack] Burly Rockjaw Trogg[5/3]->Valeera Sanguinar
+[COACH] [Play] Loot Hoarder[2/1](Pos :1)
+[COACH] [Play] Backstab->Flame Juggler[2/3]
+[COACH] [Attack] Valeera Sanguinar->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dragonhawk Rider[3/3](Pos :1)
+[COACH] [Attack] Valeera Sanguinar->Shielded Minibot[2/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

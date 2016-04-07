@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Pit Lord[5/6]->Abomination[4/4]
+[COACH] [Play] Harvest Golem[2/3](Pos :1)
+[COACH] [Play] Shattered Sun Cleric[3/2](Pos :1)->Harvest Golem[2/3]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

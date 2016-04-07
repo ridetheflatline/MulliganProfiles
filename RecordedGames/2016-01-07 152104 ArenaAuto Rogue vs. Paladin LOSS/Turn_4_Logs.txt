@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Deathlord[2/8](Pos :1)
+[COACH] [Play] The Coin
+[COACH] [Play] Annoy-o-Tron[1/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

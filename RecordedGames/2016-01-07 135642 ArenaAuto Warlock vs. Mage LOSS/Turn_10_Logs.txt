@@ -1,0 +1,142 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Mind Control Tech[3/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Piloted Shredder[4/3]->Spellslinger[3/4]
+[COACH] [Resimulate] 
+[COACH] [Play] Kezan Mystic[4/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Piloted Shredder[4/0]->Spellslinger[3/0]
+[COACH] [Resimulate] 
+[COACH] [Attack] Argent Horserider[2/1]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Argent Horserider[2/1]->Jaina Proudmoore
+[COACH] [EndTurn] 
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally this would be a toss-up between Sunfury Protector and Burgle. But I suggest you pick Burgle in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Tomb Spider.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Deadly Poison.
+Received arena result from heartharena
+[ARENA] Choice : Deadly Poison
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Piloted Sky Golem.
+Received arena result from heartharena
+[ARENA] Choice : Piloted Sky Golem
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Archmage.
+Received arena result from heartharena
+[ARENA] Choice : Archmage
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Annoy-o-Tron.
+Received arena result from heartharena
+[ARENA] Choice : Annoy-o-Tron
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Frost Elemental.
+Received arena result from heartharena
+[ARENA] Choice : Frost Elemental
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Assassin's Blade. However, Tinkertown Technician synergizes well with our deck. I suggest you pick Tinkertown Technician in this situation.
+Received arena result from heartharena
+[ARENA] Choice : Tinkertown Technician
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Backstab.
+Received arena result from heartharena
+[ARENA] Choice : Backstab
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Wobbling Runts. However, we don't really want too many late-game cards. I suggest you pick Sunfury Protector in this situation.
+Received arena result from heartharena
+[ARENA] Choice : Sunfury Protector
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Tomb Pillager.
+Received arena result from heartharena
+[ARENA] Choice : Tomb Pillager
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Shattered Sun Cleric has the most value and we could use a three drop.
+Received arena result from heartharena
+[ARENA] Choice : Shattered Sun Cleric
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Burly Rockjaw Trogg.
+Received arena result from heartharena
+[ARENA] Choice : Burly Rockjaw Trogg
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Buccaneer.
+Received arena result from heartharena
+[ARENA] Choice : Buccaneer
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Pit Snake has the most value and we need a large removal.
+Received arena result from heartharena
+[ARENA] Choice : Pit Snake
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Great! Zombie Chow has the most value and we could use an early drop.
+Received arena result from heartharena
+[ARENA] Choice : Zombie Chow
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Kvaldir Raider.
+Received arena result from heartharena
+[ARENA] Choice : Kvaldir Raider
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Not the best picks. Frostwolf Grunt has the most value and we could use an early drop.
+Received arena result from heartharena
+[ARENA] Choice : Frostwolf Grunt
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Tinkertown Technician has the most value and we need a three drop.
+Received arena result from heartharena
+[ARENA] Choice : Tinkertown Technician
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally this would be between Ancient Shade and Crazed Alchemist. However, in this situation, I suggest you pick Deathlord as we need a three drop.
+Received arena result from heartharena
+[ARENA] Choice : Deathlord
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Sap has the most value and we need a large removal.
+Received arena result from heartharena
+[ARENA] Choice : Sap
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Haunted Creeper has the most value and we need a two drop.
+Received arena result from heartharena
+[ARENA] Choice : Haunted Creeper
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Spider Tank synergizes well with our deck and has the most value.
+Received arena result from heartharena
+[ARENA] Choice : Spider Tank
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Argent Squire and although Argent Squire has a positive effect on our deck archetype, in this situation I suggest you pick Razorfen Hunter because it compensates for our lack of four drops, Argent Squire does not fit in a deck with this many late-game cards and could increase our need for cards that may require our minions to sacrifice.
+Received arena result from heartharena
+[ARENA] Choice : Razorfen Hunter
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Although we don't really want too many late-game cards, I still suggest you pick Drakonid Crusher as it has the most value out of these options.
+Received arena result from heartharena
+[ARENA] Choice : Drakonid Crusher
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Sprint has the most value and having at least one copy of Sprint is extremely good.
+Received arena result from heartharena
+[ARENA] Choice : Sprint
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Loot Hoarder.
+Received arena result from heartharena
+[ARENA] Choice : Loot Hoarder
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Boneguard Lieutenant compensates for our lack of four drops and has the most value.
+Received arena result from heartharena
+[ARENA] Choice : Boneguard Lieutenant
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : I see value! Goblin Auto-Barber synergizes well with our deck and has the most value.
+Received arena result from heartharena
+[ARENA] Choice : Goblin Auto-Barber
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Saboteur. However, Perdition's Blade has great synergy with our deck and we need a board clear. I suggest you pick Perdition's Blade in this situation.
+Received arena result from heartharena
+[ARENA] Choice : Perdition's Blade

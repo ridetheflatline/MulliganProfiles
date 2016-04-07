@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Shapeshift
+[COACH] [Attack] Malfurion Stormrage->Annoy-o-Tron[1/2]
+[COACH] [Attack] Sabertooth Panther[3/2]->Annoy-o-Tron[1/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

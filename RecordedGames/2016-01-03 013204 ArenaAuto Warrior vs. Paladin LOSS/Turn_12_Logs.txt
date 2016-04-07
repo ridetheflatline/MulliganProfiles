@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Stormwind Champion[6/6]->Uther Lightbringer
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

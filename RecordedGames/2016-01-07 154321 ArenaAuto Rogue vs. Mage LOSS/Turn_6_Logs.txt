@@ -1,0 +1,23 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Tinkertown Technician[3/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Loot Hoarder[2/1]->Earthen Ring Farseer[3/3]
+[COACH] [Resimulate] 
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Earthen Ring Farseer[3/3]
+[COACH] [Attack] Razorfen Hunter[2/1]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Loot Hoarder[2/1]->Earthen Ring Farseer[3/3]
+[COACH] [Resimulate] 
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Earthen Ring Farseer[3/3]
+[COACH] [Attack] Razorfen Hunter[2/1]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,18 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Drakonid Crusher[6/6](Pos :1)
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+Bot stopped
+Bot will stop after : 10 auto drafts
+Bot will stop after : 27 wins
+Bot will stop at rank 0 and lower
+Bot will stop at rank 0 and higher
+Hearthstone FPS set to : 140
+Bot started
+Current draft count : 0
+Region Updated : REGION_EU

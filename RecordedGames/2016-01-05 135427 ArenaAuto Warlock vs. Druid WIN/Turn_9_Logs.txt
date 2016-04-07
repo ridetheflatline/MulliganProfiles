@@ -1,0 +1,7 @@
+Started PlaySequence routine
+Play sequence : [Attack] Fearsome Doomguard[6/3]->Malfurion Stormrage
+Play sequence : [Attack] Ancient Brewmaster[6/1]->Malfurion Stormrage
+Play sequence : [Attack] Doomguard[5/3]->Malfurion Stormrage
+Play sequence : [Attack] Shattered Sun Cleric[3/2]->Malfurion Stormrage
+Play sequence : [EndTurn] 
+<-------Won !-------->

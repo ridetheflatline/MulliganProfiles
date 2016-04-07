@@ -1,0 +1,19 @@
+--> [Play] Gadgetzan Jouster[1/2](Pos :1)
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Mana Wraith[2/2]->Jaina Proudmoore
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+ 
+ --------------- 
+ 
+[COACH] [Play] Seal of Champions->Gadgetzan Jouster[1/2]
+[COACH] [Attack] Gadgetzan Jouster[1/2]->Snowchugger[2/3]
+[COACH] [Attack] Mana Wraith[2/2]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

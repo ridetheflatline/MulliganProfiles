@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Argent Commander[4/2](Pos :1)
+[COACH] [Attack] Argent Commander[4/2]->Booty Bay Bodyguard[6/4]
+[COACH] [Attack] Darnassus Aspirant[2/3]->Raid Leader[2/2]
+[COACH] [Attack] Blood Knight[3/3]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

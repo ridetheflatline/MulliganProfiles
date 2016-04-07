@@ -1,0 +1,14 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Tomb Spider[3/3](Pos :1)
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

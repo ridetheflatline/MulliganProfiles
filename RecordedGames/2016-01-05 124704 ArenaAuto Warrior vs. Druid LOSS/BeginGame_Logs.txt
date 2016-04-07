@@ -1,0 +1,259 @@
+Current Rank : 12 - 3 stars
+Ranked
+Mulligan profile : SmartMulliganV2.cs
+Mulligan phase delayed : 5803ms
+Starting mulligan hovering routine for :5803ms
+--> Hovering Repentance for 2415ms
+--> Hovering Mysterious Challenger for 2420ms
+Replace : Repentance
+Replace : Mysterious Challenger
+Replace : Dr. Boom
+ 
+<-------New Turn-------->
+ 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Play] Avenge
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+Started PlaySequence routine
+Play sequence : [Play] Haunted Creeper[1/2](Pos :1)
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+--> [Play] Divine Favor
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Haunted Creeper[1/2]->Valeera Sanguinar
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+Started PlaySequence routine
+Play sequence : [Attack] Haunted Creeper[1/2]->Valeera Sanguinar
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+--> [EndTurn] 
+ 
+<-------End Turn-------->
+ 
+ 
+<-------New Turn-------->
+ 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Play] Knife Juggler[3/2](Pos :1)
+Play sequence : [Play] Competitive Spirit
+Play sequence : [Play] Muster for Battle
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Uther Lightbringer->Valeera Sanguinar
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+--> [Play] Mysterious Challenger[6/6](Pos :1)
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Knife Juggler[4/3]->Deathlord[2/8]
+Play sequence : [Attack] Silver Hand Recruit[2/2]->Deathlord[2/8]
+Play sequence : [Attack] Silver Hand Recruit[2/2]->Deathlord[2/8]
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Silver Hand Recruit[2/2]->Sir Finley Mrrgglton[1/3]
+Play sequence : [Attack] Uther Lightbringer->Sir Finley Mrrgglton[1/3]
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+Started PlaySequence routine
+Play sequence : [Play] Knife Juggler[3/2](Pos :1)
+Play sequence : [Attack] Uther Lightbringer->Valeera Sanguinar
+Play sequence : [Play] Muster for Battle
+--> [Resimulate] 
+--> [Waiting] 
+--> [Play] Shielded Minibot[2/2](Pos :1)
+--> [Resimulate] 
+--> [Waiting] 
+--> [Play] Silver Hand Recruit[1/1](Pos :1)
+--> [Resimulate] 
+--> [Waiting] 
+--> [EndTurn] 
+ 
+<-------End Turn-------->
+ 
+ 
+<-------New Turn-------->
+ 
+--> [Waiting] 
+--> [Play] Mysterious Challenger[6/6](Pos :1)
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Uther Lightbringer->Azure Drake[4/1]
+Play sequence : [Play] Shielded Minibot[2/2](Pos :1)
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+--> [Play] Mysterious Challenger[6/6](Pos :1)
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Play] Piloted Shredder[4/3](Pos :1)
+Play sequence : [Attack] Shielded Minibot[2/2]->Valeera Sanguinar
+Play sequence : [Attack] Uther Lightbringer->Valeera Sanguinar
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+Started PlaySequence routine
+Play sequence : [Play] Loatheb[5/5](Pos :1)
+Play sequence : [Attack] Mysterious Challenger[6/6]->Valeera Sanguinar
+Play sequence : [Play] Keeper of Uldaman[3/4](Pos :1)->Shielded Minibot[2/2]
+Play sequence : [Attack] Uther Lightbringer->Refreshment Vendor[3/1]
+Play sequence : [Attack] Shielded Minibot[2/2]->Valeera Sanguinar
+Play sequence : [Play] Secretkeeper[1/2](Pos :1)
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+Started PlaySequence routine
+Play sequence : [Play] Tirion Fordring[6/6](Pos :1)
+Play sequence : [Attack] Keeper of Uldaman[3/4]->Brann Bronzebeard[2/4]
+Play sequence : [Attack] Uther Lightbringer->Brann Bronzebeard[2/4]
+Play sequence : [Attack] Mysterious Challenger[6/6]->Valeera Sanguinar
+Play sequence : [Attack] Loatheb[5/5]->Valeera Sanguinar
+Play sequence : [Attack] Shielded Minibot[3/3]->Antique Healbot[3/3]
+Play sequence : [Play] Reinforce
+Play sequence : [Attack] Secretkeeper[1/2]->Valeera Sanguinar
+Play sequence : [EndTurn] 
+Bot stopped
+Bot will stop after : 10 auto drafts
+Bot will stop after : 27 wins
+Bot will stop at rank 0 and lower
+Bot will stop at rank 0 and higher
+Hearthstone FPS set to : 140
+Bot started
+Current draft count : 0
+Region Updated : REGION_US
+Game disconnected
+Hearthstone status changed : Uninitialized
+Hearthstone status changed : Opened
+Hearthstone status changed : Ready
+Region Updated : REGION_US
+Refreshing decks -----------
+Game connected
+Refreshing decks -----------
+Hearthstone status changed : Injected
+Bot will stop after : 10 auto drafts
+Bot will stop after : 27 wins
+Bot will stop at rank 0 and lower
+Bot will stop at rank 0 and higher
+Hearthstone FPS set to : 140
+Bot started
+Current draft count : 0
+Region Updated : REGION_US
+[ARENA] Choice : Thrall
+[ARENA] Choice : Thrall
+[ARENA] Choice : Thrall
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Sparring Partner.
+Received arena result from heartharena
+[ARENA] Choice : Sparring Partner
+[ARENA] Choice : Sparring Partner
+[ARENA] Choice : Sparring Partner
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Battle Rage.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Fen Creeper.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Faerie Dragon.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Earthen Ring Farseer.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Tomb Spider.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Great! Let's go purely by the tier list: Obsidian Destroyer.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Tomb Spider. However, we already have a Tomb Spider in our deck. I suggest you pick Captured Jormungar in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Commanding Shout.
+Received arena result from heartharena
+[ARENA] Choice : Commanding Shout
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Frigid Snobold has the most value and we could use a four drop.
+Received arena result from heartharena
+[ARENA] Choice : Frigid Snobold
+[ARENA] Choice : Frigid Snobold
+[ARENA] Choice : Frigid Snobold
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Frigid Snobold has the most value and we could use a four drop.
+Received arena result from heartharena
+[ARENA] Choice : Frigid Snobold
+[ARENA] Choice : Frigid Snobold
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Youthful Brewmaster has the most value and we need an early drop.
+Received arena result from heartharena
+[ARENA] Choice : Youthful Brewmaster
+[ARENA] Choice : Youthful Brewmaster
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Flesheating Ghoul has the most value and we need a three drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Great! Let's go purely by the tier list: Obsidian Destroyer.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Brawl has the most value and we really need a board clear.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Great! Let's go purely by the tier list: Obsidian Destroyer.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally this would be a toss-up between Violet Teacher and Twilight Drake. But since Twilight Drake compensates most for our lack of five drops, I suggest you pick Twilight Drake in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Gnomish Inventor.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Cursed Blade has the most value and we need a ping.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Boulderfist Ogre. However, we need a silence. I suggest you pick Spellbreaker in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Ogre Brute has the most value and we really need a three drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Fierce Monkey compensates for our lack of five drops and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Fierce Monkey compensates for our lack of five drops and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Commanding Shout.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally this would be a toss-up between Pint-Sized Summoner and Ravenholdt Assassin. Although we need a large removal, I suggest you pick Pint-Sized Summoner because Pint-Sized Summoner compensates for our lack of five drops and has a positive effect on our deck archetype.
+Received arena result from heartharena
+[ARENA] Choice : Pint-Sized Summoner
+Mulligan profile : SmartMulliganV2.cs
+ 
+<-------New Turn-------->
+ 

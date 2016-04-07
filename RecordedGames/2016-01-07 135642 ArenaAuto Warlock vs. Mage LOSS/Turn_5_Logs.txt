@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Play] Youthful Brewmaster[3/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

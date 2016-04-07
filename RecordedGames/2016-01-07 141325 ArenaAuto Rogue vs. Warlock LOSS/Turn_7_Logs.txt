@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Drakonid Crusher[9/2]->Gul'dan
+[COACH] [Play] Archmage[4/7](Pos :1)
+[COACH] [Play] Sunfury Protector[2/3](Pos :1)
+[COACH] [Attack] Valeera Sanguinar->Gul'dan
+[COACH] [EndTurn] 

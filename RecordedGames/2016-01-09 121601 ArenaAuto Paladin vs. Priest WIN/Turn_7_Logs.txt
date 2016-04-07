@@ -1,0 +1,16 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Seal of Champions->Acolyte of Pain[5/5]
+[COACH] [Attack] Acolyte of Pain[5/5]->Evil Heckler[5/4]
+[COACH] [Resimulate] 
+[COACH] [Play] Silver Hand Knight[4/4](Pos :1)
+[COACH] [Attack] Argent Protector[6/4]->Flesheating Ghoul[4/3]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

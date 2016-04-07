@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Buccaneer[2/1](Pos :1)
+[COACH] [Play] Perdition's Blade[2/2](Pos :1)->Totem Golem[3/2]
+[COACH] [Attack] Burly Rockjaw Trogg[3/5]->Fireguard Destroyer[7/6]
+[COACH] [Attack] Valeera Sanguinar->Fireguard Destroyer[7/6]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

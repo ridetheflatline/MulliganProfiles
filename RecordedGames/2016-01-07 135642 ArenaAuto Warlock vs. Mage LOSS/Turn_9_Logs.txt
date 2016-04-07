@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Piloted Shredder[4/3](Pos :1)
+[COACH] [Play] Argent Horserider[2/1](Pos :1)
+[COACH] [Play] Power Overwhelming->Argent Horserider[2/1]
+[COACH] [Attack] Argent Horserider[2/1]->Sen'jin Shieldmasta[3/5]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

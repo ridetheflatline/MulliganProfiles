@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Piloted Sky Golem[6/4]->Uther Lightbringer
+[COACH] [Play] Razorfen Hunter[2/3](Pos :1)
+[COACH] [Attack] Tinkertown Technician[4/1]->Uther Lightbringer
+[COACH] [Play] Boneguard Lieutenant[3/2](Pos :1)
+[COACH] [Play] Tomb Spider[3/3](Pos :1)
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [Attack] Valeera Sanguinar->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Uther Lightbringer
+[COACH] [EndTurn] 

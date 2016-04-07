@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stormwind Champion[6/6](Pos :1)
+[COACH] [Attack] Sen'jin Shieldmasta[3/5]->Azure Drake[4/4]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

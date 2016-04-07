@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

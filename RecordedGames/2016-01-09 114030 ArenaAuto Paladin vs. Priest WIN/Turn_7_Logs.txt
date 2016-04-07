@@ -1,0 +1,8 @@
+Started PlaySequence routine
+Play sequence : [Play] Reinforce
+Play sequence : [Play] Maiden of the Lake[2/6](Pos :1)
+Play sequence : [Attack] Argent Protector[2/2]->Anduin Wrynn
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

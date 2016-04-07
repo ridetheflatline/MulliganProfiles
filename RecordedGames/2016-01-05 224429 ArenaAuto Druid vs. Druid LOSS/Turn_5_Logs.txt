@@ -1,0 +1,19 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Silver Hand Knight[4/4](Pos :1)
+[COACH] [Play] Raven Idol
+[COACH] [Choice] -> 1
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [Attack] Darnassus Aspirant[2/3]->Malfurion Stormrage
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Silver Hand Knight[4/4](Pos :1)
+[COACH] [Attack] Darnassus Aspirant[2/3]->Malfurion Stormrage
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

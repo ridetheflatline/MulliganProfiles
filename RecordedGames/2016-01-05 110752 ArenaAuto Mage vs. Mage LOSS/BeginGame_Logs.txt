@@ -1,0 +1,8 @@
+Mulligan profile : SmartMulliganV2.cs
+ 
+<-------New Turn-------->
+ 
+ 
+<-------New Turn-------->
+ 
+--> Sending emote : GREETINGS

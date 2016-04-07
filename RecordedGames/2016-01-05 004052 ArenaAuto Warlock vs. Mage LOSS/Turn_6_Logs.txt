@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Mad Bomber[3/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Argent Horserider[2/1](Pos :1)
+[COACH] [Attack] Argent Horserider[2/1]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Argent Horserider[2/1](Pos :1)
+[COACH] [Attack] Argent Horserider[2/1]->Spectral Spider[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

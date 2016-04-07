@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Fencing Coach[2/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

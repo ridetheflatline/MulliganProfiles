@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Oasis Snapjaw[2/7](Pos :1)
+[COACH] [Play] Frostwolf Warlord[4/4](Pos :1)
+[COACH] [Attack] Acolyte of Pain[1/3]->Ethereal Conjurer[6/3]
+[COACH] [Resimulate] 
+[COACH] [Attack] Imp Gang Boss[2/4]->Ethereal Conjurer[6/3]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

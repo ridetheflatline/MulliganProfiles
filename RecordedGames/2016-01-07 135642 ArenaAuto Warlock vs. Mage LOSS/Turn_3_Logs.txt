@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Ironfur Grizzly[3/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

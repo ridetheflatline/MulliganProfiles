@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Flame Juggler[2/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Shapeshift
+[COACH] [Attack] Malfurion Stormrage->Warhorse Trainer[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

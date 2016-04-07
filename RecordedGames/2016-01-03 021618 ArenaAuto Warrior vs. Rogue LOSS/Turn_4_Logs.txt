@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] The Coin
+[COACH] [Play] Djinni of Zephyrs[4/6](Pos :1)
+[COACH] [Attack] Flame Juggler[2/2]->Target Dummy[0/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

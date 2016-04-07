@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Zombie Chow[2/3](Pos :1)
+[COACH] [Attack] Cogmaster[1/1]->Malfurion Stormrage
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,30 @@
+Board --- Gul'dan(27/0-24/0)Rexxar 
+
+
+AbilityFriend : Life Tap[CS2_056]
+AbilityEnemy : Steady Shot[DS1h_292]
+
+Mana : 1
+Enemy secret: False
+
+Friends : 
+Puddlestomper[GVG_064][3/2]CAN[False]IDX[0]
+Ogre Brute[GVG_065][4/1]CAN[False]IDX[1]
+Imp Gang Boss[BRM_006][2/4]CAN[False]IDX[2]
+
+Enemy : 
+Frigid Snobold[AT_093][2/6]CAN[False]IDX[0]
+
+Hand : 
+Bane of Doom[EX1_320]COST[5]
+Darkbomb[GVG_015]COST[2]
+Djinni of Zephyrs[LOE_053][4/6]COST[5]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 23 -- EnemyDeck : 23
+Value : 51
+
+@4~1~1~0~0~23~23~0~False~4~False~4~0~0~HERO_07*-1*0*0*0*3*0*64*30*0*4*27*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~HERO_05*-1*0*0*0*6*0*66*30*0*3*24*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_056*-1*0*0*2*0*0*65*0*0*4*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~DS1h_292*-1*0*0*2*0*0*67*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~GVG_064*0*0*3*2*0*0*23*2*1*2*2*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False|GVG_065*1*0*4*3*3*0*19*4*1*1*1*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False|BRM_006*2*0*2*3*0*0*28*4*0*0*4*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~AT_093*0*0*2*4*0*0*49*6*0*0*6*1*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_320*0*0*0*5*0*0*29*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_015*1*0*0*2*0*0*6*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|LOE_053*2*0*4*5*0*0*33*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~EX1_010~0~AT_133|GAME_005|EX1_066~0~False=False=False=False=False=False~0~0~0~False~EX1_316,EX1_010,GVG_015,EX1_066,EX1_162,EX1_082,GVG_064,EX1_049,AT_087,CS2_117,BRM_006,CS2_125,EX1_085,GVG_065,EX1_020,EX1_303,AT_114,GVG_074,AT_085,GVG_078,GVG_096,EX1_320,LOE_053,AT_119,CS2_222,GVG_079~1~0~

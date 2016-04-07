@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Faerie Dragon[3/2](Pos :1)
+[COACH] [EndTurn] 
+--> Sending emote : GREETINGS
+ 
+<-------New Turn-------->
+ 

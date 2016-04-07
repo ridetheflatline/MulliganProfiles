@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Salty Dog[7/4](Pos :1)
+[COACH] [Attack] Gadgetzan Jouster[2/3]->Rexxar
+[COACH] [Attack] Argent Squire[1/1]->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

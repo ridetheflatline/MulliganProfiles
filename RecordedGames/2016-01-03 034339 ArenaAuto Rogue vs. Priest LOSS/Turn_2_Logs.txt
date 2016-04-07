@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Annoy-o-Tron[1/2](Pos :1)
+[COACH] [Attack] Puddlestomper[3/2]->Shrinkmeister[3/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

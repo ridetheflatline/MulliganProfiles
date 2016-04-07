@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Malorne[9/7](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

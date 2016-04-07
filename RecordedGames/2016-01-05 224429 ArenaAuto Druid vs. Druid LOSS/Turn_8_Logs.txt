@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Youthful Brewmaster[3/2]->Shade of Naxxramas[6/2]
+[COACH] [Play] Raging Worgen[3/3](Pos :1)
+[COACH] [Play] Darnassus Aspirant[2/3](Pos :1)
+[COACH] [Play] Silver Hand Regent[3/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

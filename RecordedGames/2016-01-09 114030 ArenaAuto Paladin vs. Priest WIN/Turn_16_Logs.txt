@@ -1,0 +1,23 @@
+Started PlaySequence routine
+Play sequence : [Play] Aldor Peacekeeper[3/3](Pos :1)->Force-Tank MAX[7/7]
+Play sequence : [Attack] Silver Hand Recruit[1/1]->Force-Tank MAX[7/7]
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Cult Master[4/2]->Force-Tank MAX[1/7]
+Play sequence : [Attack] Ironfur Grizzly[3/3]->Force-Tank MAX[1/7]
+Play sequence : [Attack] Shielded Minibot[6/6]->Anduin Wrynn
+Play sequence : [Attack] Silver Hand Knight[4/1]->Anduin Wrynn
+Play sequence : [Play] Jeweled Scarab[1/1](Pos :1)
+--> [Choice] -> 1
+[DISCOVER]Pick 1 - Thrallmar Farseer - EX1_021
+[DISCOVER]Pick 2 - Warhorse Trainer - AT_075
+[DISCOVER]Pick 3 - Light's Champion - AT_106
+Best discovered card : AT_106 - Light's Champion
+[Choice] -> Light's Champion
+--> [Resimulate] 
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Play] Light's Champion[4/3](Pos :1)
+Play sequence : [EndTurn] 
+<-------Won !-------->

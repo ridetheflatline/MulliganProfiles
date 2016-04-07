@@ -1,0 +1,15 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Hungry Dragon[5/6](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Scarlet Crusader[3/1]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Scarlet Crusader[3/1]->Gul'dan
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

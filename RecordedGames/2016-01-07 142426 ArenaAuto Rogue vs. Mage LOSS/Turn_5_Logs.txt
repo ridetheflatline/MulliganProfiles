@@ -1,0 +1,13 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Tomb Pillager[5/2]->Jaina Proudmoore
+[COACH] [Play] Buccaneer[2/1](Pos :1)
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Spider Tank[3/1]
+[COACH] [Attack] Shattered Sun Cleric[3/1]->Jaina Proudmoore
+[COACH] [Play] Pit Snake[2/1](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

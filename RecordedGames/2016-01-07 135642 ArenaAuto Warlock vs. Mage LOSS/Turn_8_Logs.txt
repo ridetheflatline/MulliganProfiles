@@ -1,0 +1,22 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Play] Mad Bomber[3/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Shadowflame->Mad Bomber[3/2]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Argent Horserider[2/1](Pos :1)
+[COACH] [Attack] Argent Horserider[2/1]->Stampeding Kodo[4/-1]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

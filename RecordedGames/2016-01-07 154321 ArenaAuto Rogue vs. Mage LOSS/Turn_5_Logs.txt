@@ -1,0 +1,13 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Pit Snake[2/1](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Loot Hoarder[2/1]->Jaina Proudmoore
+[COACH] [Attack] Valeera Sanguinar
+[COACH] [Attack] Razorfen Hunter[2/1]->Jaina Proudmoore
+[COACH] [Play] Tinkertown Technician[3/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

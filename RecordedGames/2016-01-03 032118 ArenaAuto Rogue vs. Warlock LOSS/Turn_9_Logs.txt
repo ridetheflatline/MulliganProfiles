@@ -1,0 +1,29 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Sprint
+[COACH] [Resimulate] 
+[COACH] [Play] Defias Ringleader[2/2](Pos :1)
+[COACH] [Attack] Defias Ringleader[2/2]->Fen Creeper[3/6]
+[COACH] [Attack] Undercity Valiant[3/2]->Fen Creeper[3/6]
+[COACH] [Attack] Valeera Sanguinar->Fen Creeper[3/6]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Perdition's Blade[2/2](Pos :1)->Fen Creeper[3/6]
+[COACH] [Attack] Defias Ringleader[2/2]->Fen Creeper[3/6]
+[COACH] [Attack] Undercity Valiant[3/2]->Fen Creeper[3/6]
+[COACH] [Attack] Valeera Sanguinar->Dark Peddler[2/2]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Perdition's Blade[2/2](Pos :1)->Fen Creeper[3/6]
+[COACH] [Attack] Defias Ringleader[2/2]->Fen Creeper[3/6]
+[COACH] [Attack] Undercity Valiant[3/2]->Fen Creeper[3/6]
+[COACH] [Attack] Valeera Sanguinar->Dark Peddler[2/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

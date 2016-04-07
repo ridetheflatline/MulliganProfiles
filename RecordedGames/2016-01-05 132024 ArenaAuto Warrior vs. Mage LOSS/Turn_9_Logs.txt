@@ -1,0 +1,20 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Sparring Partner[3/2](Pos :1)->Ogre Brute[4/4]
+[COACH] [Attack] Tauren Warrior[2/3]->Mechanical Dragonling[2/1]
+[COACH] [Play] Spellbreaker[4/3](Pos :1)->Water Elemental[3/6]
+[COACH] [Attack] Ogre Brute[4/4]->Jaina Proudmoore
+[COACH] [Resimulate] 
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Cogmaster[1/2]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Cogmaster[1/2]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Haunted Creeper[1/2](Pos :1)
+[COACH] [EndTurn] 
+--> Sending emote : THREATEN
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Harvest Golem[2/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

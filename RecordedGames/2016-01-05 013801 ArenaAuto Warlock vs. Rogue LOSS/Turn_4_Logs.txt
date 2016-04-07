@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Acolyte of Pain[1/3]->Valeera Sanguinar
+[COACH] [Play] Deathlord[2/8](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

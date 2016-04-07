@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Tomb Spider[3/2]->Silver Hand Recruit[1/1]
+[COACH] [Attack] Saboteur[4/3]->Silver Hand Recruit[1/1]
+[COACH] [Attack] Stranglethorn Tiger[5/5]->Silver Hand Recruit[1/1]
+[COACH] [Play] Bomb Lobber[3/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Earthen Ring Farseer[3/3](Pos :1)->Garrosh Hellscream
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Earthen Ring Farseer[3/3](Pos :1)->Garrosh Hellscream
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 

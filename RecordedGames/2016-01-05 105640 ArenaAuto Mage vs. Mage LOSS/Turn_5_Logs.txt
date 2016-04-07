@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stampeding Kodo[3/5](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

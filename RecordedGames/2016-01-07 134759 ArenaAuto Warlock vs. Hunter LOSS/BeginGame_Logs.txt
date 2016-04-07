@@ -1,0 +1,24 @@
+Refreshed mulligan profiles
+Refreshed profiles
+Can't write Key file
+Relogger started
+Hearthstone status changed : Opened
+Hearthstone path updated : C:\Program Files (x86)\Hearthstone\Hearthstone.exe
+Hearthstone status changed : Ready
+Error compiling profile [SmartPicker.cs] c:\Users\artur\AppData\Local\Temp\zbbm2yl5.0.cs(3,14) : error CS0234: The type or namespace name 'Drawing' does not exist in the namespace 'System' (are you missing an assembly reference?)
+
+Game connected
+Refreshing decks -----------
+Region Updated : REGION_EU
+Hearthstone status changed : Injected
+Bot will stop after : 10 auto drafts
+Bot will stop after : 27 wins
+Bot will stop at rank 0 and lower
+Bot will stop at rank 0 and higher
+Hearthstone FPS set to : 140
+Bot started
+Current draft count : 0
+Region Updated : REGION_EU
+ 
+<-------New Turn-------->
+ 

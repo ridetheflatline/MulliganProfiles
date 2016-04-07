@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Big Game Hunter[4/2](Pos :1)->Sea Giant[8/8]
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Spectral Spider[1/1]->Mechanical Dragonling[2/1]
+[COACH] [Attack] Flame Juggler[2/1]->Shielded Minibot[2/2]
+[COACH] [Attack] Spectral Spider[1/1]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

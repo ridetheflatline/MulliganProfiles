@@ -1,0 +1,33 @@
+Board --- Uther Lightbringer(28/0-28/0)Anduin Wrynn 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Lesser Heal[CS1h_001]
+
+Mana : 4
+Enemy secret: False
+
+Friends : 
+Worgen Infiltrator[EX1_010][2/1]CAN[True]IDX[0]
+Silver Hand Recruit[CS2_101t][1/1]CAN[True]IDX[1]
+
+Enemy : 
+Wyrmrest Agent[AT_116][2/4]CAN[True]IDX[0][T]ENCH[AT_116-E]
+Twilight Guardian[AT_017][3/6]CAN[False]IDX[1][T]ENCH[AT_017-E]
+
+Hand : 
+Drakonid Crusher[BRM_024][6/6]COST[6]
+Maiden of the Lake[AT_085][2/6]COST[4]
+Aldor Peacekeeper[EX1_382][3/3]COST[3]
+Argent Protector[EX1_362][2/2]COST[2]
+Blessing of Might[CS2_087]COST[1]
+
+Secrets : 
+Avenge[FP1_020]
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 23 -- EnemyDeck : 23
+Value : 61.5
+
+@4~4~1~0~0~23~23~0~False~4~False~5~0~0~HERO_04*-1*0*0*0*2*0*64*30*0*4*28*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~HERO_09*-1*0*0*0*2*0*66*30*0*3*28*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_101*-1*0*0*2*0*0*65*0*0*4*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~CS1h_001*-1*0*0*2*0*0*67*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~EX1_010*0*0*2*1*0*0*14*1*0*3*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False|CS2_101t*1*0*1*1*0*0*70*1*0*1*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~AT_116*0*0*2*2*0*0*38*4*0*1*4*0*False*False*True*False*True*False*False*False*False*False*False*False*False*1*False*AT_116e=2=38=0|AT_017*1*0*3*4*0*0*36*6*0*0*6*0*False*False*True*False*True*False*True*False*False*False*False*False*False*0*False*AT_017e=2=36=0~BRM_024*0*0*6*6*0*0*4*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|AT_085*1*0*2*4*0*0*17*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_382*2*0*3*3*0*0*11*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_362*3*0*2*2*0*0*24*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_087*4*0*0*1*0*0*12*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~FP1_020~0~0~GAME_005~0~True=False=False=True=False=False~0~0~0~False~FP1_020,CS2_087,CS2_188,AT_133,EX1_010,EX1_362,LOE_029,EX1_616,GVG_058,GVG_067,FP1_024,AT_074,EX1_007,EX1_382,CS2_125,EX1_044,CS2_092,CS2_094,EX1_595,LOE_017,AT_085,BRM_001,AT_101,CS2_151,BRM_024,CS2_222~0~0~

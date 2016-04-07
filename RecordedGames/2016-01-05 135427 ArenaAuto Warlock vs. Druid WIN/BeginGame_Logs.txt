@@ -1,0 +1,12 @@
+Mulligan profile : SmartMulliganV2.cs
+Mulligan phase delayed : 9357ms
+Starting mulligan hovering routine for :9357ms
+--> Hovering Ancient Brewmaster for 1269ms
+--> Hovering Mad Bomber for 2487ms
+--> Hovering Garrison Commander for 1545ms
+--> Hovering Ancient Brewmaster for 2468ms
+--> Hovering Mad Bomber for 2462ms
+Replace : Ancient Brewmaster
+ 
+<-------New Turn-------->
+ 

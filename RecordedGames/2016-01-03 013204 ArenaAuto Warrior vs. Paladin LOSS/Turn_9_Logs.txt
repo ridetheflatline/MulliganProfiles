@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Violet Teacher[3/5](Pos :1)
+[COACH] [Attack] Obsidian Destroyer[7/2]->Guardian of Kings[5/7]
+[COACH] [Play] Death's Bite[4/2](Pos :1)
+[COACH] [Attack] Zombie Chow[2/3]->Young Priestess[2/1]
+[COACH] [Attack] Bomb Lobber[3/3]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

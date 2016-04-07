@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Spiteful Smith[4/6](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

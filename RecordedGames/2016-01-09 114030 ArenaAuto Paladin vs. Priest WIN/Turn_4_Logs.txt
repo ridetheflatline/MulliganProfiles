@@ -1,0 +1,7 @@
+Started PlaySequence routine
+Play sequence : [Play] Stonesplinter Trogg[2/3](Pos :1)
+Play sequence : [Play] Unstable Ghoul[1/3](Pos :1)
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

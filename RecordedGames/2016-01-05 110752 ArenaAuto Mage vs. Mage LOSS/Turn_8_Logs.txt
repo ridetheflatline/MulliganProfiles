@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Big Game Hunter[4/2](Pos :1)->Flame Leviathan[7/7]
+[COACH] [Play] Flamewaker[2/4](Pos :1)
+[COACH] [Play] Fireblast->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

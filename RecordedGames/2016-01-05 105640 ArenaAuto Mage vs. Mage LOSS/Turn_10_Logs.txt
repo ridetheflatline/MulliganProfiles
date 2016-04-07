@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Lil' Exorcist[2/3](Pos :1)
+[COACH] [Play] Flamewaker[2/4](Pos :1)
+[COACH] [Play] Fireblast->Jaina Proudmoore
+[COACH] [Attack] Tomb Spider[4/4]->Jaina Proudmoore
+[COACH] [Play] Reversing Switch->Loot Hoarder[2/1]
+[COACH] [Resimulate] 
+[COACH] [Attack] Mana Wyrm[2/1]->Jaina Proudmoore
+[COACH] [Attack] Mukla's Champion[4/3]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Mukla's Champion[4/3]->Jaina Proudmoore
+[COACH] [EndTurn] 

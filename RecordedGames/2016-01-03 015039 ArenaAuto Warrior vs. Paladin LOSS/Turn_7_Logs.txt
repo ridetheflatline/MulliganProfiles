@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Spectral Spider[1/1]->Uther Lightbringer
+[COACH] [Attack] Garrosh Hellscream->Dragonling Mechanic[2/4]
+[COACH] [Play] Wailing Soul[3/5](Pos :1)
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Big Game Hunter[4/2]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

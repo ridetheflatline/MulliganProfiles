@@ -1,0 +1,29 @@
+Board --- Gul'dan(25/0-23/0)Jaina Proudmoore 
+
+
+AbilityFriend : Life Tap[CS2_056]
+AbilityEnemy : Fireblast[CS2_034]
+
+Mana : 5
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+Worgen Infiltrator[EX1_010][2/1]CAN[False]IDX[0][ST]
+
+Hand : 
+Shadowflame[EX1_303]COST[4]
+Argent Horserider[AT_087][2/1]COST[3]
+Huge Toad[LOE_046][3/2]COST[2]
+Harvest Golem[EX1_556][2/3]COST[3]
+Blood Knight[EX1_590][3/3]COST[3]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 21 -- EnemyDeck : 21
+Value : 37
+
+@5~5~1~0~0~21~21~0~False~5~False~5~0~0~HERO_07*-1*0*0*0*5*0*64*30*0*5*25*0*False*False*False*False*False*False*False*False*False*False*False*False*False*5*False~HERO_08*-1*0*0*0*7*0*66*30*0*5*23*0*False*False*False*False*False*False*False*False*False*False*False*False*False*5*False~CS2_056*-1*0*0*2*0*0*65*0*0*5*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*5*False~CS2_034*-1*0*0*2*0*0*67*0*0*5*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*5*False~0~EX1_010*0*0*2*1*0*0*52*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*True*0*False~EX1_303*0*0*0*4*0*0*26*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|AT_087*1*0*2*3*0*0*17*1*0*0*1*0*True*True*False*False*False*False*False*False*False*False*False*False*False*0*False|LOE_046*2*0*3*2*0*0*33*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_556*3*0*2*3*0*0*18*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_590*4*0*3*3*0*0*22*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|EX1_082|GVG_064|EX1_556|EX1_313~0~EX1_096|CS2_203|CS2_029~0~True=False=True=True=False=False~0~0~0~False~EX1_316,GVG_082,EX1_319,EX1_010,GVG_015,CS2_172,NEW1_023,AT_080,LOE_046,EX1_082,GVG_064,AT_087,EX1_590,CS2_117,EX1_556,BRM_006,EX1_019,EX1_303,EX1_057,EX1_313,FP1_022,EX1_310,AT_090,EX1_032,AT_020,GVG_079~0~0~

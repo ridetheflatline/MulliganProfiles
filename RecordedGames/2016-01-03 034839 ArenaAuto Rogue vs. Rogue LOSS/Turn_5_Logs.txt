@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Play] Dread Corsair[3/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Hungry Dragon[5/6]->Evil Heckler[5/4]
+[COACH] [Attack] Valeera Sanguinar->Tomb Pillager[5/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

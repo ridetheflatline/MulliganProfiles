@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Twilight Drake[4/1](Pos :1)
+[COACH] [Attack] Deathwing[12/12]->Stampeding Kodo[3/5]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

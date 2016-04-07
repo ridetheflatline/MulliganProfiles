@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Silver Hand Knight[4/4](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Ravenholdt Assassin[7/5](Pos :1)
+[COACH] [Play] Spider Tank[3/4](Pos :1)
+[COACH] [Attack] Twilight Drake[4/5]->Razorfen Hunter[2/3]
+[COACH] [Attack] Acidic Swamp Ooze[3/2]->Boar[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Silver Hand Recruit[1/1]
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Argent Squire[1/1]->Lightwarden[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

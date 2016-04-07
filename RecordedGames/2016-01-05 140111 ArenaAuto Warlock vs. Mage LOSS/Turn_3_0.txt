@@ -1,0 +1,28 @@
+Board --- Gul'dan(30/0-25/0)Jaina Proudmoore 
+
+
+AbilityFriend : Life Tap[CS2_056]
+AbilityEnemy : Fireblast[CS2_034]
+
+Mana : 3
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+
+Hand : 
+Harvest Golem[EX1_556][2/3]COST[3]
+Shadowflame[EX1_303]COST[4]
+Argent Horserider[AT_087][2/1]COST[3]
+Pit Lord[EX1_313][5/6]COST[4]
+Huge Toad[LOE_046][3/2]COST[2]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 23 -- EnemyDeck : 23
+Value : 17.5
+
+@3~3~1~0~0~23~23~0~False~3~False~6~0~0~HERO_07*-1*0*0*0*0*0*64*30*0*3*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~HERO_08*-1*0*0*0*5*0*66*30*0*3*25*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_056*-1*0*0*2*0*0*65*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_034*-1*0*0*2*0*0*67*0*0*3*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~0~0~EX1_556*0*0*2*3*0*0*8*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_303*1*0*0*4*0*0*26*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|AT_087*2*0*2*3*0*0*17*1*0*0*1*0*True*True*False*False*False*False*False*False*False*False*False*False*False*0*False|EX1_313*3*0*5*4*0*0*31*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|LOE_046*4*0*3*2*0*0*33*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|EX1_082|GVG_064~0~EX1_096~0~True=False=True=True=False=False~0~0~0~False~EX1_316,GVG_082,EX1_319,EX1_010,GVG_015,CS2_172,NEW1_023,AT_080,LOE_046,EX1_082,GVG_064,AT_087,EX1_590,CS2_117,EX1_556,BRM_006,EX1_019,EX1_303,EX1_057,EX1_313,FP1_022,EX1_310,AT_090,EX1_032,AT_020,GVG_079~0~0~

@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Piloted Sky Golem[6/4](Pos :1)
+[COACH] [Play] Pit Snake[2/1](Pos :1)
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Burly Rockjaw Trogg[5/3]->Sen'jin Shieldmasta[3/5]
+[COACH] [Attack] Valeera Sanguinar->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,14 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Razorfen Hunter[2/3](Pos :1)
+[COACH] [Attack] Burly Rockjaw Trogg[5/4]->Valeera Sanguinar
+[COACH] [Play] Dagger Mastery
+[COACH] [Play] Deadly Poison
+[COACH] [Attack] Valeera Sanguinar->Bloodsail Raider[4/3]
+[COACH] [Attack] Spider Tank[3/4]->Valeera Sanguinar
+[COACH] [Attack] Zombie Chow[2/3]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

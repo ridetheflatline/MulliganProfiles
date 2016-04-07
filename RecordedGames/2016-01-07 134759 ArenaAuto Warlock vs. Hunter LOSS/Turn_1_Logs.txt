@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Ogre Brute[4/4](Pos :1)
+[COACH] [Attack] Puddlestomper[3/2]->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

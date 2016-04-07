@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,6 +16,7 @@ namespace MulliganProfiles
     #region Extension class
     public static class Extension
     {
+        
         /// <summary>
         /// Adds or updates only 1 card
         /// </summary>
@@ -542,7 +542,111 @@ namespace MulliganProfiles
         {
             return st == Style.Face || st == Style.Aggro || st == Style.Tempo;
         }
-        
+
+        public static DeckType FindHimInHistory(this long id, Card.CClass op , int n = 50)
+        {
+            List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
+            List<DeckType> allDeckTypes = (from q in history select q.Split(new[] {"||"}, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId  select (DeckType) Enum.Parse(typeof (DeckType), information[3])).ToList();
+            if (allDeckTypes.Count >= 1)
+            {
+                var eDeckType =
+                    allDeckTypes.FirstOrDefault(q => q != DeckType.Unknown && q != DeckType.Basic && DeckClass[q] == op);
+                Bot.Log(string.Format("[SmartMulligan] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
+                return eDeckType;
+            }
+            Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games", n));
+            return DeckType.Unknown;
+        }
+        #region deckclass
+        public static Dictionary<DeckType, Card.CClass> DeckClass = new Dictionary<DeckType, Card.CClass>
+        {
+            {DeckType.Unknown, Card.CClass.NONE},
+            {DeckType.Arena, Card.CClass.NONE},
+            /*Warrior*/
+            {DeckType.ControlWarrior, Card.CClass.WARRIOR},
+            {DeckType.FatigueWarrior, Card.CClass.WARRIOR},
+            {DeckType.DragonWarrior, Card.CClass.WARRIOR},
+            {DeckType.PatronWarrior, Card.CClass.WARRIOR},
+            {DeckType.WorgenOTKWarrior, Card.CClass.WARRIOR},
+            {DeckType.MechWarrior, Card.CClass.WARRIOR},
+            {DeckType.FaceWarrior, Card.CClass.WARRIOR},
+            {DeckType.RenoWarrior, Card.CClass.WARRIOR },
+            /*Paladin*/
+            {DeckType.SecretPaladin, Card.CClass.PALADIN},
+            {DeckType.MidRangePaladin, Card.CClass.PALADIN},
+            {DeckType.DragonPaladin, Card.CClass.PALADIN},
+            {DeckType.AggroPaladin, Card.CClass.PALADIN},
+            {DeckType.AnyfinMurglMurgl, Card.CClass.PALADIN},
+            {DeckType.RenoPaladin, Card.CClass.PALADIN},
+            /*Druid*/
+            {DeckType.RampDruid, Card.CClass.DRUID},
+            {DeckType.AggroDruid, Card.CClass.DRUID},
+            {DeckType.DragonDruid, Card.CClass.DRUID},
+            {DeckType.MidRangeDruid, Card.CClass.DRUID},
+            {DeckType.TokenDruid, Card.CClass.DRUID},
+            {DeckType.SilenceDruid, Card.CClass.DRUID},
+            {DeckType.MechDruid, Card.CClass.DRUID},
+            {DeckType.AstralDruid, Card.CClass.DRUID},
+            {DeckType.MillDruid, Card.CClass.DRUID},
+            {DeckType.BeastDruid, Card.CClass.DRUID},
+            {DeckType.RenoDruid, Card.CClass.DRUID},
+            /*Warlock*/
+            {DeckType.Handlock, Card.CClass.WARLOCK},
+            {DeckType.RenoLock, Card.CClass.WARLOCK},
+            {DeckType.Zoolock, Card.CClass.WARLOCK}, //Same handler as flood zoo and reliquary
+            {DeckType.DemonHandlock, Card.CClass.WARLOCK},
+            {DeckType.DemonZooWarlock, Card.CClass.WARLOCK},
+            {DeckType.DragonHandlock, Card.CClass.WARLOCK},
+            {DeckType.MalyLock, Card.CClass.WARLOCK},
+            {DeckType.RenoComboLock, Card.CClass.WARLOCK},
+            {DeckType.ControlWarlock, Card.CClass.WARLOCK},
+            /*Mage*/
+            {DeckType.TempoMage, Card.CClass.MAGE},
+            {DeckType.FreezeMage, Card.CClass.MAGE},
+            {DeckType.FaceFreezeMage, Card.CClass.MAGE},
+            {DeckType.DragonMage, Card.CClass.MAGE},
+            {DeckType.MechMage, Card.CClass.MAGE},
+            {DeckType.EchoMage, Card.CClass.MAGE},
+            {DeckType.FatigueMage, Card.CClass.MAGE},
+            {DeckType.RenoMage, Card.CClass.MAGE},
+            /*Priest*/
+            {DeckType.DragonPriest, Card.CClass.PRIEST},
+            {DeckType.ControlPriest, Card.CClass.PRIEST},
+            {DeckType.ComboPriest, Card.CClass.PRIEST},
+            {DeckType.MechPriest, Card.CClass.PRIEST},
+            {DeckType.ShadowPriest, Card.CClass.PRIEST},
+            /*Hunter*/
+            {DeckType.MidRangeHunter, Card.CClass.HUNTER},
+            {DeckType.HybridHunter, Card.CClass.HUNTER},
+            {DeckType.FaceHunter, Card.CClass.HUNTER},
+            {DeckType.HatHunter, Card.CClass.HUNTER},
+            {DeckType.CamelHunter, Card.CClass.HUNTER},
+            {DeckType.DragonHunter, Card.CClass.HUNTER},
+            {DeckType.RenoHunter, Card.CClass.HUNTER},
+            /*Rogue*/
+            {DeckType.OilRogue, Card.CClass.ROGUE},
+            {DeckType.PirateRogue, Card.CClass.ROGUE},
+            {DeckType.FaceRogue, Card.CClass.ROGUE},
+            {DeckType.MalyRogue, Card.CClass.ROGUE},
+            {DeckType.RaptorRogue, Card.CClass.ROGUE},
+            {DeckType.FatigueRogue, Card.CClass.ROGUE},
+            {DeckType.MiracleRogue, Card.CClass.ROGUE},
+            {DeckType.RenoRogue, Card.CClass.ROGUE},
+            {DeckType.MechRogue, Card.CClass.ROGUE},
+            {DeckType.MillRogue, Card.CClass.ROGUE},
+            /*Cance... I mean Shaman*/
+            {DeckType.FaceShaman, Card.CClass.SHAMAN},
+            {DeckType.MechShaman, Card.CClass.SHAMAN},
+            {DeckType.DragonShaman, Card.CClass.SHAMAN},
+            {DeckType.TotemShaman, Card.CClass.SHAMAN},
+            {DeckType.MalygosShaman, Card.CClass.SHAMAN},
+            {DeckType.ControlShaman, Card.CClass.SHAMAN},
+            {DeckType.BloodlustShaman, Card.CClass.SHAMAN},
+            {DeckType.RenoShaman, Card.CClass.SHAMAN},
+            {DeckType.BattleryShaman, Card.CClass.SHAMAN},
+            /*Poor Kids*/
+        };
+#endregion
 
     }
     #endregion
@@ -559,6 +663,7 @@ namespace MulliganProfiles
         private const string MulliganTesterMyDeck = "MulliganTesterYourDeck";
         private const string MulliganTesterEnemyDeck = "MulliganTEsterEnemyDeck";
         private const string EnumsCount = "SynchEnums";
+        private const string nGames = "AnalyzeGames";
 
         public DeckType MyDeckType { get; set; }
         public Style MyStyle { get; set; }
@@ -637,8 +742,21 @@ namespace MulliganProfiles
             Bot.Log(string.Format("[You chose {0} Detection] {1} [Default: AutoDetection] {2}", properties[Mode], MyDeckType, properties[TrackerMyType]));
             #endregion 
             MyStyle = (Style)properties[TrackerMyStyle];
-            EneDeckType = (DeckType)properties[TrackerEnemyType];
-            EnemyStyle = (Style)properties[TrackerEnemyStyle];
+            EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int) properties[nGames]);
+            EnemyStyle = DeckStyles[EneDeckType];
+            try
+            {
+                Bot.GetPlugins()
+                    .Find(p => p.DataContainer.Name == "SmartTracker")
+                    .TryToWriteProperty("EnemyDeckTypeGuess", EneDeckType);
+                Bot.GetPlugins()
+                    .Find(p => p.DataContainer.Name == "SmartTracker")
+                    .TryToWriteProperty("EnemyDeckStyleGuess", EnemyStyle);
+            }
+            catch (Exception)
+            {
+                //ignored
+            }
             AllDropsTuple = choices.SplitByTurnList();
             ZeroDrops = AllDropsTuple.Item1;
             OneDrops = AllDropsTuple.Item2;
@@ -720,6 +838,95 @@ namespace MulliganProfiles
 
                 );
         }
+        public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
+        {
+            {DeckType.Unknown, Style.Unknown},
+            {DeckType.Arena, Style.Control},
+            /*Warrior*/
+            {DeckType.ControlWarrior, Style.Control},
+            {DeckType.FatigueWarrior, Style.Fatigue},
+            {DeckType.DragonWarrior, Style.Control},
+            {DeckType.PatronWarrior, Style.Tempo},
+            {DeckType.WorgenOTKWarrior, Style.Combo},
+            {DeckType.MechWarrior, Style.Aggro},
+            {DeckType.FaceWarrior, Style.Face},
+            {DeckType.RenoWarrior, Style.Control },
+            /*Paladin*/
+            {DeckType.SecretPaladin, Style.Tempo},
+            {DeckType.MidRangePaladin, Style.Control},
+            {DeckType.DragonPaladin, Style.Control},
+            {DeckType.AggroPaladin, Style.Aggro},
+            {DeckType.AnyfinMurglMurgl, Style.Combo},
+            {DeckType.RenoPaladin, Style.Control},
+            /*Druid*/
+            {DeckType.RampDruid, Style.Control},
+            {DeckType.AggroDruid, Style.Aggro},
+            {DeckType.DragonDruid, Style.Control},
+            {DeckType.MidRangeDruid, Style.Combo},
+            {DeckType.TokenDruid, Style.Tempo},
+            {DeckType.SilenceDruid, Style.Control},
+            {DeckType.MechDruid, Style.Aggro},
+            {DeckType.AstralDruid, Style.Control},
+            {DeckType.MillDruid, Style.Fatigue},
+            {DeckType.BeastDruid, Style.Tempo},
+            {DeckType.RenoDruid, Style.Control},
+            /*Warlock*/
+            {DeckType.Handlock, Style.Control},
+            {DeckType.RenoLock, Style.Control},
+            {DeckType.Zoolock, Style.Tempo}, //Same handler as flood zoo and reliquary
+            {DeckType.DemonHandlock, Style.Control},
+            {DeckType.DemonZooWarlock, Style.Tempo},
+            {DeckType.DragonHandlock, Style.Control},
+            {DeckType.MalyLock, Style.Combo},
+            {DeckType.RenoComboLock, Style.Combo},
+            {DeckType.ControlWarlock, Style.Control},
+            /*Mage*/
+            {DeckType.TempoMage, Style.Tempo},
+            {DeckType.FreezeMage, Style.Control},
+            {DeckType.FaceFreezeMage, Style.Aggro},
+            {DeckType.DragonMage, Style.Control},
+            {DeckType.MechMage, Style.Aggro},
+            {DeckType.EchoMage, Style.Control},
+            {DeckType.FatigueMage, Style.Fatigue},
+            {DeckType.RenoMage, Style.Control},
+            /*Priest*/
+            {DeckType.DragonPriest, Style.Tempo},
+            {DeckType.ControlPriest, Style.Control},
+            {DeckType.ComboPriest, Style.Combo},
+            {DeckType.MechPriest, Style.Aggro},
+            {DeckType.ShadowPriest, Style.Combo},
+            /*Hunter*/
+            {DeckType.MidRangeHunter, Style.Tempo},
+            {DeckType.HybridHunter, Style.Aggro},
+            {DeckType.FaceHunter, Style.Face},
+            {DeckType.HatHunter, Style.Control},
+            {DeckType.CamelHunter, Style.Control},
+            {DeckType.DragonHunter, Style.Control},
+            {DeckType.RenoHunter, Style.Control},
+            /*Rogue*/
+            {DeckType.OilRogue, Style.Combo},
+            {DeckType.PirateRogue, Style.Aggro},
+            {DeckType.FaceRogue, Style.Face},
+            {DeckType.MalyRogue, Style.Combo},
+            {DeckType.RaptorRogue, Style.Tempo},
+            {DeckType.FatigueRogue, Style.Combo},
+            {DeckType.MiracleRogue, Style.Combo},
+            {DeckType.RenoRogue, Style.Control},
+            {DeckType.MechRogue, Style.Tempo},
+            {DeckType.MillRogue, Style.Fatigue},
+            /*Cance... I mean Shaman*/
+            {DeckType.FaceShaman, Style.Face},
+            {DeckType.MechShaman, Style.Aggro},
+            {DeckType.DragonShaman, Style.Control},
+            {DeckType.TotemShaman, Style.Tempo},
+            {DeckType.MalygosShaman, Style.Combo},
+            {DeckType.ControlShaman, Style.Control},
+            {DeckType.BloodlustShaman, Style.Combo},
+            {DeckType.RenoShaman, Style.Combo},
+            {DeckType.BattleryShaman, Style.Control},
+            /*Poor Kids*/
+            {DeckType.Basic, Style.Tempo}
+        };
 
         public GameContainer()
         {
@@ -1575,8 +1782,6 @@ namespace MulliganProfiles
         {
             var has2Drop = gc.Choices.Any(c => c.Cost() == 2 && c.IsMinion());
             bool vAggro = gc.EnemyStyle.Aggresive();
-            CheckSpecialDeckTypes(gc);
-            Bot.Log("[Kappa] Entered Secret Paladin. Your opponent is" + gc.EneDeckType + " " + gc.EnemyStyle);
             _whiteList.AddOrUpdate(!gc.Choices.HasTurn(1, 0) && gc.Coin && gc.Choices.HasAny(Cards.MusterforBattle) ? Cards.Avenge : Nothing, false);
             _whiteList.AddOrUpdate(gc.OpponentClass.Is(Shaman) && gc.Choices.HasAny(Cards.ShieldedMinibot) ? Cards.Redemption : Nothing, false);
 
@@ -1615,173 +1820,30 @@ namespace MulliganProfiles
                 _whiteList.AddOrUpdate(Cards.TruesilverChampion, false);
         }
 
-        private void CheckSpecialDeckTypes(GameContainer gc)
+        
+        /// <summary>
+        /// Pseudo
+        /// TODO: Find opponent with matching ID and class
+        /// TODO: 
+        /// </summary>
+        /// <param name="eId"></param>
+        /// <param name="gCount"></param>
+        /// <returns></returns>
+        private KeyValuePair<DeckType, Style> Find (long eId, int gCount)
         {
-            switch(gc.EneDeckType)
+            List<string> text = File.ReadLines(
+                AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(gCount).ToList();
+            foreach (var q in text)
             {
-                case DeckType.Unknown:
-                    break;
-                case DeckType.Arena:
-                    break;
-                case DeckType.ControlWarrior:
-                    break;
-                case DeckType.FatigueWarrior:
-                    break;
-                case DeckType.DragonWarrior:
-                    break;
-                case DeckType.PatronWarrior:
-                    break;
-                case DeckType.WorgenOTKWarrior:
-                    break;
-                case DeckType.MechWarrior:
-                    break;
-                case DeckType.FaceWarrior:
-                    break;
-                case DeckType.RenoWarrior:
-                    break;
-                case DeckType.TauntWarrior:
-                    break;
-                case DeckType.SecretPaladin:
-                    break;
-                case DeckType.MidRangePaladin:
-                    break;
-                case DeckType.DragonPaladin:
-                    break;
-                case DeckType.AggroPaladin:
-                    break;
-                case DeckType.AnyfinMurglMurgl:
-                    break;
-                case DeckType.RenoPaladin:
-                    break;
-                case DeckType.RampDruid:
-                    break;
-                case DeckType.AggroDruid:
-                    break;
-                case DeckType.DragonDruid:
-                    break;
-                case DeckType.MidRangeDruid:
-                    break;
-                case DeckType.TokenDruid:
-                    break;
-                case DeckType.SilenceDruid:
-                    break;
-                case DeckType.MechDruid:
-                    break;
-                case DeckType.AstralDruid:
-                    break;
-                case DeckType.MillDruid:
-                    break;
-                case DeckType.BeastDruid:
-                    break;
-                case DeckType.RenoDruid:
-                    break;
-                case DeckType.Handlock:
-                    break;
-                case DeckType.RenoLock:
-                    break;
-                case DeckType.RenoComboLock:
-                    break;
-                case DeckType.Zoolock:
-                    break;
-                case DeckType.RelinquaryZoo:
-                    break;
-                case DeckType.DemonHandlock:
-                    break;
-                case DeckType.DemonZooWarlock:
-                    break;
-                case DeckType.DragonHandlock:
-                    break;
-                case DeckType.MalyLock:
-                    break;
-                case DeckType.ControlWarlock:
-                    break;
-                case DeckType.TempoMage:
-                    break;
-                case DeckType.FreezeMage:
-                    _whiteList.AddAll(false, Cards.KezanMystic);
-                    break;
-                case DeckType.FaceFreezeMage:
-                    _whiteList.AddAll(false, Cards.KezanMystic);
-                    break;
-                case DeckType.DragonMage:
-                    break;
-                case DeckType.MechMage:
-                    break;
-                case DeckType.EchoMage:
-                    break;
-                case DeckType.FatigueMage:
-                    break;
-                case DeckType.RenoMage:
-                    break;
-                case DeckType.DragonPriest:
-                    break;
-                case DeckType.ControlPriest:
-                    break;
-                case DeckType.ComboPriest:
-                    break;
-                case DeckType.MechPriest:
-                    break;
-                case DeckType.ShadowPriest:
-                    break;
-                case DeckType.MidRangeHunter:
-                    break;
-                case DeckType.HybridHunter:
-                    break;
-                case DeckType.FaceHunter:
-                    break;
-                case DeckType.HatHunter:
-                    break;
-                case DeckType.CamelHunter:
-                    break;
-                case DeckType.RenoHunter:
-                    break;
-                case DeckType.DragonHunter:
-                    break;
-                case DeckType.OilRogue:
-                    break;
-                case DeckType.PirateRogue:
-                    break;
-                case DeckType.FaceRogue:
-                    break;
-                case DeckType.MalyRogue:
-                    break;
-                case DeckType.RaptorRogue:
-                    break;
-                case DeckType.FatigueRogue:
-                    break;
-                case DeckType.MiracleRogue:
-                    break;
-                case DeckType.MechRogue:
-                    break;
-                case DeckType.RenoRogue:
-                    break;
-                case DeckType.MillRogue:
-                    break;
-                case DeckType.FaceShaman:
-                    break;
-                case DeckType.MechShaman:
-                    break;
-                case DeckType.DragonShaman:
-                    break;
-                case DeckType.TotemShaman:
-                    break;
-                case DeckType.MalygosShaman:
-                    break;
-                case DeckType.ControlShaman:
-                    break;
-                case DeckType.BloodlustShaman:
-                    break;
-                case DeckType.BattleryShaman:
-                    break;
-                case DeckType.RenoShaman:
-                    break;
-                case DeckType.Basic:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+                var information = q.Split(new[] {"||"}, StringSplitOptions.None);
+                long enemyID = long.Parse(information[2]);
+                if (enemyID != eId) continue;
+                DeckType enemyDeck = (DeckType) Enum.Parse(typeof(DeckType), information[3]);
 
+
+            }
+            return new KeyValuePair<DeckType, Style>();
+        } 
         private void ClearReport()
         {
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\error.txt", string.Empty);
@@ -1794,6 +1856,98 @@ namespace MulliganProfiles
                 log.WriteLine("[{0}] {1}", DateTime.Now, msg);
             }
         }
+        
+        private DeckType unknown = DeckType.Unknown;
+        private DeckType arena = DeckType.Arena;
+        /*Warrior*/
+        private DeckType ControlWarrior = DeckType.ControlWarrior;
+        private DeckType FatigueWarrior = DeckType.FatigueWarrior;
+        private DeckType DragonWarrior = DeckType.DragonWarrior;
+        private DeckType PatronWarrior = DeckType.PatronWarrior;
+        private DeckType WorgenOTKWarrior = DeckType.WorgenOTKWarrior;
+        private DeckType MechWarrior = DeckType.MechWarrior;
+        private DeckType FaceWarrior = DeckType.FaceWarrior;
+        private DeckType RenoWarrior = DeckType.RenoWarrior;
+        private DeckType TauntWarrior = DeckType.TauntWarrior;
+        /*Paladin*/
+        private DeckType SecretPaladin = DeckType.SecretPaladin;
+        private DeckType MidRangePaladin = DeckType.MidRangePaladin;
+        private DeckType DragonPaladin = DeckType.DragonPaladin;
+        private DeckType AggroPaladin = DeckType.AggroPaladin;
+        private DeckType AnyfinMurglMurgl = DeckType.AnyfinMurglMurgl;
+        private DeckType RenoPaladin = DeckType.RenoPaladin;
+        /*Druid*/
+        private DeckType RampDruid = DeckType.RampDruid;
+        private DeckType AggroDruid = DeckType.AggroDruid;
+        private DeckType DragonDruid = DeckType.DragonDruid;
+        private DeckType MidRangeDruid = DeckType.MidRangeDruid;
+        private DeckType TokenDruid = DeckType.TokenDruid;
+        private DeckType SilenceDruid = DeckType.SilenceDruid;
+        private DeckType MechDruid = DeckType.MechDruid;
+        private DeckType AstralDruid = DeckType.AstralDruid;
+        private DeckType MillDruid = DeckType.MillDruid;
+        private DeckType BeastDruid = DeckType.BeastDruid;
+        private DeckType RenoDruid = DeckType.RenoDruid;
+        /*Warlock*/
+        private DeckType Handlock = DeckType.Handlock;
+        private DeckType RenoLock = DeckType.RenoLock;
+        private DeckType RenoComboLock = DeckType.RenoComboLock;
+        private DeckType Zoolock = DeckType.Zoolock;
+        private DeckType RelinquaryZoo = DeckType.RelinquaryZoo;
+        private DeckType DemonHandlock = DeckType.DemonHandlock;
+        private DeckType DemonZooWarlock = DeckType.DemonZooWarlock;
+        private DeckType DragonHandlock = DeckType.DragonHandlock;
+        private DeckType MalyLock = DeckType.MalyLock;
+        private DeckType ControlWarlock = DeckType.ControlWarlock;
+        /*Mage*/
+        private DeckType TempoMage = DeckType.TempoMage;
+        private DeckType FreezeMage = DeckType.FreezeMage;
+        private DeckType FaceFreezeMage = DeckType.FaceFreezeMage;
+        private DeckType DragonMage = DeckType.DragonMage;
+        private DeckType MechMage = DeckType.MechMage;
+        private DeckType EchoMage = DeckType.EchoMage;
+        private DeckType FatigueMage = DeckType.FatigueMage;
+        private DeckType RenoMage = DeckType.RenoMage;
+        /*Priest*/
+        private DeckType DragonPriest = DeckType.DragonPriest;
+        private DeckType ControlPriest = DeckType.ControlPriest;
+        private DeckType ComboPriest = DeckType.ComboPriest;
+        private DeckType MechPriest = DeckType.MechPriest;
+        private DeckType ShadowPriest = DeckType.ShadowPriest;
+        /*Huntard*/
+        private DeckType MidRangeHunter = DeckType.MidRangeHunter;
+        private DeckType HybridHunter = DeckType.HybridHunter;
+        private DeckType FaceHunter = DeckType.FaceHunter;
+        private DeckType HatHunter = DeckType.HatHunter;
+        private DeckType CamelHunter = DeckType.CamelHunter;
+        private DeckType RenoHunter = DeckType.RenoHunter;
+        private DeckType DragonHunter = DeckType.DragonHunter;
+        /*Rogue*/
+        private DeckType OilRogue = DeckType.OilRogue;
+        private DeckType PirateRogue = DeckType.PirateRogue;
+        private DeckType FaceRogue = DeckType.FaceRogue;
+        private DeckType MalyRogue = DeckType.MalyRogue;
+        private DeckType RaptorRogue = DeckType.RaptorRogue;
+        private DeckType FatigueRogue = DeckType.FatigueRogue;
+        private DeckType MiracleRogue = DeckType.MiracleRogue;
+        private DeckType MechRogue = DeckType.MechRogue;
+        private DeckType RenoRogue = DeckType.RenoRogue;
+        private DeckType MillRogue = DeckType.MillRogue;
+        /*Chaman*/
+        private DeckType FaceShaman = DeckType.FaceShaman;
+        private DeckType MechShaman = DeckType.MechShaman;
+        private DeckType DragonShaman = DeckType.DragonShaman;
+        private DeckType TotemShaman = DeckType.TotemShaman;
+        private DeckType MalygosShaman = DeckType.MalygosShaman;
+        private DeckType ControlShaman = DeckType.ControlShaman;
+        private DeckType BloodlustShaman = DeckType.BloodlustShaman;
+        private DeckType BattleryShaman = DeckType.BattleryShaman;
+        private DeckType RenoShaman = DeckType.RenoShaman;
+
+        private DeckType Basic = DeckType.Basic;
+
+
+       
     }
 
     #region enums

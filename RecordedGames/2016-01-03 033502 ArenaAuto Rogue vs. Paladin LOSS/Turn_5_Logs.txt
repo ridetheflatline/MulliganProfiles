@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Mind Control Tech[3/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Valeera Sanguinar->Silver Hand Regent[3/3]
+[COACH] [Play] Dire Wolf Alpha[2/2](Pos :2)
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Silver Hand Regent[3/3]
+[COACH] [Play] Dire Wolf Alpha[2/2](Pos :2)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

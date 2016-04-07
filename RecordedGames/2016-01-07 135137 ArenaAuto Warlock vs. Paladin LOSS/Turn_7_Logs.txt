@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stormwind Champion[6/6](Pos :1)
+[COACH] [Attack] Imp Gang Boss[2/1]->Jeweled Scarab[1/1]
+[COACH] [Attack] Huge Toad[3/2]->Uther Lightbringer
+[COACH] [Attack] Ironfur Grizzly[3/3]->Uther Lightbringer
+[COACH] [Attack] Worgen Infiltrator[2/1]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Piloted Sky Golem[6/4](Pos :1)
+[COACH] [Attack] Tomb Pillager[5/4]->Fen Creeper[3/5]
+[COACH] [Attack] Valeera Sanguinar->Silver Hand Recruit[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

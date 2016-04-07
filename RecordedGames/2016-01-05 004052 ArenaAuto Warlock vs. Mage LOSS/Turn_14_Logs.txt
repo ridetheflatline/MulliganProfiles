@@ -1,0 +1,19 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dire Wolf Alpha[2/2](Pos :3)
+[COACH] [Resimulate] 
+[COACH] [Attack] Fearsome Doomguard[6/2]->Gurubashi Berserker[5/6]
+[COACH] [Attack] Knife Juggler[3/3]
+[COACH] [Attack] Blood Imp[0/1]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Fearsome Doomguard[7/2]->Gurubashi Berserker[8/5]
+[COACH] [Attack] Knife Juggler[3/3]->Jaina Proudmoore
+[COACH] [Attack] Blood Imp[1/1]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

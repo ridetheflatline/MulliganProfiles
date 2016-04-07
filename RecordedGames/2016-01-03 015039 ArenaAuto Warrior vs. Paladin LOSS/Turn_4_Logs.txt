@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Flame Juggler[2/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Haunted Creeper[1/2]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

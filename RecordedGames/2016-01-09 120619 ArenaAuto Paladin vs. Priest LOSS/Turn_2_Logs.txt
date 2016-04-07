@@ -1,0 +1,7 @@
+Started PlaySequence routine
+Play sequence : [Play] Avenge
+Play sequence : [Attack] Worgen Infiltrator[2/1]->Anduin Wrynn
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

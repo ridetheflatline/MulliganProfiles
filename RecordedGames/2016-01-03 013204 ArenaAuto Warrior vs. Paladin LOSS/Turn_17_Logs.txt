@@ -1,0 +1,7 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Captured Jormungar[5/9](Pos :1)
+[COACH] [Play] Armor Up!
+[COACH] [Play] Inner Rage->Scarlet Crusader[3/1]
+[COACH] [EndTurn] 

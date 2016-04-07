@@ -1,0 +1,23 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Loot Hoarder[2/1]->Dire Wolf Alpha[2/2]
+[COACH] [Resimulate] 
+[COACH] [Play] Flame Lance->Warhorse Trainer[7/5]
+[COACH] [Play] Fireblast->Silver Hand Recruit[2/1]
+[COACH] [Attack] Jeweled Scarab[1/1]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Fireblast->Silver Hand Recruit[2/1]
+[COACH] [Play] Argent Squire[1/1](Pos :1)
+[COACH] [Attack] Jeweled Scarab[1/1]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

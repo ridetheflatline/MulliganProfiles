@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] The Coin
+[COACH] [Play] Pit Fighter[5/6](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

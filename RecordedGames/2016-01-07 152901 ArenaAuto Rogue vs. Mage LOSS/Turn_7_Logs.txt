@@ -1,0 +1,19 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Razorfen Hunter[2/3](Pos :1)
+[COACH] [Play] Spider Tank[3/4](Pos :1)
+[COACH] [Attack] Frost Elemental[5/5]->Jaina Proudmoore
+[COACH] [Attack] Valeera Sanguinar->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Razorfen Hunter[2/3](Pos :1)
+[COACH] [Play] Spider Tank[3/4](Pos :1)
+[COACH] [Attack] Frost Elemental[5/5]->Jaina Proudmoore
+[COACH] [Attack] Valeera Sanguinar->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

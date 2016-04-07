@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] The Coin
+[COACH] [Play] Frost Elemental[5/5](Pos :1)->Mysterious Challenger[6/6]
+[COACH] [Play] Razorfen Hunter[2/3](Pos :1)
+[COACH] [Attack] Sunfury Protector[2/3]->Uther Lightbringer
+[COACH] [Attack] Valeera Sanguinar->Uther Lightbringer
+[COACH] [EndTurn] 

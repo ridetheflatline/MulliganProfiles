@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stranglethorn Tiger[5/5](Pos :1)
+[COACH] [Play] Snowchugger[2/3](Pos :1)
+[COACH] [Play] Frostbolt->Kidnapper[5/3]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

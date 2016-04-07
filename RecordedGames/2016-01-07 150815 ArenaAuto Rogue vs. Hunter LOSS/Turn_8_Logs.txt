@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Savannah Highmane[6/5](Pos :1)
+[COACH] [Attack] Frost Elemental[5/2]->Stormwind Champion[7/5]
+[COACH] [Play] Shattered Sun Cleric[3/2](Pos :1)->Razorfen Hunter[2/3]
+[COACH] [Attack] Razorfen Hunter[2/3]->Mukla's Champion[5/4]
+[COACH] [Attack] Boar[1/1]->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

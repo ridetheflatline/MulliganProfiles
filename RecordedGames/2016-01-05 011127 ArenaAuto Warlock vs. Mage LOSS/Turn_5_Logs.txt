@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Frostwolf Warlord[4/4](Pos :1)
+[COACH] [Attack] Lost Tallstrider[5/5]->Snowchugger[2/3]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

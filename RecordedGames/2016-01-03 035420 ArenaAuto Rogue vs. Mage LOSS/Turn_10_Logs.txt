@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Sunwalker[4/5]
+[COACH] [Attack] Hungry Dragon[5/6]->Sunwalker[4/5]
+[COACH] [Attack] Dark Iron Skulker[4/3]->Injured Kvaldir[2/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

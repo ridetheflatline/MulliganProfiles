@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Bomb Lobber[3/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Spectral Spider[1/1]->Valeera Sanguinar
+[COACH] [Attack] Spectral Spider[1/1]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

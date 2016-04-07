@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Frost Elemental[5/5](Pos :1)->Hungry Dragon[5/6]
+[COACH] [Attack] Valeera Sanguinar->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

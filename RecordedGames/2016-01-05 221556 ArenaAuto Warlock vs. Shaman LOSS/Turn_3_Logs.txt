@@ -1,0 +1,16 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Bloodfen Raptor[3/2]->Spirit Wolf[2/3]
+[COACH] [Play] Mad Bomber[3/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Clockwork Gnome[2/1](Pos :1)
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+--> Sending emote : THANKS
+ 
+<-------New Turn-------->
+ 

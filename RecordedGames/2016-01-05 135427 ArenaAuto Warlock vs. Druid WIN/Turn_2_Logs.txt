@@ -1,0 +1,11 @@
+--> [Waiting] 
+--> [Play] Mad Bomber[3/2](Pos :1)
+--> [Resimulate] 
+--> [Waiting] 
+--> [EndTurn] 
+ 
+<-------End Turn-------->
+ 
+ 
+<-------New Turn-------->
+ 

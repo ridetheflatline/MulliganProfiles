@@ -1,0 +1,15 @@
+Mulligan profile : SmartMulliganV2.cs
+Mulligan phase delayed : 12415ms
+Starting mulligan hovering routine for :12415ms
+--> Hovering Solemn Vigil for 2490ms
+--> Hovering Unstable Ghoul for 1745ms
+--> Hovering Aldor Peacekeeper for 2418ms
+--> Hovering Solemn Vigil for 1372ms
+--> Hovering Unstable Ghoul for 1457ms
+--> Hovering Aldor Peacekeeper for 1134ms
+--> Hovering Unstable Ghoul for 1703ms
+Replace : Aldor Peacekeeper
+Replace : Solemn Vigil
+ 
+<-------New Turn-------->
+ 

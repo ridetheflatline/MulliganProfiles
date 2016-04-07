@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dragonhawk Rider[3/3](Pos :1)
+[COACH] [Attack] Argent Squire[1/1]->Rexxar
+[COACH] [Attack] Valeera Sanguinar->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

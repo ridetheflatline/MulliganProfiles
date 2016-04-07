@@ -1,0 +1,31 @@
+==================START COPY=======================
+[No Coin]You were paladin vs warlock
+[Kept]		[Offered]	[Card Name]
+ 			 EX1_044	//Questing Adventurer 2
+FP1_024		 FP1_024	//Unstable Ghoul 2
+GVG_067		 GVG_067	//Stonesplinter Trogg 4
+ 
+3|2~~EX1_044*FP1_024*GVG_067*~~FP1_024*GVG_067* 
+"EX1_008","EX1_029","NEW1_012","FP1_028","FP1_001","CS2_024","LOE_029","NEW1_019","EX1_096","GVG_075","GVG_002","EX1_050","BRM_002","EX1_556","EX1_019","EX1_595","AT_006","CS2_197","LOE_047","AT_001","LOE_003","AT_090","EX1_028","CS2_032","AT_102","EX1_279",
+SecretPaladin|False~1*0*5~2*0*6~1*0*4~1*0*4~!~False*0*0*4||3.42307692307692||0.5
+
+			[ArenaValues]
+[1 mana] Zombie Chow had priority: 10
+[3 mana] Harvest Golem had priority: 6
+[1 mana] Mana Wyrm had priority: 4
+[2 mana] Jeweled Scarab had priority: 4
+[2 mana] Knife Juggler had priority: 5
+[2 mana] Loot Hoarder had priority: 4
+[2 mana] Snowchugger had priority: 5
+[1 mana] Argent Squire had priority: 3
+[1 mana] Leper Gnome had priority: 4
+[2 mana] Ship's Cannon had priority: 4
+[3 mana] Flamewaker had priority: 3
+[3 mana] Shattered Sun Cleric had priority: 3
+[4 mana] Dalaran Aspirant had priority: 3
+[4 mana] Ogre Magi had priority: 3
+[3 mana] Coldlight Oracle had priority: 1
+[1 mana] Undertaker had priority: 1
+[4 mana] Cult Master had priority: 0
+[4 mana] Tomb Spider had priority: 0
+==================END COPY=======================

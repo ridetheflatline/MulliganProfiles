@@ -1,0 +1,117 @@
+==================START COPY=======================
+[No Coin]You were warlock vs mage
+[Kept]		[Offered]	[Card Name]
+ 			 GVG_069	//Antique Healbot 0
+FP1_009		 FP1_009	//Deathlord 4
+ 			 GVG_045	//Imp-losion 0
+ 
+3|1~~GVG_069*FP1_009*GVG_045*~~FP1_009* 
+"EX1_316","CS2_059","EX1_319","FP1_001","LOE_023","EX1_162","NEW1_019","EX1_082","GVG_108","CS2_057","EX1_007","AT_087","FP1_009","CS2_117","GVG_045","EX1_303","AT_114","GVG_071","CS2_119","EX1_320","GVG_069","CS2_226","CS2_151","EX1_028","EX1_309","CS2_200","EX1_032","AT_020","AT_103",
+Arena|False~1*0*4~2*0*5~1*1*5~1*0*5~!~False*0*0*6||3.72413793103448||0.466666666666667
+
+			[ArenaValues]
+[1 mana] Zombie Chow had priority: 10
+[1 mana] Flame Imp had priority: 5
+[2 mana] Dark Peddler had priority: 4
+[2 mana] Knife Juggler had priority: 5
+[3 mana] Deathlord had priority: 4
+[4 mana] Evil Heckler had priority: 5
+[2 mana] Mad Bomber had priority: 4
+[2 mana] Recombobulator had priority: 4
+[3 mana] Argent Horserider had priority: 3
+[3 mana] Earthen Ring Farseer had priority: 3
+[2 mana] Dire Wolf Alpha had priority: 2
+[3 mana] Acolyte of Pain had priority: 2
+[1 mana] Blood Imp had priority: 0
+[4 mana] Lost Tallstrider had priority: 1
+[4 mana] Oasis Snapjaw had priority: 0
+==================END COPY=======================
+==================START COPY=======================
+[Coin]You were warlock vs mage
+[Kept]		[Offered]	[Card Name]
+AT_087		 AT_087		//Argent Horserider 3
+ 			 EX1_309	//Siphon Soul 0
+AT_114		 AT_114		//Evil Heckler 5
+CS2_059		 CS2_059	//Blood Imp 5
+ 
+5|4~~AT_087*EX1_309*AT_114*CS2_059*GAME_005*~~AT_087*AT_114*CS2_059*GAME_005* 
+"EX1_316","CS2_059","EX1_319","FP1_001","LOE_023","EX1_162","NEW1_019","EX1_082","GVG_108","CS2_057","EX1_007","AT_087","FP1_009","CS2_117","GVG_045","EX1_303","AT_114","GVG_071","CS2_119","EX1_320","GVG_069","CS2_226","CS2_151","EX1_028","EX1_309","CS2_200","EX1_032","AT_020","AT_103",
+Arena|True~1*6*4~3*0*5~2*2*5~1*1*5~!~False*0*0*6||3.72413793103448||0.466666666666667
+
+			[ArenaValues]
+[1 mana] Zombie Chow had priority: 10
+[1 mana] Blood Imp had priority: 5
+[1 mana] Flame Imp had priority: 5
+[2 mana] Dark Peddler had priority: 4
+[2 mana] Knife Juggler had priority: 5
+[3 mana] Deathlord had priority: 4
+[4 mana] Evil Heckler had priority: 5
+[2 mana] Mad Bomber had priority: 4
+[2 mana] Recombobulator had priority: 4
+[3 mana] Argent Horserider had priority: 3
+[3 mana] Earthen Ring Farseer had priority: 3
+[2 mana] Dire Wolf Alpha had priority: 2
+[3 mana] Acolyte of Pain had priority: 2
+[4 mana] Lost Tallstrider had priority: 1
+[4 mana] Oasis Snapjaw had priority: 0
+==================END COPY=======================
+==================START COPY=======================
+[No Coin]You were warlock vs mage
+[Kept]		[Offered]	[Card Name]
+ 			 EX1_032	//Sunwalker 0
+EX1_082		 EX1_082	//Mad Bomber 4
+LOE_023		 LOE_023	//Dark Peddler 4
+ 
+3|2~~EX1_032*EX1_082*LOE_023*~~EX1_082*LOE_023* 
+"EX1_316","CS2_059","EX1_319","FP1_001","LOE_023","EX1_162","NEW1_019","EX1_082","GVG_108","CS2_057","EX1_007","AT_087","FP1_009","CS2_117","GVG_045","EX1_303","AT_114","GVG_071","CS2_119","EX1_320","GVG_069","CS2_226","CS2_151","EX1_028","EX1_309","CS2_200","EX1_032","AT_020","AT_103",
+Arena|False~1*6*4~2*2*5~1*2*5~1*1*5~!~False*0*0*6||3.72413793103448||0.466666666666667
+
+			[ArenaValues]
+[1 mana] Zombie Chow had priority: 10
+[1 mana] Flame Imp had priority: 5
+[2 mana] Dark Peddler had priority: 4
+[2 mana] Knife Juggler had priority: 5
+[3 mana] Deathlord had priority: 4
+[4 mana] Evil Heckler had priority: 5
+[2 mana] Mad Bomber had priority: 4
+[2 mana] Recombobulator had priority: 4
+[3 mana] Argent Horserider had priority: 3
+[3 mana] Earthen Ring Farseer had priority: 3
+[2 mana] Dire Wolf Alpha had priority: 2
+[3 mana] Acolyte of Pain had priority: 2
+[1 mana] Blood Imp had priority: 0
+[4 mana] Lost Tallstrider had priority: 1
+[4 mana] Oasis Snapjaw had priority: 0
+==================END COPY=======================
+==================START COPY=======================
+[Coin]You were warlock vs mage
+[Kept]		[Offered]	[Card Name]
+ 			 EX1_319	//Flame Imp 5
+ 			 EX1_057	//Ancient Brewmaster 1
+ 			 GVG_079	//Force-Tank MAX 0
+AT_087		 AT_087		//Argent Horserider 3
+ 
+5|2~~EX1_319*EX1_057*GVG_079*AT_087*GAME_005*~~AT_087*GAME_005* 
+"EX1_316","GVG_082","EX1_319","EX1_010","GVG_015","CS2_172","NEW1_023","AT_080","LOE_046","EX1_082","GVG_064","AT_087","EX1_590","CS2_117","EX1_556","BRM_006","EX1_019","EX1_303","EX1_057","EX1_313","FP1_022","EX1_310","AT_090","EX1_032","AT_020","GVG_079",
+Arena|True~1*1*4~3*5*7~2*2*6~1*1*4~!~False*0*0*3||3.19230769230769||0.566666666666667
+
+			[ArenaValues]
+[4 mana] Voidcaller had priority: 10
+[3 mana] Harvest Golem had priority: 6
+[1 mana] Flame Imp had priority: 5
+[3 mana] Imp Gang Boss had priority: 5
+[1 mana] Worgen Infiltrator had priority: 5
+[2 mana] Huge Toad had priority: 5
+[1 mana] Clockwork Gnome had priority: 4
+[2 mana] Bloodfen Raptor had priority: 4
+[2 mana] Faerie Dragon had priority: 4
+[2 mana] Garrison Commander had priority: 4
+[2 mana] Mad Bomber had priority: 4
+[2 mana] Puddlestomper had priority: 4
+[3 mana] Argent Horserider had priority: 3
+[3 mana] Blood Knight had priority: 3
+[3 mana] Earthen Ring Farseer had priority: 3
+[3 mana] Shattered Sun Cleric had priority: 3
+[4 mana] Ancient Brewmaster had priority: 1
+[4 mana] Pit Lord had priority: 0
+==================END COPY=======================

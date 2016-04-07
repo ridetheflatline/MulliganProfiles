@@ -1,0 +1,16 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Play] Tinker's Sharpsword Oil
+[COACH] [Resimulate] 
+[COACH] [Attack] Valeera Sanguinar->Valeera Sanguinar
+[COACH] [Play] Cold Blood->Silver Hand Regent[3/3]
+[COACH] [Attack] Silver Hand Regent[3/3]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] SI:7 Agent[6/3]->Valeera Sanguinar
+[COACH] [Attack] Silver Hand Regent[5/3]->Valeera Sanguinar
+[COACH] [EndTurn] 

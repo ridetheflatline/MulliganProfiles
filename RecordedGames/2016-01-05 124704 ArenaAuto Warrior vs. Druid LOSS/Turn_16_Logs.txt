@@ -1,0 +1,15 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Loot Hoarder[2/1]->Arcane Golem[4/2]
+[COACH] [Resimulate] 
+[COACH] [Play] Hungry Dragon[5/6](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

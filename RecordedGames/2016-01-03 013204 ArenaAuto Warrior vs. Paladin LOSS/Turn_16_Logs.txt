@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Armor Up!
+[COACH] [Play] Explosive Sheep[1/1](Pos :1)
+[COACH] [Play] Inner Rage->Explosive Sheep[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

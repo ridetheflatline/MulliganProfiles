@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Cogmaster[1/2]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

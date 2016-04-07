@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Innervate
+[COACH] [Play] Harrison Jones[5/4](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

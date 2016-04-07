@@ -1,0 +1,33 @@
+Board --- Garrosh Hellscream(20/2-27/0)Uther Lightbringer 
+
+WeaponFriend : Death's Bite[FP1_021][4/1]
+
+AbilityFriend : Armor Up![CS2_102]
+AbilityEnemy : Reinforce[CS2_101]
+
+Mana : 7
+Enemy secret: False
+
+Friends : 
+Big Game Hunter[EX1_005][4/2]CAN[True]IDX[0]
+Spectral Spider[FP1_002t][1/1]CAN[True]IDX[1]
+
+Enemy : 
+Dragonling Mechanic[EX1_025][2/4]CAN[False]IDX[0]
+Mechanical Dragonling[EX1_025t][2/1]CAN[False]IDX[1]
+Silver Hand Recruit[CS2_101t][1/1]CAN[False]IDX[2]
+
+Hand : 
+Bomb Lobber[GVG_099][3/3]COST[5]
+Tomb Spider[LOE_047][3/3]COST[4]
+Antique Healbot[GVG_069][3/3]COST[5]
+Wailing Soul[FP1_016][3/5]COST[4]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 20 -- EnemyDeck : 20
+Value : 117.8
+
+@7~7~2~0~0~20~20~0~False~7~False~3~0~FP1_021*-1*0*4*4*1*2*36*2*0*2*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~HERO_01*-1*2*4*0*10*0*66*30*0*7*22*0*False*False*False*False*False*False*False*False*False*False*False*False*False*7*False~HERO_04*-1*0*0*0*3*0*64*30*0*6*27*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~CS2_102*-1*0*0*2*0*0*67*0*0*7*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*7*False~CS2_101*-1*0*0*2*0*0*65*0*0*6*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*6*False~EX1_005*0*0*4*3*0*0*34*2*0*1*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False|FP1_002t*1*0*1*1*0*0*72*1*0*2*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~EX1_025*0*0*2*4*0*0*25*4*0*0*4*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|EX1_025t*1*0*2*1*0*0*74*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|CS2_101t*2*0*1*1*0*0*75*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~GVG_099*0*0*3*5*0*0*45*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|LOE_047*1*0*3*4*0*0*62*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_069*2*0*3*5*0*0*40*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|FP1_016*3*0*3*4*0*0*47*5*0*0*5*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~AT_094|EX1_607|FP1_002|AT_094|FP1_002t~0~GAME_005|AT_082|CS2_188|EX1_025|GVG_058|EX1_586|GVG_058|EX1_025t~0~False=False=False=False=False=False~0~0~0~False~EX1_607,FP1_001,EX1_066,GVG_076,AT_094,FP1_002,AT_084,CS2_120,EX1_005,CS2_117,AT_086,FP1_021,EX1_398,AT_111,CS2_179,LOE_047,NEW1_026,FP1_016,GVG_069,GVG_099,LOE_053,AT_090,CS2_200,LOE_009,CS2_222~0~0~

@@ -1,0 +1,15 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Ogre Magi[4/4]->Gurubashi Berserker[2/7]
+[COACH] [Attack] Shattered Sun Cleric[3/2]->Gurubashi Berserker[2/7]
+[COACH] [Play] Tomb Spider[3/3](Pos :1)
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [Attack] Mana Wyrm[2/3]->Thrall
+[COACH] [Attack] Argent Squire[2/1]->Thrall
+[COACH] [Play] Undertaker[1/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

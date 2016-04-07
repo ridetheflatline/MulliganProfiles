@@ -1,0 +1,18 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Imp-losion->Dancing Swords[4/4]
+[COACH] [Resimulate] 
+[COACH] [Attack] Elven Archer[1/2]->Dancing Swords[4/4]
+[COACH] [Resimulate] 
+[COACH] [Attack] Dark Peddler[2/2]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Dark Peddler[2/2]->Jaina Proudmoore
+[COACH] [Attack] Elven Archer[1/2]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

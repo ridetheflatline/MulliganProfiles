@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Flame Imp[3/2](Pos :1)
+[COACH] [Play] Siphon Soul->Drakonid Crusher[9/9]
+[COACH] [Attack] Stranglethorn Tiger[5/5]->Gul'dan
+[COACH] [Attack] Animated Armor[4/4]->Gul'dan
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

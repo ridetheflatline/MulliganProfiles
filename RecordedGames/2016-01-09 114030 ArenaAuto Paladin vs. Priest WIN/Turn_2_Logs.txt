@@ -1,0 +1,8 @@
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Play] Reinforce
+Play sequence : [EndTurn] 
+--> Sending emote : THREATEN
+ 
+<-------New Turn-------->
+ 

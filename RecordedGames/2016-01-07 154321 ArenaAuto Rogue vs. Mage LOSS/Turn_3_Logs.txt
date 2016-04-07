@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Razorfen Hunter[2/3](Pos :1)
+[COACH] [Attack] Spectral Spider[1/1]->Mana Wyrm[2/2]
+[COACH] [Attack] Spectral Spider[1/1]->Mana Wyrm[2/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

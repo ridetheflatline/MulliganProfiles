@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Burly Rockjaw Trogg[3/5](Pos :1)
+[COACH] [Play] The Coin
+[COACH] [Play] Shattered Sun Cleric[3/2](Pos :1)->Razorfen Hunter[2/2]
+[COACH] [Attack] Razorfen Hunter[2/2]->Garrosh Hellscream
+[COACH] [Attack] Valeera Sanguinar->Southsea Deckhand[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

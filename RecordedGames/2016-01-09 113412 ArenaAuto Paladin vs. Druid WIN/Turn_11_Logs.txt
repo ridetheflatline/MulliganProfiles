@@ -1,0 +1,9 @@
+Started PlaySequence routine
+Play sequence : [Play] Keeper of Uldaman[3/4](Pos :1)->Jeweled Scarab[2/2]
+Play sequence : [Attack] Aldor Peacekeeper[7/4]->Malfurion Stormrage
+--> Sending emote : THANKS
+Play sequence : [Attack] Drakonid Crusher[7/7]->Malfurion Stormrage
+Play sequence : [Attack] Stormwind Champion[6/4]->Malfurion Stormrage
+Play sequence : [Attack] Cult Master[5/2]->Malfurion Stormrage
+Play sequence : [EndTurn] 
+<-------Won !-------->

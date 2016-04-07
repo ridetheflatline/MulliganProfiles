@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Play] Tinker's Sharpsword Oil
+[COACH] [Resimulate] 
+[COACH] [Attack] Valeera Sanguinar->Anduin Wrynn
+[COACH] [Play] Cold Blood->Cult Master[4/2]
+[COACH] [Attack] Cult Master[4/2]->Anduin Wrynn
+[COACH] [Attack] Defias Ringleader[2/2]->Anduin Wrynn
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Defias Ringleader[2/2]->Anduin Wrynn
+[COACH] [EndTurn] 
+--> Sending emote : WELL_PLAYED

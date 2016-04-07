@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Armor Up!
+[COACH] [Attack] Flame Juggler[2/3]->Novice Engineer[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

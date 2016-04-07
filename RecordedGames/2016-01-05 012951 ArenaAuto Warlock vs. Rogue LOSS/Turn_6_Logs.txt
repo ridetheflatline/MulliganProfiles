@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Sunwalker[4/5](Pos :1)
+[COACH] [Attack] Lost Tallstrider[5/4]->Valeera Sanguinar
+[COACH] [Attack] Dark Peddler[2/2]->Goblin Auto-Barber[3/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

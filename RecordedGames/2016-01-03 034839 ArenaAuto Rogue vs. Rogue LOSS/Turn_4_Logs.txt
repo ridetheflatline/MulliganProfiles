@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Hungry Dragon[5/6](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Valeera Sanguinar
+[COACH] [Attack] Undercity Valiant[3/2]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Stonetusk Boar[1/1]
+[COACH] [Attack] Undercity Valiant[3/2]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

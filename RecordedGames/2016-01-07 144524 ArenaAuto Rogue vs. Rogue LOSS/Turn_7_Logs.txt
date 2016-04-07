@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Frost Elemental[5/5](Pos :1)->Shado-Pan Rider[6/7]
+[COACH] [Attack] Burly Rockjaw Trogg[3/5]->Slime[1/2]
+[COACH] [Play] The Coin
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Valeera Sanguinar->Pit Snake[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

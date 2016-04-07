@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Attack] Bloodfen Raptor[3/2]->Thrall
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

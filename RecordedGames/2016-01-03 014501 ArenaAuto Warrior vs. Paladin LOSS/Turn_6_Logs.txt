@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Boulderfist Ogre[6/7](Pos :1)
+[COACH] [Attack] Tomb Spider[3/2]->Uther Lightbringer
+[COACH] [Attack] Stranglethorn Tiger[5/5]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,10 @@
+--> [Waiting] 
+Started PlaySequence routine
+Play sequence : [Attack] Drakonid Crusher[9/6]->Refreshment Vendor[3/5]
+Play sequence : [Play] Worgen Infiltrator[2/1](Pos :1)
+Play sequence : [Play] Reinforce
+Play sequence : [Attack] Silver Hand Recruit[1/1]->Anduin Wrynn
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,31 @@
+Board --- Malfurion Stormrage(27/0-30/0)Uther Lightbringer 
+
+
+AbilityFriend : Shapeshift[CS2_017]
+AbilityEnemy : Reinforce[CS2_101]
+
+Mana : 4
+Enemy secret: False
+
+Friends : 
+Sabertooth Panther[AT_042t2][3/2]CAN[True]IDX[0][ST]
+
+Enemy : 
+Stonesplinter Trogg[GVG_067][3/3]CAN[True]IDX[0]ENCH[GVG_067-E]
+Warhorse Trainer[AT_075][2/4]CAN[False]IDX[1]
+
+Hand : 
+Amani Berserker[EX1_393][2/3]COST[2]
+Wobbling Runts[LOE_089][2/6]COST[6]
+Chillwind Yeti[CS2_182][4/5]COST[4]
+Ragnaros the Firelord[EX1_298][8/8]COST[8]
+Tomb Spider[LOE_047][3/3]COST[4]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 23 -- EnemyDeck : 23
+Value : 59.5
+
+@4~4~2~0~0~23~23~0~False~4~False~4~0~0~HERO_06*-1*0*0*0*3*0*80*30*0*4*27*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~HERO_04*-1*0*0*0*0*0*78*30*0*3*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_017*-1*0*0*2*0*0*81*0*0*4*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~CS2_101*-1*0*0*2*0*0*79*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~AT_042t2*0*0*3*2*0*0*83*2*0*1*2*0*False*False*False*False*False*False*False*False*False*False*False*False*True*1*False~GVG_067*0*0*3*2*0*0*32*3*0*1*3*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False*GVG_067a=1=32=0|AT_075*1*0*2*3*0*0*28*4*0*0*4*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_393*0*0*2*2*0*0*38*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|LOE_089*1*0*2*6*0*0*69*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_182*2*0*4*4*0*0*70*5*0*0*5*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_298*3*0*8*8*0*0*85*8*0*0*8*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|LOE_047*4*0*3*4*0*0*39*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GVG_006|LOE_115~0~GAME_005|EX1_049~0~False=False=False=False=False=False~0~0~0~False~AT_037,LOE_115,EX1_393,AT_038,AT_042,AT_094,GVG_006,EX1_049,EX1_155,BRM_033,EX1_590,LOE_050,EX1_412,EX1_019,AT_100,EX1_158,CS2_012,EX1_057,CS2_182,EX1_166,LOE_047,CS2_151,EX1_173,EX1_067,LOE_089,GVG_079,EX1_572~0~0~

@@ -1,0 +1,7 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Stormwind Champion[6/6]->Uther Lightbringer
+[COACH] [Attack] Huge Toad[4/3]->Uther Lightbringer
+[COACH] [EndTurn] 
+--> Sending emote : SORRY

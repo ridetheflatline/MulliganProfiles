@@ -1,0 +1,15 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Sunwalker[4/5](Pos :1)
+[COACH] [Attack] Fallout Slime[2/2]->Malfurion Stormrage
+[COACH] [Attack] Fallout Slime[2/2]->Malfurion Stormrage
+[COACH] [Attack] Bone Construct[2/1]->Toxitron[3/3]
+[COACH] [Attack] Bone Construct[2/1]->Toxitron[3/3]
+[COACH] [Attack] Flamewaker Acolyte[3/3]->Malfurion Stormrage
+[COACH] [Attack] Fallout Slime[2/2]->Malfurion Stormrage
+[COACH] [Play] ME SMASH
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

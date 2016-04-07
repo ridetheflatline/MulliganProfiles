@@ -1,0 +1,15 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Cult Master[4/2](Pos :1)
+[COACH] [Attack] Pit Fighter[6/6]->Pit Fighter[5/6]
+[COACH] [Play] Jeweled Scarab[1/1](Pos :1)
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [Play] Abusive Sergeant[2/1](Pos :1)->Gadgetzan Jouster[3/3]
+[COACH] [Play] Mana Wraith[2/2](Pos :1)
+[COACH] [Attack] Stormwind Champion[6/5]->Anduin Wrynn
+[COACH] [Attack] Gadgetzan Jouster[3/3]->Anduin Wrynn
+[COACH] [Play] Avenge
+[COACH] [EndTurn] 
+<-------Won !-------->

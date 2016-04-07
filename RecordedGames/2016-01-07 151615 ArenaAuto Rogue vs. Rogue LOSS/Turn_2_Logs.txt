@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Annoy-o-Tron[1/2](Pos :1)
+[COACH] [EndTurn] 
+--> Sending emote : THREATEN
+ 
+<-------New Turn-------->
+ 

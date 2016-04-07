@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Defias Ringleader[2/2](Pos :1)
+[COACH] [Attack] Argent Squire[1/1]->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

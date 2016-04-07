@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Play] Goblin Auto-Barber[3/2](Pos :1)
+[COACH] [Play] Deadly Poison
+[COACH] [Attack] Valeera Sanguinar->Evil Heckler[5/4]
+[COACH] [Attack] Tomb Pillager[5/4]->Gul'dan
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

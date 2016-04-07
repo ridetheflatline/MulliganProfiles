@@ -1,0 +1,30 @@
+Board --- Gul'dan(25/0-23/0)Jaina Proudmoore 
+
+
+AbilityFriend : Life Tap[CS2_056]
+AbilityEnemy : Fireblast[CS2_034]
+
+Mana : 6
+Enemy secret: False
+
+Friends : 
+Blood Knight[EX1_590][3/3]CAN[True]IDX[0]
+
+Enemy : 
+Sludge Belcher[FP1_012][3/4]CAN[False]IDX[0][T]
+Mana Wyrm[NEW1_012][1/3]CAN[False]IDX[1]
+
+Hand : 
+Shadowflame[EX1_303]COST[4]
+Argent Horserider[AT_087][2/1]COST[3]
+Harvest Golem[EX1_556][2/3]COST[3]
+Flame Imp[EX1_319][3/2]COST[1]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 20 -- EnemyDeck : 20
+Value : 40.5
+
+@6~6~1~0~0~20~20~0~False~6~False~4~0~0~HERO_07*-1*0*0*0*5*0*64*30*0*6*25*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~HERO_08*-1*0*0*0*7*0*66*30*0*6*23*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~CS2_056*-1*0*0*2*0*0*65*0*0*6*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~CS2_034*-1*0*0*2*0*0*67*0*0*6*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~EX1_590*0*0*3*3*0*0*22*3*0*1*3*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~FP1_012*0*0*3*5*1*0*57*5*0*0*4*0*False*False*True*False*True*False*True*False*False*False*False*False*False*0*False|NEW1_012*1*0*1*1*0*0*61*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_303*0*0*0*4*0*0*26*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|AT_087*1*0*2*3*0*0*17*1*0*0*1*0*True*True*False*False*False*False*False*False*False*False*False*False*False*0*False|EX1_556*2*0*2*3*0*0*18*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_319*3*0*3*1*0*0*30*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|EX1_082|GVG_064|EX1_556|EX1_313|LOE_046~0~EX1_096|CS2_203|CS2_029|EX1_010~0~True=False=True=True=False=False~0~0~0~False~EX1_316,GVG_082,EX1_319,EX1_010,GVG_015,CS2_172,NEW1_023,AT_080,LOE_046,EX1_082,GVG_064,AT_087,EX1_590,CS2_117,EX1_556,BRM_006,EX1_019,EX1_303,EX1_057,EX1_313,FP1_022,EX1_310,AT_090,EX1_032,AT_020,GVG_079~0~0~

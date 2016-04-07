@@ -1,0 +1,1405 @@
+ 
+ --------------- 
+ 
+[COACH] 
+[COACH] [EndTurn] 
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+System.NullReferenceException: Object reference not set to an instance of an object
+  at SmartEngine.Arena.ArenaProcesser.GetBestHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.OnDraftingHero () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Arena.DraftSceneHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Tick () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Scenes.ScenesHandler.Update () [0x00000] in <filename unknown>:0 
+  at SmartEngine.Engine.Update () [0x00000] in <filename unknown>:0 
+
+SmartBot
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Choice : Valeera Sanguinar
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : That's what I'm talking about! Let's go purely by the tier list: Deathwing.
+Received arena result from heartharena
+[ARENA] Heartharena tip : Let's go purely by the tier list: Ironfur Grizzly.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Ironfur Grizzly.
+Received arena result from heartharena
+[ARENA] Choice : Ironfur Grizzly
+[ARENA] Choice : Ironfur Grizzly
+[ARENA] Choice : Ironfur Grizzly
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Ironfur Grizzly.
+Received arena result from heartharena
+[ARENA] Choice : Ironfur Grizzly
+[ARENA] Choice : Ironfur Grizzly
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Pit Fighter.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Spiteful Smith.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Great! Although it's a little early in the draft to pick Dark Iron Skulker, I still suggest you pick Dark Iron Skulker as it has the most value out of these options.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : That's what I'm talking about! SI:7 Agent has the most value and we need a three drop.
+Received arena result from heartharena
+[ARENA] Choice : SI:7 Agent
+[ARENA] Choice : SI:7 Agent
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Pit Snake.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Although we don't really want too many five drops, I still suggest you pick Clockwork Knight as it has the most value out of these options.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Huge Toad has the most value and we need an early drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Spectral Knight. However, having at least one copy of Sprint is very good. I suggest you pick Sprint in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Great! SI:7 Agent has the most value and we need a three drop.
+Received arena result from heartharena
+[ARENA] Choice : SI:7 Agent
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Annoy-o-Tron has insane synergy with our deck and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Scarlet Crusader has the most value and we really need a three drop.
+Received arena result from heartharena
+[ARENA] Choice : Scarlet Crusader
+[ARENA] Choice : Scarlet Crusader
+[ARENA] Choice : Scarlet Crusader
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Deadly Poison synergizes well with our deck and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Too bad we have to choose between these cards. Undercity Valiant really compensates for our lack of four drops and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Bloodsail Raider has insane synergy with our deck and has the most value.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Mind Control Tech has the most value and we need a three drop.
+Received arena result from heartharena

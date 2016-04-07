@@ -1,0 +1,10 @@
+--> [Resimulate] 
+--> [Waiting] 
+--> [EndTurn] 
+ 
+<-------End Turn-------->
+ 
+--> Sending emote : GREETINGS
+ 
+<-------New Turn-------->
+ 

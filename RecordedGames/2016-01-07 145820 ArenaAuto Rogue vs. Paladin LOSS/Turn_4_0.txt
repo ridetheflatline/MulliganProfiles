@@ -1,0 +1,31 @@
+Board --- Valeera Sanguinar(25/0-30/0)Uther Lightbringer 
+
+
+AbilityFriend : Dagger Mastery[CS2_083b]
+AbilityEnemy : Reinforce[CS2_101]
+
+Mana : 4
+Enemy secret: False
+
+Friends : 
+Haunted Creeper[FP1_002][2/3]CAN[True]IDX[0]ENCH[EX1_019-F]
+
+Enemy : 
+Lil' Exorcist[GVG_097][3/4]CAN[True]IDX[0][T]ENCH[GVG_101-E]
+Mad Scientist[FP1_004][2/2]CAN[False]IDX[1]
+
+Hand : 
+Tinkertown Technician[GVG_102][3/3]COST[3]
+Goblin Auto-Barber[GVG_023][3/2]COST[2]
+Burly Rockjaw Trogg[GVG_068][3/5]COST[4]
+Archmage[CS2_155][4/7]COST[6]
+Spider Tank[GVG_044][3/4]COST[3]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 23 -- EnemyDeck : 23
+Value : -13
+
+@4~4~2~0~0~23~23~0~False~4~False~5~0~0~HERO_03*-1*0*0*0*5*0*66*30*0*4*25*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~HERO_04*-1*0*0*0*0*0*64*30*0*3*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_083b*-1*0*0*2*0*0*67*0*0*4*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~CS2_101*-1*0*0*2*0*0*65*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~FP1_002*0*0*2*2*0*0*62*3*0*2*3*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False*EX1_019e=2=42=0~GVG_097*0*0*3*3*0*0*6*4*0*1*4*0*False*False*True*False*True*False*False*False*False*False*False*False*False*1*False*GVG_101e=1=6=0|FP1_004*1*0*2*2*0*0*15*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~GVG_102*0*0*3*3*0*0*60*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_023*1*0*3*2*0*0*61*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_068*2*0*3*4*0*0*44*5*0*0*5*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_155*3*0*4*6*0*0*50*7*0*0*7*1*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_044*4*0*3*3*0*0*34*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~EX1_019~0~GAME_005|GVG_082~0~True=True=False=True=True=False~0~0~0~False~CS2_072,CS2_074,AT_029,LOE_010,FP1_001,EX1_581,GVG_085,AT_089,CS2_121,GVG_023,FP1_002,EX1_096,EX1_058,EX1_133,AT_033,FP1_009,CS2_196,EX1_019,GVG_044,GVG_102,GVG_068,LOE_012,LOE_047,AT_119,CS2_155,BRM_024,EX1_283,GVG_105,CS2_077~0~0~

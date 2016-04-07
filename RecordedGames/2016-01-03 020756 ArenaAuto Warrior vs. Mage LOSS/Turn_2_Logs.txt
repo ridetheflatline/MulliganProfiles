@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Acidic Swamp Ooze[3/2](Pos :1)
+[COACH] [Attack] Flame Juggler[2/3]->Fallen Hero[3/2]
+[COACH] [EndTurn] 
+--> Sending emote : GREETINGS
+ 
+<-------New Turn-------->
+ 

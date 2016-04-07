@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Earthen Ring Farseer[3/3](Pos :1)->Gul'dan
+[COACH] [Play] Antique Healbot[3/3](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Fierce Monkey[3/4](Pos :1)
+[COACH] [Attack] Zombie Chow[2/3]->Jaina Proudmoore
+[COACH] [Attack] Warbot[1/3]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

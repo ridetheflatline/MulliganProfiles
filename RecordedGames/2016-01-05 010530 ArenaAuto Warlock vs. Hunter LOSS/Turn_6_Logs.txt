@@ -1,0 +1,50 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Acolyte of Pain[2/3]->Webspinner[1/1]
+[COACH] [Resimulate] 
+[COACH] [Attack] Knife Juggler[4/1]->Rexxar
+[COACH] [Play] Argent Horserider[2/1](Pos :2)
+[COACH] [Resimulate] 
+[COACH] [Attack] Argent Horserider[2/1]->Tomb Spider[3/3]
+[COACH] [Play] Deathlord[2/8](Pos :3)
+[COACH] [Resimulate] 
+[COACH] [Attack] Dire Wolf Alpha[2/2]->Rexxar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Knife Juggler[4/1]->Rexxar
+[COACH] [Play] Argent Horserider[2/1](Pos :2)
+[COACH] [Resimulate] 
+[COACH] [Attack] Argent Horserider[2/1]->Tomb Spider[3/3]
+[COACH] [Play] Deathlord[2/8](Pos :3)
+[COACH] [Resimulate] 
+[COACH] [Attack] Dire Wolf Alpha[2/2]->Rexxar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Argent Horserider[2/1](Pos :2)
+[COACH] [Resimulate] 
+[COACH] [Attack] Argent Horserider[2/1]->Tomb Spider[3/3]
+[COACH] [Play] Deathlord[2/8](Pos :3)
+[COACH] [Resimulate] 
+[COACH] [Attack] Dire Wolf Alpha[2/2]->Rexxar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Argent Horserider[3/1]->Tomb Spider[3/2]
+[COACH] [Play] Deathlord[2/8](Pos :3)
+[COACH] [Resimulate] 
+[COACH] [Attack] Dire Wolf Alpha[2/2]->Rexxar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Dire Wolf Alpha[2/2]->Rexxar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

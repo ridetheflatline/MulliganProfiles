@@ -1,0 +1,41 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Burgle
+[COACH] [Resimulate] 
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Haunted Creeper[1/1]->Puddlestomper[3/2]
+[COACH] [Attack] Valeera Sanguinar->Puddlestomper[3/2]
+[COACH] [Attack] Goblin Auto-Barber[3/1]->Garrosh Hellscream
+[COACH] [Attack] Annoy-o-Tron[1/1]->Garrosh Hellscream
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Haunted Creeper[1/1]->Puddlestomper[3/2]
+[COACH] [Attack] Valeera Sanguinar->Puddlestomper[3/2]
+[COACH] [Attack] Goblin Auto-Barber[3/1]->Garrosh Hellscream
+[COACH] [Attack] Annoy-o-Tron[1/1]->Garrosh Hellscream
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Haunted Creeper[1/1]->Puddlestomper[3/2]
+[COACH] [Attack] Valeera Sanguinar->Puddlestomper[3/2]
+[COACH] [Attack] Goblin Auto-Barber[3/1]->Garrosh Hellscream
+[COACH] [Attack] Annoy-o-Tron[1/1]->Garrosh Hellscream
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Attack] Haunted Creeper[1/1]->Puddlestomper[3/2]
+[COACH] [Attack] Valeera Sanguinar->Puddlestomper[3/2]
+[COACH] [Attack] Goblin Auto-Barber[3/1]->Garrosh Hellscream
+[COACH] [Attack] Annoy-o-Tron[1/1]->Garrosh Hellscream
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

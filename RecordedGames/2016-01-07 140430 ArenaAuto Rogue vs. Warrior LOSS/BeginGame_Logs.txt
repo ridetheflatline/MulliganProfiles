@@ -1,0 +1,17 @@
+Mulligan profile : SmartMulliganV2.cs
+Mulligan phase delayed : 10554ms
+Starting mulligan hovering routine for :10554ms
+--> Hovering Pit Snake for 1008ms
+--> Hovering Piloted Sky Golem for 1764ms
+--> Hovering Perdition's Blade for 1162ms
+--> Hovering Piloted Sky Golem for 1968ms
+--> Hovering Perdition's Blade for 1298ms
+--> Hovering The Coin for 1256ms
+--> Hovering Perdition's Blade for 1971ms
+Replace : Piloted Sky Golem
+Replace : Perdition's Blade
+Replace : Archmage
+--> Sending emote : GREETINGS
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBotMocker", "SmartBotMocker\SmartBotMocker.csproj", "{1F4B6C28-9FF9-4015-908B-36C02D46AC8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBot Testing", "SmartBot Testing.csproj", "{395768A4-E264-4DBD-BA10-D57ABBCCD02B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F4B6C28-9FF9-4015-908B-36C02D46AC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4B6C28-9FF9-4015-908B-36C02D46AC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4B6C28-9FF9-4015-908B-36C02D46AC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4B6C28-9FF9-4015-908B-36C02D46AC8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{395768A4-E264-4DBD-BA10-D57ABBCCD02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395768A4-E264-4DBD-BA10-D57ABBCCD02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395768A4-E264-4DBD-BA10-D57ABBCCD02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395768A4-E264-4DBD-BA10-D57ABBCCD02B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

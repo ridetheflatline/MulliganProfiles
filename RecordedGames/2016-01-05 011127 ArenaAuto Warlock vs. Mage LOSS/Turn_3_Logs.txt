@@ -1,0 +1,27 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Play] Sir Finley Mrrgglton[1/3](Pos :1)
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [Attack] Dark Peddler[2/1]->Zombie Chow[2/1]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Attack] Dark Peddler[2/1]->Zombie Chow[2/1]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] 
+[COACH] [Resimulate] 
+[COACH] [Attack] Dark Peddler[2/1]->Zombie Chow[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

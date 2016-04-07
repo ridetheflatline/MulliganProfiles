@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Shattered Sun Cleric[3/2](Pos :1)->Haunted Creeper[1/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

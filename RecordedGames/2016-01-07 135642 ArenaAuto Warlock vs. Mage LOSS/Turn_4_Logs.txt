@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Maiden of the Lake[2/6](Pos :1)
+[COACH] [Attack] Ironfur Grizzly[3/3]->Jaina Proudmoore
+[COACH] [EndTurn] 
+--> Sending emote : THANKS
+ 
+<-------New Turn-------->
+ 

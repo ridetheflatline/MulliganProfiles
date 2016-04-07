@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Deathlord[2/8](Pos :1)
+[COACH] [Attack] Flame Imp[3/3]->Buccaneer[2/1]
+[COACH] [EndTurn] 
+--> Sending emote : THREATEN
+ 
+<-------New Turn-------->
+ 

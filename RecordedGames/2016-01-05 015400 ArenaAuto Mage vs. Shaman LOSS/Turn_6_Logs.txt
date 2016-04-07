@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Mukla's Champion[4/3](Pos :1)
+[COACH] [Play] Fireblast->Thrall
+[COACH] [Attack] Undertaker[1/2]->Pit Fighter[5/2]
+[COACH] [Attack] Armored Warhorse[5/3]->Thrall
+[COACH] [Attack] Tomb Spider[3/3]->Windspeaker[3/3]
+[COACH] [EndTurn] 

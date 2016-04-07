@@ -1,0 +1,21 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Mad Bomber[3/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Evil Heckler[5/4](Pos :1)
+[COACH] [Play] Fireblast->Antique Healbot[3/3]
+[COACH] [Attack] Argent Horserider[2/2]->Jaina Proudmoore
+[COACH] [Attack] Mistress of Pain[1/3]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Evil Heckler[5/4](Pos :1)
+[COACH] [Attack] Argent Horserider[2/2]->Jaina Proudmoore
+[COACH] [Play] Fireblast->Antique Healbot[3/2]
+[COACH] [Attack] Mistress of Pain[1/3]->Antique Healbot[3/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

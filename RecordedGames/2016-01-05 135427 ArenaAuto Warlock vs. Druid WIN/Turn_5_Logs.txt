@@ -1,0 +1,8 @@
+Started PlaySequence routine
+Play sequence : [Play] Harvest Golem[2/3](Pos :1)
+Play sequence : [Attack] Imp Gang Boss[2/4]->Imp Master[1/2]
+Play sequence : [Play] Clockwork Gnome[2/1](Pos :1)
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

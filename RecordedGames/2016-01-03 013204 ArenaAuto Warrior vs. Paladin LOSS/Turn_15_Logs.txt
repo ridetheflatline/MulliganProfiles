@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

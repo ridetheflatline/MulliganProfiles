@@ -1,0 +1,7 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Power Overwhelming->Evil Heckler[5/3]
+[COACH] [Attack] Evil Heckler[5/3]->Jaina Proudmoore
+[COACH] [Attack] Mad Bomber[3/1]->Jaina Proudmoore
+[COACH] [EndTurn] 

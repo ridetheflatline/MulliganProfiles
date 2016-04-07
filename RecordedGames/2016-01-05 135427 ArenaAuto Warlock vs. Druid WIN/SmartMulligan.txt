@@ -1,0 +1,31 @@
+==================START COPY=======================
+[No Coin]You were warlock vs druid
+[Kept]		[Offered]	[Card Name]
+EX1_082		 EX1_082	//Mad Bomber 4
+AT_080		 AT_080		//Garrison Commander 4
+ 			 EX1_057	//Ancient Brewmaster 1
+ 
+3|2~~EX1_082*AT_080*EX1_057*~~EX1_082*AT_080* 
+"EX1_316","GVG_082","EX1_319","EX1_010","GVG_015","CS2_172","NEW1_023","AT_080","LOE_046","EX1_082","GVG_064","AT_087","EX1_590","CS2_117","EX1_556","BRM_006","EX1_019","EX1_303","EX1_057","EX1_313","FP1_022","EX1_310","AT_090","EX1_032","AT_020","GVG_079",
+Arena|False~1*1*4~2*5*7~1*1*6~1*1*4~!~False*0*0*3||3.19230769230769||0.566666666666667
+
+			[ArenaValues]
+[3 mana] Harvest Golem had priority: 6
+[1 mana] Flame Imp had priority: 5
+[3 mana] Imp Gang Boss had priority: 5
+[1 mana] Worgen Infiltrator had priority: 5
+[2 mana] Huge Toad had priority: 5
+[4 mana] Voidcaller had priority: 4
+[1 mana] Clockwork Gnome had priority: 4
+[2 mana] Bloodfen Raptor had priority: 4
+[2 mana] Faerie Dragon had priority: 4
+[2 mana] Garrison Commander had priority: 4
+[2 mana] Mad Bomber had priority: 4
+[2 mana] Puddlestomper had priority: 4
+[3 mana] Argent Horserider had priority: 3
+[3 mana] Blood Knight had priority: 3
+[3 mana] Earthen Ring Farseer had priority: 3
+[3 mana] Shattered Sun Cleric had priority: 3
+[4 mana] Ancient Brewmaster had priority: 1
+[4 mana] Pit Lord had priority: 0
+==================END COPY=======================

@@ -1,0 +1,29 @@
+Board --- Malfurion Stormrage(23/0-27/0)Malfurion Stormrage 
+
+
+AbilityEnemy : Activate![BRMA14_10H_TB]
+
+Mana : 2
+Enemy secret: False
+
+Friends : 
+Flamewaker Acolyte[BRMA06_4H][3/3]CAN[False]IDX[0]
+Fallout Slime[NAX11_03][2/2]CAN[False]IDX[1]
+Fallout Slime[NAX11_03][2/2]CAN[False]IDX[2]
+Fallout Slime[NAX11_03][2/2]CAN[False]IDX[3]
+Flamewaker Acolyte[BRMA06_4H][3/3]CAN[False]IDX[4]
+
+Enemy : 
+Dr. Boom[GVG_110][7/6]CAN[False]IDX[0]
+
+Hand : 
+Innervate[EX1_169]COST[0]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 18 -- EnemyDeck : 17
+Value : 190.5
+
+@10~2~2~0~0~18~17~0~False~7~False~9~0~0~HERO_06*-1*0*0*0*7*0*86*30*0*7*23*0*False*False*False*False*False*False*False*False*False*False*False*False*False*7*False~HERO_06*-1*0*0*0*3*0*84*30*0*6*27*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~NAX3_02_TB*-1*0*0*2*0*0*150*0*0*0*0*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~BRMA14_10H_TB*-1*0*0*2*0*0*131*0*0*1*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~BRMA06_4H*0*0*3*2*0*0*141*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|NAX11_03*1*0*2*1*0*0*144*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|NAX11_03*2*0*2*1*0*0*145*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|NAX11_03*3*0*2*1*0*0*147*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|BRMA06_4H*4*0*3*2*0*0*149*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~GVG_110*0*0*7*7*1*0*40*7*0*0*6*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_169*0*0*0*0*0*0*71*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~AT_115|AT_045|AT_043|CS2_012|AT_044|AT_085|AT_043|EX1_155|NEW1_021|NAX11_03|CS2_012|BRMA17_6|BRMA17_6|BRMA09_2t|BRMA09_2t|BRMA09_2t|BRMA14_5|EX1_558|EX1_006|NAX11_03|NAX11_03~0~GAME_005|AT_086|BRMA14_3|NEW1_008|NEW1_023|AT_038|NAX11_03|BRMA09_2t|NAX11_03|NAX11_03|BRMA02_2t|NAX11_03|BRMA09_2t|GVG_110t|GVG_110t~0~False=False=False=False=False=False~0~0~0~False~CS2_073,CS2_074,EX1_008,AT_133,LOE_010,GVG_085,EX1_131,EX1_162,GVG_064,AT_030,EX1_133,AT_083,EX1_085,EX1_020,EX1_134,AT_100,GVG_022,EX1_595,NEW1_022,LOE_039,BRM_026,CS2_080,AT_096,BRM_008,GVG_070,CS2_221,CS2_077,GVG_079,NEW1_030~5~2~

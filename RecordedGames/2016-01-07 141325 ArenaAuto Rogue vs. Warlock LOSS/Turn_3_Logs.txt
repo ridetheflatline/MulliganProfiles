@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Tomb Pillager[5/4](Pos :1)
+[COACH] [Attack] Zombie Chow[2/1]->Gul'dan
+[COACH] [Attack] Valeera Sanguinar->Gul'dan
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

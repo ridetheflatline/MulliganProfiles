@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Fierce Monkey[3/4](Pos :1)
+[COACH] [Attack] Tomb Spider[3/3]->Jaina Proudmoore
+[COACH] [Attack] Zombie Chow[2/2]->Jaina Proudmoore
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

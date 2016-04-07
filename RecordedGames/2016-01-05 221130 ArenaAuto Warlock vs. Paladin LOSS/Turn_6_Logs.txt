@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Fearsome Doomguard[6/8]->Silver Hand Recruit[1/1]
+[COACH] [Play] Puddlestomper[3/2](Pos :1)
+[COACH] [Play] Voidcaller[3/4](Pos :1)
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 

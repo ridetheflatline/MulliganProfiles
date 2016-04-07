@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Deathlord[2/8](Pos :1)
+[COACH] [Attack] Valeera Sanguinar->Spectral Knight[4/3]
+[COACH] [Attack] Haunted Creeper[1/2]->Valeera Sanguinar
+[COACH] [Play] Dagger Mastery
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

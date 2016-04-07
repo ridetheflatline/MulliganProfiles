@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Flame Juggler[2/3]->Whirling Zap-o-matic[3/2]
+[COACH] [Play] Shapeshift
+[COACH] [Attack] Malfurion Stormrage->Searing Totem[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,8 @@
+Started PlaySequence routine
+Play sequence : [Play] Imp Gang Boss[2/4](Pos :1)
+Play sequence : [Attack] Worgen Infiltrator[2/1]->Malfurion Stormrage
+Play sequence : [Attack] Garrison Commander[2/2]->Malfurion Stormrage
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

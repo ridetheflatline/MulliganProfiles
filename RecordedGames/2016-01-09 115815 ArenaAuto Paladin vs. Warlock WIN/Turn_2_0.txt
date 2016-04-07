@@ -1,0 +1,29 @@
+Board --- Uther Lightbringer(30/0-30/0)Gul'dan 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Life Tap[CS2_056]
+
+Mana : 2
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+Jeweled Scarab[LOE_029][1/1]CAN[False]IDX[0]
+
+Hand : 
+Hammer of Wrath[CS2_094]COST[4]
+Unstable Ghoul[FP1_024][1/3]COST[2]
+Stonesplinter Trogg[GVG_067][2/3]COST[2]
+Blessing of Kings[CS2_092]COST[4]
+Argent Protector[EX1_362][2/2]COST[2]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 25 -- EnemyDeck : 25
+Value : 56.5
+
+@2~2~2~0~0~25~25~0~False~2~False~5~0~0~HERO_04*-1*0*0*0*0*0*66*30*0*2*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~HERO_07*-1*0*0*0*0*0*64*30*0*1*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~CS2_101*-1*0*0*2*0*0*67*0*0*2*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~CS2_056*-1*0*0*2*0*0*65*0*0*1*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~0~LOE_029*0*0*1*2*0*0*6*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~CS2_094*0*0*0*4*0*0*58*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|FP1_024*1*0*1*2*0*0*53*3*0*0*3*0*False*False*True*False*False*False*True*False*False*False*False*False*False*0*False|GVG_067*2*0*2*2*0*0*43*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*3*0*0*4*0*0*40*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_362*4*0*2*2*0*0*45*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~GAME_005~0~False=False=False=False=False=False~0~0~0~False~FP1_020,CS2_087,CS2_188,AT_133,EX1_010,EX1_362,LOE_029,EX1_616,GVG_058,GVG_067,FP1_024,AT_074,EX1_007,EX1_382,CS2_125,EX1_044,CS2_092,CS2_094,EX1_595,LOE_017,AT_085,BRM_001,AT_101,CS2_151,BRM_024,CS2_222~0~0~

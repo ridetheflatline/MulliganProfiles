@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Deathlord[2/8](Pos :1)
+[COACH] [Play] Loot Hoarder[2/1](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

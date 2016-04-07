@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Doomguard[1/1]->Uther Lightbringer
+[COACH] [Play] Fearsome Doomguard[6/8](Pos :1)
+[COACH] [Attack] Worgen Infiltrator[2/1]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

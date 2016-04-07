@@ -1,0 +1,17 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Captured Jormungar[5/9](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Knife Juggler[3/2]->Jaina Proudmoore
+[COACH] [Attack] Mana Wyrm[1/3]->Clockwork Gnome[2/1]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Knife Juggler[3/2]->Jaina Proudmoore
+[COACH] [Attack] Mana Wyrm[1/3]->Clockwork Gnome[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

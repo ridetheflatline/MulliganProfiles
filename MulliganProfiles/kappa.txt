@@ -1,0 +1,13 @@
+HERO_01: 	 Garrosh Hellscream 	 WARRIOR
+HERO_02: 	 Thrall 	 SHAMAN
+HERO_03: 	 Valeera Sanguinar 	 ROGUE
+HERO_04: 	 Uther Lightbringer 	 PALADIN
+HERO_05: 	 Rexxar 	 HUNTER
+HERO_06: 	 Malfurion Stormrage 	 DRUID
+HERO_07: 	 Gul'dan 	 WARLOCK
+HERO_08: 	 Jaina Proudmoore 	 MAGE
+HERO_09: 	 Anduin Wrynn 	 PRIEST
+HERO_01a: 	 Magni Bronzebeard 	 WARRIOR
+HERO_05a: 	 Alleria Windrunner 	 HUNTER
+HERO_08a: 	 Medivh 	 MAGE
+

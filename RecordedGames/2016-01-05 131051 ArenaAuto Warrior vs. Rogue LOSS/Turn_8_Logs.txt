@@ -1,0 +1,11 @@
+Started PlaySequence routine
+Play sequence : [Play] Ravenholdt Assassin[7/5](Pos :1)
+Play sequence : [Play] Commanding Shout
+--> [Resimulate] 
+--> [Waiting] 
+--> 
+ 
+<-------Concede-------->
+ 
+--> Sending emote : THREATEN
+<-------Lost =(-------->

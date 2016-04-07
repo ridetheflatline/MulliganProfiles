@@ -1,0 +1,22 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Bane of Doom->Water Elemental[3/1]
+[COACH] [Resimulate] 
+[COACH] [Attack] Frostwolf Warlord[6/6]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Frostwolf Warlord[6/6]->Gilblin Stalker[2/2]
+[COACH] [Play] Mad Bomber[3/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Fireblast
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

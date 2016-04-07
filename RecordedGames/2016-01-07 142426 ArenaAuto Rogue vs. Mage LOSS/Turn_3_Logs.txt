@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Shattered Sun Cleric[3/2](Pos :1)->Sunfury Protector[2/3]
+[COACH] [Attack] Sunfury Protector[2/3]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Sunwalker[4/5](Pos :1)
+[COACH] [Play] Flame Imp[3/2](Pos :1)
+[COACH] [EndTurn] 
+--> Sending emote : SORRY
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Swipe->Ancient of Lore[5/4]
+[COACH] [Attack] Bone Construct[2/1]->Faerie Dragon[3/2]
+[COACH] [Attack] Bone Construct[2/1]->Malfurion Stormrage
+[COACH] [Play] Open the Gates
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

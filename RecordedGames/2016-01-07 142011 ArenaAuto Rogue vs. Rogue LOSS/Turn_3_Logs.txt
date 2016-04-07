@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Spider Tank[3/4](Pos :1)
+[COACH] [Attack] Boneguard Lieutenant[3/2]->Valeera Sanguinar
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,65 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Lost Tallstrider[5/4](Pos :1)
+[COACH] [Play] Fireblast->Keeper of Uldaman[3/1]
+[COACH] [EndTurn] 
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Pyroblast.
+Received arena result from heartharena
+[ARENA] Choice : Pyroblast
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Salty Dog.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Flame Lance.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally this would be a toss-up between Arcane Intellect and Cult Master. But I suggest you pick Arcane Intellect in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Dalaran Aspirant. However, we need a two drop. I suggest you pick Ship's Cannon in this situation.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Goblin Blastmage. However, Goblin Blastmage has bad synergy with our deck and we could use a three drop. I suggest you pick Flamewaker in this situation.
+Received arena result from heartharena
+[ARENA] Choice : Flamewaker
+[ARENA] Choice : Flamewaker
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Let's go purely by the tier list: Loot Hoarder.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Harvest Golem has the most value and we need a three drop.
+Received arena result from heartharena
+[ARENA] Choice : Harvest Golem
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Silvermoon Guardian has the most value and we need a four drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Ethereal Conjurer has the most value and we could use a five drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Dalaran Aspirant has the most value and we could use a four drop.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Stranglethorn Tiger has the most value and we seriously need a big drop.
+Received arena result from heartharena
+[ARENA] Choice : Stranglethorn Tiger
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Flame Lance has the most value and we need a large removal.
+Received arena result from heartharena
+[ARENA] Choice : Flame Lance
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Zombie Chow reduces our need for big drops and has the most value.
+Received arena result from heartharena
+[ARENA] Choice : Zombie Chow
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Normally I would pick Flamestrike and although we already have a Ethereal Conjurer in our deck, in this situation I suggest you pick Ethereal Conjurer because we already picked 2 Flamestrikes.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : I suggest you pick Argent Squire since it really reduces our need for big drops, has a positive effect on our deck archetype and has the most value out of these options.
+Received arena result from heartharena
+[ARENA] Request pick from --HearthArena-- logic
+[ARENA] Heartharena tip : Crazed Alchemist has the most value and we need an early drop.
+Received arena result from heartharena
+[ARENA] Choice : Crazed Alchemist

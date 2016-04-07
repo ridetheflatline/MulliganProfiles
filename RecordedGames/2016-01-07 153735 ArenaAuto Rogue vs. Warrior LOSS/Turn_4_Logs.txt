@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Goblin Auto-Barber[3/2](Pos :1)
+[COACH] [Play] Annoy-o-Tron[1/2](Pos :1)
+[COACH] [Attack] Pit Snake[2/1]->Garrosh Hellscream
+[COACH] [Attack] Valeera Sanguinar->Garrosh Hellscream
+[COACH] [Attack] Haunted Creeper[1/2]->Garrosh Hellscream
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

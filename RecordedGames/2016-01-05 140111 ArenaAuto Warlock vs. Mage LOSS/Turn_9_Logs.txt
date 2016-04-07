@@ -1,0 +1,29 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Play] Imp Gang Boss[2/4](Pos :1)
+[COACH] [Attack] Ancient Brewmaster[5/4]->Jaina Proudmoore
+[COACH] [Attack] Faerie Dragon[3/2]->Jaina Proudmoore
+[COACH] [Attack] Harvest Golem[2/3]->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Imp Gang Boss[2/4](Pos :1)
+[COACH] [Attack] Ancient Brewmaster[5/4]->Jaina Proudmoore
+[COACH] [Play] Bloodfen Raptor[3/2](Pos :1)
+[COACH] [Attack] Harvest Golem[2/3]->Ancient Brewmaster[5/4]
+[COACH] [Attack] Faerie Dragon[3/2]->Ancient Brewmaster[5/4]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Imp Gang Boss[2/4](Pos :1)
+[COACH] [Attack] Faerie Dragon[3/2]->Jaina Proudmoore
+[COACH] [Play] Bloodfen Raptor[3/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

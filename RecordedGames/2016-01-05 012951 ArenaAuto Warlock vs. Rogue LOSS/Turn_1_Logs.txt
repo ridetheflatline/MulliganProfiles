@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Flame Imp[3/3]->Knife Juggler[3/2]
+[COACH] [Play] Flame Imp[3/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

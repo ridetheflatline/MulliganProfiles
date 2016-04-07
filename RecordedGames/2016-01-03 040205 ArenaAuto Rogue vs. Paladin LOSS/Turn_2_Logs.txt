@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dire Wolf Alpha[2/2](Pos :1)
+[COACH] [Attack] Defias Bandit[2/1]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,13 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] The Coin
+[COACH] [Play] Haunted Creeper[1/2](Pos :1)
+[COACH] [EndTurn] 
+--> Sending emote : GREETINGS
+ 
+<-------New Turn-------->
+ 
+ 
+<-------New Turn-------->
+ 

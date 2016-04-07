@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] The Coin
+[COACH] [Play] Shattered Sun Cleric[3/2](Pos :1)->Pit Snake[2/1]
+[COACH] [Attack] Pit Snake[2/1]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Druid of the Saber[2/1](Pos :1)
+[COACH] [Choice] -> 2
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

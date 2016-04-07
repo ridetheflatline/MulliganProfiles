@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Obsidian Destroyer[7/5]->Malfurion Stormrage
+[COACH] [Attack] Spellbreaker[4/3]->Malfurion Stormrage
+[COACH] [Attack] Fierce Monkey[3/4]->Malfurion Stormrage
+[COACH] [Attack] Zombie Chow[2/3]->Malfurion Stormrage
+[COACH] [Attack] Warbot[1/3]->Malfurion Stormrage
+[COACH] [Attack] Jeeves[1/1]->Malfurion Stormrage
+[COACH] [EndTurn] 
+--> Sending emote : WELL_PLAYED

@@ -1,0 +1,13 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Force-Tank MAX[7/7](Pos :1)
+[COACH] [Play] Amani Berserker[2/3](Pos :1)
+[COACH] [Attack] Darnassus Aspirant[2/3]->Malfurion Stormrage
+[COACH] [Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[COACH] [Attack] Echoing Ooze[1/2]->Malfurion Stormrage
+[COACH] [Attack] Echoing Ooze[1/2]->Malfurion Stormrage
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

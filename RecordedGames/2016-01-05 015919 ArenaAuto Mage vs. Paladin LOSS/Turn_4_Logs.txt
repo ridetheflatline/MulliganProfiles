@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Harvest Golem[2/3](Pos :1)
+[COACH] [Play] Ship's Cannon[2/3](Pos :1)
+[COACH] [Attack] Snowchugger[2/3]->Squire[2/2]
+[COACH] [Attack] Ogre Magi[4/4]->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

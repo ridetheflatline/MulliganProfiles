@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Cogmaster[1/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

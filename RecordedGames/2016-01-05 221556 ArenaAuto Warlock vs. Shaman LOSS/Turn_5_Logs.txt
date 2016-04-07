@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Flame Imp[3/2](Pos :1)
+[COACH] [Play] Shadowflame->Flame Imp[3/2]
+[COACH] [Attack] Harvest Golem[2/3]->Sludge Belcher[3/5]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

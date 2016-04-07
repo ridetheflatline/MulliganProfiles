@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Fierce Monkey[3/4](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

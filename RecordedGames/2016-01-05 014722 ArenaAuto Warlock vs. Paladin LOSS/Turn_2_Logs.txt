@@ -1,0 +1,18 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Sir Finley Mrrgglton[1/3](Pos :1)
+[COACH] [Choice] -> 1
+[COACH] [Resimulate] 
+[COACH] [Play] Flame Imp[3/2](Pos :1)
+[COACH] [Attack] Dark Peddler[2/2]->Young Priestess[2/1]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Play] Flame Imp[3/2](Pos :1)
+[COACH] [Attack] Dark Peddler[2/2]->Young Priestess[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

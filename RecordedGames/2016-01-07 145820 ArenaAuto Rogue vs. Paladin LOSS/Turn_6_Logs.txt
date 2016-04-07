@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Burly Rockjaw Trogg[3/5](Pos :1)
+[COACH] [Play] Frostwolf Grunt[2/2](Pos :1)
+[COACH] [Attack] Spectral Spider[1/1]->Uther Lightbringer
+[COACH] [Attack] Valeera Sanguinar->Uther Lightbringer
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

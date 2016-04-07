@@ -1,0 +1,13 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Dagger Mastery
+[COACH] [Play] Backstab->Silver Hand Regent[3/3]
+[COACH] [Attack] Valeera Sanguinar->Silver Hand Regent[3/3]
+[COACH] [Attack] Boneguard Lieutenant[3/2]->Garrosh Hellscream
+[COACH] [Play] Pit Snake[2/1](Pos :1)
+[COACH] [Attack] Haunted Creeper[1/2]->Garrosh Hellscream
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

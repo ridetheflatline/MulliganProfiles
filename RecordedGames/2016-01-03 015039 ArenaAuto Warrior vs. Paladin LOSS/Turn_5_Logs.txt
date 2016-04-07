@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Death's Bite[4/2](Pos :1)
+[COACH] [Attack] Garrosh Hellscream->Dragonling Mechanic[2/4]
+[COACH] [Attack] Flame Juggler[2/3]->Shielded Minibot[2/2]
+[COACH] [Attack] Haunted Creeper[1/2]->Shielded Minibot[2/2]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

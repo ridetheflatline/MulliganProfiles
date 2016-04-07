@@ -1,0 +1,6 @@
+Started PlaySequence routine
+Play sequence : [Play] Obsidian Destroyer[7/7](Pos :1)
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

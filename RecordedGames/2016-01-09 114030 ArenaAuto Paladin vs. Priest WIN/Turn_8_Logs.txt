@@ -1,0 +1,10 @@
+Started PlaySequence routine
+Play sequence : [Play] Keeper of Uldaman[3/4](Pos :1)->Temple Enforcer[6/6]
+Play sequence : [Play] Blessing of Kings->Maiden of the Lake[2/6]
+Play sequence : [Attack] Maiden of the Lake[2/6]->Frost Elemental[5/6]
+Play sequence : [Attack] Pit Fighter[5/6]->Temple Enforcer[6/6]
+Play sequence : [Attack] Silver Hand Recruit[1/1]->Anduin Wrynn
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

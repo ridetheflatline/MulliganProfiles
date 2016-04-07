@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Abusive Sergeant[2/1](Pos :1)->Silver Hand Recruit[4/1]
+[COACH] [Play] Blessing of Kings->Silver Hand Recruit[4/1]
+[COACH] [Attack] Silver Hand Recruit[4/1]->Gul'dan
+[COACH] [Attack] Silver Hand Recruit[1/1]->Gul'dan
+[COACH] [EndTurn] 
+--> Sending emote : THREATEN
+<-------Won !-------->

@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Stranglethorn Tiger[5/5](Pos :1)
+[COACH] [Attack] Oasis Snapjaw[2/7]->Voidwalker[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

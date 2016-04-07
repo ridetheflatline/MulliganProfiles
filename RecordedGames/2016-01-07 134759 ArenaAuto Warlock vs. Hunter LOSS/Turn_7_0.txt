@@ -1,0 +1,29 @@
+Board --- Gul'dan(19/0-13/0)Rexxar 
+
+
+AbilityEnemy : Steady Shot[DS1h_292]
+
+Mana : 3
+Enemy secret: False
+
+Friends : 
+Imp Gang Boss[BRM_006][2/2]CAN[True]IDX[0]
+Djinni of Zephyrs[LOE_053][4/6]CAN[True]IDX[1]
+Floating Watcher[GVG_100][6/6]CAN[True]IDX[2]ENCH[GVG_100-F]
+
+Enemy : 
+
+Hand : 
+Mind Control Tech[EX1_085][3/3]COST[3]
+Mad Bomber[EX1_082][3/2]COST[2]
+Earthen Ring Farseer[CS2_117][3/3]COST[3]
+Acidic Swamp Ooze[EX1_066][3/2]COST[2]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 19 -- EnemyDeck : 20
+Value : 150.5
+
+@7~3~1~0~0~19~20~0~False~7~False~4~0~0~HERO_07*-1*0*0*0*11*0*64*30*0*7*19*0*False*False*False*False*False*False*False*False*False*False*False*False*False*7*False~HERO_05*-1*0*0*0*17*0*66*30*0*6*13*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~CS2_056*-1*0*0*2*0*0*65*0*0*7*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*7*False~DS1h_292*-1*0*0*2*0*0*67*0*0*6*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*6*False~BRM_006*0*0*2*3*2*0*28*4*0*3*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False|LOE_053*1*0*4*5*0*0*33*6*0*2*6*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False|GVG_100*2*0*6*5*0*0*73*6*0*1*6*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False*GVG_100e=1=73=0~0~EX1_085*0*0*3*3*0*0*25*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_082*1*0*3*2*0*0*15*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_117*2*0*3*3*0*0*16*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_066*3*0*3*2*0*0*13*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~EX1_010|GVG_064|GVG_065|EX1_320|BRM_006t|GVG_015~0~AT_133|GAME_005|EX1_066|AT_115|AT_093|CS2_146|NEW1_031|NEW1_032~0~False=False=False=False=False=False~0~0~0~False~EX1_316,EX1_010,GVG_015,EX1_066,EX1_162,EX1_082,GVG_064,EX1_049,AT_087,CS2_117,BRM_006,CS2_125,EX1_085,GVG_065,EX1_020,EX1_303,AT_114,GVG_074,AT_085,GVG_078,GVG_096,EX1_320,LOE_053,AT_119,CS2_222,GVG_079~1~1~

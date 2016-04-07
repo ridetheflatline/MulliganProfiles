@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Life Tap
+[COACH] [Resimulate] 
+[COACH] [Play] Mad Bomber[3/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Imp Gang Boss[2/2]->Misha[4/3]
+[COACH] [Attack] Floating Watcher[4/4]->Rexxar
+[COACH] [Attack] Djinni of Zephyrs[4/6]->Rexxar
+[COACH] [Play] Darkbomb->Rexxar
+[COACH] [EndTurn] 

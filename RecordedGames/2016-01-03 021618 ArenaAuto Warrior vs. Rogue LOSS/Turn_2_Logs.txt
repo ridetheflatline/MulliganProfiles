@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Acidic Swamp Ooze[3/2](Pos :1)
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

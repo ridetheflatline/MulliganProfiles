@@ -1,0 +1,15 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Bane of Doom->Valeera Sanguinar
+[COACH] [Resimulate] 
+[COACH] [EndTurn] 
+--> Sending emote : WELL_PLAYED
+ 
+ --------------- 
+ 
+[COACH] [Attack] Acolyte of Pain[2/3]->Mogu'shan Warden[1/7]
+[COACH] [Resimulate] 
+[COACH] [Play] Fearsome Doomguard[6/8](Pos :1)
+[COACH] [Attack] Dire Wolf Alpha[2/2]->Mogu'shan Warden[1/7]
+[COACH] [EndTurn] 

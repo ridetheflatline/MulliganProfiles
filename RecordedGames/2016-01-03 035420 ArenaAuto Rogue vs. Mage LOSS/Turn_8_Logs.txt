@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Force-Tank MAX[7/7](Pos :1)
+[COACH] [Attack] Valeera Sanguinar->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

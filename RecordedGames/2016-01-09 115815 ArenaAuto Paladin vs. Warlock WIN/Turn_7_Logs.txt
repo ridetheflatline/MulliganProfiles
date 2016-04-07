@@ -1,0 +1,14 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Pit Fighter[5/6](Pos :1)
+[COACH] [Play] Seal of Champions->Silver Hand Recruit[1/1]
+[COACH] [Attack] Silver Hand Recruit[1/1]->Grand Crusader[5/5]
+[COACH] [Attack] Silver Hand Recruit[1/1]->Grand Crusader[5/5]
+[COACH] [Attack] Uther Lightbringer->Imp[1/1]
+[COACH] [Play] Reinforce
+[COACH] [Attack] Silver Hand Recruit[1/1]->Ironbeak Owl[2/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

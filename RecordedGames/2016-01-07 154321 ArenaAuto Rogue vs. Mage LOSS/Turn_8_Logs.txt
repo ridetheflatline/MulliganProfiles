@@ -1,0 +1,18 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Spider Tank[3/4](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Burgle
+[COACH] [Resimulate] 
+[COACH] [Play] Deadly Poison
+[COACH] [Attack] Valeera Sanguinar->Ethereal Conjurer[6/3]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Valeera Sanguinar->Jaina Proudmoore
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

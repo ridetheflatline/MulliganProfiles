@@ -1,0 +1,19 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Hungry Dragon[5/6](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Attack] Pit Snake[2/1]->Micro Machine[2/2]
+[COACH] [Attack] Defias Ringleader[2/2]->Silver Hand Recruit[1/1]
+[COACH] [Attack] Defias Bandit[2/1]
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Pit Snake[2/1]->Micro Machine[2/2]
+[COACH] [Attack] Defias Ringleader[2/2]->Silver Hand Recruit[1/1]
+[COACH] [Attack] Defias Bandit[2/1]->Elven Archer[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

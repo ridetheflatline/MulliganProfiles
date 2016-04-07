@@ -1,0 +1,33 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Flame Imp[3/2](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Frostwolf Warlord[4/4](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Power Overwhelming->Deathlord[2/8]
+[COACH] [Attack] Deathlord[2/8]->Rexxar
+[COACH] [Attack] Knife Juggler[3/1]->Rexxar
+[COACH] [Attack] Argent Horserider[2/1]->Rexxar
+[COACH] [EndTurn] 
+--> Sending emote : SORRY
+ 
+ --------------- 
+ 
+[COACH] [Attack] Acolyte of Pain[1/2]->Rexxar
+[COACH] [Attack] Knife Juggler[3/1]->Rexxar
+[COACH] [Attack] Argent Horserider[2/1]->Scavenging Hyena[2/2]
+[COACH] [Attack] Deathlord[2/8]->Rexxar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Deathlord[6/12]->Rexxar
+[COACH] [Attack] Knife Juggler[3/1]->Rexxar
+[COACH] [Attack] Argent Horserider[2/1]->Rexxar
+[COACH] [EndTurn] 
+ 
+ --------------- 
+ 
+[COACH] [Attack] Deathlord[6/12]->Rexxar
+[COACH] [EndTurn] 

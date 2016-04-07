@@ -1,0 +1,6 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] 
+[COACH] [Choice] -> 2
+[COACH] [EndTurn] 

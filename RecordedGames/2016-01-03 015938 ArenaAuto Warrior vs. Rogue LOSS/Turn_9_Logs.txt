@@ -1,0 +1,8 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Djinni of Zephyrs[4/6](Pos :1)
+[COACH] [Play] Arathi Weaponsmith[3/3](Pos :1)
+[COACH] [Attack] Obsidian Destroyer[7/7]->Valeera Sanguinar
+[COACH] [Attack] Garrosh Hellscream->Valeera Sanguinar
+[COACH] [EndTurn] 

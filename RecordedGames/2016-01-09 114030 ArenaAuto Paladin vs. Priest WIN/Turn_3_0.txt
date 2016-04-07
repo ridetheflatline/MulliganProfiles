@@ -1,0 +1,31 @@
+Board --- Uther Lightbringer(30/0-30/0)Anduin Wrynn 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Lesser Heal[CS1h_001]
+
+Mana : 3
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+Boneguard Lieutenant[AT_089][3/1]CAN[True]IDX[0]
+Faerie Dragon[NEW1_023][3/2]CAN[False]IDX[1][NT]
+
+Hand : 
+Unstable Ghoul[FP1_024][1/3]COST[2]
+Blessing of Kings[CS2_092]COST[4]
+Acolyte of Pain[EX1_007][1/3]COST[3]
+Questing Adventurer[EX1_044][2/2]COST[3]
+Argent Protector[EX1_362][2/2]COST[2]
+Pit Fighter[AT_101][5/6]COST[5]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 24 -- EnemyDeck : 24
+Value : 48
+
+@3~3~1~0~0~24~24~0~False~3~False~4~0~0~HERO_04*-1*0*0*0*0*0*64*30*0*3*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~HERO_09*-1*0*0*0*0*0*66*30*0*2*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~CS2_101*-1*0*0*2*0*0*65*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS1h_001*-1*0*0*2*0*0*67*0*0*2*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~0~AT_089*0*0*3*2*1*0*37*2*0*1*1*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*True|NEW1_023*1*0*3*2*0*0*60*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~FP1_024*0*0*1*2*0*0*6*3*0*0*3*0*False*False*True*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*1*0*0*4*0*0*18*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_007*2*0*1*3*0*0*26*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_044*3*0*2*3*0*0*8*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_362*4*0*2*2*0*0*27*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|AT_101*5*0*5*5*0*0*16*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~CS2_101t~0~GAME_005~0~False=False=False=False=False=False~0~0~0~False~FP1_020,CS2_087,CS2_188,AT_133,EX1_010,EX1_362,LOE_029,EX1_616,GVG_058,GVG_067,FP1_024,AT_074,EX1_007,EX1_382,CS2_125,EX1_044,CS2_092,CS2_094,EX1_595,LOE_017,AT_085,BRM_001,AT_101,CS2_151,BRM_024,CS2_222~0~0~

@@ -1,0 +1,11 @@
+Board request sent for more than 30seconds ago, reset auth connection
+ 
+<-------New Turn-------->
+ 
+ 
+ --------------- 
+ 
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

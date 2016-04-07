@@ -1,0 +1,588 @@
+[Ranked||Arena vs Arena]
+Given:  MasterSwordsmith,  GarrisonCommander,  EdwinVanCleef, 
+Kept:  MasterSwordsmith,  GarrisonCommander, 
+[Ranked||Arena vs Arena]
+Given:  BlackwingCorruptor,  Whirlwind,  IllidanStormrage, 
+Kept: 
+[Ranked||Arena vs Arena]
+Given:  MindControlTech,  Velen'sChosen,  UnboundElemental, 
+Kept: 
+[Ranked||Arena vs Arena]
+Given:  DreadCorsair,  AldorPeacekeeper,  Buccaneer, 
+Kept:  Buccaneer, 
+[Ranked||Arena vs Arena]
+Given:  PitSnake,  HugeToad,  VitalityTotem,  Annoy-o-Tron,  TheCoin, 
+Kept:  PitSnake,  HugeToad,  Annoy-o-Tron,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Deathwing,  CruelTaskmaster,  FrostShock, 
+Kept:  CruelTaskmaster, 
+--------------[Ranked||Arena vs Arena]
+Given:  TournamentAttendee,  Rampage,  Innervate,  MurlocWarleader,  TheCoin, 
+Kept:  Innervate,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  DruidoftheSaber,  Sen'jinShieldmasta,  Spellbreaker, 
+Kept:  DruidoftheSaber, 
+--------------[Ranked||Arena vs Arena]
+Given:  HarvestGolem,  Sen'jinShieldmasta,  OgreMagi,  PitFighter,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  HarvestGolem,  Sen'jinShieldmasta,  OgreMagi,  PitFighter,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Mech-Bear-Cat,  Jeeves,  Wrath, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  Pint-SizedSummoner,  TheSkeletonKnight,  SealofLight,  ShadowWord:Death,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  FarSight,  BaronGeddon,  TwistingNether, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  Corruption,  YouthfulBrewmaster,  Recombobulator, 
+Kept:  YouthfulBrewmaster,  Recombobulator, 
+--------------[Ranked||Arena vs Arena]
+Given:  Corruption,  YouthfulBrewmaster,  Recombobulator, 
+Kept:  YouthfulBrewmaster,  Recombobulator, 
+--------------[Ranked||Arena vs Arena]
+Given:  ArgentCommander,  Sorcerer'sApprentice,  TuskarrJouster, 
+Kept:  Sorcerer'sApprentice, 
+--------------[Ranked||Arena vs Arena]
+Given:  BloodsailCorsair,  TargetDummy,  DruidoftheSaber, 
+Kept:  DruidoftheSaber, 
+--------------[Ranked||Arena vs Arena]
+Given:  StormwindKnight,  CabalShadowPriest,  ColdBlood, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  TempleEnforcer,  UndercityValiant,  Ancestor'sCall, 
+Kept:  UndercityValiant, 
+--------------[Ranked||Arena vs Arena]
+Given:  Silence,  Avenge,  BloodsailCorsair,  FireguardDestroyer,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  ArmoredWarhorse,  IceBarrier,  GrandCrusader,  Kodorider,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Shieldmaiden,  SinisterStrike,  StoneskinGargoyle, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  PilotedSkyGolem,  AcolyteofPain,  DarkPeddler,  WhirlingZap-o-matic,  TheCoin, 
+Kept:  AcolyteofPain,  DarkPeddler,  WhirlingZap-o-matic,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  PilotedSkyGolem,  AcolyteofPain,  DarkPeddler,  WhirlingZap-o-matic,  TheCoin, 
+Kept:  AcolyteofPain,  DarkPeddler,  WhirlingZap-o-matic,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  PilotedSkyGolem,  AcolyteofPain,  DarkPeddler,  WhirlingZap-o-matic,  TheCoin, 
+Kept:  AcolyteofPain,  DarkPeddler,  WhirlingZap-o-matic,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Spellbreaker,  Deathwing,  StarvingBuzzard,  GoblinBlastmage,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  EtherealArcanist,  SenseDemons,  SummoningPortal,  BolvarFordragon,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  VentureCo.Mercenary,  PatientAssassin,  BolfRamshield, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  Alarm-o-Bot,  RiverCrocolisk,  HandofProtection,  BeneaththeGrounds,  TheCoin, 
+Kept:  RiverCrocolisk,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  GnomereganInfantry,  CaptainGreenskin,  BaronGeddon, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  OgreBrute,  BallofSpiders,  Polymorph:Boar,  Nourish,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  WindfuryHarpy,  AncestralKnowledge,  HungryDragon, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  ShadowBolt,  ImpGangBoss,  TwilightWhelp,  DivineSpirit,  TheCoin, 
+Kept:  ImpGangBoss,  TwilightWhelp,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  WeeSpellstopper,  DireWolfAlpha,  BloodKnight,  ObsidianDestroyer,  TheCoin, 
+Kept:  DireWolfAlpha,  BloodKnight,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Enhance-oMechano,  AncientofWar,  Tracking, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  Execute,  Illuminator,  MountedRaptor,  DivineFavor,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  UnearthedRaptor,  VitalityTotem,  ColdBlood, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  OrgrimmarAspirant,  Velen'sChosen,  HolyWrath,  PilotedSkyGolem,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Bash,  ProphetVelen,  GoblinAuto-Barber, 
+Kept:  GoblinAuto-Barber, 
+--------------[Ranked||Arena vs Arena]
+Given:  RaidLeader,  Mechwarper,  FeralSpirit,  BrannBronzebeard,  TheCoin, 
+Kept:  Mechwarper,  BrannBronzebeard,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  EaglehornBow,  ConfessorPaletress,  Doomhammer,  SpawnofShadows,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  VioletTeacher,  Light'sChampion,  EliseStarseeker,  Velen'sChosen,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  TargetDummy,  WildGrowth,  HarrisonJones, 
+Kept:  WildGrowth, 
+--------------[Ranked||Arena vs Arena]
+Given:  AldorPeacekeeper,  FireElemental,  Headcrack,  GnomishExperimenter,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Conceal,  Bash,  PatientAssassin,  Hunter'sMark,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  GrimPatron,  Charge,  RockbiterWeapon, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  StormforgedAxe,  Doomhammer,  Powermace, 
+Kept:  StormforgedAxe,  Powermace, 
+--------------[Ranked||Arena vs Arena]
+Given:  StormforgedAxe,  Doomhammer,  Powermace, 
+Kept:  StormforgedAxe, 
+--------------[Ranked||Arena vs Arena]
+Given:  StormforgedAxe,  Doomhammer,  Powermace, 
+Kept:  StormforgedAxe, 
+--------------[Ranked||Arena vs Arena]
+Given:  StormforgedAxe,  Doomhammer,  Powermace,  TruesilverChampion,  TheCoin, 
+Kept:  StormforgedAxe,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Mech-Bear-Cat,  Doomhammer,  Mechwarper,  TruesilverChampion,  TheCoin, 
+Kept:  Mechwarper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Mech-Bear-Cat,  Doomhammer,  Mechwarper,  TruesilverChampion,  TheCoin, 
+Kept:  Mechwarper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Mech-Bear-Cat,  Doomhammer,  Mechwarper,  TruesilverChampion,  TheCoin, 
+Kept:  Mechwarper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  TruesilverChampion,  Doomhammer,  Mechwarper,  TruesilverChampion,  TheCoin, 
+Kept:  Mechwarper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  TruesilverChampion,  Doomhammer,  Mechwarper,  TruesilverChampion,  TheCoin, 
+Kept:  Mechwarper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  TruesilverChampion,  Doomhammer,  Mechwarper,  TruesilverChampion,  TheCoin, 
+Kept:  Mechwarper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  TruesilverChampion,  Doomhammer,  Mechwarper,  TruesilverChampion,  TheCoin, 
+Kept:  Mechwarper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  IronJuggernaut,  EtherealArcanist,  Assassinate, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  Al'AkirtheWindlord,  BestialWrath,  FrostShock, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  DartTrap,  SouthseaCaptain,  DragonhawkRider,  Nexus-ChampionSaraad,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Avenge,  Secretkeeper,  MysteriousChallenger,  CompetitiveSpirit,  TheCoin, 
+Kept:  Secretkeeper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Coghammer,  ShieldedMinibot,  Avenge,  PilotedShredder,  TheCoin, 
+Kept:  ShieldedMinibot,  PilotedShredder,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  RagnarostheFirelord,  PilotedShredder,  Avenge, 
+Kept:  PilotedShredder, 
+--------------[Ranked||Arena vs Arena]
+Given:  BlessingofKings,  Redemption,  DivineFavor,  Secretkeeper,  TheCoin, 
+Kept:  Secretkeeper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  KnifeJuggler,  RagnarostheFirelord,  PilotedShredder, 
+Kept:  KnifeJuggler,  PilotedShredder, 
+--------------[Ranked||Arena vs Arena]
+Given:  Dr.Boom,  MysteriousChallenger,  Secretkeeper,  ShieldedMinibot,  TheCoin, 
+Kept:  Secretkeeper,  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  ShieldedMinibot,  PilotedShredder,  KeeperofUldaman, 
+Kept:  ShieldedMinibot,  PilotedShredder,  KeeperofUldaman, 
+--------------[Ranked||Arena vs Arena]
+Given:  Secretkeeper,  KnifeJuggler,  NobleSacrifice,  Secretkeeper,  TheCoin, 
+Kept:  Secretkeeper,  KnifeJuggler,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Avenge,  KnifeJuggler,  KeeperofUldaman,  KnifeJuggler,  TheCoin, 
+Kept:  KnifeJuggler,  KeeperofUldaman,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Redemption,  TirionFordring,  Secretkeeper, 
+Kept:  Secretkeeper, 
+--------------[Ranked||Arena vs Arena]
+Given:  KnifeJuggler,  MysteriousChallenger,  RagnarostheFirelord, 
+Kept:  KnifeJuggler, 
+--------------[Ranked||Arena vs Arena]
+Given:  NobleSacrifice,  Secretkeeper,  DivineFavor,  NobleSacrifice,  TheCoin, 
+Kept:  Secretkeeper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  ShieldedMinibot,  PilotedShredder,  HauntedCreeper, 
+Kept:  ShieldedMinibot,  PilotedShredder,  HauntedCreeper, 
+--------------[Ranked||Arena vs Arena]
+Given:  MysteriousChallenger,  RagnarostheFirelord,  BlessingofKings,  ShieldedMinibot,  TheCoin, 
+Kept:  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  RagnarostheFirelord,  ShieldedMinibot,  TruesilverChampion, 
+Kept:  ShieldedMinibot, 
+--------------[Ranked||Arena vs Arena]
+Given:  Redemption,  ShieldedMinibot,  Avenge, 
+Kept:  ShieldedMinibot, 
+--------------[Ranked||Arena vs Arena]
+Given:  Redemption,  MusterforBattle,  Dr.Boom,  RagnarostheFirelord,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  MysteriousChallenger,  MysteriousChallenger,  Secretkeeper,  KnifeJuggler,  TheCoin, 
+Kept:  Secretkeeper,  KnifeJuggler,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  MysteriousChallenger,  KeeperofUldaman,  Secretkeeper, 
+Kept:  KeeperofUldaman,  Secretkeeper, 
+--------------[Ranked||Arena vs Arena]
+Given:  MusterforBattle,  TruesilverChampion,  CompetitiveSpirit,  Secretkeeper,  TheCoin, 
+Kept:  Secretkeeper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  MusterforBattle,  DivineFavor,  Avenge,  ShieldedMinibot,  TheCoin, 
+Kept:  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  Coghammer,  NobleSacrifice,  TirionFordring, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  BlessingofKings,  DivineFavor,  Avenge, 
+Kept: 
+--------------[Ranked||Arena vs Arena]
+Given:  MusterforBattle,  MysteriousChallenger,  DivineFavor,  KnifeJuggler,  TheCoin, 
+Kept:  KnifeJuggler,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  HauntedCreeper,  NobleSacrifice,  TruesilverChampion, 
+Kept:  HauntedCreeper, 
+--------------[Ranked||Arena vs Arena]
+Given:  MysteriousChallenger,  DivineFavor,  KeeperofUldaman,  HauntedCreeper,  TheCoin, 
+Kept:  KeeperofUldaman,  HauntedCreeper,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  PilotedShredder,  MusterforBattle,  PilotedShredder, 
+Kept:  PilotedShredder, 
+--------------[Ranked||Arena vs Arena]
+Given:  RagnarostheFirelord,  MusterforBattle,  KeeperofUldaman, 
+Kept:  KeeperofUldaman, 
+--------------[Ranked||Arena vs Arena]
+Given:  MysteriousChallenger,  KnifeJuggler,  Coghammer, 
+Kept:  KnifeJuggler, 
+--------------[Ranked||Arena vs Arena]
+Given:  CompetitiveSpirit,  NobleSacrifice,  Redemption,  ShieldedMinibot,  TheCoin, 
+Kept:  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||Arena vs Arena]
+Given:  TruesilverChampion,  KnifeJuggler,  TirionFordring, 
+Kept:  KnifeJuggler, 
+--------------[Ranked||Arena vs Arena]
+Given:  KnifeJuggler,  Avenge,  NobleSacrifice, 
+Kept:  KnifeJuggler, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  Avenge,  Secretkeeper,  NobleSacrifice,  RagnarostheFirelord,  TheCoin, 
+Kept:  Secretkeeper,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  Redemption,  MysteriousChallenger, 
+Kept:  MusterforBattle, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  ShadeofNaxxramas,  DarnassusAspirant,  AncientofWar, 
+Kept:  DarnassusAspirant, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  BigGameHunter,  ForceofNature,  DruidoftheClaw,  DruidoftheClaw,  TheCoin, 
+Kept:  TheCoin, 
+--------------[None||Arena vs DragonWarrior]
+Given:  AncientofWar,  Dr.Boom,  Innervate, 
+Kept:  Innervate, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  Swipe,  HarvestGolem,  AncientofWar,  SylvanasWindrunner,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  CompetitiveSpirit,  BlessingofKings,  ShieldedMinibot,  Avenge,  TheCoin, 
+Kept:  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  DivineFavor,  Coghammer,  MysteriousChallenger,  NobleSacrifice,  TheCoin, 
+Kept:  MysteriousChallenger,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  PilotedShredder,  KeeperofUldaman, 
+Kept:  KnifeJuggler,  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  CompetitiveSpirit,  Redemption,  MysteriousChallenger,  KeeperofUldaman,  TheCoin, 
+Kept:  MysteriousChallenger,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Avenge,  Coghammer,  NobleSacrifice, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  MusterforBattle,  ShieldedMinibot, 
+Kept:  KnifeJuggler,  MusterforBattle,  ShieldedMinibot, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  Avenge,  Redemption, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  ShieldedMinibot,  MusterforBattle,  Avenge, 
+Kept:  ShieldedMinibot,  MusterforBattle, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  RagnarostheFirelord,  MysteriousChallenger,  ShieldedMinibot,  KeeperofUldaman,  TheCoin, 
+Kept:  MysteriousChallenger,  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  Avenge,  HauntedCreeper, 
+Kept:  MusterforBattle,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  MysteriousChallenger,  RagnarostheFirelord,  MysteriousChallenger,  TheCoin, 
+Kept:  PilotedShredder,  MysteriousChallenger,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  DivineFavor,  HauntedCreeper, 
+Kept:  MusterforBattle,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Secretkeeper,  ShieldedMinibot,  TirionFordring,  Avenge,  TheCoin, 
+Kept:  Secretkeeper,  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  BlessingofKings,  ShieldedMinibot,  Coghammer,  TheCoin, 
+Kept:  KnifeJuggler,  ShieldedMinibot,  Coghammer,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Avenge,  RagnarostheFirelord,  TruesilverChampion, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  Avenge,  MysteriousChallenger, 
+Kept:  KnifeJuggler, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  HauntedCreeper,  KeeperofUldaman,  MysteriousChallenger,  KnifeJuggler,  TheCoin, 
+Kept:  HauntedCreeper,  KeeperofUldaman,  MysteriousChallenger,  KnifeJuggler,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  PilotedShredder,  TirionFordring, 
+Kept:  KnifeJuggler,  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  NobleSacrifice,  HauntedCreeper,  TruesilverChampion,  TheCoin, 
+Kept:  PilotedShredder,  HauntedCreeper,  TruesilverChampion,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  RagnarostheFirelord,  BlessingofKings,  Avenge, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  RagnarostheFirelord,  Secretkeeper,  DivineFavor,  MysteriousChallenger,  TheCoin, 
+Kept:  Secretkeeper,  MysteriousChallenger,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  ShieldedMinibot,  ShieldedMinibot,  BlessingofKings,  TheCoin, 
+Kept:  ShieldedMinibot,  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MysteriousChallenger,  Avenge,  DivineFavor, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  HauntedCreeper,  Redemption,  MusterforBattle, 
+Kept:  HauntedCreeper,  MusterforBattle, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  TruesilverChampion,  NobleSacrifice,  MysteriousChallenger,  Avenge,  TheCoin, 
+Kept:  TruesilverChampion,  MysteriousChallenger,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  TirionFordring,  HauntedCreeper,  Secretkeeper, 
+Kept:  HauntedCreeper,  Secretkeeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Redemption,  Secretkeeper,  Dr.Boom,  HauntedCreeper,  TheCoin, 
+Kept:  Secretkeeper,  HauntedCreeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  TirionFordring,  HauntedCreeper, 
+Kept:  MusterforBattle,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  ShieldedMinibot,  KeeperofUldaman,  PilotedShredder,  BlessingofKings,  TheCoin, 
+Kept:  ShieldedMinibot,  PilotedShredder,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  KnifeJuggler,  MysteriousChallenger, 
+Kept:  KnifeJuggler, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  CompetitiveSpirit,  KeeperofUldaman,  Coghammer,  BlessingofKings,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  RagnarostheFirelord,  TruesilverChampion,  ShieldedMinibot, 
+Kept:  ShieldedMinibot, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  MusterforBattle,  HauntedCreeper, 
+Kept:  PilotedShredder,  MusterforBattle,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  TirionFordring,  ShieldedMinibot,  MysteriousChallenger,  MusterforBattle,  TheCoin, 
+Kept:  ShieldedMinibot,  MysteriousChallenger,  MusterforBattle,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Avenge,  TirionFordring,  NobleSacrifice, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KeeperofUldaman,  MusterforBattle,  KeeperofUldaman, 
+Kept:  MusterforBattle, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  NobleSacrifice,  MysteriousChallenger,  HauntedCreeper,  TheCoin, 
+Kept:  MusterforBattle,  MysteriousChallenger,  HauntedCreeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  MysteriousChallenger,  PilotedShredder, 
+Kept:  MusterforBattle,  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  NobleSacrifice,  KnifeJuggler,  ShieldedMinibot,  TheCoin, 
+Kept:  PilotedShredder,  KnifeJuggler,  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Secretkeeper,  Avenge,  BlessingofKings,  TirionFordring,  TheCoin, 
+Kept:  Secretkeeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  MusterforBattle,  CompetitiveSpirit, 
+Kept:  MusterforBattle, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Redemption,  PilotedShredder,  RagnarostheFirelord, 
+Kept:  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  CompetitiveSpirit,  BlessingofKings,  Avenge,  KeeperofUldaman,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  MusterforBattle,  MusterforBattle,  KnifeJuggler,  TheCoin, 
+Kept:  PilotedShredder,  MusterforBattle,  KnifeJuggler,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  DivineFavor,  KeeperofUldaman,  NobleSacrifice, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  NobleSacrifice,  KeeperofUldaman,  RagnarostheFirelord,  TheCoin, 
+Kept:  PilotedShredder,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Redemption,  KnifeJuggler,  Secretkeeper, 
+Kept:  KnifeJuggler,  Secretkeeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Dr.Boom,  Redemption,  PilotedShredder,  NobleSacrifice,  TheCoin, 
+Kept:  PilotedShredder,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  BlessingofKings,  TirionFordring,  MysteriousChallenger, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MysteriousChallenger,  Secretkeeper,  MysteriousChallenger,  KnifeJuggler,  TheCoin, 
+Kept:  MysteriousChallenger,  Secretkeeper,  KnifeJuggler,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  ShieldedMinibot,  KnifeJuggler,  CompetitiveSpirit,  KeeperofUldaman,  TheCoin, 
+Kept:  ShieldedMinibot,  KnifeJuggler,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MysteriousChallenger,  Avenge,  Secretkeeper, 
+Kept:  Secretkeeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  ShieldedMinibot,  MysteriousChallenger, 
+Kept:  KnifeJuggler,  ShieldedMinibot, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  KeeperofUldaman,  MysteriousChallenger,  TruesilverChampion,  TheCoin, 
+Kept:  MusterforBattle,  MysteriousChallenger,  TruesilverChampion,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Avenge,  HauntedCreeper,  NobleSacrifice, 
+Kept:  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  Redemption,  HauntedCreeper, 
+Kept:  KnifeJuggler,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  KeeperofUldaman,  RagnarostheFirelord,  Avenge,  TheCoin, 
+Kept:  PilotedShredder,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  TirionFordring,  Secretkeeper,  Dr.Boom,  HauntedCreeper,  TheCoin, 
+Kept:  Secretkeeper,  HauntedCreeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  Coghammer,  CompetitiveSpirit, 
+Kept:  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  HauntedCreeper,  MysteriousChallenger,  ShieldedMinibot,  TheCoin, 
+Kept:  MusterforBattle,  HauntedCreeper,  MysteriousChallenger,  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  Secretkeeper,  BlessingofKings,  NobleSacrifice,  TheCoin, 
+Kept:  MusterforBattle,  Secretkeeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  ShieldedMinibot,  PilotedShredder, 
+Kept:  KnifeJuggler,  ShieldedMinibot,  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  ShieldedMinibot,  MusterforBattle,  Secretkeeper, 
+Kept:  ShieldedMinibot,  MusterforBattle,  Secretkeeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Avenge,  PilotedShredder,  KeeperofUldaman, 
+Kept:  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  HauntedCreeper,  Redemption,  HauntedCreeper, 
+Kept:  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  MysteriousChallenger,  BlessingofKings,  PilotedShredder,  TheCoin, 
+Kept:  MysteriousChallenger,  PilotedShredder,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KeeperofUldaman,  TruesilverChampion,  ShieldedMinibot, 
+Kept:  ShieldedMinibot, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  BlessingofKings,  TirionFordring,  PilotedShredder,  KnifeJuggler,  TheCoin, 
+Kept:  PilotedShredder,  KnifeJuggler,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KeeperofUldaman,  NobleSacrifice,  Dr.Boom, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  BlessingofKings,  KnifeJuggler,  PilotedShredder, 
+Kept:  KnifeJuggler,  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Secretkeeper,  PilotedShredder,  MysteriousChallenger, 
+Kept:  Secretkeeper,  PilotedShredder, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  Coghammer,  CompetitiveSpirit,  KeeperofUldaman,  TheCoin, 
+Kept:  PilotedShredder,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  KeeperofUldaman,  BlessingofKings,  Avenge,  MysteriousChallenger,  TheCoin, 
+Kept:  MysteriousChallenger,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  Secretkeeper,  HauntedCreeper, 
+Kept:  PilotedShredder,  Secretkeeper,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  TirionFordring,  KnifeJuggler,  BlessingofKings,  TheCoin, 
+Kept:  PilotedShredder,  KnifeJuggler,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  Secretkeeper,  TruesilverChampion,  ShieldedMinibot,  TheCoin, 
+Kept:  PilotedShredder,  Secretkeeper,  TruesilverChampion,  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  DivineFavor,  BlessingofKings, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  Shiv,  ArmoredWarhorse,  InnerFire, 
+Kept: 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  HauntedCreeper,  Gahz'rilla,  Ancestor'sCall, 
+Kept:  HauntedCreeper, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  Coghammer,  MysteriousChallenger,  ShieldedMinibot,  TirionFordring,  TheCoin, 
+Kept:  Coghammer,  MysteriousChallenger,  ShieldedMinibot,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  MusterforBattle,  Avenge,  Avenge,  TheCoin, 
+Kept:  MusterforBattle,  Avenge,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  MusterforBattle,  Avenge,  Avenge,  TheCoin, 
+Kept:  MusterforBattle,  Avenge,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  MusterforBattle,  Avenge,  Avenge,  TheCoin, 
+Kept:  MusterforBattle,  Avenge,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  MusterforBattle,  Avenge,  Avenge,  TheCoin, 
+Kept:  MusterforBattle,  Avenge,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  NobleSacrifice,  MysteriousChallenger,  HauntedCreeper,  TheCoin, 
+Kept:  MysteriousChallenger,  HauntedCreeper,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  NobleSacrifice,  MysteriousChallenger,  HauntedCreeper,  TheCoin, 
+Kept:  MysteriousChallenger,  HauntedCreeper,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  KeeperofUldaman,  TruesilverChampion, 
+Kept:  KnifeJuggler, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  KeeperofUldaman,  TruesilverChampion, 
+Kept:  KnifeJuggler, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  KnifeJuggler,  TruesilverChampion,  Secretkeeper, 
+Kept:  KnifeJuggler,  Secretkeeper, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  Redemption,  KnifeJuggler,  MysteriousChallenger,  Secretkeeper,  TheCoin, 
+Kept:  KnifeJuggler,  Secretkeeper,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  NobleSacrifice,  BlessingofKings, 
+Kept:  MusterforBattle, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  HauntedCreeper,  Avenge,  NobleSacrifice,  DivineFavor,  TheCoin, 
+Kept:  HauntedCreeper,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  MysteriousChallenger,  Avenge,  KnifeJuggler,  TheCoin, 
+Kept:  PilotedShredder,  KnifeJuggler,  TheCoin, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  PilotedShredder,  Secretkeeper, 
+Kept:  MusterforBattle,  Secretkeeper, 
+--------------[None||SecretPaladin vs DragonWarrior]
+Given:  MusterforBattle,  HauntedCreeper,  MysteriousChallenger, 
+Kept:  MusterforBattle,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  Avenge,  PilotedShredder,  Secretkeeper,  TheCoin, 
+Kept:  PilotedShredder,  Secretkeeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  NobleSacrifice,  MysteriousChallenger,  Avenge,  MysteriousChallenger,  TheCoin, 
+Kept:  MysteriousChallenger,  TheCoin, 
+--------------[Ranked||SecretPaladin vs DragonWarrior]
+Given:  PilotedShredder,  CompetitiveSpirit,  BlessingofKings, 
+Kept:  PilotedShredder, 

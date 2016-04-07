@@ -1,0 +1,11 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] North Sea Kraken[9/7](Pos :1)->Venture Co. Mercenary[7/6]
+[COACH] [Attack] Frostwolf Warlord[7/7]->Dragonling Mechanic[2/4]
+[COACH] [Attack] Imp[1/1]->Mechanical Dragonling[2/1]
+[COACH] [Attack] Oasis Snapjaw[2/7]->Venture Co. Mercenary[7/6]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

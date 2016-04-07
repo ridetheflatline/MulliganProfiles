@@ -1,0 +1,8 @@
+Started PlaySequence routine
+Play sequence : [Play] Harvest Golem[2/3](Pos :1)
+Play sequence : [Play] Argent Horserider[2/1](Pos :1)
+Play sequence : [Attack] Argent Horserider[2/1]->Sludge Belcher[3/4]
+Play sequence : [EndTurn] 
+ 
+<-------New Turn-------->
+ 

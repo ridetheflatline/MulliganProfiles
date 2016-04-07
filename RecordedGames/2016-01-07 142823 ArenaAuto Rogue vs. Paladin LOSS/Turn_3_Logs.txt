@@ -1,0 +1,9 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Spider Tank[3/4](Pos :1)
+[COACH] [Attack] Shattered Sun Cleric[3/2]->Silver Hand Recruit[1/1]
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

@@ -1,0 +1,10 @@
+ 
+ --------------- 
+ 
+[COACH] [Play] Silver Hand Regent[3/3](Pos :1)
+[COACH] [Attack] Puddlestomper[3/2]->Anduin Wrynn
+[COACH] [Attack] Annoy-o-Tron[1/2]->Anduin Wrynn
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 

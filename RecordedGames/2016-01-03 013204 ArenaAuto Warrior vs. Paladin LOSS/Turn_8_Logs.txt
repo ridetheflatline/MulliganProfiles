@@ -1,0 +1,12 @@
+ 
+ --------------- 
+ 
+[COACH] [Attack] Obsidian Destroyer[7/5]->Burly Rockjaw Trogg[3/4]
+[COACH] [Play] Bomb Lobber[3/3](Pos :1)
+[COACH] [Resimulate] 
+[COACH] [Play] Zombie Chow[2/3](Pos :1)
+[COACH] [Play] Armor Up!
+[COACH] [EndTurn] 
+ 
+<-------New Turn-------->
+ 
