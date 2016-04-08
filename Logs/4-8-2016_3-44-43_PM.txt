@@ -1,0 +1,15 @@
+[15:44:43] V37.3-[DEBUG]NotValidTemplate
+[15:44:43] V37.3-[DEBUG]NotValidTemplate valid
+[15:44:43] Refreshed mulligan profiles
+[15:44:43] Refreshed profiles
+[15:44:43] Relogger started
+[15:44:43] Hearthstone status changed : Opened
+[15:44:44] V37.3-[DEBUG]Auth OnConnect
+[15:44:44] V37.3-[DEBUG]Connected to auth
+[15:44:44] Hearthstone status changed : Ready
+[15:44:48] V37.3-[DEBUG]Profile changed to : Midrange - Rush.cs
+[15:44:49] V37.3-[DEBUG][AUTH] Received loader
+[15:44:49] V37.3-[DEBUG]OnValidate :True
+[15:44:49] V37.3-[DEBUG]StartTemplate
+[15:44:49] V37.3-[DEBUG]StartTemplate valid
+[15:44:49] V37.3-[DEBUG]Validated on auth server

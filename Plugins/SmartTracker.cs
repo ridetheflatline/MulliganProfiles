@@ -447,11 +447,11 @@ namespace SmartBot.Plugins
                 }
                 if (!(localVer < remoteVer)) return;
                 localVersion.Close();
-                UpdateTracker(lSmartTracker, remoteVer, localVer);
+                UpdateTracker(lSmartTracker, remoteVer.ToString(CultureInfo.InvariantCulture), localVer);
             }
         }
 
-        private void UpdateTracker(string lSmartTracker, double remoteVer, double localVer)
+        private void UpdateTracker(string lSmartTracker, string remoteVer, double localVer)
         {
             Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
             HttpWebRequest trackeRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker.cs") as HttpWebRequest;
@@ -499,12 +499,12 @@ namespace SmartBot.Plugins
                 if (localVer < remoteVer)
                 {
                     localVersion.Close();
-                    UpdateMulligan(lSmartMulligan, remoteVer, localVer);
+                    UpdateMulligan(lSmartMulligan, remoteVer.ToString(CultureInfo.InvariantCulture), localVer);
                 }
             }
         }
 
-        private void UpdateMulligan(string lSmartMulligan, double remoteVer, double localVer)
+        private void UpdateMulligan(string lSmartMulligan, string remoteVer, double localVer)
         {
             Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
             HttpWebRequest MulliganRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulligan.cs") as HttpWebRequest;
@@ -527,11 +527,11 @@ namespace SmartBot.Plugins
         }
 
 
-        private void UpdateVersion(double remoteVer, bool value = false)
+        private void UpdateVersion(string remoteVer, bool value = false)
         {
             using (StreamWriter localVersion = new StreamWriter(value ? TrackerVersion + "tracker.version" : MulliganInformation + "version.txt", false))
             {
-                localVersion.WriteLine(remoteVer);
+                localVersion.WriteLine(double.Parse(remoteVer, _format));
             }
         }
         #endregion

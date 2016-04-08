@@ -871,3 +871,93 @@ Kept:  KnifeJuggler,  PilotedShredder,  ShieldedMinibot,  TheCoin,
 --------------[Ranked||SecretPaladin vs Unknown]
 Given:  Redemption,  Avenge,  MysteriousChallenger, 
 Kept: 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  Secretkeeper,  Secretkeeper,  TirionFordring,  PilotedShredder,  TheCoin, 
+Kept:  Secretkeeper,  PilotedShredder,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  Dr.Boom,  HauntedCreeper,  KnifeJuggler, 
+Kept:  HauntedCreeper,  KnifeJuggler, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  MusterforBattle,  KnifeJuggler,  HauntedCreeper, 
+Kept:  MusterforBattle,  KnifeJuggler,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  KnifeJuggler,  BlessingofKings,  TirionFordring, 
+Kept:  KnifeJuggler, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  KeeperofUldaman,  ShieldedMinibot,  HauntedCreeper,  Redemption,  TheCoin, 
+Kept:  KeeperofUldaman,  ShieldedMinibot,  HauntedCreeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  ShieldedMinibot,  HauntedCreeper,  NobleSacrifice, 
+Kept:  ShieldedMinibot,  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  DivineFavor,  TirionFordring,  HauntedCreeper,  BlessingofKings,  TheCoin, 
+Kept:  HauntedCreeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Zoolock]
+Given:  Redemption,  ShieldedMinibot,  Dr.Boom, 
+Kept:  ShieldedMinibot, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  MusterforBattle,  MysteriousChallenger,  KnifeJuggler,  HauntedCreeper,  TheCoin, 
+Kept:  MusterforBattle,  MysteriousChallenger,  KnifeJuggler,  HauntedCreeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  KnifeJuggler,  MysteriousChallenger,  RagnarostheFirelord, 
+Kept:  KnifeJuggler, 
+--------------[Ranked||SecretPaladin vs Zoolock]
+Given:  RagnarostheFirelord,  BlessingofKings,  NobleSacrifice,  HauntedCreeper,  TheCoin, 
+Kept:  HauntedCreeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  MysteriousChallenger,  Secretkeeper,  NobleSacrifice,  MusterforBattle,  TheCoin, 
+Kept:  MysteriousChallenger,  Secretkeeper,  MusterforBattle,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  CompetitiveSpirit,  Secretkeeper,  PilotedShredder,  Redemption,  TheCoin, 
+Kept:  Secretkeeper,  PilotedShredder,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  Redemption,  NobleSacrifice,  ShieldedMinibot,  Secretkeeper,  TheCoin, 
+Kept:  ShieldedMinibot,  Secretkeeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  MusterforBattle,  Avenge,  Secretkeeper,  BlessingofKings,  TheCoin, 
+Kept:  MusterforBattle,  Secretkeeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  PilotedShredder,  Secretkeeper,  BlessingofKings,  KeeperofUldaman,  TheCoin, 
+Kept:  PilotedShredder,  Secretkeeper,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  Avenge,  ShieldedMinibot,  DivineFavor, 
+Kept:  ShieldedMinibot, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  KnifeJuggler,  MusterforBattle,  TirionFordring, 
+Kept:  KnifeJuggler,  MusterforBattle, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  KeeperofUldaman,  HauntedCreeper,  Redemption, 
+Kept:  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs SecretPaladin]
+Given:  MysteriousChallenger,  Avenge,  KeeperofUldaman,  Coghammer,  TheCoin, 
+Kept:  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  HauntedCreeper,  Avenge,  BlessingofKings, 
+Kept:  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  MysteriousChallenger,  BlessingofKings,  HauntedCreeper, 
+Kept:  HauntedCreeper, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  NobleSacrifice,  PilotedShredder,  Coghammer,  ShieldedMinibot,  TheCoin, 
+Kept:  PilotedShredder,  Coghammer,  ShieldedMinibot,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  HauntedCreeper,  MusterforBattle,  ShieldedMinibot, 
+Kept:  HauntedCreeper,  MusterforBattle,  ShieldedMinibot, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  KeeperofUldaman,  KnifeJuggler,  ShieldedMinibot,  MusterforBattle,  TheCoin, 
+Kept:  KnifeJuggler,  ShieldedMinibot,  MusterforBattle,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  KeeperofUldaman,  Avenge,  CompetitiveSpirit, 
+Kept: 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  KnifeJuggler,  KeeperofUldaman,  ShieldedMinibot, 
+Kept:  KnifeJuggler,  ShieldedMinibot, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  MysteriousChallenger,  KeeperofUldaman,  Avenge,  MusterforBattle,  TheCoin, 
+Kept:  MysteriousChallenger,  Avenge,  MusterforBattle,  TheCoin, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  CompetitiveSpirit,  DivineFavor,  Secretkeeper, 
+Kept:  Secretkeeper, 
+--------------[Ranked||SecretPaladin vs Unknown]
+Given:  MysteriousChallenger,  BlessingofKings,  TirionFordring,  DivineFavor,  TheCoin, 
+Kept:  MysteriousChallenger,  TheCoin, 

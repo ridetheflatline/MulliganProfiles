@@ -1,0 +1,26 @@
+Board --- Uther Lightbringer(19/0-11/0)Anduin Wrynn 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Lesser Heal[CS1h_001]
+
+Mana : 10
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+Deathlord[FP1_009][2/8]CAN[False]IDX[0][T]
+
+Hand : 
+Haunted Creeper[FP1_002][1/2]COST[2]
+Secretkeeper[EX1_080][1/2]COST[1]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 10 -- EnemyDeck : 10
+Value : 130
+
+@10~10~1~0~0~10~10~0~False~12~False~3~0~0~HERO_04*-1*0*0*0*11*0*64*30*0*12*19*0*False*False*False*False*False*False*False*False*False*False*False*False*False*12*False~HERO_09*-1*0*0*0*19*0*66*30*0*11*11*0*False*False*False*False*True*False*False*False*False*False*False*False*False*11*False~CS2_101*-1*0*0*2*0*0*65*0*0*12*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*12*False~CS1h_001*-1*0*0*2*0*0*67*0*0*11*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*11*False~0~FP1_009*0*0*2*3*0*0*57*8*0*0*8*0*False*False*True*False*True*False*True*False*False*False*False*False*False*0*False~FP1_002*0*0*1*2*0*0*6*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_080*1*0*1*1*0*0*4*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~NEW1_019|GVG_061|CS2_101t|CS2_101t|CS2_101t|GVG_096|CS2_092|EX1_349|CS2_091|GVG_061|EX1_130|EX1_130a|FP1_020|AT_038|CS2_101t|CS2_101t|CS2_101t|CS2_101t|LOE_017|CS2_101t|AT_073|EX1_080|CS2_091|LOE_017|AT_079|CS2_097|EX1_298|GVG_058~0~GAME_005|GVG_010|EX1_621|NEW1_020|AT_055|CS2_235|LOE_079|GVG_058|EX1_621|EX1_591|EX1_091|GVG_010|LOE_104|FP1_009|GVG_008|FP1_001|EX1_007|EX1_007|GVG_008|FP1_001~0~True=True=True=True=True=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~

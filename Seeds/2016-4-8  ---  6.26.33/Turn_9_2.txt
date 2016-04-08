@@ -1,0 +1,28 @@
+Board --- Uther Lightbringer(19/0-3/0)Malfurion Stormrage 
+
+
+AbilityEnemy : Shapeshift[CS2_017]
+
+Mana : 3
+Enemy secret: False
+
+Friends : 
+Haunted Creeper[FP1_002][1/2]CAN[False]IDX[0]
+Knife Juggler[NEW1_019][3/2]CAN[False]IDX[1]
+Ragnaros the Firelord[EX1_298][8/7]CAN[False]IDX[2]
+Silver Hand Recruit[CS2_101t][1/1]CAN[False]IDX[3]
+
+Enemy : 
+Druid of the Claw[EX1_165t1][4/4]CAN[True]IDX[0][C]
+
+Hand : 
+Blessing of Kings[CS2_092]COST[4]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 14 -- EnemyDeck : 16
+Value : 212,5
+
+@9~3~2~0~0~14~16~0~False~9~True~3~0~0~HERO_04*-1*0*0*0*11*0*84*30*0*9*19*0*False*False*False*False*False*False*False*False*False*False*False*False*False*9*False~HERO_06*-1*0*0*0*27*0*82*30*0*9*3*0*False*False*False*False*True*False*False*False*False*False*False*False*False*9*False~CS2_101*-1*0*0*2*0*0*85*0*0*9*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*9*False~CS2_017*-1*0*0*2*0*0*83*0*0*9*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*9*False~FP1_002*0*0*1*2*0*0*53*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|NEW1_019*1*0*3*2*0*0*71*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|EX1_298*2*0*8*8*1*0*75*8*0*1*7*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False|CS2_101t*3*0*1*1*0*0*110*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_165t1*0*0*4*5*0*0*109*4*0*0*4*0*True*False*False*False*True*False*False*False*False*False*False*False*False*0*False~CS2_092*0*0*0*4*0*0*76*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GVG_061|GVG_058|CS2_101t|CS2_101t|CS2_101t|GAME_005|CS2_091|GVG_061|NEW1_019|FP1_020|CS2_091|CS2_101t|CS2_097|EX1_130|EX1_130a|FP1_020|EX1_136|AT_079|CS2_101t|AT_073|EX1_130a|CS2_101t|LOE_017|CS2_101t~0~CS2_012|EX1_169|EX1_154|EX1_284|EX1_154|GVG_096|EX1_571|EX1_tk9|EX1_522|EX1_tk9|EX1_tk9|EX1_166|CS2_012|EX1_166~0~True=True=True=True=False=False~0~0~1~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~1~0~
