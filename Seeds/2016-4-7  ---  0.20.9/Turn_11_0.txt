@@ -1,0 +1,28 @@
+Board --- Uther Lightbringer(9/0-11/0)Gul'dan 
+
+WeaponFriend : Ashbringer[EX1_383t][5/1]
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Life Tap[CS2_056]
+
+Mana : 10
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+Dr. Boom[GVG_110][3/3]CAN[True]IDX[0]ENCH[LOE_017-F]
+
+Hand : 
+Blessing of Kings[CS2_092]COST[4]
+Muster for Battle[GVG_061]COST[3]
+Blessing of Kings[CS2_092]COST[4]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 12 -- EnemyDeck : 12
+Value : 129,5
+
+@10~10~1~0~0~12~12~0~False~11~False~5~0~EX1_383t*-1*0*5*5*2*3*83*3*0*3*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~HERO_04*-1*0*5*0*21*0*64*30*0*11*9*0*False*False*False*False*False*False*False*False*False*False*False*False*False*11*False~HERO_07*-1*0*0*0*19*0*66*30*0*11*11*0*False*False*False*False*True*False*False*False*False*False*False*False*False*11*False~CS2_101*-1*0*0*2*0*0*65*0*0*11*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*11*False~CS2_056*-1*0*0*2*0*0*67*0*0*11*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*11*False~0~GVG_110*0*0*3*7*0*0*42*3*0*2*3*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False*LOE_017e=1=11=0~CS2_092*0*0*0*4*0*0*20*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_061*1*0*0*3*0*0*16*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*2*0*0*4*0*0*5*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_096|EX1_076|LOE_017|EX1_136|GVG_059|FP1_002|EX1_130|EX1_130a|FP1_020|LOE_017|AT_073|CS2_101t|FP1_020|CS2_097|EX1_383|EX1_080|EX1_298|LOE_017|CS2_101t~0~GVG_015|CS2_117|LOE_023|CS2_203|FP1_015|EX1_302|EX1_016|EX1_043|EX1_093|AT_079|GVG_110t|GVG_110t|EX1_303|GVG_069|EX1_309|EX1_302~0~True=True=True=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~

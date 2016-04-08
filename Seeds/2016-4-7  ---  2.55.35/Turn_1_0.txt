@@ -1,0 +1,27 @@
+Board --- Uther Lightbringer(30/0-30/0)Thrall 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Totemic Call[CS2_049]
+
+Mana : 1
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+
+Hand : 
+Secretkeeper[EX1_080][1/2]COST[1]
+Tirion Fordring[EX1_383][6/6]COST[8]
+Muster for Battle[GVG_061]COST[3]
+Noble Sacrifice[EX1_130]COST[1]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 26 -- EnemyDeck : 26
+Value : 76
+
+@1~1~1~0~0~26~26~0~False~1~False~5~0~0~HERO_04*-1*0*0*0*0*0*64*30*0*1*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_02*-1*0*0*0*0*0*66*30*0*0*30*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~CS2_101*-1*0*0*2*0*0*65*0*0*1*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~CS2_049*-1*0*0*2*0*0*67*0*0*0*0*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~0~0~EX1_080*0*0*1*1*0*0*20*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_383*1*0*6*8*0*0*4*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|GVG_061*2*0*0*3*0*0*33*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_130*3*0*0*1*0*0*15*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~0~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~

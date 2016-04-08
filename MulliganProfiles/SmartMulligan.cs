@@ -978,6 +978,7 @@ namespace MulliganProfiles
             {
                 GameContainer gc = new GameContainer(choices, opponentClass, ownClass);
                 Mulliganaccordingly(gc);
+                mtgc = gc;
             }
             catch (Exception)
             {
@@ -1001,7 +1002,7 @@ namespace MulliganProfiles
                     new StreamWriter(AppDomain.CurrentDomain.BaseDirectory +
                                      "\\Logs\\SmartMulligan\\MulliganHistory.txt", true))
             {
-                ml.WriteLine("--------------[{0}||{1} vs {2}]", Bot.CurrentMode(), gc.MyDeckType, gc.EneDeckType);
+                ml.WriteLine("--------------[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType,gc.OpponentClass, gc.EneDeckType);
                 ml.WriteLine("Given: "+ choices.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
                 ml.WriteLine("Kept: " + cardsToKeep.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
 

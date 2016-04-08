@@ -1,0 +1,581 @@
+[02:44:44] V37.3-[DEBUG]NotValidTemplate
+[02:44:44] V37.3-[DEBUG]NotValidTemplate valid
+[02:44:44] Refreshed mulligan profiles
+[02:44:44] Refreshed profiles
+[02:44:44] Relogger started
+[02:44:44] Hearthstone status changed : Opened
+[02:44:44] V37.3-[DEBUG]Auth OnConnect
+[02:44:44] V37.3-[DEBUG]Connected to auth
+[02:44:44] Hearthstone status changed : Ready
+[02:44:45] V37.3-[DEBUG]Profile changed to : Midrange - Rush.cs
+[02:44:49] V37.3-[DEBUG][AUTH] Received loader
+[02:44:49] V37.3-[DEBUG]OnValidate :True
+[02:44:49] V37.3-[DEBUG]StartTemplate
+[02:44:49] V37.3-[DEBUG]StartTemplate valid
+[02:44:49] V37.3-[DEBUG]Validated on auth server
+[02:44:54] V37.3-[DEBUG]Injecting : Microsoft Windows NT 6.2.9200.0
+[02:44:54] V37.3-[DEBUG]PlayingLastOneTemplate
+[02:44:54] Game connected
+[02:44:54] Refreshing decks -----------
+[02:44:54] Region Updated : REGION_US
+[02:44:57] V37.3-[DEBUG]Controller : StartBot
+[02:44:57] Relogger activated
+[02:44:57] V37.3-[DEBUG]Controller : StartRelogger
+[02:44:57] V37.3-[DEBUG]PlayingTemplate
+[02:44:57] [PLUGIN] -> Emotenizer : Initialized...
+[02:44:57] [PLUGIN] -> Emotenizer : Max answers per game : 3
+[02:44:57] [PLUGIN] -> Emotenizer : Answering emote chance : 50%
+[02:44:57] [PLUGIN] -> Emotenizer : Opening emote chance : 50%
+[02:44:57] [PLUGIN] -> Emotenizer : Ending emote chance : 50%
+[02:44:57] Region Updated : REGION_US
+[02:44:57] Bot started
+[02:44:57] V37.3-[DEBUG]API : ChangeDeck Midrange - Rush.cs
+[02:44:57] V37.3-[DEBUG]Controller : ChangeProfileMidrange - Rush.cs
+[02:44:57] Hearthstone status changed : Injected
+[02:44:57] V37.3-[DEBUG]Controller : StartBot
+[02:44:57] Relogger activated
+[02:44:57] V37.3-[DEBUG]Controller : StartRelogger
+[02:44:57] V37.3-[DEBUG]PlayingTemplate
+[02:44:57] Bot started
+[02:44:57] Region Updated : REGION_US
+[02:44:57] V37.3-[DEBUG]API : ChangeDeck Midrange - Rush.cs
+[02:44:57] V37.3-[DEBUG]Controller : ChangeProfileMidrange - Rush.cs
+[02:44:57] [SmartTracker] SmartTracker is up to date
+[02:44:57] 31	SecretPaladin
+[02:44:57] 28	Zoolock
+[02:44:57] 26	PatronWarrior
+[02:44:57] 20	MidRangeDruid
+[02:44:57] 17	ControlWarrior
+[02:44:57] 16	Basic
+[02:44:57] 14	FaceShaman
+[02:44:57] 11	ControlPriest
+[02:44:57] 10	TempoMage
+[02:44:57] 8	DragonPriest
+[02:44:57] 7	MidRangeHunter
+[02:44:57] 6	FaceWarrior
+[02:44:57] 6	FaceHunter
+[02:44:57] 5	OilRogue
+[02:44:57] 5	TotemShaman
+[02:44:57] 5	FreezeMage
+[02:44:57] 4	MidRangePaladin
+[02:44:57] 4	AnyfinMurglMurgl
+[02:44:57] 2	RenoWarrior
+[02:44:57] 2	RenoHunter
+[02:44:57] 2	MiracleRogue
+[02:44:57] 2	ControlWarlock
+[02:44:57] 2	RenoLock
+[02:44:57] 2	DemonHandlock
+[02:44:57] 2	DemonZooWarlock
+[02:44:57] 2	Handlock
+[02:44:57] 1	RenoPaladin
+[02:44:57] 1	ShadowPriest
+[02:44:57] 1	AstralDruid
+[02:44:57] 1	RenoMage
+[02:44:57] 1	MalyRogue
+[02:44:57] 1	AggroPaladin
+[02:44:57] 1	MechMage
+[02:44:57] 1	CamelHunter
+[02:44:57] 1	DragonShaman
+[02:44:57] 1	FatigueMage
+[02:44:57] 1	MillDruid
+[02:45:01] V37.3-[DEBUG]Deck to find is on page : 0
+[02:45:02] V37.3-[DEBUG]PAGE TURNED0
+[02:45:02] Ranked
+[02:45:02] V37.3-[DEBUG]END
+[02:45:35] Mulligan profile : SmartMulligan.cs
+[02:45:36] -----------Game Begun-------------
+[02:45:36] [You chose Auto Detection] SecretPaladin [Default: AutoDetection] SecretPaladin
+[02:45:36] [SmartMulligan] You have faced this opponent before, his last played deck with druid was MidRangeDruid
+[02:45:36] Mulligan phase delayed : 7840ms
+[02:45:36] Starting mulligan hovering routine for :7840ms
+[02:45:43] V37.3-[DEBUG]StartProcessing mulligan phase
+[02:45:43] Replace : Dr. Boom
+[02:46:02]  
+[02:46:02] <-------New Turn-------->
+[02:46:02]  
+[02:46:05] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:46:05] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:46:05] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:46:05] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:46:05] V37.3-[DEBUG]Board : 1~1~2~0~0~25~26~0~False~1~False~3~0~0~HERO_04*-1*0*0*0*0*0*84*30*0*1*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_06*-1*0*0*0*0*0*82*30*0*1*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~CS2_101*-1*0*0*2*0*0*85*0*0*1*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~CS2_017*-1*0*0*2*0*0*83*0*0*1*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~0~AT_037t*0*0*1*1*0*0*87*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|AT_037t*1*0*1*1*0*0*88*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~NEW1_019*0*0*3*2*0*0*57*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*80*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_058*2*0*2*2*0*0*78*2*0*0*2*0*False*True*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_058*3*0*2*2*0*0*52*2*0*0*2*0*False*True*False*False*False*False*True*False*False*False*False*False*False*0*False|GAME_005*4*0*0*0*0*0*86*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_061*5*0*0*3*0*0*56*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~AT_037~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:46:05] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:46:05] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:01 -- Board request received
+[02:46:05] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:01 -- Board request approved
+[02:46:05] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:01 -- HANDLE BOARD 
+[02:46:05] V37.3-[DEBUG]Calculation performed in : 00:00:00.0004301 using profile : Rush
+[02:46:05] V37.3-[DEBUG]Receiving action : Push*86*0*0*0*GAME_005*86*0*0*0*0*0*0,Push*78*0*0*0*GVG_058*78*0*0*2*2*0*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:46:05] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] The Coin
+[02:46:05] V37.3-[DEBUG]Time to get results : 316.667ms
+[02:46:05] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Shielded Minibot[2/2](Pos :1)
+[02:46:05] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:46:05] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:46:05] --> [Waiting] 
+[02:46:05] Started PlaySequence routine
+[02:46:05] Play sequence : [Play] The Coin
+[02:46:06] Play sequence : [Play] Shielded Minibot[2/2](Pos :1)
+[02:46:08] [PLUGIN] -> Emotenizer : Sent emote: Threaten
+[02:46:08] --> Sending emote : THREATEN
+[02:46:09] Play sequence : [EndTurn] 
+[02:46:10] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:46:28]  
+[02:46:28] <-------New Turn-------->
+[02:46:28]  
+[02:46:32] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:46:32] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:46:32] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:46:32] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:46:32] V37.3-[DEBUG]Board : 2~2~2~0~0~24~25~0~False~2~False~3~0~0~HERO_04*-1*0*0*0*2*0*84*30*0*2*28*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~HERO_06*-1*0*0*0*0*0*82*30*0*2*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False~CS2_101*-1*0*0*2*0*0*85*0*0*2*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~CS2_017*-1*0*0*2*0*0*83*0*0*2*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False~GVG_058*0*0*2*2*0*0*78*2*0*1*2*0*False*True*False*False*False*False*False*False*False*False*False*False*False*1*False~AT_037t*0*0*1*1*0*0*87*1*0*1*1*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False|AT_037t*1*0*1*1*0*0*88*1*0*1*1*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~NEW1_019*0*0*3*2*0*0*57*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*80*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_058*2*0*2*2*0*0*52*2*0*0*2*0*False*True*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_061*3*0*0*3*0*0*56*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|NEW1_019*4*0*3*2*0*0*64*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005~0~AT_037|CS2_013~0~False=False=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:46:32] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:46:32] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:27 -- Board request received
+[02:46:32] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:27 -- Board request approved
+[02:46:32] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:27 -- HANDLE BOARD 
+[02:46:32] V37.3-[DEBUG]Calculation performed in : 00:00:00.0015802 using profile : Rush
+[02:46:32] V37.3-[DEBUG]Receiving action : Push*52*0*0*0*GVG_058*52*0*0*2*2*0*0,Attack*78*87*0*0*GVG_058*78*AT_037t*87*2*2*1*1,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:46:32] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Shielded Minibot[2/2](Pos :1)
+[02:46:32] V37.3-[DEBUG]Time to get results : 265.5088ms
+[02:46:32] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Shielded Minibot[2/2]->Sapling[1/1]
+[02:46:32] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:46:32] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:46:32] Started PlaySequence routine
+[02:46:32] Play sequence : [Play] Shielded Minibot[2/2](Pos :1)
+[02:46:34] Play sequence : [Attack] Shielded Minibot[2/2]->Sapling[1/1]
+[02:46:36] Play sequence : [EndTurn] 
+[02:46:36] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:46:36] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:46:36] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:46:38] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:46:50]  
+[02:46:50] <-------New Turn-------->
+[02:46:50]  
+[02:46:53] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:46:53] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:46:53] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:46:53] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:46:53] V37.3-[DEBUG]Board : 3~3~2~0~0~23~24~0~False~3~False~3~0~0~HERO_04*-1*0*0*0*2*0*84*30*0*3*28*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~HERO_06*-1*0*0*0*0*0*82*30*0*3*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~CS2_101*-1*0*0*2*0*0*85*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_017*-1*0*0*2*0*0*83*0*0*3*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~GVG_058*0*0*2*2*0*0*52*2*0*1*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False|GVG_058*1*0*2*2*0*0*78*2*0*2*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~GVG_096*0*0*4*4*0*0*31*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~NEW1_019*0*0*3*2*0*0*57*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*80*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_061*2*0*0*3*0*0*56*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|NEW1_019*3*0*3*2*0*0*64*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_383*4*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005~0~AT_037|CS2_013|AT_037t|AT_037t~0~False=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:46:53] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:46:53] [SmartTracker_debug] Your opponent is playing MidRangeDruid:Combo
+[02:46:53] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:49 -- Board request received
+[02:46:53] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:49 -- Board request approved
+[02:46:53] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:49 -- HANDLE BOARD 
+[02:46:53] V37.3-[DEBUG]Calculation performed in : 00:00:00.0032437 using profile : Rush
+[02:46:53] V37.3-[DEBUG]Receiving action : Push*56*0*0*0*GVG_061*56*0*0*0*0*0*0,Attack*52*31*0*0*GVG_058*52*GVG_096*31*2*2*3*4,Attack*84*31*0*0*CS2_091*10003*GVG_096*31*4*1*1*4,Resimulate*0*0*0*0*0*0*0*0*0*0*0*0,Attack*78*10004*0*0*GVG_058*78*CS2_172*10004*2*2*2*2,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:46:53] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Muster for Battle
+[02:46:53] V37.3-[DEBUG]Time to get results : 273.0021ms
+[02:46:53] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Shielded Minibot[2/2]->Piloted Shredder[4/3]
+[02:46:53] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Uther Lightbringer->Piloted Shredder[4/3]
+[02:46:53] V37.3-[DEBUG]BattleProcesser : AddAction()[Resimulate] 
+[02:46:53] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Shielded Minibot[2/2]
+[02:46:53] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:46:53] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:46:53] Started PlaySequence routine
+[02:46:53] Play sequence : [Play] Muster for Battle
+[02:46:54] Play sequence : [Attack] Shielded Minibot[2/2]->Piloted Shredder[4/3]
+[02:46:56] Play sequence : [Attack] Uther Lightbringer->Piloted Shredder[4/3]
+[02:47:02] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:03] --> [Resimulate] 
+[02:47:03] V37.3-[DEBUG]BattleProcesser : Simulate()
+[02:47:03] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:03] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:47:03] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:47:03] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:47:03] V37.3-[DEBUG]Board : 3~0~2~0~0~23~24~0~False~3~True~3~0~CS2_091*-1*0*1*1*1*4*92*4*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~HERO_04*-1*0*1*0*6*0*84*30*1*3*24*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~HERO_06*-1*0*0*0*0*0*82*30*0*3*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~CS2_101*-1*0*0*2*0*0*85*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_017*-1*0*0*2*0*0*83*0*0*3*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~GVG_058*0*0*2*2*0*0*78*2*0*2*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False|CS2_101t*1*0*1*1*0*0*89*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|CS2_101t*2*0*1*1*0*0*90*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|CS2_101t*3*0*1*1*0*0*91*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_059*0*0*2*2*0*0*93*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~NEW1_019*0*0*3*2*0*0*57*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*80*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|NEW1_019*2*0*3*2*0*0*64*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_383*3*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_061|GVG_058~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096~0~False=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~1~1~
+[02:47:03] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:47:03] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:59 -- Board request received
+[02:47:03] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:59 -- Board request approved
+[02:47:03] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:50:59 -- HANDLE BOARD 
+[02:47:03] V37.3-[DEBUG]Calculation performed in : 00:00:00.0007407 using profile : Rush
+[02:47:03] V37.3-[DEBUG]Receiving action : Attack*78*93*0*0*GVG_058*78*EX1_059*93*2*2*2*2,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:47:03] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Shielded Minibot[2/2]->Crazed Alchemist[2/2]
+[02:47:03] V37.3-[DEBUG]Time to get results : 443.4788ms
+[02:47:03] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:47:03] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:47:03] --> [Waiting] 
+[02:47:03] Started PlaySequence routine
+[02:47:03] Play sequence : [Attack] Shielded Minibot[2/2]->Crazed Alchemist[2/2]
+[02:47:04] Play sequence : [EndTurn] 
+[02:47:05] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:05] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:05] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:07] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:47:22]  
+[02:47:22] <-------New Turn-------->
+[02:47:22]  
+[02:47:25] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:25] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:47:25] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:47:25] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:47:25] V37.3-[DEBUG]Board : 4~4~2~0~0~22~23~0~False~4~False~4~0~CS2_091*-1*0*1*1*1*4*92*4*0*1*3*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_04*-1*0*1*0*6*0*84*30*0*4*24*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~HERO_06*-1*0*0*0*0*0*82*30*1*4*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*4*False~CS2_101*-1*0*0*2*0*0*85*0*0*4*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~CS2_017*-1*0*0*2*0*0*83*0*0*4*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*4*False~CS2_101t*0*0*1*1*0*0*90*1*0*1*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False|CS2_101t*1*0*1*1*0*0*91*1*0*1*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~0~NEW1_019*0*0*3*2*0*0*57*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*80*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|NEW1_019*2*0*3*2*0*0*64*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_383*3*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|EX1_136*4*0*0*1*0*0*70*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059~0~False=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:47:25] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:47:26] [SmartTracker_debug] Your opponent is playing MidRangeDruid:Combo
+[02:47:26] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:51:21 -- Board request received
+[02:47:26] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:51:21 -- Board request approved
+[02:47:26] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:51:21 -- HANDLE BOARD 
+[02:47:26] V37.3-[DEBUG]Calculation performed in : 00:00:00.0021610 using profile : Rush
+[02:47:26] V37.3-[DEBUG]Receiving action : Push*57*0*0*0*NEW1_019*57*0*0*2*3*0*0,Attack*90*82*0*0*CS2_101t*90*HERO_06*82*1*1*30*0,Attack*91*82*0*0*CS2_101t*91*HERO_06*82*1*1*29*0,Attack*84*82*0*0*CS2_091*92*HERO_06*82*3*1*28*0,Push*64*0*0*0*NEW1_019*64*0*0*2*3*0*0,Resimulate*0*0*0*0*0*0*0*0*0*0*0*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:47:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Knife Juggler[3/2](Pos :1)
+[02:47:26] V37.3-[DEBUG]Time to get results : 435.1669ms
+[02:47:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:47:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:47:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Uther Lightbringer->Malfurion Stormrage
+[02:47:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Knife Juggler[3/2](Pos :1)
+[02:47:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Resimulate] 
+[02:47:26] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:47:26] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:47:26] Started PlaySequence routine
+[02:47:26] Play sequence : [Play] Knife Juggler[3/2](Pos :1)
+[02:47:28] Play sequence : [Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:47:30] Play sequence : [Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:47:31] Play sequence : [Attack] Uther Lightbringer->Malfurion Stormrage
+[02:47:32] Play sequence : [Play] Knife Juggler[3/2](Pos :1)
+[02:47:38] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:39] --> [Resimulate] 
+[02:47:39] V37.3-[DEBUG]BattleProcesser : Simulate()
+[02:47:39] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:39] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:47:39] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:47:39] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:47:39] V37.3-[DEBUG]Board : 4~0~2~0~0~22~23~0~False~4~True~4~0~CS2_091*-1*0*1*1*2*4*92*4*0*1*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_04*-1*0*1*0*6*0*84*30*1*4*24*0*False*False*False*False*True*False*False*False*False*False*False*False*False*4*False~HERO_06*-1*0*0*0*4*0*82*30*1*4*26*0*False*False*False*False*True*False*False*False*False*False*False*False*False*4*False~CS2_101*-1*0*0*2*0*0*85*0*0*4*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~CS2_017*-1*0*0*2*0*0*83*0*0*4*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*4*False~NEW1_019*0*0*3*2*0*0*64*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|NEW1_019*1*0*3*2*0*0*57*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|CS2_101t*2*0*1*1*0*0*90*1*1*1*1*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False|CS2_101t*3*0*1*1*0*0*91*1*1*1*1*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~0~GVG_096*0*0*4*4*0*0*80*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_383*1*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|EX1_136*2*0*0*1*0*0*70*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059~0~True=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:47:39] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:47:39] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:51:35 -- Board request received
+[02:47:39] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:51:35 -- Board request approved
+[02:47:39] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:51:35 -- HANDLE BOARD 
+[02:47:39] V37.3-[DEBUG]Calculation performed in : 00:00:00.0001134 using profile : Rush
+[02:47:39] V37.3-[DEBUG]Receiving action : End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:47:39] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:47:39] V37.3-[DEBUG]Time to get results : 309.3959ms
+[02:47:39] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:47:39] --> [Waiting] 
+[02:47:39] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:47:39] --> [EndTurn] 
+[02:47:39]  
+[02:47:39] <-------End Turn-------->
+[02:47:39]  
+[02:47:43] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:48:07]  
+[02:48:07] <-------New Turn-------->
+[02:48:07]  
+[02:48:10] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:48:10] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:48:10] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:48:10] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:48:10] V37.3-[DEBUG]Board : 5~5~2~0~0~21~22~0~False~5~False~4~0~CS2_091*-1*0*1*1*2*4*92*4*0*2*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~HERO_04*-1*0*1*0*6*0*84*30*0*5*24*0*False*False*False*False*False*False*False*False*False*False*False*False*False*5*False~HERO_06*-1*0*0*0*4*0*82*30*0*5*26*0*False*False*False*False*True*False*False*False*False*False*False*False*False*5*False~CS2_101*-1*0*0*2*0*0*85*0*0*5*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*5*False~CS2_017*-1*0*0*2*0*0*83*0*0*5*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*5*False~CS2_101t*0*0*1*1*0*0*91*1*0*2*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~0~GVG_096*0*0*4*4*0*0*80*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_383*1*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|EX1_136*2*0*0*1*0*0*70*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*3*0*3*4*0*0*61*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t|NEW1_019|NEW1_019|CS2_101t~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9~0~True=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:48:10] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:48:11] [SmartTracker_debug] Your opponent is playing MidRangeDruid:Combo
+[02:48:11] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:06 -- Board request received
+[02:48:11] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:06 -- Board request approved
+[02:48:11] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:06 -- HANDLE BOARD 
+[02:48:11] V37.3-[DEBUG]Calculation performed in : 00:00:00.0014730 using profile : Rush
+[02:48:11] V37.3-[DEBUG]Receiving action : Push*80*0*0*0*GVG_096*80*0*0*3*4*0*0,Push*70*0*0*0*EX1_136*70*0*0*0*0*0*0,Attack*91*82*0*0*CS2_101t*91*HERO_06*82*1*1*26*0,Attack*84*82*0*0*CS2_091*92*HERO_06*82*2*1*25*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:48:11] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Piloted Shredder[4/3](Pos :1)
+[02:48:11] V37.3-[DEBUG]Time to get results : 273.7156ms
+[02:48:11] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Redemption
+[02:48:11] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:48:11] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Uther Lightbringer->Malfurion Stormrage
+[02:48:11] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:48:11] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:48:11] --> [Waiting] 
+[02:48:11] Started PlaySequence routine
+[02:48:11] Play sequence : [Play] Piloted Shredder[4/3](Pos :1)
+[02:48:13] Play sequence : [Play] Redemption
+[02:48:14] Play sequence : [Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:48:16] Play sequence : [Attack] Uther Lightbringer->Malfurion Stormrage
+[02:48:17] Play sequence : [EndTurn] 
+[02:48:19] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:48:35]  
+[02:48:35] <-------New Turn-------->
+[02:48:35]  
+[02:48:38] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:48:38] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:48:38] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:48:38] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:48:38] V37.3-[DEBUG]Board : 6~6~2~0~0~20~21~0~False~6~False~4~0~CS2_091*-1*0*1*1*3*4*92*4*0*3*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~HERO_04*-1*0*1*0*6*0*84*30*0*6*24*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~HERO_06*-1*0*0*0*6*0*82*30*0*6*24*0*False*False*False*False*True*False*False*False*False*False*False*False*False*6*False~CS2_101*-1*0*0*2*0*0*85*0*0*6*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~CS2_017*-1*0*0*2*0*0*83*0*0*6*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*6*False~GVG_096*0*0*4*4*0*0*80*3*0*1*3*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False|CS2_101t*1*0*1*1*0*0*91*1*0*3*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~GVG_110t*0*0*1*1*0*0*99*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|GVG_110*1*0*7*7*0*0*14*7*0*0*7*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|GVG_110t*2*0*1*1*0*0*98*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_383*0*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*1*0*3*4*0*0*61*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|FP1_002*2*0*1*2*0*0*65*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~EX1_136~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t|NEW1_019|NEW1_019|CS2_101t~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9~0~True=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:48:38] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:48:38] [SmartTracker_debug] Your opponent is playing MidRangeDruid:Combo
+[02:48:38] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:34 -- Board request received
+[02:48:38] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:34 -- Board request approved
+[02:48:38] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:34 -- HANDLE BOARD 
+[02:48:39] V37.3-[DEBUG]Calculation performed in : 00:00:00.5315220 using profile : Rush
+[02:48:39] V37.3-[DEBUG]Receiving action : Attack*80*82*0*0*GVG_096*80*HERO_06*82*3*4*24*0,Push*65*0*0*0*FP1_002*65*0*0*2*1*0*0,Attack*84*99*0*0*CS2_091*92*GVG_110t*99*1*1*1*1,Resimulate*0*0*0*0*0*0*0*0*0*0*0*0,Push*61*14*0*0*LOE_017*61*GVG_110*14*4*3*7*7,Attack*91*82*0*0*CS2_101t*91*HERO_06*82*1*1*20*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:48:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Piloted Shredder[4/3]->Malfurion Stormrage
+[02:48:39] V37.3-[DEBUG]Time to get results : 837.4438ms
+[02:48:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Haunted Creeper[1/2](Pos :1)
+[02:48:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Uther Lightbringer->Boom Bot[1/1]
+[02:48:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Resimulate] 
+[02:48:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Keeper of Uldaman[3/4](Pos :1)->Dr. Boom[7/7]
+[02:48:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:48:39] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:48:39] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:48:39] Started PlaySequence routine
+[02:48:39] Play sequence : [Attack] Piloted Shredder[4/3]->Malfurion Stormrage
+[02:48:40] Play sequence : [Play] Haunted Creeper[1/2](Pos :1)
+[02:48:43] Play sequence : [Attack] Uther Lightbringer->Boom Bot[1/1]
+[02:48:48] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:48:49] --> [Resimulate] 
+[02:48:49] V37.3-[DEBUG]BattleProcesser : Simulate()
+[02:48:49] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:48:49] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:48:49] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:48:49] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:48:49] V37.3-[DEBUG]Board : 6~4~2~0~0~20~21~0~False~6~True~4~0~0~HERO_04*-1*0*0*0*9*0*84*30*1*6*21*0*False*False*False*False*True*False*False*False*False*False*False*False*False*6*False~HERO_06*-1*0*0*0*10*0*82*30*0*6*20*0*False*False*False*False*True*False*False*False*False*False*False*False*False*6*False~CS2_101*-1*0*0*2*0*0*85*0*0*6*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*6*False~CS2_017*-1*0*0*2*0*0*83*0*0*6*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*6*False~FP1_002*0*0*1*2*0*0*65*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*80*3*1*1*3*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False|CS2_101t*2*0*1*1*0*0*91*1*0*3*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~GVG_110*0*0*7*7*0*0*14*7*0*0*7*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|GVG_110t*1*0*1*1*0*0*98*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_383*0*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*1*0*3*4*0*0*61*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~EX1_136~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t|NEW1_019|NEW1_019|CS2_101t|CS2_091~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9|GVG_110t~0~True=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~1~0~
+[02:48:49] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:48:49] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:45 -- Board request received
+[02:48:49] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:45 -- Board request approved
+[02:48:49] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:52:45 -- HANDLE BOARD 
+[02:48:49] V37.3-[DEBUG]Calculation performed in : 00:00:00.0423522 using profile : Rush
+[02:48:49] V37.3-[DEBUG]Receiving action : Push*61*14*0*0*LOE_017*61*GVG_110*14*4*3*7*7,Attack*91*82*0*0*CS2_101t*91*HERO_06*82*1*1*20*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:48:49] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Keeper of Uldaman[3/4](Pos :1)->Dr. Boom[7/7]
+[02:48:49] V37.3-[DEBUG]Time to get results : 266.6371ms
+[02:48:49] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:48:49] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:48:49] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:48:49] --> [Waiting] 
+[02:48:49] Started PlaySequence routine
+[02:48:49] Play sequence : [Play] Keeper of Uldaman[3/4](Pos :1)->Dr. Boom[7/7]
+[02:48:52] Play sequence : [Attack] Silver Hand Recruit[1/1]->Malfurion Stormrage
+[02:48:53] Play sequence : [EndTurn] 
+[02:48:55] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:49:55]  
+[02:49:55] <-------New Turn-------->
+[02:49:55]  
+[02:49:58] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:49:58] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:49:58] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:49:58] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:49:58] V37.3-[DEBUG]Board : 7~7~2~0~0~19~20~0~False~7~False~4~0~0~HERO_04*-1*0*0*0*11*0*84*30*0*7*19*0*False*False*False*False*False*False*False*False*False*False*False*False*False*7*False~HERO_06*-1*0*0*0*11*0*82*30*1*7*19*0*False*False*False*False*True*False*False*False*False*False*False*False*False*7*False~CS2_101*-1*0*0*2*0*0*85*0*0*7*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*7*False~CS2_017*-1*0*0*2*0*0*83*0*0*7*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*7*False~LOE_017*0*0*3*4*1*0*61*4*0*1*3*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False|NEW1_037*1*0*1*2*0*0*107*3*0*1*3*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~GVG_110*0*0*3*7*1*0*14*3*0*1*2*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False*LOE_017e=2=61=0~EX1_383*0*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|EX1_130*1*0*0*1*0*0*74*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t|NEW1_019|NEW1_019|CS2_101t|CS2_091|FP1_002|EX1_136|FP1_002|CS2_101t|GVG_096|FP1_002t|FP1_002t|FP1_002t|FP1_002t~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9|GVG_110t|GVG_110t|CS2_012~0~True=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:49:58] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:49:58] [SmartTracker_debug] Your opponent is playing MidRangeDruid:Combo
+[02:49:58] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:53:54 -- Board request received
+[02:49:58] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:53:54 -- Board request approved
+[02:49:58] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:53:54 -- HANDLE BOARD 
+[02:49:58] V37.3-[DEBUG]Calculation performed in : 00:00:00.0026636 using profile : Rush
+[02:49:58] V37.3-[DEBUG]Receiving action : Attack*61*82*0*0*LOE_017*61*HERO_06*82*3*3*19*0,Push*85*0*0*0*CS2_101*85*0*0*0*0*0*0,Attack*107*82*0*0*NEW1_037*107*HERO_06*82*3*1*16*0,Push*74*0*0*0*EX1_130*74*0*0*0*0*0*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:49:58] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Keeper of Uldaman[3/3]->Malfurion Stormrage
+[02:49:58] V37.3-[DEBUG]Time to get results : 267.0342ms
+[02:49:58] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Reinforce
+[02:49:58] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Master Swordsmith[1/3]->Malfurion Stormrage
+[02:49:58] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Noble Sacrifice
+[02:49:58] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:49:58] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:49:58] Started PlaySequence routine
+[02:49:58] Play sequence : [Attack] Keeper of Uldaman[3/3]->Malfurion Stormrage
+[02:50:00] Play sequence : [Play] Reinforce
+[02:50:01] Play sequence : [Attack] Master Swordsmith[1/3]->Malfurion Stormrage
+[02:50:02] Play sequence : [Play] Noble Sacrifice
+[02:50:03] Play sequence : [EndTurn] 
+[02:50:08] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:50:58]  
+[02:50:58] <-------New Turn-------->
+[02:50:58]  
+[02:51:01] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:51:01] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:51:01] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:51:01] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:51:01] V37.3-[DEBUG]Board : 8~8~2~0~0~18~19~0~False~8~False~4~0~0~HERO_04*-1*0*0*0*11*0*84*30*0*8*19*0*False*False*False*False*False*False*False*False*False*False*False*False*False*8*False~HERO_06*-1*0*0*0*16*0*82*30*1*8*14*0*False*False*False*False*True*False*False*False*False*False*False*False*False*8*False~CS2_101*-1*0*0*2*0*0*85*0*0*8*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*8*False~CS2_017*-1*0*0*2*0*0*83*0*0*8*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*8*False~0~GVG_110*0*0*3*7*2*0*14*3*0*2*1*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False*LOE_017e=2=61=0~EX1_383*0*0*6*8*0*0*75*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*1*0*0*4*0*0*72*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t|NEW1_019|NEW1_019|CS2_101t|CS2_091|FP1_002|EX1_136|FP1_002|CS2_101t|GVG_096|FP1_002t|FP1_002t|FP1_002t|FP1_002t|EX1_130|EX1_130a|LOE_017|NEW1_037|CS2_101t~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9|GVG_110t|GVG_110t|CS2_012|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9~0~True=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:51:01] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:51:01] [SmartTracker_debug] Your opponent is playing MidRangeDruid:Combo
+[02:51:02] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:54:57 -- Board request received
+[02:51:02] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:54:57 -- Board request approved
+[02:51:02] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:54:57 -- HANDLE BOARD 
+[02:51:02] V37.3-[DEBUG]Calculation performed in : 00:00:00.0003673 using profile : Rush
+[02:51:02] V37.3-[DEBUG]Receiving action : Push*75*0*0*0*EX1_383*75*0*0*6*6*0*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:51:02] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Tirion Fordring[6/6](Pos :1)
+[02:51:02] V37.3-[DEBUG]Time to get results : 436.5214ms
+[02:51:02] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:51:02] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:51:02] Started PlaySequence routine
+[02:51:02] Play sequence : [Play] Tirion Fordring[6/6](Pos :1)
+[02:51:04] Play sequence : [EndTurn] 
+[02:51:05] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:51:49]  
+[02:51:49] <-------New Turn-------->
+[02:51:49]  
+[02:51:53] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:51:53] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:51:53] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:51:53] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:51:53] V37.3-[DEBUG]Board : 9~9~2~0~0~17~17~0~False~9~False~4~0~0~HERO_04*-1*0*0*0*11*0*84*30*0*9*19*0*False*False*False*False*False*False*False*False*False*False*False*False*False*9*False~HERO_06*-1*0*0*0*16*0*82*30*0*9*14*0*False*False*False*False*True*False*False*False*False*False*False*False*False*9*False~CS2_101*-1*0*0*2*0*0*85*0*0*9*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*9*False~CS2_017*-1*0*0*2*0*0*83*0*0*9*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*9*False~EX1_383*0*0*6*8*0*0*75*6*0*1*6*0*False*False*True*False*False*False*False*False*False*False*False*False*False*1*False~EX1_284*0*0*4*5*0*0*22*4*0*0*4*1*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*34*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~CS2_092*0*0*0*4*0*0*72*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_298*1*0*8*8*0*0*53*8*0*0*8*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t|NEW1_019|NEW1_019|CS2_101t|CS2_091|FP1_002|EX1_136|FP1_002|CS2_101t|GVG_096|FP1_002t|FP1_002t|FP1_002t|FP1_002t|EX1_130|EX1_130a|LOE_017|NEW1_037|CS2_101t~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9|GVG_110t|GVG_110t|CS2_012|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9|GVG_110~0~True=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:51:53] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:51:53] [SmartTracker_debug] Your opponent is playing MidRangeDruid:Combo
+[02:51:53] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:55:48 -- Board request received
+[02:51:53] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:55:48 -- Board request approved
+[02:51:53] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:55:48 -- HANDLE BOARD 
+[02:51:53] V37.3-[DEBUG]Calculation performed in : 00:00:00.0023176 using profile : Rush
+[02:51:53] V37.3-[DEBUG]Receiving action : Attack*75*82*0*0*EX1_383*75*HERO_06*82*6*6*14*0,Push*53*0*0*0*EX1_298*53*0*0*8*8*0*0,Resimulate*0*0*0*0*0*0*0*0*0*0*0*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:51:53] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Tirion Fordring[6/6]->Malfurion Stormrage
+[02:51:53] V37.3-[DEBUG]Time to get results : 440.6461ms
+[02:51:53] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Ragnaros the Firelord[8/8](Pos :1)
+[02:51:53] V37.3-[DEBUG]BattleProcesser : AddAction()[Resimulate] 
+[02:51:53] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:51:53] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:51:53] Started PlaySequence routine
+[02:51:53] Play sequence : [Attack] Tirion Fordring[6/6]->Malfurion Stormrage
+[02:51:54] Play sequence : [Play] Ragnaros the Firelord[8/8](Pos :1)
+[02:52:01] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:52:02] --> [Resimulate] 
+[02:52:02] V37.3-[DEBUG]BattleProcesser : Simulate()
+[02:52:02] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:52:02] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:52:02] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:52:02] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:52:02] V37.3-[DEBUG]Board : 9~1~2~0~0~17~17~0~False~9~True~4~0~0~HERO_04*-1*0*0*0*11*0*84*30*0*9*19*0*False*False*False*False*False*False*False*False*False*False*False*False*False*9*False~HERO_06*-1*0*0*0*22*0*82*30*0*9*8*0*False*False*False*False*True*False*False*False*False*False*False*False*False*9*False~CS2_101*-1*0*0*2*0*0*85*0*0*9*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*9*False~CS2_017*-1*0*0*2*0*0*83*0*0*9*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*9*False~EX1_298*0*0*8*8*0*0*53*8*0*0*8*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|EX1_383*1*0*6*8*0*0*75*6*1*1*6*0*False*False*True*False*True*False*False*False*False*False*False*False*False*1*False~EX1_284*0*0*4*5*0*0*22*4*0*0*4*1*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*34*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~CS2_092*0*0*0*4*0*0*72*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~GAME_005|GVG_061|GVG_058|GVG_058|CS2_101t|NEW1_019|NEW1_019|CS2_101t|CS2_091|FP1_002|EX1_136|FP1_002|CS2_101t|GVG_096|FP1_002t|FP1_002t|FP1_002t|FP1_002t|EX1_130|EX1_130a|LOE_017|NEW1_037|CS2_101t~0~AT_037|CS2_013|AT_037t|AT_037t|GVG_096|EX1_059|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9|GVG_110t|GVG_110t|CS2_012|EX1_571|EX1_tk9|EX1_tk9|EX1_tk9|GVG_110~0~True=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:52:02] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:52:02] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:55:57 -- Board request received
+[02:52:02] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:55:57 -- Board request approved
+[02:52:02] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:55:57 -- HANDLE BOARD 
+[02:52:02] V37.3-[DEBUG]Calculation performed in : 00:00:00.0003691 using profile : Rush
+[02:52:02] V37.3-[DEBUG]Receiving action : End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:52:02] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:52:02] V37.3-[DEBUG]Time to get results : 194.2252ms
+[02:52:02] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:52:02] --> [Waiting] 
+[02:52:02] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:52:02] --> [EndTurn] 
+[02:52:02]  
+[02:52:02] <-------End Turn-------->
+[02:52:02]  
+[02:52:23] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:52:23] <-------Won !-------->
+[02:52:23] [Tracker] Succesfully recorded your opponent: MidRangeDruid
+[02:52:23] [ST] Adden recent opponent to data set.
+[02:52:26] [PLUGIN] -> Emotenizer : Sent emote: Thanks
+[02:52:26] --> Sending emote : THANKS
+[02:52:34] Current Rank : 5 - 5 stars
+[02:52:34] [PLUGIN] -> Emotenizer : All emotes sent in this game: Threaten, Thanks
+[02:52:39] V37.3-[DEBUG]Deck to find is on page : 0
+[02:52:40] V37.3-[DEBUG]PAGE TURNED0
+[02:52:40] Ranked
+[02:52:40] V37.3-[DEBUG]END
+[02:53:08] Mulligan profile : SmartMulligan.cs
+[02:53:08] Mulligan phase delayed : 11805ms
+[02:53:08] Starting mulligan hovering routine for :11805ms
+[02:53:08] -----------Game Begun-------------
+[02:53:08] [You chose Auto Detection] SecretPaladin [Default: AutoDetection] SecretPaladin
+[02:53:08] [SmartMulligan] You have not faced this opponent in the past 250 games
+[02:53:20] V37.3-[DEBUG]StartProcessing mulligan phase
+[02:53:20] Replace : Redemption
+[02:53:20] Replace : Avenge
+[02:53:21] Replace : Mysterious Challenger
+[02:53:32]  
+[02:53:32] <-------New Turn-------->
+[02:53:32]  
+[02:53:35] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:53:35] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:53:35] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:53:35] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:53:35] V37.3-[DEBUG]Board : 1~1~1~0~0~26~26~0~False~1~False~5~0~0~HERO_04*-1*0*0*0*0*0*64*30*0*1*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_08*-1*0*0*0*0*0*66*30*0*0*30*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~CS2_101*-1*0*0*2*0*0*65*0*0*1*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~CS2_034*-1*0*0*2*0*0*67*0*0*0*0*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~0~0~EX1_383*0*0*6*8*0*0*29*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*1*0*3*4*0*0*21*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|NEW1_019*2*0*3*2*0*0*13*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*3*0*0*4*0*0*18*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~0~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:53:35] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:53:35] [SmartTracker_debug] Your opponent is playing Unknown:Unknown
+[02:53:35] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:57:31 -- Board request received
+[02:53:35] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:57:31 -- Board request approved
+[02:53:35] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:57:31 -- HANDLE BOARD 
+[02:53:36] V37.3-[DEBUG]Calculation performed in : 00:00:00.0000836 using profile : Rush
+[02:53:36] V37.3-[DEBUG]Receiving action : End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:53:36] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:53:36] V37.3-[DEBUG]Time to get results : 259.3817ms
+[02:53:36] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:53:36] --> [Waiting] 
+[02:53:36] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:53:36] --> [EndTurn] 
+[02:53:36]  
+[02:53:36] <-------End Turn-------->
+[02:53:36]  
+[02:53:38] [PLUGIN] -> Emotenizer : Sent emote: Threaten
+[02:53:38] --> Sending emote : THREATEN
+[02:53:40] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:53:46]  
+[02:53:46] <-------New Turn-------->
+[02:53:46]  
+[02:53:49] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:53:49] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:53:49] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:53:49] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:53:49] V37.3-[DEBUG]Board : 2~2~1~0~0~25~25~0~False~2~False~5~0~0~HERO_04*-1*0*0*0*0*0*64*30*0*2*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~HERO_08*-1*0*0*0*0*0*66*30*0*1*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~CS2_101*-1*0*0*2*0*0*65*0*0*2*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~CS2_034*-1*0*0*2*0*0*67*0*0*1*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~0~NEW1_012*0*0*1*1*0*0*51*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_383*0*0*6*8*0*0*29*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*1*0*3*4*0*0*21*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|NEW1_019*2*0*3*2*0*0*13*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*3*0*0*4*0*0*18*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_097*4*0*4*4*0*2*31*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~0~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:53:49] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:53:49] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:57:45 -- Board request received
+[02:53:49] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:57:45 -- Board request approved
+[02:53:49] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:57:45 -- HANDLE BOARD 
+[02:53:49] V37.3-[DEBUG]Calculation performed in : 00:00:00.0002602 using profile : Rush
+[02:53:49] V37.3-[DEBUG]Receiving action : Push*13*0*0*0*NEW1_019*13*0*0*2*3*0*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:53:49] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Knife Juggler[3/2](Pos :1)
+[02:53:49] V37.3-[DEBUG]Time to get results : 260.8882ms
+[02:53:49] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:53:49] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:53:49] --> [Waiting] 
+[02:53:49] Started PlaySequence routine
+[02:53:49] Play sequence : [Play] Knife Juggler[3/2](Pos :1)
+[02:53:52] Play sequence : [EndTurn] 
+[02:53:53] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:54:22]  
+[02:54:22] <-------New Turn-------->
+[02:54:22]  
+[02:54:26] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:54:26] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:54:26] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:54:26] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:54:26] V37.3-[DEBUG]Board : 3~3~1~0~0~24~24~0~False~3~False~4~0~0~HERO_04*-1*0*0*0*2*0*64*30*0*3*28*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~HERO_08*-1*0*0*0*0*0*66*30*0*2*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False~CS2_101*-1*0*0*2*0*0*65*0*0*3*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~CS2_034*-1*0*0*2*0*0*67*0*0*2*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False~NEW1_019*0*0*3*2*0*0*13*2*0*1*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~EX1_608*0*0*3*2*0*0*59*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|NEW1_012*1*0*2*1*0*0*51*3*0*1*3*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False*NEW1_012o=2=51=0|CS2_mirror*2*0*0*0*0*0*70*2*0*0*2*0*False*False*True*False*True*False*True*False*False*False*False*False*False*0*False|CS2_mirror*3*0*0*0*0*0*71*2*0*0*2*0*False*False*True*False*True*False*True*False*False*False*False*False*False*0*False~EX1_383*0*0*6*8*0*0*29*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*1*0*3*4*0*0*21*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*2*0*0*4*0*0*18*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_097*3*0*4*4*0*2*31*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_130*4*0*0*1*0*0*11*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~CS2_027~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:54:26] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:54:26] [SmartTracker_debug] Your opponent is playing TempoMage:Tempo
+[02:54:26] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:58:21 -- Board request received
+[02:54:26] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:58:21 -- Board request approved
+[02:54:26] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:58:21 -- HANDLE BOARD 
+[02:54:26] V37.3-[DEBUG]Calculation performed in : 00:00:00.0044325 using profile : Rush
+[02:54:26] V37.3-[DEBUG]Receiving action : Push*65*0*0*0*CS2_101*65*0*0*0*0*0*0,Resimulate*0*0*0*0*0*0*0*0*0*0*0*0,Attack*13*71*0*0*NEW1_019*13*CS2_mirror*71*2*3*2*0,Push*11*0*0*0*EX1_130*11*0*0*0*0*0*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:54:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Reinforce
+[02:54:26] V37.3-[DEBUG]Time to get results : 277.0162ms
+[02:54:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Resimulate] 
+[02:54:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Knife Juggler[3/2]->Mirror Image[0/2]
+[02:54:26] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Noble Sacrifice
+[02:54:26] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:54:26] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:54:26] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:54:26] V37.3-[DEBUG]Hero power last count : 0
+[02:54:26] --> [Play] Reinforce
+[02:54:31] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:54:32] --> [Resimulate] 
+[02:54:32] V37.3-[DEBUG]BattleProcesser : Simulate()
+[02:54:32] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:54:32] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:54:32] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:54:32] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:54:32] V37.3-[DEBUG]Board : 3~1~1~0~0~24~24~0~False~3~False~4~0~0~HERO_04*-1*0*0*0*2*0*64*30*0*3*28*0*False*False*False*False*False*False*False*False*False*False*False*False*False*3*False~HERO_08*-1*0*0*0*0*0*66*30*0*2*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False~CS2_101*-1*0*0*2*0*0*65*0*0*3*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~CS2_034*-1*0*0*2*0*0*67*0*0*2*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False~NEW1_019*0*0*3*2*0*0*13*2*0*1*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False|CS2_101t*1*0*1*1*0*0*72*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~EX1_608*0*0*3*2*0*0*59*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|NEW1_012*1*0*2*1*0*0*51*3*0*1*3*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False*NEW1_012o=2=51=0|CS2_mirror*2*0*0*0*1*0*70*2*0*0*1*0*False*False*True*False*True*False*True*False*False*False*False*False*False*0*False|CS2_mirror*3*0*0*0*0*0*71*2*0*0*2*0*False*False*True*False*True*False*True*False*False*False*False*False*False*0*False~EX1_383*0*0*6*8*0*0*29*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*1*0*3*4*0*0*21*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*2*0*0*4*0*0*18*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_097*3*0*4*4*0*2*31*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_130*4*0*0*1*0*0*11*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~CS2_027~0~False=False=False=False=False=False~0~0~1~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:54:32] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:54:32] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:58:28 -- Board request received
+[02:54:32] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:58:28 -- Board request approved
+[02:54:32] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:58:28 -- HANDLE BOARD 
+[02:54:32] V37.3-[DEBUG]Calculation performed in : 00:00:00.0031698 using profile : Rush
+[02:54:32] V37.3-[DEBUG]Receiving action : Attack*13*71*0*0*NEW1_019*13*CS2_mirror*71*2*3*2*0,Push*11*0*0*0*EX1_130*11*0*0*0*0*0*0,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:54:32] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Knife Juggler[3/2]->Mirror Image[0/2]
+[02:54:32] V37.3-[DEBUG]Time to get results : 259.0147ms
+[02:54:32] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Noble Sacrifice
+[02:54:32] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:54:32] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:54:32] --> [Waiting] 
+[02:54:32] Started PlaySequence routine
+[02:54:32] Play sequence : [Attack] Knife Juggler[3/2]->Mirror Image[0/2]
+[02:54:33] Play sequence : [Play] Noble Sacrifice
+[02:54:34] Play sequence : [EndTurn] 
+[02:54:36] V37.3-[DEBUG]BattleProcesser : NextTurn()
+[02:55:36]  
+[02:55:36] <-------New Turn-------->
+[02:55:36]  
+[02:55:39] V37.3-[DEBUG]BattleProcesser : GetNextAction()
+[02:55:39] V37.3-[DEBUG]BattleProcesser : Pause()
+[02:55:39] V37.3-[DEBUG]BattleProcesser : Calculate() - BoardCalculationRequest sent 
+[02:55:39] V37.3-[DEBUG]Settings - Ranked - Midrange - Rush.cs
+[02:55:39] V37.3-[DEBUG]Board : 4~4~1~0~0~23~21~0~False~4~False~3~0~0~HERO_04*-1*0*0*0*6*0*64*30*0*4*24*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~HERO_08*-1*0*0*0*0*0*66*30*0*3*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~CS2_101*-1*0*0*2*0*0*65*0*0*4*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~CS2_034*-1*0*0*2*0*0*67*0*0*3*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~CS2_101t*0*0*1*1*0*0*72*1*0*1*1*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~FP1_004*0*0*2*2*0*0*62*2*0*0*2*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|EX1_608*1*0*3*2*0*0*59*2*0*1*2*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False|NEW1_012*2*0*5*1*2*0*51*3*0*2*1*0*False*False*False*False*True*False*False*False*False*False*False*False*False*2*False*NEW1_012o=2=51=0~EX1_383*0*0*6*8*0*0*29*6*0*0*6*0*False*True*True*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*1*0*3*4*0*0*21*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*2*0*0*4*0*0*18*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_097*3*0*4*4*0*2*31*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_110*4*0*7*7*0*0*9*7*0*0*7*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~EX1_130|EX1_130a|NEW1_019~0~CS2_027|CS2_mirror|CS2_023|GAME_005|CS2_mirror|EX1_277~0~False=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_058,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,EX1_298,EX1_383,GVG_110,LOE_017,LOE_017,CS2_092,CS2_092~0~0~
+[02:55:39] V37.3-[DEBUG]params : {"BaseProfile":1,"GlobalAggroModifier":{"Target":600,"_value":100},"GlobalDefenseModifier":{"Target":600,"_value":100},"GlobalDrawModifier":{"Target":600,"_value":100},"GlobalMinionsModifier":{"Target":600,"_value":100},"GlobalSpellsModifier":{"Target":600,"_value":100},"GlobalWeaponsModifier":{"Target":600,"_value":100},"HeroPowerModifer":{"Rules":[],"RulesTargets":[]},"MinionsModifiers":{"Rules":[],"RulesTargets":[]},"SpellsModifiers":{"Rules":[],"RulesTargets":[]},"WeaponsModifiers":{"Rules":[],"RulesTargets":[]}}
+[02:55:39] [SmartTracker_debug] Your opponent is playing TempoMage:Tempo
+[02:55:39] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:59:35 -- Board request received
+[02:55:39] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:59:35 -- Board request approved
+[02:55:39] V37.3-[DEBUG][AUTH] ===== 08/04/2016 08:59:35 -- HANDLE BOARD 
+[02:55:39] V37.3-[DEBUG]Calculation performed in : 00:00:00.0569266 using profile : Rush
+[02:55:39] V37.3-[DEBUG]Receiving action : Attack*72*51*0*0*CS2_101t*72*NEW1_012*51*1*1*1*5,Push*31*0*0*0*CS2_097*31*0*0*2*4*0*0,Attack*64*59*0*0*CS2_097*10000*EX1_608*59*2*4*2*3,End*0*0*0*0*0*0*0*0*0*0*0*0
+[02:55:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Silver Hand Recruit[1/1]->Mana Wyrm[5/1]
+[02:55:39] V37.3-[DEBUG]Time to get results : 259.2666ms
+[02:55:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Play] Truesilver Champion[4/2](Pos :1)
+[02:55:39] V37.3-[DEBUG]BattleProcesser : AddAction()[Attack] Uther Lightbringer->Sorcerer's Apprentice[3/2]
+[02:55:39] V37.3-[DEBUG]BattleProcesser : AddAction()[EndTurn] 
+[02:55:39] V37.3-[DEBUG]BattleProcesser : SendActionStack()
+[02:55:40] Started PlaySequence routine
+[02:55:40] Play sequence : [Attack] Silver Hand Recruit[1/1]->Mana Wyrm[5/1]
+[02:55:41] Play sequence : [Play] Truesilver Champion[4/2](Pos :1)

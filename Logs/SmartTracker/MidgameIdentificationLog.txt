@@ -10942,3 +10942,879 @@
 [SmartTracker_debug] Cards.Velen'sChosen, Cards.NorthshireCleric, Cards.PowerWord:Shield, Cards.NorthshireCleric, Cards.ZombieChow, Cards.MuseumCurator, Cards.ShadowWord:Death, Cards.Entomb, Cards.CabalShadowPriest, Cards.MuseumCurator, Cards.HolyNova, Cards.PilotedShredder, Cards.ShadowWord:Pain, Cards.FallenHero, Cards.Velen'sChosen, Cards.HauntedCreeper, Cards.Deathlord, Cards.WobblingRunts, Cards.JusticarTrueheart, 
 [SmartTracker_debug] Cards.LeperGnome, Cards.TunnelTrogg, 
 [SmartTracker_debug] New signature detected in your opponent decks Unknown => FaceShaman
+[SmartTracker_debug] Cards.AncestralKnowledge, Cards.LeperGnome, Cards.TunnelTrogg, 
+[SmartTracker_debug] Cards.AncestralKnowledge, Cards.LeperGnome, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.EarthShock, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.AncestralKnowledge, Cards.LeperGnome, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.EarthShock, Cards.ArgentHorserider, Cards.LavaBurst, Cards.LavaShock, 
+[SmartTracker_debug] Cards.AncestralKnowledge, Cards.LeperGnome, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.EarthShock, Cards.ArgentHorserider, Cards.LavaBurst, Cards.LavaShock, 
+[SmartTracker_debug] Cards.AncestralKnowledge, Cards.LeperGnome, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.EarthShock, Cards.ArgentHorserider, Cards.LavaBurst, Cards.LavaShock, Cards.ElementalDestruction, 
+[SmartTracker_debug] Cards.AncestralKnowledge, Cards.LeperGnome, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.EarthShock, Cards.ArgentHorserider, Cards.LavaBurst, Cards.LavaShock, Cards.ElementalDestruction, 
+[SmartTracker_debug] Cards.AncestralKnowledge, Cards.LeperGnome, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.EarthShock, Cards.ArgentHorserider, Cards.LavaBurst, Cards.LavaShock, Cards.ElementalDestruction, Cards.Crackle, 
+[SmartTracker_debug] Cards.AncestralKnowledge, Cards.LeperGnome, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.EarthShock, Cards.ArgentHorserider, Cards.LavaBurst, Cards.LavaShock, Cards.ElementalDestruction, Cards.Crackle, 
+[SmartTracker_debug] Cards.AbusiveSergeant, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.MadScientist, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => MidRangeHunter
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.UnleashtheHounds, Cards.MadScientist, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.UnleashtheHounds, Cards.PilotedShredder, Cards.MadScientist, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.UnleashtheHounds, Cards.PilotedShredder, Cards.JeweledScarab, Cards.AnimalCompanion, Cards.MadScientist, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.UnleashtheHounds, Cards.PilotedShredder, Cards.JeweledScarab, Cards.AnimalCompanion, Cards.MadScientist, Cards.AbusiveSergeant, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.UnleashtheHounds, Cards.PilotedShredder, Cards.JeweledScarab, Cards.AnimalCompanion, Cards.MadScientist, Cards.ArgentHorserider, Cards.AbusiveSergeant, Cards.ExplosiveTrap, Cards.KnifeJuggler, Cards.IronbeakOwl, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeHunter => FaceHunter
+[SmartTracker_debug] Cards.AbusiveSergeant, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.AbusiveSergeant, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.Glaivezooka, Cards.AnimalCompanion, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => MidRangeHunter
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.Glaivezooka, Cards.AnimalCompanion, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.Glaivezooka, Cards.AnimalCompanion, Cards.ExplosiveTrap, Cards.UnleashtheHounds, Cards.QuickShot, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeHunter => FaceHunter
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.Glaivezooka, Cards.AnimalCompanion, Cards.ExplosiveTrap, Cards.UnleashtheHounds, Cards.QuickShot, Cards.UnleashtheHounds, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.Glaivezooka, Cards.AnimalCompanion, Cards.ExplosiveTrap, Cards.UnleashtheHounds, Cards.QuickShot, Cards.UnleashtheHounds, Cards.LeeroyJenkins, Cards.HauntedCreeper, Cards.MadScientist, 
+[SmartTracker_debug] Cards.KnifeJuggler, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks SecretPaladin => MidRangePaladin
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.BlessingofKings, Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangePaladin => SecretPaladin
+[SmartTracker_debug] Cards.UnstableGhoul, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.Whirlwind, 
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.Whirlwind, Cards.DreadCorsair, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => FaceWarrior
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.Whirlwind, Cards.DreadCorsair, Cards.ShieldBlock, Cards.Slam, 
+[SmartTracker_debug] New signature detected in your opponent decks FaceWarrior => ControlWarrior
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.Whirlwind, Cards.DreadCorsair, Cards.ShieldBlock, Cards.Slam, Cards.InnerRage, Cards.InnerRage, Cards.GrimPatron, Cards.GrimPatron, Cards.GrimPatron, 
+[SmartTracker_debug] New signature detected in your opponent decks ControlWarrior => PatronWarrior
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.Whirlwind, Cards.DreadCorsair, Cards.ShieldBlock, Cards.Slam, Cards.InnerRage, Cards.InnerRage, Cards.GrimPatron, Cards.GrimPatron, Cards.BattleRage, Cards.BattleRage, Cards.GrimPatron, Cards.Armorsmith, 
+[SmartTracker_debug] Cards.Secretkeeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.CompetitiveSpirit, Cards.Consecration, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.CompetitiveSpirit, Cards.Consecration, Cards.Secretkeeper, Cards.ShieldedMinibot, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.CompetitiveSpirit, Cards.Consecration, Cards.Secretkeeper, Cards.Secretkeeper, Cards.BlessingofKings, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.CompetitiveSpirit, Cards.Consecration, Cards.Secretkeeper, Cards.Secretkeeper, Cards.BlessingofKings, Cards.ShieldedMinibot, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.CompetitiveSpirit, Cards.Consecration, Cards.Secretkeeper, Cards.Secretkeeper, Cards.BlessingofKings, Cards.ShieldedMinibot, Cards.NobleSacrifice, Cards.Avenge, Cards.Redemption, Cards.MysteriousChallenger, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.CompetitiveSpirit, Cards.Consecration, Cards.Secretkeeper, Cards.Secretkeeper, Cards.BlessingofKings, Cards.ShieldedMinibot, Cards.NobleSacrifice, Cards.Avenge, Cards.Redemption, Cards.MysteriousChallenger, Cards.Dr.Boom, Cards.KnifeJuggler, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.NorthshireCleric, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.NorthshireCleric, 
+[SmartTracker_debug] Cards.ShadowWord:Pain, Cards.NorthshireCleric, 
+[SmartTracker_debug] Cards.ShadowWord:Pain, Cards.NorthshireCleric, Cards.BlackwingCorruptor, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => DragonPriest
+[SmartTracker_debug] Cards.ShadowWord:Pain, Cards.NorthshireCleric, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, 
+[SmartTracker_debug] Cards.ShadowWord:Pain, Cards.NorthshireCleric, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.CabalShadowPriest, Cards.GilblinStalker, 
+[SmartTracker_debug] Cards.ShadowWord:Pain, Cards.NorthshireCleric, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.HolyNova, Cards.GilblinStalker, Cards.CabalShadowPriest, Cards.HolySmite, Cards.TwilightWhelp, 
+[SmartTracker_debug] Cards.ShadowWord:Pain, Cards.NorthshireCleric, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.HolyNova, Cards.GilblinStalker, Cards.CabalShadowPriest, Cards.HolySmite, Cards.Lightbomb, Cards.TwilightWhelp, 
+[SmartTracker_debug] Cards.KnifeJuggler, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.HauntedCreeper, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.KnifeJuggler, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.KnifeJuggler, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.SludgeBelcher, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.KnifeJuggler, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, Cards.SludgeBelcher, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.KnifeJuggler, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, Cards.SludgeBelcher, Cards.CompetitiveSpirit, Cards.HauntedCreeper, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.KnifeJuggler, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, Cards.SludgeBelcher, Cards.CompetitiveSpirit, Cards.HauntedCreeper, Cards.RagnarostheFirelord, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.KnifeJuggler, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, Cards.SludgeBelcher, Cards.CompetitiveSpirit, Cards.HauntedCreeper, Cards.KeeperofUldaman, Cards.RagnarostheFirelord, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.Secretkeeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.Secretkeeper, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.MusterforBattle, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.MusterforBattle, Cards.Avenge, Cards.BlessingofKings, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.MusterforBattle, Cards.Avenge, Cards.BlessingofKings, Cards.ShieldedMinibot, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.MusterforBattle, Cards.Avenge, Cards.BlessingofKings, Cards.ShieldedMinibot, Cards.NobleSacrifice, Cards.KnifeJuggler, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.MusterforBattle, Cards.Avenge, Cards.BlessingofKings, Cards.ShieldedMinibot, Cards.NobleSacrifice, Cards.KnifeJuggler, Cards.NobleSacrifice, Cards.SludgeBelcher, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.Secretkeeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.Secretkeeper, Cards.MusterforBattle, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.Secretkeeper, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.Secretkeeper, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.PilotedShredder, Cards.Annoy-o-Tron, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.Secretkeeper, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.PilotedShredder, Cards.Annoy-o-Tron, Cards.Avenge, Cards.Light'sJustice, Cards.KeeperofUldaman, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.Secretkeeper, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.PilotedShredder, Cards.Annoy-o-Tron, Cards.Avenge, Cards.Light'sJustice, Cards.SludgeBelcher, Cards.CompetitiveSpirit, Cards.DivineFavor, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.Secretkeeper, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.PilotedShredder, Cards.Annoy-o-Tron, Cards.Avenge, Cards.Light'sJustice, Cards.SludgeBelcher, Cards.CompetitiveSpirit, Cards.DivineFavor, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.Secretkeeper, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.PilotedShredder, Cards.Annoy-o-Tron, Cards.Avenge, Cards.Light'sJustice, Cards.SludgeBelcher, Cards.CompetitiveSpirit, Cards.DivineFavor, Cards.KeeperofUldaman, Cards.TruesilverChampion, 
+[SmartTracker_debug] Cards.Wrath, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeDruid
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.AzureDrake, Cards.LivingRoots, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.AzureDrake, Cards.LivingRoots, Cards.WildGrowth, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.AzureDrake, Cards.LivingRoots, Cards.WildGrowth, Cards.SylvanasWindrunner, 
+[SmartTracker_debug] Cards.DarkPeddler, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.DarkPeddler, Cards.FlameImp, Cards.Voidwalker, 
+[SmartTracker_debug] Cards.FlameImp, Cards.ImpGangBoss, Cards.DarkPeddler, Cards.Voidwalker, 
+[SmartTracker_debug] Cards.FlameImp, Cards.DarkPeddler, Cards.Voidwalker, Cards.ImpGangBoss, Cards.DireWolfAlpha, 
+[SmartTracker_debug] Cards.FlameImp, Cards.DarkPeddler, Cards.Voidwalker, Cards.DireWolfAlpha, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.FlameImp, Cards.DarkPeddler, Cards.Voidwalker, Cards.DireWolfAlpha, Cards.ImpGangBoss, Cards.Imp-losion, Cards.IronbeakOwl, 
+[SmartTracker_debug] Cards.FlameImp, Cards.DarkPeddler, Cards.Voidwalker, Cards.DireWolfAlpha, Cards.ImpGangBoss, Cards.Imp-losion, Cards.PowerOverwhelming, Cards.IronbeakOwl, Cards.GormoktheImpaler, Cards.SeaGiant, Cards.FlameImp, 
+[SmartTracker_debug] Cards.FlameImp, Cards.DarkPeddler, Cards.Voidwalker, Cards.DireWolfAlpha, Cards.ImpGangBoss, Cards.Imp-losion, Cards.PowerOverwhelming, Cards.IronbeakOwl, Cards.GormoktheImpaler, Cards.Enhance-oMechano, Cards.SeaGiant, Cards.DefenderofArgus, Cards.FlameImp, 
+[SmartTracker_debug] Cards.FlameImp, Cards.DarkPeddler, Cards.Voidwalker, Cards.DireWolfAlpha, Cards.ImpGangBoss, Cards.Imp-losion, Cards.PowerOverwhelming, Cards.IronbeakOwl, Cards.GormoktheImpaler, Cards.FlameImp, Cards.Enhance-oMechano, Cards.Dr.Boom, Cards.NerubianEgg, Cards.SeaGiant, Cards.DefenderofArgus, 
+[SmartTracker_debug] Cards.FlameImp, Cards.DarkPeddler, Cards.Voidwalker, Cards.DireWolfAlpha, Cards.ImpGangBoss, Cards.Imp-losion, Cards.PowerOverwhelming, Cards.IronbeakOwl, Cards.GormoktheImpaler, Cards.FlameImp, Cards.Enhance-oMechano, Cards.SeaGiant, Cards.DefenderofArgus, Cards.Imp-losion, Cards.Dr.Boom, Cards.NerubianEgg, Cards.AbusiveSergeant, 
+[SmartTracker_debug] Cards.MurlocWarleader, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => AnyfinMurglMurgl
+[SmartTracker_debug] Cards.MurlocWarleader, 
+[SmartTracker_debug] Cards.MurlocWarleader, Cards.HammerofWrath, 
+[SmartTracker_debug] New signature detected in your opponent decks AnyfinMurglMurgl => Basic
+[SmartTracker_debug] Cards.MurlocWarleader, Cards.HammerofWrath, Cards.AntiqueHealbot, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => AnyfinMurglMurgl
+[SmartTracker_debug] Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangePaladin
+[SmartTracker_debug] Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.BluegillWarrior, Cards.BluegillWarrior, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangePaladin => AnyfinMurglMurgl
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.BluegillWarrior, Cards.BluegillWarrior, Cards.OldMurk-Eye, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.BluegillWarrior, Cards.BluegillWarrior, Cards.Light'sJustice, Cards.OldMurk-Eye, Cards.AntiqueHealbot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.BluegillWarrior, Cards.BluegillWarrior, Cards.Light'sJustice, Cards.AntiqueHealbot, Cards.OldMurk-Eye, Cards.AldorPeacekeeper, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.BluegillWarrior, Cards.BluegillWarrior, Cards.Light'sJustice, Cards.AntiqueHealbot, Cards.AldorPeacekeeper, Cards.OldMurk-Eye, Cards.LayonHands, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.BluegillWarrior, Cards.BluegillWarrior, Cards.Light'sJustice, Cards.AntiqueHealbot, Cards.AldorPeacekeeper, Cards.OldMurk-Eye, Cards.LayonHands, Cards.TruesilverChampion, Cards.Equality, Cards.Consecration, Cards.SolemnVigil, Cards.WildPyromancer, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.BluegillWarrior, Cards.BluegillWarrior, Cards.Light'sJustice, Cards.AntiqueHealbot, Cards.AldorPeacekeeper, Cards.OldMurk-Eye, Cards.LayonHands, Cards.TruesilverChampion, Cards.Equality, Cards.Consecration, Cards.SolemnVigil, Cards.WildPyromancer, Cards.AnyfinCanHappen, Cards.BluegillWarrior, Cards.OldMurk-Eye, Cards.BluegillWarrior, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.BluegillWarrior, Cards.BluegillWarrior, Cards.Light'sJustice, Cards.AntiqueHealbot, Cards.AldorPeacekeeper, Cards.OldMurk-Eye, Cards.LayonHands, Cards.TruesilverChampion, Cards.Equality, Cards.Consecration, Cards.SolemnVigil, Cards.WildPyromancer, Cards.AnyfinCanHappen, Cards.BluegillWarrior, Cards.OldMurk-Eye, Cards.BluegillWarrior, Cards.MurlocWarleader, Cards.KeeperofUldaman, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Armorsmith, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => ControlWarrior
+[SmartTracker_debug] Cards.Armorsmith, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.Armorsmith, Cards.CruelTaskmaster, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.BattleRage, Cards.CruelTaskmaster, Cards.FrothingBerserker, Cards.Armorsmith, 
+[SmartTracker_debug] New signature detected in your opponent decks ControlWarrior => PatronWarrior
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.BattleRage, Cards.CruelTaskmaster, Cards.FrothingBerserker, Cards.InnerRage, Cards.InnerRage, Cards.Armorsmith, Cards.GrimPatron, Cards.GrimPatron, Cards.GrimPatron, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.BattleRage, Cards.CruelTaskmaster, Cards.FrothingBerserker, Cards.InnerRage, Cards.InnerRage, Cards.Armorsmith, Cards.GrimPatron, Cards.GrimPatron, Cards.Execute, Cards.GrimPatron, Cards.GrimPatron, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.BattleRage, Cards.CruelTaskmaster, Cards.FrothingBerserker, Cards.InnerRage, Cards.InnerRage, Cards.Armorsmith, Cards.GrimPatron, Cards.GrimPatron, Cards.Execute, Cards.GrimPatron, Cards.GrimPatron, Cards.Execute, Cards.Loatheb, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.BattleRage, Cards.CruelTaskmaster, Cards.FrothingBerserker, Cards.InnerRage, Cards.InnerRage, Cards.Armorsmith, Cards.GrimPatron, Cards.GrimPatron, Cards.Execute, Cards.GrimPatron, Cards.GrimPatron, Cards.Execute, Cards.PilotedShredder, Cards.UnstableGhoul, Cards.Loatheb, Cards.DarkPeddler, 
+[SmartTracker_debug] Cards.HauntedCreeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => SecretPaladin
+[SmartTracker_debug] Cards.MusterforBattle, Cards.HauntedCreeper, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.Avenge, Cards.PilotedShredder, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.Avenge, Cards.ShieldedMinibot, Cards.PilotedShredder, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.LeperGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => OilRogue
+[SmartTracker_debug] Cards.Backstab, Cards.LeperGnome, Cards.NerubianEgg, 
+[SmartTracker_debug] New signature detected in your opponent decks OilRogue => FaceRogue
+[SmartTracker_debug] Cards.Backstab, Cards.Sap, Cards.LeperGnome, Cards.NerubianEgg, 
+[SmartTracker_debug] Cards.Backstab, Cards.Sap, Cards.LeperGnome, Cards.DefenderofArgus, Cards.NerubianEgg, 
+[SmartTracker_debug] Cards.Backstab, Cards.Sap, Cards.LeperGnome, Cards.DefenderofArgus, Cards.NerubianEgg, 
+[SmartTracker_debug] Cards.Backstab, Cards.Sap, Cards.LeperGnome, Cards.DefenderofArgus, Cards.FanofKnives, Cards.NerubianEgg, Cards.LeperGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks FaceRogue => Basic
+[SmartTracker_debug] Cards.Backstab, Cards.Sap, Cards.LeperGnome, Cards.DefenderofArgus, Cards.FanofKnives, Cards.NerubianEgg, Cards.LeperGnome, Cards.SylvanasWindrunner, 
+[SmartTracker_debug] Cards.HauntedCreeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeHunter
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.MadScientist, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.MadScientist, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.MadScientist, Cards.ExplosiveTrap, Cards.KnifeJuggler, Cards.HauntedCreeper, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeHunter => FaceHunter
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.MadScientist, Cards.ExplosiveTrap, Cards.KnifeJuggler, Cards.SnakeTrap, Cards.HauntedCreeper, Cards.AnimalCompanion, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.MadScientist, Cards.ExplosiveTrap, Cards.KnifeJuggler, Cards.SnakeTrap, Cards.HauntedCreeper, Cards.AnimalCompanion, Cards.Wolfrider, 
+[SmartTracker_debug] Cards.AbusiveSergeant, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.HauntedCreeper, Cards.IronbeakOwl, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.IronbeakOwl, Cards.PowerOverwhelming, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.IronbeakOwl, Cards.PowerOverwhelming, Cards.KnifeJuggler, Cards.Imp-losion, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.IronbeakOwl, Cards.PowerOverwhelming, Cards.KnifeJuggler, Cards.Imp-losion, Cards.Imp-losion, Cards.Voidwalker, Cards.NerubianEgg, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.IronbeakOwl, Cards.PowerOverwhelming, Cards.KnifeJuggler, Cards.Imp-losion, Cards.Imp-losion, Cards.Voidwalker, Cards.DefenderofArgus, Cards.NerubianEgg, Cards.SeaGiant, 
+[SmartTracker_debug] Cards.ZombieChow, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => ControlPriest
+[SmartTracker_debug] Cards.ZombieChow, Cards.MuseumCurator, 
+[SmartTracker_debug] Cards.ZombieChow, Cards.MuseumCurator, Cards.NorthshireCleric, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.ZombieChow, Cards.Deathlord, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.ZombieChow, Cards.Deathlord, Cards.NorthshireCleric, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.ZombieChow, Cards.Deathlord, Cards.NorthshireCleric, Cards.AnubisathSentinel, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.CircleofHealing, Cards.AuchenaiSoulpriest, Cards.ShieldedMinibot, Cards.CabalShadowPriest, Cards.Shadowboxer, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.CircleofHealing, Cards.AuchenaiSoulpriest, Cards.FlashHeal, Cards.ShieldedMinibot, Cards.Shadowboxer, Cards.CabalShadowPriest, Cards.Nexus-ChampionSaraad, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.CircleofHealing, Cards.AuchenaiSoulpriest, Cards.FlashHeal, Cards.ShieldedMinibot, Cards.Shadowboxer, Cards.CabalShadowPriest, Cards.Nexus-ChampionSaraad, Cards.CobraShot, Cards.EliseStarseeker, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.CircleofHealing, Cards.AuchenaiSoulpriest, Cards.FlashHeal, Cards.ShieldedMinibot, Cards.Shadowboxer, Cards.CabalShadowPriest, Cards.Nexus-ChampionSaraad, Cards.CobraShot, Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.CircleofHealing, Cards.AuchenaiSoulpriest, Cards.FlashHeal, Cards.ShieldedMinibot, Cards.Shadowboxer, Cards.CabalShadowPriest, Cards.Nexus-ChampionSaraad, Cards.CobraShot, Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.Deathlord, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.CircleofHealing, Cards.AuchenaiSoulpriest, Cards.FlashHeal, Cards.ShieldedMinibot, Cards.Shadowboxer, Cards.CabalShadowPriest, Cards.Nexus-ChampionSaraad, Cards.CobraShot, Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.ShadowWord:Pain, Cards.Deathlord, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.CircleofHealing, Cards.AuchenaiSoulpriest, Cards.FlashHeal, Cards.ShieldedMinibot, Cards.Shadowboxer, Cards.CabalShadowPriest, Cards.Nexus-ChampionSaraad, Cards.CobraShot, Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.ShadowWord:Pain, Cards.Deathlord, Cards.RagnarostheFirelord, 
+[SmartTracker_debug] Cards.NorthshireCleric, Cards.MuseumCurator, Cards.PowerWord:Shield, Cards.HolyNova, Cards.PowerWord:Shield, Cards.Deathlord, Cards.Lightbomb, Cards.ZombieChow, Cards.AnubisathSentinel, Cards.NorthshireCleric, Cards.Entomb, Cards.Velen'sChosen, Cards.CabalShadowPriest, Cards.CircleofHealing, Cards.AuchenaiSoulpriest, Cards.FlashHeal, Cards.ShieldedMinibot, Cards.Shadowboxer, Cards.CabalShadowPriest, Cards.Nexus-ChampionSaraad, Cards.CobraShot, Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.ShadowWord:Pain, Cards.Velen'sChosen, Cards.Deathlord, Cards.RagnarostheFirelord, Cards.MuseumCurator, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangePaladin
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.Secretkeeper, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangePaladin => SecretPaladin
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.ShieldedMinibot, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.TruesilverChampion, Cards.ShieldedMinibot, Cards.Secretkeeper, Cards.PilotedShredder, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.TruesilverChampion, Cards.ShieldedMinibot, Cards.Secretkeeper, Cards.Secretkeeper, Cards.PilotedShredder, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Redemption, Cards.TruesilverChampion, Cards.ShieldedMinibot, Cards.Secretkeeper, Cards.Secretkeeper, Cards.NobleSacrifice, Cards.Avenge, Cards.CompetitiveSpirit, Cards.PilotedShredder, Cards.MysteriousChallenger, Cards.Loatheb, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.EliseStarseeker, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => ControlPriest
+[SmartTracker_debug] Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, 
+[SmartTracker_debug] Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.Velen'sChosen, Cards.ZombieChow, 
+[SmartTracker_debug] Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.Velen'sChosen, Cards.HolyNova, Cards.ZombieChow, 
+[SmartTracker_debug] Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.Velen'sChosen, Cards.HolyNova, Cards.ZombieChow, Cards.MuseumCurator, Cards.DarkCultist, 
+[SmartTracker_debug] Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.Velen'sChosen, Cards.HolyNova, Cards.MuseumCurator, Cards.DarkCultist, Cards.ZombieChow, Cards.WildPyromancer, 
+[SmartTracker_debug] Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.Velen'sChosen, Cards.HolyNova, Cards.MuseumCurator, Cards.DarkCultist, Cards.WildPyromancer, Cards.Entomb, Cards.ZombieChow, 
+[SmartTracker_debug] Cards.CircleofHealing, Cards.EliseStarseeker, Cards.AuchenaiSoulpriest, Cards.Velen'sChosen, Cards.HolyNova, Cards.MuseumCurator, Cards.DarkCultist, Cards.WildPyromancer, Cards.Entomb, Cards.ZombieChow, Cards.TirionFordring, 
+[SmartTracker_debug] Cards.KnifeJuggler, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.UnleashtheHounds, Cards.ArgentHorserider, Cards.LeperGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => FaceHunter
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.UnleashtheHounds, Cards.ArgentHorserider, Cards.KillCommand, Cards.LeperGnome, 
+[SmartTracker_debug] Cards.EarthenRingFarseer, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.Darkbomb, Cards.DarkPeddler, Cards.EarthenRingFarseer, 
+[SmartTracker_debug] Cards.Darkbomb, Cards.EarthenRingFarseer, Cards.DarkPeddler, Cards.Feugen, 
+[SmartTracker_debug] Cards.Darkbomb, Cards.EarthenRingFarseer, Cards.DarkPeddler, Cards.IronbeakOwl, Cards.TwilightDrake, Cards.Feugen, 
+[SmartTracker_debug] New signature detected in your opponent decks Zoolock => Handlock
+[SmartTracker_debug] Cards.Darkbomb, Cards.EarthenRingFarseer, Cards.DarkPeddler, Cards.IronbeakOwl, Cards.SylvanasWindrunner, Cards.TwilightDrake, Cards.Feugen, 
+[SmartTracker_debug] Cards.Darkbomb, Cards.EarthenRingFarseer, Cards.DarkPeddler, Cards.IronbeakOwl, Cards.Feugen, Cards.MortalCoil, Cards.SylvanasWindrunner, Cards.TwilightDrake, Cards.DefenderofArgus, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.Darkbomb, Cards.EarthenRingFarseer, Cards.DarkPeddler, Cards.IronbeakOwl, Cards.Feugen, Cards.MortalCoil, Cards.SylvanasWindrunner, Cards.TwilightDrake, Cards.DefenderofArgus, Cards.MysteriousChallenger, Cards.Shadowflame, Cards.AntiqueHealbot, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.Darkbomb, Cards.EarthenRingFarseer, Cards.DarkPeddler, Cards.IronbeakOwl, Cards.Feugen, Cards.MortalCoil, Cards.SylvanasWindrunner, Cards.TwilightDrake, Cards.DefenderofArgus, Cards.MysteriousChallenger, Cards.Shadowflame, Cards.AntiqueHealbot, Cards.SiphonSoul, Cards.MortalCoil, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.Darkbomb, Cards.EarthenRingFarseer, Cards.DarkPeddler, Cards.IronbeakOwl, Cards.Feugen, Cards.MortalCoil, Cards.SylvanasWindrunner, Cards.TwilightDrake, Cards.DefenderofArgus, Cards.MysteriousChallenger, Cards.Shadowflame, Cards.AntiqueHealbot, Cards.SiphonSoul, Cards.MortalCoil, Cards.Dr.Boom, Cards.TwistingNether, 
+[SmartTracker_debug] Cards.Darkbomb, Cards.EarthenRingFarseer, Cards.DarkPeddler, Cards.IronbeakOwl, Cards.Feugen, Cards.MortalCoil, Cards.SylvanasWindrunner, Cards.TwilightDrake, Cards.DefenderofArgus, Cards.MysteriousChallenger, Cards.Shadowflame, Cards.AntiqueHealbot, Cards.SiphonSoul, Cards.MortalCoil, Cards.Dr.Boom, Cards.TwistingNether, Cards.Demonwrath, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.LivingRoots, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.LivingRoots, Cards.LivingRoots, Cards.WildGrowth, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => MidRangeDruid
+[SmartTracker_debug] Cards.LivingRoots, Cards.LivingRoots, Cards.WildGrowth, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.LivingRoots, Cards.WildGrowth, Cards.Innervate, Cards.Dr.Boom, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.LivingRoots, Cards.WildGrowth, Cards.Innervate, Cards.KeeperoftheGrove, Cards.Swipe, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.LivingRoots, Cards.WildGrowth, Cards.Innervate, Cards.KeeperoftheGrove, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.Secretkeeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.Secretkeeper, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, Cards.Redemption, Cards.Repentance, Cards.MusterforBattle, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.KnifeJuggler, Cards.ShieldedMinibot, Cards.Redemption, Cards.Repentance, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => ControlWarrior
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, Cards.ShieldBlock, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, Cards.ShieldBlock, Cards.Bash, Cards.Death'sBite, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, Cards.ShieldBlock, Cards.Bash, Cards.Death'sBite, Cards.AcolyteofPain, Cards.Brawl, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, Cards.ShieldBlock, Cards.Bash, Cards.Death'sBite, Cards.AcolyteofPain, Cards.Brawl, Cards.Execute, Cards.BigGameHunter, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, Cards.ShieldBlock, Cards.Bash, Cards.Death'sBite, Cards.AcolyteofPain, Cards.Brawl, Cards.Execute, Cards.BigGameHunter, Cards.Brawl, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, Cards.ShieldBlock, Cards.Bash, Cards.Death'sBite, Cards.AcolyteofPain, Cards.Brawl, Cards.Execute, Cards.BigGameHunter, Cards.Brawl, Cards.SludgeBelcher, Cards.FieryWarAxe, Cards.Bash, Cards.Execute, Cards.Shieldmaiden, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Armorsmith, Cards.AcolyteofPain, Cards.EliseStarseeker, Cards.ShieldBlock, Cards.Bash, Cards.Death'sBite, Cards.AcolyteofPain, Cards.Brawl, Cards.Execute, Cards.BigGameHunter, Cards.Brawl, Cards.SludgeBelcher, Cards.FieryWarAxe, Cards.Bash, Cards.Execute, Cards.Shieldmaiden, Cards.Toshley, 
+[SmartTracker_debug] Cards.DarnassusAspirant, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeDruid
+[SmartTracker_debug] Cards.DarnassusAspirant, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.DarnassusAspirant, Cards.KeeperoftheGrove, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.DarnassusAspirant, Cards.KeeperoftheGrove, Cards.PilotedShredder, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.DarnassusAspirant, Cards.ForceofNature, Cards.PilotedShredder, Cards.KeeperoftheGrove, Cards.BoneguardLieutenant, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.FlameImp, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.Voidwalker, Cards.DarkPeddler, Cards.FlameImp, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.DarkPeddler, Cards.FlameImp, Cards.FlameImp, Cards.FlameImp, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.DarkPeddler, Cards.FlameImp, Cards.FlameImp, Cards.FlameImp, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.DarkPeddler, Cards.FlameImp, Cards.FlameImp, Cards.FlameImp, Cards.PilotedShredder, Cards.IronbeakOwl, Cards.FrostwolfWarlord, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.DarkPeddler, Cards.FlameImp, Cards.FlameImp, Cards.FlameImp, Cards.PilotedShredder, Cards.IronbeakOwl, Cards.NerubianEgg, Cards.DefenderofArgus, Cards.FrostwolfWarlord, 
+[SmartTracker_debug] Cards.HauntedCreeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.DarkPeddler, Cards.GadgetzanJouster, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.GadgetzanJouster, Cards.DarkPeddler, Cards.AbusiveSergeant, Cards.BrannBronzebeard, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.GadgetzanJouster, Cards.AbusiveSergeant, Cards.DarkPeddler, Cards.BrannBronzebeard, Cards.DireWolfAlpha, Cards.SeaGiant, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.GadgetzanJouster, Cards.AbusiveSergeant, Cards.DarkPeddler, Cards.BrannBronzebeard, Cards.DireWolfAlpha, Cards.SeaGiant, Cards.NerubianEgg, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.KnifeJuggler, Cards.GadgetzanJouster, Cards.AbusiveSergeant, Cards.DarkPeddler, Cards.BrannBronzebeard, Cards.DireWolfAlpha, Cards.NerubianEgg, Cards.SeaGiant, Cards.ImpGangBoss, Cards.Loatheb, 
+[SmartTracker_debug] Cards.LeperGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.LeperGnome, Cards.QuickShot, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => MidRangeHunter
+[SmartTracker_debug] Cards.LeperGnome, Cards.QuickShot, Cards.MadScientist, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.QuickShot, Cards.MadScientist, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.QuickShot, Cards.MadScientist, Cards.ExplosiveTrap, Cards.Glaivezooka, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeHunter => FaceHunter
+[SmartTracker_debug] Cards.LeperGnome, Cards.QuickShot, Cards.MadScientist, Cards.ExplosiveTrap, Cards.Glaivezooka, Cards.UnleashtheHounds, Cards.LeperGnome, 
+[SmartTracker_debug] Cards.AbusiveSergeant, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FlameJuggler, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FlameJuggler, Cards.FlameJuggler, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FlameJuggler, Cards.KillCommand, Cards.KnifeJuggler, Cards.FlameJuggler, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => FaceHunter
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FlameJuggler, Cards.KillCommand, Cards.KnifeJuggler, Cards.FlameJuggler, Cards.MadScientist, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FlameJuggler, Cards.KillCommand, Cards.KnifeJuggler, Cards.FlameJuggler, Cards.UnleashtheHounds, Cards.MadScientist, Cards.KnifeJuggler, Cards.LeperGnome, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FlameJuggler, Cards.KillCommand, Cards.KnifeJuggler, Cards.FlameJuggler, Cards.UnleashtheHounds, Cards.MadScientist, Cards.SnakeTrap, Cards.KnifeJuggler, Cards.LeperGnome, Cards.UnleashtheHounds, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FlameJuggler, Cards.KillCommand, Cards.KnifeJuggler, Cards.FlameJuggler, Cards.UnleashtheHounds, Cards.MadScientist, Cards.SnakeTrap, Cards.KnifeJuggler, Cards.LeperGnome, Cards.UnleashtheHounds, Cards.ArgentHorserider, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.WildGrowth, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeDruid
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.AncientofLore, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.AncientofLore, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.EmperorThaurissan, Cards.AncientofLore, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.AncientofLore, Cards.EmperorThaurissan, Cards.PilotedShredder, Cards.DarnassusAspirant, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.AncientofLore, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.PilotedShredder, Cards.MarkoftheWild, Cards.MicroMachine, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.AncientofLore, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.PilotedShredder, Cards.MarkoftheWild, Cards.MicroMachine, Cards.ForceofNature, Cards.PilotedShredder, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.AncientofLore, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.PilotedShredder, Cards.MarkoftheWild, Cards.MicroMachine, Cards.ForceofNature, Cards.Dr.Boom, Cards.WildGrowth, Cards.PilotedShredder, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.AncientofLore, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.PilotedShredder, Cards.MarkoftheWild, Cards.MicroMachine, Cards.ForceofNature, Cards.Dr.Boom, Cards.WildGrowth, Cards.PilotedShredder, Cards.JeweledScarab, Cards.KeeperoftheGrove, Cards.BigGameHunter, Cards.AncientofLore, 
+[SmartTracker_debug] Cards.SavageRoar, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.SavageRoar, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.SavageRoar, Cards.PilotedShredder, Cards.Swipe, Cards.Annoy-o-Tron, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => MechDruid
+[SmartTracker_debug] Cards.SavageRoar, Cards.PilotedShredder, Cards.Swipe, Cards.Annoy-o-Tron, 
+[SmartTracker_debug] Cards.SavageRoar, Cards.PilotedShredder, Cards.Swipe, Cards.Annoy-o-Tron, Cards.AncientofLore, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.LeperGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.LeperGnome, Cards.LeperGnome, Cards.SirFinleyMrrgglton, Cards.ArgentSquire, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.LeperGnome, Cards.ArgentSquire, Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.LeperGnome, Cards.ArgentSquire, Cards.SirFinleyMrrgglton, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.LeperGnome, Cards.ArgentSquire, Cards.SirFinleyMrrgglton, Cards.BlessingofKings, Cards.Coghammer, Cards.KeeperofUldaman, Cards.AbusiveSergeant, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => AggroPaladin
+[SmartTracker_debug] Cards.LeperGnome, Cards.LeperGnome, Cards.ArgentSquire, Cards.SirFinleyMrrgglton, Cards.BlessingofKings, Cards.Coghammer, Cards.KeeperofUldaman, Cards.AbusiveSergeant, Cards.KnifeJuggler, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.WildGrowth, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeDruid
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.AncientofLore, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.AncientofLore, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.AncientofLore, Cards.PilotedShredder, Cards.MistressofPain, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.AncientofLore, Cards.PilotedShredder, Cards.MistressofPain, Cards.Swipe, Cards.Innervate, Cards.KeeperoftheGrove, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.AncientofLore, Cards.PilotedShredder, Cards.MistressofPain, Cards.Swipe, Cards.Innervate, Cards.KeeperoftheGrove, Cards.Dr.Boom, Cards.EmperorThaurissan, 
+[SmartTracker_debug] Cards.WildGrowth, Cards.Innervate, Cards.AncientofLore, Cards.PilotedShredder, Cards.MistressofPain, Cards.Swipe, Cards.Innervate, Cards.EmperorThaurissan, Cards.Wrath, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.PilotedShredder, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.LivingRoots, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.Backstab, Cards.FanofKnives, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.Backstab, Cards.FanofKnives, Cards.VioletTeacher, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => OilRogue
+[SmartTracker_debug] Cards.Backstab, Cards.FanofKnives, Cards.VioletTeacher, 
+[SmartTracker_debug] Cards.Backstab, Cards.FanofKnives, Cards.VioletTeacher, Cards.Eviscerate, Cards.VioletTeacher, 
+[SmartTracker_debug] Cards.Backstab, Cards.FanofKnives, Cards.VioletTeacher, Cards.Eviscerate, Cards.Preparation, Cards.Tinker'sSharpswordOil, Cards.VioletTeacher, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.LivingRoots, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.LivingRoots, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.Wrath, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => MidRangeDruid
+[SmartTracker_debug] Cards.LivingRoots, Cards.Wrath, Cards.Innervate, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.Wrath, Cards.Innervate, Cards.Dr.Boom, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.Wrath, Cards.Innervate, Cards.Dr.Boom, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.Wrath, Cards.Innervate, Cards.Dr.Boom, Cards.ForceofNature, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.Sorcerer'sApprentice, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TempoMage
+[SmartTracker_debug] Cards.Sorcerer'sApprentice, Cards.UnstablePortal, 
+[SmartTracker_debug] Cards.Sorcerer'sApprentice, Cards.UnstablePortal, Cards.Malorne, 
+[SmartTracker_debug] Cards.Sorcerer'sApprentice, Cards.UnstablePortal, Cards.ForgottenTorch, Cards.Malorne, Cards.MadScientist, 
+[SmartTracker_debug] Cards.Sorcerer'sApprentice, Cards.UnstablePortal, Cards.ForgottenTorch, Cards.ArcaneMissiles, Cards.MadScientist, Cards.Flamewaker, 
+[SmartTracker_debug] Cards.AcolyteofPain, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.AcolyteofPain, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.Frostbolt, Cards.FrostNova, Cards.AcolyteofPain, Cards.Doomsayer, 
+[SmartTracker_debug] Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.Frostbolt, Cards.FrostNova, Cards.AcolyteofPain, Cards.Doomsayer, Cards.EmperorThaurissan, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => FatigueMage
+[SmartTracker_debug] Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.Frostbolt, Cards.FrostNova, Cards.AcolyteofPain, Cards.Doomsayer, Cards.EmperorThaurissan, Cards.Fireball, 
+[SmartTracker_debug] New signature detected in your opponent decks FatigueMage => Basic
+[SmartTracker_debug] Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.Frostbolt, Cards.FrostNova, Cards.AcolyteofPain, Cards.Doomsayer, Cards.EmperorThaurissan, Cards.Fireball, Cards.IceBarrier, Cards.Blizzard, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => FreezeMage
+[SmartTracker_debug] Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.Frostbolt, Cards.FrostNova, Cards.AcolyteofPain, Cards.Doomsayer, Cards.EmperorThaurissan, Cards.Fireball, Cards.IceBarrier, Cards.Blizzard, Cards.IceBlock, Cards.Blizzard, Cards.MadScientist, 
+[SmartTracker_debug] Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.Frostbolt, Cards.FrostNova, Cards.AcolyteofPain, Cards.Doomsayer, Cards.EmperorThaurissan, Cards.Fireball, Cards.IceBarrier, Cards.Blizzard, Cards.IceBlock, Cards.Blizzard, Cards.IceBarrier, Cards.MadScientist, Cards.Pyroblast, 
+[SmartTracker_debug] Cards.Voidwalker, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.Voidwalker, Cards.FlameImp, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.KnifeJuggler, Cards.FlameImp, Cards.NerubianEgg, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.KnifeJuggler, Cards.FlameImp, Cards.NerubianEgg, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.KnifeJuggler, Cards.ImpGangBoss, Cards.FlameImp, Cards.Imp-losion, Cards.NerubianEgg, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.KnifeJuggler, Cards.ImpGangBoss, Cards.FlameImp, Cards.Imp-losion, Cards.NerubianEgg, Cards.SeaGiant, Cards.DireWolfAlpha, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.KnifeJuggler, Cards.ImpGangBoss, Cards.FlameImp, Cards.Imp-losion, Cards.NerubianEgg, Cards.DireWolfAlpha, Cards.HauntedCreeper, Cards.SeaGiant, Cards.Loatheb, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.KnifeJuggler, Cards.ImpGangBoss, Cards.FlameImp, Cards.Imp-losion, Cards.NerubianEgg, Cards.DireWolfAlpha, Cards.HauntedCreeper, Cards.Loatheb, Cards.SeaGiant, Cards.DefenderofArgus, 
+[SmartTracker_debug] Cards.Voidwalker, Cards.KnifeJuggler, Cards.ImpGangBoss, Cards.FlameImp, Cards.Imp-losion, Cards.NerubianEgg, Cards.DireWolfAlpha, Cards.HauntedCreeper, Cards.Loatheb, Cards.SeaGiant, Cards.DefenderofArgus, Cards.BigGameHunter, Cards.AbusiveSergeant, Cards.Enhance-oMechano, 
+[SmartTracker_debug] Cards.FlameImp, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.DarkPeddler, Cards.FlameImp, 
+[SmartTracker_debug] Cards.ImpGangBoss, Cards.DarkPeddler, Cards.FlameImp, 
+[SmartTracker_debug] Cards.FlameImp, Cards.NerubianEgg, Cards.ImpGangBoss, Cards.DarkPeddler, Cards.NerubianEgg, 
+[SmartTracker_debug] Cards.FlameImp, Cards.DarkPeddler, Cards.PowerOverwhelming, Cards.NerubianEgg, Cards.DarkPeddler, Cards.ImpGangBoss, Cards.NerubianEgg, 
+[SmartTracker_debug] Cards.Wrath, Cards.LivingRoots, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeDruid
+[SmartTracker_debug] Cards.Wrath, Cards.LivingRoots, Cards.Innervate, Cards.EmperorThaurissan, 
+[SmartTracker_debug] Cards.Wrath, Cards.LivingRoots, Cards.Innervate, Cards.EmperorThaurissan, Cards.Swipe, 
+[SmartTracker_debug] Cards.Wrath, Cards.LivingRoots, Cards.Innervate, Cards.EmperorThaurissan, Cards.Swipe, Cards.LivingRoots, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.Wrath, Cards.LivingRoots, Cards.Innervate, Cards.EmperorThaurissan, Cards.Swipe, Cards.LivingRoots, Cards.KeeperoftheGrove, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.RavenIdol, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.RavenIdol, Cards.RavenIdol, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.RavenIdol, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.RavenIdol, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.RavenIdol, Cards.Innervate, Cards.AncientofWar, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.RavenIdol, Cards.Innervate, Cards.AncientofWar, Cards.MasterJouster, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.RavenIdol, Cards.Innervate, Cards.MasterJouster, Cards.Nourish, Cards.AncientofWar, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.RavenIdol, Cards.Innervate, Cards.MasterJouster, Cards.Nourish, Cards.AncientofWar, Cards.RagnarostheFirelord, Cards.NorthSeaKraken, Cards.NorthSeaKraken, Cards.RavenIdol, Cards.NagaSeaWitch, Cards.AncientofLore, Cards.Deathwing, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => RampDruid
+[SmartTracker_debug] Cards.RavenIdol, Cards.RavenIdol, Cards.Innervate, Cards.MasterJouster, Cards.Nourish, Cards.AncientofWar, Cards.RagnarostheFirelord, Cards.NorthSeaKraken, Cards.NorthSeaKraken, Cards.RavenIdol, Cards.NagaSeaWitch, Cards.AncientofLore, Cards.Deathwing, Cards.TheBlackKnight, 
+[SmartTracker_debug] Cards.TunnelTrogg, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => FaceShaman
+[SmartTracker_debug] Cards.FeralSpirit, Cards.TunnelTrogg, 
+[SmartTracker_debug] Cards.FeralSpirit, Cards.TunnelTrogg, 
+[SmartTracker_debug] Cards.FeralSpirit, Cards.TunnelTrogg, Cards.FeralSpirit, 
+[SmartTracker_debug] Cards.FeralSpirit, Cards.TunnelTrogg, Cards.FeralSpirit, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.FeralSpirit, Cards.TunnelTrogg, Cards.FeralSpirit, Cards.ArgentHorserider, Cards.RockbiterWeapon, 
+[SmartTracker_debug] Cards.RavenIdol, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.RavenIdol, Cards.WildGrowth, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => MidRangeDruid
+[SmartTracker_debug] Cards.RavenIdol, Cards.WildGrowth, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.WildGrowth, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.WildGrowth, Cards.MasterJouster, 
+[SmartTracker_debug] Cards.RavenIdol, Cards.WildGrowth, Cards.MasterJouster, Cards.AncientofWar, 
+[SmartTracker_debug] Cards.ArgentSquire, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.ArgentSquire, Cards.AbusiveSergeant, 
+[SmartTracker_debug] Cards.ArgentSquire, Cards.AbusiveSergeant, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.Avenge, Cards.Consecration, Cards.ArgentSquire, Cards.AbusiveSergeant, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => SecretPaladin
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.Avenge, Cards.Consecration, Cards.ArgentSquire, Cards.AbusiveSergeant, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.NobleSacrifice, Cards.Avenge, Cards.Consecration, Cards.ArgentSquire, Cards.AbusiveSergeant, Cards.KeeperofUldaman, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.Wrath, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeDruid
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.Innervate, Cards.ShadeofNaxxramas, Cards.AzureDrake, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.Innervate, Cards.AzureDrake, Cards.Loatheb, Cards.ShadeofNaxxramas, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.Innervate, Cards.AzureDrake, Cards.Swipe, Cards.BigGameHunter, Cards.Loatheb, Cards.ShadeofNaxxramas, Cards.KeeperoftheGrove, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.Innervate, Cards.AzureDrake, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.BigGameHunter, Cards.ForceofNature, Cards.KeeperoftheGrove, Cards.Loatheb, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.Innervate, Cards.AzureDrake, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.BigGameHunter, Cards.ForceofNature, Cards.KeeperoftheGrove, Cards.Loatheb, Cards.ForceofNature, Cards.SavageRoar, 
+[SmartTracker_debug] Cards.Wrath, Cards.Innervate, Cards.Innervate, Cards.AzureDrake, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.BigGameHunter, Cards.ForceofNature, Cards.KeeperoftheGrove, Cards.Loatheb, Cards.ForceofNature, Cards.SavageRoar, 
+[SmartTracker_debug] Cards.Voidwalker, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.DarkPeddler, Cards.Voidwalker, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.Voidwalker, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.Voidwalker, Cards.DefenderofArgus, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.Secretkeeper, Cards.Imp-losion, Cards.Voidwalker, Cards.DefenderofArgus, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.Secretkeeper, Cards.Imp-losion, Cards.Voidwalker, Cards.Imp-losion, Cards.DefenderofArgus, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.Secretkeeper, Cards.Imp-losion, Cards.Voidwalker, Cards.Imp-losion, Cards.DefenderofArgus, Cards.BrannBronzebeard, Cards.SeaGiant, Cards.AbusiveSergeant, Cards.IronbeakOwl, Cards.AbusiveSergeant, 
+[SmartTracker_debug] Cards.ManaWyrm, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TempoMage
+[SmartTracker_debug] Cards.ArcaneMissiles, Cards.ManaWyrm, Cards.ManaWyrm, 
+[SmartTracker_debug] Cards.ArcaneMissiles, Cards.ManaWyrm, Cards.Flamewaker, Cards.ManaWyrm, 
+[SmartTracker_debug] Cards.ArcaneMissiles, Cards.ManaWyrm, Cards.ManaWyrm, Cards.Flamewaker, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.ArcaneMissiles, Cards.ManaWyrm, Cards.ManaWyrm, Cards.Flamewaker, Cards.Frostbolt, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.ArcaneMissiles, Cards.ManaWyrm, Cards.ManaWyrm, Cards.Flamewaker, Cards.Frostbolt, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.ArcaneMissiles, Cards.ManaWyrm, Cards.ManaWyrm, Cards.Flamewaker, Cards.Frostbolt, Cards.PilotedShredder, Cards.Armorsmith, Cards.Counterspell, Cards.UnstablePortal, Cards.JunglePanther, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Deathlord, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => FatigueWarrior
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Deathlord, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Deathlord, Cards.Bash, Cards.Death'sBite, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Deathlord, Cards.Bash, Cards.Death'sBite, Cards.Execute, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Deathlord, Cards.Bash, Cards.Death'sBite, Cards.Execute, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.Deathlord, Cards.Bash, Cards.Death'sBite, Cards.Execute, Cards.SludgeBelcher, Cards.Slam, Cards.Revenge, 
+[SmartTracker_debug] Cards.Secretkeeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Avenge, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Avenge, Cards.BlessingofKings, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Avenge, Cards.BlessingofKings, Cards.KnifeJuggler, Cards.Coghammer, Cards.MusterforBattle, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Avenge, Cards.BlessingofKings, Cards.KnifeJuggler, Cards.Coghammer, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.Avenge, Cards.BlessingofKings, Cards.KnifeJuggler, Cards.Coghammer, Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.NobleSacrifice, Cards.Avenge, Cards.Redemption, Cards.CompetitiveSpirit, Cards.MysteriousChallenger, Cards.ShieldedMinibot, Cards.HauntedCreeper, Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.SunfuryProtector, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Handlock
+[SmartTracker_debug] Cards.SunfuryProtector, 
+[SmartTracker_debug] Cards.SunfuryProtector, Cards.BrannBronzebeard, 
+[SmartTracker_debug] Cards.BrannBronzebeard, Cards.SunfuryProtector, Cards.Imp-losion, 
+[SmartTracker_debug] New signature detected in your opponent decks Handlock => Zoolock
+[SmartTracker_debug] Cards.BrannBronzebeard, Cards.SunfuryProtector, Cards.Imp-losion, Cards.Darkbomb, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.BrannBronzebeard, Cards.SunfuryProtector, Cards.Imp-losion, Cards.Darkbomb, Cards.ImpGangBoss, Cards.BigGameHunter, 
+[SmartTracker_debug] Cards.BrannBronzebeard, Cards.SunfuryProtector, Cards.Imp-losion, Cards.Darkbomb, Cards.BigGameHunter, Cards.Shadowflame, Cards.MoltenGiant, Cards.ImpGangBoss, Cards.AcidicSwampOoze, 
+[SmartTracker_debug] New signature detected in your opponent decks Zoolock => Handlock
+[SmartTracker_debug] Cards.BrannBronzebeard, Cards.SunfuryProtector, Cards.Imp-losion, Cards.Darkbomb, Cards.BigGameHunter, Cards.Shadowflame, Cards.MoltenGiant, Cards.AcidicSwampOoze, Cards.ImpGangBoss, Cards.Demonwrath, Cards.TwilightDrake, 
+[SmartTracker_debug] New signature detected in your opponent decks Handlock => RenoLock
+[SmartTracker_debug] Cards.BrannBronzebeard, Cards.SunfuryProtector, Cards.Imp-losion, Cards.Darkbomb, Cards.BigGameHunter, Cards.Shadowflame, Cards.MoltenGiant, Cards.AcidicSwampOoze, Cards.ImpGangBoss, Cards.Demonwrath, Cards.TwilightDrake, Cards.Hellfire, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.BrannBronzebeard, Cards.SunfuryProtector, Cards.Imp-losion, Cards.Darkbomb, Cards.BigGameHunter, Cards.Shadowflame, Cards.MoltenGiant, Cards.AcidicSwampOoze, Cards.ImpGangBoss, Cards.Demonwrath, Cards.TwilightDrake, Cards.Hellfire, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.BrannBronzebeard, Cards.SunfuryProtector, Cards.Imp-losion, Cards.Darkbomb, Cards.BigGameHunter, Cards.Shadowflame, Cards.MoltenGiant, Cards.AcidicSwampOoze, Cards.ImpGangBoss, Cards.Demonwrath, Cards.TwilightDrake, Cards.Hellfire, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.EliseStarseeker, 
+[SmartTracker_debug] Cards.ArgentSquire, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.ArgentSquire, Cards.DarkPeddler, 
+[SmartTracker_debug] Cards.ArgentSquire, Cards.DarkPeddler, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.ArgentSquire, Cards.DarkPeddler, Cards.Imp-losion, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.ArgentSquire, Cards.DarkPeddler, Cards.Imp-losion, Cards.ImpGangBoss, Cards.HauntedCreeper, Cards.DireWolfAlpha, Cards.AbusiveSergeant, 
+[SmartTracker_debug] Cards.ClockworkGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MechMage
+[SmartTracker_debug] Cards.ClockworkGnome, Cards.Annoy-o-Tron, 
+[SmartTracker_debug] Cards.ClockworkGnome, Cards.Annoy-o-Tron, Cards.TinkertownTechnician, 
+[SmartTracker_debug] Cards.ClockworkGnome, Cards.SpiderTank, Cards.Annoy-o-Tron, Cards.TinkertownTechnician, 
+[SmartTracker_debug] Cards.ClockworkGnome, Cards.Annoy-o-Tron, Cards.TinkertownTechnician, Cards.Frostbolt, Cards.SpiderTank, 
+[SmartTracker_debug] Cards.ClockworkGnome, Cards.Annoy-o-Tron, Cards.TinkertownTechnician, Cards.Frostbolt, Cards.Frostbolt, Cards.SpiderTank, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.ClockworkGnome, Cards.Annoy-o-Tron, Cards.TinkertownTechnician, Cards.Frostbolt, Cards.Frostbolt, Cards.SpiderTank, Cards.PilotedShredder, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.ClockworkGnome, Cards.Annoy-o-Tron, Cards.TinkertownTechnician, Cards.Frostbolt, Cards.Frostbolt, Cards.SpiderTank, Cards.Dr.Boom, Cards.PilotedShredder, Cards.WhirlingZap-o-matic, Cards.Fireball, Cards.HarvestGolem, Cards.Mechwarper, 
+[SmartTracker_debug] Cards.PilotedShredder, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.PilotedShredder, Cards.FlametongueTotem, Cards.LivingRoots, Cards.ShadeofNaxxramas, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => MidRangeDruid
+[SmartTracker_debug] Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangePaladin
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.Redemption, Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangePaladin => SecretPaladin
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.Redemption, Cards.NobleSacrifice, Cards.CompetitiveSpirit, Cards.ShieldedMinibot, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.Redemption, Cards.NobleSacrifice, Cards.CompetitiveSpirit, Cards.ShieldedMinibot, Cards.Light'sJustice, Cards.MysteriousChallenger, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.AbusiveSergeant, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.AbusiveSergeant, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.GormoktheImpaler, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.GormoktheImpaler, Cards.ImpGangBoss, Cards.NerubianEgg, Cards.VoidTerror, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.GormoktheImpaler, Cards.ImpGangBoss, Cards.NerubianEgg, Cards.SylvanasWindrunner, Cards.VoidTerror, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.GormoktheImpaler, Cards.ImpGangBoss, Cards.NerubianEgg, Cards.VoidTerror, Cards.SylvanasWindrunner, Cards.DefenderofArgus, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.GormoktheImpaler, Cards.ImpGangBoss, Cards.NerubianEgg, Cards.VoidTerror, Cards.SylvanasWindrunner, Cards.DefenderofArgus, Cards.Secretkeeper, Cards.DefenderofArgus, Cards.SeaGiant, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.GormoktheImpaler, Cards.ImpGangBoss, Cards.NerubianEgg, Cards.VoidTerror, Cards.SylvanasWindrunner, Cards.Secretkeeper, Cards.DefenderofArgus, Cards.PowerOverwhelming, Cards.Doomguard, Cards.DefenderofArgus, Cards.SeaGiant, Cards.KnifeJuggler, Cards.Doomguard, 
+[SmartTracker_debug] New signature detected in your opponent decks Zoolock => DemonZooWarlock
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.GormoktheImpaler, Cards.ImpGangBoss, Cards.NerubianEgg, Cards.VoidTerror, Cards.SylvanasWindrunner, Cards.Secretkeeper, Cards.DefenderofArgus, Cards.PowerOverwhelming, Cards.Doomguard, Cards.DefenderofArgus, Cards.SeaGiant, Cards.Doomguard, Cards.KnifeJuggler, Cards.IronbeakOwl, Cards.SeaGiant, 
+[SmartTracker_debug] Cards.UnstableGhoul, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.AcolyteofPain, Cards.Slam, Cards.Death'sBite, Cards.FrothingBerserker, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => PatronWarrior
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.AcolyteofPain, Cards.Slam, Cards.Death'sBite, Cards.Whirlwind, Cards.FrothingBerserker, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.LeperGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.LeperGnome, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.BearTrap, Cards.IronfurGrizzly, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.BearTrap, Cards.IronfurGrizzly, Cards.AnimalCompanion, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.BearTrap, Cards.IronfurGrizzly, Cards.AnimalCompanion, Cards.SnakeTrap, Cards.LeperGnome, 
+[SmartTracker_debug] Cards.WorgenInfiltrator, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.WorgenInfiltrator, Cards.MadScientist, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => MidRangeHunter
+[SmartTracker_debug] Cards.WorgenInfiltrator, Cards.MadScientist, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.WorgenInfiltrator, Cards.MadScientist, Cards.HauntedCreeper, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.WorgenInfiltrator, Cards.MadScientist, Cards.BearTrap, Cards.HauntedCreeper, Cards.PilotedShredder, Cards.IronfurGrizzly, 
+[SmartTracker_debug] Cards.WorgenInfiltrator, Cards.MadScientist, Cards.BearTrap, Cards.IronfurGrizzly, Cards.PilotedShredder, Cards.AnimalCompanion, Cards.EaglehornBow, Cards.HauntedCreeper, Cards.Lightwell, Cards.MadScientist, 
+[SmartTracker_debug] Cards.WorgenInfiltrator, Cards.MadScientist, Cards.BearTrap, Cards.IronfurGrizzly, Cards.PilotedShredder, Cards.AnimalCompanion, Cards.EaglehornBow, Cards.MadScientist, Cards.KillCommand, Cards.KillCommand, Cards.HauntedCreeper, Cards.Lightwell, 
+[SmartTracker_debug] Cards.WorgenInfiltrator, Cards.MadScientist, Cards.BearTrap, Cards.IronfurGrizzly, Cards.PilotedShredder, Cards.AnimalCompanion, Cards.EaglehornBow, Cards.MadScientist, Cards.KillCommand, Cards.KillCommand, Cards.HauntedCreeper, Cards.FreezingTrap, Cards.Lightwell, Cards.LeperGnome, 
+[SmartTracker_debug] Cards.WorgenInfiltrator, Cards.MadScientist, Cards.BearTrap, Cards.IronfurGrizzly, Cards.PilotedShredder, Cards.AnimalCompanion, Cards.EaglehornBow, Cards.MadScientist, Cards.KillCommand, Cards.KillCommand, Cards.HauntedCreeper, Cards.FreezingTrap, Cards.LeperGnome, Cards.Lightwell, Cards.ExplosiveTrap, Cards.AnimalCompanion, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeHunter => FaceHunter
+[SmartTracker_debug] Cards.KnifeJuggler, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.MadScientist, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => MidRangeHunter
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.MadScientist, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.MadScientist, Cards.Misdirection, Cards.ArgentHorserider, Cards.UnleashtheHounds, Cards.LeperGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeHunter => FaceHunter
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.MadScientist, Cards.Misdirection, Cards.ArgentHorserider, Cards.UnleashtheHounds, Cards.LeperGnome, Cards.AnimalCompanion, 
+[SmartTracker_debug] Cards.KnifeJuggler, Cards.MadScientist, Cards.Misdirection, Cards.ArgentHorserider, Cards.UnleashtheHounds, Cards.LeperGnome, Cards.AnimalCompanion, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.UnstableGhoul, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.UnstableGhoul, Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => FaceWarrior
+[SmartTracker_debug] Cards.Slam, Cards.FieryWarAxe, Cards.UnstableGhoul, Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] Cards.Slam, Cards.FieryWarAxe, Cards.UnstableGhoul, Cards.SirFinleyMrrgglton, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.Slam, Cards.FieryWarAxe, Cards.UnstableGhoul, Cards.AcolyteofPain, Cards.Whirlwind, Cards.BattleRage, Cards.FieryWarAxe, Cards.SirFinleyMrrgglton, Cards.Execute, Cards.Armorsmith, 
+[SmartTracker_debug] New signature detected in your opponent decks FaceWarrior => ControlWarrior
+[SmartTracker_debug] Cards.Slam, Cards.FieryWarAxe, Cards.UnstableGhoul, Cards.AcolyteofPain, Cards.Whirlwind, Cards.BattleRage, Cards.FieryWarAxe, Cards.SirFinleyMrrgglton, Cards.Execute, Cards.Armorsmith, Cards.Hobgoblin, Cards.Armorsmith, Cards.ElvenArcher, 
+[SmartTracker_debug] Cards.Slam, Cards.FieryWarAxe, Cards.UnstableGhoul, Cards.AcolyteofPain, Cards.Whirlwind, Cards.BattleRage, Cards.FieryWarAxe, Cards.SirFinleyMrrgglton, Cards.Execute, Cards.Execute, Cards.Armorsmith, Cards.Hobgoblin, Cards.Armorsmith, Cards.ElvenArcher, Cards.Loatheb, 
+[SmartTracker_debug] Cards.Slam, Cards.FieryWarAxe, Cards.UnstableGhoul, Cards.AcolyteofPain, Cards.Whirlwind, Cards.BattleRage, Cards.FieryWarAxe, Cards.SirFinleyMrrgglton, Cards.Execute, Cards.Execute, Cards.ElvenArcher, Cards.Armorsmith, Cards.Hobgoblin, Cards.Armorsmith, Cards.Loatheb, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.JeweledScarab, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.Flamecannon, Cards.JeweledScarab, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => TempoMage
+[SmartTracker_debug] Cards.Flamecannon, Cards.UnstablePortal, Cards.JeweledScarab, 
+[SmartTracker_debug] Cards.Flamecannon, Cards.UnstablePortal, Cards.JeweledScarab, 
+[SmartTracker_debug] Cards.Flamecannon, Cards.UnstablePortal, Cards.JeweledScarab, Cards.Vaporize, Cards.MindControlTech, Cards.BrannBronzebeard, Cards.IronforgeRifleman, 
+[SmartTracker_debug] Cards.Flamecannon, Cards.UnstablePortal, Cards.JeweledScarab, Cards.Vaporize, Cards.IronforgeRifleman, Cards.ForgottenTorch, Cards.MindControlTech, Cards.BrannBronzebeard, Cards.WaterElemental, 
+[SmartTracker_debug] Cards.Flamecannon, Cards.UnstablePortal, Cards.JeweledScarab, Cards.Vaporize, Cards.IronforgeRifleman, Cards.ForgottenTorch, Cards.MindControlTech, Cards.BrannBronzebeard, Cards.WaterElemental, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.Flamecannon, Cards.UnstablePortal, Cards.JeweledScarab, Cards.Vaporize, Cards.IronforgeRifleman, Cards.ForgottenTorch, Cards.MindControlTech, Cards.BrannBronzebeard, Cards.WaterElemental, Cards.EchoofMedivh, Cards.PilotedShredder, Cards.AzureDrake, Cards.SteamwheedleSniper, 
+[SmartTracker_debug] Cards.Flamecannon, Cards.UnstablePortal, Cards.JeweledScarab, Cards.Vaporize, Cards.IronforgeRifleman, Cards.ForgottenTorch, Cards.MindControlTech, Cards.BrannBronzebeard, Cards.WaterElemental, Cards.EchoofMedivh, Cards.PilotedShredder, Cards.AzureDrake, Cards.SteamwheedleSniper, Cards.EliseStarseeker, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.ArcaneBlast, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.ArcaneBlast, 
+[SmartTracker_debug] Cards.ArcaneBlast, Cards.ArcaneMissiles, Cards.PilotedShredder, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => TempoMage
+[SmartTracker_debug] Cards.ArcaneBlast, Cards.ArcaneMissiles, Cards.MirrorEntity, Cards.Secretkeeper, Cards.Frostbolt, Cards.PilotedShredder, Cards.Sorcerer'sApprentice, Cards.MadScientist, 
+[SmartTracker_debug] Cards.ArcaneBlast, Cards.ArcaneMissiles, Cards.MirrorEntity, Cards.Secretkeeper, Cards.Frostbolt, Cards.Sorcerer'sApprentice, Cards.PilotedShredder, Cards.IronbeakOwl, Cards.MadScientist, Cards.EtherealConjurer, 
+[SmartTracker_debug] Cards.ArcaneBlast, Cards.ArcaneMissiles, Cards.MirrorEntity, Cards.Secretkeeper, Cards.Frostbolt, Cards.Sorcerer'sApprentice, Cards.PilotedShredder, Cards.IronbeakOwl, Cards.MadScientist, Cards.EtherealConjurer, Cards.Flamewaker, 
+[SmartTracker_debug] Cards.ImpGangBoss, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.Demonwrath, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.Demonwrath, Cards.TwilightDrake, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.Demonwrath, Cards.MortalCoil, Cards.Imp-losion, Cards.ImpGangBoss, Cards.TwilightDrake, 
+[SmartTracker_debug] Cards.Demonwrath, Cards.MortalCoil, Cards.Imp-losion, Cards.ImpGangBoss, Cards.TwilightDrake, Cards.SludgeBelcher, Cards.ZombieChow, 
+[SmartTracker_debug] New signature detected in your opponent decks Zoolock => Handlock
+[SmartTracker_debug] Cards.Demonwrath, Cards.MortalCoil, Cards.Imp-losion, Cards.ImpGangBoss, Cards.TwilightDrake, Cards.SludgeBelcher, Cards.ZombieChow, Cards.SunfuryProtector, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.Demonwrath, Cards.MortalCoil, Cards.Imp-losion, Cards.ImpGangBoss, Cards.TwilightDrake, Cards.SludgeBelcher, Cards.ZombieChow, Cards.HauntedCreeper, Cards.RenoJackson, Cards.SunfuryProtector, 
+[SmartTracker_debug] New signature detected in your opponent decks Handlock => RenoLock
+[SmartTracker_debug] Cards.Demonwrath, Cards.MortalCoil, Cards.Imp-losion, Cards.ImpGangBoss, Cards.TwilightDrake, Cards.SludgeBelcher, Cards.ZombieChow, Cards.HauntedCreeper, Cards.SunfuryProtector, Cards.RenoJackson, Cards.AbusiveSergeant, Cards.AntiqueHealbot, 
+[SmartTracker_debug] Cards.Armorsmith, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => ControlWarrior
+[SmartTracker_debug] Cards.BattleRage, Cards.Armorsmith, 
+[SmartTracker_debug] Cards.BattleRage, Cards.Armorsmith, Cards.Whirlwind, Cards.FrothingBerserker, 
+[SmartTracker_debug] New signature detected in your opponent decks ControlWarrior => PatronWarrior
+[SmartTracker_debug] Cards.BattleRage, Cards.Armorsmith, Cards.Whirlwind, Cards.FrothingBerserker, Cards.Whirlwind, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.BattleRage, Cards.Armorsmith, Cards.Whirlwind, Cards.FrothingBerserker, Cards.Whirlwind, Cards.Execute, Cards.AcolyteofPain, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.BattleRage, Cards.Armorsmith, Cards.Whirlwind, Cards.FrothingBerserker, Cards.Whirlwind, Cards.Execute, Cards.AcolyteofPain, Cards.SludgeBelcher, Cards.Kor'kronElite, 
+[SmartTracker_debug] Cards.BattleRage, Cards.Armorsmith, Cards.Whirlwind, Cards.FrothingBerserker, Cards.Whirlwind, Cards.Execute, Cards.AcolyteofPain, Cards.SludgeBelcher, Cards.Kor'kronElite, Cards.Brawl, 
+[SmartTracker_debug] Cards.DragonEgg, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.DragonEgg, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => MidRangePaladin
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.DragonEgg, Cards.HauntedCreeper, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangePaladin => SecretPaladin
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.ShieldedMinibot, Cards.NerubianEgg, Cards.DragonEgg, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.ShieldedMinibot, Cards.DivineFavor, Cards.NerubianEgg, Cards.DragonEgg, Cards.IronbeakOwl, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.ShieldedMinibot, Cards.DivineFavor, Cards.MysteriousChallenger, Cards.NerubianEgg, Cards.DragonEgg, Cards.IronbeakOwl, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.ShieldedMinibot, Cards.DivineFavor, Cards.NobleSacrifice, Cards.Avenge, Cards.Redemption, Cards.CompetitiveSpirit, Cards.IronbeakOwl, Cards.Dr.Boom, Cards.MysteriousChallenger, Cards.NerubianEgg, Cards.DragonEgg, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.ShieldedMinibot, Cards.DivineFavor, Cards.NobleSacrifice, Cards.Avenge, Cards.Redemption, Cards.CompetitiveSpirit, Cards.IronbeakOwl, Cards.MysteriousChallenger, Cards.DragonEgg, Cards.MusterforBattle, Cards.Dr.Boom, Cards.NerubianEgg, Cards.Loatheb, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.ShieldedMinibot, Cards.DivineFavor, Cards.NobleSacrifice, Cards.Avenge, Cards.Redemption, Cards.CompetitiveSpirit, Cards.IronbeakOwl, Cards.MysteriousChallenger, Cards.DragonEgg, Cards.MusterforBattle, Cards.NerubianEgg, Cards.Consecration, Cards.Light'sJustice, Cards.NerubianEgg, Cards.Dr.Boom, Cards.Loatheb, 
+[SmartTracker_debug] Cards.MusterforBattle, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Consecration, 
+[SmartTracker_debug] New signature detected in your opponent decks SecretPaladin => Basic
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Consecration, Cards.HauntedCreeper, Cards.DragonEgg, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => SecretPaladin
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Consecration, Cards.Light'sJustice, Cards.MysteriousChallenger, Cards.HauntedCreeper, Cards.DragonEgg, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Consecration, Cards.Light'sJustice, Cards.NobleSacrifice, Cards.Avenge, Cards.Redemption, Cards.CompetitiveSpirit, Cards.HauntedCreeper, Cards.MysteriousChallenger, Cards.DragonEgg, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Consecration, Cards.Light'sJustice, Cards.NobleSacrifice, Cards.Avenge, Cards.Redemption, Cards.CompetitiveSpirit, Cards.HauntedCreeper, Cards.MysteriousChallenger, Cards.TruesilverChampion, Cards.Dr.Boom, Cards.DragonEgg, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.AcolyteofPain, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.AcolyteofPain, Cards.SirFinleyMrrgglton, Cards.Armorsmith, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => FaceWarrior
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.AcolyteofPain, Cards.Armorsmith, Cards.SirFinleyMrrgglton, Cards.BattleRage, 
+[SmartTracker_debug] Cards.FieryWarAxe, Cards.AcolyteofPain, Cards.Armorsmith, Cards.SirFinleyMrrgglton, Cards.BattleRage, Cards.Slam, Cards.AcolyteofPain, 
+[SmartTracker_debug] New signature detected in your opponent decks FaceWarrior => ControlWarrior
+[SmartTracker_debug] Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangePaladin
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.ZombieChow, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.ShieldedMinibot, Cards.Light'sJustice, Cards.ZombieChow, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Loatheb, 
+[SmartTracker_debug] Cards.Doomsayer, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.ShieldedMinibot, Cards.AcolyteofPain, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => MidRangePaladin
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.TirionFordring, Cards.DefenderofArgus, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangePaladin => RenoPaladin
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, 
+[SmartTracker_debug] New signature detected in your opponent decks RenoPaladin => DragonPaladin
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, Cards.BigGameHunter, Cards.RenoJackson, 
+[SmartTracker_debug] New signature detected in your opponent decks DragonPaladin => RenoPaladin
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, Cards.BigGameHunter, Cards.RenoJackson, Cards.Ysera, 
+[SmartTracker_debug] New signature detected in your opponent decks RenoPaladin => DragonPaladin
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, Cards.BigGameHunter, Cards.RenoJackson, Cards.LayonHands, Cards.WildPyromancer, Cards.Ysera, 
+[SmartTracker_debug] New signature detected in your opponent decks DragonPaladin => RenoPaladin
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, Cards.BigGameHunter, Cards.RenoJackson, Cards.LayonHands, Cards.WildPyromancer, Cards.Ysera, Cards.SylvanasWindrunner, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, Cards.BigGameHunter, Cards.RenoJackson, Cards.LayonHands, Cards.WildPyromancer, Cards.Ysera, Cards.TruesilverChampion, Cards.BlackwingCorruptor, Cards.KeeperofUldaman, Cards.SylvanasWindrunner, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, Cards.BigGameHunter, Cards.RenoJackson, Cards.LayonHands, Cards.WildPyromancer, Cards.Ysera, Cards.TruesilverChampion, Cards.SylvanasWindrunner, Cards.FaerieDragon, Cards.RendBlackhand, Cards.BlackwingCorruptor, Cards.KeeperofUldaman, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, Cards.BigGameHunter, Cards.RenoJackson, Cards.LayonHands, Cards.WildPyromancer, Cards.Ysera, Cards.TruesilverChampion, Cards.SylvanasWindrunner, Cards.RendBlackhand, Cards.BlackwingCorruptor, Cards.Equality, Cards.TwilightGuardian, Cards.FaerieDragon, Cards.KeeperofUldaman, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MusterforBattle, Cards.IronbeakOwl, Cards.ShieldedMinibot, Cards.DefenderofArgus, Cards.Equality, Cards.Light'sJustice, Cards.TirionFordring, Cards.DragonConsort, Cards.AntiqueHealbot, Cards.BigGameHunter, Cards.RenoJackson, Cards.LayonHands, Cards.WildPyromancer, Cards.Ysera, Cards.TruesilverChampion, Cards.SylvanasWindrunner, Cards.RendBlackhand, Cards.BlackwingCorruptor, Cards.Equality, Cards.TwilightGuardian, Cards.KeeperofUldaman, Cards.Chromaggus, Cards.FaerieDragon, Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks RenoPaladin => DragonPaladin
+[SmartTracker_debug] Cards.ManaWyrm, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TempoMage
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.Flamewaker, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.Flamewaker, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.MirrorEntity, Cards.Counterspell, Cards.ForgottenTorch, Cards.ArcaneIntellect, Cards.Flamewaker, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.MirrorEntity, Cards.Counterspell, Cards.ForgottenTorch, Cards.ArcaneIntellect, Cards.Flamewaker, Cards.KnifeJuggler, Cards.EtherealConjurer, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.MirrorEntity, Cards.Counterspell, Cards.ForgottenTorch, Cards.ArcaneIntellect, Cards.Flamewaker, Cards.KnifeJuggler, Cards.EtherealConjurer, Cards.Fireball, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.MirrorEntity, Cards.Counterspell, Cards.ForgottenTorch, Cards.ArcaneIntellect, Cards.Flamewaker, Cards.KnifeJuggler, Cards.EtherealConjurer, Cards.Fireball, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.MirrorEntity, Cards.Counterspell, Cards.ForgottenTorch, Cards.ArcaneIntellect, Cards.Flamewaker, Cards.KnifeJuggler, Cards.EtherealConjurer, Cards.Fireball, Cards.Flamestrike, Cards.UnstablePortal, Cards.Dr.Boom, Cards.Mini-Mage, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.MirrorEntity, Cards.Counterspell, Cards.ForgottenTorch, Cards.ArcaneIntellect, Cards.Flamewaker, Cards.KnifeJuggler, Cards.EtherealConjurer, Cards.Fireball, Cards.Flamestrike, Cards.UnstablePortal, Cards.Dr.Boom, Cards.Fireball, Cards.Mini-Mage, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.ManaWyrm, Cards.MadScientist, Cards.MadScientist, Cards.MirrorEntity, Cards.Counterspell, Cards.ForgottenTorch, Cards.ArcaneIntellect, Cards.Flamewaker, Cards.KnifeJuggler, Cards.EtherealConjurer, Cards.Fireball, Cards.Flamestrike, Cards.UnstablePortal, Cards.Dr.Boom, Cards.Fireball, Cards.Mini-Mage, Cards.ArcaneMissiles, Cards.ArcaneMissiles, Cards.PilotedShredder, Cards.MirrorImage, Cards.ArchmageAntonidas, Cards.NoviceEngineer, 
+[SmartTracker_debug] Cards.Webspinner, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeHunter
+[SmartTracker_debug] Cards.Webspinner, Cards.AnimalCompanion, 
+[SmartTracker_debug] Cards.Webspinner, Cards.AnimalCompanion, 
+[SmartTracker_debug] Cards.Webspinner, Cards.AnimalCompanion, Cards.Houndmaster, 
+[SmartTracker_debug] Cards.Webspinner, Cards.AnimalCompanion, Cards.King'sElekk, Cards.Houndmaster, 
+[SmartTracker_debug] Cards.ShieldedMinibot, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangePaladin
+[SmartTracker_debug] Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.AldorPeacekeeper, 
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.Coghammer, Cards.AldorPeacekeeper, Cards.HarrisonJones, 
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.Coghammer, Cards.AldorPeacekeeper, Cards.HarrisonJones, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.Coghammer, Cards.AldorPeacekeeper, Cards.SludgeBelcher, Cards.HarrisonJones, Cards.MusterforBattle, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.Coghammer, Cards.AldorPeacekeeper, Cards.SludgeBelcher, Cards.HarrisonJones, Cards.MusterforBattle, Cards.KnifeJuggler, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.Coghammer, Cards.AldorPeacekeeper, Cards.SludgeBelcher, Cards.HarrisonJones, Cards.MusterforBattle, Cards.KnifeJuggler, Cards.Consecration, Cards.KeeperofUldaman, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.ShieldedMinibot, Cards.Coghammer, Cards.AldorPeacekeeper, Cards.SludgeBelcher, Cards.HarrisonJones, Cards.MusterforBattle, Cards.KnifeJuggler, Cards.Consecration, Cards.Light'sJustice, Cards.Consecration, Cards.KeeperofUldaman, Cards.KeeperofUldaman, Cards.AldorPeacekeeper, 
+[SmartTracker_debug] Cards.MusterforBattle, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.HarrisonJones, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.TruesilverChampion, Cards.KeeperofUldaman, Cards.PilotedShredder, Cards.AldorPeacekeeper, Cards.ZombieChow, 
+[SmartTracker_debug] New signature detected in your opponent decks SecretPaladin => MidRangePaladin
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.TruesilverChampion, Cards.ZombieChow, Cards.AldorPeacekeeper, Cards.KeeperofUldaman, Cards.PilotedShredder, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.TruesilverChampion, Cards.ZombieChow, Cards.AldorPeacekeeper, Cards.PilotedShredder, Cards.KeeperofUldaman, Cards.MillhouseManastorm, Cards.PilotedShredder, Cards.AntiqueHealbot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.TruesilverChampion, Cards.ZombieChow, Cards.AldorPeacekeeper, Cards.PilotedShredder, Cards.KeeperofUldaman, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.MillhouseManastorm, Cards.ArgentWatchman, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.TruesilverChampion, Cards.ZombieChow, Cards.AldorPeacekeeper, Cards.PilotedShredder, Cards.KeeperofUldaman, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.ArgentWatchman, Cards.MillhouseManastorm, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.TruesilverChampion, Cards.ZombieChow, Cards.AldorPeacekeeper, Cards.PilotedShredder, Cards.KeeperofUldaman, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.ArgentWatchman, Cards.MillhouseManastorm, Cards.SludgeBelcher, Cards.ShieldedMinibot, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.TruesilverChampion, Cards.ZombieChow, Cards.AldorPeacekeeper, Cards.PilotedShredder, Cards.KeeperofUldaman, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.ArgentWatchman, Cards.MillhouseManastorm, Cards.Coghammer, Cards.SludgeBelcher, Cards.ShieldedMinibot, Cards.Quartermaster, 
+[SmartTracker_debug] Cards.MusterforBattle, Cards.Loatheb, Cards.Light'sJustice, Cards.MusterforBattle, Cards.HarrisonJones, Cards.AldorPeacekeeper, Cards.KnifeJuggler, Cards.KeeperofUldaman, Cards.Light'sJustice, Cards.TruesilverChampion, Cards.ZombieChow, Cards.AldorPeacekeeper, Cards.PilotedShredder, Cards.KeeperofUldaman, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.ArgentWatchman, Cards.MillhouseManastorm, Cards.Coghammer, Cards.SludgeBelcher, Cards.ShieldedMinibot, Cards.SludgeBelcher, Cards.Quartermaster, 
+[SmartTracker_debug] Cards.AbusiveSergeant, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.KnifeJuggler, Cards.Imp-losion, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.KnifeJuggler, Cards.Imp-losion, Cards.Darkbomb, Cards.SludgeBelcher, Cards.Soulfire, Cards.LeperGnome, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.KnifeJuggler, Cards.Imp-losion, Cards.Darkbomb, Cards.SludgeBelcher, Cards.Soulfire, Cards.LeperGnome, Cards.MortalCoil, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.LivingRoots, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.LivingRoots, 
+[SmartTracker_debug] Cards.LivingRoots, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.SludgeBelcher, Cards.ShadeofNaxxramas, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => MidRangeDruid
+[SmartTracker_debug] Cards.LivingRoots, Cards.SludgeBelcher, Cards.ShadeofNaxxramas, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.SludgeBelcher, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.BigGameHunter, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.SludgeBelcher, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.BigGameHunter, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.SludgeBelcher, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.BigGameHunter, Cards.Swipe, Cards.Loatheb, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.SludgeBelcher, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.BigGameHunter, Cards.Swipe, Cards.Loatheb, Cards.AncientofLore, Cards.ShadeofNaxxramas, 
+[SmartTracker_debug] Cards.Doomsayer, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.MadScientist, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => FreezeMage
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.IceBarrier, Cards.ForgottenTorch, Cards.MadScientist, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.IceBarrier, Cards.ForgottenTorch, Cards.MadScientist, Cards.ArcaneIntellect, Cards.IceLance, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.IceBarrier, Cards.ForgottenTorch, Cards.MadScientist, Cards.ArcaneIntellect, Cards.IceLance, Cards.IceBarrier, Cards.Frostbolt, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.IceBarrier, Cards.ForgottenTorch, Cards.MadScientist, Cards.ArcaneIntellect, Cards.IceLance, Cards.IceBarrier, Cards.Frostbolt, Cards.AcolyteofPain, Cards.Blizzard, 
+[SmartTracker_debug] Cards.Doomsayer, Cards.AcolyteofPain, Cards.IceBarrier, Cards.ForgottenTorch, Cards.MadScientist, Cards.ArcaneIntellect, Cards.IceLance, Cards.IceBarrier, Cards.Frostbolt, Cards.AcolyteofPain, Cards.Blizzard, Cards.Alexstrasza, 
+[SmartTracker_debug] Cards.Secretkeeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => SecretPaladin
+[SmartTracker_debug] Cards.Secretkeeper, 
+[SmartTracker_debug] Cards.Secretkeeper, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.Avenge, Cards.Secretkeeper, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.Avenge, Cards.Secretkeeper, Cards.PilotedShredder, Cards.ExplosiveSheep, Cards.MusterforBattle, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.Avenge, Cards.Secretkeeper, Cards.PilotedShredder, Cards.ExplosiveSheep, Cards.MusterforBattle, Cards.MysteriousChallenger, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.Avenge, Cards.Secretkeeper, Cards.PilotedShredder, Cards.ExplosiveSheep, Cards.MusterforBattle, Cards.NobleSacrifice, Cards.Redemption, Cards.MysteriousChallenger, Cards.CompetitiveSpirit, Cards.BlessingofKings, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.Avenge, Cards.Secretkeeper, Cards.PilotedShredder, Cards.ExplosiveSheep, Cards.MusterforBattle, Cards.NobleSacrifice, Cards.Redemption, Cards.MysteriousChallenger, Cards.CompetitiveSpirit, Cards.BlessingofKings, Cards.Avenge, Cards.Light'sJustice, Cards.Loatheb, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.Avenge, Cards.Secretkeeper, Cards.PilotedShredder, Cards.ExplosiveSheep, Cards.MusterforBattle, Cards.NobleSacrifice, Cards.Redemption, Cards.MysteriousChallenger, Cards.CompetitiveSpirit, Cards.BlessingofKings, Cards.Avenge, Cards.Light'sJustice, Cards.PilotedShredder, Cards.SludgeBelcher, Cards.Loatheb, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.Avenge, Cards.Secretkeeper, Cards.PilotedShredder, Cards.ExplosiveSheep, Cards.MusterforBattle, Cards.NobleSacrifice, Cards.Redemption, Cards.MysteriousChallenger, Cards.CompetitiveSpirit, Cards.BlessingofKings, Cards.Avenge, Cards.Light'sJustice, Cards.PilotedShredder, Cards.SludgeBelcher, Cards.Loatheb, Cards.KnifeJuggler, Cards.KeeperofUldaman, 
+[SmartTracker_debug] Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => FaceShaman
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FeralSpirit, Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FeralSpirit, Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FeralSpirit, Cards.SirFinleyMrrgglton, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FeralSpirit, Cards.SirFinleyMrrgglton, Cards.ArgentHorserider, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FeralSpirit, Cards.SirFinleyMrrgglton, Cards.ArgentHorserider, Cards.LightningBolt, Cards.Crackle, Cards.LightningBolt, 
+[SmartTracker_debug] Cards.AbusiveSergeant, Cards.FeralSpirit, Cards.SirFinleyMrrgglton, Cards.ArgentHorserider, Cards.LightningBolt, Cards.Crackle, Cards.LightningBolt, Cards.EarthShock, Cards.AncestralKnowledge, 
+[SmartTracker_debug] Cards.Armorsmith, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => ControlWarrior
+[SmartTracker_debug] Cards.Armorsmith, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.SylvanasWindrunner, Cards.CruelTaskmaster, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Shieldmaiden, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Bash, Cards.ShieldSlam, Cards.Shieldmaiden, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Bash, Cards.ShieldSlam, Cards.SludgeBelcher, Cards.ShieldBlock, Cards.AcolyteofPain, Cards.Shieldmaiden, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Bash, Cards.ShieldSlam, Cards.SludgeBelcher, Cards.ShieldBlock, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Bash, Cards.ShieldSlam, Cards.SludgeBelcher, Cards.ShieldBlock, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.AcolyteofPain, Cards.BigGameHunter, Cards.Shieldmaiden, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Bash, Cards.ShieldSlam, Cards.SludgeBelcher, Cards.ShieldBlock, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.AcolyteofPain, Cards.BigGameHunter, Cards.Shieldmaiden, Cards.SludgeBelcher, Cards.EliseStarseeker, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Bash, Cards.ShieldSlam, Cards.SludgeBelcher, Cards.ShieldBlock, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.AcolyteofPain, Cards.BigGameHunter, Cards.SludgeBelcher, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.Execute, Cards.JusticarTrueheart, Cards.EliseStarseeker, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Bash, Cards.ShieldSlam, Cards.SludgeBelcher, Cards.ShieldBlock, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.AcolyteofPain, Cards.BigGameHunter, Cards.SludgeBelcher, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.Execute, Cards.JusticarTrueheart, Cards.EliseStarseeker, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.Armorsmith, Cards.Death'sBite, Cards.Bash, Cards.CruelTaskmaster, Cards.Brawl, Cards.SylvanasWindrunner, Cards.Revenge, Cards.Bash, Cards.ShieldSlam, Cards.SludgeBelcher, Cards.ShieldBlock, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.AcolyteofPain, Cards.BigGameHunter, Cards.SludgeBelcher, Cards.FieryWarAxe, Cards.Shieldmaiden, Cards.Execute, Cards.JusticarTrueheart, Cards.GrommashHellscream, Cards.EliseStarseeker, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.ImpGangBoss, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.ImpGangBoss, Cards.Voidcaller, 
+[SmartTracker_debug] New signature detected in your opponent decks Zoolock => DemonZooWarlock
+[SmartTracker_debug] Cards.ImpGangBoss, Cards.Hellfire, Cards.Voidcaller, Cards.Doomguard, 
+[SmartTracker_debug] Cards.ImpGangBoss, Cards.Hellfire, Cards.Voidcaller, Cards.Doomguard, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.ImpGangBoss, Cards.Hellfire, Cards.Voidcaller, Cards.SludgeBelcher, Cards.Darkbomb, Cards.Darkbomb, Cards.IronbeakOwl, Cards.Doomguard, 
+[SmartTracker_debug] Cards.LeperGnome, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => FaceShaman
+[SmartTracker_debug] Cards.LeperGnome, Cards.FlameJuggler, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.TunnelTrogg, Cards.FlameJuggler, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.FlameJuggler, Cards.TotemGolem, Cards.TunnelTrogg, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.FlameJuggler, Cards.TunnelTrogg, Cards.FeralSpirit, Cards.EarthShock, Cards.TotemGolem, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.FlameJuggler, Cards.TunnelTrogg, Cards.FeralSpirit, Cards.EarthShock, Cards.Crackle, Cards.TotemGolem, 
+[SmartTracker_debug] Cards.LeperGnome, Cards.FlameJuggler, Cards.TunnelTrogg, Cards.FeralSpirit, Cards.EarthShock, Cards.Crackle, Cards.TotemGolem, 
+[SmartTracker_debug] Cards.MadScientist, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TempoMage
+[SmartTracker_debug] Cards.MadScientist, 
+[SmartTracker_debug] Cards.MadScientist, Cards.AcolyteofPain, 
+[SmartTracker_debug] New signature detected in your opponent decks TempoMage => FaceFreezeMage
+[SmartTracker_debug] Cards.Frostbolt, Cards.MadScientist, Cards.AcolyteofPain, 
+[SmartTracker_debug] Cards.Frostbolt, Cards.MadScientist, Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.NoviceEngineer, 
+[SmartTracker_debug] Cards.Frostbolt, Cards.MadScientist, Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.NoviceEngineer, Cards.FrostNova, Cards.Doomsayer, 
+[SmartTracker_debug] Cards.Frostbolt, Cards.MadScientist, Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.NoviceEngineer, Cards.FrostNova, Cards.Doomsayer, Cards.NoviceEngineer, Cards.Doomsayer, 
+[SmartTracker_debug] Cards.Frostbolt, Cards.MadScientist, Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.NoviceEngineer, Cards.FrostNova, Cards.Doomsayer, Cards.IceBarrier, Cards.NoviceEngineer, Cards.Doomsayer, 
+[SmartTracker_debug] New signature detected in your opponent decks FaceFreezeMage => FreezeMage
+[SmartTracker_debug] Cards.Frostbolt, Cards.MadScientist, Cards.AcolyteofPain, Cards.ForgottenTorch, Cards.NoviceEngineer, Cards.FrostNova, Cards.Doomsayer, Cards.IceBarrier, Cards.NoviceEngineer, Cards.Doomsayer, Cards.Alexstrasza, 
+[SmartTracker_debug] Cards.BearTrap, Cards.IronfurGrizzly, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Basic
+[SmartTracker_debug] Cards.BearTrap, Cards.IronfurGrizzly, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.BearTrap, Cards.IronfurGrizzly, Cards.AnimalCompanion, Cards.EaglehornBow, Cards.IronbeakOwl, Cards.HauntedCreeper, 
+[SmartTracker_debug] New signature detected in your opponent decks Basic => MidRangeHunter
+[SmartTracker_debug] Cards.BearTrap, Cards.IronfurGrizzly, Cards.AnimalCompanion, Cards.EaglehornBow, Cards.SavannahHighmane, Cards.IronbeakOwl, Cards.HauntedCreeper, 
+[SmartTracker_debug] Cards.BearTrap, Cards.IronfurGrizzly, Cards.AnimalCompanion, Cards.EaglehornBow, Cards.IronbeakOwl, Cards.HauntedCreeper, Cards.SavannahHighmane, 
+[SmartTracker_debug] Cards.Backstab, Cards.SouthseaDeckhand, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => OilRogue
+[SmartTracker_debug] Cards.Backstab, Cards.SouthseaDeckhand, Cards.SI:7Agent, 
+[SmartTracker_debug] Cards.Backstab, Cards.SouthseaDeckhand, Cards.SI:7Agent, 
+[SmartTracker_debug] Cards.Backstab, Cards.SI:7Agent, Cards.SouthseaDeckhand, Cards.TombPillager, 
+[SmartTracker_debug] Cards.Backstab, Cards.SI:7Agent, Cards.SouthseaDeckhand, Cards.TombPillager, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.Backstab, Cards.SI:7Agent, Cards.SouthseaDeckhand, Cards.AzureDrake, Cards.FanofKnives, Cards.TombPillager, Cards.EdwinVanCleef, 
+[SmartTracker_debug] Cards.Backstab, Cards.SI:7Agent, Cards.SouthseaDeckhand, Cards.AzureDrake, Cards.FanofKnives, Cards.TombPillager, Cards.EdwinVanCleef, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.Backstab, Cards.SI:7Agent, Cards.SouthseaDeckhand, Cards.AzureDrake, Cards.FanofKnives, Cards.TombPillager, Cards.EdwinVanCleef, Cards.AzureDrake, Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.Preparation, Cards.BladeFlurry, Cards.GadgetzanAuctioneer, 
+[SmartTracker_debug] New signature detected in your opponent decks OilRogue => MiracleRogue
+[SmartTracker_debug] Cards.DarnassusAspirant, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeDruid
+[SmartTracker_debug] Cards.DarnassusAspirant, Cards.MountedRaptor, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeDruid => TokenDruid
+[SmartTracker_debug] Cards.MountedRaptor, Cards.DarnassusAspirant, Cards.ManaWyrm, Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] Cards.MountedRaptor, Cards.DarnassusAspirant, Cards.ManaWyrm, Cards.PilotedShredder, Cards.SirFinleyMrrgglton, 
+[SmartTracker_debug] Cards.MountedRaptor, Cards.DarnassusAspirant, Cards.ManaWyrm, Cards.PilotedShredder, Cards.SirFinleyMrrgglton, Cards.FelReaver, Cards.TotemGolem, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => AggroDruid
+[SmartTracker_debug] Cards.MountedRaptor, Cards.DarnassusAspirant, Cards.ManaWyrm, Cards.PilotedShredder, Cards.SirFinleyMrrgglton, Cards.LivingRoots, Cards.SavageRoar, Cards.Swipe, Cards.Innervate, Cards.MountedRaptor, Cards.Swipe, Cards.FelReaver, Cards.TotemGolem, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.MountedRaptor, Cards.DarnassusAspirant, Cards.ManaWyrm, Cards.PilotedShredder, Cards.SirFinleyMrrgglton, Cards.LivingRoots, Cards.SavageRoar, Cards.Swipe, Cards.Innervate, Cards.MountedRaptor, Cards.Swipe, Cards.KnifeJuggler, Cards.KeeperoftheGrove, Cards.Dr.Boom, Cards.TotemGolem, Cards.DruidoftheClaw, Cards.KeeperoftheGrove, Cards.LeperGnome, Cards.Innervate, Cards.SavageRoar, Cards.FelReaver, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.MountedRaptor, Cards.DarnassusAspirant, Cards.ManaWyrm, Cards.PilotedShredder, Cards.SirFinleyMrrgglton, Cards.LivingRoots, Cards.SavageRoar, Cards.Swipe, Cards.Innervate, Cards.MountedRaptor, Cards.Swipe, Cards.KnifeJuggler, Cards.KeeperoftheGrove, Cards.Dr.Boom, Cards.TotemGolem, Cards.DruidoftheClaw, Cards.KeeperoftheGrove, Cards.LeperGnome, Cards.Innervate, Cards.SavageRoar, Cards.FelReaver, Cards.PilotedShredder, Cards.CruelTaskmaster, Cards.FelReaver, Cards.KnifeJuggler, 
+[SmartTracker_debug] Cards.MountedRaptor, Cards.DarnassusAspirant, Cards.ManaWyrm, Cards.PilotedShredder, Cards.SirFinleyMrrgglton, Cards.LivingRoots, Cards.SavageRoar, Cards.Swipe, Cards.Innervate, Cards.MountedRaptor, Cards.Swipe, Cards.KnifeJuggler, Cards.KeeperoftheGrove, Cards.Dr.Boom, Cards.TotemGolem, Cards.DruidoftheClaw, Cards.KeeperoftheGrove, Cards.LeperGnome, Cards.Innervate, Cards.SavageRoar, Cards.FelReaver, Cards.PilotedShredder, Cards.CruelTaskmaster, Cards.KnifeJuggler, Cards.LivingRoots, Cards.DruidoftheSaber, Cards.ForceofNature, Cards.Loatheb, Cards.ForceofNature, Cards.DruidoftheSaber, Cards.FelReaver, 
+[SmartTracker_debug] Cards.FlameImp, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.FlameImp, Cards.IronbeakOwl, 
+[SmartTracker_debug] Cards.HauntedCreeper, Cards.NerubianEgg, Cards.FlameImp, Cards.IronbeakOwl, 
+[SmartTracker_debug] Cards.FlameImp, Cards.HauntedCreeper, Cards.IronbeakOwl, Cards.PowerOverwhelming, Cards.NerubianEgg, Cards.BrannBronzebeard, 
+[SmartTracker_debug] Cards.FlameImp, Cards.HauntedCreeper, Cards.IronbeakOwl, Cards.PowerOverwhelming, Cards.NerubianEgg, Cards.BrannBronzebeard, Cards.AbusiveSergeant, 
+[SmartTracker_debug] Cards.FlameImp, Cards.HauntedCreeper, Cards.IronbeakOwl, Cards.PowerOverwhelming, Cards.NerubianEgg, Cards.AbusiveSergeant, Cards.StonetuskBoar, Cards.GormoktheImpaler, Cards.Soulfire, Cards.DarkPeddler, Cards.BrannBronzebeard, Cards.KnifeJuggler, Cards.Voidwalker, 
+[SmartTracker_debug] Cards.DarkPeddler, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => Zoolock
+[SmartTracker_debug] Cards.DarkPeddler, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.KezanMystic, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.KezanMystic, Cards.Avenge, Cards.ImpGangBoss, Cards.TwilightDrake, Cards.Voidwalker, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.KezanMystic, Cards.Avenge, Cards.Voidwalker, Cards.ImpGangBoss, Cards.ElvenArcher, Cards.TwilightDrake, Cards.AntiqueHealbot, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.KezanMystic, Cards.Avenge, Cards.Voidwalker, Cards.ImpGangBoss, Cards.AntiqueHealbot, Cards.ElvenArcher, Cards.Hellfire, Cards.Darkbomb, Cards.TwilightDrake, 
+[SmartTracker_debug] New signature detected in your opponent decks Zoolock => RenoLock
+[SmartTracker_debug] Cards.DarkPeddler, Cards.KezanMystic, Cards.Avenge, Cards.Voidwalker, Cards.ImpGangBoss, Cards.AntiqueHealbot, Cards.ElvenArcher, Cards.Hellfire, Cards.Darkbomb, Cards.TwilightDrake, Cards.ImpGangBoss, Cards.BlackwingCorruptor, 
+[SmartTracker_debug] New signature detected in your opponent decks RenoLock => Handlock
+[SmartTracker_debug] Cards.DarkPeddler, Cards.KezanMystic, Cards.Avenge, Cards.Voidwalker, Cards.ImpGangBoss, Cards.AntiqueHealbot, Cards.ElvenArcher, Cards.Hellfire, Cards.Darkbomb, Cards.TwilightDrake, Cards.BlackwingCorruptor, Cards.TwilightGuardian, Cards.ImpGangBoss, 
+[SmartTracker_debug] Cards.DarkPeddler, Cards.KezanMystic, Cards.Avenge, Cards.Voidwalker, Cards.ImpGangBoss, Cards.AntiqueHealbot, Cards.ElvenArcher, Cards.Hellfire, Cards.Darkbomb, Cards.TwilightDrake, Cards.BlackwingCorruptor, Cards.TwilightGuardian, Cards.MortalCoil, Cards.Shadowflame, Cards.ImpGangBoss, Cards.TwilightGuardian, Cards.Soulfire, 
+[SmartTracker_debug] Cards.Innervate, Cards.PilotedShredder, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => MidRangeDruid
+[SmartTracker_debug] Cards.Innervate, Cards.PilotedShredder, Cards.DarnassusAspirant, 
+[SmartTracker_debug] Cards.Innervate, Cards.PilotedShredder, Cards.FallenHero, Cards.DarnassusAspirant, 
+[SmartTracker_debug] Cards.Innervate, Cards.PilotedShredder, Cards.FallenHero, Cards.DarnassusAspirant, Cards.Swipe, 
+[SmartTracker_debug] Cards.Innervate, Cards.PilotedShredder, Cards.FallenHero, Cards.DarnassusAspirant, Cards.Swipe, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.Innervate, Cards.PilotedShredder, Cards.FallenHero, Cards.DarnassusAspirant, Cards.Swipe, Cards.WildGrowth, Cards.AzureDrake, 
+[SmartTracker_debug] Cards.Innervate, Cards.PilotedShredder, Cards.FallenHero, Cards.DarnassusAspirant, Cards.Swipe, Cards.WildGrowth, Cards.AzureDrake, Cards.AncientofLore, 
+[SmartTracker_debug] Cards.KeeperoftheGrove, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TokenDruid
+[SmartTracker_debug] Cards.KeeperoftheGrove, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.KeeperoftheGrove, Cards.SludgeBelcher, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.KeeperoftheGrove, Cards.SludgeBelcher, Cards.Swipe, Cards.SludgeBelcher, 
+[SmartTracker_debug] Cards.KeeperoftheGrove, Cards.SludgeBelcher, Cards.Swipe, Cards.SludgeBelcher, Cards.LivingRoots, Cards.Innervate, Cards.KeeperoftheGrove, Cards.BigGameHunter, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => MidRangeDruid
+[SmartTracker_debug] Cards.KeeperoftheGrove, Cards.SludgeBelcher, Cards.Swipe, Cards.SludgeBelcher, Cards.LivingRoots, Cards.Innervate, Cards.Dr.Boom, Cards.KeeperoftheGrove, Cards.BigGameHunter, 
+[SmartTracker_debug] Cards.KeeperoftheGrove, Cards.SludgeBelcher, Cards.Swipe, Cards.SludgeBelcher, Cards.LivingRoots, Cards.Innervate, Cards.KeeperoftheGrove, Cards.BigGameHunter, Cards.Wrath, Cards.LivingRoots, Cards.AncientofLore, Cards.Innervate, Cards.AzureDrake, Cards.AncientofWar, Cards.Dr.Boom, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeDruid => RampDruid
+[SmartTracker_debug] Cards.DivineFavor, Cards.NobleSacrifice, Cards.NobleSacrifice, Cards.TruesilverChampion, Cards.ShieldedMinibot, Cards.Coghammer, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.Redemption, Cards.Secretkeeper, Cards.Secretkeeper, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.Avenge, Cards.Avenge, Cards.ShieldedMinibot, Cards.MusterforBattle, Cards.MusterforBattle, Cards.PilotedShredder, Cards.PilotedShredder, Cards.CompetitiveSpirit, Cards.MysteriousChallenger, Cards.MysteriousChallenger, Cards.RagnarostheFirelord, Cards.TirionFordring, Cards.Dr.Boom, Cards.KeeperofUldaman, Cards.KeeperofUldaman, Cards.BlessingofKings, Cards.BlessingofKings, 
+[SmartTracker_debug] Cards.LivingRoots, 
+[SmartTracker_debug] New signature detected in your opponent decks MidRangeDruid => TokenDruid
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, 
+[SmartTracker_debug] New signature detected in your opponent decks TokenDruid => MidRangeDruid
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, Cards.PilotedShredder, Cards.CrazedAlchemist, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, Cards.PilotedShredder, Cards.CrazedAlchemist, Cards.ForceofNature, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, Cards.PilotedShredder, Cards.CrazedAlchemist, Cards.ForceofNature, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, Cards.PilotedShredder, Cards.CrazedAlchemist, Cards.ForceofNature, Cards.Swipe, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, Cards.PilotedShredder, Cards.CrazedAlchemist, Cards.ForceofNature, Cards.Swipe, Cards.ForceofNature, Cards.Dr.Boom, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, Cards.PilotedShredder, Cards.CrazedAlchemist, Cards.ForceofNature, Cards.Swipe, Cards.ForceofNature, Cards.Dr.Boom, Cards.AzureDrake, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.LivingRoots, Cards.WildGrowth, Cards.PilotedShredder, Cards.CrazedAlchemist, Cards.ForceofNature, Cards.Swipe, Cards.ForceofNature, Cards.Dr.Boom, Cards.AzureDrake, Cards.PilotedShredder, 
+[SmartTracker_debug] Cards.DivineFavor, Cards.NobleSacrifice, Cards.NobleSacrifice, Cards.TruesilverChampion, Cards.ShieldedMinibot, Cards.Coghammer, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.Redemption, Cards.Secretkeeper, Cards.Secretkeeper, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.Avenge, Cards.Avenge, Cards.ShieldedMinibot, Cards.MusterforBattle, Cards.MusterforBattle, Cards.PilotedShredder, Cards.PilotedShredder, Cards.CompetitiveSpirit, Cards.MysteriousChallenger, Cards.MysteriousChallenger, Cards.RagnarostheFirelord, Cards.TirionFordring, Cards.Dr.Boom, Cards.KeeperofUldaman, Cards.KeeperofUldaman, Cards.BlessingofKings, Cards.BlessingofKings, 
+[SmartTracker_debug] Cards.ManaWyrm, 
+[SmartTracker_debug] New signature detected in your opponent decks Unknown => TempoMage
+[SmartTracker_debug] Cards.MirrorImage, Cards.Sorcerer'sApprentice, Cards.ManaWyrm, 
+[SmartTracker_debug] Cards.MirrorImage, Cards.ArcaneIntellect, Cards.ArcaneMissiles, Cards.MadScientist, Cards.Sorcerer'sApprentice, Cards.ManaWyrm, 

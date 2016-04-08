@@ -1,0 +1,29 @@
+Board --- Uther Lightbringer(30/0-30/0)Gul'dan 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Life Tap[CS2_056]
+
+Mana : 1
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+
+Hand : 
+Shielded Minibot[GVG_058][2/2]COST[2]
+Avenge[FP1_020]COST[1]
+Mysterious Challenger[AT_079][6/6]COST[6]
+Secretkeeper[EX1_080][1/2]COST[1]
+The Coin[GAME_005]COST[0]
+Dr. Boom[GVG_110][7/7]COST[7]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 25 -- EnemyDeck : 26
+Value : 77
+
+@1~1~1~0~0~25~26~0~False~1~False~4~0~0~HERO_04*-1*0*0*0*0*0*64*30*0*1*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_07*-1*0*0*0*0*0*66*30*0*1*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~CS2_101*-1*0*0*2*0*0*65*0*0*1*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~CS2_056*-1*0*0*2*0*0*67*0*0*1*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~0~0~GVG_058*0*0*2*2*0*0*23*2*0*0*2*0*False*True*False*False*False*False*True*False*False*False*False*False*False*0*False|FP1_020*1*0*0*1*0*0*16*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|AT_079*2*0*6*6*0*0*6*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_080*3*0*1*1*0*0*8*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GAME_005*4*0*0*0*0*0*68*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_110*5*0*7*7*0*0*33*7*0*0*7*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~0~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~

@@ -1,0 +1,30 @@
+Board --- Uther Lightbringer(30/0-25/0)Uther Lightbringer 
+
+WeaponFriend : Coghammer[GVG_059][2/2]
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Reinforce[CS2_101]
+
+Mana : 4
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+Acolyte of Pain[EX1_007][1/3]CAN[False]IDX[0]
+
+Hand : 
+Muster for Battle[GVG_061]COST[3]
+Muster for Battle[GVG_061]COST[3]
+Ragnaros the Firelord[EX1_298][8/8]COST[8]
+Truesilver Champion[CS2_097]-CA[0][4/2]COST[4]
+Piloted Shredder[GVG_096][4/3]COST[4]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 23 -- EnemyDeck : 23
+Value : 78,3
+
+@4~4~2~0~0~23~23~0~False~4~False~6~0~GVG_059*-1*0*2*3*1*3*59*3*0*1*2*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_04*-1*0*2*0*0*0*66*30*0*4*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~HERO_04*-1*0*0*0*5*0*64*30*0*3*25*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~CS2_101*-1*0*0*2*0*0*67*0*0*4*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*4*False~CS2_101*-1*0*0*2*0*0*65*0*0*3*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*3*False~0~EX1_007*0*0*1*3*0*0*14*3*0*0*3*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~GVG_061*0*0*0*3*0*0*35*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_061*1*0*0*3*0*0*34*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_298*2*0*8*8*0*0*44*8*0*0*8*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_097*3*0*4*4*0*2*49*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_096*4*0*4*4*0*0*61*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~NEW1_019~0~NEW1_021~0~True=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~

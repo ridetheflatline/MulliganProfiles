@@ -1,0 +1,28 @@
+Board --- Uther Lightbringer(16/0-27/0)Jaina Proudmoore 
+
+
+AbilityEnemy : Fireblast[CS2_034]
+
+Mana : 0
+Enemy secret: False
+
+Friends : 
+Ragnaros the Firelord[EX1_298][8/8]CAN[False]IDX[0]
+Silver Hand Recruit[CS2_101t][1/1]CAN[False]IDX[1]
+
+Enemy : 
+Dr. Boom[GVG_110][7/5]CAN[True]IDX[0]
+Mini-Mage[GVG_109][4/1]CAN[False]IDX[1][ST]
+
+Hand : 
+Avenge[FP1_020]COST[1]
+
+Secrets : 
+Avenge[FP1_020]
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 13 -- EnemyDeck : 14
+Value : 95,5
+
+@10~0~2~0~0~13~14~0~False~11~True~5~0~0~HERO_04*-1*0*0*0*14*0*66*30*0*11*16*0*False*False*False*False*False*False*False*False*False*False*False*False*False*11*False~HERO_08*-1*0*0*0*3*0*64*30*0*10*27*0*False*False*False*False*True*False*False*False*False*False*False*False*False*10*False~CS2_101*-1*0*0*2*0*0*67*0*0*11*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*11*False~CS2_034*-1*0*0*2*0*0*65*0*0*10*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*10*False~EX1_298*0*0*8*8*0*0*61*8*0*0*8*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|CS2_101t*1*0*1*1*0*0*92*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~GVG_110*0*0*7*7*2*0*11*7*0*1*5*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False|GVG_109*1*0*4*4*0*0*91*1*0*0*1*1*False*False*False*False*True*False*True*False*False*False*False*False*True*0*False~FP1_020*0*0*0*1*0*0*54*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~FP1_020~FP1_002|FP1_002t|FP1_002t|FP1_002|GVG_096|FP1_002t|FP1_002t|CS2_101t|GVG_058|CS2_092|NEW1_019|FP1_017|CS2_101t|EX1_130|EX1_130a|CS2_097|AT_079|EX1_136|AT_079|AT_073|CS2_101t|CS2_101t|LOE_017|EX1_080|EX1_130|EX1_130a~0~NEW1_012|GAME_005|FP1_004|FP1_004|EX1_294|EX1_287|LOE_002|CS2_023|BRM_002|NEW1_019|LOE_003|CS2_029|GVG_110t|GVG_110t|CS2_032|GVG_003~0~True=True=True=True=False=False~0~0~1~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~

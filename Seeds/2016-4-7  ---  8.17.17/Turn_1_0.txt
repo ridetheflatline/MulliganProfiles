@@ -1,0 +1,27 @@
+Board --- Uther Lightbringer(30/0-30/0)Gul'dan 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Life Tap[CS2_056]
+
+Mana : 1
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+
+Hand : 
+Knife Juggler[NEW1_019][3/2]COST[2]
+Piloted Shredder[GVG_096][4/3]COST[4]
+Haunted Creeper[FP1_002][1/2]COST[2]
+Shielded Minibot[GVG_058][2/2]COST[2]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 26 -- EnemyDeck : 26
+Value : 76
+
+@1~1~2~0~0~26~26~0~False~1~False~5~0~0~HERO_04*-1*0*0*0*0*0*66*30*0*1*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_07*-1*0*0*0*0*0*64*30*0*0*30*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~CS2_101*-1*0*0*2*0*0*67*0*0*1*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~CS2_056*-1*0*0*2*0*0*65*0*0*0*0*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~0~0~NEW1_019*0*0*3*2*0*0*62*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_096*1*0*4*4*0*0*63*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|FP1_002*2*0*1*2*0*0*51*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_058*3*0*2*2*0*0*38*2*0*0*2*0*False*True*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~0~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~

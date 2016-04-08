@@ -1,0 +1,31 @@
+Board --- Uther Lightbringer(26/0-30/0)Gul'dan 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Life Tap[CS2_056]
+
+Mana : 5
+Enemy secret: False
+
+Friends : 
+Nerubian Egg[FP1_007][1/3]CAN[True]IDX[0]ENCH[AT_073-F]
+
+Enemy : 
+Dark Peddler[LOE_023][2/2]CAN[True]IDX[0]
+Abusive Sergeant[CS2_188][2/1]CAN[False]IDX[1]
+Brann Bronzebeard[LOE_077][2/4]CAN[False]IDX[2]
+
+Hand : 
+Knife Juggler[NEW1_019][3/2]COST[2]
+Muster for Battle[GVG_061]COST[3]
+Keeper of Uldaman[LOE_017][3/4]COST[4]
+
+Secrets : 
+Avenge[FP1_020]
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 22 -- EnemyDeck : 22
+Value : 49,5
+
+@5~5~2~0~0~22~22~0~False~5~False~3~0~0~HERO_04*-1*0*0*0*4*0*66*30*0*5*26*0*False*False*False*False*False*False*False*False*False*False*False*False*False*5*False~HERO_07*-1*0*0*0*0*0*64*30*0*4*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*4*False~CS2_101*-1*0*0*2*0*0*67*0*0*5*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*5*False~CS2_056*-1*0*0*2*0*0*65*0*0*4*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*4*False~FP1_007*0*0*1*2*0*0*79*3*0*1*3*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False*AT_073e=2=57=0~LOE_023*0*0*2*2*0*0*30*2*0*1*2*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False|CS2_188*1*0*2*1*0*0*18*1*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False|LOE_077*2*0*2*3*0*0*22*4*0*0*4*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~NEW1_019*0*0*3*2*0*0*61*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_061*1*0*0*3*0*0*34*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|LOE_017*2*0*3*4*0*0*37*4*0*0*4*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~FP1_020~GVG_058|NEW1_019|GVG_096|AT_073~0~GAME_005|FP1_002|NEW1_019|FP1_002t|FP1_002t|AT_133~0~False=True=False=True=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~

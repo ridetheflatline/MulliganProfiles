@@ -1,0 +1,29 @@
+Board --- Uther Lightbringer(30/0-30/0)Malfurion Stormrage 
+
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Shapeshift[CS2_017]
+
+Mana : 1
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+
+Hand : 
+Piloted Shredder[GVG_096][4/3]COST[4]
+Shielded Minibot[GVG_058][2/2]COST[2]
+Blessing of Kings[CS2_092]COST[4]
+Mysterious Challenger[AT_079][6/6]COST[6]
+The Coin[GAME_005]COST[0]
+Avenge[FP1_020]COST[1]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 25 -- EnemyDeck : 26
+Value : 77
+
+@1~1~1~0~0~25~26~0~False~1~False~4~0~0~HERO_04*-1*0*0*0*0*0*84*30*0*1*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~HERO_06*-1*0*0*0*0*0*86*30*0*1*30*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~CS2_101*-1*0*0*2*0*0*85*0*0*1*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*1*False~CS2_017*-1*0*0*2*0*0*87*0*0*1*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~0~0~GVG_096*0*0*4*4*0*0*8*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_058*1*0*2*2*0*0*11*2*0*0*2*0*False*True*False*False*False*False*True*False*False*False*False*False*False*0*False|CS2_092*2*0*0*4*0*0*31*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|AT_079*3*0*6*6*0*0*9*6*0*0*6*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GAME_005*4*0*0*0*0*0*88*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|FP1_020*5*0*0*1*0*0*26*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~0~0~0~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~

@@ -1,0 +1,28 @@
+Board --- Uther Lightbringer(30/0-29/0)Garrosh Hellscream 
+
+WeaponEnemy : Fiery War Axe[CS2_106][3/1]
+
+AbilityFriend : Reinforce[CS2_101]
+AbilityEnemy : Armor Up![CS2_102]
+
+Mana : 2
+Enemy secret: False
+
+Friends : 
+
+Enemy : 
+
+Hand : 
+Piloted Shredder[GVG_096][4/3]COST[4]
+Haunted Creeper[FP1_002][1/2]COST[2]
+Shielded Minibot[GVG_058][2/2]COST[2]
+Divine Favor[EX1_349]COST[3]
+
+Secrets : 
+
+FriendDraw : 0 -- EnemyDraw : 0
+FriendFatigue : 0 -- EnemyFatigue : 0
+FriendDeck : 25 -- EnemyDeck : 25
+Value : 91
+
+@2~2~1~0~0~25~25~0~False~2~False~4~CS2_106*-1*0*3*2*1*2*38*2*0*0*1*0*False*False*False*False*True*False*True*False*False*False*False*False*False*0*False~0~HERO_04*-1*0*0*0*0*0*64*30*0*2*30*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~HERO_01*-1*0*0*0*1*0*66*30*1*1*29*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~CS2_101*-1*0*0*2*0*0*65*0*0*2*0*0*False*False*False*False*False*False*False*False*False*False*False*False*False*2*False~CS2_102*-1*0*0*2*0*0*67*0*0*1*0*0*False*False*False*False*True*False*False*False*False*False*False*False*False*1*False~0~0~GVG_096*0*0*4*4*0*0*23*3*0*0*3*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|FP1_002*1*0*1*2*0*0*28*2*0*0*2*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False|GVG_058*2*0*2*2*0*0*33*2*0*0*2*0*False*True*False*False*False*False*True*False*False*False*False*False*False*0*False|EX1_349*3*0*0*3*0*0*26*0*0*0*0*0*False*False*False*False*False*False*True*False*False*False*False*False*False*0*False~0~EX1_080~0~GAME_005~0~False=False=False=False=False=False~0~0~0~False~EX1_349,EX1_130,EX1_130,CS2_097,GVG_058,GVG_059,GVG_058,FP1_002,FP1_002,EX1_136,EX1_080,EX1_080,NEW1_019,NEW1_019,FP1_020,FP1_020,GVG_061,GVG_061,GVG_096,GVG_096,AT_073,AT_079,AT_079,LOE_017,LOE_017,EX1_298,EX1_383,GVG_110,CS2_092,CS2_092~0~0~
