@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Defias Ringleader[2/2](Pos :1)
-[COACH] [Play] SI:7 Agent[3/3](Pos :1)->Gilblin Stalker[2/1]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

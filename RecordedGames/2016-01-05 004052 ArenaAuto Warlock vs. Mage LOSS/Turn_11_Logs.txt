@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Stranglethorn Tiger[5/5](Pos :1)
-[COACH] [Play] Lost Tallstrider[5/4](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

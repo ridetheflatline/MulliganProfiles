@@ -1,6 +1,0 @@
-Started PlaySequence routine
-Play sequence : [Play] Harvest Golem[2/3](Pos :1)
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

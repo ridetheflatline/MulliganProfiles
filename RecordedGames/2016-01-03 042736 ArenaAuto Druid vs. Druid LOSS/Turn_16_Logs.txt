@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Kel'Thuzad[6/8](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

@@ -1,6 +1,0 @@
-System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
-Parameter name: lineIndex
-   at System.Windows.Controls.TextBox.ScrollToLine(Int32 lineIndex)
-   at SmartBotUI.Logs.LogManager.<>c__DisplayClass2.<AddLog>b__0()
-   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
-   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)

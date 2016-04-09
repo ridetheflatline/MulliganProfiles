@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Boneguard Lieutenant[3/2](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Earthen Ring Farseer[3/3](Pos :1)->Garrosh Hellscream
-[COACH] [Play] Inner Rage->Bluegill Warrior[2/1]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Dire Wolf Alpha[2/2](Pos :1)
-[COACH] [Attack] Sir Finley Mrrgglton[1/3]->Uther Lightbringer
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

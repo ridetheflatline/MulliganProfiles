@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Attack] Zombie Chow[2/3]->Faerie Dragon[3/2]
-[COACH] [Play] Leper Gnome[2/1](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

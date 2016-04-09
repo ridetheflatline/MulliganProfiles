@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Attack] Sunfury Protector[2/3]->Jaina Proudmoore
-[COACH] [Play] Tinkertown Technician[3/3](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

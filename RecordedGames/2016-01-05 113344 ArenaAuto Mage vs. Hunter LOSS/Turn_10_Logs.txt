@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Fireblast->Rexxar
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Oasis Snapjaw[2/7](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

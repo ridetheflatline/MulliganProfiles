@@ -1,5 +1,0 @@
- 
- --------------- 
- 
-[COACH] [EndTurn] 
---> Sending emote : THREATEN

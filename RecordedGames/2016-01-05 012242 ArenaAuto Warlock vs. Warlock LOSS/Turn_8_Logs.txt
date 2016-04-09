@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Earthen Ring Farseer[3/3](Pos :1)->Stranglethorn Tiger[5/3]
-[COACH] [Play] Frostwolf Warlord[4/4](Pos :1)
-[COACH] [Attack] Flame Imp[3/2]->Knife Juggler[3/2]
-[COACH] [Attack] Stranglethorn Tiger[5/3]->Gul'dan
-[COACH] [Attack] Animated Armor[4/2]->Gul'dan
-[COACH] [EndTurn] 

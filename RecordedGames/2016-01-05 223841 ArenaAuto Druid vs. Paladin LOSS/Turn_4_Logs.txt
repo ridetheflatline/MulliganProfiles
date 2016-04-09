@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Chillwind Yeti[4/5](Pos :1)
-[COACH] [Attack] Sabertooth Panther[3/2]->Stonesplinter Trogg[3/3]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

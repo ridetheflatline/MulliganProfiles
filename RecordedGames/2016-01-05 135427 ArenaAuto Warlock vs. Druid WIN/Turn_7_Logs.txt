@@ -1,7 +1,0 @@
-Started PlaySequence routine
-Play sequence : [Play] Fearsome Doomguard[6/8](Pos :1)
-Play sequence : [Attack] Ancient Brewmaster[5/4]->Malfurion Stormrage
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

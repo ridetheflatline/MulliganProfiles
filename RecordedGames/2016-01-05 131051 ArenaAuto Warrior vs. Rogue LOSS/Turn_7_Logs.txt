@@ -1,9 +1,0 @@
---> [Play] Hungry Dragon[5/6](Pos :1)
---> [Resimulate] 
---> [Waiting] 
-Started PlaySequence routine
-Play sequence : [Play] Tauren Warrior[2/3](Pos :1)
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

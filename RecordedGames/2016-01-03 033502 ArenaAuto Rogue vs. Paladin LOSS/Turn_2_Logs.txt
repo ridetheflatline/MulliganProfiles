@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Dagger Mastery
-[COACH] [Attack] Valeera Sanguinar->Shielded Minibot[2/2]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

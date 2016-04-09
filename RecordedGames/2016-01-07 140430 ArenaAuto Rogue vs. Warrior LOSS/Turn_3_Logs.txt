@@ -1,9 +1,0 @@
-Started PlaySequence routine
-Play sequence : [Play] Goblin Auto-Barber[3/2](Pos :1)
-Play sequence : [Attack] Valeera Sanguinar->Shattered Sun Cleric[3/2]
-Play sequence : [Play] Pit Snake[2/1](Pos :1)
-Play sequence : [Attack] Zombie Chow[2/3]->Garrosh Hellscream
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

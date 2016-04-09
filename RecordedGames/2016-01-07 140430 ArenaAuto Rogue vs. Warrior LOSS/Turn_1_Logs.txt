@@ -1,8 +1,0 @@
---> [Resimulate] 
---> [Waiting] 
-Started PlaySequence routine
-Play sequence : [Play] Zombie Chow[2/3](Pos :1)
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

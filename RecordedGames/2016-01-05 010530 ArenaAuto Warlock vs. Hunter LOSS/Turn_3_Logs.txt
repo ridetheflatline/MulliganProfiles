@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Earthen Ring Farseer[3/3](Pos :1)->Gul'dan
-[COACH] [Attack] Dark Peddler[2/2]->Injured Kvaldir[3/1]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

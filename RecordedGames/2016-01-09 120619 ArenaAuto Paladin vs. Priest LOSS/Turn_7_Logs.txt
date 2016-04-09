@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Aldor Peacekeeper[3/3](Pos :1)->Baron Geddon[7/5]
-[COACH] [Play] Reinforce
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

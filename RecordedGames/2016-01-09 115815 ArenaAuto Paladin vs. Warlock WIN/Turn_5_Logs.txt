@@ -1,8 +1,0 @@
-Started PlaySequence routine
-Play sequence : [Play] Silver Hand Knight[4/4](Pos :1)
-Play sequence : [Attack] Stonesplinter Trogg[2/1]->Puddlestomper[3/2]
-Play sequence : [Attack] Unstable Ghoul[1/2]->Gul'dan
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

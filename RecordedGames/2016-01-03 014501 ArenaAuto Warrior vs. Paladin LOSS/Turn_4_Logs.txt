@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Sen'jin Shieldmasta[3/5](Pos :1)
-[COACH] [Play] Inner Rage->Bluegill Warrior[5/1]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

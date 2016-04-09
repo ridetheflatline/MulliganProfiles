@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Sunwalker[4/5](Pos :1)
-[COACH] [Attack] Imp[1/2]->Jaina Proudmoore
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Acidic Swamp Ooze[3/2](Pos :1)
-[COACH] [Play] Armor Up!
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

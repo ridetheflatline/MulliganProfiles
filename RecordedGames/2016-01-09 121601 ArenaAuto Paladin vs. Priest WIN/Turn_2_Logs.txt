@@ -1,7 +1,0 @@
---> [Waiting] 
-Started PlaySequence routine
-Play sequence : [Play] Shielded Minibot[2/2](Pos :1)
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

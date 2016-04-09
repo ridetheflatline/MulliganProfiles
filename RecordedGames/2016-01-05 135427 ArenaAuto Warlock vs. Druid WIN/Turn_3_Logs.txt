@@ -1,9 +1,0 @@
---> [Waiting] 
-Started PlaySequence routine
-Play sequence : [Play] Garrison Commander[2/3](Pos :1)
-Play sequence : [Attack] Mad Bomber[3/2]->Malfurion Stormrage
-Play sequence : [Play] Worgen Infiltrator[2/1](Pos :1)
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

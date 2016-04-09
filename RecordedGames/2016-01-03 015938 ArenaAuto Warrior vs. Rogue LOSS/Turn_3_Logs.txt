@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Armor Up!
-[COACH] [Attack] Haunted Creeper[1/2]->Novice Engineer[1/1]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

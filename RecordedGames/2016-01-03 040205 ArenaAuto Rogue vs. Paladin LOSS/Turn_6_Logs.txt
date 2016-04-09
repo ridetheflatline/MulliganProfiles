@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Dagger Mastery
-[COACH] [Play] Dragonhawk Rider[3/3](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

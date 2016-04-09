@@ -1,8 +1,0 @@
---> [Waiting] 
-Started PlaySequence routine
-Play sequence : [Play] The Coin
-Play sequence : [Play] Puddlestomper[3/2](Pos :1)
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

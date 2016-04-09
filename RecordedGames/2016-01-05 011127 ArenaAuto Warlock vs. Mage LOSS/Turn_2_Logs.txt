@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [EndTurn] 
---> Sending emote : GREETINGS
- 
-<-------New Turn-------->
- 

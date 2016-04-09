@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Haunted Creeper[1/2](Pos :1)
-[COACH] [Play] Inner Rage->Abusive Sergeant[2/1]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

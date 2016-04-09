@@ -1,7 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] 
-[COACH] [Play] 
-[COACH] [Resimulate] 
-[COACH] [EndTurn] 

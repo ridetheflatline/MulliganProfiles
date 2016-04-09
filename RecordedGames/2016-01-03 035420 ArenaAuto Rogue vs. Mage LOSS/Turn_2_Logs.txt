@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Annoy-o-Tron[1/2](Pos :1)
-[COACH] [Attack] Argent Squire[1/1]->Jaina Proudmoore
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

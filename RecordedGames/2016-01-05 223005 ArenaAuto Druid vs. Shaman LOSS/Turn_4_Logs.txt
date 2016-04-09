@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Mechwarper[2/3](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

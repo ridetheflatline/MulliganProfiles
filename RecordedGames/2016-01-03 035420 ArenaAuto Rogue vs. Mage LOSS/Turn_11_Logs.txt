@@ -1,7 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Dagger Mastery
-[COACH] [Play] Deadly Poison
-[COACH] [Attack] Valeera Sanguinar->Kirin Tor Mage[4/3]
-[COACH] [EndTurn] 

@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Fireblast->Jaina Proudmoore
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 
