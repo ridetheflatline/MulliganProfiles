@@ -443,7 +443,7 @@ namespace SmartBot.Plugins
                 string strline = str.ReadLine();
                 double remoteVer = double.Parse(strline, _format);
                 double localVer = double.Parse(localVersion.ReadLine(), _format);
-                Report(string.Format("Received remote version as {0} and local version as {1} [origin:utm]", remoteVer, localVer));
+                Report(string.Format("Comparing remote version {0} with local version as {1} [origin:uTracker]", remoteVer, localVer));
 
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartTracker is up to date");
                 if (localVer > remoteVer)
@@ -459,7 +459,7 @@ namespace SmartBot.Plugins
 
         private void UpdateTracker(string lSmartTracker, string remoteVer, string localVer)
         {
-            Report(string.Format(" Updater is using {0} remote version and {1} local version [origin:updater]", remoteVer, localVer));
+            Report(string.Format(" Updater is using {0} remote version and {1} local version [origin:tracker]", remoteVer, localVer));
             Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
             HttpWebRequest trackeRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker.cs") as HttpWebRequest;
             if (trackeRequest == null)
@@ -496,7 +496,7 @@ namespace SmartBot.Plugins
 
                 double remoteVer = double.Parse(str.ReadLine(), _format);
                 double localVer = double.Parse(localVersion.ReadLine(), _format);
-                Report(string.Format("Received remote version as {0} and local version as {1} [origin:umm]", remoteVer, localVer));
+                Report(string.Format("Received remote version as {0} and local version as {1} [origin:cMulligan]", remoteVer, localVer));
                 if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartMulligan is up to date");
                 if (localVer > remoteVer)
                 {
@@ -513,7 +513,7 @@ namespace SmartBot.Plugins
 
         private void UpdateMulligan(string lSmartMulligan, string remoteVer, string localVer)
         {
-            Report(string.Format(" Updater is using {0} remote version and {1} local version [origin:updater]", remoteVer, localVer));
+            Report(string.Format(" Updater is using {0} remote version and {1} local version [origin:uMulligan]", remoteVer, localVer));
             Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
             HttpWebRequest MulliganRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulligan.cs") as HttpWebRequest;
             if (MulliganRequest == null)
@@ -1425,6 +1425,7 @@ namespace SmartBot.Plugins
         SmartMulligan
     }
 }
+
 
 
 
