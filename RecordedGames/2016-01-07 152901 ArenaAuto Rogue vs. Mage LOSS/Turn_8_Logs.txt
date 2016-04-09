@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Flamestrike
-[COACH] [Attack] Razorfen Hunter[2/3]->Jaina Proudmoore
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

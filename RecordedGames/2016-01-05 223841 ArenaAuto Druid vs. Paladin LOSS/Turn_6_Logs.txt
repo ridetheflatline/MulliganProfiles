@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Jungle Moonkin[4/4](Pos :1)
-[COACH] [Play] Amani Berserker[2/3](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

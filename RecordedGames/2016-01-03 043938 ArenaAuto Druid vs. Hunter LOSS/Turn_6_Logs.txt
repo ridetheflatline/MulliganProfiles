@@ -1,7 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Sunwalker[4/5](Pos :1)
-[COACH] [Play] Misdirection
-[COACH] [Play] ->Fallout Slime[2/1]
-[COACH] [EndTurn] 

@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Wailing Soul[3/5](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

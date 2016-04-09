@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Drakonid Crusher[6/6](Pos :1)
-[COACH] [Attack] Deathlord[2/7]->Valeera Sanguinar
-[COACH] [Attack] Haunted Creeper[1/2]->Valeera Sanguinar
-[COACH] [Attack] Valeera Sanguinar->Valeera Sanguinar
-[COACH] [Play] Dagger Mastery
-[COACH] [EndTurn] 

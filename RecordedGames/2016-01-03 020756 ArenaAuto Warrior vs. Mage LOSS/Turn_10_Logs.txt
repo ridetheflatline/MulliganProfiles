@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Refreshment Vendor[3/5](Pos :1)
-[COACH] [Attack] Garrosh Hellscream->Sludge Belcher[3/2]
-[COACH] [Play] Armor Up!
-[COACH] [Play] Arathi Weaponsmith[3/3](Pos :1)
-[COACH] [EndTurn] 

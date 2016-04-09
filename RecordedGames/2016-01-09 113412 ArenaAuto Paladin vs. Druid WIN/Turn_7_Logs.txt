@@ -1,7 +1,0 @@
-Started PlaySequence routine
-Play sequence : [Play] Pit Fighter[5/6](Pos :1)
-Play sequence : [Play] Reinforce
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

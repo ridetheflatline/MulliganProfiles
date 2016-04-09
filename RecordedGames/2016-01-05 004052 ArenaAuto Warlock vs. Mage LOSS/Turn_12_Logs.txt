@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Fearsome Doomguard[6/8](Pos :1)
-[COACH] [Play] Shadow Bolt->Razorfen Hunter[2/3]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

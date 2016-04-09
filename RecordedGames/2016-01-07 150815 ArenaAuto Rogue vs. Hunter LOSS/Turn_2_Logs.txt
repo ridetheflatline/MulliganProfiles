@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Attack] Haunted Creeper[1/2]->Misha[4/4]
-[COACH] [Play] Deathlord[2/8](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

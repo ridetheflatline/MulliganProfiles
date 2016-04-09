@@ -1,7 +1,0 @@
-Started PlaySequence routine
-Play sequence : [Play] Youthful Brewmaster[3/2](Pos :1)
-Play sequence : [Play] Fierce Monkey[3/4](Pos :1)
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Ogre Brute[4/4](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

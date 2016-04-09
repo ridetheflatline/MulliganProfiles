@@ -1,9 +1,0 @@
---> [Play] Mad Bomber[3/2](Pos :1)
---> [Resimulate] 
---> [Waiting] 
-Started PlaySequence routine
-Play sequence : [Attack] Puddlestomper[3/1]->Jaina Proudmoore
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

@@ -1,8 +1,0 @@
---> [Waiting] 
-Started PlaySequence routine
-Play sequence : [Play] Stonesplinter Trogg[2/3](Pos :1)
-Play sequence : [EndTurn] 
---> Sending emote : THREATEN
- 
-<-------New Turn-------->
- 

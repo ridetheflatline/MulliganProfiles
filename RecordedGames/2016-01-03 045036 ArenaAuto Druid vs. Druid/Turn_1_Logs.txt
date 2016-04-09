@@ -1,7 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] 
-[COACH] [Play] Innervate
-[COACH] [Play] Astral Communion
-[COACH] [EndTurn] 

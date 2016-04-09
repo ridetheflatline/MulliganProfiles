@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Attack] Snake[1/1]->Rexxar
-[COACH] [Attack] Sunwalker[4/1]->Rexxar
-[COACH] [Attack] Flamewaker Acolyte[3/1]->Rexxar
-[COACH] [Attack] ->Rexxar
-[COACH] [Play] Deathwing[12/12](Pos :1)
-[COACH] [EndTurn] 

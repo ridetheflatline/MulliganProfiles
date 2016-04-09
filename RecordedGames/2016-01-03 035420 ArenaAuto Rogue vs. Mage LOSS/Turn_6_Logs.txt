@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Clockwork Knight[5/5](Pos :1)
-[COACH] [Attack] SI:7 Agent[3/3]->Bomb Lobber[3/3]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

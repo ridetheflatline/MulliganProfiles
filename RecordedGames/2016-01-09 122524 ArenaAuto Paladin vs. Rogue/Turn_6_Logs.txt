@@ -1,7 +1,0 @@
- 
- --------------- 
- 
-[COACH] 
-[COACH] [EndTurn] 
---> Sending emote : WELL_PLAYED
-<-------Lost =(-------->

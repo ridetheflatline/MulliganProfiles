@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Sen'jin Shieldmasta[3/5](Pos :1)
-[COACH] [Attack] Acidic Swamp Ooze[3/1]->Mirror Image[0/2]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

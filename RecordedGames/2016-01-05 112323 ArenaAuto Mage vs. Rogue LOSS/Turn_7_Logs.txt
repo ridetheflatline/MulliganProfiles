@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Flame Lance->Captured Jormungar[5/9]
-[COACH] [Play] Fireblast->Captured Jormungar[5/9]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

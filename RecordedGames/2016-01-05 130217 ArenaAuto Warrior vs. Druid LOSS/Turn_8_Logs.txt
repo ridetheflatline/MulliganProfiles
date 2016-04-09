@@ -1,6 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Tauren Warrior[2/3](Pos :1)
-[COACH] [Play] Armor Up!
-[COACH] [EndTurn] 

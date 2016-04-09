@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] River Crocolisk[2/3](Pos :1)
-[COACH] [Play] Death's Bite[4/2](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

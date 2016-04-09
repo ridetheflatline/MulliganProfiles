@@ -1,7 +1,0 @@
---> [Waiting] 
-Started PlaySequence routine
-Play sequence : [Play] Avenge
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

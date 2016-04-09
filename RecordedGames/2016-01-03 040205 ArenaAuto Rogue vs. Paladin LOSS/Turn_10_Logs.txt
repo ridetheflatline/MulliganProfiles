@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Deathwing[12/12](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

@@ -1,6 +1,0 @@
-Started PlaySequence routine
-Play sequence : [Play] Acolyte of Pain[1/3](Pos :1)
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

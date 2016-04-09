@@ -1,9 +1,0 @@
-Started PlaySequence routine
-Play sequence : [Play] Dagger Mastery
-Play sequence : [Play] Backstab->Warbot[1/3]
-Play sequence : [Attack] Valeera Sanguinar->Warbot[1/3]
-Play sequence : [Attack] Zombie Chow[2/3]->Garrosh Hellscream
-Play sequence : [EndTurn] 
- 
-<-------New Turn-------->
- 

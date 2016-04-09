@@ -1,6 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Attack] Frostwolf Warlord[8/8]->Valeera Sanguinar
-[COACH] [EndTurn] 
---> Sending emote : THANKS

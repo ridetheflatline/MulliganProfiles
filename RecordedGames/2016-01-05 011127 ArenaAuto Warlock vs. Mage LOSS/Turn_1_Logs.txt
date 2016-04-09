@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Blood Imp[0/1](Pos :1)
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

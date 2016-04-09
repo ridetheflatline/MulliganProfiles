@@ -1,8 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Lance Carrier[1/2](Pos :1)->Boulderfist Ogre[7/8]
-[COACH] [Attack] Boulderfist Ogre[7/8]->Uther Lightbringer
-[COACH] [Attack] Stormwind Champion[6/6]->Uther Lightbringer
-[COACH] [EndTurn] 
---> Sending emote : GREETINGS

@@ -1,5 +1,0 @@
- 
- --------------- 
- 
-[COACH] 
-[COACH] [EndTurn] 

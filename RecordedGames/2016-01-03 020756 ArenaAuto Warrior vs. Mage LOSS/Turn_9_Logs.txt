@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Djinni of Zephyrs[4/6](Pos :1)
-[COACH] [Play] Armor Up!
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 

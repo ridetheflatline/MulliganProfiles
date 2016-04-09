@@ -1,9 +1,0 @@
- 
- --------------- 
- 
-[COACH] [Play] Sunfury Protector[2/3](Pos :1)
-[COACH] [Attack] Zombie Chow[2/3]->Searing Totem[1/1]
-[COACH] [EndTurn] 
- 
-<-------New Turn-------->
- 
