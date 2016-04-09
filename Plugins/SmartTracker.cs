@@ -440,26 +440,35 @@ namespace SmartBot.Plugins
             using (StreamReader localVersion = new StreamReader(TrackerVersion + "tracker.version"))
 
             {
-                string strline = str.ReadLine();
-                double remoteVer = double.Parse(strline, _format);
-                double localVer = double.Parse(localVersion.ReadLine(), _format);
-                Report(string.Format("Comparing remote version {0} with local version as {1} [origin:uTracker]", remoteVer, localVer));
-
-                if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartTracker is up to date");
-                if (localVer > remoteVer)
+                string[] remote_version = str.ReadLine().Split('.');
+                string[] local__version = localVersion.ReadLine().Split('.');
+                int remote_major = int.Parse(remote_version[0]);
+                int remote_minor = int.Parse(remote_version[1]);
+                int local__major = int.Parse(local__version[0]);
+                int local__minor = int.Parse(local__version[1]);
+                string r_version = remote_major + "." + remote_minor;
+                string l_version = local__major + "." + remote_minor;
+                if (remote_major == local__major && remote_minor == local__minor)
                 {
-                    Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}", localVer, remoteVer));
-                    Bot.Log("[SmartTracker] Arthur, you are an idiot. Push new update");
+                    Bot.Log("[SmartTracker] SmartTracker is up to date");
+                    return;
                 }
-                if (!(localVer < remoteVer)) return;
+                if (remote_major < local__major|| 
+                    (remote_major == local__major && remote_minor < local__minor))
+                {
+                    Bot.Log(string.Format("[SmartTracker] Local Version: {0}.{1} Remote Version {2}.{3}",
+                        remote_major, remote_minor,local__major,local__minor));
+                    Bot.Log("[SmartTracker] Arthur, you are an idiot. Push new update");
+                    return;
+                }
                 localVersion.Close();
-                UpdateTracker(lSmartTracker, remoteVer.ToString(), localVer.ToString());
+                UpdateTracker(lSmartTracker, r_version, l_version);
             }
         }
 
         private void UpdateTracker(string lSmartTracker, string remoteVer, string localVer)
         {
-            Report(string.Format(" Updater is using {0} remote version and {1} local version [origin:tracker]", remoteVer, localVer));
+            Report(string.Format("Updater is using {0} remote version and {1} local version [origin:tracker]", remoteVer, localVer));
             Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
             HttpWebRequest trackeRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker.cs") as HttpWebRequest;
             if (trackeRequest == null)
@@ -1425,6 +1434,7 @@ namespace SmartBot.Plugins
         SmartMulligan
     }
 }
+
 
 
 
