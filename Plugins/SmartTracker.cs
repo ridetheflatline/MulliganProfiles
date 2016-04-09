@@ -558,7 +558,7 @@ namespace SmartBot.Plugins
         {
             using (StreamWriter localVersion = new StreamWriter(value ? TrackerVersion + "tracker.version" : MulliganInformation + "version.txt", false))
             {
-                localVersion.WriteLine(double.Parse(remoteVer, _format));
+                localVersion.WriteLine(remoteVer);
             }
         }
         #endregion
