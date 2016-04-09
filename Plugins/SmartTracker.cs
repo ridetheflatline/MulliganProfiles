@@ -18,7 +18,7 @@ namespace SmartBot.Plugins
         {
             map[key] = value;
         }
-
+        //kappa
         public static bool ContainsAll<T1>(this IList<T1> list, params T1[] items)
         {
             return !items.Except(list).Any();
