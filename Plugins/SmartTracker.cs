@@ -232,12 +232,12 @@ namespace SmartBot.Plugins
         public override void OnTick()
         {
             if (!_started || !_supported) return;
-            if (((SmartTracker) DataContainer).EnemyDeckTypeGuess != DeckType.Unknown && !talkedWithMulligan)
+            if (((SmartTracker)DataContainer).EnemyDeckTypeGuess != DeckType.Unknown && !talkedWithMulligan)
             {
                 GUI.ClearUI();
                 GUI.AddElement(
                     new GuiElementText(
-                        "Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess 
+                        "Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
                 talkedWithMulligan = true;
             }
@@ -269,7 +269,7 @@ namespace SmartBot.Plugins
 
         public override void OnGameBegin()
         {
-            ((SmartTracker) DataContainer).CurrentTurn = 0;
+            ((SmartTracker)DataContainer).CurrentTurn = 0;
             Bot.Log("-----------Game Begun-------------");
             IdentifyMyStuff();
         }
@@ -342,7 +342,7 @@ namespace SmartBot.Plugins
                 string createText = "0.001" + Environment.NewLine;
                 File.WriteAllText(MulliganInformation + "version.txt", createText);
             }
-            if(!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt"))
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt"))
             {
                 File.Create(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt");
             }
@@ -365,9 +365,9 @@ namespace SmartBot.Plugins
             CheckHistory();
             GetData();
             IdentifyMyStuff();
-            Bot.Log("--------------This is the deck that Tracker Picked up -------------------"+
-            "\n"+Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current + 
-            ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
+            Bot.Log("--------------This is the deck that Tracker Picked up -------------------" +
+            "\n" + Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current +
+              ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
             Bot.Log("---------------If it's wrong, just start the bot again------------------------");
             if (((SmartTracker)DataContainer).Mode == IdentityMode.Auto)
                 Bot.Log(string.Format("[SmartTracker] Succesfully Identified your deck as: [{0}:{1}]", informationData.DeckType, informationData.DeckStyle));
@@ -400,7 +400,7 @@ namespace SmartBot.Plugins
                     new StreamWriter(AppDomain.CurrentDomain.BaseDirectory +
                                      "\\MulliganProfiles\\SmartMulliganV3\\mt.txt"))
             {
-                mt.WriteLine("{0}:{1}:{2}:{3}", 
+                mt.WriteLine("{0}:{1}:{2}:{3}",
                     ((SmartTracker)DataContainer).MulliganTesterYourDeck,
                     DeckStyles[((SmartTracker)DataContainer).MulliganTesterYourDeck],
                     ((SmartTracker)DataContainer).MulliganTEsterEnemyDeck,
@@ -453,11 +453,11 @@ namespace SmartBot.Plugins
                     Bot.Log("[SmartTracker] SmartTracker is up to date");
                     return;
                 }
-                if (remote_major < local__major|| 
+                if (remote_major < local__major ||
                     (remote_major == local__major && remote_minor < local__minor))
                 {
                     Bot.Log(string.Format("[SmartTracker] Local Version: {0}.{1} Remote Version {2}.{3}",
-                        remote_major, remote_minor,local__major,local__minor));
+                        remote_major, remote_minor, local__major, local__minor));
                     Bot.Log("[SmartTracker] Arthur, you are an idiot. Push new update");
                     return;
                 }
@@ -502,21 +502,31 @@ namespace SmartBot.Plugins
             using (StreamReader localVersion = new StreamReader(MulliganInformation + "version.txt"))
 
             {
+                string[] remote_version = str.ReadLine().Split('.');
+                string[] local__version = localVersion.ReadLine().Split('.');
+                int remote_major = int.Parse(remote_version[0]);
+                int remote_minor = int.Parse(remote_version[1]);
+                int local__major = int.Parse(local__version[0]);
+                int local__minor = int.Parse(local__version[1]);
+                string r_version = remote_major + "." + remote_minor;
+                string l_version = local__major + "." + remote_minor;
+                if (remote_major == local__major && remote_minor == local__minor)
+                {
+                    Bot.Log("[SmartMulligan] SmartMulligan is up to date");
+                    return;
+                }
+                if (remote_major < local__major ||
+                    (remote_major == local__major && remote_minor < local__minor))
+                {
+                    Bot.Log(string.Format("[SmartMulligan] Local Version: {0}.{1} Remote Version {2}.{3}",
+                        remote_major, remote_minor, local__major, local__minor));
+                    Bot.Log("[SmartMulligan] Arthur, you are an idiot. Push new update");
+                    return;
+                }
+                localVersion.Close();
+                UpdateMulligan(lSmartMulligan, r_version, l_version);
 
-                double remoteVer = double.Parse(str.ReadLine(), _format);
-                double localVer = double.Parse(localVersion.ReadLine(), _format);
-                Report(string.Format("Received remote version as {0} and local version as {1} [origin:cMulligan]", remoteVer, localVer));
-                if (localVer == remoteVer) Bot.Log("[SmartTracker] SmartMulligan is up to date");
-                if (localVer > remoteVer)
-                {
-                    Bot.Log(string.Format("[SmartTracker] Local Version: {0} Remote Version {1}", localVer, remoteVer));
-                    Bot.Log("[SmartTracker] Arthur, you are an idiot. Push new update");
-                }
-                if (localVer < remoteVer)
-                {
-                    localVersion.Close();
-                    UpdateMulligan(lSmartMulligan, remoteVer.ToString(), localVer.ToString());
-                }
+
             }
         }
 
@@ -564,12 +574,12 @@ namespace SmartBot.Plugins
             EnemyHistory = new Dictionary<long, List<DeckType>>();
         }
 
-        public static int Turn; 
+        public static int Turn;
         public override void OnTurnBegin()
         {
             base.OnTurnBegin();
-            ((SmartTracker) DataContainer).CurrentTurn += 1;
-            Turn = ((SmartTracker) DataContainer).CurrentTurn;
+            ((SmartTracker)DataContainer).CurrentTurn += 1;
+            Turn = ((SmartTracker)DataContainer).CurrentTurn;
             try
             {
                 CheckOpponentDeck();
@@ -626,7 +636,7 @@ namespace SmartBot.Plugins
         public override void OnDefeat()
         {
             if (!_supported) return;
-            
+
 
             try
             {
@@ -759,7 +769,7 @@ namespace SmartBot.Plugins
             {DeckType.Basic, Style.Tempo}
         };
 
-        
+
         #region reference decks
         //Reference Decks
         private readonly List<Card.Cards> renoShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.SylvanasWindrunner, Cards.EarthShock, Cards.FarSight, Cards.StormforgedAxe, Cards.Doomhammer, Cards.FeralSpirit, Cards.Hex, Cards.AzureDrake, Cards.AlAkirtheWindlord, Cards.RockbiterWeapon, Cards.RagnarostheFirelord, Cards.BloodmageThalnos, Cards.DefenderofArgus, Cards.ManaTideTotem, Cards.FireElemental, Cards.LightningStorm, Cards.Crackle, Cards.LavaShock, Cards.EmperorThaurissan, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.AncestralKnowledge, Cards.HealingWave, Cards.JeweledScarab, Cards.SirFinleyMrrgglton, Cards.TombSpider, Cards.RenoJackson, Cards.TunnelTrogg, Cards.ArchThiefRafaam, };
@@ -1019,8 +1029,8 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.WARRIOR:
 
-                    if(Turn < 3 && CurrentDeck.Count == 0)
-                        return new DeckData {DeckList = CurrentDeck, DeckType = DeckType.ControlWarrior, DeckStyle = DeckStyles[DeckType.ControlWarrior]};
+                    if (Turn < 3 && CurrentDeck.Count == 0)
+                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.ControlWarrior, DeckStyle = DeckStyles[DeckType.ControlWarrior] };
                     if (CurrentDeck.IsRenoDeck())
                     {
                         deckDictionary.AddOrUpdate(DeckType.RenoWarrior, CurrentDeck.Intersect(renoWarrior).Count());
@@ -1273,7 +1283,7 @@ namespace SmartBot.Plugins
         }
         private static void Report(string str)
         {
-             using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\TrackerAULog.txt", true))
+            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\TrackerAULog.txt", true))
             {
                 log.WriteLine("[{0}] {1}", DateTime.Now, str);
             }
@@ -1304,7 +1314,7 @@ namespace SmartBot.Plugins
         }
     }
 
-    
+
     public class DeckData
     {
         public DeckType DeckType { get; set; }
@@ -1434,6 +1444,7 @@ namespace SmartBot.Plugins
         SmartMulligan
     }
 }
+
 
 
 
