@@ -456,7 +456,7 @@ namespace SmartBot.Plugins
                 if (remote_major < local__major ||
                     (remote_major == local__major && remote_minor < local__minor))
                 {
-                    Bot.Log(string.Format("[SmartTracker] Local Version: {0}.{1} Remote Version {2}.{3}",
+                    Bot.Log(string.Format("[SmartTracker] Remote Version: {0}.{1} Local Version {2}.{3}",
                         remote_major, remote_minor, local__major, local__minor));
                     Bot.Log("[SmartTracker] Arthur, you are an idiot. Push new update");
                     return;
