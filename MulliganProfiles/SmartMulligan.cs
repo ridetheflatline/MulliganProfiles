@@ -1845,6 +1845,9 @@ namespace MulliganProfiles
             }
             return new KeyValuePair<DeckType, Style>();
         } 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ClearReport()
         {
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\error.txt", string.Empty);
