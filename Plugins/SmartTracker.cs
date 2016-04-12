@@ -76,12 +76,10 @@ namespace SmartBot.Plugins
         /// </summary>
         private const bool DebugTesting = false;
 
-        [DisplayName("[1] AU SmartMulligan")]
-        public bool AutoUpdateV3 { get; set; }
+        [DisplayName("[1] Auto Update")]
+        public bool AutoUpdate { get; set; }
         [Browsable(false)]
         public double Mversion { get; private set; }
-        [DisplayName("[2] AU Tracker")]
-        public bool AutoUpdateTracker { get; set; }
         [Browsable(false)]
         public double Tversion { get; private set; }
         [DisplayName("[0] Version")]
@@ -145,8 +143,7 @@ namespace SmartBot.Plugins
             ForcedDeckType = DeckType.Unknown;
             MulliganTEsterEnemyDeck = DeckType.Unknown;
             MulliganTesterYourDeck = DeckType.Arena;
-            AutoUpdateV3 = true;
-            AutoUpdateTracker = true;
+            AutoUpdate = true;
             AutoFriendlyDeckType = DeckType.Unknown;
             EnemyDeckTypeGuess = DeckType.Unknown;
             AnalyzeGames = 50;
@@ -163,8 +160,6 @@ namespace SmartBot.Plugins
                          "\nManual -f\tTell tracker the deck you are playing if you chose Manual ID mode" +
                          "\nCoach:\t\tShows on the top left corner what tracker assumes your opponent is" +
                          "\nGT:\t\tGame Time, will record match end time in MatchHistory.txt";
-            AutoUpdateV3 = false;
-
         }
 
 
@@ -387,13 +382,11 @@ namespace SmartBot.Plugins
                         "Prediction: " + ((SmartTracker)DataContainer).EnemyDeckTypeGuess + "|" +
                         ((SmartTracker)DataContainer).EnemyDeckStyleGuess
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
-            if (((SmartTracker)DataContainer).AutoUpdateV3)
+            if (((SmartTracker)DataContainer).AutoUpdate)
             {
                 CheckUpdatesMulligan(((SmartTracker)DataContainer).LSmartMulligan);
                 ((SmartTracker)DataContainer).VersionCheck();
-            }
-            if (((SmartTracker)DataContainer).AutoUpdateTracker)
-            {
+            
                 CheckUpdatesTracker(((SmartTracker)DataContainer).LSmartTracker);
                 ((SmartTracker)DataContainer).VersionCheck();
             }
