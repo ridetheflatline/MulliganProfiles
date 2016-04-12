@@ -18,6 +18,13 @@ namespace SmartBot.Plugins
         {
             map[key] = value;
         }
+
+        public static void AddOrUpdateDeck<TKey>(this IDictionary<TKey, int> map, TKey key)
+        {
+            if (map.ContainsKey(key))
+                map[key]++;
+            else map[key] = 0;
+        }
         //kappa
         public static bool ContainsAll<T1>(this IList<T1> list, params T1[] items)
         {
@@ -138,8 +145,8 @@ namespace SmartBot.Plugins
             ForcedDeckType = DeckType.Unknown;
             MulliganTEsterEnemyDeck = DeckType.Unknown;
             MulliganTesterYourDeck = DeckType.Arena;
-            AutoUpdateV3 = false;
-            AutoUpdateTracker = false;
+            AutoUpdateV3 = true;
+            AutoUpdateTracker = true;
             AutoFriendlyDeckType = DeckType.Unknown;
             EnemyDeckTypeGuess = DeckType.Unknown;
             AnalyzeGames = 50;
@@ -287,6 +294,8 @@ namespace SmartBot.Plugins
                 var information = q.Split(new[] { "||" }, StringSplitOptions.None);
                 long enemyID = long.Parse(information[2]);
                 AddOrUpdateOpponentHistory(enemyID, (DeckType)Enum.Parse(typeof(DeckType), information[3]));
+                if(information[1] == "won")
+                   DeckTypeWinRate.AddOrUpdateDeck((DeckType)Enum.Parse(typeof(DeckType), information[3]));
             }
         }
 
@@ -418,6 +427,7 @@ namespace SmartBot.Plugins
                     DeckTypeCounter.AddOrUpdate(p, allDeckTypes.Count(type => type == p));
                 DeckTypeCounter.AddOrUpdate(p, count + 1);
             }
+            
         }
         public void PrintHistory()
         {
@@ -426,6 +436,7 @@ namespace SmartBot.Plugins
                 Bot.Log(string.Format("{0}\t{1}", q.Value, q.Key));
         }
         public Dictionary<DeckType, int> DeckTypeCounter = new Dictionary<DeckType, int>();
+        public Dictionary<DeckType, int> DeckTypeWinRate = new Dictionary<DeckType, int>(); 
         #region autoupdate
         private void CheckUpdatesTracker(string lSmartTracker)
         {
