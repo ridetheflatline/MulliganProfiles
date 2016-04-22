@@ -1498,10 +1498,47 @@ namespace MulliganProfiles
 
         private void HandleControlWarrior(GameContainer gc)
         {
+            bool hasWeapon = false;
+           
+
             _whiteList.AddAll(false, Cards.FieryWarAxe, Cards.DeathsBite);
-            bool vAggro = gc.EnemyStyle.Aggresive();
-            if (vAggro)
-                _whiteList.AddAll(false, Cards.Slam, Cards.Bash, Cards.Armorsmith);
+            foreach (var q in gc.Choices)
+            {
+               
+                if (q.Cost() < 5 && q.IsWeapon())
+                {
+                    hasWeapon = true;
+                    _whiteList.AddOrUpdate(q, false);
+                    switch (q.Cost())
+                    {
+                        case 2:
+                            gc.HasTurnTwo = true;
+                            break;
+                        case 4:
+                            gc.HasTurnThree = true;
+                            break;
+                    }
+                }
+                if (q.Cost() != 2 || q.IsMinion()) continue;
+                gc.HasTurnTwo = true;
+                _whiteList.AddOrUpdate(q, false);
+            }
+            _whiteList.AddOrUpdate(Cards.FierceMonkey, hasWeapon && gc.Coin && gc.EnemyStyle.Aggresive());
+            if (gc.Coin && (gc.HasTurnTwo || gc.Choices.HasAny(Cards.FieryWarAxe, Cards.DeathsBite)))
+            {
+                _whiteList.AddOrUpdate(Cards.ShieldBlock, false);
+                _whiteList.AddOrUpdate(Cards.ShieldSlam, false);
+            }
+            _whiteList.AddOrUpdate(gc.EnemyStyle.Aggresive() ? Cards.Whirlwind : Nothing, false);
+            if (gc.OpponentClass.Is(Card.CClass.WARLOCK))
+            {
+                _whiteList.AddOrUpdate(Cards.BigGameHunter, false);
+                _whiteList.AddOrUpdate(Cards.ShieldSlam, false);
+                _whiteList.AddOrUpdate(Cards.Execute, false);
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Execute) ? Cards.CruelTaskmaster : Nothing, false);
+            }
+            if (gc.OpponentClass.WeaponClass())
+                _whiteList.AddOrUpdate(gc.HasTurnTwo || gc.Coin ? Cards.HarrisonJones : Nothing, false);
         }
 
 

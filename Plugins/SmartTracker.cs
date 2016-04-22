@@ -444,7 +444,7 @@ namespace SmartBot.Plugins
             }
             Bot.Log("========================================");
 
-            Bot.Log(string.Format("Cummilative winrate: {0}%", Stats.First().Value.ShowTotalWinrate().ToString("#0.###")));
+            Bot.Log(string.Format("Cumulative winrate: {0}%", Stats.First().Value.ShowTotalWinrate().ToString("#0.###")));
             if (((SmartTracker)DataContainer).SummaryDetailes == History.Detailed)
             {
                 Stats.First().Value.ClassSummary();
