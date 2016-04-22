@@ -85,16 +85,6 @@ namespace SmartBot.Plugins
         [DisplayName("[0] Version")]
         public string Versions { get; private set; }
 
-        [DisplayName("[5] Games to Analyze")]
-        public int AnalyzeGames { get; set; }
-
-
-        [DisplayName("[5] Record GT")]
-        public bool StoreTime { get; set; }
-
-
-        //[DisplayName("Random Intro Messages")]
-        //public bool RandomMovieQuotes { get; private set; }
         [DisplayName("[3] ID Mode")]
         public IdentityMode Mode { get; set; }
         [DisplayName("[3] Manual -f Deck")]
@@ -108,6 +98,10 @@ namespace SmartBot.Plugins
 
         [DisplayName("[4] Coach")]
         public bool PredictionDisplay { get; set; }
+        [DisplayName("[5] Games to Analyze")]
+        public int AnalyzeGames { get; set; }
+        [DisplayName("[5] Record GT")]
+        public bool StoreTime { get; set; }
         [DisplayName("Glossary")]
         public string Dictionary { get; private set; }
 
@@ -127,6 +121,8 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public int SynchEnums { get; set; }
 
+        [DisplayName("[5] Summary Details")]
+        public History SummaryDetailes { get; set; }
         [DisplayName("[5] Show Summary")]
         public bool Summary { get; set; }
         [DisplayName("Hall of Fame")]
@@ -206,11 +202,6 @@ namespace SmartBot.Plugins
         private int _screenWidth;
         private int _screenHeight;
 
-        private readonly NumberFormatInfo _format = new NumberFormatInfo
-        {
-            NumberGroupSeparator = ",",
-            NumberDecimalSeparator = "."
-        };
         private int PercToPixWidth(int percent)
         {
             return (int)((_screenWidth / 100.0f) * percent);
@@ -284,26 +275,52 @@ namespace SmartBot.Plugins
             numGames = lineCount < numGames ? lineCount : ((SmartTracker)DataContainer).AnalyzeGames;
             List<string> text = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(numGames).ToList();
 
-            foreach (var q in text)
+            if (((SmartTracker) DataContainer).SummaryDetailes == History.Detailed)
             {
-                var information = q.Split(new[] { "||" }, StringSplitOptions.None);
-                long enemyID = long.Parse(information[2]);
-                AddOrUpdateOpponentHistory(enemyID, (DeckType)Enum.Parse(typeof(DeckType), information[3]));
-                if(information[1] == "won")
-                   DeckTypeWinRate.AddOrUpdateDeck((DeckType)Enum.Parse(typeof(DeckType), information[3]));
+                foreach (var q in text)
+                {
+                    var information = q.Split(new[] {"||"}, StringSplitOptions.None);
+                    DeckType dt = (DeckType) Enum.Parse(typeof (DeckType), information[3]);
+                    if (information[5].ToString().Contains("Cards")) continue;
+                    Card.CClass enemy = (Card.CClass) Enum.Parse(typeof (Card.CClass), information[5]);
+                    if (Stats.ContainsKey(dt))
+                    {
+                        Stats[dt].UpdateData(dt, enemy, information[1]);
+                    }
+                    else
+                    {
+
+                        Stats.AddOrUpdate(dt, new Statistics(dt, enemy, information[1]));
+                        //Stats[dt].UpdateData(dt, information[1]);
+                    }
+                }
             }
+            else
+            {
+                   foreach (var q in text)
+                {
+                    var information = q.Split(new[] {"||"}, StringSplitOptions.None);
+                    DeckType dt = (DeckType) Enum.Parse(typeof (DeckType), information[3]);
+                    if (information[5].ToString().Contains("Cards")) continue;
+                    //Card.CClass enemy = (Card.CClass) Enum.Parse(typeof (Card.CClass), information[5]);
+                    if (Stats.ContainsKey(dt))
+                    {
+                        Stats[dt].UpdateData(dt, information[1]);
+                    }
+                    else
+                    {
+
+                        Stats.AddOrUpdate(dt, new Statistics(dt, information[1]));
+                        //Stats[dt].UpdateData(dt, information[1]);
+                    }
+                }
+            }
+
         }
 
-        public void AddOrUpdateOpponentHistory(long id, DeckType deck)
-        {
-            List<DeckType> inHistory;
-            if (!EnemyHistory.TryGetValue(id, out inHistory))
-            {
-                inHistory = new List<DeckType>();
-            }
-            inHistory.Add(deck);
-            EnemyHistory.AddOrUpdate(id, inHistory);
-        }
+        
+
+        public Dictionary<DeckType, Statistics> Stats = new Dictionary<DeckType, Statistics>();
         public void IdentifyMyStuff()
         {
             if (identified || !_supported) return;
@@ -359,15 +376,19 @@ namespace SmartBot.Plugins
             SetupMulliganTester();
             if (!AllowedModes.Contains(Bot.CurrentMode()))
             {
-                Bot.Log("[SmartTracker] Sorry, Current mode is not supported with tracker");
+                Bot.Log(string.Format("[SmartTracker] You are playing {0} mode." +
+                                      " Tracker has no use for information gathered here," +
+                                      " defaulting your mulligan to Arena." +
+                                      " Forced Deck Type is ignored", Bot.CurrentMode().ToString()));
+                ((SmartTracker)DataContainer).AutoFriendlyDeckType = DeckType.Arena;
+                ((SmartTracker)DataContainer).AutoFriendlyStyle = Style.Tempo;
                 _supported = false;
+                ((SmartTracker)DataContainer).Enabled = true;
                 return;
             }
             _supported = true;
             _started = true;
-            DeckTypeCounter.Clear();
             CheckHistory();
-            GetData();
             IdentifyMyStuff();
             Bot.Log("--------------This is the deck that Tracker Picked up -------------------" +
             "\n" + Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current +
@@ -386,7 +407,7 @@ namespace SmartBot.Plugins
             {
                 CheckUpdatesMulligan(((SmartTracker)DataContainer).LSmartMulligan);
                 ((SmartTracker)DataContainer).VersionCheck();
-            
+
                 CheckUpdatesTracker(((SmartTracker)DataContainer).LSmartTracker);
                 ((SmartTracker)DataContainer).VersionCheck();
             }
@@ -410,26 +431,27 @@ namespace SmartBot.Plugins
             }
         }
 
-        public void GetData()
-        {
-            List<DeckType> allDeckTypes = EnemyHistory.SelectMany(q => q.Value).ToList();
-            foreach (var p in EnemyHistory.SelectMany(q => q.Value))
-            {
-                int count;
-                if (!DeckTypeCounter.TryGetValue(p, out count))
-                    DeckTypeCounter.AddOrUpdate(p, allDeckTypes.Count(type => type == p));
-                DeckTypeCounter.AddOrUpdate(p, count + 1);
-            }
-            
-        }
         public void PrintHistory()
         {
-            Bot.Log(string.Format("[Analyzing showed {0} unique opponents]", EnemyHistory.Count));
-            foreach (var q in DeckTypeCounter.OrderByDescending(val => val.Value))
-                Bot.Log(string.Format("{0}\t{1}", q.Value, q.Key));
-        }
-        public Dictionary<DeckType, int> DeckTypeCounter = new Dictionary<DeckType, int>();
-        public Dictionary<DeckType, int> DeckTypeWinRate = new Dictionary<DeckType, int>(); 
+            Bot.Log("========================================");
+            Bot.Log(string.Format("\tYour Stats for the past {0} games", ((SmartTracker)DataContainer).AnalyzeGames));
+            Bot.Log("");
+            Bot.Log("Won\tPlayed\tWinrate\t\tEnemy Deck");
+            Bot.Log("========================================");
+            foreach (var q in Stats.OrderByDescending(c => c.Value.Played))
+            {
+                Bot.Log(q.Value.ToString());
+            }
+            Bot.Log("========================================");
+
+            Bot.Log(string.Format("Cummilative winrate: {0}%", Stats.First().Value.ShowTotalWinrate().ToString("#0.###")));
+            if (((SmartTracker)DataContainer).SummaryDetailes == History.Detailed)
+            {
+                Stats.First().Value.ClassSummary();
+            }
+            Bot.Log("========================================");
+        }  //a
+
         #region autoupdate
         private void CheckUpdatesTracker(string lSmartTracker)
         {
@@ -485,7 +507,6 @@ namespace SmartBot.Plugins
             using (StreamWriter updateLocalCopy = new StreamWriter(TrackerDir + "SmartTracker.cs"))
             {
                 string tempfile = trFile.ReadToEnd();
-                //Bot.Log("[IGOT HERE]");
                 updateLocalCopy.WriteLine(tempfile);
                 Bot.ReloadPlugins();
                 Bot.Log("[SmartTracker] SmartTracker is now fully updated");
@@ -575,7 +596,18 @@ namespace SmartBot.Plugins
             _started = false;
             pregameEnemyIdentified = false;
             talkedWithMulligan = false;
-            EnemyHistory = new Dictionary<long, List<DeckType>>();
+            try
+            {
+                Stats.First().Value.Reset();
+
+            }
+            catch (Exception)
+            {
+              //ignored
+            }
+            Stats.Clear();
+            if (!_supported)
+                ((SmartTracker)DataContainer).Enabled = true;
         }
 
         public static int Turn;
@@ -583,6 +615,7 @@ namespace SmartBot.Plugins
         {
             base.OnTurnBegin();
             ((SmartTracker)DataContainer).CurrentTurn += 1;
+            if (!_supported) return;
             Turn = ((SmartTracker)DataContainer).CurrentTurn;
             try
             {
@@ -632,7 +665,7 @@ namespace SmartBot.Plugins
             using (StreamWriter opponentDeckInfo = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck, Bot.CurrentBoard.SecretEnemyCount);
-                opponentDeckInfo.WriteLine("{0}||{1}||{2}||{3}||{4}||{5}", ((SmartTracker)DataContainer).StoreTime ? DateTime.UtcNow.ToString(CultureInfo.InvariantCulture) : "some time ago", res, Bot.GetCurrentOpponentId(), opponentInfo.DeckType, opponentInfo.DeckStyle, str);
+                opponentDeckInfo.WriteLine("{0}||{1}||{2}||{3}||{4}||{5}||{6}", ((SmartTracker)DataContainer).StoreTime ? DateTime.UtcNow.ToString(CultureInfo.InvariantCulture) : "some time ago", res, Bot.GetCurrentOpponentId(), opponentInfo.DeckType, opponentInfo.DeckStyle, Bot.CurrentBoard.EnemyClass, str);
                 Bot.Log(string.Format("[Tracker] Succesfully recorded your opponent: {0}", opponentInfo.DeckType));
             }
         }
@@ -650,19 +683,7 @@ namespace SmartBot.Plugins
             {
                 Bot.Log("Something happened that wasn't intended" + e.Message);
             }
-            AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
-            UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
             Bot.Log("[ST] Adden recent opponent to data set.");
-
-        }
-
-        private void UpdateCounter(DeckType dt)
-        {
-            List<DeckType> allDeckTypes = EnemyHistory.SelectMany(q => q.Value).ToList();
-            int count;
-            if (!DeckTypeCounter.TryGetValue(dt, out count))
-                DeckTypeCounter.AddOrUpdate(dt, allDeckTypes.Count(type => type == dt));
-            DeckTypeCounter.AddOrUpdate(dt, count + 1);
 
         }
 
@@ -678,8 +699,7 @@ namespace SmartBot.Plugins
             {
                 Bot.Log("Something happened that wasn't intended" + e.Message);
             }
-            AddOrUpdateOpponentHistory(Bot.GetCurrentOpponentId(), ((SmartTracker)DataContainer).EnemyDeckTypeGuess);
-            UpdateCounter(((SmartTracker)DataContainer).EnemyDeckTypeGuess);
+
             Bot.Log("[ST] Adden recent opponent to data set.");
         }
         #region deckIdentifier
@@ -888,144 +908,144 @@ namespace SmartBot.Plugins
                 #region shaman
 
                 case Card.CClass.SHAMAN:
-                    if (CurrentDeck.IsRenoDeck())
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RenoShaman, CurrentDeck.Intersect(renoShaman).Count());
-                    }
-                    if (CurrentDeck.RaceCount(Card.CRace.MECH) > 2)
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MechShaman, CurrentDeck.Intersect(MechShaman).Count());
-                    }
-                    if (CurrentDeck.Contains(Cards.Malygos))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MalygosShaman, CurrentDeck.Intersect(MalygosShaman).Count());
-                    }
+                if (CurrentDeck.IsRenoDeck())
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RenoShaman, CurrentDeck.Intersect(renoShaman).Count());
+                }
+                if (CurrentDeck.RaceCount(Card.CRace.MECH) > 2)
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MechShaman, CurrentDeck.Intersect(MechShaman).Count());
+                }
+                if (CurrentDeck.Contains(Cards.Malygos))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MalygosShaman, CurrentDeck.Intersect(MalygosShaman).Count());
+                }
 
-                    deckDictionary.AddOrUpdate(DeckType.FaceShaman, CurrentDeck.Intersect(FaceShaman).Count());
-                    if (CurrentDeck.ContainsSome(Cards.Malygos, Cards.TwilightGuardian, Cards.AzureDrake))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.DragonShaman, CurrentDeck.Intersect(DragonShaman).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.TotemShaman, CurrentDeck.Intersect(TotemShaman).Count());
-                    if (CurrentDeck.ContainsSome(Cards.Doomsayer, Cards.BigGameHunter, Cards.ElementalDestruction, Cards.HealingWave, Cards.LightningStorm, Cards.JeweledScarab))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.ControlShaman, CurrentDeck.Intersect(ControlShaman).Count());
-                        deckDictionary.AddOrUpdate(DeckType.ControlShaman, CurrentDeck.Intersect(ControlShaman2).Count());
-                    }
+                deckDictionary.AddOrUpdate(DeckType.FaceShaman, CurrentDeck.Intersect(FaceShaman).Count());
+                if (CurrentDeck.ContainsSome(Cards.Malygos, Cards.TwilightGuardian, Cards.AzureDrake))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.DragonShaman, CurrentDeck.Intersect(DragonShaman).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.TotemShaman, CurrentDeck.Intersect(TotemShaman).Count());
+                if (CurrentDeck.ContainsSome(Cards.Doomsayer, Cards.BigGameHunter, Cards.ElementalDestruction, Cards.HealingWave, Cards.LightningStorm, Cards.JeweledScarab))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.ControlShaman, CurrentDeck.Intersect(ControlShaman).Count());
+                    deckDictionary.AddOrUpdate(DeckType.ControlShaman, CurrentDeck.Intersect(ControlShaman2).Count());
+                }
 
-                    if (CurrentDeck.Contains(Cards.Bloodlust))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.BloodlustShaman, CurrentDeck.Intersect(BloodlustShaman).Count());
-                    }
-                    if (CurrentDeck.Contains(Cards.RumblingElemental))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.BloodlustShaman, CurrentDeck.Intersect(battlecryShaman).Count());
-                    }
+                if (CurrentDeck.Contains(Cards.Bloodlust))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.BloodlustShaman, CurrentDeck.Intersect(BloodlustShaman).Count());
+                }
+                if (CurrentDeck.Contains(Cards.RumblingElemental))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.BloodlustShaman, CurrentDeck.Intersect(battlecryShaman).Count());
+                }
 
-                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicChaman).Count());
+                deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicChaman).Count());
 
-                    break;
+                break;
 
                 #endregion
 
                 #region priest
 
                 case Card.CClass.PRIEST:
-                    if (Turn < 3 && CurrentDeck.Count == 0)
-                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.ControlPriest, DeckStyle = DeckStyles[DeckType.ControlPriest] };
-                    if (CurrentDeck.ContainsSome(Cards.WyrmrestAgent, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.BlackwingCorruptor, Cards.BlackwingTechnician))
+                if (Turn < 3 && CurrentDeck.Count == 0)
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.ControlPriest, DeckStyle = DeckStyles[DeckType.ControlPriest] };
+                if (CurrentDeck.ContainsSome(Cards.WyrmrestAgent, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.BlackwingCorruptor, Cards.BlackwingTechnician))
+                {
+                    if (!CurrentDeck.IsRenoDeck())
                     {
-                        if (!CurrentDeck.IsRenoDeck())
-                        {
-                            info.DeckType = DeckType.DragonPriest;
-                            info.DeckStyle = DeckStyles[DeckType.DragonPriest];
-                            return info;
-                        }
+                        info.DeckType = DeckType.DragonPriest;
+                        info.DeckStyle = DeckStyles[DeckType.DragonPriest];
+                        return info;
                     }
-                    deckDictionary.AddOrUpdate(DeckType.ControlPriest, CurrentDeck.Intersect(ContrlPriest).Count());
-                    if (CurrentDeck.ContainsSome(Cards.InnerFire, Cards.ProphetVelen))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.ComboPriest, CurrentDeck.Intersect(ComboPriest).Count());
-                    }
-                    if (CurrentDeck.RaceCount(Card.CRace.MECH) > 2)
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MechPriest, CurrentDeck.Intersect(MechPriest).Count());
-                    }
+                }
+                deckDictionary.AddOrUpdate(DeckType.ControlPriest, CurrentDeck.Intersect(ContrlPriest).Count());
+                if (CurrentDeck.ContainsSome(Cards.InnerFire, Cards.ProphetVelen))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.ComboPriest, CurrentDeck.Intersect(ComboPriest).Count());
+                }
+                if (CurrentDeck.RaceCount(Card.CRace.MECH) > 2)
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MechPriest, CurrentDeck.Intersect(MechPriest).Count());
+                }
 
-                    if (CurrentDeck.Contains(Cards.Shadowform))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.ShadowPriest, CurrentDeck.Intersect(ShadowPriest).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicPriest).Count());
+                if (CurrentDeck.Contains(Cards.Shadowform))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.ShadowPriest, CurrentDeck.Intersect(ShadowPriest).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicPriest).Count());
 
-                    break;
+                break;
 
                 #endregion
 
                 #region mage
 
                 case Card.CClass.MAGE:
-                    if (Turn < 3 && CurrentDeck.Count == 0)
-                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.FreezeMage, DeckStyle = DeckStyles[DeckType.FreezeMage] };
-                    if (CurrentDeck.IsRenoDeck())
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RenoMage, CurrentDeck.Intersect(renoMage).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.TempoMage, CurrentDeck.Intersect(tempoMage).Count());
-                    if (CurrentDeck.ContainsAtLeast(2, Cards.IceBarrier, Cards.IceBlock, Cards.AcolyteofPain, Cards.LootHoarder, Cards.NoviceEngineer, Cards.MadScientist))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.FreezeMage, CurrentDeck.Intersect(freeze).Count());
-                        deckDictionary.AddOrUpdate(DeckType.FaceFreezeMage, CurrentDeck.Intersect(faceFreeze).Count());
-                    }
-                    if (CurrentDeck.RaceCount(Card.CRace.DRAGON) > 2)
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.DragonMage, CurrentDeck.Intersect(dragonMage).Count());
-                    }
-                    if (CurrentDeck.RaceCount(Card.CRace.MECH) > 3 || CurrentDeck.ContainsSome(Cards.Cogmaster, Cards.ClockworkGnome, Cards.Mechwarper, Cards.SpiderTank, Cards.TinkertownTechnician, Cards.Snowchugger))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MechMage, CurrentDeck.Intersect(mechMage).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.Duplicate, Cards.EmperorThaurissan, Cards.EtherealConjurer))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.FatigueMage, CurrentDeck.Intersect(grinderMage).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicMage).Count());
-                    break;
+                if (Turn < 3 && CurrentDeck.Count == 0)
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.FreezeMage, DeckStyle = DeckStyles[DeckType.FreezeMage] };
+                if (CurrentDeck.IsRenoDeck())
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RenoMage, CurrentDeck.Intersect(renoMage).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.TempoMage, CurrentDeck.Intersect(tempoMage).Count());
+                if (CurrentDeck.ContainsAtLeast(2, Cards.IceBarrier, Cards.IceBlock, Cards.AcolyteofPain, Cards.LootHoarder, Cards.NoviceEngineer, Cards.MadScientist))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.FreezeMage, CurrentDeck.Intersect(freeze).Count());
+                    deckDictionary.AddOrUpdate(DeckType.FaceFreezeMage, CurrentDeck.Intersect(faceFreeze).Count());
+                }
+                if (CurrentDeck.RaceCount(Card.CRace.DRAGON) > 2)
+                {
+                    deckDictionary.AddOrUpdate(DeckType.DragonMage, CurrentDeck.Intersect(dragonMage).Count());
+                }
+                if (CurrentDeck.RaceCount(Card.CRace.MECH) > 3 || CurrentDeck.ContainsSome(Cards.Cogmaster, Cards.ClockworkGnome, Cards.Mechwarper, Cards.SpiderTank, Cards.TinkertownTechnician, Cards.Snowchugger))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MechMage, CurrentDeck.Intersect(mechMage).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.Duplicate, Cards.EmperorThaurissan, Cards.EtherealConjurer))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.FatigueMage, CurrentDeck.Intersect(grinderMage).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicMage).Count());
+                break;
 
                 #endregion
 
                 #region paladin
 
                 case Card.CClass.PALADIN:
-                    if (activeSecrets > 0)
-                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.SecretPaladin, DeckStyle = DeckStyles[DeckType.SecretPaladin] };
-                    if (CurrentDeck.IsRenoDeck(10))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RenoPaladin, CurrentDeck.Intersect(renoPaladin).Count());
-                        deckDictionary.AddOrUpdate(DeckType.RenoPaladin, CurrentDeck.Intersect(renoPaladin2).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.AnyfinCanHappen, Cards.BluegillWarrior, Cards.MurlocWarleader, Cards.OldMurkEye, Cards.Doomsayer))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.AnyfinMurglMurgl, CurrentDeck.Intersect(anyfinPaladin).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.Secretkeeper, Cards.Avenge, Cards.NobleSacrifice, Cards.Redemption, Cards.MysteriousChallenger, Cards.KnifeJuggler, Cards.ShieldedMinibot, Cards.MusterforBattle))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.SecretPaladin, CurrentDeck.Intersect(secretPaladin).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.ShieldedMinibot, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.Quartermaster, Cards.LayonHands, Cards.Doomsayer))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MidRangePaladin, CurrentDeck.Intersect(midrangePaladin).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.TwilightGuardian, Cards.BlackwingTechnician, Cards.DragonConsort, Cards.BlackwingCorruptor) || CurrentDeck.RaceCount(Card.CRace.DRAGON) > 3)
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.DragonPaladin, CurrentDeck.Intersect(dragonPaladin).Count());
-                    }
-                    if (CurrentDeck.ContainsAtLeast(2, Cards.AbusiveSergeant, Cards.LeperGnome, Cards.LeeroyJenkins, Cards.DivineFavor, Cards.BlessingofMight, Cards.ArcaneGolem))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.AggroPaladin, CurrentDeck.Intersect(aggroPaladin).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicPaladin).Count());
-                    break;
+                if (activeSecrets > 0)
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.SecretPaladin, DeckStyle = DeckStyles[DeckType.SecretPaladin] };
+                if (CurrentDeck.IsRenoDeck(10))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RenoPaladin, CurrentDeck.Intersect(renoPaladin).Count());
+                    deckDictionary.AddOrUpdate(DeckType.RenoPaladin, CurrentDeck.Intersect(renoPaladin2).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.AnyfinCanHappen, Cards.BluegillWarrior, Cards.MurlocWarleader, Cards.OldMurkEye, Cards.Doomsayer))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.AnyfinMurglMurgl, CurrentDeck.Intersect(anyfinPaladin).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.Secretkeeper, Cards.Avenge, Cards.NobleSacrifice, Cards.Redemption, Cards.MysteriousChallenger, Cards.KnifeJuggler, Cards.ShieldedMinibot, Cards.MusterforBattle))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.SecretPaladin, CurrentDeck.Intersect(secretPaladin).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.ShieldedMinibot, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.Quartermaster, Cards.LayonHands, Cards.Doomsayer))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MidRangePaladin, CurrentDeck.Intersect(midrangePaladin).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.TwilightGuardian, Cards.BlackwingTechnician, Cards.DragonConsort, Cards.BlackwingCorruptor) || CurrentDeck.RaceCount(Card.CRace.DRAGON) > 3)
+                {
+                    deckDictionary.AddOrUpdate(DeckType.DragonPaladin, CurrentDeck.Intersect(dragonPaladin).Count());
+                }
+                if (CurrentDeck.ContainsAtLeast(2, Cards.AbusiveSergeant, Cards.LeperGnome, Cards.LeeroyJenkins, Cards.DivineFavor, Cards.BlessingofMight, Cards.ArcaneGolem))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.AggroPaladin, CurrentDeck.Intersect(aggroPaladin).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicPaladin).Count());
+                break;
 
                 #endregion
 
@@ -1033,42 +1053,42 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.WARRIOR:
 
-                    if (Turn < 3 && CurrentDeck.Count == 0)
-                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.ControlWarrior, DeckStyle = DeckStyles[DeckType.ControlWarrior] };
-                    if (CurrentDeck.IsRenoDeck())
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RenoWarrior, CurrentDeck.Intersect(renoWarrior).Count());
-                        deckDictionary.AddOrUpdate(DeckType.RenoWarrior, CurrentDeck.Intersect(renoWarrior2).Count());
-                    }
-                    if (CurrentDeck.ContainsAtLeast(2, Cards.Bolster, Cards.SparringPartner, Cards.FierceMonkey, Cards.ObsidianDestroyer, Cards.ArcaneNullifierX21))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.TauntWarrior, CurrentDeck.Intersect(tauntWarrior).Count());
-                    }
-                    if (CurrentDeck.Contains(Cards.Deathlord))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.FatigueWarrior, CurrentDeck.Intersect(fatigueWarrior).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.ControlWarrior, CurrentDeck.Intersect(controlWarriorCards).Count());
-                    if (CurrentDeck.RaceCount(Card.CRace.DRAGON) > 2 || CurrentDeck.ContainsSome(Cards.AlexstraszasChampion, Cards.TwilightGuardian, Cards.BlackwingCorruptor, Cards.BlackwingTechnician))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.DragonWarrior, CurrentDeck.Intersect(dragonWarrior).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.GrimPatron, Cards.FrothingBerserker))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.PatronWarrior, CurrentDeck.Intersect(patronWarrior).Count());
-                    }
-                    if (CurrentDeck.ContainsAll(Cards.RagingWorgen, Cards.Charge))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.WorgenOTKWarrior, CurrentDeck.Intersect(worgen).Count());
-                    }
-                    if (CurrentDeck.RaceCount(Card.CRace.MECH) > 2)
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MechWarrior, CurrentDeck.Intersect(mechWar).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.FaceWarrior, CurrentDeck.Intersect(faceWar).Count());
-                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicWarrior).Count());
+                if (Turn < 3 && CurrentDeck.Count == 0)
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.ControlWarrior, DeckStyle = DeckStyles[DeckType.ControlWarrior] };
+                if (CurrentDeck.IsRenoDeck())
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RenoWarrior, CurrentDeck.Intersect(renoWarrior).Count());
+                    deckDictionary.AddOrUpdate(DeckType.RenoWarrior, CurrentDeck.Intersect(renoWarrior2).Count());
+                }
+                if (CurrentDeck.ContainsAtLeast(2, Cards.Bolster, Cards.SparringPartner, Cards.FierceMonkey, Cards.ObsidianDestroyer, Cards.ArcaneNullifierX21))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.TauntWarrior, CurrentDeck.Intersect(tauntWarrior).Count());
+                }
+                if (CurrentDeck.Contains(Cards.Deathlord))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.FatigueWarrior, CurrentDeck.Intersect(fatigueWarrior).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.ControlWarrior, CurrentDeck.Intersect(controlWarriorCards).Count());
+                if (CurrentDeck.RaceCount(Card.CRace.DRAGON) > 2 || CurrentDeck.ContainsSome(Cards.AlexstraszasChampion, Cards.TwilightGuardian, Cards.BlackwingCorruptor, Cards.BlackwingTechnician))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.DragonWarrior, CurrentDeck.Intersect(dragonWarrior).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.GrimPatron, Cards.FrothingBerserker))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.PatronWarrior, CurrentDeck.Intersect(patronWarrior).Count());
+                }
+                if (CurrentDeck.ContainsAll(Cards.RagingWorgen, Cards.Charge))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.WorgenOTKWarrior, CurrentDeck.Intersect(worgen).Count());
+                }
+                if (CurrentDeck.RaceCount(Card.CRace.MECH) > 2)
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MechWarrior, CurrentDeck.Intersect(mechWar).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.FaceWarrior, CurrentDeck.Intersect(faceWar).Count());
+                deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicWarrior).Count());
 
-                    break;
+                break;
 
                 #endregion
 
@@ -1076,43 +1096,43 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.WARLOCK:
 
-                    if (Turn < 3 && CurrentDeck.Count == 0)
-                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.RenoLock, DeckStyle = DeckStyles[DeckType.RenoLock] };
-                    if (CurrentDeck.ContainsAtLeast(2, Cards.JeweledScarab, Cards.AntiqueHealbot, Cards.Ysera, Cards.EmperorThaurissan, Cards.EliseStarseeker, Cards.Demonfire, Cards.Hellfire, Cards.SiphonSoul))
+                if (Turn < 3 && CurrentDeck.Count == 0)
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.RenoLock, DeckStyle = DeckStyles[DeckType.RenoLock] };
+                if (CurrentDeck.ContainsAtLeast(2, Cards.JeweledScarab, Cards.AntiqueHealbot, Cards.Ysera, Cards.EmperorThaurissan, Cards.EliseStarseeker, Cards.Demonfire, Cards.Hellfire, Cards.SiphonSoul))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.ControlWarlock, CurrentDeck.Intersect(controlWarlock).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.MountainGiant, Cards.TwilightDrake, Cards.AncientWatcher, Cards.SunfuryProtector))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.Handlock, CurrentDeck.Intersect(handlock).Count());
+                }
+                if (CurrentDeck.IsRenoDeck())
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RenoLock, CurrentDeck.Intersect(renoLock).Count());
+                    if (CurrentDeck.ContainsAll(Cards.ArcaneGolem, Cards.FacelessManipulator))
                     {
-                        deckDictionary.AddOrUpdate(DeckType.ControlWarlock, CurrentDeck.Intersect(controlWarlock).Count());
+                        deckDictionary.AddOrUpdate(DeckType.RenoComboLock, CurrentDeck.Intersect(RenoCombo).Count() + 1); //addomg some extra weight
                     }
-                    if (CurrentDeck.ContainsSome(Cards.MountainGiant, Cards.TwilightDrake, Cards.AncientWatcher, Cards.SunfuryProtector))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.Handlock, CurrentDeck.Intersect(handlock).Count());
-                    }
-                    if (CurrentDeck.IsRenoDeck())
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RenoLock, CurrentDeck.Intersect(renoLock).Count());
-                        if (CurrentDeck.ContainsAll(Cards.ArcaneGolem, Cards.FacelessManipulator))
-                        {
-                            deckDictionary.AddOrUpdate(DeckType.RenoComboLock, CurrentDeck.Intersect(RenoCombo).Count() + 1); //addomg some extra weight
-                        }
-                    }
-                    if (CurrentDeck.ContainsAtLeast(2, Cards.Voidcaller, Cards.Doomguard, Cards.MalGanis, Cards.ImpGangBoss))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.DemonZooWarlock, CurrentDeck.Intersect(demonzoolock).Count());
+                }
+                if (CurrentDeck.ContainsAtLeast(2, Cards.Voidcaller, Cards.Doomguard, Cards.MalGanis, Cards.ImpGangBoss))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.DemonZooWarlock, CurrentDeck.Intersect(demonzoolock).Count());
 
-                        if (CurrentDeck.ContainsSome(Cards.TwilightDrake, Cards.MountainGiant, Cards.MoltenGiant))
-                        {
-                            deckDictionary.AddOrUpdate(DeckType.DemonHandlock, CurrentDeck.Intersect(demonHandLock).Count());
-                        }
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.Zoolock, CurrentDeck.Intersect(zoolock).Count());
-                    if (CurrentDeck.ContainsAll(Cards.TwilightGuardian, Cards.MountainGiant))
+                    if (CurrentDeck.ContainsSome(Cards.TwilightDrake, Cards.MountainGiant, Cards.MoltenGiant))
                     {
-                        deckDictionary.AddOrUpdate(DeckType.DragonHandlock, CurrentDeck.Intersect(dragonHandlock).Count());
+                        deckDictionary.AddOrUpdate(DeckType.DemonHandlock, CurrentDeck.Intersect(demonHandLock).Count());
                     }
-                    if (CurrentDeck.Contains(Cards.Malygos))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MalyLock, CurrentDeck.Intersect(malyLock).Count());
-                    }
-                    break;
+                }
+                deckDictionary.AddOrUpdate(DeckType.Zoolock, CurrentDeck.Intersect(zoolock).Count());
+                if (CurrentDeck.ContainsAll(Cards.TwilightGuardian, Cards.MountainGiant))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.DragonHandlock, CurrentDeck.Intersect(dragonHandlock).Count());
+                }
+                if (CurrentDeck.Contains(Cards.Malygos))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MalyLock, CurrentDeck.Intersect(malyLock).Count());
+                }
+                break;
 
                 #endregion
 
@@ -1120,35 +1140,35 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.HUNTER:
 
-                    if (CurrentDeck.RaceCount(Card.CRace.DRAGON) > 3 || CurrentDeck.ContainsAtLeast(2, Cards.TwilightGuardian, Cards.BlackwingTechnician, Cards.BlackwingCorruptor, Cards.DrakonidCrusher, Cards.RendBlackhand))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.DragonHunter, CurrentDeck.Intersect(dragonHunter).Count());
-                    }
-                    if (CurrentDeck.IsRenoDeck())
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RenoHunter, CurrentDeck.Intersect(renoHunter).Count());
-                        deckDictionary.AddOrUpdate(DeckType.RenoHunter, CurrentDeck.Intersect(renoHunter2).Count());
-                    }
-                    if (CurrentDeck.ContainsAll(Cards.DesertCamel, Cards.InjuredKvaldir) || CurrentDeck.ContainsAtLeast(2, Cards.FlameJuggler, Cards.Glaivezooka, Cards.CultMaster))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.CamelHunter, CurrentDeck.Intersect(injuredCamel).Count());
-                    }
-                    if (CurrentDeck.ContainsAtLeast(2, Cards.SavannahHighmane, Cards.LeperGnome, Cards.AbusiveSergeant, Cards.ArcaneGolem))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.HybridHunter, CurrentDeck.Intersect(hybridHunter).Count());
-                    }
-                    if (CurrentDeck.Contains(Cards.ExplorersHat))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.HatHunter, CurrentDeck.Intersect(hatHunter).Count());
-                    }
-                    if (CurrentDeck.ContainsAtLeast(2, Cards.ExplosiveTrap, Cards.AbusiveSergeant, Cards.LeperGnome, Cards.KnifeJuggler))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.FaceHunter, CurrentDeck.Intersect(faceHunter).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.MidRangeHunter, CurrentDeck.Intersect(midRangeHunter).Count());
-                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicHunter).Count());
+                if (CurrentDeck.RaceCount(Card.CRace.DRAGON) > 3 || CurrentDeck.ContainsAtLeast(2, Cards.TwilightGuardian, Cards.BlackwingTechnician, Cards.BlackwingCorruptor, Cards.DrakonidCrusher, Cards.RendBlackhand))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.DragonHunter, CurrentDeck.Intersect(dragonHunter).Count());
+                }
+                if (CurrentDeck.IsRenoDeck())
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RenoHunter, CurrentDeck.Intersect(renoHunter).Count());
+                    deckDictionary.AddOrUpdate(DeckType.RenoHunter, CurrentDeck.Intersect(renoHunter2).Count());
+                }
+                if (CurrentDeck.ContainsAll(Cards.DesertCamel, Cards.InjuredKvaldir) || CurrentDeck.ContainsAtLeast(2, Cards.FlameJuggler, Cards.Glaivezooka, Cards.CultMaster))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.CamelHunter, CurrentDeck.Intersect(injuredCamel).Count());
+                }
+                if (CurrentDeck.ContainsAtLeast(2, Cards.SavannahHighmane, Cards.LeperGnome, Cards.AbusiveSergeant, Cards.ArcaneGolem))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.HybridHunter, CurrentDeck.Intersect(hybridHunter).Count());
+                }
+                if (CurrentDeck.Contains(Cards.ExplorersHat))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.HatHunter, CurrentDeck.Intersect(hatHunter).Count());
+                }
+                if (CurrentDeck.ContainsAtLeast(2, Cards.ExplosiveTrap, Cards.AbusiveSergeant, Cards.LeperGnome, Cards.KnifeJuggler))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.FaceHunter, CurrentDeck.Intersect(faceHunter).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.MidRangeHunter, CurrentDeck.Intersect(midRangeHunter).Count());
+                deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicHunter).Count());
 
-                    break;
+                break;
 
                 #endregion
 
@@ -1156,50 +1176,50 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.ROGUE:
 
-                    deckDictionary.AddOrUpdate(DeckType.OilRogue, 3);
-                    if (CurrentDeck.IsRenoDeck(10))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RenoRogue, CurrentDeck.Intersect(renoRogue).Count());
-                        deckDictionary.AddOrUpdate(DeckType.RenoRogue, CurrentDeck.Intersect(renoRogue2).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.ColdlightOracle, Cards.GangUp))
-                        return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.MillRogue, DeckStyle = DeckStyles[DeckType.MillRogue] };
-                    if (CurrentDeck.ContainsSome(Cards.Deathlord, Cards.Shadowstep, Cards.YouthfulBrewmaster, Cards.Vanish))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MillRogue, CurrentDeck.Intersect(millRogue).Count());
-                    }
-                    if (CurrentDeck.RaceCount(Card.CRace.MECH) >= 4 || CurrentDeck.ContainsAtLeast(2, Cards.ClockworkGnome, Cards.Mechwarper, Cards.GoblinAutoBarber, Cards.AnnoyoTron, Cards.TinkertownTechnician))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MechRogue, CurrentDeck.Intersect(mechRogue).Count());
-                    }
-                    if (CurrentDeck.Contains(Cards.GadgetzanAuctioneer))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MiracleRogue, CurrentDeck.Intersect(miracleRogue).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.TinkersSharpswordOil, Cards.DeadlyPoison, Cards.VioletTeacher, Cards.EdwinVanCleef, Cards.Backstab, Cards.BladeFlurry, Cards.FanofKnives))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.OilRogue, CurrentDeck.Intersect(oilRogue).Count());
-                    }
+                deckDictionary.AddOrUpdate(DeckType.OilRogue, 3);
+                if (CurrentDeck.IsRenoDeck(10))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RenoRogue, CurrentDeck.Intersect(renoRogue).Count());
+                    deckDictionary.AddOrUpdate(DeckType.RenoRogue, CurrentDeck.Intersect(renoRogue2).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.ColdlightOracle, Cards.GangUp))
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.MillRogue, DeckStyle = DeckStyles[DeckType.MillRogue] };
+                if (CurrentDeck.ContainsSome(Cards.Deathlord, Cards.Shadowstep, Cards.YouthfulBrewmaster, Cards.Vanish))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MillRogue, CurrentDeck.Intersect(millRogue).Count());
+                }
+                if (CurrentDeck.RaceCount(Card.CRace.MECH) >= 4 || CurrentDeck.ContainsAtLeast(2, Cards.ClockworkGnome, Cards.Mechwarper, Cards.GoblinAutoBarber, Cards.AnnoyoTron, Cards.TinkertownTechnician))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MechRogue, CurrentDeck.Intersect(mechRogue).Count());
+                }
+                if (CurrentDeck.Contains(Cards.GadgetzanAuctioneer))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MiracleRogue, CurrentDeck.Intersect(miracleRogue).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.TinkersSharpswordOil, Cards.DeadlyPoison, Cards.VioletTeacher, Cards.EdwinVanCleef, Cards.Backstab, Cards.BladeFlurry, Cards.FanofKnives))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.OilRogue, CurrentDeck.Intersect(oilRogue).Count());
+                }
 
-                    if (CurrentDeck.Contains(Cards.ShipsCannon))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.PirateRogue, CurrentDeck.Intersect(pirateRogue).Count());
-                    }
-                    if (CurrentDeck.Contains(Cards.Malygos))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MalyRogue, CurrentDeck.Intersect(malyRogue).Count());
-                    }
-                    if (CurrentDeck.Contains(Cards.ColdlightOracle))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.FatigueRogue, CurrentDeck.Intersect(fatigueRogue).Count());
-                    }
-                    if (CurrentDeck.Contains(Cards.UnearthedRaptor))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RaptorRogue, CurrentDeck.Intersect(raptorRogue).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basic).Count());
-                    deckDictionary.AddOrUpdate(DeckType.FaceRogue, CurrentDeck.Intersect(faceRogue).Count());
-                    break;
+                if (CurrentDeck.Contains(Cards.ShipsCannon))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.PirateRogue, CurrentDeck.Intersect(pirateRogue).Count());
+                }
+                if (CurrentDeck.Contains(Cards.Malygos))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MalyRogue, CurrentDeck.Intersect(malyRogue).Count());
+                }
+                if (CurrentDeck.Contains(Cards.ColdlightOracle))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.FatigueRogue, CurrentDeck.Intersect(fatigueRogue).Count());
+                }
+                if (CurrentDeck.Contains(Cards.UnearthedRaptor))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RaptorRogue, CurrentDeck.Intersect(raptorRogue).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basic).Count());
+                deckDictionary.AddOrUpdate(DeckType.FaceRogue, CurrentDeck.Intersect(faceRogue).Count());
+                break;
 
                 #endregion
 
@@ -1207,53 +1227,53 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.DRUID:
 
-                    if (CurrentDeck.IsRenoDeck(10)) //at least 1/3 of a deck must be distict
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RenoDruid, CurrentDeck.Intersect(renoDruid).Count());
-                        deckDictionary.AddOrUpdate(DeckType.RenoDruid, CurrentDeck.Intersect(renoDruid2).Count());
-                    }
-                    if (CurrentDeck.RaceCount(Card.CRace.BEAST) > 3 || CurrentDeck.ContainsAtLeast(2, Cards.HauntedCreeper, Cards.MountedRaptor, Cards.Wildwalker, Cards.DruidoftheFang))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.BeastDruid, CurrentDeck.Intersect(beastDruid).Count());
-                    }
-                    if (CurrentDeck.QualityCount(Card.CQuality.Legendary) > 4 || CurrentDeck.Contains(Cards.AstralCommunion))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.AstralDruid, CurrentDeck.Intersect(astralDruid).Count());
-                    }
+                if (CurrentDeck.IsRenoDeck(10)) //at least 1/3 of a deck must be distict
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RenoDruid, CurrentDeck.Intersect(renoDruid).Count());
+                    deckDictionary.AddOrUpdate(DeckType.RenoDruid, CurrentDeck.Intersect(renoDruid2).Count());
+                }
+                if (CurrentDeck.RaceCount(Card.CRace.BEAST) > 3 || CurrentDeck.ContainsAtLeast(2, Cards.HauntedCreeper, Cards.MountedRaptor, Cards.Wildwalker, Cards.DruidoftheFang))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.BeastDruid, CurrentDeck.Intersect(beastDruid).Count());
+                }
+                if (CurrentDeck.QualityCount(Card.CQuality.Legendary) > 4 || CurrentDeck.Contains(Cards.AstralCommunion))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.AstralDruid, CurrentDeck.Intersect(astralDruid).Count());
+                }
 
-                    deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicDruid).Count());
-                    if (CurrentDeck.RaceCount(Card.CRace.MECH) > 1 || CurrentDeck.ContainsSome(Cards.Cogmaster, Cards.AnnoyoTron, Cards.Mechwarper, Cards.ClockworkGnome))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MechDruid, CurrentDeck.Intersect(mechDruid).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.ColdlightOracle, Cards.Naturalize, Cards.GroveTender, Cards.TreeofLife, Cards.YouthfulBrewmaster))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MillDruid, CurrentDeck.Intersect(millDruid).Count());
-                    }
+                deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicDruid).Count());
+                if (CurrentDeck.RaceCount(Card.CRace.MECH) > 1 || CurrentDeck.ContainsSome(Cards.Cogmaster, Cards.AnnoyoTron, Cards.Mechwarper, Cards.ClockworkGnome))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MechDruid, CurrentDeck.Intersect(mechDruid).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.ColdlightOracle, Cards.Naturalize, Cards.GroveTender, Cards.TreeofLife, Cards.YouthfulBrewmaster))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MillDruid, CurrentDeck.Intersect(millDruid).Count());
+                }
 
-                    if (CurrentDeck.ContainsAtLeast(2, Cards.RagnarostheFirelord, Cards.AncientofWar, Cards.Cenarius, Cards.SylvanasWindrunner, Cards.TheBlackKnight, Cards.SludgeBelcher, Cards.ZombieChow, Cards.SenjinShieldmasta))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid).Count());
-                        deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid2).Count());
-                        deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid3).Count());
-                    }
-                    if (CurrentDeck.ContainsSome(Cards.LeperGnome, Cards.MountedRaptor, Cards.FelReaver, Cards.DruidoftheSaber, Cards.KnifeJuggler))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.AggroDruid, CurrentDeck.Intersect(aggroDruid).Count());
-                    }
-                    if (CurrentDeck.ContainsAll(Cards.ForceofNature, Cards.SavageRoar) || CurrentDeck.ContainsSome(Cards.DarnassusAspirant, Cards.ShadeofNaxxramas, Cards.WildGrowth, Cards.Innervate, Cards.Wrath))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.MidRangeDruid, CurrentDeck.Intersect(midRangeDruid).Count());
-                    }
-                    deckDictionary.AddOrUpdate(DeckType.TokenDruid, CurrentDeck.Intersect(tokenDruid).Count()); //EGG 
-                    if (CurrentDeck.ContainsSome(Cards.AncientWatcher, Cards.EerieStatue, Cards.WailingSoul))
-                    {
-                        deckDictionary.AddOrUpdate(DeckType.SilenceDruid, CurrentDeck.Intersect(silenceDruid).Count());
-                    }
+                if (CurrentDeck.ContainsAtLeast(2, Cards.RagnarostheFirelord, Cards.AncientofWar, Cards.Cenarius, Cards.SylvanasWindrunner, Cards.TheBlackKnight, Cards.SludgeBelcher, Cards.ZombieChow, Cards.SenjinShieldmasta))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid).Count());
+                    deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid2).Count());
+                    deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid3).Count());
+                }
+                if (CurrentDeck.ContainsSome(Cards.LeperGnome, Cards.MountedRaptor, Cards.FelReaver, Cards.DruidoftheSaber, Cards.KnifeJuggler))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.AggroDruid, CurrentDeck.Intersect(aggroDruid).Count());
+                }
+                if (CurrentDeck.ContainsAll(Cards.ForceofNature, Cards.SavageRoar) || CurrentDeck.ContainsSome(Cards.DarnassusAspirant, Cards.ShadeofNaxxramas, Cards.WildGrowth, Cards.Innervate, Cards.Wrath))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.MidRangeDruid, CurrentDeck.Intersect(midRangeDruid).Count());
+                }
+                deckDictionary.AddOrUpdate(DeckType.TokenDruid, CurrentDeck.Intersect(tokenDruid).Count()); //EGG 
+                if (CurrentDeck.ContainsSome(Cards.AncientWatcher, Cards.EerieStatue, Cards.WailingSoul))
+                {
+                    deckDictionary.AddOrUpdate(DeckType.SilenceDruid, CurrentDeck.Intersect(silenceDruid).Count());
+                }
 
-                    break;
+                break;
 
-                    #endregion
+                #endregion
             }
             var bestDeck = deckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
             if (CurrentDeck.Count > 10 && deckDictionary[bestDeck] < 5)
@@ -1326,6 +1346,101 @@ namespace SmartBot.Plugins
         public List<Card.Cards> DeckList { get; set; }
     }
 
+    public class Statistics
+    {
+        public int Won { get; set; }
+        public int Played { get; set; }
+        public double Winrate { get; set; }
+        public DeckType Type { get; set; }
+        public static int cWon = 0;
+        public static int cPlayed = 0;
+        private static Dictionary<Card.CClass, int> VsCClassWins = new Dictionary<Card.CClass, int>
+        {
+            { Card.CClass.ROGUE, 0},  { Card.CClass.SHAMAN, 0}, { Card.CClass.PALADIN, 0}, { Card.CClass.MAGE, 0}, { Card.CClass.WARRIOR, 0}, { Card.CClass.WARLOCK, 0}, { Card.CClass.HUNTER, 0}, { Card.CClass.PRIEST, 0}, { Card.CClass.DRUID, 0},
+        };
+        private static Dictionary<Card.CClass, int> VsCClassPlayed = new Dictionary<Card.CClass, int>
+        {
+            { Card.CClass.ROGUE, 0},  { Card.CClass.SHAMAN, 0}, { Card.CClass.PALADIN, 0}, { Card.CClass.MAGE, 0}, { Card.CClass.WARRIOR, 0}, { Card.CClass.WARLOCK, 0}, { Card.CClass.HUNTER, 0}, { Card.CClass.PRIEST, 0}, { Card.CClass.DRUID, 0},
+        };
+        private List<Card.CClass> Classes = new List<Card.CClass>
+        {
+            Card.CClass.ROGUE,      Card.CClass.SHAMAN, Card.CClass.PALADIN, Card.CClass.MAGE, Card.CClass.WARRIOR, Card.CClass.WARLOCK, Card.CClass.HUNTER, Card.CClass.DRUID, Card.CClass.PRIEST
+        };
+        public Statistics(DeckType dt, string str)
+        {
+            Type = dt;
+            Won = str == "won" ? 1 : 0;
+            cWon += str == "won" ? 1 : 0;
+            Played = 1;
+            cPlayed++;
+            Winrate = 0.00;
+        }
+        public Statistics(DeckType dt, Card.CClass enemy, string str)
+        {
+            Type = dt;
+            Won = str == "won" ? 1 : 0;
+            cWon += str == "won" ? 1 : 0;
+            VsCClassWins[enemy] += str == "won" ? 1 : 0;
+            VsCClassPlayed[enemy]++;
+            Played = 1;
+            cPlayed++;
+            Winrate = 0.00;
+
+        }
+        public void UpdateData(DeckType dt, string str)
+        {
+            Played++;
+            cPlayed++;
+            if (str == "won")
+            {
+                Won++;
+                cWon++;
+            }
+
+        }
+        public void UpdateData(DeckType dt, Card.CClass enemy, string str)
+        {
+            Played++;
+            cPlayed++;
+            VsCClassPlayed[enemy]++;
+            if (str == "won")
+            {
+                Won++;
+                cWon++;
+                VsCClassWins[enemy]++;
+            }
+
+        }
+
+        public double ShowTotalWinrate()
+        {
+            return cWon / (double)cPlayed * 100;
+        }
+
+        public void Reset()
+        {
+            foreach (var q in Classes)
+            {
+                VsCClassPlayed[q] = 0;
+                VsCClassWins[q] = 0;
+                cWon = 0;
+                cPlayed = 0;
+            }
+        }
+
+        public void ClassSummary()
+        {
+
+            foreach (var q in VsCClassPlayed)
+            {
+                Bot.Log(string.Format("{0}\t\t{1}%", q, (((double)VsCClassWins[q.Key] / (double)q.Value) * 100).ToString("#0.##")));
+            }
+        }
+        public override string ToString()
+        {
+            return string.Format("{0}\t{1}\t{2}%\t\t{3}", Won, Played, (((double)Won / (double)Played) * 100).ToString("#0.##"), Type);
+        }
+    }
 
     public enum DeckType
     {
@@ -1437,17 +1552,15 @@ namespace SmartBot.Plugins
         Manual
     }
 
-    public enum ChangeLogView
+    public enum History
     {
-        [Description("I don't care")]
-        None,
-        All,
-        [Description("Smart Tracker")]
-        SmartTracker,
-        [Description("Smart Mulligan")]
-        SmartMulligan
+        Minimal,
+        Detailed
+
     }
+
 }
+
 
 
 

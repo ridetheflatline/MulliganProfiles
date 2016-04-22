@@ -42,6 +42,10 @@ namespace MulliganProfiles
             foreach (TKey key in keys)
                 map.AddOrUpdate(key, value);
         }
+        public static bool IsShitfest(this Bot.Mode mode)
+        {
+            return mode == Bot.Mode.Arena || mode == Bot.Mode.ArenaAuto;
+        }
         /// <summary>
         /// Removes unwanted cards from whitelist
         /// </summary>
@@ -65,6 +69,8 @@ namespace MulliganProfiles
         {
             return map.Intersect(entry).Any();
         }
+
+        
         /// <summary>
         /// Has all
         /// </summary>
@@ -554,101 +560,62 @@ namespace MulliganProfiles
                 Bot.Log(string.Format("[SmartMulligan] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
                 return eDeckType;
             }
-            Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games", n));
+            DeckType unknownPrediction = GetDefault(op);
+            Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games. Going surmise that he is {1}", n, unknownPrediction));
+            return unknownPrediction;
+        }
+
+        private static DeckType GetDefault(Card.CClass op)
+        {
+            switch (op)
+            {
+                case Card.CClass.SHAMAN:
+                    return DeckType.FaceShaman;
+                case Card.CClass.PRIEST:
+                    return DeckType.ControlPriest;;
+                case Card.CClass.MAGE:
+                    return DeckType.TempoMage;;
+                case Card.CClass.PALADIN:
+                    return DeckType.SecretPaladin;;
+                case Card.CClass.WARRIOR:
+                    return DeckType.ControlWarrior;;
+                case Card.CClass.WARLOCK:
+                    return DeckType.Zoolock;;
+                case Card.CClass.HUNTER:
+                    return DeckType.MidRangeHunter;;
+                case Card.CClass.ROGUE:
+                    return DeckType.OilRogue;;
+                case Card.CClass.DRUID:
+                    return DeckType.MidRangeDruid;;
+                case Card.CClass.NONE:
+                    return DeckType.Unknown;;
+                case Card.CClass.JARAXXUS:
+                    return DeckType.Unknown;;
+                
+            }
             return DeckType.Unknown;
         }
+
         #region deckclass
+
         public static Dictionary<DeckType, Card.CClass> DeckClass = new Dictionary<DeckType, Card.CClass>
         {
-            {DeckType.Unknown, Card.CClass.NONE},
-            {DeckType.Arena, Card.CClass.NONE},
-            /*Warrior*/
-            {DeckType.ControlWarrior, Card.CClass.WARRIOR},
-            {DeckType.FatigueWarrior, Card.CClass.WARRIOR},
-            {DeckType.DragonWarrior, Card.CClass.WARRIOR},
-            {DeckType.PatronWarrior, Card.CClass.WARRIOR},
-            {DeckType.WorgenOTKWarrior, Card.CClass.WARRIOR},
-            {DeckType.MechWarrior, Card.CClass.WARRIOR},
-            {DeckType.FaceWarrior, Card.CClass.WARRIOR},
-            {DeckType.RenoWarrior, Card.CClass.WARRIOR },
-            /*Paladin*/
-            {DeckType.SecretPaladin, Card.CClass.PALADIN},
-            {DeckType.MidRangePaladin, Card.CClass.PALADIN},
-            {DeckType.DragonPaladin, Card.CClass.PALADIN},
-            {DeckType.AggroPaladin, Card.CClass.PALADIN},
-            {DeckType.AnyfinMurglMurgl, Card.CClass.PALADIN},
-            {DeckType.RenoPaladin, Card.CClass.PALADIN},
-            /*Druid*/
-            {DeckType.RampDruid, Card.CClass.DRUID},
-            {DeckType.AggroDruid, Card.CClass.DRUID},
-            {DeckType.DragonDruid, Card.CClass.DRUID},
-            {DeckType.MidRangeDruid, Card.CClass.DRUID},
-            {DeckType.TokenDruid, Card.CClass.DRUID},
-            {DeckType.SilenceDruid, Card.CClass.DRUID},
-            {DeckType.MechDruid, Card.CClass.DRUID},
-            {DeckType.AstralDruid, Card.CClass.DRUID},
-            {DeckType.MillDruid, Card.CClass.DRUID},
-            {DeckType.BeastDruid, Card.CClass.DRUID},
-            {DeckType.RenoDruid, Card.CClass.DRUID},
-            /*Warlock*/
-            {DeckType.Handlock, Card.CClass.WARLOCK},
-            {DeckType.RenoLock, Card.CClass.WARLOCK},
-            {DeckType.Zoolock, Card.CClass.WARLOCK}, //Same handler as flood zoo and reliquary
-            {DeckType.DemonHandlock, Card.CClass.WARLOCK},
-            {DeckType.DemonZooWarlock, Card.CClass.WARLOCK},
-            {DeckType.DragonHandlock, Card.CClass.WARLOCK},
-            {DeckType.MalyLock, Card.CClass.WARLOCK},
-            {DeckType.RenoComboLock, Card.CClass.WARLOCK},
-            {DeckType.ControlWarlock, Card.CClass.WARLOCK},
-            /*Mage*/
-            {DeckType.TempoMage, Card.CClass.MAGE},
-            {DeckType.FreezeMage, Card.CClass.MAGE},
-            {DeckType.FaceFreezeMage, Card.CClass.MAGE},
-            {DeckType.DragonMage, Card.CClass.MAGE},
-            {DeckType.MechMage, Card.CClass.MAGE},
-            {DeckType.EchoMage, Card.CClass.MAGE},
-            {DeckType.FatigueMage, Card.CClass.MAGE},
-            {DeckType.RenoMage, Card.CClass.MAGE},
-            /*Priest*/
-            {DeckType.DragonPriest, Card.CClass.PRIEST},
-            {DeckType.ControlPriest, Card.CClass.PRIEST},
-            {DeckType.ComboPriest, Card.CClass.PRIEST},
-            {DeckType.MechPriest, Card.CClass.PRIEST},
-            {DeckType.ShadowPriest, Card.CClass.PRIEST},
-            /*Hunter*/
-            {DeckType.MidRangeHunter, Card.CClass.HUNTER},
-            {DeckType.HybridHunter, Card.CClass.HUNTER},
-            {DeckType.FaceHunter, Card.CClass.HUNTER},
-            {DeckType.HatHunter, Card.CClass.HUNTER},
-            {DeckType.CamelHunter, Card.CClass.HUNTER},
-            {DeckType.DragonHunter, Card.CClass.HUNTER},
-            {DeckType.RenoHunter, Card.CClass.HUNTER},
-            /*Rogue*/
-            {DeckType.OilRogue, Card.CClass.ROGUE},
-            {DeckType.PirateRogue, Card.CClass.ROGUE},
-            {DeckType.FaceRogue, Card.CClass.ROGUE},
-            {DeckType.MalyRogue, Card.CClass.ROGUE},
-            {DeckType.RaptorRogue, Card.CClass.ROGUE},
-            {DeckType.FatigueRogue, Card.CClass.ROGUE},
-            {DeckType.MiracleRogue, Card.CClass.ROGUE},
-            {DeckType.RenoRogue, Card.CClass.ROGUE},
-            {DeckType.MechRogue, Card.CClass.ROGUE},
-            {DeckType.MillRogue, Card.CClass.ROGUE},
-            /*Cance... I mean Shaman*/
-            {DeckType.FaceShaman, Card.CClass.SHAMAN},
-            {DeckType.MechShaman, Card.CClass.SHAMAN},
-            {DeckType.DragonShaman, Card.CClass.SHAMAN},
-            {DeckType.TotemShaman, Card.CClass.SHAMAN},
-            {DeckType.MalygosShaman, Card.CClass.SHAMAN},
-            {DeckType.ControlShaman, Card.CClass.SHAMAN},
-            {DeckType.BloodlustShaman, Card.CClass.SHAMAN},
-            {DeckType.RenoShaman, Card.CClass.SHAMAN},
-            {DeckType.BattleryShaman, Card.CClass.SHAMAN},
-            /*Poor Kids*/
+            {DeckType.Unknown, Card.CClass.NONE}, {DeckType.Arena, Card.CClass.NONE}, /*Warrior*/
+            {DeckType.ControlWarrior, Card.CClass.WARRIOR}, {DeckType.FatigueWarrior, Card.CClass.WARRIOR}, {DeckType.DragonWarrior, Card.CClass.WARRIOR}, {DeckType.PatronWarrior, Card.CClass.WARRIOR}, {DeckType.WorgenOTKWarrior, Card.CClass.WARRIOR}, {DeckType.MechWarrior, Card.CClass.WARRIOR}, {DeckType.FaceWarrior, Card.CClass.WARRIOR}, {DeckType.RenoWarrior, Card.CClass.WARRIOR}, /*Paladin*/
+            {DeckType.SecretPaladin, Card.CClass.PALADIN}, {DeckType.MidRangePaladin, Card.CClass.PALADIN}, {DeckType.DragonPaladin, Card.CClass.PALADIN}, {DeckType.AggroPaladin, Card.CClass.PALADIN}, {DeckType.AnyfinMurglMurgl, Card.CClass.PALADIN}, {DeckType.RenoPaladin, Card.CClass.PALADIN}, /*Druid*/
+            {DeckType.RampDruid, Card.CClass.DRUID}, {DeckType.AggroDruid, Card.CClass.DRUID}, {DeckType.DragonDruid, Card.CClass.DRUID}, {DeckType.MidRangeDruid, Card.CClass.DRUID}, {DeckType.TokenDruid, Card.CClass.DRUID}, {DeckType.SilenceDruid, Card.CClass.DRUID}, {DeckType.MechDruid, Card.CClass.DRUID}, {DeckType.AstralDruid, Card.CClass.DRUID}, {DeckType.MillDruid, Card.CClass.DRUID}, {DeckType.BeastDruid, Card.CClass.DRUID}, {DeckType.RenoDruid, Card.CClass.DRUID}, /*Warlock*/
+            {DeckType.Handlock, Card.CClass.WARLOCK}, {DeckType.RenoLock, Card.CClass.WARLOCK}, {DeckType.Zoolock, Card.CClass.WARLOCK}, //Same handler as flood zoo and reliquary
+            {DeckType.DemonHandlock, Card.CClass.WARLOCK}, {DeckType.DemonZooWarlock, Card.CClass.WARLOCK}, {DeckType.DragonHandlock, Card.CClass.WARLOCK}, {DeckType.MalyLock, Card.CClass.WARLOCK}, {DeckType.RenoComboLock, Card.CClass.WARLOCK}, {DeckType.ControlWarlock, Card.CClass.WARLOCK}, /*Mage*/
+            {DeckType.TempoMage, Card.CClass.MAGE}, {DeckType.FreezeMage, Card.CClass.MAGE}, {DeckType.FaceFreezeMage, Card.CClass.MAGE}, {DeckType.DragonMage, Card.CClass.MAGE}, {DeckType.MechMage, Card.CClass.MAGE}, {DeckType.EchoMage, Card.CClass.MAGE}, {DeckType.FatigueMage, Card.CClass.MAGE}, {DeckType.RenoMage, Card.CClass.MAGE}, /*Priest*/
+            {DeckType.DragonPriest, Card.CClass.PRIEST}, {DeckType.ControlPriest, Card.CClass.PRIEST}, {DeckType.ComboPriest, Card.CClass.PRIEST}, {DeckType.MechPriest, Card.CClass.PRIEST}, {DeckType.ShadowPriest, Card.CClass.PRIEST}, /*Hunter*/
+            {DeckType.MidRangeHunter, Card.CClass.HUNTER}, {DeckType.HybridHunter, Card.CClass.HUNTER}, {DeckType.FaceHunter, Card.CClass.HUNTER}, {DeckType.HatHunter, Card.CClass.HUNTER}, {DeckType.CamelHunter, Card.CClass.HUNTER}, {DeckType.DragonHunter, Card.CClass.HUNTER}, {DeckType.RenoHunter, Card.CClass.HUNTER}, /*Rogue*/
+            {DeckType.OilRogue, Card.CClass.ROGUE}, {DeckType.PirateRogue, Card.CClass.ROGUE}, {DeckType.FaceRogue, Card.CClass.ROGUE}, {DeckType.MalyRogue, Card.CClass.ROGUE}, {DeckType.RaptorRogue, Card.CClass.ROGUE}, {DeckType.FatigueRogue, Card.CClass.ROGUE}, {DeckType.MiracleRogue, Card.CClass.ROGUE}, {DeckType.RenoRogue, Card.CClass.ROGUE}, {DeckType.MechRogue, Card.CClass.ROGUE}, {DeckType.MillRogue, Card.CClass.ROGUE}, /*Cance... I mean Shaman*/
+            {DeckType.FaceShaman, Card.CClass.SHAMAN}, {DeckType.MechShaman, Card.CClass.SHAMAN}, {DeckType.DragonShaman, Card.CClass.SHAMAN}, {DeckType.TotemShaman, Card.CClass.SHAMAN}, {DeckType.MalygosShaman, Card.CClass.SHAMAN}, {DeckType.ControlShaman, Card.CClass.SHAMAN}, {DeckType.BloodlustShaman, Card.CClass.SHAMAN}, {DeckType.RenoShaman, Card.CClass.SHAMAN}, {DeckType.BattleryShaman, Card.CClass.SHAMAN}, /*Poor Kids*/
         };
-#endregion
 
+        #endregion
     }
+
     #endregion
 
     public class GameContainer
@@ -671,7 +638,7 @@ namespace MulliganProfiles
         public DeckType EneDeckType { get; set; }
         public Style EnemyStyle { get; set; }
 
-        
+
         public List<Card.Cards> Choices { get; set; }
         public Card.CClass OpponentClass { get; set; }
         public Card.CClass OwnClass { get; set; }
@@ -679,8 +646,8 @@ namespace MulliganProfiles
         /// <summary>
         /// All of the below drops originate from choices
         /// </summary>
-
         public List<Card.Cards> ZeroDrops { get; set; }
+
         public List<Card.Cards> OneDrops { get; set; }
         public List<Card.Cards> TwoDrops { get; set; }
         public List<Card.Cards> ThreeDrops { get; set; }
@@ -692,22 +659,15 @@ namespace MulliganProfiles
         public bool HasTurnThree { get; set; }
 
         public bool Coin { get; set; }
-        public Tuple<List<Card.Cards>,
-            List<Card.Cards>, List<Card.Cards>,
-            List<Card.Cards>, List<Card.Cards>,
-            List<Card.Cards>> AllDropsTuple
-        { get; set; }
+        public Tuple<List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>> AllDropsTuple { get; set; }
 
-        
 
         //needed
         public GameContainer(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             try
             {
-                Bot.GetPlugins()
-                    .Find(p => p.DataContainer.Name == "SmartTracker")
-                    .TryToWriteProperty("Enemy", opponentClass);
+                Bot.GetPlugins().Find(p => p.DataContainer.Name == "SmartTracker").TryToWriteProperty("Enemy", opponentClass);
             }
             catch (Exception)
             {
@@ -717,7 +677,9 @@ namespace MulliganProfiles
             OpponentClass = opponentClass;
             OwnClass = ownClass;
             Coin = choices.Count > 3;
+
             #region SmartTracker
+
             Plugin tracker = Bot.GetPlugins().Find(plugin => plugin.DataContainer.Name == "SmartTracker");
 
             if (!tracker.DataContainer.Enabled)
@@ -727,31 +689,26 @@ namespace MulliganProfiles
             }
             Dictionary<string, object> properties = tracker.GetProperties();
             //PrintDebug(properties);
-            if (Enum.GetNames(typeof(DeckType)).Length != (int)properties[EnumsCount])
+            if (Enum.GetNames(typeof (DeckType)).Length != (int) properties[EnumsCount])
             {
                 Bot.Log("[URGENT!!!!] Arthur, your enums are out of synch");
             }
-            MyDeckType = properties[Mode].ToString() == "Manual"
-                    ? (DeckType)properties[TrackerForceMyType] //if Manual
-                    : (DeckType)properties[TrackerMyType];  //if Auto
+            MyDeckType = properties[Mode].ToString() == "Manual" ? (DeckType) properties[TrackerForceMyType] //if Manual
+                : (DeckType) properties[TrackerMyType]; //if Auto
 
             if (properties[Mode].ToString() == "Manual")
-                Bot.Log("[SmartMulliganV3] Dear friends, I notice that you are forcing deck recognition." +
-                        " I do not make failsafe checks on whether or not you are using a proper deck, " +
-                        "so if you decide to force Camel Hunter while playing FaceFreeze mage. It will let you. I hope you know what you are doing.");
+                Bot.Log("[SmartMulliganV3] Dear friends, I notice that you are forcing deck recognition." + " I do not make failsafe checks on whether or not you are using a proper deck, " + "so if you decide to force Camel Hunter while playing FaceFreeze mage. It will let you. I hope you know what you are doing.");
             Bot.Log(string.Format("[You chose {0} Detection] {1} [Default: AutoDetection] {2}", properties[Mode], MyDeckType, properties[TrackerMyType]));
-            #endregion 
-            MyStyle = (Style)properties[TrackerMyStyle];
+
+            #endregion
+
+            MyStyle = (Style) properties[TrackerMyStyle];
             EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int) properties[nGames]);
             EnemyStyle = DeckStyles[EneDeckType];
             try
             {
-                Bot.GetPlugins()
-                    .Find(p => p.DataContainer.Name == "SmartTracker")
-                    .TryToWriteProperty("EnemyDeckTypeGuess", EneDeckType);
-                Bot.GetPlugins()
-                    .Find(p => p.DataContainer.Name == "SmartTracker")
-                    .TryToWriteProperty("EnemyDeckStyleGuess", EnemyStyle);
+                Bot.GetPlugins().Find(p => p.DataContainer.Name == "SmartTracker").TryToWriteProperty("EnemyDeckTypeGuess", EneDeckType);
+                Bot.GetPlugins().Find(p => p.DataContainer.Name == "SmartTracker").TryToWriteProperty("EnemyDeckStyleGuess", EnemyStyle);
             }
             catch (Exception)
             {
@@ -767,53 +724,48 @@ namespace MulliganProfiles
             HasTurnOne = false;
             HasTurnTwo = false;
             HasTurnThree = false;
-
         }
 
         public string PrintDebug(Dictionary<string, object> properties)
         {
-            return string.Format("==============" +
-                                  "\nMy Type: {0}" +
-                                  "\nMy Forced Type: {1}" +
-                                  "\nMy Style: {2}" +
-                                  "\nEnemy Type: {3}" +
-                                  "\nEnemy Style: {4}" +
-                                  "\nMulligan Tester <me>: {5}" +
-                                  "\nMulligan Tester <him>: {6}" +
-                                  "\nEnum Count: {7}" +
-                                  "\t", properties[TrackerMyType],
-                                  properties[TrackerForceMyType],
-                                  properties[TrackerMyStyle],
-                                  properties[TrackerEnemyType],
-                                  properties[TrackerEnemyStyle],
-                                  properties[MulliganTesterMyDeck],
-                                  properties[MulliganTesterEnemyDeck],
-                                  properties[EnumsCount]);
+            return string.Format("==============" + "\nMy Type: {0}" + "\nMy Forced Type: {1}" + "\nMy Style: {2}" + "\nEnemy Type: {3}" + "\nEnemy Style: {4}" + "\nMulligan Tester <me>: {5}" + "\nMulligan Tester <him>: {6}" + "\nEnum Count: {7}" + "\t", properties[TrackerMyType], properties[TrackerForceMyType], properties[TrackerMyStyle], properties[TrackerEnemyType], properties[TrackerEnemyStyle], properties[MulliganTesterMyDeck], properties[MulliganTesterEnemyDeck], properties[EnumsCount]);
         }
 
         /// <summary>
         /// Mulligan Tester
         /// </summary>
         public string MtDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\SmartMulliganV3\\mt.txt";
+
         public GameContainer(bool t, List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             Choices = choices;
             OpponentClass = opponentClass;
             OwnClass = ownClass;
             Coin = choices.Count > 3;
+
             #region SmartTracker
 
             using (StreamReader mt = new StreamReader(MtDirectory))
             {
                 string[] info = mt.ReadLine().Split(':');
-                MyDeckType = (DeckType)Enum.Parse(typeof(DeckType), info[0]);
-                MyStyle = (Style)Enum.Parse(typeof(Style), info[1]);
-                EneDeckType = (DeckType)Enum.Parse(typeof(DeckType), info[2]);
-                EnemyStyle = (Style)Enum.Parse(typeof(Style), info[3]);
+                if (Bot.CurrentMode().IsShitfest())
+                {
+                    MyDeckType = DeckType.Arena;
+                    MyStyle = Style.Tempo;
+                    EneDeckType = DeckType.Arena;
+                    EnemyStyle = Style.Tempo;
+                }
+                else
+                {
+                    MyDeckType = (DeckType) Enum.Parse(typeof (DeckType), info[0]);
+                    MyStyle = (Style) Enum.Parse(typeof (Style), info[1]);
+                    EneDeckType = (DeckType) Enum.Parse(typeof (DeckType), info[2]);
+                    EnemyStyle = (Style) Enum.Parse(typeof (Style), info[3]);
+                }
             }
 
-
             #endregion
+
             AllDropsTuple = choices.SplitByTurnList();
             ZeroDrops = AllDropsTuple.Item1;
             OneDrops = AllDropsTuple.Item2;
@@ -828,139 +780,60 @@ namespace MulliganProfiles
 
         public override string ToString()
         {
-            return string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n{10}",
-                Choices.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")),
-                OpponentClass, OwnClass,
-                Coin,MyDeckType, MyStyle, EneDeckType, EnemyStyle,
-                ZeroDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")),
-                OneDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")),
-                TwoDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "))
-
-                );
+            return string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n{10}", Choices.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), OpponentClass, OwnClass, Coin, MyDeckType, MyStyle, EneDeckType, EnemyStyle, ZeroDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), OneDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), TwoDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
         }
+
         public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
         {
-            {DeckType.Unknown, Style.Unknown},
-            {DeckType.Arena, Style.Control},
-            /*Warrior*/
-            {DeckType.ControlWarrior, Style.Control},
-            {DeckType.FatigueWarrior, Style.Fatigue},
-            {DeckType.DragonWarrior, Style.Control},
-            {DeckType.PatronWarrior, Style.Tempo},
-            {DeckType.WorgenOTKWarrior, Style.Combo},
-            {DeckType.MechWarrior, Style.Aggro},
-            {DeckType.FaceWarrior, Style.Face},
-            {DeckType.RenoWarrior, Style.Control },
-            /*Paladin*/
-            {DeckType.SecretPaladin, Style.Tempo},
-            {DeckType.MidRangePaladin, Style.Control},
-            {DeckType.DragonPaladin, Style.Control},
-            {DeckType.AggroPaladin, Style.Aggro},
-            {DeckType.AnyfinMurglMurgl, Style.Combo},
-            {DeckType.RenoPaladin, Style.Control},
-            /*Druid*/
-            {DeckType.RampDruid, Style.Control},
-            {DeckType.AggroDruid, Style.Aggro},
-            {DeckType.DragonDruid, Style.Control},
-            {DeckType.MidRangeDruid, Style.Combo},
-            {DeckType.TokenDruid, Style.Tempo},
-            {DeckType.SilenceDruid, Style.Control},
-            {DeckType.MechDruid, Style.Aggro},
-            {DeckType.AstralDruid, Style.Control},
-            {DeckType.MillDruid, Style.Fatigue},
-            {DeckType.BeastDruid, Style.Tempo},
-            {DeckType.RenoDruid, Style.Control},
-            /*Warlock*/
-            {DeckType.Handlock, Style.Control},
-            {DeckType.RenoLock, Style.Control},
-            {DeckType.Zoolock, Style.Tempo}, //Same handler as flood zoo and reliquary
-            {DeckType.DemonHandlock, Style.Control},
-            {DeckType.DemonZooWarlock, Style.Tempo},
-            {DeckType.DragonHandlock, Style.Control},
-            {DeckType.MalyLock, Style.Combo},
-            {DeckType.RenoComboLock, Style.Combo},
-            {DeckType.ControlWarlock, Style.Control},
-            /*Mage*/
-            {DeckType.TempoMage, Style.Tempo},
-            {DeckType.FreezeMage, Style.Control},
-            {DeckType.FaceFreezeMage, Style.Aggro},
-            {DeckType.DragonMage, Style.Control},
-            {DeckType.MechMage, Style.Aggro},
-            {DeckType.EchoMage, Style.Control},
-            {DeckType.FatigueMage, Style.Fatigue},
-            {DeckType.RenoMage, Style.Control},
-            /*Priest*/
-            {DeckType.DragonPriest, Style.Tempo},
-            {DeckType.ControlPriest, Style.Control},
-            {DeckType.ComboPriest, Style.Combo},
-            {DeckType.MechPriest, Style.Aggro},
-            {DeckType.ShadowPriest, Style.Combo},
-            /*Hunter*/
-            {DeckType.MidRangeHunter, Style.Tempo},
-            {DeckType.HybridHunter, Style.Aggro},
-            {DeckType.FaceHunter, Style.Face},
-            {DeckType.HatHunter, Style.Control},
-            {DeckType.CamelHunter, Style.Control},
-            {DeckType.DragonHunter, Style.Control},
-            {DeckType.RenoHunter, Style.Control},
-            /*Rogue*/
-            {DeckType.OilRogue, Style.Combo},
-            {DeckType.PirateRogue, Style.Aggro},
-            {DeckType.FaceRogue, Style.Face},
-            {DeckType.MalyRogue, Style.Combo},
-            {DeckType.RaptorRogue, Style.Tempo},
-            {DeckType.FatigueRogue, Style.Combo},
-            {DeckType.MiracleRogue, Style.Combo},
-            {DeckType.RenoRogue, Style.Control},
-            {DeckType.MechRogue, Style.Tempo},
-            {DeckType.MillRogue, Style.Fatigue},
-            /*Cance... I mean Shaman*/
-            {DeckType.FaceShaman, Style.Face},
-            {DeckType.MechShaman, Style.Aggro},
-            {DeckType.DragonShaman, Style.Control},
-            {DeckType.TotemShaman, Style.Tempo},
-            {DeckType.MalygosShaman, Style.Combo},
-            {DeckType.ControlShaman, Style.Control},
-            {DeckType.BloodlustShaman, Style.Combo},
-            {DeckType.RenoShaman, Style.Combo},
-            {DeckType.BattleryShaman, Style.Control},
-            /*Poor Kids*/
+            {DeckType.Unknown, Style.Unknown}, {DeckType.Arena, Style.Control}, /*Warrior*/
+            {DeckType.ControlWarrior, Style.Control}, {DeckType.FatigueWarrior, Style.Fatigue}, {DeckType.DragonWarrior, Style.Control}, {DeckType.PatronWarrior, Style.Tempo}, {DeckType.WorgenOTKWarrior, Style.Combo}, {DeckType.MechWarrior, Style.Aggro}, {DeckType.FaceWarrior, Style.Face}, {DeckType.RenoWarrior, Style.Control}, /*Paladin*/
+            {DeckType.SecretPaladin, Style.Tempo}, {DeckType.MidRangePaladin, Style.Control}, {DeckType.DragonPaladin, Style.Control}, {DeckType.AggroPaladin, Style.Aggro}, {DeckType.AnyfinMurglMurgl, Style.Combo}, {DeckType.RenoPaladin, Style.Control}, /*Druid*/
+            {DeckType.RampDruid, Style.Control}, {DeckType.AggroDruid, Style.Aggro}, {DeckType.DragonDruid, Style.Control}, {DeckType.MidRangeDruid, Style.Combo}, {DeckType.TokenDruid, Style.Tempo}, {DeckType.SilenceDruid, Style.Control}, {DeckType.MechDruid, Style.Aggro}, {DeckType.AstralDruid, Style.Control}, {DeckType.MillDruid, Style.Fatigue}, {DeckType.BeastDruid, Style.Tempo}, {DeckType.RenoDruid, Style.Control}, /*Warlock*/
+            {DeckType.Handlock, Style.Control}, {DeckType.RenoLock, Style.Control}, {DeckType.Zoolock, Style.Tempo}, //Same handler as flood zoo and reliquary
+            {DeckType.DemonHandlock, Style.Control}, {DeckType.DemonZooWarlock, Style.Tempo}, {DeckType.DragonHandlock, Style.Control}, {DeckType.MalyLock, Style.Combo}, {DeckType.RenoComboLock, Style.Combo}, {DeckType.ControlWarlock, Style.Control}, /*Mage*/
+            {DeckType.TempoMage, Style.Tempo}, {DeckType.FreezeMage, Style.Control}, {DeckType.FaceFreezeMage, Style.Aggro}, {DeckType.DragonMage, Style.Control}, {DeckType.MechMage, Style.Aggro}, {DeckType.EchoMage, Style.Control}, {DeckType.FatigueMage, Style.Fatigue}, {DeckType.RenoMage, Style.Control}, /*Priest*/
+            {DeckType.DragonPriest, Style.Tempo}, {DeckType.ControlPriest, Style.Control}, {DeckType.ComboPriest, Style.Combo}, {DeckType.MechPriest, Style.Aggro}, {DeckType.ShadowPriest, Style.Combo}, /*Hunter*/
+            {DeckType.MidRangeHunter, Style.Tempo}, {DeckType.HybridHunter, Style.Aggro}, {DeckType.FaceHunter, Style.Face}, {DeckType.HatHunter, Style.Control}, {DeckType.CamelHunter, Style.Control}, {DeckType.DragonHunter, Style.Control}, {DeckType.RenoHunter, Style.Control}, /*Rogue*/
+            {DeckType.OilRogue, Style.Combo}, {DeckType.PirateRogue, Style.Aggro}, {DeckType.FaceRogue, Style.Face}, {DeckType.MalyRogue, Style.Combo}, {DeckType.RaptorRogue, Style.Tempo}, {DeckType.FatigueRogue, Style.Combo}, {DeckType.MiracleRogue, Style.Combo}, {DeckType.RenoRogue, Style.Control}, {DeckType.MechRogue, Style.Tempo}, {DeckType.MillRogue, Style.Fatigue}, /*Cance... I mean Shaman*/
+            {DeckType.FaceShaman, Style.Face}, {DeckType.MechShaman, Style.Aggro}, {DeckType.DragonShaman, Style.Control}, {DeckType.TotemShaman, Style.Tempo}, {DeckType.MalygosShaman, Style.Combo}, {DeckType.ControlShaman, Style.Control}, {DeckType.BloodlustShaman, Style.Combo}, {DeckType.RenoShaman, Style.Combo}, {DeckType.BattleryShaman, Style.Control}, /*Poor Kids*/
             {DeckType.Basic, Style.Tempo}
         };
 
         public GameContainer()
         {
-
         }
     }
+
     [Serializable]
     // ReSharper disable once InconsistentNaming
     public class SmartMulliganV3 : MulliganProfile
     {
         public Card.Cards Nothing = Card.Cards.GAME_005;
         public Card.CClass Mage = Card.CClass.MAGE;
-        public Card.CClass Priest = Card.CClass.MAGE;
-        public Card.CClass Shaman = Card.CClass.MAGE;
-        public Card.CClass Warlock = Card.CClass.MAGE;
-        public Card.CClass Warrior = Card.CClass.MAGE;
-        public Card.CClass Paladin = Card.CClass.MAGE;
-        public Card.CClass Rogue = Card.CClass.MAGE;
-        public Card.CClass Hunter = Card.CClass.MAGE;
-        public Card.CClass Druid = Card.CClass.MAGE;
+        public Card.CClass Priest = Card.CClass.PRIEST;
+        public Card.CClass Shaman = Card.CClass.SHAMAN;
+        public Card.CClass Warlock = Card.CClass.WARLOCK;
+        public Card.CClass Warrior = Card.CClass.WARRIOR;
+        public Card.CClass Paladin = Card.CClass.PALADIN;
+        public Card.CClass Rogue = Card.CClass.ROGUE;
+        public Card.CClass Hunter = Card.CClass.HUNTER;
+        public Card.CClass Druid = Card.CClass.DRUID;
+
         #region variables
+
         public static List<string> CurrentDeck = new List<string>();
         private readonly Dictionary<Card.Cards, bool> _whiteList; // CardName, KeepDouble
         private readonly List<Card.Cards> _cardsToKeep;
-        
+
         #endregion
 
         public SmartMulliganV3()
         {
             _whiteList = new Dictionary<Card.Cards, bool>
             {
-                { Card.Cards.GAME_005, true },  //coin
-                { Cards.Innervate, true },      //always keeps 2 innervates (set false for 1)
-                { Cards.WildGrowth, false }     //only keeps 1 wild growth
+                {Card.Cards.GAME_005, true}, //coin
+                {Cards.Innervate, true}, //always keeps 2 innervates (set false for 1)
+                {Cards.WildGrowth, false} //only keeps 1 wild growth
             };
             _cardsToKeep = new List<Card.Cards>();
         }
@@ -980,13 +853,15 @@ namespace MulliganProfiles
                 Mulliganaccordingly(gc);
                 mtgc = gc;
             }
+            catch (NotImplementedException e)
+            {
+                Report(string.Format("Current deck is not implemented: {0}", e.TargetSite));
+            }
             catch (Exception)
             {
-                Report("-----------Mulligan Tester");
-                Mulliganaccordingly(mtgc);
-                
+                Bot.Log("[SmartMulligan] Something went horribly wrong. Submit report file t");
             }
-            
+
             foreach (var s in from s in choices let keptOneAlready = _cardsToKeep.Any(c => c.ToString() == s.ToString()) where _whiteList.ContainsKey(s) where !keptOneAlready | _whiteList[s] select s)
                 _cardsToKeep.Add(s);
             MulliganLog(choices, _cardsToKeep, mtgc);
@@ -995,20 +870,16 @@ namespace MulliganProfiles
 
         private void MulliganLog(List<Card.Cards> choices, List<Card.Cards> cardsToKeep, GameContainer gc)
         {
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory +"\\Logs\\SmartMulligan\\"))
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\"))
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\");
-            using (
-                StreamWriter ml =
-                    new StreamWriter(AppDomain.CurrentDomain.BaseDirectory +
-                                     "\\Logs\\SmartMulligan\\MulliganHistory.txt", true))
+            using (StreamWriter ml = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\MulliganHistory.txt", true))
             {
-                ml.WriteLine("--------------[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType,gc.OpponentClass, gc.EneDeckType);
-                ml.WriteLine("Given: "+ choices.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
+                ml.WriteLine("--------------[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType, gc.OpponentClass, gc.EneDeckType);
+                ml.WriteLine("Given: " + choices.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
                 ml.WriteLine("Kept: " + cardsToKeep.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
-
             }
         }
-        
+
         public void Mulliganaccordingly(GameContainer gc)
         {
             switch (gc.MyDeckType)
@@ -1247,9 +1118,7 @@ namespace MulliganProfiles
                 case DeckType.Basic:
                     Arena(gc);
                     break;
-
             }
-
         }
 
         private void HandleFatigueWarrior(GameContainer gc)
@@ -1264,7 +1133,23 @@ namespace MulliganProfiles
 
         private void HandlePatronWarrior(GameContainer gc)
         {
-            throw new NotImplementedException();
+            var aggro = gc.EnemyStyle.Aggresive();
+            bool hasWeapon = gc.Choices.Any(cards => cards.IsWeapon());
+
+            _whiteList.AddOrUpdate(hasWeapon ? Cards.DreadCorsair : Nothing, false);
+            if (aggro)
+            {
+                _whiteList.AddAll(false, Cards.FieryWarAxe, Cards.UnstableGhoul, Cards.Whirlwind, Cards.FrothingBerserker);
+                _whiteList.AddOrUpdate(!hasWeapon ? Cards.Slam : Nothing, false);
+                _whiteList.AddOrUpdate(hasWeapon ? Cards.DreadCorsair : Nothing, false);
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.DreadCorsair) ? Cards.DeathsBite : Nothing, false);
+            }
+            else
+            {
+                _whiteList.AddAll(false, Cards.FieryWarAxe, Cards.DeathsBite, Cards.GnomishInventor, Cards.Slam);
+                if (gc.OpponentClass.IsOneOf(Priest, Warrior))
+                    _whiteList.AddOrUpdate(Cards.EmperorThaurissan, false);
+            }
         }
 
         private void HandleWorgenOTKWarrior(GameContainer gc)
@@ -1389,7 +1274,11 @@ namespace MulliganProfiles
 
         private void HandleZoolock(GameContainer gc)
         {
-            throw new NotImplementedException();
+            //List<Card.Cards> activators = new List<Card.Cards> {Cards.PowerOverwhelming, Cards.VoidTerror, Cards.AbusiveSergeant, Cards.DefenderofArgus};
+            List<Card.Cards> needActivation = new List<Card.Cards> {Cards.NerubianEgg};
+            _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Nothing, false);
+            Arena(gc);
+            _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Coin && gc.Choices.Intersect(needActivation).Any() ? Cards.DefenderofArgus : Nothing, false);
         }
 
         private void HandleDemonHandlock(GameContainer gc)
@@ -1613,7 +1502,6 @@ namespace MulliganProfiles
             bool vAggro = gc.EnemyStyle.Aggresive();
             if (vAggro)
                 _whiteList.AddAll(false, Cards.Slam, Cards.Bash, Cards.Armorsmith);
-           
         }
 
 
@@ -1641,19 +1529,13 @@ namespace MulliganProfiles
                     gc.HasTurnOne = true;
                     _whiteList.AddOrUpdate(q, gc.Coin && priority > 5);
                 }
-                foreach (var q in from q in gc.TwoDrops
-                                  let priority = q.Priority()
-                                  where (priority > 1) && (num2Drops != allowed2Drops)
-                                  select q)
+                foreach (var q in from q in gc.TwoDrops let priority = q.Priority() where (priority > 1) && (num2Drops != allowed2Drops) select q)
                 {
                     gc.HasTurnTwo = true;
                     num2Drops++;
                     _whiteList.AddOrUpdate(q, false);
                 }
-                foreach (var q in from q in gc.ThreeDrops
-                                  let priority = q.Priority()
-                                  where (priority > 1) && (num3Drops != allowed3Drops)
-                                  select q)
+                foreach (var q in from q in gc.ThreeDrops let priority = q.Priority() where (priority > 1) && (num3Drops != allowed3Drops) select q)
                 {
                     if ((gc.HasTurnOne && gc.Coin) || (gc.HasTurnTwo))
                         _whiteList.AddOrUpdate(q, false);
@@ -1662,10 +1544,7 @@ namespace MulliganProfiles
                     gc.HasTurnThree = true;
                     num3Drops++;
                 }
-                foreach (var q in from q in gc.FourDrops
-                                  let priority = q.Priority()
-                                  where (priority > 3) && (num4Drops != allowed4Drops)
-                                  select q)
+                foreach (var q in from q in gc.FourDrops let priority = q.Priority() where (priority > 3) && (num4Drops != allowed4Drops) select q)
                 {
                     if ((gc.HasTurnOne && gc.HasTurnTwo) || gc.HasTurnThree)
                         _whiteList.AddOrUpdate(q, gc.Coin);
@@ -1680,8 +1559,11 @@ namespace MulliganProfiles
                 Report(e.Message);
                 Report(string.Format("{0}:{1}", e.HelpLink, e.TargetSite));
             }
+
             #endregion
+
             #region spell/weapon handler
+
             bool hasGood1 = gc.Choices.HasTurn(1, 3);
             bool hasGood2 = gc.Choices.HasTurn(2, 3);
             bool hasGood1Or2 = gc.Choices.HasTurn(1, 3) || gc.Choices.HasTurn(2, 3);
@@ -1714,8 +1596,7 @@ namespace MulliganProfiles
                     _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.ArcaneBlast : Card.Cards.GAME_005, false); // [1 Cost]
                     break;
                 case Card.CClass.PALADIN:
-                    _whiteList.AddInOrder(1, gc.Choices, false,  
-                        Cards.LightsJustice, Cards.Coghammer, Cards.SwordofJustice);
+                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.LightsJustice, Cards.Coghammer, Cards.SwordofJustice);
 
                     _whiteList.AddOrUpdate(hasGood2 ? Cards.NobleSacrifice : Card.Cards.GAME_005, false); // [1 Cost]
                     _whiteList.AddOrUpdate(Cards.Avenge, false); // [1 Cost]
@@ -1736,8 +1617,7 @@ namespace MulliganProfiles
                     _whiteList.AddOrUpdate(hasGood1Or2 || gc.Coin ? Cards.Darkbomb : Card.Cards.GAME_005, false); // [2 Cost]
                     break;
                 case Card.CClass.HUNTER:
-                    _whiteList.AddInOrder(1, gc.Choices, false,
-                        Cards.Glaivezooka, Cards.EaglehornBow);
+                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.Glaivezooka, Cards.EaglehornBow);
 
                     _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.Tracking : Card.Cards.GAME_005, false); // [1 Cost]
                     _whiteList.AddOrUpdate(Cards.AnimalCompanion, gc.Coin); // [3 Cost]
@@ -1749,8 +1629,7 @@ namespace MulliganProfiles
                     _whiteList.AddOrUpdate(gc.Coin ? Cards.BearTrap : Card.Cards.GAME_005, false); // [2 Cost]
                     break;
                 case Card.CClass.ROGUE:
-                    _whiteList.AddInOrder(1, gc.Choices, false,
-                        Cards.PerditionsBlade, Cards.CogmastersWrench);
+                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.PerditionsBlade, Cards.CogmastersWrench);
 
                     _whiteList.AddOrUpdate(Cards.Backstab, false); // [0 Cost]
                     _whiteList.AddOrUpdate(Cards.DeadlyPoison, false); // [1 Cost]
@@ -1771,6 +1650,7 @@ namespace MulliganProfiles
             {
                 _whiteList.Remove(card);
             }
+
             #endregion
         }
 
@@ -1787,7 +1667,7 @@ namespace MulliganProfiles
             _whiteList.AddOrUpdate(gc.OpponentClass.Is(Shaman) && gc.Choices.HasAny(Cards.ShieldedMinibot) ? Cards.Redemption : Nothing, false);
 
             if (gc.Choices.HasAll(Cards.NobleSacrifice, Cards.Avenge, Cards.Secretkeeper) && gc.OpponentClass.Is(Shaman))
-                _whiteList.AddAll(false, Cards.NobleSacrifice, Cards.Avenge, Cards.Secretkeeper );
+                _whiteList.AddAll(false, Cards.NobleSacrifice, Cards.Avenge, Cards.Secretkeeper);
             _whiteList.AddOrUpdate(gc.OpponentClass.Is(Shaman) && gc.Coin ? Cards.HarrisonJones : Nothing, false);
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.HauntedCreeper, Cards.NerubianEgg) && gc.Coin ? Cards.KeeperofUldaman : Nothing, false);
 
@@ -1821,30 +1701,7 @@ namespace MulliganProfiles
                 _whiteList.AddOrUpdate(Cards.TruesilverChampion, false);
         }
 
-        
-        /// <summary>
-        /// Pseudo
-        /// TODO: Find opponent with matching ID and class
-        /// TODO: 
-        /// </summary>
-        /// <param name="eId"></param>
-        /// <param name="gCount"></param>
-        /// <returns></returns>
-        private KeyValuePair<DeckType, Style> Find (long eId, int gCount)
-        {
-            List<string> text = File.ReadLines(
-                AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(gCount).ToList();
-            foreach (var q in text)
-            {
-                var information = q.Split(new[] {"||"}, StringSplitOptions.None);
-                long enemyID = long.Parse(information[2]);
-                if (enemyID != eId) continue;
-                DeckType enemyDeck = (DeckType) Enum.Parse(typeof(DeckType), information[3]);
 
-
-            }
-            return new KeyValuePair<DeckType, Style>();
-        } 
         /// <summary>
         /// 
         /// </summary>
@@ -1860,7 +1717,7 @@ namespace MulliganProfiles
                 log.WriteLine("[{0}] {1}", DateTime.Now, msg);
             }
         }
-        
+
         private DeckType unknown = DeckType.Unknown;
         private DeckType arena = DeckType.Arena;
         /*Warrior*/
@@ -1949,9 +1806,6 @@ namespace MulliganProfiles
         private DeckType RenoShaman = DeckType.RenoShaman;
 
         private DeckType Basic = DeckType.Basic;
-
-
-       
     }
 
     #region enums
@@ -2062,6 +1916,7 @@ namespace MulliganProfiles
 
     #endregion
 }
+
 
 
 
