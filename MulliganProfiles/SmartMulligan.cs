@@ -1453,7 +1453,50 @@ namespace MulliganProfiles
 
         private void HandleMidrangeHunter(GameContainer gc)
         {
-            throw new NotImplementedException();
+           foreach (var q in gc.Choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION))
+            {
+                switch (CardTemplate.LoadFromId(q).Cost)
+                {
+                    case 1:
+                        _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, false);
+                        break;
+                    case 2:
+                        _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, q.Priority() >= 3 && gc.Coin);
+                        break;
+                    case 3:
+                        gc.HasTurnThree = true;
+                        _whiteList.AddOrUpdate(q.Priority()> 1 ? q : Nothing, false);
+                        break;
+                    case 4:
+                        _whiteList.AddOrUpdate(q.Priority() > 6 && gc.Coin ? q : Nothing, false);
+                        break;
+                }
+            }
+            foreach (var q in gc.Choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && !CardTemplate.LoadFromId(c).IsSecret && CardTemplate.LoadFromId(c).Type == Card.CType.SPELL))
+            {
+                switch (CardTemplate.LoadFromId(q).Cost)
+                {
+                    case 1:
+                        _whiteList.AddOrUpdate(q, false);
+                        break;
+                    case 2:
+                        _whiteList.AddOrUpdate(q, false);
+                        break;
+                    case 3:
+                        gc.HasTurnThree = true;
+                        _whiteList.AddOrUpdate(gc.EnemyStyle.Aggresive() ? Cards.UnleashtheHounds : Nothing, false);
+                        _whiteList.AddOrUpdate(gc.Coin ? Cards.AnimalCompanion : Nothing, gc.Coin);
+                        break;
+                    case 4:
+                        _whiteList.AddOrUpdate(q, false);
+                        break;
+                }
+            }
+            _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Choices.HasAny(Cards.AnimalCompanion) && gc.Coin && gc.OpponentClass.Is(Warrior)? Cards.SavannahHighmane : Nothing, false);
+            _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.HauntedCreeper, Cards.Webspinner) ? Cards.HuntersMark : Nothing, false);
+            _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.KnifeJuggler) && gc.Coin ? Cards.SnakeTrap : Nothing, false);
+            _whiteList.AddOrUpdate(!gc.HasTurnTwo && !gc.HasTurnOne && !gc.Coin ? Cards.FreezingTrap : Nothing, false);
+        
         }
 
         private void HandleHybridHunter(GameContainer gc)
@@ -1463,7 +1506,31 @@ namespace MulliganProfiles
 
         private void HandleFaceHunter(GameContainer gc)
         {
-            throw new NotImplementedException();
+            _whiteList.AddOrUpdate(
+                gc.Choices.HasAny(Cards.MadScientist) ? Cards.EaglehornBow : 
+                gc.Choices.HasAny(Cards.Glaivezooka) ? Cards.Glaivezooka : Cards.EaglehornBow, false);
+                                   
+            var allowHunterMark = (gc.Choices.HasAny(Cards.Webspinner, Cards.HauntedCreeper));
+            foreach (var q in from q in gc.Choices where q.Cost() == 1 select q)
+                {
+                    gc.HasTurnOne = true;
+                    _whiteList.AddOrUpdate(q, true);
+                }
+            foreach (var q in from q in gc.Choices where q.Cost() == 1 && !q.IsSpell() select q)
+            { 
+                
+                    gc.HasTurnTwo = true;
+                    _whiteList.AddOrUpdate(q, true);
+                }
+                foreach (var q in
+                    (from q in gc.Choices
+                     let w = CardTemplate.LoadFromId(q) where w.Cost == 3 && w.Health > 1 select q).Where(q => gc.HasTurnOne || gc.HasTurnTwo))
+                {
+                    gc.HasTurnThree = true;
+                    _whiteList.AddOrUpdate(q, false);
+                }
+               
+            
         }
 
         private void HandleHatHunter(GameContainer gc)
