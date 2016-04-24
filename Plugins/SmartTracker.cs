@@ -412,7 +412,16 @@ namespace SmartBot.Plugins
                 ((SmartTracker)DataContainer).VersionCheck();
             }
             if (!((SmartTracker)DataContainer).Summary) return;
-            PrintHistory();
+            try
+            {
+                PrintHistory();
+
+            }
+            catch (InvalidOperationException exception)
+            {
+                Bot.Log("[SmartTracker] Your History is empty. If that is not true, blame Masterwai ||" +exception.Message);                
+                
+            }
 
         }
 

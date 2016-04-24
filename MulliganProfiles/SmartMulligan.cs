@@ -16,7 +16,7 @@ namespace MulliganProfiles
     #region Extension class
     public static class Extension
     {
-        
+
         /// <summary>
         /// Adds or updates only 1 card
         /// </summary>
@@ -70,7 +70,7 @@ namespace MulliganProfiles
             return map.Intersect(entry).Any();
         }
 
-        
+
         /// <summary>
         /// Has all
         /// </summary>
@@ -172,14 +172,14 @@ namespace MulliganProfiles
         /// <returns></returns>
         public static int Priority(this Card.Cards id, int modifier = 0)
         {
-            return id.IsMinion() ? (CardTable[id] + modifier): 0;
+            return id.IsMinion() ? (CardTable[id] + modifier) : 0;
         }
 
         public static bool IsOneOf(this Card.CClass id, params Card.CClass[] list)
         {
             return list.Any(q => q == id);
         }
-        public static bool Is(this Card.CClass id,  Card.CClass reference)
+        public static bool Is(this Card.CClass id, Card.CClass reference)
         {
             return id == reference;
         }
@@ -511,7 +511,7 @@ namespace MulliganProfiles
             {Card.Cards.AT_122, 0}, //[4/4]Gormok the Impaler [4 mana] [NONE card]
 
         };
-#endregion 
+        #endregion
         /// <summary>
         /// This is a useless method
         /// </summary>
@@ -549,10 +549,10 @@ namespace MulliganProfiles
             return st == Style.Face || st == Style.Aggro || st == Style.Tempo;
         }
 
-        public static DeckType FindHimInHistory(this long id, Card.CClass op , int n = 50)
+        public static DeckType FindHimInHistory(this long id, Card.CClass op, int n = 50)
         {
             List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
-            List<DeckType> allDeckTypes = (from q in history select q.Split(new[] {"||"}, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId  select (DeckType) Enum.Parse(typeof (DeckType), information[3])).ToList();
+            List<DeckType> allDeckTypes = (from q in history select q.Split(new[] { "||" }, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId select (DeckType)Enum.Parse(typeof(DeckType), information[3])).ToList();
             if (allDeckTypes.Count >= 1)
             {
                 var eDeckType =
@@ -570,28 +570,28 @@ namespace MulliganProfiles
             switch (op)
             {
                 case Card.CClass.SHAMAN:
-                    return DeckType.FaceShaman;
+                return DeckType.FaceShaman;
                 case Card.CClass.PRIEST:
-                    return DeckType.ControlPriest;;
+                return DeckType.ControlPriest; ;
                 case Card.CClass.MAGE:
-                    return DeckType.TempoMage;;
+                return DeckType.TempoMage; ;
                 case Card.CClass.PALADIN:
-                    return DeckType.SecretPaladin;;
+                return DeckType.SecretPaladin; ;
                 case Card.CClass.WARRIOR:
-                    return DeckType.ControlWarrior;;
+                return DeckType.ControlWarrior; ;
                 case Card.CClass.WARLOCK:
-                    return DeckType.Zoolock;;
+                return DeckType.Zoolock; ;
                 case Card.CClass.HUNTER:
-                    return DeckType.MidRangeHunter;;
+                return DeckType.MidRangeHunter; ;
                 case Card.CClass.ROGUE:
-                    return DeckType.OilRogue;;
+                return DeckType.OilRogue; ;
                 case Card.CClass.DRUID:
-                    return DeckType.MidRangeDruid;;
+                return DeckType.MidRangeDruid; ;
                 case Card.CClass.NONE:
-                    return DeckType.Unknown;;
+                return DeckType.Unknown; ;
                 case Card.CClass.JARAXXUS:
-                    return DeckType.Unknown;;
-                
+                return DeckType.Unknown; ;
+
             }
             return DeckType.Unknown;
         }
@@ -689,12 +689,12 @@ namespace MulliganProfiles
             }
             Dictionary<string, object> properties = tracker.GetProperties();
             //PrintDebug(properties);
-            if (Enum.GetNames(typeof (DeckType)).Length != (int) properties[EnumsCount])
+            if (Enum.GetNames(typeof(DeckType)).Length != (int)properties[EnumsCount])
             {
                 Bot.Log("[URGENT!!!!] Arthur, your enums are out of synch");
             }
-            MyDeckType = properties[Mode].ToString() == "Manual" ? (DeckType) properties[TrackerForceMyType] //if Manual
-                : (DeckType) properties[TrackerMyType]; //if Auto
+            MyDeckType = properties[Mode].ToString() == "Manual" ? (DeckType)properties[TrackerForceMyType] //if Manual
+                : (DeckType)properties[TrackerMyType]; //if Auto
 
             if (properties[Mode].ToString() == "Manual")
                 Bot.Log("[SmartMulliganV3] Dear friends, I notice that you are forcing deck recognition." + " I do not make failsafe checks on whether or not you are using a proper deck, " + "so if you decide to force Camel Hunter while playing FaceFreeze mage. It will let you. I hope you know what you are doing.");
@@ -702,8 +702,8 @@ namespace MulliganProfiles
 
             #endregion
 
-            MyStyle = (Style) properties[TrackerMyStyle];
-            EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int) properties[nGames]);
+            MyStyle = (Style)properties[TrackerMyStyle];
+            EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int)properties[nGames]);
             EnemyStyle = DeckStyles[EneDeckType];
             try
             {
@@ -757,10 +757,10 @@ namespace MulliganProfiles
                 }
                 else
                 {
-                    MyDeckType = (DeckType) Enum.Parse(typeof (DeckType), info[0]);
-                    MyStyle = (Style) Enum.Parse(typeof (Style), info[1]);
-                    EneDeckType = (DeckType) Enum.Parse(typeof (DeckType), info[2]);
-                    EnemyStyle = (Style) Enum.Parse(typeof (Style), info[3]);
+                    MyDeckType = (DeckType)Enum.Parse(typeof(DeckType), info[0]);
+                    MyStyle = (Style)Enum.Parse(typeof(Style), info[1]);
+                    EneDeckType = (DeckType)Enum.Parse(typeof(DeckType), info[2]);
+                    EnemyStyle = (Style)Enum.Parse(typeof(Style), info[3]);
                 }
             }
 
@@ -885,239 +885,239 @@ namespace MulliganProfiles
             switch (gc.MyDeckType)
             {
                 case DeckType.Unknown:
-                    Arena(gc);
-                    break;
+                Arena(gc);
+                break;
                 case DeckType.Arena:
-                    Arena(gc);
-                    break;
+                Arena(gc);
+                break;
                 case DeckType.ControlWarrior:
-                    HandleControlWarrior(gc);
-                    break;
+                HandleControlWarrior(gc);
+                break;
                 case DeckType.FatigueWarrior:
-                    HandleFatigueWarrior(gc);
-                    break;
+                HandleFatigueWarrior(gc);
+                break;
                 case DeckType.DragonWarrior:
-                    HandleDragonWarrior(gc);
-                    break;
+                HandleDragonWarrior(gc);
+                break;
                 case DeckType.PatronWarrior:
-                    HandlePatronWarrior(gc);
-                    break;
+                HandlePatronWarrior(gc);
+                break;
                 case DeckType.WorgenOTKWarrior:
-                    HandleWorgenOTKWarrior(gc);
-                    break;
+                HandleWorgenOTKWarrior(gc);
+                break;
                 case DeckType.MechWarrior:
-                    HandleMechWarrior(gc);
-                    break;
+                HandleMechWarrior(gc);
+                break;
                 case DeckType.FaceWarrior:
-                    HandleFaceWarrior(gc);
-                    break;
+                HandleFaceWarrior(gc);
+                break;
                 case DeckType.RenoWarrior:
-                    HandleRenoWarrior(gc);
-                    break;
+                HandleRenoWarrior(gc);
+                break;
                 case DeckType.TauntWarrior:
-                    HandleTauntWarrior(gc);
-                    break;
+                HandleTauntWarrior(gc);
+                break;
                 case DeckType.SecretPaladin:
-                    HandleSecretPaladin(gc);
-                    break;
+                HandleSecretPaladin(gc);
+                break;
                 case DeckType.MidRangePaladin:
-                    HandleMidRangePaladin(gc);
-                    break;
+                HandleMidRangePaladin(gc);
+                break;
                 case DeckType.DragonPaladin:
-                    HandleDragonPaladin(gc);
-                    break;
+                HandleDragonPaladin(gc);
+                break;
                 case DeckType.AggroPaladin:
-                    HandleAggroPaladin(gc);
-                    break;
+                HandleAggroPaladin(gc);
+                break;
                 case DeckType.AnyfinMurglMurgl:
-                    HandleAnyfinMurglMurgl(gc);
-                    break;
+                HandleAnyfinMurglMurgl(gc);
+                break;
                 case DeckType.RenoPaladin:
-                    HandleRenoPaladin(gc);
-                    break;
+                HandleRenoPaladin(gc);
+                break;
                 case DeckType.RampDruid:
-                    HandleRampDruid(gc);
-                    break;
+                HandleRampDruid(gc);
+                break;
                 case DeckType.AggroDruid:
-                    HandleAggroDruid(gc);
-                    break;
+                HandleAggroDruid(gc);
+                break;
                 case DeckType.DragonDruid:
-                    HandleDragonDruid(gc);
-                    break;
+                HandleDragonDruid(gc);
+                break;
                 case DeckType.MidRangeDruid:
-                    HandleMidRangeDruid(gc);
-                    break;
+                HandleMidRangeDruid(gc);
+                break;
                 case DeckType.TokenDruid:
-                    HandleTokenDruid(gc);
-                    break;
+                HandleTokenDruid(gc);
+                break;
                 case DeckType.SilenceDruid:
-                    HandleSilenceDruid(gc);
-                    break;
+                HandleSilenceDruid(gc);
+                break;
                 case DeckType.MechDruid:
-                    HandleMechDruid(gc);
-                    break;
+                HandleMechDruid(gc);
+                break;
                 case DeckType.AstralDruid:
-                    HandleAstralDruid(gc);
-                    break;
+                HandleAstralDruid(gc);
+                break;
                 case DeckType.MillDruid:
-                    HandleMillDruid(gc);
-                    break;
+                HandleMillDruid(gc);
+                break;
                 case DeckType.BeastDruid:
-                    HandleBeastDruid(gc);
-                    break;
+                HandleBeastDruid(gc);
+                break;
                 case DeckType.RenoDruid:
-                    HandleRenoDruid(gc);
-                    break;
+                HandleRenoDruid(gc);
+                break;
                 case DeckType.Handlock:
-                    HandleHandlock(gc);
-                    break;
+                HandleHandlock(gc);
+                break;
                 case DeckType.RenoLock:
-                    HandleRenoLock(gc);
-                    break;
+                HandleRenoLock(gc);
+                break;
                 case DeckType.RenoComboLock:
-                    HandleRenoComboLock(gc);
-                    break;
+                HandleRenoComboLock(gc);
+                break;
                 case DeckType.Zoolock:
-                    HandleZoolock(gc);
-                    break;
+                HandleZoolock(gc);
+                break;
                 case DeckType.RelinquaryZoo:
-                    HandleZoolock(gc);
-                    break;
+                HandleZoolock(gc);
+                break;
                 case DeckType.DemonHandlock:
-                    HandleDemonHandlock(gc);
-                    break;
+                HandleDemonHandlock(gc);
+                break;
                 case DeckType.DemonZooWarlock:
-                    HandleDemonZooWarlock(gc);
-                    break;
+                HandleDemonZooWarlock(gc);
+                break;
                 case DeckType.DragonHandlock:
-                    HandleDragonHandlock(gc);
-                    break;
+                HandleDragonHandlock(gc);
+                break;
                 case DeckType.MalyLock:
-                    HandleMalyLock(gc);
-                    break;
+                HandleMalyLock(gc);
+                break;
                 case DeckType.ControlWarlock:
-                    HandleControlWarlock(gc);
-                    break;
+                HandleControlWarlock(gc);
+                break;
                 case DeckType.TempoMage:
-                    HandleTempoMage(gc);
-                    break;
+                HandleTempoMage(gc);
+                break;
                 case DeckType.FreezeMage:
-                    HandleFreezeMage(gc);
-                    break;
+                HandleFreezeMage(gc);
+                break;
                 case DeckType.FaceFreezeMage:
-                    HandleFaceFreezeMage(gc);
-                    break;
+                HandleFaceFreezeMage(gc);
+                break;
                 case DeckType.DragonMage:
-                    HandleDragonMage(gc);
-                    break;
+                HandleDragonMage(gc);
+                break;
                 case DeckType.MechMage:
-                    HandleMechMage(gc);
-                    break;
+                HandleMechMage(gc);
+                break;
                 case DeckType.EchoMage:
-                    HandleEchoMage(gc);
-                    break;
+                HandleEchoMage(gc);
+                break;
                 case DeckType.FatigueMage:
-                    HandleFatigueMage(gc);
-                    break;
+                HandleFatigueMage(gc);
+                break;
                 case DeckType.RenoMage:
-                    HandleRenoMage(gc);
-                    break;
+                HandleRenoMage(gc);
+                break;
                 case DeckType.DragonPriest:
-                    HandleDragonPriest(gc);
-                    break;
+                HandleDragonPriest(gc);
+                break;
                 case DeckType.ControlPriest:
-                    HandleControlPriest(gc);
-                    break;
+                HandleControlPriest(gc);
+                break;
                 case DeckType.ComboPriest:
-                    HandleComboPriest(gc);
-                    break;
+                HandleComboPriest(gc);
+                break;
                 case DeckType.MechPriest:
-                    HandleMechPriest(gc);
-                    break;
+                HandleMechPriest(gc);
+                break;
                 case DeckType.ShadowPriest:
-                    HandleShadowPriest(gc);
-                    break;
+                HandleShadowPriest(gc);
+                break;
                 case DeckType.MidRangeHunter:
-                    HandleMidrangeHunter(gc);
-                    break;
+                HandleMidrangeHunter(gc);
+                break;
                 case DeckType.HybridHunter:
-                    HandleHybridHunter(gc);
-                    break;
+                HandleHybridHunter(gc);
+                break;
                 case DeckType.FaceHunter:
-                    HandleFaceHunter(gc);
-                    break;
+                HandleFaceHunter(gc);
+                break;
                 case DeckType.HatHunter:
-                    HandleHatHunter(gc);
-                    break;
+                HandleHatHunter(gc);
+                break;
                 case DeckType.CamelHunter:
-                    HandleCamelHunter(gc);
-                    break;
+                HandleCamelHunter(gc);
+                break;
                 case DeckType.RenoHunter:
-                    HandleRenoHunter(gc);
-                    break;
+                HandleRenoHunter(gc);
+                break;
                 case DeckType.DragonHunter:
-                    HandleDragonHunter(gc);
-                    break;
+                HandleDragonHunter(gc);
+                break;
                 case DeckType.OilRogue:
-                    HandleOilRogue(gc);
-                    break;
+                HandleOilRogue(gc);
+                break;
                 case DeckType.PirateRogue:
-                    HandlePirateRogue(gc);
-                    break;
+                HandlePirateRogue(gc);
+                break;
                 case DeckType.FaceRogue:
-                    HandleFaceRogue(gc);
-                    break;
+                HandleFaceRogue(gc);
+                break;
                 case DeckType.MalyRogue:
-                    HandleMalyRogue(gc);
-                    break;
+                HandleMalyRogue(gc);
+                break;
                 case DeckType.RaptorRogue:
-                    HandleRaptorRogue(gc);
-                    break;
+                HandleRaptorRogue(gc);
+                break;
                 case DeckType.FatigueRogue:
-                    HandleFatigueRogue(gc);
-                    break;
+                HandleFatigueRogue(gc);
+                break;
                 case DeckType.MiracleRogue:
-                    HandleMiracleRogue(gc);
-                    break;
+                HandleMiracleRogue(gc);
+                break;
                 case DeckType.MechRogue:
-                    HandleMechRogue(gc);
-                    break;
+                HandleMechRogue(gc);
+                break;
                 case DeckType.RenoRogue:
-                    HandleRenoRogue(gc);
-                    break;
+                HandleRenoRogue(gc);
+                break;
                 case DeckType.MillRogue:
-                    HandleMillRogue(gc);
-                    break;
+                HandleMillRogue(gc);
+                break;
                 case DeckType.FaceShaman:
-                    HandleFaceShaman(gc);
-                    break;
+                HandleFaceShaman(gc);
+                break;
                 case DeckType.MechShaman:
-                    HandleMechShaman(gc);
-                    break;
+                HandleMechShaman(gc);
+                break;
                 case DeckType.DragonShaman:
-                    HandleDragonShaman(gc);
-                    break;
+                HandleDragonShaman(gc);
+                break;
                 case DeckType.TotemShaman:
-                    HandleTotemShaman(gc);
-                    break;
+                HandleTotemShaman(gc);
+                break;
                 case DeckType.MalygosShaman:
-                    HandleMalyShaman(gc);
-                    break;
+                HandleMalyShaman(gc);
+                break;
                 case DeckType.ControlShaman:
-                    HandleControlShaman(gc);
-                    break;
+                HandleControlShaman(gc);
+                break;
                 case DeckType.BloodlustShaman:
-                    HandleControlShaman(gc);
-                    break;
+                HandleControlShaman(gc);
+                break;
                 case DeckType.BattleryShaman:
-                    HandleBattlecryShaman(gc);
-                    break;
+                HandleBattlecryShaman(gc);
+                break;
                 case DeckType.RenoShaman:
-                    HandleRenoShaman(gc);
-                    break;
+                HandleRenoShaman(gc);
+                break;
                 case DeckType.Basic:
-                    Arena(gc);
-                    break;
+                Arena(gc);
+                break;
             }
         }
 
@@ -1154,14 +1154,73 @@ namespace MulliganProfiles
 
         private void HandleWorgenOTKWarrior(GameContainer gc)
         {
-            throw new NotImplementedException();
+
         }
 
         private void HandleMechWarrior(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMechsCoreLogic(gc);
+            if (!gc.EnemyStyle.Aggresive() && gc.HasTurnTwo && gc.Coin)
+            {
+                _whiteList.AddOrUpdate(Cards.PilotedShredder, false);
+            }
         }
 
+        private void HandleDragonLogicCore(GameContainer gc)
+        {
+            foreach (var q in gc.Choices)
+            {
+                if (q.IsSpell()) continue;
+                if (q.Cost() == 1)
+                {
+                    gc.HasTurnOne = true;
+                    _whiteList.AddOrUpdate(q, false);
+                }
+                if (q.Cost() == 2)
+                {
+                    gc.HasTurnTwo = true;
+                    _whiteList.AddOrUpdate(q, gc.Coin && !q.IsWeapon());
+                }
+                if (!gc.HasTurnTwo) continue;
+                _whiteList.AddOrUpdate(Cards.BlackwingTechnician, false);
+            }
+
+        }
+        private void HandleMechsCoreLogic(GameContainer gc)
+        {
+            foreach (var c in gc.Choices)
+            {
+                if (c.IsWeapon() && c.Cost() < 3)
+                {
+                    gc.HasTurnTwo = true;
+                    _whiteList.AddOrUpdate(c, false);
+                }
+                if (!c.IsMinion()) continue;
+                switch (c.Cost())
+                {
+                    case 1:
+                    {
+                        _whiteList.AddOrUpdate(c, false);
+                        gc.HasTurnOne = true;
+                        break;
+                    }
+                    case 2:
+                    {
+                        _whiteList.AddOrUpdate(c, false);
+                        gc.HasTurnTwo = true;
+                        break;
+                    }
+                    case 3:
+                    {
+                        if (gc.EnemyStyle.Aggresive())
+                            break;
+                        _whiteList.AddOrUpdate(c, false);
+                        gc.HasTurnOne = true;
+                        break;
+                    }
+                }
+            }
+        }
         private void HandleFaceWarrior(GameContainer gc)
         {
             throw new NotImplementedException();
@@ -1209,7 +1268,28 @@ namespace MulliganProfiles
 
         private void HandleAggroDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            foreach (var c in gc.Choices)
+                {
+                    if (!c.IsMinion()) continue;
+                    switch (c.Cost())
+                    {
+                        case 1:
+                            gc.HasTurnOne = true;
+                            _whiteList.AddOrUpdate(c, false);
+                            break;
+                        case 2:
+                            gc.HasTurnTwo = true;
+                            _whiteList.AddOrUpdate(c, false);
+                            break;
+                        case 3:
+                            gc.HasTurnThree = true;
+                            _whiteList.AddOrUpdate(c, false);
+                            break;
+                    }
+                }
+            /*Always whitelists at least 1 innervate*/
+            _whiteList.AddAll(false, Cards.WildGrowth, Cards.FjolaLightbane, Cards.EydisDarkbane, Cards.FlameJuggler, Cards.DruidoftheSaber);
+            
         }
 
         private void HandleDragonDruid(GameContainer gc)
@@ -1275,7 +1355,7 @@ namespace MulliganProfiles
         private void HandleZoolock(GameContainer gc)
         {
             //List<Card.Cards> activators = new List<Card.Cards> {Cards.PowerOverwhelming, Cards.VoidTerror, Cards.AbusiveSergeant, Cards.DefenderofArgus};
-            List<Card.Cards> needActivation = new List<Card.Cards> {Cards.NerubianEgg};
+            List<Card.Cards> needActivation = new List<Card.Cards> { Cards.NerubianEgg };
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Nothing, false);
             Arena(gc);
             _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Coin && gc.Choices.Intersect(needActivation).Any() ? Cards.DefenderofArgus : Nothing, false);
@@ -1499,12 +1579,12 @@ namespace MulliganProfiles
         private void HandleControlWarrior(GameContainer gc)
         {
             bool hasWeapon = false;
-           
+
 
             _whiteList.AddAll(false, Cards.FieryWarAxe, Cards.DeathsBite);
             foreach (var q in gc.Choices)
             {
-               
+
                 if (q.Cost() < 5 && q.IsWeapon())
                 {
                     hasWeapon = true;
@@ -1512,11 +1592,11 @@ namespace MulliganProfiles
                     switch (q.Cost())
                     {
                         case 2:
-                            gc.HasTurnTwo = true;
-                            break;
+                        gc.HasTurnTwo = true;
+                        break;
                         case 4:
-                            gc.HasTurnThree = true;
-                            break;
+                        gc.HasTurnThree = true;
+                        break;
                     }
                 }
                 if (q.Cost() != 2 || q.IsMinion()) continue;
@@ -1608,80 +1688,80 @@ namespace MulliganProfiles
             switch (gc.OwnClass)
             {
                 case Card.CClass.SHAMAN:
-                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.StormforgedAxe, Cards.Powermace);
-                    _whiteList.AddOrUpdate(Cards.RockbiterWeapon, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(!hasGood2 && gc.Coin ? Cards.FarSight : Card.Cards.GAME_005, false); // [3 Cost]
-                    _whiteList.AddOrUpdate(Cards.FeralSpirit, false); // [3 Cost]
-                    break;
+                _whiteList.AddInOrder(1, gc.Choices, false, Cards.StormforgedAxe, Cards.Powermace);
+                _whiteList.AddOrUpdate(Cards.RockbiterWeapon, false); // [1 Cost]
+                _whiteList.AddOrUpdate(!hasGood2 && gc.Coin ? Cards.FarSight : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(Cards.FeralSpirit, false); // [3 Cost]
+                break;
                 case Card.CClass.PRIEST:
-                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.InjuredBlademaster) ? Cards.LightoftheNaaru : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.HolySmite : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(!gc.Coin ? Cards.MindVision : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(Cards.PowerWordShield, false); // [1 Cost] 
-                    _whiteList.AddOrUpdate(Cards.ShadowWordPain, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(Cards.Shadowform, false); // [3 Cost]
-                    _whiteList.AddOrUpdate((hasGood1Or2 && gc.Coin) || hasGood2 ? Cards.VelensChosen : Card.Cards.GAME_005, false); // [3 Cost]
-                    break;
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.InjuredBlademaster) ? Cards.LightoftheNaaru : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.HolySmite : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(!gc.Coin ? Cards.MindVision : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(Cards.PowerWordShield, false); // [1 Cost] 
+                _whiteList.AddOrUpdate(Cards.ShadowWordPain, false); // [2 Cost]
+                _whiteList.AddOrUpdate(Cards.Shadowform, false); // [3 Cost]
+                _whiteList.AddOrUpdate((hasGood1Or2 && gc.Coin) || hasGood2 ? Cards.VelensChosen : Card.Cards.GAME_005, false); // [3 Cost]
+                break;
                 case Card.CClass.MAGE:
-                    _whiteList.AddOrUpdate(hasGood1 ? Cards.Frostbolt : Card.Cards.GAME_005, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.ManaWyrm) && gc.Coin ? Cards.MirrorImage : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(hasGood1 ? Cards.ArcaneMissiles : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(!hasGood1And2 ? Cards.MirrorEntity : Card.Cards.GAME_005, false); // [3 Cost]
-                    _whiteList.AddOrUpdate(!hasGood1And2 || hasGood2 ? Cards.ForgottenTorch : Card.Cards.GAME_005, false); // [3 Cost]
-                    _whiteList.AddOrUpdate(hasGood1 || gc.Coin ? Cards.Flamecannon : Card.Cards.GAME_005, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(Cards.UnstablePortal, gc.Coin); // [2 Cost]
-                    _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.ArcaneBlast : Card.Cards.GAME_005, false); // [1 Cost]
-                    break;
+                _whiteList.AddOrUpdate(hasGood1 ? Cards.Frostbolt : Card.Cards.GAME_005, false); // [2 Cost]
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.ManaWyrm) && gc.Coin ? Cards.MirrorImage : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(hasGood1 ? Cards.ArcaneMissiles : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(!hasGood1And2 ? Cards.MirrorEntity : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(!hasGood1And2 || hasGood2 ? Cards.ForgottenTorch : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(hasGood1 || gc.Coin ? Cards.Flamecannon : Card.Cards.GAME_005, false); // [2 Cost]
+                _whiteList.AddOrUpdate(Cards.UnstablePortal, gc.Coin); // [2 Cost]
+                _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.ArcaneBlast : Card.Cards.GAME_005, false); // [1 Cost]
+                break;
                 case Card.CClass.PALADIN:
-                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.LightsJustice, Cards.Coghammer, Cards.SwordofJustice);
+                _whiteList.AddInOrder(1, gc.Choices, false, Cards.LightsJustice, Cards.Coghammer, Cards.SwordofJustice);
 
-                    _whiteList.AddOrUpdate(hasGood2 ? Cards.NobleSacrifice : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(Cards.Avenge, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(Cards.MusterforBattle, false); // [3 Cost]
-                    break;
+                _whiteList.AddOrUpdate(hasGood2 ? Cards.NobleSacrifice : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(Cards.Avenge, false); // [1 Cost]
+                _whiteList.AddOrUpdate(Cards.MusterforBattle, false); // [3 Cost]
+                break;
                 case Card.CClass.WARRIOR:
-                    _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.Whirlwind : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldSlam) ? Cards.ShieldBlock : Card.Cards.GAME_005, false); // [3 Cost]
-                    _whiteList.AddOrUpdate(Cards.Slam, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(!hasGood1 ? Cards.Upgrade : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldBlock) ? Cards.ShieldSlam : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(hasGood1Or2 && !gc.Choices.HasTurn(3, 3) ? Cards.Bash : Card.Cards.GAME_005, false); // [3 Cost]
-                    break;
+                _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.Whirlwind : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldSlam) ? Cards.ShieldBlock : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(Cards.Slam, false); // [2 Cost]
+                _whiteList.AddOrUpdate(!hasGood1 ? Cards.Upgrade : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldBlock) ? Cards.ShieldSlam : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(hasGood1Or2 && !gc.Choices.HasTurn(3, 3) ? Cards.Bash : Card.Cards.GAME_005, false); // [3 Cost]
+                break;
                 case Card.CClass.WARLOCK:
-                    _whiteList.AddOrUpdate(Cards.MortalCoil, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(!hasGood2 ? Cards.CurseofRafaam : Card.Cards.GAME_005, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(hasGood1Or2 || gc.Coin ? Cards.Darkbomb : Card.Cards.GAME_005, false); // [2 Cost]
-                    break;
+                _whiteList.AddOrUpdate(Cards.MortalCoil, false); // [1 Cost]
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(!hasGood2 ? Cards.CurseofRafaam : Card.Cards.GAME_005, false); // [2 Cost]
+                _whiteList.AddOrUpdate(hasGood1Or2 || gc.Coin ? Cards.Darkbomb : Card.Cards.GAME_005, false); // [2 Cost]
+                break;
                 case Card.CClass.HUNTER:
-                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.Glaivezooka, Cards.EaglehornBow);
+                _whiteList.AddInOrder(1, gc.Choices, false, Cards.Glaivezooka, Cards.EaglehornBow);
 
-                    _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.Tracking : Card.Cards.GAME_005, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(Cards.AnimalCompanion, gc.Coin); // [3 Cost]
-                    _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.UnleashtheHounds : Card.Cards.GAME_005, false); // [3 Cost]
-                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.KnifeJuggler) ? Cards.SnakeTrap : Card.Cards.GAME_005, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.FreezingTrap : Card.Cards.GAME_005, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(hasGood1Or2 && gc.Coin ? Cards.QuickShot : Card.Cards.GAME_005, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(hasGood1And2 ? Cards.Powershot : Card.Cards.GAME_005, false); // [3 Cost]
-                    _whiteList.AddOrUpdate(gc.Coin ? Cards.BearTrap : Card.Cards.GAME_005, false); // [2 Cost]
-                    break;
+                _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.Tracking : Card.Cards.GAME_005, false); // [1 Cost]
+                _whiteList.AddOrUpdate(Cards.AnimalCompanion, gc.Coin); // [3 Cost]
+                _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.UnleashtheHounds : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.KnifeJuggler) ? Cards.SnakeTrap : Card.Cards.GAME_005, false); // [2 Cost]
+                _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.FreezingTrap : Card.Cards.GAME_005, false); // [2 Cost]
+                _whiteList.AddOrUpdate(hasGood1Or2 && gc.Coin ? Cards.QuickShot : Card.Cards.GAME_005, false); // [2 Cost]
+                _whiteList.AddOrUpdate(hasGood1And2 ? Cards.Powershot : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(gc.Coin ? Cards.BearTrap : Card.Cards.GAME_005, false); // [2 Cost]
+                break;
                 case Card.CClass.ROGUE:
-                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.PerditionsBlade, Cards.CogmastersWrench);
+                _whiteList.AddInOrder(1, gc.Choices, false, Cards.PerditionsBlade, Cards.CogmastersWrench);
 
-                    _whiteList.AddOrUpdate(Cards.Backstab, false); // [0 Cost]
-                    _whiteList.AddOrUpdate(Cards.DeadlyPoison, false); // [1 Cost]
-                    _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.FanofKnives : Card.Cards.GAME_005, false); // [3 Cost]
-                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Burgle) || gc.Choices.HasAny(Cards.BeneaththeGrounds) ? Cards.Preparation : Card.Cards.GAME_005, false); // [0 Cost]
-                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Preparation) ? Cards.Burgle : Card.Cards.GAME_005, false); // [3 Cost]
-                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Preparation) ? Cards.BeneaththeGrounds : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(Cards.Backstab, false); // [0 Cost]
+                _whiteList.AddOrUpdate(Cards.DeadlyPoison, false); // [1 Cost]
+                _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.FanofKnives : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Burgle) || gc.Choices.HasAny(Cards.BeneaththeGrounds) ? Cards.Preparation : Card.Cards.GAME_005, false); // [0 Cost]
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Preparation) ? Cards.Burgle : Card.Cards.GAME_005, false); // [3 Cost]
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Preparation) ? Cards.BeneaththeGrounds : Card.Cards.GAME_005, false); // [3 Cost]
 
-                    break;
+                break;
                 case Card.CClass.DRUID:
-                    _whiteList.AddOrUpdate(hasGood1 ? Cards.MarkoftheWild : Card.Cards.GAME_005, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(Cards.Wrath, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(Cards.PoweroftheWild, false); // [2 Cost]
-                    _whiteList.AddOrUpdate(Cards.LivingRoots, gc.Coin); // [1 Cost]
-                    break;
+                _whiteList.AddOrUpdate(hasGood1 ? Cards.MarkoftheWild : Card.Cards.GAME_005, false); // [2 Cost]
+                _whiteList.AddOrUpdate(Cards.Wrath, false); // [2 Cost]
+                _whiteList.AddOrUpdate(Cards.PoweroftheWild, false); // [2 Cost]
+                _whiteList.AddOrUpdate(Cards.LivingRoots, gc.Coin); // [1 Cost]
+                break;
             }
             foreach (var card in from card in gc.Choices let cardQ = CardTemplate.LoadFromId(card) where _whiteList.ContainsKey(card) && cardQ.IsSecret && gc.Choices.HasAny(Cards.MadScientist) select card)
             {
