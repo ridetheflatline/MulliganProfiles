@@ -1628,22 +1628,18 @@ namespace SmartBotUI.SmartMulliganV2
             bool debuggerFlag = false;
             if (IntroMessage)
             {
-                Bot.Log("====================================================");
-                Bot.Log("[SmartMulligan] Thank you for using SMV2. If you wish to support my work, you may donate to");
-                Bot.Log("\t\tPayPal: http://j.mp/SmartMulliganV2Donation");
-                Bot.Log("\t\tB# 16ujoN2p8JaxBvkWFxPRcy1x8roG1XMeBM  ");
-                Bot.Log("====================================================");
-                Bot.Log("\t\t[SmartMulligan - Hall of Fame]");
-                Bot.Log("Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai");
-                Bot.Log("\n====================Updates===================\n" +
-                        "\nInformation about upcoming SmartTracker https://sb-forum.com/index.php?/topic/7015-official-smarttracker-~-deck-requests/#comment-34896" +
-                        "\n====================================================");
+                Bot.Log("[SmartMulliganV2] Mulligan is no longer supported. Updated version can be downloaded with SmartTracker \nLink:" +
+                        "https://sb-forum.com/index.php?/topic/7127-plugin-smarttracker/");
 
                 Bot.Log("");
                 IntroMessage = false;
+                Bot.StopBot();
+                
             }
             #endregion
-
+            Bot.Log("[SmartMulliganV2] Mulligan is no longer supported. Updated version can be downloaded with SmartTracker \nLink:" +
+                        "https://sb-forum.com/index.php?/topic/7127-plugin-smarttracker/");
+                Bot.StopBot();
 
             try
             {

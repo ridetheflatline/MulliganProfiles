@@ -12,10 +12,10 @@ using SmartBot.Plugins;
 namespace SmartBot.Plugins
 {
     [Serializable]
-    public class AuContainer : PluginDataContainer
+    public class AutoContainer : PluginDataContainer
     {
         public bool CheckAfterEachGame { get; set; }
-        public string MulliganRawGitHub1 { get; private set; }
+        public string MulliganRawGitHub1 { get; set; }
         public string MulliganRawGitHub2 { get; set; }
         public string MulliganRawGitHub3 { get; set; }
         public string MulliganRawGitHub4 { get; set; }
@@ -25,7 +25,7 @@ namespace SmartBot.Plugins
         public string MulliganRawGitHub8 { get; set; }
         public string MulliganRawGitHub9 { get; set; }
 
-        public AuContainer()
+        public AutoContainer()
         {
             Name = "AutoUpdateMulligan";
             Enabled = true;
@@ -34,7 +34,7 @@ namespace SmartBot.Plugins
         }
     }
 
-    public class BPlugin : Plugin
+    public class CPlugin : Plugin
     {
         private static string _mulliganRawGitHub1;
         private static string _mulliganRawGitHub2;
@@ -91,16 +91,16 @@ namespace SmartBot.Plugins
         {
             if (!DataContainer.Enabled)
                 return;
-            _frequentChecks = ((AuContainer) DataContainer).CheckAfterEachGame;
-            _mulliganRawGitHub1 = ((AuContainer)DataContainer).MulliganRawGitHub1;
-            _mulliganRawGitHub2 = ((AuContainer)DataContainer).MulliganRawGitHub2;
-            _mulliganRawGitHub3 = ((AuContainer)DataContainer).MulliganRawGitHub3;
-            _mulliganRawGitHub4 = ((AuContainer)DataContainer).MulliganRawGitHub4;
-            _mulliganRawGitHub5 = ((AuContainer)DataContainer).MulliganRawGitHub5;
-            _mulliganRawGitHub6 = ((AuContainer)DataContainer).MulliganRawGitHub6;
-            _mulliganRawGitHub7 = ((AuContainer)DataContainer).MulliganRawGitHub7;
-            _mulliganRawGitHub8 = ((AuContainer)DataContainer).MulliganRawGitHub8;
-            _mulliganRawGitHub9 = ((AuContainer)DataContainer).MulliganRawGitHub9;
+            _frequentChecks = ((AutoContainer) DataContainer).CheckAfterEachGame;
+            _mulliganRawGitHub1 = ((AutoContainer)DataContainer).MulliganRawGitHub1;
+            _mulliganRawGitHub2 = ((AutoContainer)DataContainer).MulliganRawGitHub2;
+            _mulliganRawGitHub3 = ((AutoContainer)DataContainer).MulliganRawGitHub3;
+            _mulliganRawGitHub4 = ((AutoContainer)DataContainer).MulliganRawGitHub4;
+            _mulliganRawGitHub5 = ((AutoContainer)DataContainer).MulliganRawGitHub5;
+            _mulliganRawGitHub6 = ((AutoContainer)DataContainer).MulliganRawGitHub6;
+            _mulliganRawGitHub7 = ((AutoContainer)DataContainer).MulliganRawGitHub7;
+            _mulliganRawGitHub8 = ((AutoContainer)DataContainer).MulliganRawGitHub8;
+            _mulliganRawGitHub9 = ((AutoContainer)DataContainer).MulliganRawGitHub9;
 
             _gitCollection = new List<string> { _mulliganRawGitHub1, _mulliganRawGitHub2, _mulliganRawGitHub3, _mulliganRawGitHub4, _mulliganRawGitHub5, _mulliganRawGitHub6, _mulliganRawGitHub7, _mulliganRawGitHub8, _mulliganRawGitHub9 };
         }

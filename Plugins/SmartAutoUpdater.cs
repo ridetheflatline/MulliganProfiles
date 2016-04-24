@@ -13,7 +13,7 @@ namespace SmartBot.Plugins
     public class AuContainer : PluginDataContainer
     {
         public bool CheckAfterEachGame { get; set; }
-        public string GithubRawLink { get; private set; }
+        public string GithubRawLink { get; set; }
         public string GithubRawLink2 { get; private set; }
         public string GithubRawLink3 { get; set; }
         public string GithubRawLink4 { get; set; }
@@ -27,7 +27,6 @@ namespace SmartBot.Plugins
         {
             Name = "SmartAutoUpdater";
             Enabled = true;
-            GithubRawLink = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/MulliganProfiles/SmartMulliganV2.cs";
             GithubRawLink2 = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV2/Plugins/SmartAutoUpdater.cs";
         }
     }
