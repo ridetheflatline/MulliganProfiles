@@ -509,6 +509,46 @@ namespace MulliganProfiles
             {Card.Cards.AT_114, 4}, //[5/4]Evil Heckler [4 mana] [NONE card]
             {Card.Cards.AT_121, 0}, //[4/4]Crowd Favorite [4 mana] [NONE card]
             {Card.Cards.AT_122, 0}, //[4/4]Gormok the Impaler [4 mana] [NONE card]
+            /*Whisper*/
+            //{Cards.AddledGrizzly, 0 },
+            //{Cards.FandralStaghelm, 4 },
+            //{Cards.FieryBat, 2 },
+            //{Cards.GarrionGrub, 0 },
+            //{Cards.CultSorcerer, 3 },
+            //{Cards.TwilightFlamecaller, 2 },
+            //{Cards.EternalSentinel, 2 },
+            //{Cards.PossessedVillager, 2 },
+            //{Cards.DarkshireLibrarian, 1 },
+            //{Cards.DarkshireCouncelman, 2},
+            //{Cards.NzothsFirstMate, 3 },
+            //{Cards.BloodsailCultist, 3 },
+            //{Cards.RavagingGhoul, 1 },
+            //{Cards.BloodhoofBrave, 2 },
+            //{Cards.ShifterZerus, 0 },
+            //{Cards.TenticleOfNZoth, 1 },
+            //{Cards.BilefinTidehunter, 2 },
+            //{Cards.Duskboar, -1 },
+            //{Cards.NatTheDarkfisher, -1 },
+            //{Cards.TwilightGeomancer, 2 },
+            //{Cards.TwistedWorgen, 2 },
+            //{Cards.AmgamRager, 0 },
+            //{Cards.DiscipleofCThun, 2 },
+            //{Cards.SilithidSwarmer, 1 },
+            //{Cards.SpawnofNZoth, 1 },
+            //{Cards.SquirmingTentacle, 1 },
+            //{Cards.TwilightElder, 4 },
+            //{Cards.AberrantBerserker, 2 },
+            //{Cards.BlackwaterPirate, 3 },
+            //{Cards.CThunsCHosen, 2 },
+            //{Cards.CyclopianHorror, 4 },
+            //{Cards.EaterofSecrets, 0 },
+            //{Cards.EvolvedKobold, 0 },
+            //{Cards.FacelessShambler, 0 },
+            //{Cards.InfestedTauren, 1 },
+            //{Cards.MidnightDrake, 2 },
+            //{Cards.PollutedHoarder, 1 },
+            //{Cards.TwilightSummoner, 0 },
+            
 
         };
         #endregion
@@ -874,7 +914,8 @@ namespace MulliganProfiles
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\");
             using (StreamWriter ml = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\MulliganHistory.txt", true))
             {
-                ml.WriteLine("--------------[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType, gc.OpponentClass, gc.EneDeckType);
+                ml.WriteLine("=========================================");
+                ml.WriteLine("[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType, gc.OpponentClass, gc.EneDeckType);
                 ml.WriteLine("Given: " + choices.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
                 ml.WriteLine("Kept: " + cardsToKeep.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
             }
@@ -1587,7 +1628,20 @@ namespace MulliganProfiles
 
         private void HandleRaptorRogue(GameContainer gc)
         {
-            throw new NotImplementedException();
+           foreach (var q in gc.Choices.Where(c => (gc.EnemyStyle.Aggresive() ? c.Cost() <= 2 : c.Cost() <= 3)
+           && !c.IsSpell() && CardTemplate.LoadFromId(c).Quality != Card.CQuality.Legendary))
+                _whiteList.AddOrUpdate(q, q.Cost() < 3);
+
+            var has2 = gc.TwoDrops.Any();
+            var has3 = gc.ThreeDrops.Any();
+            var hasDeathRattle = gc.Choices.Any(q => CardTemplate.LoadFromId(q).HasDeathrattle && CardTemplate.LoadFromId(q).Cost <= 2 && CardTemplate.LoadFromId(q).Quality != Card.CQuality.Legendary);
+            _whiteList.AddOrUpdate(hasDeathRattle ?Cards.UnearthedRaptor : Nothing, hasDeathRattle && gc.Coin);
+            _whiteList.AddOrUpdate(has2 && has3 ? Cards.PilotedShredder : Nothing, false);
+            if (gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.Backstab, false);
+            _whiteList.AddOrUpdate(gc.Coin ? Cards.Sap : Nothing, false);
+            _whiteList.AddOrUpdate(gc.Coin ? Cards.PilotedShredder : Nothing, false);
+            _whiteList.AddOrUpdate(Cards.NerubianEgg, gc.Coin);
+            _whiteList.AddOrUpdate(gc.OpponentClass.Is(Paladin) ? Cards.FanofKnives : Nothing, false);
         }
 
         private void HandleFatigueRogue(GameContainer gc)
@@ -1617,8 +1671,38 @@ namespace MulliganProfiles
 
         private void HandleFaceShaman(GameContainer gc)
         {
-            throw new NotImplementedException();
+            foreach (var q in gc.OneDrops.Where(card => card.IsMinion()))
+            {
+                gc.HasTurnOne = true;
+                _whiteList.AddOrUpdate(q, gc.Coin || q.Priority() >= 4);
+            }
+            foreach (
+                    var w in gc.OneDrops.Where(card => card.IsMinion()).Where(w => gc.Choices.HasTurn(1, 2) || gc.Coin))
+            {
+                if (gc.Coin) _whiteList.AddOrUpdate(w, false);
+                gc.HasTurnTwo = true;
+                _whiteList.AddOrUpdate(w, w.Priority() > 4 && gc.Coin && CardTemplate.LoadFromId(w).Overload == 0);
+            }
+            foreach (
+                var w in
+                    gc.OneDrops.Where(card => card.IsMinion())
+                        .Where(w => gc.Choices.HasTurn(1, 2) && gc.Choices.HasTurn(2, 2)))
+            {
+                gc.HasTurnThree = true;                                    
+                _whiteList.AddOrUpdate(w, false);
+            }
+
+            if (gc.OpponentClass.IsOneOf(Rogue, Warrior))
+                _whiteList.AddOrUpdate(
+                    gc.HasTurnOne && gc.HasTurnTwo && gc.HasTurnThree ? Cards.Doomhammer : Nothing, false);
+            if (gc.OpponentClass.IsOneOf(Mage, Druid))
+                _whiteList.AddOrUpdate(
+                    gc.Choices.HasAny(Cards.LightningBolt)
+                        ? Cards.LightningBolt
+                        : gc.HasTurnOne && gc.Coin ? Cards.RockbiterWeapon : Nothing, false);
+
         }
+
 
         private void HandleMechShaman(GameContainer gc)
         {
