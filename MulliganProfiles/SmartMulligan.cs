@@ -218,7 +218,7 @@ namespace MulliganProfiles
             {Card.Cards.EX1_008, 3}, //[1/1]Argent Squire [1 mana] [NONE card]
             {Card.Cards.EX1_009, 0}, //[1/1]Angry Chicken [1 mana] [NONE card]
             {Card.Cards.EX1_010, 4}, //[2/1]Worgen Infiltrator [1 mana] [NONE card]
-            {Card.Cards.EX1_029, 3}, //[2/1]Leper Gnome [1 mana] [NONE card]
+            {Card.Cards.EX1_029, 2}, //[2/1]Leper Gnome [1 mana] [NONE card]
             {Card.Cards.EX1_080, 2}, //[1/2]Secretkeeper [1 mana] [NONE card]
             {Card.Cards.EX1_243, -5}, //[3/1]Dust Devil [1 mana] [SHAMAN card]
             {Card.Cards.EX1_319, 5}, //[3/2]Flame Imp [1 mana] [WARLOCK card]
@@ -280,7 +280,7 @@ namespace MulliganProfiles
             {Card.Cards.EX1_608, 3}, //[3/2]Sorcerer's Apprentice [2 mana] [MAGE card]
             {Card.Cards.EX1_616, 2}, //[2/2]Mana Wraith [2 mana] [NONE card]
             {Card.Cards.NEW1_018, 3}, //[2/3]Bloodsail Raider [2 mana] [NONE card]
-            {Card.Cards.NEW1_019, 6}, //[3/2]Knife Juggler [2 mana] [NONE card]
+            {Card.Cards.NEW1_019, 4}, //[3/2]Knife Juggler [2 mana] [NONE card]
             {Card.Cards.NEW1_020, 3},//[3/2]Wild Pyromancer [2 mana] [NONE card]
             {Card.Cards.NEW1_021, 1}, //[0/7]Doomsayer [2 mana] [NONE card]
             {Card.Cards.NEW1_023, 3}, //[3/2]Faerie Dragon [2 mana] [NONE card]
@@ -855,7 +855,7 @@ namespace MulliganProfiles
             }
             catch (NotImplementedException e)
             {
-                Report(string.Format("Current deck is not implemented: {0}", e.TargetSite));
+                Report(string.Format("[SmartMulligan] Current deck is not implemented: {0}", e.TargetSite));
             }
             catch (Exception)
             {
@@ -1314,7 +1314,11 @@ namespace MulliganProfiles
 
         private void HandleMechDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMechsCoreLogic(gc);
+            if (!gc.EnemyStyle.Aggresive() && gc.HasTurnTwo && gc.Coin)
+            {
+                _whiteList.AddOrUpdate(Cards.PilotedShredder, false);
+            }
         }
 
         private void HandleAstralDruid(GameContainer gc)
@@ -1408,7 +1412,11 @@ namespace MulliganProfiles
 
         private void HandleMechMage(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMechsCoreLogic(gc);
+            if (!gc.EnemyStyle.Aggresive() && gc.HasTurnTwo && gc.Coin)
+            {
+                _whiteList.AddOrUpdate(Cards.PilotedShredder, false);
+            }
         }
 
         private void HandleEchoMage(GameContainer gc)
@@ -1443,7 +1451,11 @@ namespace MulliganProfiles
 
         private void HandleMechPriest(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMechsCoreLogic(gc);
+            if (!gc.EnemyStyle.Aggresive() && gc.HasTurnTwo && gc.Coin)
+            {
+                _whiteList.AddOrUpdate(Cards.PilotedShredder, false);
+            }
         }
 
         private void HandleShadowPriest(GameContainer gc)
@@ -1493,7 +1505,7 @@ namespace MulliganProfiles
                 }
             }
             _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Choices.HasAny(Cards.AnimalCompanion) && gc.Coin && gc.OpponentClass.Is(Warrior)? Cards.SavannahHighmane : Nothing, false);
-            _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.HauntedCreeper, Cards.Webspinner) ? Cards.HuntersMark : Nothing, false);
+            //_whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.HauntedCreeper, Cards.Webspinner) ? Cards.HuntersMark : Nothing, false);
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.KnifeJuggler) && gc.Coin ? Cards.SnakeTrap : Nothing, false);
             _whiteList.AddOrUpdate(!gc.HasTurnTwo && !gc.HasTurnOne && !gc.Coin ? Cards.FreezingTrap : Nothing, false);
         
@@ -1610,7 +1622,11 @@ namespace MulliganProfiles
 
         private void HandleMechShaman(GameContainer gc)
         {
-            throw new NotImplementedException();
+           HandleMechsCoreLogic(gc);
+            if (!gc.EnemyStyle.Aggresive() && gc.HasTurnTwo && gc.Coin)
+            {
+                _whiteList.AddOrUpdate(Cards.PilotedShredder, false);
+            }
         }
 
         private void HandleDragonShaman(GameContainer gc)
@@ -1679,7 +1695,6 @@ namespace MulliganProfiles
             _whiteList.AddOrUpdate(gc.EnemyStyle.Aggresive() ? Cards.Whirlwind : Nothing, false);
             if (gc.OpponentClass.Is(Card.CClass.WARLOCK))
             {
-                _whiteList.AddOrUpdate(Cards.BigGameHunter, false);
                 _whiteList.AddOrUpdate(Cards.ShieldSlam, false);
                 _whiteList.AddOrUpdate(Cards.Execute, false);
                 _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Execute) ? Cards.CruelTaskmaster : Nothing, false);
