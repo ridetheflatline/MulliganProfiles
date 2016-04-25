@@ -102,6 +102,9 @@ namespace SmartBot.Plugins
         public int AnalyzeGames { get; set; }
         [DisplayName("[5] Record GT")]
         public bool StoreTime { get; set; }
+        [DisplayName("[6] Card Breakdown")]
+        public bool DeckPerformance { get; set; }
+
         [DisplayName("Glossary")]
         public string Dictionary { get; private set; }
 
@@ -219,7 +222,10 @@ namespace SmartBot.Plugins
 
         public Card.CClass Enemy;
         public Board PregameBoard;
-        public static readonly List<Bot.Mode> AllowedModes = new List<Bot.Mode> { Bot.Mode.Unranked, Bot.Mode.Ranked, Bot.Mode.Practice, Bot.Mode.None };
+        public static readonly List<Bot.Mode> AllowedModes = new List<Bot.Mode>
+        {
+            Bot.Mode.UnrankedStandard, Bot.Mode.UnrankedWild, Bot.Mode.RankedStandard, Bot.Mode.RankedWild, Bot.Mode.Practice, Bot.Mode.None
+        };
         public static bool talkedWithMulligan = false;
         #region GameEvents()
         public override void OnTick()
@@ -280,18 +286,16 @@ namespace SmartBot.Plugins
                 foreach (var q in text)
                 {
                     var information = q.Split(new[] {"||"}, StringSplitOptions.None);
-                    DeckType dt = (DeckType) Enum.Parse(typeof (DeckType), information[3]);
+                    DeckType dt = (DeckType) Enum.Parse(typeof (DeckType), information[8]);
                     if (information[5].ToString().Contains("Cards")) continue;
-                    Card.CClass enemy = (Card.CClass) Enum.Parse(typeof (Card.CClass), information[5]);
+                    Card.CClass enemy = (Card.CClass) Enum.Parse(typeof (Card.CClass), information[7]);
                     if (Stats.ContainsKey(dt))
                     {
                         Stats[dt].UpdateData(dt, enemy, information[1]);
                     }
                     else
                     {
-
                         Stats.AddOrUpdate(dt, new Statistics(dt, enemy, information[1]));
-                        //Stats[dt].UpdateData(dt, information[1]);
                     }
                 }
             }
@@ -300,7 +304,7 @@ namespace SmartBot.Plugins
                    foreach (var q in text)
                 {
                     var information = q.Split(new[] {"||"}, StringSplitOptions.None);
-                    DeckType dt = (DeckType) Enum.Parse(typeof (DeckType), information[3]);
+                    DeckType dt = (DeckType) Enum.Parse(typeof (DeckType), information[8]);
                     if (information[5].ToString().Contains("Cards")) continue;
                     //Card.CClass enemy = (Card.CClass) Enum.Parse(typeof (Card.CClass), information[5]);
                     if (Stats.ContainsKey(dt))
@@ -670,17 +674,29 @@ namespace SmartBot.Plugins
             opponentDeck.AddRange(graveyard.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
             opponentDeck.AddRange(board.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
             if (opponentDeck.Count == 0) return;
-            string str = opponentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
+            string str = opponentDeck.Aggregate("",(current, q) => current + ","+q);
+            using (StreamWriter DeckPerformanceHistory = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DeckPerformanceHistory.txt", true))
             using (StreamWriter opponentDeckInfo = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck, Bot.CurrentBoard.SecretEnemyCount);
-                opponentDeckInfo.WriteLine("{0}||{1}||{2}||{3}||{4}||{5}||{6}", ((SmartTracker)DataContainer).StoreTime ? DateTime.UtcNow.ToString(CultureInfo.InvariantCulture) : "some time ago", res, Bot.GetCurrentOpponentId(), opponentInfo.DeckType, opponentInfo.DeckStyle, Bot.CurrentBoard.EnemyClass, str);
+                opponentDeckInfo.WriteLine("{0}||{1}||{2}||{3}||{4}||{5}||{6}||{7}||{8}||{9}||{10}||{11}",
+                    ((SmartTracker)DataContainer).StoreTime ? DateTime.UtcNow.ToString(CultureInfo.InvariantCulture) : "some time ago",
+                    res, 
+                    Bot.GetCurrentOpponentId(),
+                    Bot.CurrentMode(),
+                    Bot.CurrentBoard.FriendClass, ((SmartTracker)DataContainer).AutoFriendlyDeckType, ((SmartTracker)DataContainer).AutoFriendlyStyle,
+                    Bot.CurrentBoard.EnemyClass, opponentInfo.DeckType, opponentInfo.DeckStyle,
+                    str, Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current + ","+q)
+                    );
                 Bot.Log(string.Format("[Tracker] Succesfully recorded your opponent: {0}", opponentInfo.DeckType));
+
             }
         }
 
         public override void OnDefeat()
         {
+            Bot.Log("========================================"+Bot.CurrentMode());
+
             if (!_supported) return;
 
 
@@ -697,7 +713,8 @@ namespace SmartBot.Plugins
         }
 
         public override void OnVictory()
-        {
+        { 
+            Bot.Log("========================================"+Bot.CurrentMode());
             if (!_supported) return;
 
             try
