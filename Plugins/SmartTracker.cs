@@ -74,7 +74,7 @@ namespace SmartBot.Plugins
         /// This variable is to add extra two option to SmartTracker that will allow you
         /// to use Mulligan Tester by Botfanatic
         /// </summary>
-        private const bool DebugTesting = false;
+        private const bool DebugTesting = true;
 
         [DisplayName("[1] Auto Update")]
         public bool AutoUpdate { get; set; }
@@ -377,6 +377,13 @@ namespace SmartBot.Plugins
         private static bool _supported = false;
         public override void OnStarted()
         {
+            if(Bot.CurrentMode() == Bot.Mode.RankedWild || Bot.CurrentMode() == Bot.Mode.UnrankedWild)
+            {
+                Bot.Log("Wild is currently unavailable for all players. Use standard.");
+                Bot.StopBot();
+                return;
+                
+            }
             SetupMulliganTester();
             if (!AllowedModes.Contains(Bot.CurrentMode()))
             {

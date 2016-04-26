@@ -172,6 +172,7 @@ namespace MulliganProfiles
         /// <returns></returns>
         public static int Priority(this Card.Cards id, int modifier = 0)
         {
+            Report("Entered Priority");
             return id.IsMinion() ? (CardTable[id] + modifier) : 0;
         }
 
@@ -510,47 +511,72 @@ namespace MulliganProfiles
             {Card.Cards.AT_121, 0}, //[4/4]Crowd Favorite [4 mana] [NONE card]
             {Card.Cards.AT_122, 0}, //[4/4]Gormok the Impaler [4 mana] [NONE card]
             /*Whisper*/
-            {Cards.AddledGrizzly, 0 },
-            {Cards.FandralStaghelm, 4 },
-            {Cards.FieryBat, 2 },
-            {Cards.CarrionGrub, 0 },
-            {Cards.CultSorcerer, 3 },
-            {Cards.TwilightFlamecaller, 2 },
-            {Cards.EternalSentinel, 2 },
-            {Cards.PossessedVillager, 2 },
-            {Cards.DarkshireLibrarian, 1 },
-            {Cards.DarkshireCouncilman, 2},
+            {Cards.ForbiddenAncient, 0 },
+            {Cards.FieryBat, 3 },
+            {Cards.SelflessHero, 1 },
+            {Cards.VilefinInquisitor, 4 },
             {Cards.NZothsFirstMate, 3 },
-            {Cards.BloodsailCultist, 3 },
-            {Cards.RavagingGhoul, 1 },
-            {Cards.BloodhoofBrave, 2 },
-            {Cards.ShifterZerus, 0 },
-            {Cards.TentacleofNZoth, 1 },
+            {Cards.ShifterZerus, 1 },
+            {Cards.TentacleofNZoth, 2 },
+            {Cards.ZealousInitiate, 1 },
+            {Cards.CultSorcerer, 3 },
+            {Cards.UndercityValiant, 2 },
+            {Cards.EternalSentinel, 2 },
+            {Cards.DarkshireLibrarian, 1 },
             {Cards.BilefinTidehunter, 2 },
-            {Cards.Duskboar, -1 },
+            {Cards.Duskboar, 0 },
             {Cards.NattheDarkfisher, -1 },
             {Cards.TwilightGeomancer, 2 },
-            {Cards.TwistedWorgen, 2 },
-            {Cards.AmgamRager, 0 },
-            {Cards.DiscipleofCThun, 2 },
-            {Cards.SilithidSwarmer, 1 },
+            {Cards.TwistedWorgen, 3 },
+            {Cards.AddledGrizzly, 0 },
+            {Cards.TwilightFlamecaller, 2 },
+            {Cards.StewardofDarkshire, 2 },
+            {Cards.DarkshireCouncilman, 3 },
+            {Cards.BloodsailCultist, 3 },
+            {Cards.RavagingGhoul, 2 },
+            {Cards.AmgamRager, 2 },
+            {Cards.DiscipleofCThun, 3 },
+            {Cards.SilithidSwarmer, 2 },
             {Cards.SpawnofNZoth, 1 },
-            {Cards.SquirmingTentacle, 1 },
-            {Cards.TwilightElder, 4 },
-            {Cards.AberrantBerserker, 2 },
-            {Cards.BlackwaterPirate, 3 },
-            {Cards.CThunsChosen, 2 },
-            {Cards.CyclopianHorror, 4 },
+            {Cards.SquirmingTentacle, 4 },
+            {Cards.TwilightElder, 5 },
+            {Cards.FandralStaghelm, 3 },
+            {Cards.KlaxxiAmberWeaver, 2 },
+            {Cards.MireKeeper, 1 },
+            {Cards.InfestedWolf, 1 },
+            {Cards.DementedFrostcaller, 2 },
+            {Cards.HoodedAcolyte, 1 },
+            {Cards.ShiftingShade, 0 },
+            {Cards.SouthseaSquidface, 1 },
+            {Cards.XarilPoisonedMind, 0 },
+            {Cards.FlamewreathedFaceless, 4 },
+            {Cards.MasterofEvolution, 4 },
+            {Cards.BloodhoofBrave, 2 },
+            {Cards.AberrantBerserker, 0 },
+            {Cards.BlackwaterPirate, 0 },
+            {Cards.CThunsChosen, 0 },
+            {Cards.CyclopianHorror, 1 },
             {Cards.EaterofSecrets, 0 },
             {Cards.EvolvedKobold, 0 },
             {Cards.FacelessShambler, 0 },
-            {Cards.InfestedTauren, 1 },
-            {Cards.MidnightDrake, 2 },
-            {Cards.PollutedHoarder, 1 },
+            {Cards.InfestedTauren, 4 },
+            {Cards.MidnightDrake, 0 },
+            {Cards.PollutedHoarder, 0 },
             {Cards.TwilightSummoner, 0 },
-            
+
+
+
+
+
 
         };
+        public static void Report(string msg)
+        {
+            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DebugLog.txt", true))
+            {
+                log.WriteLine("[{0}] {1}", DateTime.Now, msg);
+            }
+        }
         #endregion
         /// <summary>
         /// This is a useless method
@@ -571,18 +597,7 @@ namespace MulliganProfiles
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static Tuple<List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>> SplitByTurnList(this IList<Card.Cards> list)
-        {
-            return new Tuple<List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>, List<Card.Cards>>
-                (
-                    list.Where(card => CardTemplate.LoadFromId(card).Cost == 0).ToList(), //all 0 drops
-                    list.Where(card => CardTemplate.LoadFromId(card).Cost == 1).ToList(), //all 1 drops
-                    list.Where(card => CardTemplate.LoadFromId(card).Cost == 2).ToList(), //all 2 drops
-                    list.Where(card => CardTemplate.LoadFromId(card).Cost == 3).ToList(), //all 3 drops
-                    list.Where(card => CardTemplate.LoadFromId(card).Cost == 4).ToList(), //all 4 drops
-                    list.Where(card => CardTemplate.LoadFromId(card).Cost > 4).ToList()   //all 5+ drops
-                );
-        }
+        
 
         public static bool Aggresive(this Style st)
         {
@@ -592,7 +607,7 @@ namespace MulliganProfiles
         public static DeckType FindHimInHistory(this long id, Card.CClass op, int n = 50)
         {
             List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
-            List<DeckType> allDeckTypes = (from q in history select q.Split(new[] { "||" }, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId select (DeckType)Enum.Parse(typeof(DeckType), information[3])).ToList();
+            List<DeckType> allDeckTypes = (from q in history select q.Split(new[] { "||" }, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId select (DeckType)Enum.Parse(typeof(DeckType), information[8])).ToList();
             if (allDeckTypes.Count >= 1)
             {
                 var eDeckType =
@@ -754,18 +769,23 @@ namespace MulliganProfiles
             {
                 //ignored
             }
-            AllDropsTuple = choices.SplitByTurnList();
-            ZeroDrops = AllDropsTuple.Item1;
-            OneDrops = AllDropsTuple.Item2;
-            TwoDrops = AllDropsTuple.Item3;
-            ThreeDrops = AllDropsTuple.Item4;
-            FourDrops = AllDropsTuple.Item5;
-            FivePlusDrops = AllDropsTuple.Item6;
+            ZeroDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 0).ToList();
+            OneDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 1).ToList();
+            TwoDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 2).ToList();
+            ThreeDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 3).ToList();
+            FourDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 4).ToList();
+            FivePlusDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost > 4).ToList();
             HasTurnOne = false;
             HasTurnTwo = false;
             HasTurnThree = false;
         }
-
+        public static void Report(string msg)
+        {
+            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DebugLog.txt", true))
+            {
+                log.WriteLine("[{0}] {1}", DateTime.Now, msg);
+            }
+        }
         public string PrintDebug(Dictionary<string, object> properties)
         {
             return string.Format("==============" + "\nMy Type: {0}" + "\nMy Forced Type: {1}" + "\nMy Style: {2}" + "\nEnemy Type: {3}" + "\nEnemy Style: {4}" + "\nMulligan Tester <me>: {5}" + "\nMulligan Tester <him>: {6}" + "\nEnum Count: {7}" + "\t", properties[TrackerMyType], properties[TrackerForceMyType], properties[TrackerMyStyle], properties[TrackerEnemyType], properties[TrackerEnemyStyle], properties[MulliganTesterMyDeck], properties[MulliganTesterEnemyDeck], properties[EnumsCount]);
@@ -778,13 +798,13 @@ namespace MulliganProfiles
 
         public GameContainer(bool t, List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
+            Report("Entered Mulligan Tester container");
             Choices = choices;
             OpponentClass = opponentClass;
             OwnClass = ownClass;
             Coin = choices.Count > 3;
-
+            Report("Created Choices, OC, OC, Coin");
             #region SmartTracker
-
             using (StreamReader mt = new StreamReader(MtDirectory))
             {
                 string[] info = mt.ReadLine().Split(':');
@@ -803,19 +823,21 @@ namespace MulliganProfiles
                     EnemyStyle = (Style)Enum.Parse(typeof(Style), info[3]);
                 }
             }
-
+            Report("Mulligan Tester decks chosen");
             #endregion
-
-            AllDropsTuple = choices.SplitByTurnList();
-            ZeroDrops = AllDropsTuple.Item1;
-            OneDrops = AllDropsTuple.Item2;
-            TwoDrops = AllDropsTuple.Item3;
-            ThreeDrops = AllDropsTuple.Item4;
-            FourDrops = AllDropsTuple.Item5;
-            FivePlusDrops = AllDropsTuple.Item6;
+            foreach (var q in choices)
+                Report("" +q);
+            Report("Split of choices succesful");
+            ZeroDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 0).ToList();
+            OneDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 1).ToList();
+            TwoDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 2).ToList();
+            ThreeDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 3).ToList();
+            FourDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 4).ToList();
+            FivePlusDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost > 4).ToList();
             HasTurnOne = false;
             HasTurnTwo = false;
             HasTurnThree = false;
+            Report("Finished setup");
         }
 
         public override string ToString()
@@ -881,17 +903,21 @@ namespace MulliganProfiles
 
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
+            ClearReport();
+            Report("Mulligan Stage Entered");
             if (choices.Contains(Cards.FlesheatingGhoul))
             {
                 choices.Remove(Cards.FlesheatingGhoul);
                 choices.Add(Card.Cards.GAME_005);
             }
             GameContainer mtgc = new GameContainer(true, choices, opponentClass, ownClass);
+            Report("Mulligan Tester Container created");
             try
             {
                 GameContainer gc = new GameContainer(choices, opponentClass, ownClass);
                 Mulliganaccordingly(gc);
                 mtgc = gc;
+                Report("Succesfully created normal Game Container");
             }
             catch (NotImplementedException e)
             {
@@ -899,7 +925,8 @@ namespace MulliganProfiles
             }
             catch (Exception)
             {
-                Bot.Log("[SmartMulligan] Something went horribly wrong. Submit report file t");
+                Report("[SmartMulligan] Entering Mulligan Tester mode");
+                Mulliganaccordingly(mtgc);
             }
 
             foreach (var s in from s in choices let keptOneAlready = _cardsToKeep.Any(c => c.ToString() == s.ToString()) where _whiteList.ContainsKey(s) where !keptOneAlready | _whiteList[s] select s)
@@ -1310,27 +1337,27 @@ namespace MulliganProfiles
         private void HandleAggroDruid(GameContainer gc)
         {
             foreach (var c in gc.Choices)
+            {
+                if (!c.IsMinion()) continue;
+                switch (c.Cost())
                 {
-                    if (!c.IsMinion()) continue;
-                    switch (c.Cost())
-                    {
-                        case 1:
-                            gc.HasTurnOne = true;
-                            _whiteList.AddOrUpdate(c, false);
-                            break;
-                        case 2:
-                            gc.HasTurnTwo = true;
-                            _whiteList.AddOrUpdate(c, false);
-                            break;
-                        case 3:
-                            gc.HasTurnThree = true;
-                            _whiteList.AddOrUpdate(c, false);
-                            break;
-                    }
+                    case 1:
+                    gc.HasTurnOne = true;
+                    _whiteList.AddOrUpdate(c, false);
+                    break;
+                    case 2:
+                    gc.HasTurnTwo = true;
+                    _whiteList.AddOrUpdate(c, false);
+                    break;
+                    case 3:
+                    gc.HasTurnThree = true;
+                    _whiteList.AddOrUpdate(c, false);
+                    break;
                 }
+            }
             /*Always whitelists at least 1 innervate*/
             _whiteList.AddAll(false, Cards.WildGrowth, Cards.FjolaLightbane, Cards.EydisDarkbane, Cards.FlameJuggler, Cards.DruidoftheSaber);
-            
+
         }
 
         private void HandleDragonDruid(GameContainer gc)
@@ -1506,23 +1533,23 @@ namespace MulliganProfiles
 
         private void HandleMidrangeHunter(GameContainer gc)
         {
-           foreach (var q in gc.Choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION))
+            foreach (var q in gc.Choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION))
             {
                 switch (CardTemplate.LoadFromId(q).Cost)
                 {
                     case 1:
-                        _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, false);
-                        break;
+                    _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, false);
+                    break;
                     case 2:
-                        _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, q.Priority() >= 3 && gc.Coin);
-                        break;
+                    _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, q.Priority() >= 3 && gc.Coin);
+                    break;
                     case 3:
-                        gc.HasTurnThree = true;
-                        _whiteList.AddOrUpdate(q.Priority()> 1 ? q : Nothing, false);
-                        break;
+                    gc.HasTurnThree = true;
+                    _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, false);
+                    break;
                     case 4:
-                        _whiteList.AddOrUpdate(q.Priority() > 6 && gc.Coin ? q : Nothing, false);
-                        break;
+                    _whiteList.AddOrUpdate(q.Priority() > 6 && gc.Coin ? q : Nothing, false);
+                    break;
                 }
             }
             foreach (var q in gc.Choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && !CardTemplate.LoadFromId(c).IsSecret && CardTemplate.LoadFromId(c).Type == Card.CType.SPELL))
@@ -1530,26 +1557,26 @@ namespace MulliganProfiles
                 switch (CardTemplate.LoadFromId(q).Cost)
                 {
                     case 1:
-                        _whiteList.AddOrUpdate(q, false);
-                        break;
+                    _whiteList.AddOrUpdate(q, false);
+                    break;
                     case 2:
-                        _whiteList.AddOrUpdate(q, false);
-                        break;
+                    _whiteList.AddOrUpdate(q, false);
+                    break;
                     case 3:
-                        gc.HasTurnThree = true;
-                        _whiteList.AddOrUpdate(gc.EnemyStyle.Aggresive() ? Cards.UnleashtheHounds : Nothing, false);
-                        _whiteList.AddOrUpdate(gc.Coin ? Cards.AnimalCompanion : Nothing, gc.Coin);
-                        break;
+                    gc.HasTurnThree = true;
+                    _whiteList.AddOrUpdate(gc.EnemyStyle.Aggresive() ? Cards.UnleashtheHounds : Nothing, false);
+                    _whiteList.AddOrUpdate(gc.Coin ? Cards.AnimalCompanion : Nothing, gc.Coin);
+                    break;
                     case 4:
-                        _whiteList.AddOrUpdate(q, false);
-                        break;
+                    _whiteList.AddOrUpdate(q, false);
+                    break;
                 }
             }
-            _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Choices.HasAny(Cards.AnimalCompanion) && gc.Coin && gc.OpponentClass.Is(Warrior)? Cards.SavannahHighmane : Nothing, false);
+            _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Choices.HasAny(Cards.AnimalCompanion) && gc.Coin && gc.OpponentClass.Is(Warrior) ? Cards.SavannahHighmane : Nothing, false);
             //_whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.HauntedCreeper, Cards.Webspinner) ? Cards.HuntersMark : Nothing, false);
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.KnifeJuggler) && gc.Coin ? Cards.SnakeTrap : Nothing, false);
             _whiteList.AddOrUpdate(!gc.HasTurnTwo && !gc.HasTurnOne && !gc.Coin ? Cards.FreezingTrap : Nothing, false);
-        
+
         }
 
         private void HandleHybridHunter(GameContainer gc)
@@ -1560,30 +1587,32 @@ namespace MulliganProfiles
         private void HandleFaceHunter(GameContainer gc)
         {
             _whiteList.AddOrUpdate(
-                gc.Choices.HasAny(Cards.MadScientist) ? Cards.EaglehornBow : 
+                gc.Choices.HasAny(Cards.MadScientist) ? Cards.EaglehornBow :
                 gc.Choices.HasAny(Cards.Glaivezooka) ? Cards.Glaivezooka : Cards.EaglehornBow, false);
-                                   
+
             var allowHunterMark = (gc.Choices.HasAny(Cards.Webspinner, Cards.HauntedCreeper));
             foreach (var q in from q in gc.Choices where q.Cost() == 1 select q)
-                {
-                    gc.HasTurnOne = true;
-                    _whiteList.AddOrUpdate(q, true);
-                }
+            {
+                gc.HasTurnOne = true;
+                _whiteList.AddOrUpdate(q, true);
+            }
             foreach (var q in from q in gc.Choices where q.Cost() == 1 && !q.IsSpell() select q)
-            { 
-                
-                    gc.HasTurnTwo = true;
-                    _whiteList.AddOrUpdate(q, true);
-                }
-                foreach (var q in
-                    (from q in gc.Choices
-                     let w = CardTemplate.LoadFromId(q) where w.Cost == 3 && w.Health > 1 select q).Where(q => gc.HasTurnOne || gc.HasTurnTwo))
-                {
-                    gc.HasTurnThree = true;
-                    _whiteList.AddOrUpdate(q, false);
-                }
-               
-            
+            {
+
+                gc.HasTurnTwo = true;
+                _whiteList.AddOrUpdate(q, true);
+            }
+            foreach (var q in
+                (from q in gc.Choices
+                 let w = CardTemplate.LoadFromId(q)
+                 where w.Cost == 3 && w.Health > 1
+                 select q).Where(q => gc.HasTurnOne || gc.HasTurnTwo))
+            {
+                gc.HasTurnThree = true;
+                _whiteList.AddOrUpdate(q, false);
+            }
+
+
         }
 
         private void HandleHatHunter(GameContainer gc)
@@ -1628,14 +1657,14 @@ namespace MulliganProfiles
 
         private void HandleRaptorRogue(GameContainer gc)
         {
-           foreach (var q in gc.Choices.Where(c => (gc.EnemyStyle.Aggresive() ? c.Cost() <= 2 : c.Cost() <= 3)
-           && !c.IsSpell() && CardTemplate.LoadFromId(c).Quality != Card.CQuality.Legendary))
+            foreach (var q in gc.Choices.Where(c => (gc.EnemyStyle.Aggresive() ? c.Cost() <= 2 : c.Cost() <= 3)
+            && !c.IsSpell() && CardTemplate.LoadFromId(c).Quality != Card.CQuality.Legendary))
                 _whiteList.AddOrUpdate(q, q.Cost() < 3);
 
             var has2 = gc.TwoDrops.Any();
             var has3 = gc.ThreeDrops.Any();
             var hasDeathRattle = gc.Choices.Any(q => CardTemplate.LoadFromId(q).HasDeathrattle && CardTemplate.LoadFromId(q).Cost <= 2 && CardTemplate.LoadFromId(q).Quality != Card.CQuality.Legendary);
-            _whiteList.AddOrUpdate(hasDeathRattle ?Cards.UnearthedRaptor : Nothing, hasDeathRattle && gc.Coin);
+            _whiteList.AddOrUpdate(hasDeathRattle ? Cards.UnearthedRaptor : Nothing, hasDeathRattle && gc.Coin);
             _whiteList.AddOrUpdate(has2 && has3 ? Cards.PilotedShredder : Nothing, false);
             if (gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.Backstab, false);
             _whiteList.AddOrUpdate(gc.Coin ? Cards.Sap : Nothing, false);
@@ -1688,7 +1717,7 @@ namespace MulliganProfiles
                     gc.OneDrops.Where(card => card.IsMinion())
                         .Where(w => gc.Choices.HasTurn(1, 2) && gc.Choices.HasTurn(2, 2)))
             {
-                gc.HasTurnThree = true;                                    
+                gc.HasTurnThree = true;
                 _whiteList.AddOrUpdate(w, false);
             }
 
@@ -1706,7 +1735,7 @@ namespace MulliganProfiles
 
         private void HandleMechShaman(GameContainer gc)
         {
-           HandleMechsCoreLogic(gc);
+            HandleMechsCoreLogic(gc);
             if (!gc.EnemyStyle.Aggresive() && gc.HasTurnTwo && gc.Coin)
             {
                 _whiteList.AddOrUpdate(Cards.PilotedShredder, false);
@@ -1841,6 +1870,7 @@ namespace MulliganProfiles
                 Report("---------- Arena Handler encountered an error ----------");
                 Report(e.Message);
                 Report(string.Format("{0}:{1}", e.HelpLink, e.TargetSite));
+                Report(e.Message);
             }
 
             #endregion
@@ -1879,25 +1909,26 @@ namespace MulliganProfiles
                 _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.ArcaneBlast : Card.Cards.GAME_005, false); // [1 Cost]
                 break;
                 case Card.CClass.PALADIN:
-                _whiteList.AddInOrder(1, gc.Choices, false, Cards.LightsJustice, Cards.Coghammer, Cards.SwordofJustice);
+                _whiteList.AddInOrder(1, gc.Choices, false, Cards.LightsJustice, Cards.RallyingBlade, Cards.Coghammer, Cards.SwordofJustice);
+                _whiteList.AddOrUpdate(gc.Coin ? Cards.DivineStrength : Nothing, false);
+                _whiteList.AddOrUpdate(hasGood2 ? Cards.NobleSacrifice : Nothing, false); // [1 Cost]
+                _whiteList.AddAll(false, Cards.Avenge, Cards.MusterforBattle);
 
-                _whiteList.AddOrUpdate(hasGood2 ? Cards.NobleSacrifice : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(Cards.Avenge, false); // [1 Cost]
-                _whiteList.AddOrUpdate(Cards.MusterforBattle, false); // [3 Cost]
                 break;
                 case Card.CClass.WARRIOR:
                 _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.Whirlwind : Card.Cards.GAME_005, false); // [1 Cost]
                 _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldSlam) ? Cards.ShieldBlock : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddOrUpdate(Cards.Slam, false); // [2 Cost]
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.Slam); // [2 Cost]
                 _whiteList.AddOrUpdate(!hasGood1 ? Cards.Upgrade : Card.Cards.GAME_005, false); // [1 Cost]
                 _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldBlock) ? Cards.ShieldSlam : Card.Cards.GAME_005, false); // [1 Cost]
                 _whiteList.AddOrUpdate(hasGood1Or2 && !gc.Choices.HasTurn(3, 3) ? Cards.Bash : Card.Cards.GAME_005, false); // [3 Cost]
                 break;
                 case Card.CClass.WARLOCK:
-                _whiteList.AddOrUpdate(Cards.MortalCoil, false); // [1 Cost]
+                _whiteList.AddAll(false, Cards.RenounceDarkness, Cards.MortalCoil); // [1 Cost]
                 _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Card.Cards.GAME_005, false); // [1 Cost]
                 _whiteList.AddOrUpdate(!hasGood2 ? Cards.CurseofRafaam : Card.Cards.GAME_005, false); // [2 Cost]
                 _whiteList.AddOrUpdate(hasGood1Or2 || gc.Coin ? Cards.Darkbomb : Card.Cards.GAME_005, false); // [2 Cost]
+
                 break;
                 case Card.CClass.HUNTER:
                 _whiteList.AddInOrder(1, gc.Choices, false, Cards.Glaivezooka, Cards.EaglehornBow);
@@ -1913,7 +1944,7 @@ namespace MulliganProfiles
                 break;
                 case Card.CClass.ROGUE:
                 _whiteList.AddInOrder(1, gc.Choices, false, Cards.PerditionsBlade, Cards.CogmastersWrench);
-
+                _whiteList.AddOrUpdate(gc.Coin || !gc.HasTurnOne ? Cards.JourneyBelow : Nothing, false);
                 _whiteList.AddOrUpdate(Cards.Backstab, false); // [0 Cost]
                 _whiteList.AddOrUpdate(Cards.DeadlyPoison, false); // [1 Cost]
                 _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.FanofKnives : Card.Cards.GAME_005, false); // [3 Cost]
@@ -1924,8 +1955,7 @@ namespace MulliganProfiles
                 break;
                 case Card.CClass.DRUID:
                 _whiteList.AddOrUpdate(hasGood1 ? Cards.MarkoftheWild : Card.Cards.GAME_005, false); // [2 Cost]
-                _whiteList.AddOrUpdate(Cards.Wrath, false); // [2 Cost]
-                _whiteList.AddOrUpdate(Cards.PoweroftheWild, false); // [2 Cost]
+                _whiteList.AddAll(false, Cards.Wrath, Cards.PoweroftheWild);
                 _whiteList.AddOrUpdate(Cards.LivingRoots, gc.Coin); // [1 Cost]
                 break;
             }
@@ -1990,12 +2020,12 @@ namespace MulliganProfiles
         /// </summary>
         private void ClearReport()
         {
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\error.txt", string.Empty);
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DebugLog.txt", string.Empty);
         }
 
         public static void Report(string msg)
         {
-            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\error.txt", true))
+            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DebugLog.txt", true))
             {
                 log.WriteLine("[{0}] {1}", DateTime.Now, msg);
             }
