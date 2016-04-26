@@ -1451,7 +1451,7 @@ namespace MulliganProfiles
             else
             {
                 _whiteList.AddAll(false,
-              Cards.EmperorThaurissan, Cards.PilotedShredder, gc.OpponentClass.Is(Shaman) ? Cards.Hellfire : Nothing)
+              Cards.EmperorThaurissan, Cards.PilotedShredder, gc.OpponentClass.Is(Shaman) ? Cards.Hellfire : Nothing);
               }
             HandleSpellsAndWeapons(gc);
             _whiteList.AddOrUpdate(Cards.Voidcaller, false);
