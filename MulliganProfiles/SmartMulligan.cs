@@ -520,7 +520,7 @@ namespace MulliganProfiles
             {Cards.TentacleofNZoth, 2 },
             {Cards.ZealousInitiate, 1 },
             {Cards.CultSorcerer, 3 },
-            {Cards.UndercityValiant, 2 },
+            {Cards.UndercityHuckster, 2 },
             {Cards.EternalSentinel, 2 },
             {Cards.DarkshireLibrarian, 1 },
             {Cards.BilefinTidehunter, 2 },
