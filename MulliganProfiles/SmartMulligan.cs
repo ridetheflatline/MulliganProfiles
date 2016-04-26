@@ -922,6 +922,7 @@ namespace MulliganProfiles
             catch (NotImplementedException e)
             {
                 Report(string.Format("[SmartMulligan] Current deck is not implemented: {0}", e.TargetSite));
+                Arena(mtgc);
             }
             catch (Exception)
             {
@@ -1321,7 +1322,29 @@ namespace MulliganProfiles
 
         private void HandleAnyfinMurglMurgl(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleSpellsAndWeapons(gc);
+            foreach (var card in gc.Choices.Where(choice => CardTemplate.LoadFromId(choice).Cost <= 4 && CardTemplate.LoadFromId(choice).Type == Card.CType.MINION && CardTemplate.LoadFromId(choice).Race != Card.CRace.MURLOC))
+            {
+                switch (card.Cost())
+                {
+                    case 1:
+                        gc.HasTurnOne = true;
+                        _whiteList.AddOrUpdate(card, gc.Coin || card.Priority() >= 4);
+                        break;
+                    case 2:
+                        if (!gc.Choices.HasTurn(1,2) && !gc.Coin) continue;
+                        if (gc.Coin) _whiteList.AddOrUpdate(card, false);
+                        gc.HasTurnTwo = true;
+                        _whiteList.AddOrUpdate(card, card.Priority(card == Cards.WildPyromancer? -2: 0) > 4 && gc.Coin && CardTemplate.LoadFromId(card).Overload == 0);
+                        break;
+                    case 3:
+                        if (!gc.Choices.HasTurn(1,2) || !gc.Choices.HasTurn(2, 2)) continue;
+                        gc.HasTurnThree = true;
+                        _whiteList.AddOrUpdate(card, false);
+                        break;
+                }
+                //_whiteList.AddOrUpdate(card.ToString(), _hasCoin && GetPriority(card.ToString()) > 4);
+            }
         }
 
         private void HandleRenoPaladin(GameContainer gc)
@@ -1416,7 +1439,25 @@ namespace MulliganProfiles
 
         private void HandleRenoLock(GameContainer gc)
         {
-            throw new NotImplementedException();
+            var vc = gc.Choices.HasAny(Cards.Voidcaller);
+            Arena(gc);
+            _whiteList.Remove(Cards.AncientWatcher);
+            _whiteList.AddAll(false, Cards.MountainGiant, Cards.TwilightDrake, Cards.DarkPeddler, gc.Coin ? Cards.ImpGangBoss : Nothing);
+            if (gc.EnemyStyle.Aggresive())
+                _whiteList.AddAll(
+                    false, Cards.Hellfire, Cards.Shadowflame, Cards.EarthenRingFarseer, Cards.MoltenGiant, Cards.MindControlTech,
+                    gc.Coin ? Cards.RenoJackson : Nothing, gc.Coin || gc.Choices.HasAny(Cards.AncientWatcher) ? Cards.DefenderofArgus : Nothing,
+                    gc.Choices.HasAny(Cards.SunfuryProtector, Cards.DefenderofArgus) ? Cards.AncientWatcher : Nothing);
+            else
+            {
+                _whiteList.AddAll(false,
+              Cards.EmperorThaurissan, Cards.PilotedShredder, gc.OpponentClass.Is(Shaman) ? Cards.Hellfire : Nothing)
+              }
+            HandleSpellsAndWeapons(gc);
+            _whiteList.AddOrUpdate(Cards.Voidcaller, false);
+            _whiteList.Remove(!gc.EnemyStyle.Aggresive() ? Cards.SunfuryProtector : Nothing);
+            _whiteList.AddOrUpdate(gc.OpponentClass.IsOneOf(Mage, Hunter) ? Cards.KezanMystic : Nothing, false);
+            
         }
 
         private void HandleRenoComboLock(GameContainer gc)
@@ -1874,7 +1915,12 @@ namespace MulliganProfiles
             }
 
             #endregion
+            HandleSpellsAndWeapons(gc);
+        }
 
+        private void HandleSpellsAndWeapons(GameContainer gc)
+        {
+                
             #region spell/weapon handler
 
             bool hasGood1 = gc.Choices.HasTurn(1, 3);
@@ -1966,7 +2012,6 @@ namespace MulliganProfiles
 
             #endregion
         }
-
         /// <summary>
         /// Secret Palaidn mulligan logic
         /// ported from V2
