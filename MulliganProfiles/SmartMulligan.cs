@@ -137,7 +137,10 @@ namespace MulliganProfiles
         {
             return CardTemplate.LoadFromId(card).Type == Card.CType.MINION;
         }
-
+         public static bool HasRamp(this List<Card.Cards> list)
+        {
+            return list.HasAny(Cards.Innervate, Cards.WildGrowth);
+        }
         public static int Cost(this Card.Cards card)
         {
             return CardTemplate.LoadFromId(card).Cost;
@@ -526,6 +529,7 @@ namespace MulliganProfiles
             {Cards.BilefinTidehunter, 2 },
             {Cards.Duskboar, 0 },
             {Cards.NattheDarkfisher, -1 },
+            {Cards.BeckonerofEvil, 5},
             {Cards.TwilightGeomancer, 2 },
             {Cards.TwistedWorgen, 3 },
             {Cards.AddledGrizzly, 0 },
@@ -1187,6 +1191,64 @@ namespace MulliganProfiles
                 case DeckType.Basic:
                 Arena(gc);
                 break;
+                case DeckType.CThunWarrior:
+                    HandleCThunDecks(gc);
+                    break;
+                case DeckType.CThunPaladin:
+                    HandleCThunDecks(gc);
+                    break;
+                case DeckType.CThunDruid:
+                    HandleCThunDecks(gc);
+                    break;
+                case DeckType.CThunLock:
+                    HandleCThunDecks(gc);
+                    break;
+                case DeckType.CThunMage:
+                    HandleCThunDecks(gc);
+                    break;
+                case DeckType.CThunPriest:
+                    HandleCThunDecks(gc);
+                    break;
+                case DeckType.CThunHunter:
+                    HandleCThunDecks(gc);
+                    break;
+                case DeckType.CThunRogue:
+                    HandleCThunDecks(gc);
+                    break;
+                case DeckType.CThunShaman:
+                    HandleCThunDecks(gc);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void HandleCThunDecks(GameContainer gc)
+        {
+            Report("Entered CThun VIP club");
+            HandleSpellsAndWeapons(gc);
+            Report("Succesfully parsed weapons and spells");
+            foreach(var q in gc.OneDrops.Where(c=> c.IsMinion()))
+            {
+                gc.HasTurnOne = true;
+                _whiteList.AddOrUpdate(q, false);
+            }
+            foreach(var q in gc.TwoDrops.Where(c=> c.IsMinion()))
+            {
+                gc.HasTurnTwo = true;
+                _whiteList.AddOrUpdate(q, q.Priority() > 3);
+            }
+            foreach(var q in gc.ThreeDrops.Where(c=> c.IsMinion()))
+            {
+                gc.HasTurnThree = true;
+                _whiteList.AddOrUpdate(q, false);
+            }
+            _whiteList.AddOrUpdate(gc.HasTurnTwo ? Cards.DiscipleofCThun : Nothing, false);
+            _whiteList.AddOrUpdate(gc.Choices.HasRamp() ? Cards.MireKeeper: Nothing, false);
+            _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.HasTurnThree ? Cards.CThun : Nothing, false);
+            if(gc.Choices.Contains(Cards.CThun)&& gc.HasTurnOne && gc.HasTurnThree)
+            {
+                Bot.Log("[SmartMulligan] You have both, 2 and 3 drops, so we are keeping C'Thun");
             }
         }
 
@@ -1223,7 +1285,6 @@ namespace MulliganProfiles
 
         private void HandleWorgenOTKWarrior(GameContainer gc)
         {
-
         }
 
         private void HandleMechWarrior(GameContainer gc)
@@ -1253,8 +1314,8 @@ namespace MulliganProfiles
                 if (!gc.HasTurnTwo) continue;
                 _whiteList.AddOrUpdate(Cards.BlackwingTechnician, false);
             }
-
         }
+
         private void HandleMechsCoreLogic(GameContainer gc)
         {
             foreach (var c in gc.Choices)
@@ -1290,6 +1351,7 @@ namespace MulliganProfiles
                 }
             }
         }
+
         private void HandleFaceWarrior(GameContainer gc)
         {
             throw new NotImplementedException();
@@ -1332,13 +1394,13 @@ namespace MulliganProfiles
                         _whiteList.AddOrUpdate(card, gc.Coin || card.Priority() >= 4);
                         break;
                     case 2:
-                        if (!gc.Choices.HasTurn(1,2) && !gc.Coin) continue;
+                        if (!gc.Choices.HasTurn(1, 2) && !gc.Coin) continue;
                         if (gc.Coin) _whiteList.AddOrUpdate(card, false);
                         gc.HasTurnTwo = true;
-                        _whiteList.AddOrUpdate(card, card.Priority(card == Cards.WildPyromancer? -2: 0) > 4 && gc.Coin && CardTemplate.LoadFromId(card).Overload == 0);
+                        _whiteList.AddOrUpdate(card, card.Priority(card == Cards.WildPyromancer ? -2 : 0) > 4 && gc.Coin && CardTemplate.LoadFromId(card).Overload == 0);
                         break;
                     case 3:
-                        if (!gc.Choices.HasTurn(1,2) || !gc.Choices.HasTurn(2, 2)) continue;
+                        if (!gc.Choices.HasTurn(1, 2) || !gc.Choices.HasTurn(2, 2)) continue;
                         gc.HasTurnThree = true;
                         _whiteList.AddOrUpdate(card, false);
                         break;
@@ -1365,22 +1427,21 @@ namespace MulliganProfiles
                 switch (c.Cost())
                 {
                     case 1:
-                    gc.HasTurnOne = true;
-                    _whiteList.AddOrUpdate(c, false);
-                    break;
+                        gc.HasTurnOne = true;
+                        _whiteList.AddOrUpdate(c, false);
+                        break;
                     case 2:
-                    gc.HasTurnTwo = true;
-                    _whiteList.AddOrUpdate(c, false);
-                    break;
+                        gc.HasTurnTwo = true;
+                        _whiteList.AddOrUpdate(c, false);
+                        break;
                     case 3:
-                    gc.HasTurnThree = true;
-                    _whiteList.AddOrUpdate(c, false);
-                    break;
+                        gc.HasTurnThree = true;
+                        _whiteList.AddOrUpdate(c, false);
+                        break;
                 }
             }
             /*Always whitelists at least 1 innervate*/
             _whiteList.AddAll(false, Cards.WildGrowth, Cards.FjolaLightbane, Cards.EydisDarkbane, Cards.FlameJuggler, Cards.DruidoftheSaber);
-
         }
 
         private void HandleDragonDruid(GameContainer gc)
@@ -1444,20 +1505,15 @@ namespace MulliganProfiles
             _whiteList.Remove(Cards.AncientWatcher);
             _whiteList.AddAll(false, Cards.MountainGiant, Cards.TwilightDrake, Cards.DarkPeddler, gc.Coin ? Cards.ImpGangBoss : Nothing);
             if (gc.EnemyStyle.Aggresive())
-                _whiteList.AddAll(
-                    false, Cards.Hellfire, Cards.Shadowflame, Cards.EarthenRingFarseer, Cards.MoltenGiant, Cards.MindControlTech,
-                    gc.Coin ? Cards.RenoJackson : Nothing, gc.Coin || gc.Choices.HasAny(Cards.AncientWatcher) ? Cards.DefenderofArgus : Nothing,
-                    gc.Choices.HasAny(Cards.SunfuryProtector, Cards.DefenderofArgus) ? Cards.AncientWatcher : Nothing);
+                _whiteList.AddAll(false, Cards.Hellfire, Cards.Shadowflame, Cards.EarthenRingFarseer, Cards.MoltenGiant, Cards.MindControlTech, gc.Coin ? Cards.RenoJackson : Nothing, gc.Coin || gc.Choices.HasAny(Cards.AncientWatcher) ? Cards.DefenderofArgus : Nothing, gc.Choices.HasAny(Cards.SunfuryProtector, Cards.DefenderofArgus) ? Cards.AncientWatcher : Nothing);
             else
             {
-                _whiteList.AddAll(false,
-              Cards.EmperorThaurissan, Cards.PilotedShredder, gc.OpponentClass.Is(Shaman) ? Cards.Hellfire : Nothing);
-              }
+                _whiteList.AddAll(false, Cards.EmperorThaurissan, Cards.PilotedShredder, gc.OpponentClass.Is(Shaman) ? Cards.Hellfire : Nothing);
+            }
             HandleSpellsAndWeapons(gc);
             _whiteList.AddOrUpdate(Cards.Voidcaller, false);
             _whiteList.Remove(!gc.EnemyStyle.Aggresive() ? Cards.SunfuryProtector : Nothing);
             _whiteList.AddOrUpdate(gc.OpponentClass.IsOneOf(Mage, Hunter) ? Cards.KezanMystic : Nothing, false);
-            
         }
 
         private void HandleRenoComboLock(GameContainer gc)
@@ -1468,7 +1524,7 @@ namespace MulliganProfiles
         private void HandleZoolock(GameContainer gc)
         {
             //List<Card.Cards> activators = new List<Card.Cards> {Cards.PowerOverwhelming, Cards.VoidTerror, Cards.AbusiveSergeant, Cards.DefenderofArgus};
-            List<Card.Cards> needActivation = new List<Card.Cards> { Cards.NerubianEgg };
+            List<Card.Cards> needActivation = new List<Card.Cards> {Cards.NerubianEgg};
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Nothing, false);
             Arena(gc);
             _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Coin && gc.Choices.Intersect(needActivation).Any() ? Cards.DefenderofArgus : Nothing, false);
@@ -1579,18 +1635,18 @@ namespace MulliganProfiles
                 switch (CardTemplate.LoadFromId(q).Cost)
                 {
                     case 1:
-                    _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, false);
-                    break;
+                        _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, false);
+                        break;
                     case 2:
-                    _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, q.Priority() >= 3 && gc.Coin);
-                    break;
+                        _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, q.Priority() >= 3 && gc.Coin);
+                        break;
                     case 3:
-                    gc.HasTurnThree = true;
-                    _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, false);
-                    break;
+                        gc.HasTurnThree = true;
+                        _whiteList.AddOrUpdate(q.Priority() > 1 ? q : Nothing, false);
+                        break;
                     case 4:
-                    _whiteList.AddOrUpdate(q.Priority() > 6 && gc.Coin ? q : Nothing, false);
-                    break;
+                        _whiteList.AddOrUpdate(q.Priority() > 6 && gc.Coin ? q : Nothing, false);
+                        break;
                 }
             }
             foreach (var q in gc.Choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && !CardTemplate.LoadFromId(c).IsSecret && CardTemplate.LoadFromId(c).Type == Card.CType.SPELL))
@@ -1598,26 +1654,25 @@ namespace MulliganProfiles
                 switch (CardTemplate.LoadFromId(q).Cost)
                 {
                     case 1:
-                    _whiteList.AddOrUpdate(q, false);
-                    break;
+                        _whiteList.AddOrUpdate(q, false);
+                        break;
                     case 2:
-                    _whiteList.AddOrUpdate(q, false);
-                    break;
+                        _whiteList.AddOrUpdate(q, false);
+                        break;
                     case 3:
-                    gc.HasTurnThree = true;
-                    _whiteList.AddOrUpdate(gc.EnemyStyle.Aggresive() ? Cards.UnleashtheHounds : Nothing, false);
-                    _whiteList.AddOrUpdate(gc.Coin ? Cards.AnimalCompanion : Nothing, gc.Coin);
-                    break;
+                        gc.HasTurnThree = true;
+                        _whiteList.AddOrUpdate(gc.EnemyStyle.Aggresive() ? Cards.UnleashtheHounds : Nothing, false);
+                        _whiteList.AddOrUpdate(gc.Coin ? Cards.AnimalCompanion : Nothing, gc.Coin);
+                        break;
                     case 4:
-                    _whiteList.AddOrUpdate(q, false);
-                    break;
+                        _whiteList.AddOrUpdate(q, false);
+                        break;
                 }
             }
             _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Choices.HasAny(Cards.AnimalCompanion) && gc.Coin && gc.OpponentClass.Is(Warrior) ? Cards.SavannahHighmane : Nothing, false);
             //_whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.HauntedCreeper, Cards.Webspinner) ? Cards.HuntersMark : Nothing, false);
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.KnifeJuggler) && gc.Coin ? Cards.SnakeTrap : Nothing, false);
             _whiteList.AddOrUpdate(!gc.HasTurnTwo && !gc.HasTurnOne && !gc.Coin ? Cards.FreezingTrap : Nothing, false);
-
         }
 
         private void HandleHybridHunter(GameContainer gc)
@@ -1627,9 +1682,7 @@ namespace MulliganProfiles
 
         private void HandleFaceHunter(GameContainer gc)
         {
-            _whiteList.AddOrUpdate(
-                gc.Choices.HasAny(Cards.MadScientist) ? Cards.EaglehornBow :
-                gc.Choices.HasAny(Cards.Glaivezooka) ? Cards.Glaivezooka : Cards.EaglehornBow, false);
+            _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.MadScientist) ? Cards.EaglehornBow : gc.Choices.HasAny(Cards.Glaivezooka) ? Cards.Glaivezooka : Cards.EaglehornBow, false);
 
             var allowHunterMark = (gc.Choices.HasAny(Cards.Webspinner, Cards.HauntedCreeper));
             foreach (var q in from q in gc.Choices where q.Cost() == 1 select q)
@@ -1639,21 +1692,15 @@ namespace MulliganProfiles
             }
             foreach (var q in from q in gc.Choices where q.Cost() == 1 && !q.IsSpell() select q)
             {
-
                 gc.HasTurnTwo = true;
                 _whiteList.AddOrUpdate(q, true);
             }
             foreach (var q in
-                (from q in gc.Choices
-                 let w = CardTemplate.LoadFromId(q)
-                 where w.Cost == 3 && w.Health > 1
-                 select q).Where(q => gc.HasTurnOne || gc.HasTurnTwo))
+                (from q in gc.Choices let w = CardTemplate.LoadFromId(q) where w.Cost == 3 && w.Health > 1 select q).Where(q => gc.HasTurnOne || gc.HasTurnTwo))
             {
                 gc.HasTurnThree = true;
                 _whiteList.AddOrUpdate(q, false);
             }
-
-
         }
 
         private void HandleHatHunter(GameContainer gc)
@@ -1698,8 +1745,7 @@ namespace MulliganProfiles
 
         private void HandleRaptorRogue(GameContainer gc)
         {
-            foreach (var q in gc.Choices.Where(c => (gc.EnemyStyle.Aggresive() ? c.Cost() <= 2 : c.Cost() <= 3)
-            && !c.IsSpell() && CardTemplate.LoadFromId(c).Quality != Card.CQuality.Legendary))
+            foreach (var q in gc.Choices.Where(c => (gc.EnemyStyle.Aggresive() ? c.Cost() <= 2 : c.Cost() <= 3) && !c.IsSpell() && CardTemplate.LoadFromId(c).Quality != Card.CQuality.Legendary))
                 _whiteList.AddOrUpdate(q, q.Cost() < 3);
 
             var has2 = gc.TwoDrops.Any();
@@ -1746,31 +1792,23 @@ namespace MulliganProfiles
                 gc.HasTurnOne = true;
                 _whiteList.AddOrUpdate(q, gc.Coin || q.Priority() >= 4);
             }
-            foreach (
-                    var w in gc.OneDrops.Where(card => card.IsMinion()).Where(w => gc.Choices.HasTurn(1, 2) || gc.Coin))
+            foreach (var w in gc.OneDrops.Where(card => card.IsMinion()).Where(w => gc.Choices.HasTurn(1, 2) || gc.Coin))
             {
                 if (gc.Coin) _whiteList.AddOrUpdate(w, false);
                 gc.HasTurnTwo = true;
                 _whiteList.AddOrUpdate(w, w.Priority() > 4 && gc.Coin && CardTemplate.LoadFromId(w).Overload == 0);
             }
-            foreach (
-                var w in
-                    gc.OneDrops.Where(card => card.IsMinion())
-                        .Where(w => gc.Choices.HasTurn(1, 2) && gc.Choices.HasTurn(2, 2)))
+            foreach (var w in
+                gc.OneDrops.Where(card => card.IsMinion()).Where(w => gc.Choices.HasTurn(1, 2) && gc.Choices.HasTurn(2, 2)))
             {
                 gc.HasTurnThree = true;
                 _whiteList.AddOrUpdate(w, false);
             }
 
             if (gc.OpponentClass.IsOneOf(Rogue, Warrior))
-                _whiteList.AddOrUpdate(
-                    gc.HasTurnOne && gc.HasTurnTwo && gc.HasTurnThree ? Cards.Doomhammer : Nothing, false);
+                _whiteList.AddOrUpdate(gc.HasTurnOne && gc.HasTurnTwo && gc.HasTurnThree ? Cards.Doomhammer : Nothing, false);
             if (gc.OpponentClass.IsOneOf(Mage, Druid))
-                _whiteList.AddOrUpdate(
-                    gc.Choices.HasAny(Cards.LightningBolt)
-                        ? Cards.LightningBolt
-                        : gc.HasTurnOne && gc.Coin ? Cards.RockbiterWeapon : Nothing, false);
-
+                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.LightningBolt) ? Cards.LightningBolt : gc.HasTurnOne && gc.Coin ? Cards.RockbiterWeapon : Nothing, false);
         }
 
 
@@ -1821,7 +1859,6 @@ namespace MulliganProfiles
             _whiteList.AddAll(false, Cards.FieryWarAxe, Cards.DeathsBite);
             foreach (var q in gc.Choices)
             {
-
                 if (q.Cost() < 5 && q.IsWeapon())
                 {
                     hasWeapon = true;
@@ -1829,11 +1866,11 @@ namespace MulliganProfiles
                     switch (q.Cost())
                     {
                         case 2:
-                        gc.HasTurnTwo = true;
-                        break;
+                            gc.HasTurnTwo = true;
+                            break;
                         case 4:
-                        gc.HasTurnThree = true;
-                        break;
+                            gc.HasTurnThree = true;
+                            break;
                     }
                 }
                 if (q.Cost() != 2 || q.IsMinion()) continue;
@@ -1915,12 +1952,12 @@ namespace MulliganProfiles
             }
 
             #endregion
+
             HandleSpellsAndWeapons(gc);
         }
 
         private void HandleSpellsAndWeapons(GameContainer gc)
         {
-                
             #region spell/weapon handler
 
             bool hasGood1 = gc.Choices.HasTurn(1, 3);
@@ -1930,80 +1967,80 @@ namespace MulliganProfiles
             switch (gc.OwnClass)
             {
                 case Card.CClass.SHAMAN:
-                _whiteList.AddInOrder(1, gc.Choices, false, Cards.StormforgedAxe, Cards.Powermace);
-                _whiteList.AddOrUpdate(Cards.RockbiterWeapon, false); // [1 Cost]
-                _whiteList.AddOrUpdate(!hasGood2 && gc.Coin ? Cards.FarSight : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddOrUpdate(Cards.FeralSpirit, false); // [3 Cost]
-                break;
+                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.StormforgedAxe, Cards.Powermace);
+                    _whiteList.AddOrUpdate(Cards.RockbiterWeapon, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(!hasGood2 && gc.Coin ? Cards.FarSight : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddOrUpdate(Cards.FeralSpirit, false); // [3 Cost]
+                    break;
                 case Card.CClass.PRIEST:
-                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.InjuredBlademaster) ? Cards.LightoftheNaaru : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.HolySmite : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(!gc.Coin ? Cards.MindVision : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(Cards.PowerWordShield, false); // [1 Cost] 
-                _whiteList.AddOrUpdate(Cards.ShadowWordPain, false); // [2 Cost]
-                _whiteList.AddOrUpdate(Cards.Shadowform, false); // [3 Cost]
-                _whiteList.AddOrUpdate((hasGood1Or2 && gc.Coin) || hasGood2 ? Cards.VelensChosen : Card.Cards.GAME_005, false); // [3 Cost]
-                break;
+                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.InjuredBlademaster) ? Cards.LightoftheNaaru : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.HolySmite : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(!gc.Coin ? Cards.MindVision : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(Cards.PowerWordShield, false); // [1 Cost] 
+                    _whiteList.AddOrUpdate(Cards.ShadowWordPain, false); // [2 Cost]
+                    _whiteList.AddOrUpdate(Cards.Shadowform, false); // [3 Cost]
+                    _whiteList.AddOrUpdate((hasGood1Or2 && gc.Coin) || hasGood2 ? Cards.VelensChosen : Card.Cards.GAME_005, false); // [3 Cost]
+                    break;
                 case Card.CClass.MAGE:
-                _whiteList.AddOrUpdate(hasGood1 ? Cards.Frostbolt : Card.Cards.GAME_005, false); // [2 Cost]
-                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.ManaWyrm) && gc.Coin ? Cards.MirrorImage : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(hasGood1 ? Cards.ArcaneMissiles : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(!hasGood1And2 ? Cards.MirrorEntity : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddOrUpdate(!hasGood1And2 || hasGood2 ? Cards.ForgottenTorch : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddOrUpdate(hasGood1 || gc.Coin ? Cards.Flamecannon : Card.Cards.GAME_005, false); // [2 Cost]
-                _whiteList.AddOrUpdate(Cards.UnstablePortal, gc.Coin); // [2 Cost]
-                _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.ArcaneBlast : Card.Cards.GAME_005, false); // [1 Cost]
-                break;
+                    _whiteList.AddOrUpdate(hasGood1 ? Cards.Frostbolt : Card.Cards.GAME_005, false); // [2 Cost]
+                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.ManaWyrm) && gc.Coin ? Cards.MirrorImage : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(hasGood1 ? Cards.ArcaneMissiles : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(!hasGood1And2 ? Cards.MirrorEntity : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddOrUpdate(!hasGood1And2 || hasGood2 ? Cards.ForgottenTorch : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddOrUpdate(hasGood1 || gc.Coin ? Cards.Flamecannon : Card.Cards.GAME_005, false); // [2 Cost]
+                    _whiteList.AddOrUpdate(Cards.UnstablePortal, gc.Coin); // [2 Cost]
+                    _whiteList.AddOrUpdate(hasGood1Or2 ? Cards.ArcaneBlast : Card.Cards.GAME_005, false); // [1 Cost]
+                    break;
                 case Card.CClass.PALADIN:
-                _whiteList.AddInOrder(1, gc.Choices, false, Cards.LightsJustice, Cards.RallyingBlade, Cards.Coghammer, Cards.SwordofJustice);
-                _whiteList.AddOrUpdate(gc.Coin ? Cards.DivineStrength : Nothing, false);
-                _whiteList.AddOrUpdate(hasGood2 ? Cards.NobleSacrifice : Nothing, false); // [1 Cost]
-                _whiteList.AddAll(false, Cards.Avenge, Cards.MusterforBattle);
+                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.LightsJustice, Cards.RallyingBlade, Cards.Coghammer, Cards.SwordofJustice);
+                    _whiteList.AddOrUpdate(gc.Coin ? Cards.DivineStrength : Nothing, false);
+                    _whiteList.AddOrUpdate(hasGood2 ? Cards.NobleSacrifice : Nothing, false); // [1 Cost]
+                    _whiteList.AddAll(false, Cards.Avenge, Cards.MusterforBattle);
 
-                break;
+                    break;
                 case Card.CClass.WARRIOR:
-                _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.Whirlwind : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldSlam) ? Cards.ShieldBlock : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.Slam); // [2 Cost]
-                _whiteList.AddOrUpdate(!hasGood1 ? Cards.Upgrade : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldBlock) ? Cards.ShieldSlam : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(hasGood1Or2 && !gc.Choices.HasTurn(3, 3) ? Cards.Bash : Card.Cards.GAME_005, false); // [3 Cost]
-                break;
+                    _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.Whirlwind : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldSlam) ? Cards.ShieldBlock : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddAll(false, Cards.BloodToIchor, Cards.Slam); // [2 Cost]
+                    _whiteList.AddOrUpdate(!hasGood1 ? Cards.Upgrade : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(hasGood2 && gc.Choices.HasAny(Cards.ShieldBlock) ? Cards.ShieldSlam : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(hasGood1Or2 && !gc.Choices.HasTurn(3, 3) ? Cards.Bash : Card.Cards.GAME_005, false); // [3 Cost]
+                    break;
                 case Card.CClass.WARLOCK:
-                _whiteList.AddAll(false, Cards.RenounceDarkness, Cards.MortalCoil); // [1 Cost]
-                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(!hasGood2 ? Cards.CurseofRafaam : Card.Cards.GAME_005, false); // [2 Cost]
-                _whiteList.AddOrUpdate(hasGood1Or2 || gc.Coin ? Cards.Darkbomb : Card.Cards.GAME_005, false); // [2 Cost]
+                    _whiteList.AddAll(false, Cards.RenounceDarkness, Cards.MortalCoil); // [1 Cost]
+                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(!hasGood2 ? Cards.CurseofRafaam : Card.Cards.GAME_005, false); // [2 Cost]
+                    _whiteList.AddOrUpdate(hasGood1Or2 || gc.Coin ? Cards.Darkbomb : Card.Cards.GAME_005, false); // [2 Cost]
 
-                break;
+                    break;
                 case Card.CClass.HUNTER:
-                _whiteList.AddInOrder(1, gc.Choices, false, Cards.Glaivezooka, Cards.EaglehornBow);
+                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.Glaivezooka, Cards.EaglehornBow);
 
-                _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.Tracking : Card.Cards.GAME_005, false); // [1 Cost]
-                _whiteList.AddOrUpdate(Cards.AnimalCompanion, gc.Coin); // [3 Cost]
-                _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.UnleashtheHounds : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.KnifeJuggler) ? Cards.SnakeTrap : Card.Cards.GAME_005, false); // [2 Cost]
-                _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.FreezingTrap : Card.Cards.GAME_005, false); // [2 Cost]
-                _whiteList.AddOrUpdate(hasGood1Or2 && gc.Coin ? Cards.QuickShot : Card.Cards.GAME_005, false); // [2 Cost]
-                _whiteList.AddOrUpdate(hasGood1And2 ? Cards.Powershot : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddOrUpdate(gc.Coin ? Cards.BearTrap : Card.Cards.GAME_005, false); // [2 Cost]
-                break;
+                    _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.Tracking : Card.Cards.GAME_005, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(Cards.AnimalCompanion, gc.Coin); // [3 Cost]
+                    _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.UnleashtheHounds : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.KnifeJuggler) ? Cards.SnakeTrap : Card.Cards.GAME_005, false); // [2 Cost]
+                    _whiteList.AddOrUpdate(!hasGood1Or2 ? Cards.FreezingTrap : Card.Cards.GAME_005, false); // [2 Cost]
+                    _whiteList.AddOrUpdate(hasGood1Or2 && gc.Coin ? Cards.QuickShot : Card.Cards.GAME_005, false); // [2 Cost]
+                    _whiteList.AddOrUpdate(hasGood1And2 ? Cards.Powershot : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddOrUpdate(gc.Coin ? Cards.BearTrap : Card.Cards.GAME_005, false); // [2 Cost]
+                    break;
                 case Card.CClass.ROGUE:
-                _whiteList.AddInOrder(1, gc.Choices, false, Cards.PerditionsBlade, Cards.CogmastersWrench);
-                _whiteList.AddOrUpdate(gc.Coin || !gc.HasTurnOne ? Cards.JourneyBelow : Nothing, false);
-                _whiteList.AddOrUpdate(Cards.Backstab, false); // [0 Cost]
-                _whiteList.AddOrUpdate(Cards.DeadlyPoison, false); // [1 Cost]
-                _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.FanofKnives : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Burgle) || gc.Choices.HasAny(Cards.BeneaththeGrounds) ? Cards.Preparation : Card.Cards.GAME_005, false); // [0 Cost]
-                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Preparation) ? Cards.Burgle : Card.Cards.GAME_005, false); // [3 Cost]
-                _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Preparation) ? Cards.BeneaththeGrounds : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.PerditionsBlade, Cards.CogmastersWrench);
+                    _whiteList.AddOrUpdate(gc.Coin || !gc.HasTurnOne ? Cards.JourneyBelow : Nothing, false);
+                    _whiteList.AddOrUpdate(Cards.Backstab, false); // [0 Cost]
+                    _whiteList.AddOrUpdate(Cards.DeadlyPoison, false); // [1 Cost]
+                    _whiteList.AddOrUpdate(gc.OpponentClass == Card.CClass.PALADIN ? Cards.FanofKnives : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Burgle) || gc.Choices.HasAny(Cards.BeneaththeGrounds) ? Cards.Preparation : Card.Cards.GAME_005, false); // [0 Cost]
+                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Preparation) ? Cards.Burgle : Card.Cards.GAME_005, false); // [3 Cost]
+                    _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.Preparation) ? Cards.BeneaththeGrounds : Card.Cards.GAME_005, false); // [3 Cost]
 
-                break;
+                    break;
                 case Card.CClass.DRUID:
-                _whiteList.AddOrUpdate(hasGood1 ? Cards.MarkoftheWild : Card.Cards.GAME_005, false); // [2 Cost]
-                _whiteList.AddAll(false, Cards.Wrath, Cards.PoweroftheWild);
-                _whiteList.AddOrUpdate(Cards.LivingRoots, gc.Coin); // [1 Cost]
-                break;
+                    _whiteList.AddOrUpdate(hasGood1 ? Cards.MarkoftheWild : Card.Cards.GAME_005, false); // [2 Cost]
+                    _whiteList.AddAll(false, Cards.Wrath, Cards.PoweroftheWild);
+                    _whiteList.AddOrUpdate(Cards.LivingRoots, gc.Coin); // [1 Cost]
+                    break;
             }
             foreach (var card in from card in gc.Choices let cardQ = CardTemplate.LoadFromId(card) where _whiteList.ContainsKey(card) && cardQ.IsSecret && gc.Choices.HasAny(Cards.MadScientist) select card)
             {
@@ -2012,6 +2049,7 @@ namespace MulliganProfiles
 
             #endregion
         }
+
         /// <summary>
         /// Secret Palaidn mulligan logic
         /// ported from V2
@@ -2182,6 +2220,7 @@ namespace MulliganProfiles
         FaceWarrior,
         RenoWarrior,
         TauntWarrior,
+        CThunWarrior,
         /*Paladin*/
         SecretPaladin,
         MidRangePaladin,
@@ -2189,6 +2228,7 @@ namespace MulliganProfiles
         AggroPaladin,
         AnyfinMurglMurgl,
         RenoPaladin,
+        CThunPaladin,
         /*Druid*/
         RampDruid,
         AggroDruid,
@@ -2201,6 +2241,7 @@ namespace MulliganProfiles
         MillDruid,
         BeastDruid,
         RenoDruid,
+        CThunDruid,
         /*Warlock*/
         Handlock,
         RenoLock,
@@ -2212,6 +2253,7 @@ namespace MulliganProfiles
         DragonHandlock,
         MalyLock,
         ControlWarlock,
+        CThunLock,
         /*Mage*/
         TempoMage,
         FreezeMage,
@@ -2221,12 +2263,14 @@ namespace MulliganProfiles
         EchoMage,
         FatigueMage,
         RenoMage,
+        CThunMage,
         /*Priest*/
         DragonPriest,
         ControlPriest,
         ComboPriest,
         MechPriest,
         ShadowPriest,
+        CThunPriest,
         /*Huntard*/
         MidRangeHunter,
         HybridHunter,
@@ -2235,6 +2279,7 @@ namespace MulliganProfiles
         CamelHunter,
         RenoHunter,
         DragonHunter,
+        CThunHunter,
         /*Rogue*/
         OilRogue,
         PirateRogue,
@@ -2246,6 +2291,7 @@ namespace MulliganProfiles
         MechRogue,
         RenoRogue,
         MillRogue,
+        CThunRogue,
         /*Chaman*/
         FaceShaman,
         MechShaman,
@@ -2256,6 +2302,7 @@ namespace MulliganProfiles
         BloodlustShaman,
         BattleryShaman,
         RenoShaman,
+        CThunShaman,
 
         Basic,
     }

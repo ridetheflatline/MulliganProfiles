@@ -51,7 +51,12 @@ namespace SmartBot.Plugins
             bool renoCheck = list.Count == list.Distinct().Count();
             return (renoCheck && list.Count >= treshhold) || list.Contains(Cards.RenoJackson);
         }
-
+         public static bool IsCthun(this IList<Card.Cards> list)
+        {
+            return list.ContainsSome(Cards.KlaxxiAmberWeaver, Cards.DarkArakkoa, Cards.CultSorcerer, Cards.HoodedAcolyte, Cards.TwilightDarkmender
+                , Cards.BladeofCThun, Cards.UsherofSouls, Cards.AncientShieldbearer, Cards.TwilightGeomancer, Cards.DiscipleofCThun, Cards.TwilightElder
+                ,Cards.CThunsChosen, Cards.CrazedWorshipper, Cards.SkeramCultist, Cards.TwinEmperorVeklor, Cards.Doomcaller);
+        }
         public static bool IsBasic<T1>(this IList<T1> list, IList<T1> list2)
         {
             return list.Intersect(list2).Count() < 3;
@@ -377,13 +382,6 @@ namespace SmartBot.Plugins
         private static bool _supported = false;
         public override void OnStarted()
         {
-            if(Bot.CurrentMode() == Bot.Mode.RankedWild || Bot.CurrentMode() == Bot.Mode.UnrankedWild)
-            {
-                Bot.Log("Wild is currently unavailable for all players. Use standard.");
-                Bot.StopBot();
-                return;
-                
-            }
             SetupMulliganTester();
             if (!AllowedModes.Contains(Bot.CurrentMode()))
             {
@@ -749,6 +747,8 @@ namespace SmartBot.Plugins
             {DeckType.MechWarrior, Style.Aggro},
             {DeckType.FaceWarrior, Style.Face},
             {DeckType.RenoWarrior, Style.Control },
+            {DeckType.CThunWarrior, Style.Control },
+
             /*Paladin*/
             {DeckType.SecretPaladin, Style.Tempo},
             {DeckType.MidRangePaladin, Style.Control},
@@ -756,11 +756,12 @@ namespace SmartBot.Plugins
             {DeckType.AggroPaladin, Style.Aggro},
             {DeckType.AnyfinMurglMurgl, Style.Combo},
             {DeckType.RenoPaladin, Style.Control},
+            {DeckType.CThunPaladin, Style.Combo },
             /*Druid*/
             {DeckType.RampDruid, Style.Control},
             {DeckType.AggroDruid, Style.Aggro},
             {DeckType.DragonDruid, Style.Control},
-            {DeckType.MidRangeDruid, Style.Combo},
+            {DeckType.MidRangeDruid, Style.Tempo},
             {DeckType.TokenDruid, Style.Tempo},
             {DeckType.SilenceDruid, Style.Control},
             {DeckType.MechDruid, Style.Aggro},
@@ -768,6 +769,7 @@ namespace SmartBot.Plugins
             {DeckType.MillDruid, Style.Fatigue},
             {DeckType.BeastDruid, Style.Tempo},
             {DeckType.RenoDruid, Style.Control},
+            {DeckType.CThunDruid, Style.Combo },
             /*Warlock*/
             {DeckType.Handlock, Style.Control},
             {DeckType.RenoLock, Style.Control},
@@ -778,6 +780,7 @@ namespace SmartBot.Plugins
             {DeckType.MalyLock, Style.Combo},
             {DeckType.RenoComboLock, Style.Combo},
             {DeckType.ControlWarlock, Style.Control},
+            {DeckType.CThunLock, Style.Combo },
             /*Mage*/
             {DeckType.TempoMage, Style.Tempo},
             {DeckType.FreezeMage, Style.Control},
@@ -786,13 +789,14 @@ namespace SmartBot.Plugins
             {DeckType.MechMage, Style.Aggro},
             {DeckType.EchoMage, Style.Control},
             {DeckType.FatigueMage, Style.Fatigue},
-            {DeckType.RenoMage, Style.Control},
+            {DeckType.CThunMage, Style.Combo},
             /*Priest*/
             {DeckType.DragonPriest, Style.Tempo},
             {DeckType.ControlPriest, Style.Control},
             {DeckType.ComboPriest, Style.Combo},
             {DeckType.MechPriest, Style.Aggro},
             {DeckType.ShadowPriest, Style.Combo},
+            {DeckType.CThunPriest, Style.Control },
             /*Hunter*/
             {DeckType.MidRangeHunter, Style.Tempo},
             {DeckType.HybridHunter, Style.Aggro},
@@ -801,6 +805,7 @@ namespace SmartBot.Plugins
             {DeckType.CamelHunter, Style.Control},
             {DeckType.DragonHunter, Style.Control},
             {DeckType.RenoHunter, Style.Control},
+            {DeckType.CThunHunter, Style.Combo },
             /*Rogue*/
             {DeckType.OilRogue, Style.Combo},
             {DeckType.PirateRogue, Style.Aggro},
@@ -812,6 +817,7 @@ namespace SmartBot.Plugins
             {DeckType.RenoRogue, Style.Control},
             {DeckType.MechRogue, Style.Tempo},
             {DeckType.MillRogue, Style.Fatigue},
+            {DeckType.CThunRogue, Style.Combo },
             /*Cance... I mean Shaman*/
             {DeckType.FaceShaman, Style.Face},
             {DeckType.MechShaman, Style.Aggro},
@@ -822,6 +828,8 @@ namespace SmartBot.Plugins
             {DeckType.BloodlustShaman, Style.Combo},
             {DeckType.RenoShaman, Style.Combo},
             {DeckType.BattleryShaman, Style.Control},
+            {DeckType.CThunShaman, Style.Combo },
+
             /*Poor Kids*/
             {DeckType.Basic, Style.Tempo}
         };
@@ -924,7 +932,7 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> aggroDruid = new List<Card.Cards> { Cards.ForceofNature, Cards.ForceofNature, Cards.SavageRoar, Cards.SavageRoar, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.LeperGnome, Cards.LeperGnome, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.ShadeofNaxxramas, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.FelReaver, Cards.FelReaver, Cards.SavageCombatant, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.DruidoftheSaber, Cards.DruidoftheSaber, Cards.LivingRoots, Cards.LivingRoots, };
         private readonly List<Card.Cards> midRangeDruid = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.BigGameHunter, Cards.ForceofNature, Cards.ForceofNature, Cards.AzureDrake, Cards.AzureDrake, Cards.WildGrowth, Cards.WildGrowth, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.ShadeofNaxxramas, Cards.Loatheb, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.LivingRoots, Cards.LivingRoots, };
         private readonly List<Card.Cards> silenceDruid = new List<Card.Cards> { Cards.AncientWatcher, Cards.AncientWatcher, Cards.ForceofNature, Cards.ForceofNature, Cards.AzureDrake, Cards.AzureDrake, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.IronbeakOwl, Cards.IronbeakOwl, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.Deathlord, Cards.Deathlord, Cards.WailingSoul, Cards.WailingSoul, Cards.DrBoom, Cards.FelReaver, Cards.FelReaver, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.Mulch, Cards.EerieStatue, Cards.EerieStatue, };
-
+        private readonly List<Card.Cards> cthunDruid = new List<Card.Cards> { Cards.Innervate, Cards.LivingRoots, Cards.LivingRoots, Cards.WildGrowth, Cards.Wrath, Cards.BeckonerofEvil, Cards.DarnassusAspirant, Cards.FeralRage, Cards.DiscipleofCThun, Cards.DiscipleofCThun, Cards.TwilightElder, Cards.Swipe, Cards.CThunsChosen, Cards.KlaxxiAmberWeaver, Cards.CrazedWorshipper, Cards.DarkArakkoa, Cards.TwinEmperorVeklor, Cards.Doomcaller, Cards.CThun };
         #endregion 
         public DeckData GetDeckInfo(Card.CClass cClass, List<string> curDeck, int activeSecrets = 0)
         {
@@ -941,6 +949,10 @@ namespace SmartBot.Plugins
                 #region shaman
 
                 case Card.CClass.SHAMAN:
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunShaman, DeckStyle = DeckStyles[DeckType.CThunShaman] };
+                }
                 if (CurrentDeck.IsRenoDeck())
                 {
                     deckDictionary.AddOrUpdate(DeckType.RenoShaman, CurrentDeck.Intersect(renoShaman).Count());
@@ -984,6 +996,10 @@ namespace SmartBot.Plugins
                 #region priest
 
                 case Card.CClass.PRIEST:
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunPriest, DeckStyle = DeckStyles[DeckType.CThunPriest] };
+                }
                 if (Turn < 3 && CurrentDeck.Count == 0)
                     return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.ControlPriest, DeckStyle = DeckStyles[DeckType.ControlPriest] };
                 if (CurrentDeck.ContainsSome(Cards.WyrmrestAgent, Cards.TwilightWhelp, Cards.TwilightGuardian, Cards.BlackwingCorruptor, Cards.BlackwingTechnician))
@@ -1018,6 +1034,10 @@ namespace SmartBot.Plugins
                 #region mage
 
                 case Card.CClass.MAGE:
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunMage, DeckStyle = DeckStyles[DeckType.CThunMage] };
+                }
                 if (Turn < 3 && CurrentDeck.Count == 0)
                     return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.FreezeMage, DeckStyle = DeckStyles[DeckType.FreezeMage] };
                 if (CurrentDeck.IsRenoDeck())
@@ -1050,6 +1070,10 @@ namespace SmartBot.Plugins
                 #region paladin
 
                 case Card.CClass.PALADIN:
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunPaladin, DeckStyle = DeckStyles[DeckType.CThunPaladin] };
+                }
                 if (activeSecrets > 0)
                     return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.SecretPaladin, DeckStyle = DeckStyles[DeckType.SecretPaladin] };
                 if (CurrentDeck.IsRenoDeck(10))
@@ -1085,7 +1109,10 @@ namespace SmartBot.Plugins
                 #region warrior
 
                 case Card.CClass.WARRIOR:
-
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunWarrior, DeckStyle = DeckStyles[DeckType.CThunWarrior] };
+                }
                 if (Turn < 3 && CurrentDeck.Count == 0)
                     return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.ControlWarrior, DeckStyle = DeckStyles[DeckType.ControlWarrior] };
                 if (CurrentDeck.IsRenoDeck())
@@ -1128,7 +1155,10 @@ namespace SmartBot.Plugins
                 #region warlock
 
                 case Card.CClass.WARLOCK:
-
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunLock, DeckStyle = DeckStyles[DeckType.CThunLock] };
+                }
                 if (Turn < 3 && CurrentDeck.Count == 0)
                     return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.RenoLock, DeckStyle = DeckStyles[DeckType.RenoLock] };
                 if (CurrentDeck.ContainsAtLeast(2, Cards.JeweledScarab, Cards.AntiqueHealbot, Cards.Ysera, Cards.EmperorThaurissan, Cards.EliseStarseeker, Cards.Demonfire, Cards.Hellfire, Cards.SiphonSoul))
@@ -1172,7 +1202,10 @@ namespace SmartBot.Plugins
                 #region hunter
 
                 case Card.CClass.HUNTER:
-
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunHunter, DeckStyle = DeckStyles[DeckType.CThunHunter] };
+                }
                 if (CurrentDeck.RaceCount(Card.CRace.DRAGON) > 3 || CurrentDeck.ContainsAtLeast(2, Cards.TwilightGuardian, Cards.BlackwingTechnician, Cards.BlackwingCorruptor, Cards.DrakonidCrusher, Cards.RendBlackhand))
                 {
                     deckDictionary.AddOrUpdate(DeckType.DragonHunter, CurrentDeck.Intersect(dragonHunter).Count());
@@ -1208,7 +1241,10 @@ namespace SmartBot.Plugins
                 #region rogue
 
                 case Card.CClass.ROGUE:
-
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunRogue, DeckStyle = DeckStyles[DeckType.CThunRogue] };
+                }
                 deckDictionary.AddOrUpdate(DeckType.OilRogue, 3);
                 if (CurrentDeck.IsRenoDeck(10))
                 {
@@ -1260,6 +1296,10 @@ namespace SmartBot.Plugins
 
                 case Card.CClass.DRUID:
 
+                if (CurrentDeck.IsCthun())
+                {
+                    return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunDruid, DeckStyle = DeckStyles[DeckType.CThunDruid] };
+                }
                 if (CurrentDeck.IsRenoDeck(10)) //at least 1/3 of a deck must be distict
                 {
                     deckDictionary.AddOrUpdate(DeckType.RenoDruid, CurrentDeck.Intersect(renoDruid).Count());
@@ -1489,6 +1529,7 @@ namespace SmartBot.Plugins
         FaceWarrior,
         RenoWarrior,
         TauntWarrior,
+        CThunWarrior,
         /*Paladin*/
         SecretPaladin,
         MidRangePaladin,
@@ -1496,6 +1537,7 @@ namespace SmartBot.Plugins
         AggroPaladin,
         AnyfinMurglMurgl,
         RenoPaladin,
+        CThunPaladin,
         /*Druid*/
         RampDruid,
         AggroDruid,
@@ -1508,6 +1550,7 @@ namespace SmartBot.Plugins
         MillDruid,
         BeastDruid,
         RenoDruid,
+        CThunDruid,
         /*Warlock*/
         Handlock,
         RenoLock,
@@ -1519,6 +1562,7 @@ namespace SmartBot.Plugins
         DragonHandlock,
         MalyLock,
         ControlWarlock,
+        CThunLock,
         /*Mage*/
         TempoMage,
         FreezeMage,
@@ -1528,12 +1572,14 @@ namespace SmartBot.Plugins
         EchoMage,
         FatigueMage,
         RenoMage,
+        CThunMage,
         /*Priest*/
         DragonPriest,
         ControlPriest,
         ComboPriest,
         MechPriest,
         ShadowPriest,
+        CThunPriest,
         /*Huntard*/
         MidRangeHunter,
         HybridHunter,
@@ -1542,6 +1588,7 @@ namespace SmartBot.Plugins
         CamelHunter,
         RenoHunter,
         DragonHunter,
+        CThunHunter,
         /*Rogue*/
         OilRogue,
         PirateRogue,
@@ -1553,6 +1600,7 @@ namespace SmartBot.Plugins
         MechRogue,
         RenoRogue,
         MillRogue,
+        CThunRogue,
         /*Chaman*/
         FaceShaman,
         MechShaman,
@@ -1563,6 +1611,7 @@ namespace SmartBot.Plugins
         BloodlustShaman,
         BattleryShaman,
         RenoShaman,
+        CThunShaman,
 
         Basic,
     }
