@@ -740,6 +740,7 @@ namespace SmartBot.Plugins
             {DeckType.Arena, Style.Control},
             /*Warrior*/
             {DeckType.ControlWarrior, Style.Control},
+            {DeckType.TauntWarrior, Style.Control},
             {DeckType.FatigueWarrior, Style.Fatigue},
             {DeckType.DragonWarrior, Style.Control},
             {DeckType.PatronWarrior, Style.Tempo},
