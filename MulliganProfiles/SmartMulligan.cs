@@ -205,7 +205,7 @@ namespace MulliganProfiles
             {Card.Cards.LOEA10_3, 0}, //[1/1]Murloc Tinyfin [0 mana] [NONE card]
             {Card.Cards.GVG_093, 0}, //[0/2]Target Dummy [0 mana] [NONE card]
             {Card.Cards.CS1_042, 0}, //[1/2]Goldshire Footman [1 mana] [NONE card]
-            {Card.Cards.CS2_065, 2}, //[1/3]Voidwalker [1 mana] [WARLOCK card]
+            {Card.Cards.CS2_065, 3}, //[1/3]Voidwalker [1 mana] [WARLOCK card]
             {Card.Cards.CS2_168, 2}, //[2/1]Murloc Raider [1 mana] [NONE card]
             {Card.Cards.CS2_171, 2}, //[1/1]Stonetusk Boar [1 mana] [NONE card]
             {Card.Cards.CS2_189, 3}, //[1/1]Elven Archer [1 mana] [NONE card]
@@ -515,6 +515,7 @@ namespace MulliganProfiles
             {Card.Cards.AT_122, 0}, //[4/4]Gormok the Impaler [4 mana] [NONE card]
             /*Whisper*/
             {Cards.ForbiddenAncient, 0 },
+            {Cards.PossessedVillager, 3},
             {Cards.FieryBat, 3 },
             {Cards.SelflessHero, 1 },
             {Cards.VilefinInquisitor, 4 },
@@ -1524,6 +1525,7 @@ namespace MulliganProfiles
         private void HandleZoolock(GameContainer gc)
         {
             //List<Card.Cards> activators = new List<Card.Cards> {Cards.PowerOverwhelming, Cards.VoidTerror, Cards.AbusiveSergeant, Cards.DefenderofArgus};
+            Report("Entered Zoo mulligan");
             List<Card.Cards> needActivation = new List<Card.Cards> {Cards.NerubianEgg};
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Nothing, false);
             Arena(gc);
@@ -1905,7 +1907,7 @@ namespace MulliganProfiles
                 int num2Drops = 0;
                 int num3Drops = 0;
                 int num4Drops = 0;
-                const int allowed1Drops = 1;
+                int allowed1Drops = gc.Coin ? 2 : 1;
                 int allowed2Drops = gc.Coin ? 3 : 2;
                 int allowed3Drops = gc.Coin ? 2 : 1;
                 const int allowed4Drops = 1;
