@@ -80,7 +80,8 @@ namespace SmartBot.Plugins
         /// to use Mulligan Tester by Botfanatic
         /// </summary>
         private const bool DebugTesting = true;
-
+        [DisplayName("[0] Donation link")]
+        public string donation { get; set; }
         [DisplayName("[1] Auto Update")]
         public bool AutoUpdate { get; set; }
         [Browsable(false)]
@@ -135,15 +136,17 @@ namespace SmartBot.Plugins
         public bool Summary { get; set; }
         [DisplayName("Hall of Fame")]
         public string HallOfFame { get; private set; }
-
+        public GuiElementBitmap kappa { get; set; }
+        [DisplayName("Localization")]
+        public Locale language { get; set; }
         [Browsable(false)]
         public int CurrentTurn { get; set; }
         [Browsable(false)]
         public Card.CClass Enemy { get; set; }
-
         public SmartTracker()
         {
             Name = "SmartTracker";
+            donation = "http://bit.ly/SmartTrackerDonation";
             ForcedDeckType = DeckType.Unknown;
             MulliganTEsterEnemyDeck = DeckType.Unknown;
             MulliganTesterYourDeck = DeckType.Arena;
@@ -156,9 +159,14 @@ namespace SmartBot.Plugins
             LSmartTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/SmartTracker/tracker.version";
 
         }
-
-        public void ReloadDictionary()
+        public void RefreshMenu()
         {
+            donation = "http://bit.ly/SmartTrackerDonation";
+        }
+        public void ReloadDictionary()
+
+        { 
+            RefreshMenu();
             Dictionary = "AU:\t\tAuto Update\nSM:\t\tSmart Mulligan\nST:\t\tSmart Tracker" +
                          "\nID Mode:\tTells Tracker your prefered way of identifying 'your' deck" +
                          "\nManual -f\tTell tracker the deck you are playing if you chose Manual ID mode" +
@@ -191,10 +199,12 @@ namespace SmartBot.Plugins
                                  "\nWirmate";
                 }
             }
+
             catch (Exception e)
             {
                 Bot.Log("[Version Update Failed]" + e.Message);
             }
+            RefreshMenu();
         }
     }
 
@@ -721,7 +731,7 @@ namespace SmartBot.Plugins
         { 
             Bot.Log("========================================"+Bot.CurrentMode());
             if (!_supported) return;
-
+            
             try
             {
                 CheckOpponentDeck("won");
@@ -774,7 +784,7 @@ namespace SmartBot.Plugins
             /*Warlock*/
             {DeckType.Handlock, Style.Control},
             {DeckType.RenoLock, Style.Control},
-            {DeckType.Zoolock, Style.Tempo}, //Same handler as flood zoo and reliquary
+            {DeckType.Zoolock, Style.Aggro}, //Same handler as flood zoo and reliquary
             {DeckType.DemonHandlock, Style.Control},
             {DeckType.DemonZooWarlock, Style.Tempo},
             {DeckType.DragonHandlock, Style.Control},
@@ -942,7 +952,7 @@ namespace SmartBot.Plugins
             if (CurrentDeck.Count == 0) return info;
             string str = CurrentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
             Log("[SmartTracker_debug] " + str);
-
+            //if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY && ((SmartTracker)DataContainer).CurrentTurn > 5 && Bot.GetCurrentOpponentId() == -4057046260809111675) Bot.Concede();
             Dictionary<DeckType, int> deckDictionary = new Dictionary<DeckType, int>();
 
             switch (cClass)
@@ -1640,6 +1650,10 @@ namespace SmartBot.Plugins
         Minimal,
         Detailed
 
+    }
+    public enum Locale
+    {
+        English, Russian
     }
 
 }
