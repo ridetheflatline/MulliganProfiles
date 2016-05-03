@@ -51,11 +51,11 @@ namespace SmartBot.Plugins
             bool renoCheck = list.Count == list.Distinct().Count();
             return (renoCheck && list.Count >= treshhold) || list.Contains(Cards.RenoJackson);
         }
-         public static bool IsCthun(this IList<Card.Cards> list)
+        public static bool IsCthun(this IList<Card.Cards> list)
         {
             return list.ContainsSome(Cards.KlaxxiAmberWeaver, Cards.DarkArakkoa, Cards.CultSorcerer, Cards.HoodedAcolyte, Cards.TwilightDarkmender
                 , Cards.BladeofCThun, Cards.UsherofSouls, Cards.AncientShieldbearer, Cards.TwilightGeomancer, Cards.DiscipleofCThun, Cards.TwilightElder
-                ,Cards.CThunsChosen, Cards.CrazedWorshipper, Cards.SkeramCultist, Cards.TwinEmperorVeklor, Cards.Doomcaller);
+                , Cards.CThunsChosen, Cards.CrazedWorshipper, Cards.SkeramCultist, Cards.TwinEmperorVeklor, Cards.Doomcaller);
         }
         public static bool IsBasic<T1>(this IList<T1> list, IList<T1> list2)
         {
@@ -74,26 +74,30 @@ namespace SmartBot.Plugins
     [Serializable]
     public class SmartTracker : PluginDataContainer
     {
-
+        /// <summary>
+        /// Русские пользователи должны поменять 'false' на 'true' 
+        /// для локализации трекера
+        /// </summary>
+        private const bool Russian = false;
         /// <summary>
         /// This variable is to add extra two option to SmartTracker that will allow you
         /// to use Mulligan Tester by Botfanatic
         /// </summary>
         private const bool DebugTesting = true;
-        [DisplayName("[0] Donation link")]
+        [DisplayName(Russian ? "[0] Донат Трекеру" : "[0] Donation link")]
         public string donation { get; set; }
-        [DisplayName("[1] Auto Update")]
+        [DisplayName(Russian ? "[1] Авто-Обновление" : "[1] Auto Update")]
         public bool AutoUpdate { get; set; }
         [Browsable(false)]
         public double Mversion { get; private set; }
         [Browsable(false)]
         public double Tversion { get; private set; }
-        [DisplayName("[0] Version")]
+        [DisplayName(Russian ? "[0] Версии" : "[0] Version")]
         public string Versions { get; private set; }
 
-        [DisplayName("[3] ID Mode")]
+        [DisplayName(Russian ? "[3] Определение Колоды" : "[3] ID Mode")]
         public IdentityMode Mode { get; set; }
-        [DisplayName("[3] Manual -f Deck")]
+        [DisplayName(Russian ? "[3] Ваша Колода" : "[3] Manual -f Deck")]
         public DeckType ForcedDeckType { get; set; }
         [Browsable(DebugTesting ? true : false)]
         [DisplayName("Mulligan Tester: you")]
@@ -102,16 +106,16 @@ namespace SmartBot.Plugins
         [DisplayName("Mulligan Tester: enemy")]
         public DeckType MulliganTEsterEnemyDeck { get; set; }
 
-        [DisplayName("[4] Coach")]
+        [DisplayName(Russian ? "[4] Тренер" : "[4] Coach")]
         public bool PredictionDisplay { get; set; }
-        [DisplayName("[5] Games to Analyze")]
+        [DisplayName(Russian ? "[5] Кол-во игр для анализа" : "[5] Games to Analyze")]
         public int AnalyzeGames { get; set; }
-        [DisplayName("[5] Record GT")]
+        [DisplayName(Russian ? "[5] Сохранять время игры" : "[5] Record GT")]
         public bool StoreTime { get; set; }
-        [DisplayName("[6] Card Breakdown")]
+        [DisplayName(Russian ? "[6] Пока что ничего" : "[6] Card Breakdown")]
         public bool DeckPerformance { get; set; }
 
-        [DisplayName("Glossary")]
+        [DisplayName(Russian ? "Словарь" : "Glossary")]
         public string Dictionary { get; private set; }
 
         [Browsable(false)]
@@ -130,19 +134,23 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public int SynchEnums { get; set; }
 
-        [DisplayName("[5] Summary Details")]
+        [DisplayName(Russian ? "[5] Детали истории" : "[5] Summary Details")]
         public History SummaryDetailes { get; set; }
-        [DisplayName("[5] Show Summary")]
+        [DisplayName(Russian ? "[5] Показать историю" : "[5] Show Summary")]
         public bool Summary { get; set; }
         [DisplayName("Hall of Fame")]
         public string HallOfFame { get; private set; }
-        public GuiElementBitmap kappa { get; set; }
-        [DisplayName("Localization")]
-        public Locale language { get; set; }
+
         [Browsable(false)]
         public int CurrentTurn { get; set; }
         [Browsable(false)]
         public Card.CClass Enemy { get; set; }
+
+        public bool Russiann { get; set; }
+        public bool Rus()
+        {
+            return Russiann;
+        }
         public SmartTracker()
         {
             Name = "SmartTracker";
@@ -165,15 +173,22 @@ namespace SmartBot.Plugins
         }
         public void ReloadDictionary()
 
-        { 
+        {
             RefreshMenu();
             Dictionary = "AU:\t\tAuto Update\nSM:\t\tSmart Mulligan\nST:\t\tSmart Tracker" +
                          "\nID Mode:\tTells Tracker your prefered way of identifying 'your' deck" +
                          "\nManual -f\tTell tracker the deck you are playing if you chose Manual ID mode" +
                          "\nCoach:\t\tShows on the top left corner what tracker assumes your opponent is" +
                          "\nGT:\t\tGame Time, will record match end time in MatchHistory.txt";
+            if (Russian)
+            {
+                Dictionary = "[placeholder]";
+            }
         }
-
+        public bool Ru()
+        {
+            return Russian;
+        }
 
 
         public void VersionCheck()
@@ -219,7 +234,7 @@ namespace SmartBot.Plugins
         private readonly string TrackerVersion = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\SmartTracker\\";
         private int _screenWidth;
         private int _screenHeight;
-
+        public bool Russian;
         private int PercToPixWidth(int percent)
         {
             return (int)((_screenWidth / 100.0f) * percent);
@@ -296,14 +311,14 @@ namespace SmartBot.Plugins
             numGames = lineCount < numGames ? lineCount : ((SmartTracker)DataContainer).AnalyzeGames;
             List<string> text = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(numGames).ToList();
 
-            if (((SmartTracker) DataContainer).SummaryDetailes == History.Detailed)
+            if (((SmartTracker)DataContainer).SummaryDetailes == History.Detailed)
             {
                 foreach (var q in text)
                 {
-                    var information = q.Split(new[] {"||"}, StringSplitOptions.None);
-                    DeckType dt = (DeckType) Enum.Parse(typeof (DeckType), information[8]);
+                    var information = q.Split(new[] { "||" }, StringSplitOptions.None);
+                    DeckType dt = (DeckType)Enum.Parse(typeof(DeckType), information[8]);
                     if (information[5].ToString().Contains("Cards")) continue;
-                    Card.CClass enemy = (Card.CClass) Enum.Parse(typeof (Card.CClass), information[7]);
+                    Card.CClass enemy = (Card.CClass)Enum.Parse(typeof(Card.CClass), information[7]);
                     if (Stats.ContainsKey(dt))
                     {
                         Stats[dt].UpdateData(dt, enemy, information[1]);
@@ -316,10 +331,10 @@ namespace SmartBot.Plugins
             }
             else
             {
-                   foreach (var q in text)
+                foreach (var q in text)
                 {
-                    var information = q.Split(new[] {"||"}, StringSplitOptions.None);
-                    DeckType dt = (DeckType) Enum.Parse(typeof (DeckType), information[8]);
+                    var information = q.Split(new[] { "||" }, StringSplitOptions.None);
+                    DeckType dt = (DeckType)Enum.Parse(typeof(DeckType), information[8]);
                     if (information[5].ToString().Contains("Cards")) continue;
                     //Card.CClass enemy = (Card.CClass) Enum.Parse(typeof (Card.CClass), information[5]);
                     if (Stats.ContainsKey(dt))
@@ -337,7 +352,7 @@ namespace SmartBot.Plugins
 
         }
 
-        
+
 
         public Dictionary<DeckType, Statistics> Stats = new Dictionary<DeckType, Statistics>();
         public void IdentifyMyStuff()
@@ -392,6 +407,7 @@ namespace SmartBot.Plugins
         private static bool _supported = false;
         public override void OnStarted()
         {
+            Russian = ((SmartTracker)DataContainer).Ru();
             SetupMulliganTester();
             if (!AllowedModes.Contains(Bot.CurrentMode()))
             {
@@ -438,8 +454,8 @@ namespace SmartBot.Plugins
             }
             catch (InvalidOperationException exception)
             {
-                Bot.Log("[SmartTracker] Your History is empty. If that is not true, blame Masterwai ||" +exception.Message);                
-                
+                Bot.Log("[SmartTracker] Your History is empty. If that is not true, blame Masterwai ||" + exception.Message);
+
             }
 
         }
@@ -631,7 +647,7 @@ namespace SmartBot.Plugins
             }
             catch (Exception)
             {
-              //ignored
+                //ignored
             }
             Stats.Clear();
             if (!_supported)
@@ -689,19 +705,19 @@ namespace SmartBot.Plugins
             opponentDeck.AddRange(graveyard.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
             opponentDeck.AddRange(board.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
             if (opponentDeck.Count == 0) return;
-            string str = opponentDeck.Aggregate("",(current, q) => current + ","+q);
+            string str = opponentDeck.Aggregate("", (current, q) => current + "," + q);
             using (StreamWriter DeckPerformanceHistory = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DeckPerformanceHistory.txt", true))
             using (StreamWriter opponentDeckInfo = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck, Bot.CurrentBoard.SecretEnemyCount);
                 opponentDeckInfo.WriteLine("{0}||{1}||{2}||{3}||{4}||{5}||{6}||{7}||{8}||{9}||{10}||{11}",
                     ((SmartTracker)DataContainer).StoreTime ? DateTime.UtcNow.ToString(CultureInfo.InvariantCulture) : "some time ago",
-                    res, 
+                    res,
                     Bot.GetCurrentOpponentId(),
                     Bot.CurrentMode(),
                     Bot.CurrentBoard.FriendClass, ((SmartTracker)DataContainer).AutoFriendlyDeckType, ((SmartTracker)DataContainer).AutoFriendlyStyle,
                     Bot.CurrentBoard.EnemyClass, opponentInfo.DeckType, opponentInfo.DeckStyle,
-                    str, Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current + ","+q)
+                    str, Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current + "," + q)
                     );
                 Bot.Log(string.Format("[Tracker] Succesfully recorded your opponent: {0}", opponentInfo.DeckType));
 
@@ -710,7 +726,7 @@ namespace SmartBot.Plugins
 
         public override void OnDefeat()
         {
-            Bot.Log("========================================"+Bot.CurrentMode());
+            Bot.Log("========================================" + Bot.CurrentMode());
 
             if (!_supported) return;
 
@@ -728,10 +744,10 @@ namespace SmartBot.Plugins
         }
 
         public override void OnVictory()
-        { 
-            Bot.Log("========================================"+Bot.CurrentMode());
+        {
+            Bot.Log("========================================" + Bot.CurrentMode());
             if (!_supported) return;
-            
+
             try
             {
                 CheckOpponentDeck("won");
@@ -801,6 +817,7 @@ namespace SmartBot.Plugins
             {DeckType.EchoMage, Style.Control},
             {DeckType.FatigueMage, Style.Fatigue},
             {DeckType.CThunMage, Style.Combo},
+            {DeckType.RenoMage, Style.Control},
             /*Priest*/
             {DeckType.DragonPriest, Style.Tempo},
             {DeckType.ControlPriest, Style.Control},
@@ -1657,13 +1674,3 @@ namespace SmartBot.Plugins
     }
 
 }
-
-
-
-
-
-
-
-
-
-
