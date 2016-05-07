@@ -336,16 +336,13 @@ namespace SmartBot.Plugins
                     var information = q.Split(new[] { "||" }, StringSplitOptions.None);
                     DeckType dt = (DeckType)Enum.Parse(typeof(DeckType), information[8]);
                     if (information[5].ToString().Contains("Cards")) continue;
-                    //Card.CClass enemy = (Card.CClass) Enum.Parse(typeof (Card.CClass), information[5]);
                     if (Stats.ContainsKey(dt))
                     {
                         Stats[dt].UpdateData(dt, information[1]);
                     }
                     else
                     {
-
                         Stats.AddOrUpdate(dt, new Statistics(dt, information[1]));
-                        //Stats[dt].UpdateData(dt, information[1]);
                     }
                 }
             }
@@ -784,6 +781,7 @@ namespace SmartBot.Plugins
             {DeckType.AnyfinMurglMurgl, Style.Combo},
             {DeckType.RenoPaladin, Style.Control},
             {DeckType.CThunPaladin, Style.Combo },
+            {DeckType.NZothPaladin, Style.Control},
             /*Druid*/
             {DeckType.RampDruid, Style.Control},
             {DeckType.AggroDruid, Style.Aggro},
@@ -900,6 +898,7 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> midrangePaladin = new List<Card.Cards> { Cards.AldorPeacekeeper, Cards.AldorPeacekeeper, Cards.BigGameHunter, Cards.Consecration, Cards.Consecration, Cards.TruesilverChampion, Cards.TruesilverChampion, Cards.Equality, Cards.TirionFordring, Cards.KnifeJuggler, Cards.LayonHands, Cards.DefenderofArgus, Cards.ZombieChow, Cards.ZombieChow, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.MusterforBattle, Cards.MusterforBattle, Cards.Coghammer, Cards.ShieldedMinibot, Cards.ShieldedMinibot, Cards.Quartermaster, Cards.Quartermaster, Cards.JusticarTrueheart, Cards.MurlocKnight, Cards.KeeperofUldaman, };
         private readonly List<Card.Cards> dragonPaladin = new List<Card.Cards> { Cards.AldorPeacekeeper, Cards.AldorPeacekeeper, Cards.BigGameHunter, Cards.Consecration, Cards.Consecration, Cards.TruesilverChampion, Cards.TruesilverChampion, Cards.Alexstrasza, Cards.Equality, Cards.Ysera, Cards.IronbeakOwl, Cards.ZombieChow, Cards.ZombieChow, Cards.SludgeBelcher, Cards.MusterforBattle, Cards.MusterforBattle, Cards.AntiqueHealbot, Cards.ShieldedMinibot, Cards.ShieldedMinibot, Cards.HungryDragon, Cards.HungryDragon, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.BlackwingCorruptor, Cards.VolcanicDrake, Cards.Chromaggus, Cards.DragonConsort, Cards.DragonConsort, Cards.SolemnVigil, Cards.EmperorThaurissan, };
         private readonly List<Card.Cards> aggroPaladin = new List<Card.Cards> { Cards.BlessingofMight, Cards.BlessingofMight, Cards.ShieldedMinibot, Cards.ShieldedMinibot, Cards.Coghammer, Cards.DivineFavor, Cards.DivineFavor, Cards.MusterforBattle, Cards.MusterforBattle, Cards.TruesilverChampion, Cards.BlessingofKings, Cards.BlessingofKings, Cards.KeeperofUldaman, Cards.KeeperofUldaman, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.ArgentSquire, Cards.ArgentSquire, Cards.LeperGnome, Cards.LeperGnome, Cards.SirFinleyMrrgglton, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.IronbeakOwl, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.ArcaneGolem, Cards.PilotedShredder, Cards.LeeroyJenkins, Cards.Loatheb, };
+        private readonly List<Card.Cards> nZothPaladin = new List<Card.Cards>{Cards.ForbiddenHealing,Cards.ForbiddenHealing,Cards.Humility,Cards.Equality,Cards.Equality,Cards.AldorPeacekeeper,Cards.AldorPeacekeeper,Cards.TruesilverChampion,Cards.TruesilverChampion,Cards.Consecration,Cards.Consecration,Cards.KeeperofUldaman,Cards.SolemnVigil,Cards.SolemnVigil,Cards.LayonHands,Cards.RagnarosLightlord,Cards.TirionFordring,Cards.AcidicSwampOoze,Cards.Doomsayer,Cards.Doomsayer,Cards.WildPyromancer,Cards.WildPyromancer,Cards.InfestedTauren,Cards.TwilightSummoner,Cards.CorruptedHealbot,Cards.CorruptedHealbot,Cards.StampedingKodo,Cards.CairneBloodhoof,Cards.SylvanasWindrunner,Cards.NZoththeCorruptor,};
 
         private readonly List<Card.Cards> controlWarriorCards = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Brawl, Cards.Deathwing, Cards.ShieldBlock, Cards.ShieldBlock, Cards.BaronGeddon, Cards.HarrisonJones, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Armorsmith, Cards.DeathsBite, Cards.DeathsBite, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.Shieldmaiden, Cards.Shieldmaiden, Cards.Revenge, Cards.Revenge, Cards.JusticarTrueheart, Cards.Bash, Cards.JeweledScarab, Cards.JeweledScarab, };
         private readonly List<Card.Cards> renoWarrior = new List<Card.Cards> { Cards.ShieldSlam, Cards.BigGameHunter, Cards.Gorehowl, Cards.Slam, Cards.Execute, Cards.Brawl, Cards.CruelTaskmaster, Cards.Deathwing, Cards.Ysera, Cards.BaronGeddon, Cards.HarrisonJones, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Armorsmith, Cards.Revenge, Cards.Bash, Cards.BouncingBlade, Cards.DeathsBite, Cards.Shieldmaiden, Cards.Crush, Cards.PilotedShredder, Cards.Loatheb, Cards.SludgeBelcher, Cards.EmperorThaurissan, Cards.JusticarTrueheart, Cards.RenoJackson, Cards.DrBoom, Cards.BrannBronzebeard, Cards.Deathlord, Cards.IronJuggernaut, };
@@ -957,6 +956,8 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> rampDruid = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.BigGameHunter, Cards.ForceofNature, Cards.ForceofNature, Cards.AncientofWar, Cards.AzureDrake, Cards.AzureDrake, Cards.WildGrowth, Cards.WildGrowth, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.ShadeofNaxxramas, Cards.ShadeofNaxxramas, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.LivingRoots, };
         private readonly List<Card.Cards> rampDruid2 = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.BigGameHunter, Cards.AncientofWar, Cards.AncientofWar, Cards.WildGrowth, Cards.WildGrowth, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.RagnarostheFirelord, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.ZombieChow, Cards.ZombieChow, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.DrBoom, Cards.EmperorThaurissan, Cards.DruidoftheFlame, Cards.DruidoftheFlame, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.MasterJouster, Cards.MasterJouster, };
         private readonly List<Card.Cards> rampDruid3 = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.BigGameHunter, Cards.Sunwalker, Cards.AncientofWar, Cards.AncientofWar, Cards.AzureDrake, Cards.WildGrowth, Cards.WildGrowth, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.MindControlTech, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.ZombieChow, Cards.KelThuzad, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.Deathlord, Cards.DrBoom, Cards.EmperorThaurissan, };
+        private readonly List<Card.Cards> rampDruidLC = new List<Card.Cards>{Cards.Innervate,Cards.Innervate,Cards.LivingRoots,Cards.LivingRoots,Cards.WildGrowth,Cards.WildGrowth,Cards.Wrath,Cards.Wrath,Cards.DarnassusAspirant,Cards.DarnassusAspirant,Cards.Mulch,Cards.Swipe,Cards.Swipe,Cards.FandralStaghelm,Cards.MireKeeper,Cards.MireKeeper,Cards.Nourish,Cards.DruidoftheClaw,Cards.DruidoftheClaw,Cards.AncientofWar,Cards.AncientofWar,Cards.Spellbreaker,Cards.AzureDrake,Cards.AzureDrake,Cards.NagaSeaWitch,Cards.EmperorThaurissan,Cards.SylvanasWindrunner,Cards.RagnarostheFirelord,Cards.Ysera,Cards.YShaarjRageUnbound,};
+        private readonly List<Card.Cards> rampDruidKol = new List<Card.Cards>{Cards.Innervate,Cards.Innervate,Cards.LivingRoots,Cards.LivingRoots,Cards.RavenIdol,Cards.WildGrowth,Cards.WildGrowth,Cards.Wrath,Cards.Wrath,Cards.Mulch,Cards.Mulch,Cards.Swipe,Cards.Swipe,Cards.FandralStaghelm,Cards.MireKeeper,Cards.MireKeeper,Cards.Nourish,Cards.Nourish,Cards.DruidoftheClaw,Cards.DruidoftheClaw,Cards.DarkArakkoa,Cards.DarkArakkoa,Cards.AncientofWar,Cards.AncientofWar,Cards.Cenarius,Cards.Spellbreaker,Cards.AzureDrake,Cards.AzureDrake,Cards.SylvanasWindrunner,Cards.RagnarostheFirelord,};
         private readonly List<Card.Cards> aggroDruid = new List<Card.Cards> { Cards.ForceofNature, Cards.ForceofNature, Cards.SavageRoar, Cards.SavageRoar, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.LeperGnome, Cards.LeperGnome, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.ShadeofNaxxramas, Cards.ShadeofNaxxramas, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.FelReaver, Cards.FelReaver, Cards.SavageCombatant, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.DruidoftheSaber, Cards.DruidoftheSaber, Cards.LivingRoots, Cards.LivingRoots, };
         private readonly List<Card.Cards> midRangeDruid = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.BigGameHunter, Cards.ForceofNature, Cards.ForceofNature, Cards.AzureDrake, Cards.AzureDrake, Cards.WildGrowth, Cards.WildGrowth, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.ShadeofNaxxramas, Cards.Loatheb, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.EmperorThaurissan, Cards.DarnassusAspirant, Cards.LivingRoots, Cards.LivingRoots, };
         private readonly List<Card.Cards> silenceDruid = new List<Card.Cards> { Cards.AncientWatcher, Cards.AncientWatcher, Cards.ForceofNature, Cards.ForceofNature, Cards.AzureDrake, Cards.AzureDrake, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.IronbeakOwl, Cards.IronbeakOwl, Cards.Innervate, Cards.Innervate, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.Deathlord, Cards.Deathlord, Cards.WailingSoul, Cards.WailingSoul, Cards.DrBoom, Cards.FelReaver, Cards.FelReaver, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.Mulch, Cards.EerieStatue, Cards.EerieStatue, };
@@ -969,7 +970,7 @@ namespace SmartBot.Plugins
             if (CurrentDeck.Count == 0) return info;
             string str = CurrentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
             Log("[SmartTracker_debug] " + str);
-            //if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY && ((SmartTracker)DataContainer).CurrentTurn > 5 && Bot.GetCurrentOpponentId() == -4057046260809111675) Bot.Concede();
+            if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY && ((SmartTracker)DataContainer).CurrentTurn > 5 && Bot.GetCurrentOpponentId() == -4057046260809111675) Bot.Concede();
             Dictionary<DeckType, int> deckDictionary = new Dictionary<DeckType, int>();
 
             switch (cClass)
@@ -1129,6 +1130,7 @@ namespace SmartBot.Plugins
                 {
                     deckDictionary.AddOrUpdate(DeckType.AggroPaladin, CurrentDeck.Intersect(aggroPaladin).Count());
                 }
+                deckDictionary.AddOrUpdate(DeckType.NZothPaladin, CurrentDeck.Intersect(nZothPaladin).Count());
                 deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicPaladin).Count());
                 break;
 
@@ -1354,9 +1356,15 @@ namespace SmartBot.Plugins
 
                 if (CurrentDeck.ContainsAtLeast(2, Cards.RagnarostheFirelord, Cards.AncientofWar, Cards.Cenarius, Cards.SylvanasWindrunner, Cards.TheBlackKnight, Cards.SludgeBelcher, Cards.ZombieChow, Cards.SenjinShieldmasta))
                 {
-                    deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid).Count());
-                    deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid2).Count());
-                    deckDictionary.AddOrUpdate(DeckType.RampDruid, CurrentDeck.Intersect(rampDruid3).Count());
+                    int[] ramps = new int[5] {CurrentDeck.Intersect(rampDruid).Count(),
+                        CurrentDeck.Intersect(rampDruid2).Count(),
+                        CurrentDeck.Intersect(rampDruid3).Count(),
+                        CurrentDeck.Intersect(rampDruidLC).Count(),
+                        CurrentDeck.Intersect(rampDruidKol).Count()
+                    };
+
+                    deckDictionary.AddOrUpdate(DeckType.RampDruid, ramps.Max());
+                    
                 }
                 if (CurrentDeck.ContainsSome(Cards.LeperGnome, Cards.MountedRaptor, Cards.FelReaver, Cards.DruidoftheSaber, Cards.KnifeJuggler))
                 {
@@ -1566,6 +1574,7 @@ namespace SmartBot.Plugins
         AnyfinMurglMurgl,
         RenoPaladin,
         CThunPaladin,
+        NZothPaladin,
         /*Druid*/
         RampDruid,
         AggroDruid,
