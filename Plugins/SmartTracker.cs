@@ -1411,7 +1411,7 @@ namespace SmartBot.Plugins
                 StreamWriter logfile =
                     new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\" + file, true))
             {
-                logfile.WriteLine(str);
+                logfile.WriteLine("["+DateTime.Now+"] "+ str);
             }
         }
         private static void Report(string str)
