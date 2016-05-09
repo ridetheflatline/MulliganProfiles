@@ -855,7 +855,7 @@ namespace MulliganProfiles
 
         public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
         {
-            {DeckType.Unknown, Style.Unknown}, {DeckType.Arena, Style.Control}, /*Warrior*/
+            { DeckType.Custom, Style.Unknown},{DeckType.Unknown, Style.Unknown}, {DeckType.Arena, Style.Control}, /*Warrior*/
             {DeckType.ControlWarrior, Style.Control}, {DeckType.FatigueWarrior, Style.Fatigue}, {DeckType.DragonWarrior, Style.Control}, {DeckType.PatronWarrior, Style.Tempo}, {DeckType.WorgenOTKWarrior, Style.Combo}, {DeckType.MechWarrior, Style.Aggro}, {DeckType.FaceWarrior, Style.Face}, {DeckType.RenoWarrior, Style.Control}, /*Paladin*/
             {DeckType.SecretPaladin, Style.Tempo}, {DeckType.MidRangePaladin, Style.Control}, {DeckType.DragonPaladin, Style.Control}, {DeckType.AggroPaladin, Style.Aggro}, {DeckType.AnyfinMurglMurgl, Style.Combo}, {DeckType.RenoPaladin, Style.Control}, /*Druid*/
             {DeckType.RampDruid, Style.Control}, {DeckType.AggroDruid, Style.Aggro}, {DeckType.DragonDruid, Style.Control}, {DeckType.MidRangeDruid, Style.Combo}, {DeckType.TokenDruid, Style.Tempo}, {DeckType.SilenceDruid, Style.Control}, {DeckType.MechDruid, Style.Aggro}, {DeckType.AstralDruid, Style.Control}, {DeckType.MillDruid, Style.Fatigue}, {DeckType.BeastDruid, Style.Tempo}, {DeckType.RenoDruid, Style.Control}, /*Warlock*/
