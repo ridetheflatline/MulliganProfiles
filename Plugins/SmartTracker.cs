@@ -607,21 +607,27 @@ namespace SmartBot.Plugins
                 return;
             }
 
-
-            //string myLocalFile = File.ReadAllText(MulliganDir + "SmartMulligan.cs");
-            //string myCustom = myLocalFile.Substring(myLocalFile.IndexOf("#region Custom") + "#region Custom".Length, myLocalFile.LastIndexOf("#endregion Custom")
-            //    - (myLocalFile.IndexOf("#region Custom") + "#region Custom".Length));
-            ////.Log(myCustom);
-            //Bot.Log("==============================");
+            string myCustom = "";
+            try
+            {
+                string myLocalFile = File.ReadAllText(MulliganDir + "SmartMulligan.cs");
+                myCustom = myLocalFile.Substring(myLocalFile.IndexOf("#region Custom") + "#region Custom".Length, myLocalFile.LastIndexOf("#endregion Custom")
+                    - (myLocalFile.IndexOf("#region Custom") + "#region Custom".Length));
+                Bot.Log(myCustom);
+                Bot.Log("==============================");
+            }catch(FileNotFoundException)
+            {
+                Bot.Log("[SmartTracker] This is your first time running tracker, downloading SmartMulligan");
+            }
             using (HttpWebResponse mulResponse = MulliganRequest.GetResponse() as HttpWebResponse)
             using (StreamReader mulFile = new StreamReader(mulResponse.GetResponseStream()))
             using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "SmartMulligan.cs"))
             {
 
                 string tempfile = mulFile.ReadToEnd();
-                //string low = tempfile.Substring(0, tempfile.IndexOf("#region Custom")+14);
-                //string high = tempfile.Substring(tempfile.IndexOf("#endregion Custom"));
-                //string final = low + myCustom + high;
+                string low = tempfile.Substring(0, tempfile.IndexOf("#region Custom")+14);
+                string high = tempfile.Substring(tempfile.IndexOf("#endregion Custom"));
+                string final = low + myCustom + high;
                 updateLocalCopy.WriteLine(tempfile);
                 Bot.RefreshMulliganProfiles();
                 Bot.Log("[SmartTracker] SmartMulligan is now fully updated");
