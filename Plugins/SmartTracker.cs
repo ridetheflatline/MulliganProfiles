@@ -677,7 +677,7 @@ namespace SmartBot.Plugins
             if (Bot.CurrentMode() == Bot.Mode.Arena || Bot.CurrentMode() == Bot.Mode.ArenaAuto)
             {
                 ((SmartTracker)DataContainer).ArenaStyle = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards).DeckStyle;
-                Bot.Log(string.Format("[DEBUG] Your arena deck mostly resembles an {0} type deck", ((SmartTracker)DataContainer).ArenaStyle));
+                Bot.Log(string.Format("[ST_Debug] Your arena deck mostly resembles {0} type deck", ((SmartTracker)DataContainer).ArenaStyle));
             }
             ((SmartTracker)DataContainer).CurrentTurn += 1;
             if (!_supported) return;
