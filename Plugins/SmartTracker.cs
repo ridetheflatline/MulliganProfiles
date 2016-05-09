@@ -84,6 +84,8 @@ namespace SmartBot.Plugins
         /// to use Mulligan Tester by Botfanatic
         /// </summary>
         private const bool DebugTesting = true;
+        [Browsable(false)]
+        public Style ArenaStyle { get; set; }
         [DisplayName(Russian ? "[0] Донат Трекеру" : "[0] Donation link")]
         public string donation { get; set; }
         [DisplayName(Russian ? "[1] Авто-Обновление" : "[1] Auto Update")]
@@ -628,7 +630,7 @@ namespace SmartBot.Plugins
                 string low = tempfile.Substring(0, tempfile.IndexOf("#region Custom")+14);
                 string high = tempfile.Substring(tempfile.IndexOf("#endregion Custom"));
                 string final = low + myCustom + high;
-                updateLocalCopy.WriteLine(tempfile);
+                updateLocalCopy.WriteLine(final);
                 Bot.RefreshMulliganProfiles();
                 Bot.Log("[SmartTracker] SmartMulligan is now fully updated");
                 UpdateVersion(remoteVer);
@@ -672,6 +674,11 @@ namespace SmartBot.Plugins
         public override void OnTurnBegin()
         {
             base.OnTurnBegin();
+            if (Bot.CurrentMode() == Bot.Mode.Arena || Bot.CurrentMode() == Bot.Mode.ArenaAuto)
+            {
+                ((SmartTracker)DataContainer).ArenaStyle = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards).DeckStyle;
+                Bot.Log(string.Format("[DEBUG] Your arena deck mostly resembles an {0} type deck", ((SmartTracker)DataContainer).ArenaStyle));
+            }
             ((SmartTracker)DataContainer).CurrentTurn += 1;
             if (!_supported) return;
             Turn = ((SmartTracker)DataContainer).CurrentTurn;
