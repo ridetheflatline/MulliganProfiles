@@ -1239,7 +1239,8 @@ namespace MulliganProfiles
         #region Custom
         private void HandleCustomDeck(GameContainer gc)
         {
-            //This should not be destroyed in the process
+            foreach (var q in gc.TwoDrops)
+                _whiteList.AddOrUpdate(q, gc.Coin);
         }
         #endregion Custom
         private void HandleNZothPaladin(GameContainer gc)
