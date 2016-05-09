@@ -770,6 +770,7 @@ namespace SmartBot.Plugins
         #region deckIdentifier
         public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
         {
+            {DeckType.Custom, Style.Unknown},
             {DeckType.Unknown, Style.Unknown},
             {DeckType.Arena, Style.Control},
             /*Warrior*/
