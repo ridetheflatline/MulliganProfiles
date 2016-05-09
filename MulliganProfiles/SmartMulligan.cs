@@ -232,7 +232,7 @@ namespace MulliganProfiles
             {Card.Cards.NEW1_017, 1}, //[1/2]Hungry Crab [1 mana] [NONE card]
             {Card.Cards.NEW1_025, 1}, //[1/2]Bloodsail Corsair [1 mana] [NONE card]
             {Card.Cards.LOE_010, 2}, //[2/1]Pit Snake [1 mana] [ROGUE card]
-            {Card.Cards.LOE_018, 3}, //[1/3]Tunnel Trogg [1 mana] [SHAMAN card]
+            {Card.Cards.LOE_018, 5 }, //[1/3]Tunnel Trogg [1 mana] [SHAMAN card]
             {Card.Cards.LOE_076, 4}, //[1/3] Sir Finley Mrrgglton [1 mana] [NONE card]
             {Card.Cards.LOE_116, -1}, //[1/1]Reliquary Seeker [1 mana] [WARLOCK card]
             {Card.Cards.FP1_001, 10}, //[2/3]Zombie Chow [1 mana] [NONE card]
@@ -961,6 +961,9 @@ namespace MulliganProfiles
         {
             switch (gc.MyDeckType)
             {
+                case DeckType.Custom:
+                HandleCustomDeck(gc);
+                break;
                 case DeckType.Unknown:
                 Arena(gc);
                 break;
@@ -1228,8 +1231,17 @@ namespace MulliganProfiles
                 default:
                 throw new ArgumentOutOfRangeException();
             }
+        }   
+        /// <summary>
+        ///DO NOT REMOVE CUSTOM REGION BREAKS 
+        /// </summary>
+        /// <param name="gc"></param>
+        #region Custom
+        private void HandleCustomDeck(GameContainer gc)
+        {
+            //This should not be destroyed in the process
         }
-
+        #endregion Custom
         private void HandleNZothPaladin(GameContainer gc)
         {
             throw new NotImplementedException();
@@ -2243,6 +2255,7 @@ namespace MulliganProfiles
 
    public enum DeckType
     {
+        Custom,
         Unknown,
         Arena,
         /*Warrior*/

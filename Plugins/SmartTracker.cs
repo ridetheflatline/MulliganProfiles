@@ -608,11 +608,18 @@ namespace SmartBot.Plugins
             }
             using (HttpWebResponse mulResponse = MulliganRequest.GetResponse() as HttpWebResponse)
             using (StreamReader mulFile = new StreamReader(mulResponse.GetResponseStream()))
+            using (StreamReader mylocal = new StreamReader(MulliganDir + "SmartMulligan.cs"))
             using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "SmartMulligan.cs"))
             {
                 string tempfile = mulFile.ReadToEnd();
-                //Bot.Log("");
-                updateLocalCopy.WriteLine(tempfile);
+                string upperNew = tempfile.Substring(0, tempfile.IndexOf("#region Custom") + 13);
+                string loverNew = tempfile.Substring(tempfile.IndexOf("#endregion Custom"));
+
+                string myLocalFile = mylocal.ReadToEnd();
+                string myCustom = myLocalFile.Substring(myLocalFile.IndexOf("#region Custom") + 13, myLocalFile.IndexOf("#endregion Custom"));
+
+                string finalVersion = upperNew + myCustom + loverNew;
+                updateLocalCopy.WriteLine(finalVersion);
                 Bot.RefreshMulliganProfiles();
                 Bot.Log("[SmartTracker] SmartMulligan is now fully updated");
                 UpdateVersion(remoteVer);
@@ -1553,6 +1560,7 @@ namespace SmartBot.Plugins
 
     public enum DeckType
     {
+        Custom,
         Unknown,
         Arena,
         /*Warrior*/
