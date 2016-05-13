@@ -86,20 +86,31 @@ namespace SmartBot.Plugins
         private const bool DebugTesting = true;
         [Browsable(false)]
         public Style ArenaStyle { get; set; }
-        [DisplayName(Russian ? "[0] Донат Трекеру" : "[0] Donation link")]
+        [DisplayName("[A]---------------------")]
+        public string sectionA { get; private set;}
+
+        [DisplayName(Russian ? "[A] Донат Трекеру" : "[A] Donation link")]
         public string donation { get; set; }
-        [DisplayName(Russian ? "[1] Авто-Обновление" : "[1] Auto Update")]
+        [DisplayName("[B]---------------------")]
+        public string sectionB { get; private set; }
+        [DisplayName(Russian ? "[B] Авто-Обновление" : "[B] Auto Update")]
         public bool AutoUpdate { get; set; }
+        [DisplayName(Russian ? "[B] Режим Обновления" : "[B] Update Mode")]
+        public Update UpdateMode { get; set; }
+        [DisplayName(Russian ? "[B] Описание":"[B] Description")]
+        public string UpdateGlossary { get; private set; }
         [Browsable(false)]
         public double Mversion { get; private set; }
         [Browsable(false)]
         public double Tversion { get; private set; }
-        [DisplayName(Russian ? "[0] Версии" : "[0] Version")]
+        [DisplayName(Russian ? "[B] Версии" : "[B] Version")]
         public string Versions { get; private set; }
+        [DisplayName("[C]---------------------")]
+        public string sectionC { get; private set; }
 
-        [DisplayName(Russian ? "[3] Определение Колоды" : "[3] ID Mode")]
+        [DisplayName(Russian ? "[C] Определение Колоды" : "[C] ID Mode")]
         public IdentityMode Mode { get; set; }
-        [DisplayName(Russian ? "[3] Ваша Колода" : "[3] Manual -f Deck")]
+        [DisplayName(Russian ? "[C] Ваша Колода" : "[C] Manual -f Deck")]
         public DeckType ForcedDeckType { get; set; }
         [Browsable(DebugTesting ? true : false)]
         [DisplayName("Mulligan Tester: you")]
@@ -108,13 +119,15 @@ namespace SmartBot.Plugins
         [DisplayName("Mulligan Tester: enemy")]
         public DeckType MulliganTEsterEnemyDeck { get; set; }
 
-        [DisplayName(Russian ? "[4] Тренер" : "[4] Coach")]
+        [DisplayName(Russian ? "[C] Тренер" : "[C] Coach")]
         public bool PredictionDisplay { get; set; }
-        [DisplayName(Russian ? "[5] Кол-во игр для анализа" : "[5] Games to Analyze")]
+        [DisplayName("[D]---------------------")]
+        public string sectionD { get; private set; }
+        [DisplayName(Russian ? "[D] Кол-во игр для анализа" : "[D] Games to Analyze")]
         public int AnalyzeGames { get; set; }
-        [DisplayName(Russian ? "[5] Сохранять время игры" : "[5] Record GT")]
+        [DisplayName(Russian ? "[D] Сохранять время игры" : "[D] Record Game Time")]
         public bool StoreTime { get; set; }
-        [DisplayName(Russian ? "[6] Пока что ничего" : "[6] Card Breakdown")]
+        [DisplayName(Russian ? "[D] Пока что ничего" : "[D] Card Breakdown")]
         public bool DeckPerformance { get; set; }
 
         [DisplayName(Russian ? "Словарь" : "Glossary")]
@@ -135,13 +148,20 @@ namespace SmartBot.Plugins
         public Style EnemyDeckStyleGuess { get; set; }
         [Browsable(false)]
         public int SynchEnums { get; set; }
-
-        [DisplayName(Russian ? "[5] Детали истории" : "[5] Summary Details")]
+        [DisplayName(Russian ? "[D] Детали истории" : "[D] Summary Details")]
         public History SummaryDetailes { get; set; }
-        [DisplayName(Russian ? "[5] Показать историю" : "[5] Show Summary")]
+        [DisplayName(Russian ? "[D] Показать историю" : "[D] Show Summary")]
         public bool Summary { get; set; }
         [DisplayName("Hall of Fame")]
         public string HallOfFame { get; private set; }
+        
+        [DisplayName("[E]---------------------")]
+        
+        public string sectionE { get; private set; }
+        [DisplayName("[E] Stop at Legend")]
+        public bool StopLegend { get; set; }
+        [DisplayName("[E] Mystery Button")]
+        public bool MysteryBoolean { get; set; }
 
         [Browsable(false)]
         public int CurrentTurn { get; set; }
@@ -177,11 +197,15 @@ namespace SmartBot.Plugins
 
         {
             RefreshMenu();
-            Dictionary = "AU:\t\tAuto Update\nSM:\t\tSmart Mulligan\nST:\t\tSmart Tracker" +
-                         "\nID Mode:\tTells Tracker your prefered way of identifying 'your' deck" +
-                         "\nManual -f\tTell tracker the deck you are playing if you chose Manual ID mode" +
-                         "\nCoach:\t\tShows on the top left corner what tracker assumes your opponent is" +
-                         "\nGT:\t\tGame Time, will record match end time in MatchHistory.txt";
+            Dictionary = "Detailed Summary: winrate vs decks + classes\nMinimal: winrate against decks\n"
+                +"Card Breakdown is currently unavailable\nMystery Button: Enable at your own risk";
+            UpdateGlossary = "Hard Update: fully overwrtites mulligan file. [Recomended for casual botters]"
+                +"\nSoft Update: Will keep your customly defined mulligans [Recomended for advanced users]";
+            sectionA = "[DONATION SECTION]";
+            sectionB = "[AUTO UPDATE SECTION]";
+            sectionC = "[IDENTIFICATION SECTION]";
+            sectionD = "[HISTORY ANALYSIS SECTION]"; 
+            sectionE = "[EXTRA FEATURES]";
             if (Russian)
             {
                 Dictionary = "[placeholder]";
@@ -295,6 +319,11 @@ namespace SmartBot.Plugins
         {
             ((SmartTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
             ((SmartTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
+            if (((SmartTracker)DataContainer).StopLegend && Bot.GetPlayerDatas().GetRank() == 0)
+            {
+                Bot.Log("[SmartTracker] You are Legend, bot will now stop. ");
+                Bot.StopBot();
+            }
             base.OnGameEnd();
         }
 
@@ -630,7 +659,9 @@ namespace SmartBot.Plugins
                 string low = tempfile.Substring(0, tempfile.IndexOf("#region Custom")+14);
                 string high = tempfile.Substring(tempfile.IndexOf("#endregion Custom"));
                 string final = low + myCustom + high;
-                updateLocalCopy.WriteLine(final);
+                if (((SmartTracker)DataContainer).UpdateMode == Update.Soft)
+                    updateLocalCopy.WriteLine(final);
+                else updateLocalCopy.WriteLine(tempfile);
                 Bot.RefreshMulliganProfiles();
                 Bot.Log("[SmartTracker] SmartMulligan is now fully updated");
                 UpdateVersion(remoteVer);
@@ -1706,6 +1737,10 @@ namespace SmartBot.Plugins
     public enum Locale
     {
         English, Russian
+    }
+    public enum Update
+    {
+        Hard, Soft
     }
 
 }
