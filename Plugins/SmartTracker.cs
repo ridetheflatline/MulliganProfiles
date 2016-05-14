@@ -158,8 +158,10 @@ namespace SmartBot.Plugins
         [DisplayName("[E]---------------------")]
         
         public string sectionE { get; private set; }
-        [DisplayName("[E] Stop at Legend")]
+        [DisplayName("[E] Stop after Legend")]
         public bool StopLegend { get; set; }
+        [DisplayName("[E] Stop at Legend Rank")]
+        public int StopLegendX { get; set; }
         [DisplayName("[E] Mystery Button")]
         public bool MysteryBoolean { get; set; }
 
@@ -324,6 +326,7 @@ namespace SmartBot.Plugins
                 Bot.Log("[SmartTracker] You are Legend, bot will now stop. ");
                 Bot.StopBot();
             }
+            if(((SmartTracker)DataContainer).StopLegendX <= Bot.GetPlayerDatas().GetLegendIndex())
             base.OnGameEnd();
         }
 
