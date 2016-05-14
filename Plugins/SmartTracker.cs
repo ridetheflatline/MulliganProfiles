@@ -1029,7 +1029,7 @@ namespace SmartBot.Plugins
             if (CurrentDeck.Count == 0) return info;
             string str = CurrentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
             Log("[SmartTracker_debug] " + str);
-            if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY && ((SmartTracker)DataContainer).CurrentTurn > 5 && Bot.GetCurrentOpponentId() == -4057046260809111675) Bot.Concede();
+            if (Bot.CurrentScene() == Bot.Scene.GAMEPLAY && ((SmartTracker)DataContainer).CurrentTurn > 4 && Bot.GetCurrentOpponentId() == -4057046260809111675) Bot.Concede();
             Dictionary<DeckType, int> deckDictionary = new Dictionary<DeckType, int>();
 
             switch (cClass)

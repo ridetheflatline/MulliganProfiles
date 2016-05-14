@@ -1872,6 +1872,13 @@ namespace MulliganProfiles
         private void HandleTotemShaman(GameContainer gc)
         {
             Arena(gc);
+            if (gc.OpponentClass.WeaponClass() && gc.Coin) _whiteList.AddOrUpdate(Cards.HarrisonJones, false);
+            //Hex is kept vs high innervate threats and flamewaker here.
+            if (gc.OpponentClass.IsOneOf(Druid, Mage)) _whiteList.AddOrUpdate(Cards.Hex, false);
+            //Cleric and Mana wyrm might get out of hand, so we try to kill them asap with biter.
+            if (gc.OpponentClass.IsOneOf(Priest, Mage)) _whiteList.AddOrUpdate(Cards.RockbiterWeapon, false);
+            if (gc.OpponentClass.Is(Warrior) && gc.HasTurnOne) _whiteList.AddOrUpdate(Cards.FlametongueTotem, false);
+
         }
 
         private void HandleMalyShaman(GameContainer gc)
