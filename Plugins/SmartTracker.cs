@@ -170,11 +170,7 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public Card.CClass Enemy { get; set; }
 
-        //public bool Russiann { get; set; }
-        //public bool Rus()
-        //{
-        //    return Russiann;
-        //}
+       
         public SmartTracker()
         {
             Name = "SmartTracker";
