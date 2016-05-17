@@ -42,6 +42,10 @@ namespace SmartBot.Plugins
         {
             return list.Count(cards => CardTemplate.LoadFromId(cards).Race == wCrace);
         }
+        public static bool IsArena(this Bot.Mode mode)
+        {
+            return mode == Bot.Mode.Arena || mode == Bot.Mode.ArenaAuto;
+        } 
         public static int QualityCount(this IList<Card.Cards> list, Card.CQuality qQuality)
         {
             return list.Count(cards => CardTemplate.LoadFromId(cards).Quality == qQuality);
@@ -337,8 +341,11 @@ namespace SmartBot.Plugins
         private void CheckHistory()
         {
             int numGames = ((SmartTracker)DataContainer).AnalyzeGames;
-            int lineCount = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Count();
+            int lineCount = File.ReadLines(
+                AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Count(c => c.Contains(Bot.CurrentMode().ToString()));
             numGames = lineCount < numGames ? lineCount : ((SmartTracker)DataContainer).AnalyzeGames;
+            if(!Bot.CurrentMode().IsArena())
+                Bot.Log(string.Format("[SmartTracker] Finished parsing {0} games in {1} mode" ,lineCount, Bot.CurrentMode()));
             List<string> text = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(numGames).ToList();
 
             if (((SmartTracker)DataContainer).SummaryDetailes == History.Detailed)
@@ -1440,7 +1447,7 @@ namespace SmartBot.Plugins
                 #endregion
             }
             var bestDeck = deckDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-            if (CurrentDeck.Count > 10 && deckDictionary[bestDeck] < 5)
+            if (!Bot.CurrentMode().IsArena() && CurrentDeck.Count > 10 && deckDictionary[bestDeck] < 5)
             {
                 Bot.Log("[Tracker] It appears that your opponent is playing something random");
             }

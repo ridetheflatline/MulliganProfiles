@@ -611,17 +611,27 @@ namespace MulliganProfiles
 
         public static DeckType FindHimInHistory(this long id, Card.CClass op, int n = 50)
         {
+            Prediction prediction = new Prediction(); 
+            
             List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
             List<DeckType> allDeckTypes = (from q in history select q.Split(new[] { "||" }, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId select (DeckType)Enum.Parse(typeof(DeckType), information[8])).ToList();
             if (allDeckTypes.Count >= 1)
             {
                 var eDeckType =
                     allDeckTypes.FirstOrDefault(q => q != DeckType.Unknown && q != DeckType.Basic && DeckClass[q] == op);
+                if(!Bot.CurrentMode().IsShitfest())
                 Bot.Log(string.Format("[SmartMulligan] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
                 return eDeckType;
             }
-            DeckType unknownPrediction = GetDefault(op);
-            Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games. Going surmise that he is {1}", n, unknownPrediction));
+            foreach (var q in history)
+            {
+                var info = q.Split(new[] {"||"}, StringSplitOptions.None);
+                if ((Card.CClass) Enum.Parse(typeof (Card.CClass), info[7]) != op) continue;
+                prediction.Update(op, (DeckType) Enum.Parse(typeof (DeckType),info[8]));
+            }
+            DeckType unknownPrediction = prediction.GetMostFacedDeckType(op);
+            if(!Bot.CurrentMode().IsShitfest())
+            Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
             return unknownPrediction;
         }
 
@@ -2277,7 +2287,29 @@ namespace MulliganProfiles
     }
 
     #region enums
+   public class Prediction
+    {
+        public static Dictionary<Card.CClass,
+            Dictionary<DeckType, int>> prediction = new Dictionary<Card.CClass, Dictionary<DeckType, int>>();
+        public void Update(Card.CClass cl, DeckType dt)
+        {
+            Dictionary<DeckType, int> temp = new Dictionary<DeckType, int>();
+            if (prediction.TryGetValue(cl, out temp))
+            {
+                if (temp.ContainsKey(dt))
+                    temp[dt]++;
+                else temp[dt] = 0;
+                prediction[cl] = temp;
+            }
+            else prediction[cl] = new Dictionary<DeckType, int> { {dt, 0} };            
+        }
 
+       public DeckType GetMostFacedDeckType(Card.CClass cl)
+       {
+           return prediction[cl].Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+       }
+
+    }
    public enum DeckType
     {
         Custom,
