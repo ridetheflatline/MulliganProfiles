@@ -1266,10 +1266,19 @@ namespace MulliganProfiles
                 case DeckType.NZothPaladin:
                 HandleNZothPaladin(gc);
                 break;
+                case DeckType.TempoWarrior:
+                    HandleTempoWarrior(gc);
+                    break;
                 default:
                 throw new ArgumentOutOfRangeException();
             }
         }
+
+        private void HandleTempoWarrior(GameContainer gc)
+        {
+            Core(gc);
+        }
+
         /// <summary>
         ///DO NOT REMOVE CUSTOM REGION BREAKS 
         /// </summary>
