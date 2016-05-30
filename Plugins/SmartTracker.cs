@@ -1109,7 +1109,7 @@ namespace SmartBot.Plugins
                         
                     };
 
-                    deckDictionary.AddOrUpdate(DeckType.RampDruid, TotemShamans.Max());
+                    deckDictionary.AddOrUpdate(DeckType.TotemShaman, TotemShamans.Max());
                 if (CurrentDeck.IsRenoDeck())
                 {
                     deckDictionary.AddOrUpdate(DeckType.RenoShaman, CurrentDeck.Intersect(renoShaman).Count());
