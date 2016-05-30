@@ -1977,7 +1977,11 @@ namespace MulliganProfiles
 
         private void HandleDragonShaman(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Report("Enetered DShaman");
+            Core(gc);
+            Report("Handled Core");
+            HandleDragonLogicCore(gc);
+            Report("Handled Dragon Core");
         }
 
         private void HandleTotemShaman(GameContainer gc)
