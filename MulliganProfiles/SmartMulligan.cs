@@ -2521,7 +2521,7 @@ namespace MulliganProfiles
 
         Basic,
     }
-
+   
     public enum Style
     {
         Unknown,
