@@ -289,7 +289,7 @@ namespace SmartBot.Plugins
         public override void OnTick()
         {
             if (!_started || !_supported) return;
-            if (((SmartTracker)DataContainer).EnemyDeckTypeGuess != DeckType.Unknown && !talkedWithMulligan)
+            if (((SmartTracker)DataContainer).PredictionDisplay && ((SmartTracker)DataContainer).EnemyDeckTypeGuess != DeckType.Unknown && !talkedWithMulligan)
             {
                 GUI.ClearUI();
                 GUI.AddElement(
@@ -443,6 +443,7 @@ namespace SmartBot.Plugins
         {
             Russian = ((SmartTracker)DataContainer).Ru();
             SetupMulliganTester();
+            CreateCardReport(Bot.CurrentDeck().Cards);
             if (!AllowedModes.Contains(Bot.CurrentMode()))
             {
                 Bot.Log(string.Format("[SmartTracker] You are playing {0} mode." +
@@ -492,6 +493,14 @@ namespace SmartBot.Plugins
 
             }
 
+        }
+        private Dictionary<Card.Cards, Statistics> CardStats = new Dictionary<Card.Cards, Statistics>(); 
+        private void CreateCardReport(List<string> cards)
+        {
+            foreach (var q in cards.Distinct())
+            {
+                //CardStats.AddOrUpdate((Card.Cards) Enum.Parse(typeof (Card.Cards), q), new Statistics(((SmartTracker)DataContainer).AutoFriendlyDeckType, ));
+            }
         }
 
         private void SetupMulliganTester()
@@ -708,6 +717,7 @@ namespace SmartBot.Plugins
         }
 
         public static int Turn;
+        // Dictionary<int, Func<string, bool>> Mystery = new Dictionary<int, Func<TResult>>();
         public override void OnTurnBegin()
         {
             base.OnTurnBegin();
@@ -736,7 +746,11 @@ namespace SmartBot.Plugins
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
 
         }
+        public override void OnFriendRequestReceived(FriendRequest request)
+        {
 
+            Bot.Log(string.Format("[SmartTracker] FRIEND REQUEST: {0} {1} {2}", request.GetId(), request.GetPlayerName(), request.ToString()));
+        }
         public void CheckOpponentDeck()
         {
             List<Card.Cards> graveyard = Bot.CurrentBoard.EnemyGraveyard.ToList();
@@ -744,6 +758,7 @@ namespace SmartBot.Plugins
             List<string> opponentDeck = new List<string> { };
             opponentDeck.AddRange(graveyard.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
             opponentDeck.AddRange(board.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
+            if (opponentDeck.Count == 0 || opponentDeck == null) return;
             DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck);
             if (((SmartTracker)DataContainer).EnemyDeckTypeGuess == opponentInfo.DeckType)
             {
@@ -764,7 +779,6 @@ namespace SmartBot.Plugins
             opponentDeck.AddRange(board.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
             if (opponentDeck.Count == 0) return;
             string str = opponentDeck.Aggregate("", (current, q) => current + "," + q);
-            using (StreamWriter DeckPerformanceHistory = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DeckPerformanceHistory.txt", true))
             using (StreamWriter opponentDeckInfo = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck, Bot.CurrentBoard.SecretEnemyCount);
@@ -781,17 +795,55 @@ namespace SmartBot.Plugins
 
             }
         }
+        /*
+         * Played =  graveyard+board+secrets+weapons
+         * Drawn = played + hand
+         */
+        public void RecordCards(string res)
+        {
+           
+            List<Card.Cards> graveyard = Bot.CurrentBoard.FriendGraveyard.ToList();
+            List<Card> board = Bot.CurrentBoard.MinionFriend.ToList();
+            List<Card.Cards> secrets = Bot.CurrentBoard.Secret.ToList();
+            Card weapon = Bot.CurrentBoard.WeaponFriend;
+            Bot.Log("=============Finished Played cards");
+            List<Card> hand = Bot.CurrentBoard.Hand.ToList();
+            Bot.Log("=============Finished Drawn cards");
 
+            List<string> played = new List<string> { };
+            played.AddRange(graveyard.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
+            played.AddRange(board.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
+            played.AddRange(secrets.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
+            if(Bot.CurrentBoard.HasWeapon())
+                played.Add(weapon.Template.Id.ToString());
+            Bot.Log("=============Created Played");
+
+            List<string> drawn = new List<string>();
+            drawn.AddRange(hand.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
+            Bot.Log("=============Created Drawn");
+
+            if (played.Count == 0) return;
+            if (drawn.Count == 0) return;
+            string splayed = played.Aggregate("", (current, q) => current + "," + q);
+            string sdrawn = drawn.Aggregate("", (current, q) => current + "," + q);
+            using (StreamWriter DeckPerformanceHistory = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DeckPerformanceHistory.txt", true))
+            {
+                DeckPerformanceHistory.WriteLine("{0}~{1}~{2}~{3}~{4}~{5}", res,Bot.CurrentMode(), Bot.CurrentBoard.EnemyClass, Bot.CurrentBoard.FriendClass, sdrawn, splayed);
+
+
+            }
+        }
         public override void OnDefeat()
         {
             Bot.Log("========================================" + Bot.CurrentMode());
 
-            if (!_supported) return;
+            //if (!_supported) return;
 
 
             try
             {
                 CheckOpponentDeck("lost");
+                RecordCards("lost");
             }
             catch (Exception e)
             {
@@ -804,11 +856,12 @@ namespace SmartBot.Plugins
         public override void OnVictory()
         {
             Bot.Log("========================================" + Bot.CurrentMode());
-            if (!_supported) return;
+            //if (!_supported) return;
 
             try
             {
                 CheckOpponentDeck("won");
+                RecordCards("won");
             }
             catch (Exception e)
             {
@@ -834,6 +887,7 @@ namespace SmartBot.Plugins
             {DeckType.FaceWarrior, Style.Face},
             {DeckType.RenoWarrior, Style.Control },
             {DeckType.CThunWarrior, Style.Control },
+            {DeckType.TempoWarrior, Style.Tempo },
 
             /*Paladin*/
             {DeckType.SecretPaladin, Style.Tempo},
@@ -973,6 +1027,7 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> worgen = new List<Card.Cards> { Cards.ShieldSlam, Cards.RagingWorgen, Cards.RagingWorgen, Cards.Whirlwind, Cards.Execute, Cards.Execute, Cards.GnomishInventor, Cards.GnomishInventor, Cards.Brawl, Cards.Brawl, Cards.CruelTaskmaster, Cards.CruelTaskmaster, Cards.InnerRage, Cards.InnerRage, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.NoviceEngineer, Cards.NoviceEngineer, Cards.Rampage, Cards.Rampage, Cards.ShieldBlock, Cards.ShieldBlock, Cards.IronbeakOwl, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.Charge, Cards.Charge, Cards.DeathsBite, Cards.DeathsBite, Cards.AntiqueHealbot, };
         private readonly List<Card.Cards> mechWar = new List<Card.Cards> { Cards.HeroicStrike, Cards.HeroicStrike, Cards.KorkronElite, Cards.KorkronElite, Cards.ArcaniteReaper, Cards.ArcaniteReaper, Cards.MortalStrike, Cards.MortalStrike, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.DeathsBite, Cards.DeathsBite, Cards.Cogmaster, Cards.Cogmaster, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.SpiderTank, Cards.SpiderTank, Cards.Mechwarper, Cards.Mechwarper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.TinkertownTechnician, Cards.ScrewjankClunker, Cards.ScrewjankClunker, Cards.Warbot, Cards.Warbot, Cards.FelReaver, Cards.FelReaver, Cards.ClockworkKnight, };
         private readonly List<Card.Cards> basicWarrior = new List<Card.Cards> { Cards.Execute, Cards.Execute, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.Cleave, Cards.ShieldBlock, Cards.KorkronElite, Cards.KorkronElite, Cards.ArcaniteReaper, Cards.ArcaniteReaper, Cards.ElvenArcher, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.RiverCrocolisk, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.StormpikeCommando, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, };
+        private readonly List<Card.Cards> tempoWarrior = new List<Card.Cards>{Cards.FrothingBerserker,Cards.FrothingBerserker,Cards.KorkronElite,Cards.KorkronElite,Cards.Execute,Cards.Execute,Cards.AzureDrake,Cards.AzureDrake,Cards.CruelTaskmaster,Cards.CruelTaskmaster,Cards.AcolyteofPain,Cards.ArgentCommander,Cards.ArgentCommander,Cards.RagnarostheFirelord,Cards.ArathiWeaponsmith,Cards.HarrisonJones,Cards.FieryWarAxe,Cards.FieryWarAxe,Cards.GrommashHellscream,Cards.Armorsmith,Cards.Armorsmith,Cards.VarianWrynn,Cards.FierceMonkey,Cards.RavagingGhoul,Cards.RavagingGhoul,Cards.BloodhoofBrave,Cards.BloodhoofBrave,Cards.Malkorok,Cards.BloodToIchor,Cards.BloodToIchor,};
 
         private readonly List<Card.Cards> controlWarlock = new List<Card.Cards> { Cards.MortalCoil, Cards.MortalCoil, Cards.BigGameHunter, Cards.Hellfire, Cards.Hellfire, Cards.Demonfire, Cards.LordJaraxxus, Cards.Ysera, Cards.IronbeakOwl, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.EarthenRingFarseer, Cards.SiphonSoul, Cards.BaneofDoom, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Demonheart, Cards.MistressofPain, Cards.Darkbomb, Cards.Darkbomb, Cards.Implosion, Cards.ImpGangBoss, Cards.ImpGangBoss, Cards.EmperorThaurissan, Cards.EliseStarseeker, Cards.JeweledScarab, };
         private readonly List<Card.Cards> handlock = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.MortalCoil, Cards.MortalCoil, Cards.BigGameHunter, Cards.MoltenGiant, Cards.MoltenGiant, Cards.Hellfire, Cards.AncientWatcher, Cards.AncientWatcher, Cards.MountainGiant, Cards.MountainGiant, Cards.TwilightDrake, Cards.TwilightDrake, Cards.SunfuryProtector, Cards.SunfuryProtector, Cards.LordJaraxxus, Cards.IronbeakOwl, Cards.IronbeakOwl, Cards.DefenderofArgus, Cards.EarthenRingFarseer, Cards.Shadowflame, Cards.ZombieChow, Cards.ZombieChow, Cards.SludgeBelcher, Cards.DrBoom, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Darkbomb, Cards.Darkbomb, Cards.BrannBronzebeard, };
@@ -1201,6 +1256,7 @@ namespace SmartBot.Plugins
                 #region warrior
 
                 case Card.CClass.WARRIOR:
+                deckDictionary.AddOrUpdate(DeckType.TempoWarrior, CurrentDeck.Intersect(tempoWarrior).Count());
                 if (CurrentDeck.IsCthun())
                 {
                     return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.CThunWarrior, DeckStyle = DeckStyles[DeckType.CThunWarrior] };
@@ -1340,8 +1396,9 @@ namespace SmartBot.Plugins
                 deckDictionary.AddOrUpdate(DeckType.OilRogue, 3);
                 if (CurrentDeck.IsRenoDeck(10))
                 {
-                    deckDictionary.AddOrUpdate(DeckType.RenoRogue, CurrentDeck.Intersect(renoRogue).Count());
-                    deckDictionary.AddOrUpdate(DeckType.RenoRogue, CurrentDeck.Intersect(renoRogue2).Count());
+                    List<int> renos = new List<int> { CurrentDeck.Intersect(renoRogue).Count(), CurrentDeck.Intersect(renoRogue2).Count() };
+                    deckDictionary.AddOrUpdate(DeckType.RenoRogue, renos.Max());
+                    //deckDictionary.AddOrUpdate(DeckType.RenoRogue, CurrentDeck.Intersect(renoRogue2).Count());
                 }
                 if (CurrentDeck.ContainsSome(Cards.ColdlightOracle, Cards.GangUp))
                     return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.MillRogue, DeckStyle = DeckStyles[DeckType.MillRogue] };
@@ -1353,7 +1410,7 @@ namespace SmartBot.Plugins
                 {
                     deckDictionary.AddOrUpdate(DeckType.MechRogue, CurrentDeck.Intersect(mechRogue).Count());
                 }
-                if (CurrentDeck.Contains(Cards.GadgetzanAuctioneer))
+                if (CurrentDeck.ContainsAtLeast(2, Cards.GadgetzanAuctioneer, Cards.Conceal, Cards.EdwinVanCleef, Cards.AzureDrake, Cards.SI7Agent, Cards.Preparation))
                 {
                     deckDictionary.AddOrUpdate(DeckType.MiracleRogue, CurrentDeck.Intersect(miracleRogue).Count());
                 }
@@ -1366,7 +1423,7 @@ namespace SmartBot.Plugins
                 {
                     deckDictionary.AddOrUpdate(DeckType.PirateRogue, CurrentDeck.Intersect(pirateRogue).Count());
                 }
-                if (CurrentDeck.Contains(Cards.Malygos))
+                if (CurrentDeck.Contains(Cards.EmperorThaurissan))
                 {
                     deckDictionary.AddOrUpdate(DeckType.MalyRogue, CurrentDeck.Intersect(malyRogue).Count());
                 }
@@ -1517,6 +1574,25 @@ namespace SmartBot.Plugins
         public List<Card.Cards> DeckList { get; set; }
     }
 
+    public class CardStatistic
+    {
+        public Card.Cards MyCard { get; set; }
+        public DeckType MyDeckType { get; set; }
+        public int Played { get; set; }
+        public int Drawn { get; set; }
+       
+
+        public CardStatistic(Card.Cards card, DeckType dt )
+        {
+            MyCard = card;
+            MyDeckType = dt;
+            Played = 0;
+            Drawn = 0;
+        }
+
+        
+
+    }
     public class Statistics
     {
         public int Won { get; set; }
@@ -1629,6 +1705,7 @@ namespace SmartBot.Plugins
         RenoWarrior,
         TauntWarrior,
         CThunWarrior,
+        TempoWarrior,
         /*Paladin*/
         SecretPaladin,
         MidRangePaladin,

@@ -128,6 +128,12 @@ namespace MulliganProfiles
         {
             return CardTemplate.LoadFromId(card).Type == Card.CType.SPELL;
         }
+        public static bool IsCthusWhatever(this DeckType dt)
+        {
+            return dt.IsOneOf(DeckType.CThunDruid, DeckType.CThunHunter, DeckType.CThunLock,
+                DeckType.CThunPriest, DeckType.CThunPaladin, DeckType.CThunMage,
+                DeckType.CThunRogue, DeckType.CThunShaman, DeckType.CThunWarrior);
+        }
         /// <summary>
         /// Just gonna leave it blank
         /// </summary>
@@ -178,7 +184,14 @@ namespace MulliganProfiles
             Report("Entered Priority");
             return id.IsMinion() ? (CardTable[id] + modifier) : 0;
         }
-
+        public static bool IsStandard (this Bot.Mode mode)
+        {
+            return mode == Bot.Mode.RankedStandard || mode == Bot.Mode.UnrankedStandard;
+        }
+        public static bool Range(this int cost, int min, int max)
+        {
+            return cost >= min && cost <= max;
+        }
         public static bool IsOneOf(this Card.CClass id, params Card.CClass[] list)
         {
             return list.Any(q => q == id);
@@ -186,6 +199,14 @@ namespace MulliganProfiles
         public static bool Is(this Card.CClass id, Card.CClass reference)
         {
             return id == reference;
+        }
+        public static bool Is(this DeckType type, DeckType reference)
+        {
+            return type == reference;
+        }
+        public static bool IsOneOf(this DeckType id, params DeckType[] list)
+        {
+            return list.Any(q => q == id);
         }
         public static void AddInOrder<TKey, TValue>(this IDictionary<TKey, TValue> map, int max, IList<TKey> list, TValue value, params TKey[] keys)
         {
@@ -328,7 +349,7 @@ namespace MulliganProfiles
             {Card.Cards.AT_031, 1}, //[2/2]Cutpurse [2 mana] [ROGUE card]
             {Card.Cards.AT_038, 10}, //[2/3]Darnassus Aspirant [2 mana] [DRUID card]
             {Card.Cards.AT_042, 2}, //[2/1]Druid of the Saber [2 mana] [DRUID card]
-            {Card.Cards.AT_052, 5}, //[3/4]Totem Golem [2 mana] [SHAMAN card]
+            {Card.Cards.AT_052, 8}, //[3/4]Totem Golem [2 mana] [SHAMAN card]
             {Card.Cards.AT_058, 3}, //[3/2]King's Elekk [2 mana] [HUNTER card]
             {Card.Cards.AT_069, 3}, //[3/2]Sparring Partner [2 mana] [WARRIOR card]
             {Card.Cards.AT_071, 3}, //[2/3]Alexstrasza's Champion [2 mana] [WARRIOR card]
@@ -611,27 +632,28 @@ namespace MulliganProfiles
 
         public static DeckType FindHimInHistory(this long id, Card.CClass op, int n = 50)
         {
-            Prediction prediction = new Prediction(); 
-            
+            Prediction prediction = new Prediction();
+
             List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
             List<DeckType> allDeckTypes = (from q in history select q.Split(new[] { "||" }, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId select (DeckType)Enum.Parse(typeof(DeckType), information[8])).ToList();
             if (allDeckTypes.Count >= 1)
             {
                 var eDeckType =
                     allDeckTypes.FirstOrDefault(q => q != DeckType.Unknown && q != DeckType.Basic && DeckClass[q] == op);
-                if(!Bot.CurrentMode().IsShitfest())
-                Bot.Log(string.Format("[SmartMulligan] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
+                if (!Bot.CurrentMode().IsShitfest())
+                    Bot.Log(string.Format("[SmartMulligan] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
                 return eDeckType;
             }
             foreach (var q in history)
             {
-                var info = q.Split(new[] {"||"}, StringSplitOptions.None);
-                if ((Card.CClass) Enum.Parse(typeof (Card.CClass), info[7]) != op) continue;
-                prediction.Update(op, (DeckType) Enum.Parse(typeof (DeckType),info[8]));
+                var info = q.Split(new[] { "||" }, StringSplitOptions.None);
+                if ((Card.CClass)Enum.Parse(typeof(Card.CClass), info[7]) != op) continue;
+                if (info[3] != Bot.CurrentMode().ToString()) continue;
+                prediction.Update(op, (DeckType)Enum.Parse(typeof(DeckType), info[8]));
             }
             DeckType unknownPrediction = prediction.GetMostFacedDeckType(op);
-            if(!Bot.CurrentMode().IsShitfest())
-            Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
+            if (!Bot.CurrentMode().IsShitfest())
+                Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
             return unknownPrediction;
         }
 
@@ -922,6 +944,7 @@ namespace MulliganProfiles
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             ClearReport();
+           
             Report("Mulligan Stage Entered");
             if (choices.Contains(Cards.FlesheatingGhoul))
             {
@@ -940,7 +963,7 @@ namespace MulliganProfiles
             catch (NotImplementedException e)
             {
                 Report(string.Format("[SmartMulligan] Current deck is not implemented: {0}", e.TargetSite));
-                Arena(mtgc);
+                Core(mtgc);
             }
             catch (Exception)
             {
@@ -960,6 +983,10 @@ namespace MulliganProfiles
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\");
             using (StreamWriter ml = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\MulliganHistory.txt", true))
             {
+                Bot.Log("=========================================");
+                Bot.Log(string.Format("[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType, gc.OpponentClass, gc.EneDeckType));
+                Bot.Log(string.Format("Given: " + choices.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "))));
+                Bot.Log(string.Format("Kept: " + cardsToKeep.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "))));
                 ml.WriteLine("=========================================");
                 ml.WriteLine("[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType, gc.OpponentClass, gc.EneDeckType);
                 ml.WriteLine("Given: " + choices.Aggregate("", (current, q) => current + (" " + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
@@ -969,16 +996,17 @@ namespace MulliganProfiles
 
         public void Mulliganaccordingly(GameContainer gc)
         {
+
             switch (gc.MyDeckType)
             {
                 case DeckType.Custom:
                 HandleCustomDeck(gc);
                 break;
                 case DeckType.Unknown:
-                Arena(gc);
+                Core(gc);
                 break;
                 case DeckType.Arena:
-                Arena(gc);
+                Core(gc);
                 break;
                 case DeckType.ControlWarrior:
                 HandleControlWarrior(gc);
@@ -1206,7 +1234,7 @@ namespace MulliganProfiles
                 HandleRenoShaman(gc);
                 break;
                 case DeckType.Basic:
-                Arena(gc);
+                Core(gc);
                 break;
                 case DeckType.CThunWarrior:
                 HandleCThunDecks(gc);
@@ -1236,12 +1264,12 @@ namespace MulliganProfiles
                 HandleCThunDecks(gc);
                 break;
                 case DeckType.NZothPaladin:
-                    HandleNZothPaladin(gc);
-                    break;
+                HandleNZothPaladin(gc);
+                break;
                 default:
                 throw new ArgumentOutOfRangeException();
             }
-        }   
+        }
         /// <summary>
         ///DO NOT REMOVE CUSTOM REGION BREAKS 
         /// </summary>
@@ -1272,7 +1300,16 @@ namespace MulliganProfiles
         #endregion Custom
         private void HandleNZothPaladin(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            _whiteList.AddAll(false, Cards.Doomsayer);
+            if (gc.EneDeckType.IsCthusWhatever()) _whiteList.AddAll(false, Cards.TruesilverChampion, Cards.AcolyteofPain, Cards.TwilightSummoner);
+            if (gc.EnemyStyle.Aggresive())
+                _whiteList.AddInOrder(3, gc.Choices, false, Cards.WildPyromancer, Cards.Equality, Cards.AcolyteofPain, Cards.HarvestGolem, Cards.ArgentLance);
+
+            if (gc.OpponentClass.WeaponClass()) _whiteList.AddOrUpdate(Cards.AcidicSwampOoze, false);
+            if (gc.EneDeckType.IsOneOf(TempoMage, Zoolock, RelinquaryZoo, RenoLock)) _whiteList.AddOrUpdate(Cards.TruesilverChampion, false);
+            if (gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.Consecration, false);
+            if (gc.OpponentClass.IsOneOf(Shaman, Druid)) _whiteList.AddOrUpdate(Cards.AldorPeacekeeper, false);
         }
 
         private void HandleCThunDecks(GameContainer gc)
@@ -1306,12 +1343,14 @@ namespace MulliganProfiles
 
         private void HandleFatigueWarrior(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleControlWarrior(gc);
+            if (gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.Deathlord, false);
+
         }
 
         private void HandleDragonWarrior(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleDragonLogicCore(gc);
         }
 
         private void HandlePatronWarrior(GameContainer gc)
@@ -1337,6 +1376,7 @@ namespace MulliganProfiles
 
         private void HandleWorgenOTKWarrior(GameContainer gc)
         {
+            Core(gc);
         }
 
         private void HandleMechWarrior(GameContainer gc)
@@ -1406,32 +1446,46 @@ namespace MulliganProfiles
 
         private void HandleFaceWarrior(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            _whiteList.AddOrUpdate(Cards.FieryWarAxe, true);
+            foreach(var q in gc.Choices.Where(card => card.Cost() == 1 && card.IsMinion()))
+            {
+                _whiteList.AddOrUpdate(q, q.Priority() > 3 && gc.Coin);
+            }
         }
 
         private void HandleRenoWarrior(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            if (gc.EnemyStyle.Aggresive()) _whiteList.AddInOrder(3, gc.Choices, false, Cards.FierceMonkey, Cards.SenjinShieldmasta, Cards.Revenge, Cards.Slam, Cards.SludgeBelcher);
+            if (!gc.EnemyStyle.Aggresive()) _whiteList.AddInOrder(3, gc.Choices, false, Cards.AcolyteofPain, Cards.FieryWarAxe, Cards.DeathsBite, Cards.PilotedShredder, Cards.Slam);
+            if (gc.OpponentClass.IsOneOf(Paladin, Warlock) && Bot.CurrentMode().IsStandard()) _whiteList.AddOrUpdate(Cards.Revenge, false); 
         }
 
         private void HandleTauntWarrior(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
         }
 
         private void HandleMidRangePaladin(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleNZothPaladin(gc);
         }
 
         private void HandleDragonPaladin(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleDragonLogicCore(gc);
         }
 
         private void HandleAggroPaladin(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            if (gc.OpponentClass.Is(Druid)) _whiteList.AddOrUpdate(Cards.KeeperofUldaman, false);
+            if (gc.OpponentClass.Is(Shaman)) _whiteList.AddOrUpdate(Cards.AbusiveSergeant, false);
+            if (gc.OpponentClass.Is(Mage) && !gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.DivineFavor, false);
+            if (gc.OpponentClass.Is(Warrior)) _whiteList.AddAll(gc.Coin, Cards.ArgentSquire, Cards.BilefinTidehunter);
+
+
         }
 
         private void HandleAnyfinMurglMurgl(GameContainer gc)
@@ -1463,12 +1517,21 @@ namespace MulliganProfiles
 
         private void HandleRenoPaladin(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+
         }
 
         private void HandleRampDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            bool gotone = false;
+            foreach(var q in gc.Choices.Where(c=> c.IsMinion() && c.Cost().Range(4, 5)))
+            {
+                if (!gc.Choices.HasRamp() || gotone) break;
+                _whiteList.AddOrUpdate(q, false);
+                gotone = true;
+
+            }
         }
 
         private void HandleAggroDruid(GameContainer gc)
@@ -1498,22 +1561,29 @@ namespace MulliganProfiles
 
         private void HandleDragonDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            HandleDragonLogicCore(gc);
         }
 
         private void HandleMidRangeDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            bool Innervate = gc.Choices.HasAny(Cards.Innervate);
+            bool dInnervate = gc.Choices.Count(c => c == Cards.Innervate) == 2;
+            bool wildGrowth = gc.Choices.HasAny(Cards.WildGrowth);
+            Core(gc);
+            if (Innervate) _whiteList.AddAll(false, Cards.DruidoftheFlame, Cards.SavageCombatant);
+            if (gc.EnemyStyle.Aggresive()) _whiteList.AddAll(false, Cards.Wrath, Cards.LivingRoots);
         }
 
         private void HandleTokenDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
         }
 
         private void HandleSilenceDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMidRangeDruid(gc);
+            _whiteList.AddOrUpdate(Cards.AncientWatcher, false);
         }
 
         private void HandleMechDruid(GameContainer gc)
@@ -1527,33 +1597,35 @@ namespace MulliganProfiles
 
         private void HandleAstralDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            _whiteList.AddAll(true, Cards.Innervate, Cards.WildGrowth, Cards.LootHoarder, Cards.AstralCommunion);
         }
 
         private void HandleMillDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
         }
 
         private void HandleBeastDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMidRangeDruid(gc);
         }
 
         private void HandleRenoDruid(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMidRangeDruid(gc);
         }
 
         private void HandleHandlock(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleRenoLock(gc);
+            
         }
 
         private void HandleRenoLock(GameContainer gc)
         {
             var vc = gc.Choices.HasAny(Cards.Voidcaller);
-            Arena(gc);
+            Core(gc);
             _whiteList.Remove(Cards.AncientWatcher);
             _whiteList.AddAll(false, Cards.MountainGiant, Cards.TwilightDrake, Cards.DarkPeddler, gc.Coin ? Cards.ImpGangBoss : Nothing);
             if (gc.EnemyStyle.Aggresive())
@@ -1570,7 +1642,7 @@ namespace MulliganProfiles
 
         private void HandleRenoComboLock(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleRenoLock(gc);
         }
 
         private void HandleZoolock(GameContainer gc)
@@ -1579,23 +1651,26 @@ namespace MulliganProfiles
             Report("Entered Zoo mulligan");
             List<Card.Cards> needActivation = new List<Card.Cards> { Cards.NerubianEgg };
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Nothing, false);
-            Arena(gc);
+            Core(gc);
             _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Coin && gc.Choices.Intersect(needActivation).Any() ? Cards.DefenderofArgus : Nothing, false);
         }
 
         private void HandleDemonHandlock(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleHandlock(gc);
+            bool voidcaller = gc.Choices.HasAny(Cards.Voidcaller);
+            if (voidcaller) _whiteList.AddInOrder(1, gc.Choices, false, Cards.MalGanis, Cards.LordJaraxxus, Cards.Doomguard, Cards.FearsomeDoomguard, Cards.DreadInfernal); 
         }
 
         private void HandleDemonZooWarlock(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleZoolock(gc);
         }
 
         private void HandleDragonHandlock(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            HandleDragonLogicCore(gc);
         }
 
         private void HandleMalyLock(GameContainer gc)
@@ -1605,27 +1680,34 @@ namespace MulliganProfiles
 
         private void HandleControlWarlock(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleRenoLock(gc);
+            _whiteList.AddOrUpdate(Cards.Doomsayer, false);
         }
 
         private void HandleTempoMage(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            if (gc.EnemyStyle.Aggresive()) _whiteList.AddAll(false, Cards.Flamewaker, Cards.ArcaneMissiles, Cards.ArcaneBlast);
+            else _whiteList.AddAll(false, Cards.ArcaneBlast, Cards.Frostbolt);
+
         }
 
         private void HandleFreezeMage(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            if (gc.EnemyStyle.Aggresive()) _whiteList.AddAll(false, Cards.Doomsayer, Cards.ForgottenTorch, Cards.Frostbolt);
+            _whiteList.AddAll(false, Cards.ArcaneIntellect, Cards.AcolyteofPain);
         }
 
         private void HandleFaceFreezeMage(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleFreezeMage(gc);
         }
 
         private void HandleDragonMage(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            HandleDragonLogicCore(gc);
         }
 
         private void HandleMechMage(GameContainer gc)
@@ -1639,22 +1721,28 @@ namespace MulliganProfiles
 
         private void HandleEchoMage(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleFreezeMage(gc);
+            if (gc.EnemyStyle.Aggresive()) _whiteList.AddAll(false, Cards.ExplosiveSheep, Cards.SunfuryProtector);
+            if (gc.Choices.HasAny(Cards.EmperorThaurissan, Cards.Duplicate) && gc.EnemyStyle == Style.Control) _whiteList.AddAll(false, Cards.EmperorThaurissan, Cards.Duplicate);
+            if (gc.OpponentClass.IsOneOf(Priest, Mage) && !gc.EnemyStyle.Aggresive()) _whiteList.Remove(Cards.Doomsayer);
+             
         }
 
         private void HandleFatigueMage(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleEchoMage(gc);
         }
 
         private void HandleRenoMage(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+
         }
 
         private void HandleDragonPriest(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            HandleDragonLogicCore(gc);
         }
 
         private void HandleControlPriest(GameContainer gc)
@@ -1683,6 +1771,7 @@ namespace MulliganProfiles
 
         private void HandleMidrangeHunter(GameContainer gc)
         {
+            _whiteList.AddOrUpdate(Cards.Doomsayer, false);
             foreach (var q in gc.Choices.Where(c => CardTemplate.LoadFromId(c).Cost <= 4 && CardTemplate.LoadFromId(c).Type == Card.CType.MINION))
             {
                 switch (CardTemplate.LoadFromId(q).Cost)
@@ -1730,7 +1819,7 @@ namespace MulliganProfiles
 
         private void HandleHybridHunter(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
         }
 
         private void HandleFaceHunter(GameContainer gc)
@@ -1758,22 +1847,25 @@ namespace MulliganProfiles
 
         private void HandleHatHunter(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMidrangeHunter(gc);
         }
 
         private void HandleCamelHunter(GameContainer gc)
         {
-            throw new NotImplementedException();
+            HandleMidrangeHunter(gc);
+            if (_whiteList.ContainsKey(Cards.InjuredKvaldir)) _whiteList.Remove(Cards.InjuredKvaldir);
         }
 
         private void HandleRenoHunter(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            HandleMidrangeHunter(gc);
         }
 
         private void HandleDragonHunter(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            HandleDragonLogicCore(gc);
         }
 
         private void HandleOilRogue(GameContainer gc)
@@ -1881,13 +1973,15 @@ namespace MulliganProfiles
 
         private void HandleTotemShaman(GameContainer gc)
         {
-            Arena(gc);
+            Core(gc);
             if (gc.OpponentClass.WeaponClass() && gc.Coin) _whiteList.AddOrUpdate(Cards.HarrisonJones, false);
             //Hex is kept vs high innervate threats and flamewaker here.
             if (gc.OpponentClass.IsOneOf(Druid, Mage)) _whiteList.AddOrUpdate(Cards.Hex, false);
             //Cleric and Mana wyrm might get out of hand, so we try to kill them asap with biter.
             if (gc.OpponentClass.IsOneOf(Priest, Mage)) _whiteList.AddOrUpdate(Cards.RockbiterWeapon, false);
             if (gc.OpponentClass.Is(Warrior) && gc.HasTurnOne) _whiteList.AddOrUpdate(Cards.FlametongueTotem, false);
+            if (gc.OpponentClass.Is(Warlock) && gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.LightningStorm, false);
+            if (gc.HasTurnOne && gc.HasTurnTwo && gc.Coin) _whiteList.AddOrUpdate(Cards.FlamewreathedFaceless, false);
 
         }
 
@@ -1903,12 +1997,13 @@ namespace MulliganProfiles
 
         private void HandleBattlecryShaman(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
+            HandleTotemShaman(gc);
         }
 
         private void HandleRenoShaman(GameContainer gc)
         {
-            throw new NotImplementedException();
+            Core(gc);
         }
 
         private void HandleControlWarrior(GameContainer gc)
@@ -1955,7 +2050,7 @@ namespace MulliganProfiles
         }
 
 
-        private void Arena(GameContainer gc)
+        private void Core(GameContainer gc)
         {
             #region minion handler
 
@@ -1983,7 +2078,7 @@ namespace MulliganProfiles
                 {
                     gc.HasTurnTwo = true;
                     num2Drops++;
-                    _whiteList.AddOrUpdate(q, false);
+                    _whiteList.AddOrUpdate(q, q.Priority() > 5);
                 }
                 foreach (var q in from q in gc.ThreeDrops let priority = q.Priority() where (priority > 1) && (num3Drops != allowed3Drops) select q)
                 {
@@ -2005,7 +2100,7 @@ namespace MulliganProfiles
             }
             catch (Exception e)
             {
-                Report("---------- Arena Handler encountered an error ----------");
+                Report("---------- Core Handler encountered an error ----------");
                 Report(e.Message);
                 Report(string.Format("{0}:{1}", e.HelpLink, e.TargetSite));
                 Report(e.Message);
@@ -2197,7 +2292,7 @@ namespace MulliganProfiles
         }
 
         private DeckType unknown = DeckType.Unknown;
-        private DeckType arena = DeckType.Arena;
+        private DeckType Arena = DeckType.Arena;
         /*Warrior*/
         private DeckType ControlWarrior = DeckType.ControlWarrior;
         private DeckType FatigueWarrior = DeckType.FatigueWarrior;
@@ -2287,7 +2382,7 @@ namespace MulliganProfiles
     }
 
     #region enums
-   public class Prediction
+    public class Prediction
     {
         public static Dictionary<Card.CClass,
             Dictionary<DeckType, int>> prediction = new Dictionary<Card.CClass, Dictionary<DeckType, int>>();
@@ -2301,16 +2396,16 @@ namespace MulliganProfiles
                 else temp[dt] = 0;
                 prediction[cl] = temp;
             }
-            else prediction[cl] = new Dictionary<DeckType, int> { {dt, 0} };            
+            else prediction[cl] = new Dictionary<DeckType, int> { { dt, 0 } };
         }
 
-       public DeckType GetMostFacedDeckType(Card.CClass cl)
-       {
-           return prediction[cl].Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-       }
+        public DeckType GetMostFacedDeckType(Card.CClass cl)
+        {
+            return prediction[cl].Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+        }
 
     }
-   public enum DeckType
+    public enum DeckType
     {
         Custom,
         Unknown,
@@ -2326,6 +2421,7 @@ namespace MulliganProfiles
         RenoWarrior,
         TauntWarrior,
         CThunWarrior,
+        TempoWarrior,
         /*Paladin*/
         SecretPaladin,
         MidRangePaladin,
