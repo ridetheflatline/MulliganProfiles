@@ -935,7 +935,8 @@ namespace MulliganProfiles
             {
                 {Card.Cards.GAME_005, true}, //coin
                 {Cards.Innervate, true}, //always keeps 2 innervates (set false for 1)
-                {Cards.WildGrowth, false} //only keeps 1 wild growth
+                {Cards.WildGrowth, false}, //only keeps 1 wild growth
+                {Cards.FieryWarAxe, false }
             };
             _cardsToKeep = new List<Card.Cards>();
         }
