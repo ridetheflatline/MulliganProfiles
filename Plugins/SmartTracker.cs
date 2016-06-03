@@ -346,7 +346,9 @@ namespace SmartBot.Plugins
             numGames = lineCount < numGames ? lineCount : ((SmartTracker)DataContainer).AnalyzeGames;
             if(!Bot.CurrentMode().IsArena())
                 Bot.Log(string.Format("[SmartTracker] Finished parsing {0} games in {1} mode" ,lineCount, Bot.CurrentMode()));
-            List<string> text = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(numGames).ToList();
+            List<string> text = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt")
+                .Reverse().Where(c => c.Contains(Bot.CurrentMode().ToString())).Take(numGames)
+                .ToList();
 
             if (((SmartTracker)DataContainer).SummaryDetailes == History.Detailed)
             {
@@ -441,6 +443,7 @@ namespace SmartBot.Plugins
         private static bool _supported = false;
         public override void OnStarted()
         {
+            //System.Windows.Forms.MessageBox.Show("Hello Darkness my old friend");
             Russian = ((SmartTracker)DataContainer).Ru();
             SetupMulliganTester();
             CreateCardReport(Bot.CurrentDeck().Cards);
