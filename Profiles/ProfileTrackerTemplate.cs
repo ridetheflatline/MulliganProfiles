@@ -38,7 +38,7 @@ namespace TrackerExampleProfile
         {
             return s == reference; 
         }
-        public static bool Aggresive(this Style s)
+        public static bool IsAggresive(this Style s)
         {
             return s.IsOneOf(Style.Face, Style.Aggro);
         }
@@ -87,14 +87,18 @@ namespace TrackerExampleProfile
             try
             {
                 TrackerValues st = new TrackerValues();
-                if (st.GetEnemyStyle().IsOneOf(Style.Aggro, Style.Face, Style.Tempo))
+                if (st.GetEnemyStyle().IsOneOf(Style.Control, Style.Combo, Style.Tempo))
                 {
                     //do something
+                }
+                if (st.GetEnemyStyle().IsAggresive())
+                {
+                    //Do Something
                 }
                 if (st.GetEnemyDeckType().Is(DeckType.Basic))
                 {
                     Bot.Log("===========Opponent is Basic");
-                    //Do something, like idk, save harrison for tirion.
+                    
                 }
                 if (st.MysteryValue())
                 {

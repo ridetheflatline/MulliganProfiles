@@ -1287,6 +1287,7 @@ namespace MulliganProfiles
         #region Custom
         private void HandleCustomDeck(GameContainer gc)
         {
+           
             //false denotes that you don't want to keep 2 copies of the same minion
             gc.HasTurnOne = gc.OneDrops.Any(); // this will check if you have any one drops
             _whiteList.AddAll(false, Cards.ArgentSquire, Cards.SelflessHero);
