@@ -32,23 +32,23 @@ namespace TrackerExampleProfile
         //In the big picture, this is crappy\lazy coding, but it makes the code really readable
         public static bool IsOneOf(this Style s, params Style[] list)
         {
-            return list.Any(ls => ls == s);  
+            return list.Any(ls => ls == s);
         }
         public static bool Is(this Style s, Style reference)
         {
-            return s == reference; 
+            return s == reference;
         }
         public static bool IsAggresive(this Style s)
         {
             return s.IsOneOf(Style.Face, Style.Aggro);
         }
-         public static bool IsOneOf(this DeckType s, params DeckType[] list)
+        public static bool IsOneOf(this DeckType s, params DeckType[] list)
         {
-            return list.Any(ls => ls == s);  
+            return list.Any(ls => ls == s);
         }
         public static bool Is(this DeckType s, DeckType reference)
         {
-            return s == reference; 
+            return s == reference;
         }
     }
     [Serializable]
@@ -64,7 +64,11 @@ namespace TrackerExampleProfile
         private const Card.Cards LesserHeal = Card.Cards.CS1h_001;
         private const Card.Cards DaggerMastery = Card.Cards.CS2_083b;
 
-
+        public DeckType debugEnemyDeckType = DeckType.Basic;
+        public DeckType debugMyDeckType = DeckType.Basic;
+        public Style debugEnemyStyle = Style.Tempo;
+        public Style debugMyStyle = Style.Tempo;
+        public Style debugArenaStyle = Style.Tempo;
 
         private readonly Dictionary<Card.Cards, int> _heroPowersPriorityTable = new Dictionary<Card.Cards, int>
         {
@@ -77,40 +81,51 @@ namespace TrackerExampleProfile
             {LesserHeal, 2},
             {DaggerMastery, 1}
         };
-
+        public TrackerValues st;
         public ProfileParameters GetParameters(Board board)
         {
 
             //setup parameters with default as baseprofile
             var parameters = new ProfileParameters(BaseProfile.Default);
             //=====================TRACKER EXAMPLE=========================
+
             try
             {
-                TrackerValues st = new TrackerValues();
-                if (st.GetEnemyStyle().IsOneOf(Style.Control, Style.Combo, Style.Tempo))
-                {
-                    //do something
-                }
-                if (st.GetEnemyStyle().IsAggresive())
-                {
-                    //Do Something
-                }
-                if (st.GetEnemyDeckType().Is(DeckType.Basic))
-                {
-                    Bot.Log("===========Opponent is Basic");
-                    
-                }
-                if (st.MysteryValue())
-                {
-                    //Bot.Concede(); //Because you are a monster. 
-                }
+                st = new TrackerValues();
             }
-            catch(Exception tracker)
+            catch (Exception tracker)
             {
                 Bot.Log("[ProfileExample] Tracker couldn't generate one of the values " + tracker.Message);
+                //Debug Mode in order EnemyDeckType
+                Bot.Log("Using Debug Values");
+                st = new TrackerValues(
+                     debugEnemyDeckType, //Enemy DeckType
+                     debugMyDeckType,    //Your DeckType
+                     debugEnemyStyle,    //Enemy Style
+                     debugMyStyle,       //Your Style
+                     debugArenaStyle     //Your ArenaStyle
+                    );
+            }
+
+            if (st.GetEnemyStyle().IsOneOf(Style.Control, Style.Combo, Style.Tempo))
+            {
+                //do something
+            }
+            if (st.GetEnemyStyle().IsAggresive())
+            {
+                //Do Something
+            }
+            if (st.GetEnemyDeckType().Is(DeckType.Basic))
+            {
+                Bot.Log("===========Opponent is Basic");
+
+            }
+            if (st.MysteryValue())
+            {
+                //Bot.Concede(); //Because you are a monster. 
             }
             //=====================END OF TRACKER EXAMPLE===================
-            
+
             return parameters;
         }
 
@@ -135,15 +150,24 @@ namespace TrackerExampleProfile
         private Style ArenaStyle { get; set; }
         public TrackerValues()
         {
-           Dictionary<string,object> values =
-                Bot.GetPlugins().Find(plugin => plugin.DataContainer.Name == "SmartTracker").GetProperties();
-            EnemyDeckType = (DeckType) values["EnemyDeckTypeGuess"];
-            MyDeckType = (DeckType) values["AutoFriendlyDeckType"];
-            EnemyStyle = (Style) values["EnemyDeckStyleGuess"];
-            MyStyle = (Style) values["AutoFriendlyStyle"];
-            ArenaStyle = (Style) values["ArenaStyle"];
-            Mystery = (bool) values["MysteryBoolean"];
-        }   
+            Dictionary<string, object> values =
+                 Bot.GetPlugins().Find(plugin => plugin.DataContainer.Name == "SmartTracker").GetProperties();
+            EnemyDeckType = (DeckType)values["EnemyDeckTypeGuess"];
+            MyDeckType = (DeckType)values["AutoFriendlyDeckType"];
+            EnemyStyle = (Style)values["EnemyDeckStyleGuess"];
+            MyStyle = (Style)values["AutoFriendlyStyle"];
+            ArenaStyle = (Style)values["ArenaStyle"];
+            Mystery = (bool)values["MysteryBoolean"];
+        }
+        public TrackerValues(DeckType edt, DeckType mdt, Style es, Style ms, Style ar)
+        {
+            EnemyDeckType = edt;
+            MyDeckType = mdt;
+            EnemyStyle = es;
+            MyStyle = ms;
+            ArenaStyle = ar;
+            Mystery = false;
+        }
         /// <summary>
         /// Getter method
         /// </summary>
