@@ -654,6 +654,7 @@ namespace MulliganProfiles
             DeckType unknownPrediction = prediction.GetMostFacedDeckType(op);
             if (!Bot.CurrentMode().IsShitfest())
                 Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
+            
             return unknownPrediction;
         }
 
@@ -1278,8 +1279,83 @@ namespace MulliganProfiles
         private void HandleTempoWarrior(GameContainer gc)
         {
             Core(gc);
+            if(gc.EneDeckType.IsOneOf(DeckType.BeastDruid, DeckType.MidRangeDruid, DeckType.RampDruid))
+            {
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.FierceMonkey, Cards.RavagingGhoul, Cards.FrothingBerserker, 
+                    gc.Coin || gc.HasTurnTwo ? Cards.KorkronElite: Nothing);
+            }
+            if (gc.OpponentClass.Is(Hunter))
+            {
+                _whiteList.AddInOrder(1, gc.Choices, false, Cards.FierceMonkey, Cards.FrothingBerserker);
+                _whiteList.AddAll(false, Cards.Armorsmith, Cards.RavagingGhoul);
+                TurnChecker(gc);
+            }
+            if (gc.OpponentClass.Is(Mage))
+            {
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.Armorsmith, Cards.FierceMonkey, Cards.RavagingGhoul, Cards.FrothingBerserker);
+                TurnChecker(gc);
+                if (gc.EneDeckType.Is(DeckType.FreezeMage))
+                {
+                    _whiteList.AddAll(false, Cards.BattleRage, Cards.BloodhoofBrave);
+                }
+            }
+            if (gc.OpponentClass.Is(Rogue))
+            {
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.FierceMonkey, Cards.FrothingBerserker, Cards.RavagingGhoul);
+                TurnChecker(gc);
+                if (gc.HasTurnThree) _whiteList.AddOrUpdate(Cards.BloodhoofBrave, false);
+            }
+            if (gc.OpponentClass.Is(Paladin))
+            {
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.FierceMonkey, Cards.FrothingBerserker, Cards.RavagingGhoul);
+                TurnChecker(gc);
+            }
+            if (gc.OpponentClass.Is(Priest))
+            {
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.BattleRage, Cards.FierceMonkey, Cards.FrothingBerserker, Cards.RavagingGhoul);
+                TurnChecker(gc);
+            }
+            if (gc.OpponentClass.Is(Shaman))
+            {
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.BattleRage, Cards.FierceMonkey, Cards.FrothingBerserker, Cards.RavagingGhoul);
+                if (gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.Whirlwind, false);
+                TurnChecker(gc);
+            }
+            if (gc.OpponentClass.Is(Warlock))
+            {
+                if (gc.EnemyStyle.Aggresive())
+                {
+                    _whiteList.AddInOrder(1, gc.Choices, false, Cards.RavagingGhoul, Cards.Whirlwind);
+                    _whiteList.AddOrUpdate(Cards.Armorsmith, false);
+                }
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.FierceMonkey, Cards.RavagingGhoul);
+            }
+            if (gc.OpponentClass.Is(Warrior))
+            {
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.Armorsmith, Cards.FierceMonkey, Cards.RavagingGhoul, Cards.FrothingBerserker, Cards.KorkronElite);
+                TurnChecker(gc);
+            }
+
         }
 
+        private void TurnChecker(GameContainer gc)
+        {
+            foreach(var q in gc.Choices.Intersect(_whiteList.Keys))
+            {
+                switch (q.Cost())
+                {
+                    case 1:
+                    gc.HasTurnOne = true;
+                    break;
+                    case 2:
+                    gc.HasTurnTwo = true;
+                    break;
+                    case 3:
+                    gc.HasTurnThree = true;
+                    break;
+                }
+            }
+        }
         /// <summary>
         ///DO NOT REMOVE CUSTOM REGION BREAKS 
         /// </summary>
@@ -2523,7 +2599,7 @@ namespace MulliganProfiles
 
         Basic,
     }
-   
+
     public enum Style
     {
         Unknown,

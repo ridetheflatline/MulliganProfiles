@@ -82,6 +82,11 @@ namespace TrackerExampleProfile
             {DaggerMastery, 1}
         };
         public TrackerValues st;
+        /// <summary>
+        /// Gets the parameters.
+        /// </summary>
+        /// <param name="board">The board.</param>
+        /// <returns>ProfileParameters.</returns>
         public ProfileParameters GetParameters(Board board)
         {
 
@@ -125,6 +130,9 @@ namespace TrackerExampleProfile
                 //Bot.Concede(); //Because you are a monster. 
             }
             //=====================END OF TRACKER EXAMPLE===================
+            // return new ProfileParameters(BaseProfile.Test);
+
+           
 
             return parameters;
         }
