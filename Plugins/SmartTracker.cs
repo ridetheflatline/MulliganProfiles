@@ -1261,8 +1261,13 @@ namespace SmartBot.Plugins
                     return new DeckData { DeckList = CurrentDeck, DeckType = DeckType.SecretPaladin, DeckStyle = DeckStyles[DeckType.SecretPaladin] };
                 if (CurrentDeck.IsRenoDeck(10))
                 {
-                    deckDictionary.AddOrUpdate(DeckType.RenoPaladin, CurrentDeck.Intersect(renoPaladin).Count());
-                    deckDictionary.AddOrUpdate(DeckType.RenoPaladin, CurrentDeck.Intersect(renoPaladin2).Count());
+                    int[] reno = new int[2]
+                    {
+                       CurrentDeck.Intersect(renoPaladin).Count(),
+                       CurrentDeck.Intersect(renoPaladin2).Count()
+                    };
+                    deckDictionary.AddOrUpdate(DeckType.RenoPaladin, reno.Max());
+                    
                 }
                 if (CurrentDeck.ContainsSome(Cards.AnyfinCanHappen, Cards.BluegillWarrior, Cards.MurlocWarleader, Cards.OldMurkEye, Cards.Doomsayer))
                 {
