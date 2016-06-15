@@ -2106,19 +2106,29 @@ namespace MulliganProfiles
                 _whiteList.AddOrUpdate(gc.HasTurnTwo || gc.Coin ? Cards.HarrisonJones : Nothing, false);
         }
 
-
+        public static MulliganCoreData data;
         private void Core(GameContainer gc)
         {
+            bool Custom = false;
             #region minion handler
             try
             {
-                Dictionary<string, object> CoreProperties =
-                    Bot.GetPlugins().Find(c => c.DataContainer.Name == "MulliganCore").GetProperties();
+                
+                if (!data.NoChange)
+                {
+                    Custom = data.control;
+                    data = new MulliganCoreData(2, 1, 3, 2, 2, 1, 1, 1, false, true);
+                }
+                else
+                {
+                    data = new MulliganCoreData();
+                }
             }catch(Exception e)
             {
-                Bot.Log("MulliganCore plugin was not found, reverting to default");
-            }
-
+                Bot.Log("[FAILED] "+e.Message);
+                Custom = false;
+                data = new MulliganCoreData(2, 1, 3, 2, 2, 1, 1, 1, false, true);
+            }                                                  
             try
             {
                 int num1Drops = 0;
@@ -2128,7 +2138,7 @@ namespace MulliganProfiles
                 int allowed1Drops = gc.Coin ? 2 : 1;
                 int allowed2Drops = gc.Coin ? 3 : 2;
                 int allowed3Drops = gc.Coin ? 2 : 1;
-                const int allowed4Drops = 1;
+                int allowed4Drops = 1;
 
                 foreach (var q in gc.OneDrops)
                 {
@@ -2145,11 +2155,12 @@ namespace MulliganProfiles
                     num2Drops++;
                     _whiteList.AddOrUpdate(q, q.Priority() > 5);
                 }
-                foreach (var q in from q in gc.ThreeDrops let priority = q.Priority() where (priority > 1) && (num3Drops != allowed3Drops) select q)
+                foreach (var q in from q in gc.ThreeDrops let priority = q.Priority() where (priority > 0) && (num3Drops != allowed3Drops) select q)
                 {
-                    if ((gc.HasTurnOne && gc.Coin) || (gc.HasTurnTwo))
+                    
+                    if (((gc.HasTurnOne && gc.Coin) || (gc.HasTurnTwo)) || Custom)
                         _whiteList.AddOrUpdate(q, false);
-                    if (!(gc.HasTurnOne && gc.Coin) || !gc.HasTurnTwo)
+                    if ((!(gc.HasTurnOne && gc.Coin) || !gc.HasTurnTwo))
                         continue;
                     gc.HasTurnThree = true;
                     num3Drops++;
@@ -2464,6 +2475,50 @@ namespace MulliganProfiles
             return prediction[cl].Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
         }
 
+    }
+    public class MulliganCoreData
+    {
+        
+        public int Max1Drops { get; set; }
+        public int Max1DropsCoin { get; set; }
+        public int Max2Drops { get; set; }
+        public int Max2DropsCoin { get; set; }
+        public int Max3Drops { get; set; }
+        public int Max3DropsCoin { get; set; }
+        public int Max4Drops { get; set; }
+        public int Max4DropsCoin { get; set; }
+        public bool control { get; set; }
+        public bool NoChange { get; set; }
+       
+        
+
+        public MulliganCoreData()
+        {
+            Dictionary<string, object> data = Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties();
+            Max1Drops = (int) data["Max1Drops"];
+            Max1DropsCoin = (int) data["Max1Drops"];
+            Max2Drops = (int) data["Max2Drops"];
+            Max2DropsCoin = (int) data["Max2Drops"];
+            Max3Drops = (int) data["Max3Drops"];
+            Max3DropsCoin = (int) data["Max3Drops"];
+            Max4Drops = (int) data["Max4Drops"];
+            Max4DropsCoin = (int) data["Max4Drops"];
+            control = (bool)data["control"];
+            NoChange = (bool)data["NoChange"];
+        }
+        public MulliganCoreData(int v1, int v2, int v3, int v4, int v5, int v6, int v7, int v8, bool v9, bool v10)
+        {
+            Max1Drops = v1;
+            Max1DropsCoin = v2;
+            Max2Drops = v3;
+            Max2DropsCoin = v4;
+            Max3Drops = v5;
+            Max3DropsCoin =v6;
+            Max4Drops = v7;
+            Max4DropsCoin = v8;
+            control = v9;
+            NoChange = v10;
+        }
     }
     public enum DeckType
     {
