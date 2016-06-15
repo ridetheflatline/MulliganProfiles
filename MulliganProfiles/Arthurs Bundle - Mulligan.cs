@@ -600,7 +600,7 @@ namespace MulliganProfiles
         };
         public static void Report(string msg)
         {
-            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DebugLog.txt", true))
+            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\DebugLog.txt", true))
             {
                 log.WriteLine("[{0}] {1}", DateTime.Now, msg);
             }
@@ -636,14 +636,14 @@ namespace MulliganProfiles
         {
             Prediction prediction = new Prediction();
 
-            List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
+            List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
             List<DeckType> allDeckTypes = (from q in history select q.Split(new[] { "||" }, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId select (DeckType)Enum.Parse(typeof(DeckType), information[8])).ToList();
             if (allDeckTypes.Count >= 1)
             {
                 var eDeckType =
                     allDeckTypes.FirstOrDefault(q => q != DeckType.Unknown && q != DeckType.Basic && DeckClass[q] == op);
                 if (!Bot.CurrentMode().IsShitfest())
-                    Bot.Log(string.Format("[SmartMulligan] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
+                    Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
                 return eDeckType;
             }
             foreach (var q in history)
@@ -655,7 +655,7 @@ namespace MulliganProfiles
             }
             DeckType unknownPrediction = prediction.GetMostFacedDeckType(op);
             if (!Bot.CurrentMode().IsShitfest())
-                Bot.Log(string.Format("[SmartMulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
+                Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
             
             return unknownPrediction;
         }
@@ -762,7 +762,7 @@ namespace MulliganProfiles
         {
             try
             {
-                Bot.GetPlugins().Find(p => p.DataContainer.Name == "SmartTracker").TryToWriteProperty("Enemy", opponentClass);
+                Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("Enemy", opponentClass);
             }
             catch (Exception)
             {
@@ -773,13 +773,13 @@ namespace MulliganProfiles
             OwnClass = ownClass;
             Coin = choices.Count > 3;
 
-            #region SmartTracker
+            #region Arthurs Bundle - Tracker
 
-            Plugin tracker = Bot.GetPlugins().Find(plugin => plugin.DataContainer.Name == "SmartTracker");
+            Plugin tracker = Bot.GetPlugins().Find(plugin => plugin.DataContainer.Name == "Arthurs Bundle - Tracker");
 
             if (!tracker.DataContainer.Enabled)
             {
-                Bot.Log("[SmartMulliganV3] This mulligan relies on having SmartTracker active at all times in order to function. Please enable SmartTracker, or chose different mulligan");
+                Bot.Log("[Arthurs' Bundle: Mulligan] This mulligan relies on having Tracker active at all times in order to function. Please enable Tracker, or chose different mulligan");
                 Bot.StopBot();
             }
             Dictionary<string, object> properties = tracker.GetProperties();
@@ -792,7 +792,7 @@ namespace MulliganProfiles
                 : (DeckType)properties[TrackerMyType]; //if Auto
 
             if (properties[Mode].ToString() == "Manual")
-                Bot.Log("[SmartMulliganV3] Dear friends, I notice that you are forcing deck recognition." + " I do not make failsafe checks on whether or not you are using a proper deck, " + "so if you decide to force Camel Hunter while playing FaceFreeze mage. It will let you. I hope you know what you are doing.");
+                Bot.Log("[AB - Mulligan] Dear friends, I notice that you are forcing deck recognition." + " I do not make failsafe checks on whether or not you are using a proper deck, " + "so if you decide to force Camel Hunter while playing FaceFreeze mage. It will let you. I hope you know what you are doing.");
             Bot.Log(string.Format("[You chose {0} Detection] {1} [Default: AutoDetection] {2}", properties[Mode], MyDeckType, properties[TrackerMyType]));
 
             #endregion
@@ -802,8 +802,8 @@ namespace MulliganProfiles
             EnemyStyle = DeckStyles[EneDeckType];
             try
             {
-                Bot.GetPlugins().Find(p => p.DataContainer.Name == "SmartTracker").TryToWriteProperty("EnemyDeckTypeGuess", EneDeckType);
-                Bot.GetPlugins().Find(p => p.DataContainer.Name == "SmartTracker").TryToWriteProperty("EnemyDeckStyleGuess", EnemyStyle);
+                Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("EnemyDeckTypeGuess", EneDeckType);
+                Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("EnemyDeckStyleGuess", EnemyStyle);
             }
             catch (Exception)
             {
@@ -821,7 +821,7 @@ namespace MulliganProfiles
         }
         public static void Report(string msg)
         {
-            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DebugLog.txt", true))
+            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\DebugLog.txt", true))
             {
                 log.WriteLine("[{0}] {1}", DateTime.Now, msg);
             }
@@ -834,10 +834,10 @@ namespace MulliganProfiles
         /// <summary>
         /// Mulligan Tester
         /// </summary>
-        public string MtDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\SmartMulliganV3\\mt.txt";
+        public string MtDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\AB - Mulligan\\mt.txt";
         public string GetMTValues()
         {
-            return File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\SmartMulliganV3\\mt.txt");
+            return File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\AB - Mulligan\\mt.txt");
         }
         public GameContainer(bool t, List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
@@ -847,7 +847,7 @@ namespace MulliganProfiles
             OwnClass = ownClass;
             Coin = choices.Count > 3;
             Report("Created Choices, OC, OC, Coin");
-            #region SmartTracker
+            #region Arthurs Bundle - Tracker
             using (StreamReader mt = new StreamReader(MtDirectory))
             {
                 string[] info = mt.ReadLine().Split(':');
@@ -911,7 +911,7 @@ namespace MulliganProfiles
 
     [Serializable]
     // ReSharper disable once InconsistentNaming
-    public class SmartMulliganV3 : MulliganProfile
+    public class Mulligan : MulliganProfile
     {
         public Card.Cards Nothing = Card.Cards.GAME_005;
         public Card.CClass Mage = Card.CClass.MAGE;
@@ -932,7 +932,7 @@ namespace MulliganProfiles
 
         #endregion
 
-        public SmartMulliganV3()
+        public Mulligan()
         {
             _whiteList = new Dictionary<Card.Cards, bool>
             {
@@ -950,11 +950,7 @@ namespace MulliganProfiles
             ClearReport();
            
             Report("Mulligan Stage Entered");
-            if (choices.Contains(Cards.FlesheatingGhoul))
-            {
-                choices.Remove(Cards.FlesheatingGhoul);
-                choices.Add(Card.Cards.GAME_005);
-            }
+
             GameContainer mtgc = new GameContainer(true, choices, opponentClass, ownClass);
             Report("Mulligan Tester Container created");
             try
@@ -966,12 +962,12 @@ namespace MulliganProfiles
             }
             catch (NotImplementedException e)
             {
-                Report(string.Format("[SmartMulligan] Current deck is not implemented: {0}", e.TargetSite));
+                Report(string.Format("[Arthurs' Bundle: Mulligan] Current deck is not implemented: {0}", e.TargetSite));
                 Core(mtgc);
             }
             catch (Exception)
             {
-                Report("[SmartMulligan] Entering Mulligan Tester mode");
+                Report("[Arthurs' Bundle: Mulligan] Entering Mulligan Tester mode");
                 Mulliganaccordingly(mtgc);
             }
 
@@ -983,9 +979,9 @@ namespace MulliganProfiles
 
         private void MulliganLog(List<Card.Cards> choices, List<Card.Cards> cardsToKeep, GameContainer gc)
         {
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\"))
-                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\");
-            using (StreamWriter ml = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\MulliganHistory.txt", true))
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\Arthurs' Bundle: Mulligan\\"))
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\Arthurs' Bundle: Mulligan\\");
+            using (StreamWriter ml = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\Arthurs' Bundle: Mulligan\\MulliganHistory.txt", true))
             {
                 Bot.Log("=========================================");
                 Bot.Log(string.Format("[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType, gc.OpponentClass, gc.EneDeckType));
@@ -1390,7 +1386,7 @@ namespace MulliganProfiles
             _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.HasTurnThree ? Cards.CThun : Nothing, false);
             if (gc.Choices.Contains(Cards.CThun) && gc.HasTurnOne && gc.HasTurnThree)
             {
-                Bot.Log("[SmartMulligan] You have both, 2 and 3 drops, so we are keeping C'Thun");
+                Bot.Log("[Arthurs' Bundle: Mulligan] You have both, 2 and 3 drops, so we are keeping C'Thun");
             }
         }
 
@@ -2356,12 +2352,12 @@ namespace MulliganProfiles
         /// </summary>
         private void ClearReport()
         {
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DebugLog.txt", string.Empty);
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\DebugLog.txt", string.Empty);
         }
 
         public static void Report(string msg)
         {
-            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\DebugLog.txt", true))
+            using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\DebugLog.txt", true))
             {
                 log.WriteLine("[{0}] {1}", DateTime.Now, msg);
             }

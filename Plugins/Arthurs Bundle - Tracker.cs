@@ -8,78 +8,77 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using SmartBot.Database;
+using SmartBot.Plugins;
 
-
-namespace SmartBot.Plugins
+public static class Extension
 {
-    public static class Extension
+    public static void AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> map, TKey key, TValue value)
     {
-        public static void AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> map, TKey key, TValue value)
-        {
-            map[key] = value;
-        }
-
-        public static void AddOrUpdateDeck<TKey>(this IDictionary<TKey, int> map, TKey key)
-        {
-            if (map.ContainsKey(key))
-                map[key]++;
-            else map[key] = 0;
-        }
-        public static object Fetch(this List<Plugin> list, string name, string data)
-        {
-            return list.Find(c => c.DataContainer.Name == name).GetProperties()[data];
-        }  
-
-        //kappa
-        public static bool ContainsAll<T1>(this IList<T1> list, params T1[] items)
-        {
-            return !items.Except(list).Any();
-        }
-        public static bool ContainsSome<T1>(this IList<T1> list, params T1[] items)
-        {
-            return list.Intersect(items).Any();
-        }
-        public static bool ContainsAtLeast<T1>(this IList<T1> list, int minReq, params T1[] items)
-        {
-            return list.Intersect(items).Count() >= minReq;
-        }
-        public static int RaceCount(this IList<Card.Cards> list, Card.CRace wCrace)
-        {
-            return list.Count(cards => CardTemplate.LoadFromId(cards).Race == wCrace);
-        }
-        public static bool IsArena(this Bot.Mode mode)
-        {
-            return mode == Bot.Mode.Arena || mode == Bot.Mode.ArenaAuto;
-        } 
-        public static int QualityCount(this IList<Card.Cards> list, Card.CQuality qQuality)
-        {
-            return list.Count(cards => CardTemplate.LoadFromId(cards).Quality == qQuality);
-        }
-        public static bool IsRenoDeck(this IList<Card.Cards> list, int treshhold = 10)
-        {
-            bool renoCheck = list.Count == list.Distinct().Count();
-            return (renoCheck && list.Count >= treshhold) || list.Contains(Cards.RenoJackson);
-        }
-        public static bool IsCthun(this IList<Card.Cards> list)
-        {
-            return list.ContainsSome(Cards.KlaxxiAmberWeaver, Cards.DarkArakkoa,  Cards.HoodedAcolyte, Cards.TwilightDarkmender
-                , Cards.BladeofCThun, Cards.UsherofSouls, Cards.AncientShieldbearer, Cards.TwilightGeomancer, Cards.DiscipleofCThun, Cards.TwilightElder
-                , Cards.CThunsChosen, Cards.CrazedWorshipper, Cards.SkeramCultist, Cards.TwinEmperorVeklor, Cards.Doomcaller);
-        }
-        public static bool IsBasic<T1>(this IList<T1> list, IList<T1> list2)
-        {
-            return list.Intersect(list2).Count() < 3;
-        }
-        public static TAttribute GetAttribute<TAttribute>(this Enum enumValue)
-            where TAttribute : Attribute
-        {
-            return enumValue.GetType()
-                            .GetMember(enumValue.ToString())
-                            .First()
-                            .GetCustomAttribute<TAttribute>();
-        }
+        map[key] = value;
     }
 
+    public static void AddOrUpdateDeck<TKey>(this IDictionary<TKey, int> map, TKey key)
+    {
+        if (map.ContainsKey(key))
+            map[key]++;
+        else map[key] = 0;
+    }
+    public static object Fetch(this List<Plugin> list, string name, string data)
+    {
+        return list.Find(c => c.DataContainer.Name == name).GetProperties()[data];
+    }
+
+    //kappa
+    public static bool ContainsAll<T1>(this IList<T1> list, params T1[] items)
+    {
+        return !items.Except(list).Any();
+    }
+    public static bool ContainsSome<T1>(this IList<T1> list, params T1[] items)
+    {
+        return list.Intersect(items).Any();
+    }
+    public static bool ContainsAtLeast<T1>(this IList<T1> list, int minReq, params T1[] items)
+    {
+        return list.Intersect(items).Count() >= minReq;
+    }
+    public static int RaceCount(this IList<Card.Cards> list, Card.CRace wCrace)
+    {
+        return list.Count(cards => CardTemplate.LoadFromId(cards).Race == wCrace);
+    }
+    public static bool IsArena(this Bot.Mode mode)
+    {
+        return mode == Bot.Mode.Arena || mode == Bot.Mode.ArenaAuto;
+    }
+    public static int QualityCount(this IList<Card.Cards> list, Card.CQuality qQuality)
+    {
+        return list.Count(cards => CardTemplate.LoadFromId(cards).Quality == qQuality);
+    }
+    public static bool IsRenoDeck(this IList<Card.Cards> list, int treshhold = 10)
+    {
+        bool renoCheck = list.Count == list.Distinct().Count();
+        return (renoCheck && list.Count >= treshhold) || list.Contains(Cards.RenoJackson);
+    }
+    public static bool IsCthun(this IList<Card.Cards> list)
+    {
+        return list.ContainsSome(Cards.KlaxxiAmberWeaver, Cards.DarkArakkoa, Cards.HoodedAcolyte, Cards.TwilightDarkmender
+            , Cards.BladeofCThun, Cards.UsherofSouls, Cards.AncientShieldbearer, Cards.TwilightGeomancer, Cards.DiscipleofCThun, Cards.TwilightElder
+            , Cards.CThunsChosen, Cards.CrazedWorshipper, Cards.SkeramCultist, Cards.TwinEmperorVeklor, Cards.Doomcaller);
+    }
+    public static bool IsBasic<T1>(this IList<T1> list, IList<T1> list2)
+    {
+        return list.Intersect(list2).Count() < 3;
+    }
+    public static TAttribute GetAttribute<TAttribute>(this Enum enumValue)
+        where TAttribute : Attribute
+    {
+        return enumValue.GetType()
+                        .GetMember(enumValue.ToString())
+                        .First()
+                        .GetCustomAttribute<TAttribute>();
+    }
+}
+namespace SmartBot.Plugins
+{
     [Serializable]
     public class ABTracker : PluginDataContainer
     {
@@ -96,7 +95,7 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public Style ArenaStyle { get; set; }
         [DisplayName("[A]---------------------")]
-        public string sectionA { get; private set;}
+        public string sectionA { get; private set; }
 
         [DisplayName(Russian ? "[A] Донат Трекеру" : "[A] Donation link")]
         public string donation { get; set; }
@@ -106,7 +105,7 @@ namespace SmartBot.Plugins
         public bool AutoUpdate { get; set; }
         [DisplayName(Russian ? "[B] Режим Обновления" : "[B] Update Mode")]
         public Update UpdateMode { get; set; }
-        [DisplayName(Russian ? "[B] Описание":"[B] Description")]
+        [DisplayName(Russian ? "[B] Описание" : "[B] Description")]
         public string UpdateGlossary { get; private set; }
         [Browsable(false)]
         public double Mversion { get; private set; }
@@ -151,7 +150,7 @@ namespace SmartBot.Plugins
         public int SynchEnums { get; set; }
         [DisplayName("Hall of Fame")]
         public string HallOfFame { get; private set; }
-        
+
         [DisplayName("[E]---------------------")]
 
         public string sectionE { get; private set; }
@@ -169,7 +168,7 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public Card.CClass Enemy { get; set; }
 
-       
+
         public ABTracker()
         {
             Name = "Arthurs Bundle - Tracker";
@@ -181,8 +180,8 @@ namespace SmartBot.Plugins
             AutoFriendlyDeckType = DeckType.Unknown;
             EnemyDeckTypeGuess = DeckType.Unknown;
             Enemy = Card.CClass.JARAXXUS;
-            LMulliganBundle = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/Arthurs' Bundle: MulliganV3/MulliganProfiles/Arthurs' Bundle: MulliganV3/version.txt";
-            LABTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/Arthurs' Bundle: MulliganV3/Plugins/ABTracker/tracker.version";
+            LMulliganBundle = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/AB%20-%20Mulligan/version.txt";
+            LABTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/ABTracker/tracker.version";
 
         }
         public void RefreshMenu()
@@ -194,9 +193,9 @@ namespace SmartBot.Plugins
         {
             RefreshMenu();
             Dictionary = "Detailed Summary: winrate vs decks + classes\nMinimal: winrate against decks\n"
-                +"Card Breakdown is currently unavailable\nMystery Button: Enable at your own risk";
+                + "Card Breakdown is currently unavailable\nMystery Button: Enable at your own risk";
             UpdateGlossary = "Hard Update: fully overwrtites mulligan file. [Recomended for casual botters]"
-                +"\nSoft Update: Will keep your customly defined mulligans [Recomended for advanced users]";
+                + "\nSoft Update: Will keep your customly defined mulligans [Recomended for advanced users]";
             sectionA = "[DONATION SECTION]";
             sectionB = "[AUTO UPDATE SECTION]";
             sectionC = "[IDENTIFICATION SECTION]";
@@ -254,7 +253,7 @@ namespace SmartBot.Plugins
         public bool pregameEnemyIdentified = false;
         private DeckData informationData;
         private readonly string MulliganDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
-        private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\Arthurs' Bundle: MulliganV3\\";
+        private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\AB - Mulligan\\";
         private readonly string TrackerDir = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\";
         private readonly string TrackerVersion = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\ABTracker\\";
         private int _screenWidth;
@@ -327,8 +326,8 @@ namespace SmartBot.Plugins
                 Bot.Log("[ABTracker] You are Legend, bot will now stop. ");
                 Bot.StopBot();
             }
-            if(((ABTracker)DataContainer).StopLegendX <= Bot.GetPlayerDatas().GetLegendIndex())
-            base.OnGameEnd();
+            if (((ABTracker)DataContainer).StopLegendX <= Bot.GetPlayerDatas().GetLegendIndex())
+                base.OnGameEnd();
         }
 
         public override void OnGameBegin()
@@ -338,7 +337,7 @@ namespace SmartBot.Plugins
             IdentifyMyStuff();
         }
         #endregion
-       
+
         public void IdentifyMyStuff()
         {
             if (identified || !_supported) return;
@@ -409,7 +408,7 @@ namespace SmartBot.Plugins
             }
             _supported = true;
             _started = true;
-            
+
             IdentifyMyStuff();
             Bot.Log("--------------This is the deck that Tracker Picked up -------------------" +
             "\n" + Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current +
@@ -426,17 +425,62 @@ namespace SmartBot.Plugins
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
             if (((ABTracker)DataContainer).AutoUpdate)
             {
-                CheckUpdatesMulligan(((ABTracker)DataContainer).LMulliganBundle);
-                ((ABTracker)DataContainer).VersionCheck();
-
-                CheckUpdatesTracker(((ABTracker)DataContainer).LABTracker);
-                ((ABTracker)DataContainer).VersionCheck();
-                               
+                CheckForUpdates();
             }
-            
+
 
         }
-        private Dictionary<Card.Cards, Statistics> CardStats = new Dictionary<Card.Cards, Statistics>(); 
+        private void CheckForUpdates()
+        {
+            try
+            {
+                String pluginPath = "Plugins\\GameRecorder.cs";
+
+                // Get first line of local plugin
+                String firstLine;
+                using (var stream = new FileStream(pluginPath, FileMode.Open, FileAccess.Read))
+                using (var reader = new StreamReader(stream))
+                {
+                    firstLine = reader.ReadLine();
+                }
+
+                // Get SHA of latest GameRecorder plugin
+                var branchesJson = fetchUrl("https://api.github.com/repos/ArthurFairchild/MulliganProfiles/branches");
+                String shaPrefix = "\"sha\":\"";
+                int shaIndex = branchesJson.IndexOf(shaPrefix);
+                String gitCommitSha = branchesJson.Substring(shaIndex + shaPrefix.Length, 40);
+
+                // If sha's are different then update
+                String newFirstLine = "/** " + gitCommitSha + " */";
+                if (!firstLine.Equals(newFirstLine))
+                {
+                    String latestSource = fetchUrl("https://raw.githubusercontent.com/levinson/GameRecorder/master/GameRecorder.cs");
+                    using (var stream = new FileStream(pluginPath, FileMode.Create, FileAccess.Write))
+                    using (var writer = new StreamWriter(stream))
+                    {
+                        writer.WriteLine(newFirstLine);
+                        writer.Write(latestSource);
+                        Log("Updated GameRecorder to latest version. Reload plugins for changes to take effect.");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log("Failed to check for updates due to: " + e);
+            }
+        }
+        private String fetchUrl(String url)
+        {
+            var request = HttpWebRequest.CreateHttp(url);
+            request.UserAgent = "ArthursBundle"; // User-Agent is required by github API
+            using (var response = request.GetResponse())
+            using (var reader = new StreamReader(response.GetResponseStream()))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
+        private Dictionary<Card.Cards, Statistics> CardStats = new Dictionary<Card.Cards, Statistics>();
         private void CreateCardReport(List<string> cards)
         {
             foreach (var q in cards.Distinct())
@@ -450,7 +494,7 @@ namespace SmartBot.Plugins
             using (
                 StreamWriter mt =
                     new StreamWriter(AppDomain.CurrentDomain.BaseDirectory +
-                                     "\\MulliganProfiles\\Arthurs' Bundle: MulliganV3\\mt.txt"))
+                                     "\\MulliganProfiles\\AB - Mulligan\\mt.txt"))
             {
                 mt.WriteLine("{0}:{1}:{2}:{3}",
                     ((ABTracker)DataContainer).MulliganTesterYourDeck,
@@ -460,162 +504,7 @@ namespace SmartBot.Plugins
             }
         }
 
-        
 
-        #region autoupdate
-        private void CheckUpdatesTracker(string lABTracker)
-        {
-            HttpWebRequest request = WebRequest.Create(lABTracker) as HttpWebRequest;
-            if (request == null)
-            {
-                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lABTracker));
-                return;
-            }
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-            using (StreamReader str = new StreamReader(response.GetResponseStream()))
-            using (StreamReader localVersion = new StreamReader(TrackerVersion + "tracker.version"))
-
-            {
-                string[] remote_version = str.ReadLine().Split('.');
-                string[] local__version = localVersion.ReadLine().Split('.');
-                int remote_major = int.Parse(remote_version[0]);
-                int remote_minor = int.Parse(remote_version[1]);
-                int local__major = int.Parse(local__version[0]);
-                int local__minor = int.Parse(local__version[1]);
-                string r_version = remote_major + "." + remote_minor;
-                string l_version = local__major + "." + remote_minor;
-                if (remote_major == local__major && remote_minor == local__minor)
-                {
-                    Bot.Log("[ABTracker] ABTracker is up to date");
-                    return;
-                }
-                if (remote_major < local__major ||
-                    (remote_major == local__major && remote_minor < local__minor))
-                {
-                    Bot.Log(string.Format("[ABTracker] Remote Version: {0}.{1} Local Version {2}.{3}",
-                        remote_major, remote_minor, local__major, local__minor));
-                    Bot.Log("[ABTracker] Arthur, you are an idiot. Push new update");
-                    return;
-                }
-                localVersion.Close();
-                UpdateTracker(lABTracker, r_version, l_version);
-            }
-        }
-
-        private void UpdateTracker(string lABTracker, string remoteVer, string localVer)
-        {
-            Report(string.Format("Updater is using {0} remote version and {1} local version [origin:tracker]", remoteVer, localVer));
-            Bot.Log(string.Format("[ABTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
-            HttpWebRequest trackeRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/Arthurs' Bundle: MulliganV3/Plugins/ArthursBundleTracker.cs") as HttpWebRequest;     //new
-            if (trackeRequest == null)
-            {
-                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lABTracker));
-                return;
-            }
-            using (HttpWebResponse mulResponse = trackeRequest.GetResponse() as HttpWebResponse)
-            using (StreamReader trFile = new StreamReader(mulResponse.GetResponseStream()))
-            using (StreamWriter updateLocalCopy = new StreamWriter(TrackerDir + "ArthursBundleTracker.cs"))
-            {
-                string tempfile = trFile.ReadToEnd();
-                updateLocalCopy.WriteLine(tempfile);
-                Bot.ReloadPlugins();
-                Bot.Log("[ABTracker] ABTracker is now fully updated");       //
-                UpdateVersion(remoteVer, true);
-            }
-        }
-
-        private void CheckUpdatesMulligan(string LMulliganBundle)
-        {
-            HttpWebRequest request = WebRequest.Create(LMulliganBundle) as HttpWebRequest;
-            if (request == null)
-            {
-                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", LMulliganBundle));
-                return;
-            }
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-            using (StreamReader str = new StreamReader(response.GetResponseStream()))
-            using (StreamReader localVersion = new StreamReader(MulliganInformation + "version.txt"))
-
-            {
-                string[] remote_version = str.ReadLine().Split('.');
-                string[] local__version = localVersion.ReadLine().Split('.');
-                int remote_major = int.Parse(remote_version[0]);
-                int remote_minor = int.Parse(remote_version[1]);
-                int local__major = int.Parse(local__version[0]);
-                int local__minor = int.Parse(local__version[1]);
-                string r_version = remote_major + "." + remote_minor;
-                string l_version = local__major + "." + remote_minor;
-                if (remote_major == local__major && remote_minor == local__minor)
-                {
-                    Bot.Log("[Arthurs' Bundle: Mulligan] Arthurs' Bundle: Mulligan is up to date");
-                    return;
-                }
-                if (remote_major < local__major ||
-                    (remote_major == local__major && remote_minor < local__minor))
-                {
-                    Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] Local Version: {0}.{1} Remote Version {2}.{3}",
-                        remote_major, remote_minor, local__major, local__minor));
-                    Bot.Log("[Arthurs' Bundle: Mulligan] Arthur, you are an idiot. Push new update");
-                    return;
-                }
-                localVersion.Close();
-                UpdateMulligan(LMulliganBundle, r_version, l_version);
-
-
-            }
-        }
-
-        private void UpdateMulligan(string LMulliganBundle, string remoteVer, string localVer)
-        {
-            Report(string.Format(" Updater is using {0} remote version and {1} local version [origin:uMulligan]", remoteVer, localVer));
-            Bot.Log(string.Format("[ABTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
-            HttpWebRequest MulliganRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/Arthurs' Bundle: MulliganV3/MulliganProfiles/MulliganBundle.cs") as HttpWebRequest;
-            if (MulliganRequest == null)
-            {
-                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", LMulliganBundle));
-                return;
-            }
-
-            string myCustom = "";
-            try
-            {
-                string myLocalFile = File.ReadAllText(MulliganDir + "Arthurs' Bundle: Mulligan.cs");
-                myCustom = myLocalFile.Substring(myLocalFile.IndexOf("#region Custom") + "#region Custom".Length, myLocalFile.LastIndexOf("#endregion Custom")
-                    - (myLocalFile.IndexOf("#region Custom") + "#region Custom".Length));
-                Bot.Log(myCustom);
-                Bot.Log("==============================");
-            }catch(FileNotFoundException)
-            {
-                Bot.Log("[ABTracker] This is your first time running tracker, downloading Arthurs' Bundle: Mulligan");
-            }
-            using (HttpWebResponse mulResponse = MulliganRequest.GetResponse() as HttpWebResponse)
-            using (StreamReader mulFile = new StreamReader(mulResponse.GetResponseStream()))
-            using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "Arthurs' Bundle: Mulligan.cs"))
-            {
-
-                string tempfile = mulFile.ReadToEnd();
-                string low = tempfile.Substring(0, tempfile.IndexOf("#region Custom")+14);
-                string high = tempfile.Substring(tempfile.IndexOf("#endregion Custom"));
-                string final = low + myCustom + high;
-                if (((ABTracker)DataContainer).UpdateMode == Update.Soft)
-                    updateLocalCopy.WriteLine(final);
-                else updateLocalCopy.WriteLine(tempfile);
-                Bot.RefreshMulliganProfiles();
-                Bot.Log("[ABTracker] Arthurs' Bundle: Mulligan is now fully updated");
-                UpdateVersion(remoteVer);
-            }
-
-        }
-
-
-        private void UpdateVersion(string remoteVer, bool value = false)
-        {
-            using (StreamWriter localVersion = new StreamWriter(value ? TrackerVersion + "tracker.version" : MulliganInformation + "version.txt", false))
-            {
-                localVersion.WriteLine(remoteVer);
-            }
-        }
-        #endregion
 
         public override void OnStopped()
         {
@@ -625,7 +514,7 @@ namespace SmartBot.Plugins
             _started = false;
             pregameEnemyIdentified = false;
             talkedWithMulligan = false;
-             if (!_supported)
+            if (!_supported)
                 ((ABTracker)DataContainer).Enabled = true;
         }
 
@@ -643,7 +532,7 @@ namespace SmartBot.Plugins
             if (!_supported) return;
             Turn = ((ABTracker)DataContainer).CurrentTurn;
             ShowPrediction();
-            Bot.Log("========"  +Bot.CurrentBoard.TurnCount);
+            Bot.Log("========" + Bot.CurrentBoard.TurnCount);
             if (Bot.CurrentBoard.TurnCount < ((ABTracker)DataContainer).ProfilePredictionTurn) return;
             try
             {
@@ -654,7 +543,7 @@ namespace SmartBot.Plugins
                 Bot.Log(string.Format("{0} || {1} || {2}", e.Message, e.TargetSite, e.InnerException));
             }
             ShowPrediction();
-            
+
 
         }
         public void ShowPrediction()
@@ -700,11 +589,11 @@ namespace SmartBot.Plugins
             opponentDeck.AddRange(board.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
             if (opponentDeck.Count == 0) return;
             string str = opponentDeck.Aggregate("", (current, q) => current + "," + q);
-            bool rgt = (bool) Bot.GetPlugins().Find(c => c.DataContainer.Name == plugins[Plugins.History]).GetProperties()["RGT"];
+            bool rgt = (bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == plugins[Plugins.History]).GetProperties()["RGT"];
             using (StreamWriter opponentDeckInfo = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\MatchHistory.txt", true))
             {
                 DeckData opponentInfo = GetDeckInfo(Bot.CurrentBoard.EnemyClass, opponentDeck, Bot.CurrentBoard.SecretEnemyCount);
-                opponentDeckInfo.WriteLine("{0}||{1}||{2}||{3}||{4}||{5}||{6}||{7}||{8}||{9}||{10}||{11}",  rgt
+                opponentDeckInfo.WriteLine("{0}||{1}||{2}||{3}||{4}||{5}||{6}||{7}||{8}||{9}||{10}||{11}", rgt
                    ? DateTime.UtcNow.ToString(CultureInfo.InvariantCulture) : "some time ago",
                     res,
                     Bot.GetCurrentOpponentId(),
@@ -723,7 +612,7 @@ namespace SmartBot.Plugins
          */
         public void RecordCards(string res)
         {
-           
+
             List<Card.Cards> graveyard = Bot.CurrentBoard.FriendGraveyard.ToList();
             List<Card> board = Bot.CurrentBoard.MinionFriend.ToList();
             List<Card.Cards> secrets = Bot.CurrentBoard.Secret.ToList();
@@ -736,7 +625,7 @@ namespace SmartBot.Plugins
             played.AddRange(graveyard.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
             played.AddRange(board.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
             played.AddRange(secrets.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
-            if(Bot.CurrentBoard.HasWeapon())
+            if (Bot.CurrentBoard.HasWeapon())
                 played.Add(weapon.Template.Id.ToString());
             Bot.Log("=============Created Played");
 
@@ -750,7 +639,7 @@ namespace SmartBot.Plugins
             string sdrawn = drawn.Aggregate("", (current, q) => current + "," + q);
             using (StreamWriter DeckPerformanceHistory = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\DeckPerformanceHistory.txt", true))
             {
-                DeckPerformanceHistory.WriteLine("{0}~{1}~{2}~{3}~{4}~{5}", res,Bot.CurrentMode(), Bot.CurrentBoard.EnemyClass, Bot.CurrentBoard.FriendClass, sdrawn, splayed);
+                DeckPerformanceHistory.WriteLine("{0}~{1}~{2}~{3}~{4}~{5}", res, Bot.CurrentMode(), Bot.CurrentBoard.EnemyClass, Bot.CurrentBoard.FriendClass, sdrawn, splayed);
 
 
             }
@@ -895,9 +784,9 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> FaceShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.UnboundElemental, Cards.UnboundElemental, Cards.EarthShock, Cards.StormforgedAxe, Cards.Doomhammer, Cards.Doomhammer, Cards.FeralSpirit, Cards.FeralSpirit, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.LeperGnome, Cards.LeperGnome, Cards.AbusiveSergeant, Cards.LavaBurst, Cards.LavaBurst, Cards.Crackle, Cards.Crackle, Cards.LavaShock, Cards.LavaShock, Cards.TotemGolem, Cards.TotemGolem, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.AncestralKnowledge, Cards.AncestralKnowledge, Cards.SirFinleyMrrgglton, Cards.TunnelTrogg, Cards.TunnelTrogg, };
         private readonly List<Card.Cards> MechShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.Crackle, Cards.Crackle, Cards.TotemGolem, Cards.TotemGolem, Cards.WhirlingZapomatic, Cards.WhirlingZapomatic, Cards.Powermace, Cards.Powermace, Cards.LavaBurst, Cards.LavaBurst, Cards.UnboundElemental, Cards.UnboundElemental, Cards.Doomhammer, Cards.Doomhammer, Cards.Cogmaster, Cards.Cogmaster, Cards.LeperGnome, Cards.SirFinleyMrrgglton, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.Mechwarper, Cards.Mechwarper, Cards.SpiderTank, Cards.SpiderTank, };
         private readonly List<Card.Cards> TotemShaman = new List<Card.Cards> { Cards.EarthShock, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.AlAkirtheWindlord, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.DefenderofArgus, Cards.ManaTideTotem, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.ZombieChow, Cards.ZombieChow, Cards.TotemGolem, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.TuskarrTotemic, Cards.ThunderBluffValiant, Cards.ThunderBluffValiant, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.HauntedCreeper, Cards.HauntedCreeper, };
-        private readonly List<Card.Cards> TotemShaman2 = new List<Card.Cards>{Cards.LightningBolt,Cards.Doomhammer,Cards.FeralSpirit,Cards.FeralSpirit,Cards.Bloodlust,Cards.Hex,Cards.Hex,Cards.FlametongueTotem,Cards.FlametongueTotem,Cards.ArgentSquire,Cards.ArgentSquire,Cards.RockbiterWeapon,Cards.RockbiterWeapon,Cards.ManaTideTotem,Cards.ManaTideTotem,Cards.LightningStorm,Cards.LightningStorm,Cards.TotemGolem,Cards.TotemGolem,Cards.TuskarrTotemic,Cards.TuskarrTotemic,Cards.ThunderBluffValiant,Cards.ThunderBluffValiant,Cards.FlameJuggler,Cards.FlameJuggler,Cards.TunnelTrogg,Cards.TunnelTrogg,Cards.ThingfromBelow,Cards.ThingfromBelow,Cards.PrimalFusion,};
-        private readonly List<Card.Cards> TotemShaman3 = new List<Card.Cards>{Cards.LightningBolt,Cards.Doomhammer,Cards.FeralSpirit,Cards.Bloodlust,Cards.Hex,Cards.Hex,Cards.FlametongueTotem,Cards.FlametongueTotem,Cards.ArgentSquire,Cards.RockbiterWeapon,Cards.RockbiterWeapon,Cards.HarrisonJones,Cards.ManaTideTotem,Cards.ManaTideTotem,Cards.LightningStorm,Cards.LightningStorm,Cards.TotemGolem,Cards.TotemGolem,Cards.TuskarrTotemic,Cards.TuskarrTotemic,Cards.ThunderBluffValiant,Cards.ThunderBluffValiant,Cards.FlameJuggler,Cards.FlameJuggler,Cards.TunnelTrogg,Cards.TunnelTrogg,Cards.ThingfromBelow,Cards.ThingfromBelow,Cards.FlamewreathedFaceless,Cards.PrimalFusion,};
-        private readonly List<Card.Cards> TotemShaman4 = new List<Card.Cards>{Cards.Doomhammer,Cards.FeralSpirit,Cards.FeralSpirit,Cards.Bloodlust,Cards.Hex,Cards.Hex,Cards.FlametongueTotem,Cards.FlametongueTotem,Cards.ArgentSquire,Cards.ArgentSquire,Cards.RockbiterWeapon,Cards.RockbiterWeapon,Cards.ManaTideTotem,Cards.ManaTideTotem,Cards.LightningStorm,Cards.TotemGolem,Cards.TotemGolem,Cards.TuskarrTotemic,Cards.TuskarrTotemic,Cards.ThunderBluffValiant,Cards.ThunderBluffValiant,Cards.FlameJuggler,Cards.FlameJuggler,Cards.TunnelTrogg,Cards.TunnelTrogg,Cards.ThingfromBelow,Cards.ThingfromBelow,Cards.MasterofEvolution,Cards.PrimalFusion,Cards.PrimalFusion,};
+        private readonly List<Card.Cards> TotemShaman2 = new List<Card.Cards> { Cards.LightningBolt, Cards.Doomhammer, Cards.FeralSpirit, Cards.FeralSpirit, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.ArgentSquire, Cards.ArgentSquire, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.ManaTideTotem, Cards.ManaTideTotem, Cards.LightningStorm, Cards.LightningStorm, Cards.TotemGolem, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.TuskarrTotemic, Cards.ThunderBluffValiant, Cards.ThunderBluffValiant, Cards.FlameJuggler, Cards.FlameJuggler, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.ThingfromBelow, Cards.ThingfromBelow, Cards.PrimalFusion, };
+        private readonly List<Card.Cards> TotemShaman3 = new List<Card.Cards> { Cards.LightningBolt, Cards.Doomhammer, Cards.FeralSpirit, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.ArgentSquire, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.HarrisonJones, Cards.ManaTideTotem, Cards.ManaTideTotem, Cards.LightningStorm, Cards.LightningStorm, Cards.TotemGolem, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.TuskarrTotemic, Cards.ThunderBluffValiant, Cards.ThunderBluffValiant, Cards.FlameJuggler, Cards.FlameJuggler, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.ThingfromBelow, Cards.ThingfromBelow, Cards.FlamewreathedFaceless, Cards.PrimalFusion, };
+        private readonly List<Card.Cards> TotemShaman4 = new List<Card.Cards> { Cards.Doomhammer, Cards.FeralSpirit, Cards.FeralSpirit, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.ArgentSquire, Cards.ArgentSquire, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.ManaTideTotem, Cards.ManaTideTotem, Cards.LightningStorm, Cards.TotemGolem, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.TuskarrTotemic, Cards.ThunderBluffValiant, Cards.ThunderBluffValiant, Cards.FlameJuggler, Cards.FlameJuggler, Cards.TunnelTrogg, Cards.TunnelTrogg, Cards.ThingfromBelow, Cards.ThingfromBelow, Cards.MasterofEvolution, Cards.PrimalFusion, Cards.PrimalFusion, };
         private readonly List<Card.Cards> MalygosShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.EarthShock, Cards.EarthShock, Cards.FarSight, Cards.FarSight, Cards.StormforgedAxe, Cards.FeralSpirit, Cards.FeralSpirit, Cards.FrostShock, Cards.FrostShock, Cards.Malygos, Cards.GnomishInventor, Cards.GnomishInventor, Cards.Crackle, Cards.Crackle, Cards.Hex, Cards.Hex, Cards.LavaBurst, Cards.LavaBurst, Cards.ManaTideTotem, Cards.ManaTideTotem, Cards.LightningStorm, Cards.LightningStorm, Cards.AncestorsCall, Cards.AncestorsCall, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Alexstrasza, Cards.AzureDrake, };
         private readonly List<Card.Cards> BasicChaman = new List<Card.Cards> { Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.Hex, Cards.Hex, Cards.Bloodlust, Cards.FireElemental, Cards.FireElemental, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.MurlocTidehunter, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.FrostwolfWarlord, Cards.FrostwolfWarlord, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, Cards.StormwindChampion, };
         private readonly List<Card.Cards> DragonShaman = new List<Card.Cards> { Cards.EarthShock, Cards.FeralSpirit, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.Deathwing, Cards.Ysera, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.LavaShock, Cards.BlackwingCorruptor, Cards.TotemGolem, Cards.TotemGolem, Cards.AncestralKnowledge, Cards.HealingWave, Cards.HealingWave, Cards.TheMistcaller, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.Chillmaw, Cards.JeweledScarab, Cards.JeweledScarab, Cards.BrannBronzebeard, Cards.TunnelTrogg, Cards.TunnelTrogg, };
@@ -905,7 +794,7 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> ControlShaman2 = new List<Card.Cards> { Cards.BigGameHunter, Cards.EarthShock, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.Doomsayer, Cards.Doomsayer, Cards.Ysera, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.DrBoom, Cards.Neptulon, Cards.LavaShock, Cards.LavaShock, Cards.VolcanicDrake, Cards.VolcanicDrake, Cards.HealingWave, Cards.HealingWave, Cards.ElementalDestruction, Cards.ElementalDestruction, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.JeweledScarab, Cards.JeweledScarab, };
         private readonly List<Card.Cards> BloodlustShaman = new List<Card.Cards> { Cards.BigGameHunter, Cards.AcidicSwampOoze, Cards.EarthShock, Cards.FeralSpirit, Cards.FeralSpirit, Cards.Bloodlust, Cards.Bloodlust, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.FlametongueTotem, Cards.FlametongueTotem, Cards.RockbiterWeapon, Cards.RockbiterWeapon, Cards.DefenderofArgus, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.LightningStorm, Cards.ZombieChow, Cards.ZombieChow, Cards.NerubianEgg, Cards.NerubianEgg, Cards.Loatheb, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.PilotedShredder, Cards.TuskarrTotemic, };
         private readonly List<Card.Cards> battlecryShaman = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.StormforgedAxe, Cards.Hex, Cards.Hex, Cards.AzureDrake, Cards.AzureDrake, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.FireElemental, Cards.FireElemental, Cards.LightningStorm, Cards.ZombieChow, Cards.ZombieChow, Cards.Loatheb, Cards.DrBoom, Cards.TotemGolem, Cards.TotemGolem, Cards.TuskarrTotemic, Cards.TuskarrTotemic, Cards.JusticarTrueheart, Cards.JeweledScarab, Cards.JeweledScarab, Cards.BrannBronzebeard, Cards.RumblingElemental, Cards.RumblingElemental, Cards.TunnelTrogg, Cards.TunnelTrogg, };
-        private readonly List<Card.Cards> ControlShaman3 = new List<Card.Cards>{Cards.LightningBolt,Cards.LightningBolt,Cards.SylvanasWindrunner,Cards.Hex,Cards.Hex,Cards.RockbiterWeapon,Cards.Ysera,Cards.CairneBloodhoof,Cards.BloodmageThalnos,Cards.ManaTideTotem,Cards.ManaTideTotem,Cards.LightningStorm,Cards.LightningStorm,Cards.LavaShock,Cards.LavaShock,Cards.EmperorThaurissan,Cards.AncestralKnowledge,Cards.HealingWave,Cards.HealingWave,Cards.ElementalDestruction,Cards.ElementalDestruction,Cards.Chillmaw,Cards.EliseStarseeker,Cards.HallazealtheAscended,Cards.NZoththeCorruptor,Cards.ThingfromBelow,Cards.ThingfromBelow,Cards.YoggSaronHopesEnd,Cards.Stormcrack,Cards.Stormcrack,};
+        private readonly List<Card.Cards> ControlShaman3 = new List<Card.Cards> { Cards.LightningBolt, Cards.LightningBolt, Cards.SylvanasWindrunner, Cards.Hex, Cards.Hex, Cards.RockbiterWeapon, Cards.Ysera, Cards.CairneBloodhoof, Cards.BloodmageThalnos, Cards.ManaTideTotem, Cards.ManaTideTotem, Cards.LightningStorm, Cards.LightningStorm, Cards.LavaShock, Cards.LavaShock, Cards.EmperorThaurissan, Cards.AncestralKnowledge, Cards.HealingWave, Cards.HealingWave, Cards.ElementalDestruction, Cards.ElementalDestruction, Cards.Chillmaw, Cards.EliseStarseeker, Cards.HallazealtheAscended, Cards.NZoththeCorruptor, Cards.ThingfromBelow, Cards.ThingfromBelow, Cards.YoggSaronHopesEnd, Cards.Stormcrack, Cards.Stormcrack, };
 
         private readonly List<Card.Cards> ContrlPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.CircleofHealing, Cards.CircleofHealing, Cards.Thoughtsteal, Cards.CabalShadowPriest, Cards.CabalShadowPriest, Cards.InjuredBlademaster, Cards.InjuredBlademaster, Cards.PowerWordShield, Cards.PowerWordShield, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.AuchenaiSoulpriest, Cards.AuchenaiSoulpriest, Cards.HolyNova, Cards.ZombieChow, Cards.ZombieChow, Cards.Deathlord, Cards.Deathlord, Cards.LightoftheNaaru, Cards.LightoftheNaaru, Cards.Lightbomb, Cards.Lightbomb, Cards.JusticarTrueheart, Cards.EliseStarseeker, Cards.Entomb, Cards.Entomb, Cards.MuseumCurator, };
         private readonly List<Card.Cards> ComboPriest = new List<Card.Cards> { Cards.WildPyromancer, Cards.WildPyromancer, Cards.ProphetVelen, Cards.Malygos, Cards.AzureDrake, Cards.ShadowWordPain, Cards.LootHoarder, Cards.LootHoarder, Cards.HolySmite, Cards.HolySmite, Cards.MindBlast, Cards.MindBlast, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.PowerWordShield, Cards.PowerWordShield, Cards.HolyFire, Cards.HolyFire, Cards.BloodmageThalnos, Cards.ShadowWordDeath, Cards.NorthshireCleric, Cards.NorthshireCleric, Cards.HarrisonJones, Cards.HolyNova, Cards.HolyNova, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.VelensChosen, Cards.VelensChosen, Cards.EmperorThaurissan, };
@@ -943,7 +832,7 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> worgen = new List<Card.Cards> { Cards.ShieldSlam, Cards.RagingWorgen, Cards.RagingWorgen, Cards.Whirlwind, Cards.Execute, Cards.Execute, Cards.GnomishInventor, Cards.GnomishInventor, Cards.Brawl, Cards.Brawl, Cards.CruelTaskmaster, Cards.CruelTaskmaster, Cards.InnerRage, Cards.InnerRage, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.NoviceEngineer, Cards.NoviceEngineer, Cards.Rampage, Cards.Rampage, Cards.ShieldBlock, Cards.ShieldBlock, Cards.IronbeakOwl, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.Charge, Cards.Charge, Cards.DeathsBite, Cards.DeathsBite, Cards.AntiqueHealbot, };
         private readonly List<Card.Cards> mechWar = new List<Card.Cards> { Cards.HeroicStrike, Cards.HeroicStrike, Cards.KorkronElite, Cards.KorkronElite, Cards.ArcaniteReaper, Cards.ArcaniteReaper, Cards.MortalStrike, Cards.MortalStrike, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.DeathsBite, Cards.DeathsBite, Cards.Cogmaster, Cards.Cogmaster, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.SpiderTank, Cards.SpiderTank, Cards.Mechwarper, Cards.Mechwarper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.TinkertownTechnician, Cards.ScrewjankClunker, Cards.ScrewjankClunker, Cards.Warbot, Cards.Warbot, Cards.FelReaver, Cards.FelReaver, Cards.ClockworkKnight, };
         private readonly List<Card.Cards> basicWarrior = new List<Card.Cards> { Cards.Execute, Cards.Execute, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.Cleave, Cards.ShieldBlock, Cards.KorkronElite, Cards.KorkronElite, Cards.ArcaniteReaper, Cards.ArcaniteReaper, Cards.ElvenArcher, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.RiverCrocolisk, Cards.RazorfenHunter, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.StormpikeCommando, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, };
-        private readonly List<Card.Cards> tempoWarrior = new List<Card.Cards>{Cards.FrothingBerserker,Cards.FrothingBerserker,Cards.KorkronElite,Cards.KorkronElite,Cards.Execute,Cards.Execute,Cards.AzureDrake,Cards.AzureDrake,Cards.CruelTaskmaster,Cards.CruelTaskmaster,Cards.AcolyteofPain,Cards.ArgentCommander,Cards.ArgentCommander,Cards.RagnarostheFirelord,Cards.ArathiWeaponsmith,Cards.HarrisonJones,Cards.FieryWarAxe,Cards.FieryWarAxe,Cards.GrommashHellscream,Cards.Armorsmith,Cards.Armorsmith,Cards.VarianWrynn,Cards.FierceMonkey,Cards.RavagingGhoul,Cards.RavagingGhoul,Cards.BloodhoofBrave,Cards.BloodhoofBrave,Cards.Malkorok,Cards.BloodToIchor,Cards.BloodToIchor,};
+        private readonly List<Card.Cards> tempoWarrior = new List<Card.Cards> { Cards.FrothingBerserker, Cards.FrothingBerserker, Cards.KorkronElite, Cards.KorkronElite, Cards.Execute, Cards.Execute, Cards.AzureDrake, Cards.AzureDrake, Cards.CruelTaskmaster, Cards.CruelTaskmaster, Cards.AcolyteofPain, Cards.ArgentCommander, Cards.ArgentCommander, Cards.RagnarostheFirelord, Cards.ArathiWeaponsmith, Cards.HarrisonJones, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Armorsmith, Cards.Armorsmith, Cards.VarianWrynn, Cards.FierceMonkey, Cards.RavagingGhoul, Cards.RavagingGhoul, Cards.BloodhoofBrave, Cards.BloodhoofBrave, Cards.Malkorok, Cards.BloodToIchor, Cards.BloodToIchor, };
 
         private readonly List<Card.Cards> controlWarlock = new List<Card.Cards> { Cards.MortalCoil, Cards.MortalCoil, Cards.BigGameHunter, Cards.Hellfire, Cards.Hellfire, Cards.Demonfire, Cards.LordJaraxxus, Cards.Ysera, Cards.IronbeakOwl, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.EarthenRingFarseer, Cards.SiphonSoul, Cards.BaneofDoom, Cards.Loatheb, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.PilotedShredder, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Demonheart, Cards.MistressofPain, Cards.Darkbomb, Cards.Darkbomb, Cards.Implosion, Cards.ImpGangBoss, Cards.ImpGangBoss, Cards.EmperorThaurissan, Cards.EliseStarseeker, Cards.JeweledScarab, };
         private readonly List<Card.Cards> handlock = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.MortalCoil, Cards.MortalCoil, Cards.BigGameHunter, Cards.MoltenGiant, Cards.MoltenGiant, Cards.Hellfire, Cards.AncientWatcher, Cards.AncientWatcher, Cards.MountainGiant, Cards.MountainGiant, Cards.TwilightDrake, Cards.TwilightDrake, Cards.SunfuryProtector, Cards.SunfuryProtector, Cards.LordJaraxxus, Cards.IronbeakOwl, Cards.IronbeakOwl, Cards.DefenderofArgus, Cards.EarthenRingFarseer, Cards.Shadowflame, Cards.ZombieChow, Cards.ZombieChow, Cards.SludgeBelcher, Cards.DrBoom, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.Darkbomb, Cards.Darkbomb, Cards.BrannBronzebeard, };
@@ -962,10 +851,10 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> hybridHunter = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.FreezingTrap, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.ExplosiveTrap, Cards.EaglehornBow, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KillCommand, Cards.KillCommand, Cards.IronbeakOwl, Cards.LeperGnome, Cards.LeperGnome, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.Loatheb, Cards.MadScientist, Cards.MadScientist, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Glaivezooka, Cards.Glaivezooka, Cards.QuickShot, Cards.ArgentHorserider, Cards.ArgentHorserider, };
         private readonly List<Card.Cards> hatHunter = new List<Card.Cards> { Cards.HuntersMark, Cards.HuntersMark, Cards.SylvanasWindrunner, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.Flare, Cards.ZombieChow, Cards.NerubianEgg, Cards.NerubianEgg, Cards.Webspinner, Cards.Webspinner, Cards.Loatheb, Cards.HauntedCreeper, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Glaivezooka, Cards.Glaivezooka, Cards.QuickShot, Cards.QuickShot, Cards.BallofSpiders, Cards.BearTrap, Cards.ExplorersHat, Cards.ExplorersHat, Cards.JeweledScarab, Cards.JeweledScarab, };
         private readonly List<Card.Cards> midRangeHunter = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.HuntersMark, Cards.FreezingTrap, Cards.FreezingTrap, Cards.Houndmaster, Cards.Houndmaster, Cards.UnleashtheHounds, Cards.StranglethornTiger, Cards.EaglehornBow, Cards.EaglehornBow, Cards.KillCommand, Cards.KillCommand, Cards.IronbeakOwl, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.Webspinner, Cards.Webspinner, Cards.Loatheb, Cards.MadScientist, Cards.MadScientist, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.PilotedShredder, Cards.PilotedShredder, Cards.Glaivezooka, Cards.QuickShot, Cards.KingsElekk, Cards.KingsElekk, };
-        private readonly List<Card.Cards> midRangeHunter2 = new List<Card.Cards>{Cards.SavannahHighmane,Cards.SavannahHighmane,Cards.HuntersMark,Cards.FreezingTrap,Cards.FreezingTrap,Cards.Houndmaster,Cards.Houndmaster,Cards.DeadlyShot,Cards.UnleashtheHounds,Cards.UnleashtheHounds,Cards.EaglehornBow,Cards.EaglehornBow,Cards.StampedingKodo,Cards.KillCommand,Cards.KillCommand,Cards.AnimalCompanion,Cards.AnimalCompanion,Cards.QuickShot,Cards.QuickShot,Cards.RamWrangler,Cards.KingsElekk,Cards.KingsElekk,Cards.HugeToad,Cards.HugeToad,Cards.CalloftheWild,Cards.CalloftheWild,Cards.FieryBat,Cards.FieryBat,Cards.InfestedWolf,Cards.CarrionGrub,};
-        private readonly List<Card.Cards> midRangeHunter3 = new List<Card.Cards>{Cards.SavannahHighmane,Cards.SavannahHighmane,Cards.HuntersMark,Cards.SylvanasWindrunner,Cards.FreezingTrap,Cards.Houndmaster,Cards.Houndmaster,Cards.UnleashtheHounds,Cards.UnleashtheHounds,Cards.EaglehornBow,Cards.EaglehornBow,Cards.StampedingKodo,Cards.KillCommand,Cards.KillCommand,Cards.RagnarostheFirelord,Cards.AnimalCompanion,Cards.AnimalCompanion,Cards.HarrisonJones,Cards.QuickShot,Cards.QuickShot,Cards.KingsElekk,Cards.HugeToad,Cards.HugeToad,Cards.CalloftheWild,Cards.CalloftheWild,Cards.PrincessHuhuran,Cards.FieryBat,Cards.FieryBat,Cards.InfestedWolf,Cards.InfestedWolf,};
-        private readonly List<Card.Cards> midRangeHunter4 = new List<Card.Cards>{Cards.SavannahHighmane,Cards.SavannahHighmane,Cards.HuntersMark,Cards.SylvanasWindrunner,Cards.FreezingTrap,Cards.Houndmaster,Cards.Houndmaster,Cards.UnleashtheHounds,Cards.UnleashtheHounds,Cards.EaglehornBow,Cards.EaglehornBow,Cards.StampedingKodo,Cards.KillCommand,Cards.KillCommand,Cards.RagnarostheFirelord,Cards.AnimalCompanion,Cards.AnimalCompanion,Cards.HarrisonJones,Cards.QuickShot,Cards.QuickShot,Cards.KingsElekk,Cards.HugeToad,Cards.HugeToad,Cards.CalloftheWild,Cards.CalloftheWild,Cards.PrincessHuhuran,Cards.FieryBat,Cards.FieryBat,Cards.InfestedWolf,Cards.InfestedWolf,};
-        private readonly List<Card.Cards> midRangeHunter5 = new List<Card.Cards>{Cards.SavannahHighmane,Cards.SavannahHighmane,Cards.FreezingTrap,Cards.TundraRhino,Cards.Houndmaster,Cards.Houndmaster,Cards.DeadlyShot,Cards.DeadlyShot,Cards.UnleashtheHounds,Cards.EaglehornBow,Cards.EaglehornBow,Cards.StampedingKodo,Cards.StampedingKodo,Cards.Doomsayer,Cards.Doomsayer,Cards.KillCommand,Cards.KillCommand,Cards.AnimalCompanion,Cards.AnimalCompanion,Cards.QuickShot,Cards.QuickShot,Cards.KingsElekk,Cards.KingsElekk,Cards.HugeToad,Cards.HugeToad,Cards.CalloftheWild,Cards.CalloftheWild,Cards.InfestedWolf,Cards.InfestedWolf,Cards.CarrionGrub,};
+        private readonly List<Card.Cards> midRangeHunter2 = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.HuntersMark, Cards.FreezingTrap, Cards.FreezingTrap, Cards.Houndmaster, Cards.Houndmaster, Cards.DeadlyShot, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.EaglehornBow, Cards.EaglehornBow, Cards.StampedingKodo, Cards.KillCommand, Cards.KillCommand, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.QuickShot, Cards.QuickShot, Cards.RamWrangler, Cards.KingsElekk, Cards.KingsElekk, Cards.HugeToad, Cards.HugeToad, Cards.CalloftheWild, Cards.CalloftheWild, Cards.FieryBat, Cards.FieryBat, Cards.InfestedWolf, Cards.CarrionGrub, };
+        private readonly List<Card.Cards> midRangeHunter3 = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.HuntersMark, Cards.SylvanasWindrunner, Cards.FreezingTrap, Cards.Houndmaster, Cards.Houndmaster, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.EaglehornBow, Cards.EaglehornBow, Cards.StampedingKodo, Cards.KillCommand, Cards.KillCommand, Cards.RagnarostheFirelord, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.HarrisonJones, Cards.QuickShot, Cards.QuickShot, Cards.KingsElekk, Cards.HugeToad, Cards.HugeToad, Cards.CalloftheWild, Cards.CalloftheWild, Cards.PrincessHuhuran, Cards.FieryBat, Cards.FieryBat, Cards.InfestedWolf, Cards.InfestedWolf, };
+        private readonly List<Card.Cards> midRangeHunter4 = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.HuntersMark, Cards.SylvanasWindrunner, Cards.FreezingTrap, Cards.Houndmaster, Cards.Houndmaster, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.EaglehornBow, Cards.EaglehornBow, Cards.StampedingKodo, Cards.KillCommand, Cards.KillCommand, Cards.RagnarostheFirelord, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.HarrisonJones, Cards.QuickShot, Cards.QuickShot, Cards.KingsElekk, Cards.HugeToad, Cards.HugeToad, Cards.CalloftheWild, Cards.CalloftheWild, Cards.PrincessHuhuran, Cards.FieryBat, Cards.FieryBat, Cards.InfestedWolf, Cards.InfestedWolf, };
+        private readonly List<Card.Cards> midRangeHunter5 = new List<Card.Cards> { Cards.SavannahHighmane, Cards.SavannahHighmane, Cards.FreezingTrap, Cards.TundraRhino, Cards.Houndmaster, Cards.Houndmaster, Cards.DeadlyShot, Cards.DeadlyShot, Cards.UnleashtheHounds, Cards.EaglehornBow, Cards.EaglehornBow, Cards.StampedingKodo, Cards.StampedingKodo, Cards.Doomsayer, Cards.Doomsayer, Cards.KillCommand, Cards.KillCommand, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.QuickShot, Cards.QuickShot, Cards.KingsElekk, Cards.KingsElekk, Cards.HugeToad, Cards.HugeToad, Cards.CalloftheWild, Cards.CalloftheWild, Cards.InfestedWolf, Cards.InfestedWolf, Cards.CarrionGrub, };
         private readonly List<Card.Cards> faceHunter = new List<Card.Cards> { Cards.ArcaneGolem, Cards.WorgenInfiltrator, Cards.WorgenInfiltrator, Cards.UnleashtheHounds, Cards.UnleashtheHounds, Cards.ExplosiveTrap, Cards.EaglehornBow, Cards.EaglehornBow, Cards.KnifeJuggler, Cards.KnifeJuggler, Cards.KillCommand, Cards.KillCommand, Cards.IronbeakOwl, Cards.LeperGnome, Cards.LeperGnome, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.LeeroyJenkins, Cards.MadScientist, Cards.MadScientist, Cards.Glaivezooka, Cards.QuickShot, Cards.QuickShot, Cards.FlameJuggler, Cards.FlameJuggler, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.BearTrap, };
         private readonly List<Card.Cards> basicHunter = new List<Card.Cards> { Cards.HuntersMark, Cards.HuntersMark, Cards.ArcaneShot, Cards.ArcaneShot, Cards.Tracking, Cards.AnimalCompanion, Cards.AnimalCompanion, Cards.KillCommand, Cards.KillCommand, Cards.MultiShot, Cards.MultiShot, Cards.Houndmaster, Cards.Houndmaster, Cards.StonetuskBoar, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.RiverCrocolisk, Cards.RiverCrocolisk, Cards.IronfurGrizzly, Cards.IronfurGrizzly, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.OasisSnapjaw, Cards.FrostwolfWarlord, Cards.FrostwolfWarlord, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, };
 
@@ -983,12 +872,12 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> basic = new List<Card.Cards> { Cards.Backstab, Cards.Backstab, Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.Sap, Cards.Shiv, Cards.Shiv, Cards.FanofKnives, Cards.FanofKnives, Cards.AssassinsBlade, Cards.AssassinsBlade, Cards.Assassinate, Cards.Assassinate, Cards.Sprint, Cards.AcidicSwampOoze, Cards.AcidicSwampOoze, Cards.BloodfenRaptor, Cards.BloodfenRaptor, Cards.KoboldGeomancer, Cards.RazorfenHunter, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.BoulderfistOgre, Cards.BoulderfistOgre, };
 
         private readonly List<Card.Cards> tokenDruid = new List<Card.Cards> { Cards.PoweroftheWild, Cards.PoweroftheWild, Cards.SouloftheForest, Cards.SouloftheForest, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.MarkoftheWild, Cards.MarkoftheWild, Cards.DefenderofArgus, Cards.DefenderofArgus, Cards.Innervate, Cards.Innervate, Cards.AbusiveSergeant, Cards.AbusiveSergeant, Cards.LivingRoots, Cards.LivingRoots, Cards.MountedRaptor, Cards.MountedRaptor, Cards.DragonEgg, Cards.DragonEgg, Cards.NerubianEgg, Cards.NerubianEgg, Cards.EchoingOoze, Cards.EchoingOoze, Cards.Jeeves, Cards.Jeeves, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.SirFinleyMrrgglton, };
-        private readonly List<Card.Cards> tokenDruid2 = new List<Card.Cards>{Cards.Nourish,Cards.Nourish,Cards.PoweroftheWild,Cards.PoweroftheWild,Cards.WildGrowth,Cards.WildGrowth,Cards.SouloftheForest,Cards.SavageRoar,Cards.VioletTeacher,Cards.VioletTeacher,Cards.BloodmageThalnos,Cards.Innervate,Cards.Innervate,Cards.Cenarius,Cards.Swipe,Cards.Swipe,Cards.Wrath,Cards.Wrath,Cards.LivingRoots,Cards.LivingRoots,Cards.Mulch,Cards.RavenIdol,Cards.RavenIdol,Cards.MireKeeper,Cards.MireKeeper,Cards.YoggSaronHopesEnd,Cards.WispsoftheOldGods,Cards.WispsoftheOldGods,Cards.FandralStaghelm,Cards.FeralRage,};
+        private readonly List<Card.Cards> tokenDruid2 = new List<Card.Cards> { Cards.Nourish, Cards.Nourish, Cards.PoweroftheWild, Cards.PoweroftheWild, Cards.WildGrowth, Cards.WildGrowth, Cards.SouloftheForest, Cards.SavageRoar, Cards.VioletTeacher, Cards.VioletTeacher, Cards.BloodmageThalnos, Cards.Innervate, Cards.Innervate, Cards.Cenarius, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.LivingRoots, Cards.LivingRoots, Cards.Mulch, Cards.RavenIdol, Cards.RavenIdol, Cards.MireKeeper, Cards.MireKeeper, Cards.YoggSaronHopesEnd, Cards.WispsoftheOldGods, Cards.WispsoftheOldGods, Cards.FandralStaghelm, Cards.FeralRage, };
         private readonly List<Card.Cards> basicDruid = new List<Card.Cards> { Cards.Innervate, Cards.Innervate, Cards.Claw, Cards.Claw, Cards.MarkoftheWild, Cards.MarkoftheWild, Cards.WildGrowth, Cards.WildGrowth, Cards.Swipe, Cards.Swipe, Cards.Starfire, Cards.Starfire, Cards.IronbarkProtector, Cards.IronbarkProtector, Cards.AcidicSwampOoze, Cards.RiverCrocolisk, Cards.RiverCrocolisk, Cards.ShatteredSunCleric, Cards.ShatteredSunCleric, Cards.ChillwindYeti, Cards.ChillwindYeti, Cards.GnomishInventor, Cards.GnomishInventor, Cards.SenjinShieldmasta, Cards.SenjinShieldmasta, Cards.DarkscaleHealer, Cards.BoulderfistOgre, Cards.BoulderfistOgre, Cards.StormwindChampion, Cards.StormwindChampion, };
         private readonly List<Card.Cards> renoDruid = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.AncientofLore, Cards.BigGameHunter, Cards.ForceofNature, Cards.AncientofWar, Cards.AzureDrake, Cards.WildGrowth, Cards.SenjinShieldmasta, Cards.SavageRoar, Cards.MindControlTech, Cards.KeeperoftheGrove, Cards.Innervate, Cards.DruidoftheClaw, Cards.HarrisonJones, Cards.Cenarius, Cards.Swipe, Cards.Wrath, Cards.ZombieChow, Cards.ShadeofNaxxramas, Cards.Loatheb, Cards.SludgeBelcher, Cards.DrBoom, Cards.PilotedShredder, Cards.SavageCombatant, Cards.DarnassusAspirant, Cards.LivingRoots, Cards.JeweledScarab, Cards.RenoJackson, Cards.RavenIdol, Cards.MountedRaptor, };
         private readonly List<Card.Cards> renoDruid2 = new List<Card.Cards> { Cards.AncientofLore, Cards.BigGameHunter, Cards.ForceofNature, Cards.AncientofWar, Cards.AzureDrake, Cards.WildGrowth, Cards.SavageRoar, Cards.TheBlackKnight, Cards.KnifeJuggler, Cards.KeeperoftheGrove, Cards.BloodmageThalnos, Cards.Innervate, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.ZombieChow, Cards.RavenIdol, Cards.DarnassusAspirant, Cards.MountedRaptor, Cards.SavageCombatant, Cards.HauntedCreeper, Cards.PilotedShredder, Cards.Loatheb, Cards.SludgeBelcher, Cards.EmperorThaurissan, Cards.RenoJackson, Cards.DrBoom, Cards.LivingRoots, Cards.ShadeofNaxxramas, };
         private readonly List<Card.Cards> beastDruid = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.ForceofNature, Cards.SavageRoar, Cards.SavageRoar, Cards.IronbeakOwl, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.ShadeofNaxxramas, Cards.Loatheb, Cards.HauntedCreeper, Cards.HauntedCreeper, Cards.DrBoom, Cards.DruidoftheFang, Cards.SavageCombatant, Cards.SavageCombatant, Cards.KnightoftheWild, Cards.Wildwalker, Cards.JeweledScarab, Cards.JeweledScarab, Cards.TombSpider, Cards.RavenIdol, Cards.MountedRaptor, Cards.MountedRaptor, };
-        private readonly List<Card.Cards> beastDruid2 = new List<Card.Cards>{Cards.PoweroftheWild,Cards.PoweroftheWild,Cards.AzureDrake,Cards.AzureDrake,Cards.SavageRoar,Cards.SavageRoar,Cards.VioletTeacher,Cards.VioletTeacher,Cards.Innervate,Cards.Innervate,Cards.DruidoftheClaw,Cards.DruidoftheClaw,Cards.Swipe,Cards.Swipe,Cards.LeeroyJenkins,Cards.DruidoftheFlame,Cards.DruidoftheFlame,Cards.SavageCombatant,Cards.SavageCombatant,Cards.DarnassusAspirant,Cards.DarnassusAspirant,Cards.DruidoftheSaber,Cards.DruidoftheSaber,Cards.LivingRoots,Cards.LivingRoots,Cards.SirFinleyMrrgglton,Cards.MountedRaptor,Cards.MountedRaptor,Cards.MarkofYShaarj,Cards.MarkofYShaarj,};
+        private readonly List<Card.Cards> beastDruid2 = new List<Card.Cards> { Cards.PoweroftheWild, Cards.PoweroftheWild, Cards.AzureDrake, Cards.AzureDrake, Cards.SavageRoar, Cards.SavageRoar, Cards.VioletTeacher, Cards.VioletTeacher, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.LeeroyJenkins, Cards.DruidoftheFlame, Cards.DruidoftheFlame, Cards.SavageCombatant, Cards.SavageCombatant, Cards.DarnassusAspirant, Cards.DarnassusAspirant, Cards.DruidoftheSaber, Cards.DruidoftheSaber, Cards.LivingRoots, Cards.LivingRoots, Cards.SirFinleyMrrgglton, Cards.MountedRaptor, Cards.MountedRaptor, Cards.MarkofYShaarj, Cards.MarkofYShaarj, };
         private readonly List<Card.Cards> astralDruid = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.AncientofLore, Cards.AncientofLore, Cards.Nourish, Cards.Nourish, Cards.AncientofWar, Cards.AncientofWar, Cards.WildGrowth, Cards.WildGrowth, Cards.Alexstrasza, Cards.Ysera, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.KelThuzad, Cards.DrBoom, Cards.TreeofLife, Cards.GroveTender, Cards.GroveTender, Cards.Nefarian, Cards.Chromaggus, Cards.EmperorThaurissan, Cards.FrostGiant, Cards.FrostGiant, Cards.Aviana, Cards.AstralCommunion, Cards.AstralCommunion, };
         private readonly List<Card.Cards> mechDruid = new List<Card.Cards> { Cards.AncientofLore, Cards.AncientofLore, Cards.PoweroftheWild, Cards.ForceofNature, Cards.ForceofNature, Cards.SavageRoar, Cards.SavageRoar, Cards.KeeperoftheGrove, Cards.KeeperoftheGrove, Cards.Innervate, Cards.Innervate, Cards.DruidoftheClaw, Cards.Swipe, Cards.Swipe, Cards.Wrath, Cards.Wrath, Cards.Starfire, Cards.HauntedCreeper, Cards.Cogmaster, Cards.Cogmaster, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.DrBoom, Cards.SpiderTank, Cards.SpiderTank, Cards.Mechwarper, Cards.Mechwarper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.TinkertownTechnician, };
         private readonly List<Card.Cards> millDruid = new List<Card.Cards> { Cards.DeadlyPoison, Cards.DeadlyPoison, Cards.ColdlightOracle, Cards.ColdlightOracle, Cards.BladeFlurry, Cards.SI7Agent, Cards.SI7Agent, Cards.Preparation, Cards.Preparation, Cards.KingMukla, Cards.Eviscerate, Cards.Eviscerate, Cards.Sap, Cards.Sap, Cards.Backstab, Cards.Backstab, Cards.Shadowstep, Cards.Shadowstep, Cards.Vanish, Cards.Vanish, Cards.Deathlord, Cards.Deathlord, Cards.AntiqueHealbot, Cards.AntiqueHealbot, Cards.GangUp, Cards.GangUp, Cards.RefreshmentVendor, Cards.RefreshmentVendor, Cards.BeneaththeGrounds, Cards.BrannBronzebeard, };
@@ -1009,7 +898,7 @@ namespace SmartBot.Plugins
             if (CurrentDeck.Count == 0) return info;
             string str = CurrentDeck.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", "));
             Log("[ABTracker_debug] " + str);
-           
+
             Dictionary<DeckType, int> deckDictionary = new Dictionary<DeckType, int>();
 
             switch (cClass)
@@ -1029,10 +918,10 @@ namespace SmartBot.Plugins
                         CurrentDeck.Intersect(TotemShaman4).Count(),
                         CurrentDeck.Intersect(BloodlustShaman).Count(),
                         CurrentDeck.Intersect(BloodlustShaman).Count(),
-                                             
+
                     };
-                    
-                    deckDictionary.AddOrUpdate(DeckType.MidrangeShaman, TotemShamans.Max());
+
+                deckDictionary.AddOrUpdate(DeckType.MidrangeShaman, TotemShamans.Max());
                 if (CurrentDeck.IsRenoDeck())
                 {
                     deckDictionary.AddOrUpdate(DeckType.RenoShaman, CurrentDeck.Intersect(renoShaman).Count());
@@ -1059,11 +948,11 @@ namespace SmartBot.Plugins
                         CurrentDeck.Intersect(ControlShaman2).Count(),
                         CurrentDeck.Intersect(ControlShaman3).Count(),
                     };
-                    deckDictionary.AddOrUpdate(DeckType.ControlShaman,chmn.Max());
-                    
+                    deckDictionary.AddOrUpdate(DeckType.ControlShaman, chmn.Max());
+
                 }
 
-                
+
 
                 deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicChaman).Count());
 
@@ -1099,7 +988,7 @@ namespace SmartBot.Plugins
                     deckDictionary.AddOrUpdate(DeckType.MechPriest, CurrentDeck.Intersect(MechPriest).Count());
                 }
 
-               
+
                 deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(BasicPriest).Count());
 
                 break;
@@ -1133,7 +1022,7 @@ namespace SmartBot.Plugins
                 {
                     deckDictionary.AddOrUpdate(DeckType.MechMage, CurrentDeck.Intersect(mechMage).Count());
                 }
-                
+
                 deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicMage).Count());
                 break;
 
@@ -1156,7 +1045,7 @@ namespace SmartBot.Plugins
                        CurrentDeck.Intersect(renoPaladin2).Count()
                     };
                     deckDictionary.AddOrUpdate(DeckType.RenoPaladin, reno.Max());
-                    
+
                 }
                 if (CurrentDeck.ContainsSome(Cards.AnyfinCanHappen, Cards.BluegillWarrior, Cards.MurlocWarleader, Cards.OldMurkEye, Cards.Doomsayer))
                 {
@@ -1174,7 +1063,7 @@ namespace SmartBot.Plugins
                       CurrentDeck.Intersect(midrangePaladin).Count(),
                     };
                     deckDictionary.AddOrUpdate(DeckType.MidRangePaladin, CurrentDeck.Intersect(midrangePaladin).Count());
-                    
+
                 }
                 if (CurrentDeck.ContainsSome(Cards.TwilightGuardian, Cards.BlackwingTechnician, Cards.DragonConsort, Cards.BlackwingCorruptor) || CurrentDeck.RaceCount(Card.CRace.DRAGON) > 3)
                 {
@@ -1184,7 +1073,7 @@ namespace SmartBot.Plugins
                 {
                     deckDictionary.AddOrUpdate(DeckType.AggroPaladin, CurrentDeck.Intersect(aggroPaladin).Count());
                 }
-                
+
                 deckDictionary.AddOrUpdate(DeckType.Basic, CurrentDeck.Intersect(basicPaladin).Count());
                 break;
 
@@ -1205,7 +1094,7 @@ namespace SmartBot.Plugins
                     deckDictionary.AddOrUpdate(DeckType.RenoWarrior, CurrentDeck.Intersect(renoWarrior).Count());
                     deckDictionary.AddOrUpdate(DeckType.RenoWarrior, CurrentDeck.Intersect(renoWarrior2).Count());
                 }
-                
+
                 if (CurrentDeck.Contains(Cards.Deathlord))
                 {
                     deckDictionary.AddOrUpdate(DeckType.FatigueWarrior, CurrentDeck.Intersect(fatigueWarrior).Count());
@@ -1235,7 +1124,7 @@ namespace SmartBot.Plugins
                 #endregion
 
                 #region warlock
-                 
+
                 case Card.CClass.WARLOCK:
                 if (CurrentDeck.IsCthun())
                 {
@@ -1259,7 +1148,7 @@ namespace SmartBot.Plugins
                       CurrentDeck.Intersect(RenoCombo).Count(),
                     };
                     deckDictionary.AddOrUpdate(DeckType.RenoLock, reno.Max());
-                    
+
                 }
                 if (CurrentDeck.ContainsAtLeast(2, Cards.Voidcaller, Cards.Doomguard, Cards.MalGanis, Cards.ImpGangBoss))
                 {
@@ -1317,7 +1206,7 @@ namespace SmartBot.Plugins
                 {
                     deckDictionary.AddOrUpdate(DeckType.HybridHunter, CurrentDeck.Intersect(hybridHunter).Count());
                 }
-                
+
                 if (CurrentDeck.ContainsAtLeast(2, Cards.ExplosiveTrap, Cards.AbusiveSergeant, Cards.LeperGnome, Cards.KnifeJuggler))
                 {
                     deckDictionary.AddOrUpdate(DeckType.FaceHunter, CurrentDeck.Intersect(faceHunter).Count());
@@ -1370,7 +1259,7 @@ namespace SmartBot.Plugins
                 {
                     deckDictionary.AddOrUpdate(DeckType.MalyRogue, CurrentDeck.Intersect(malyRogue).Count());
                 }
-               
+
                 if (CurrentDeck.Contains(Cards.UnearthedRaptor))
                 {
                     deckDictionary.AddOrUpdate(DeckType.RaptorRogue, CurrentDeck.Intersect(raptorRogue).Count());
@@ -1531,9 +1420,9 @@ namespace SmartBot.Plugins
         public DeckType MyDeckType { get; set; }
         public int Played { get; set; }
         public int Drawn { get; set; }
-       
 
-        public CardStatistic(Card.Cards card, DeckType dt )
+
+        public CardStatistic(Card.Cards card, DeckType dt)
         {
             MyCard = card;
             MyDeckType = dt;
@@ -1541,125 +1430,18 @@ namespace SmartBot.Plugins
             Drawn = 0;
         }
 
-        
+
 
     }
-   
 
-    public enum DeckType
-    {
-        Custom,
-        Unknown,
-        Arena,
-        /*Warrior*/
-        ControlWarrior,
-        FatigueWarrior,
-        DragonWarrior,
-        PatronWarrior,
-        WorgenOTKWarrior,
-        MechWarrior,
-        FaceWarrior,
-        RenoWarrior,
-        CThunWarrior,
-        TempoWarrior,
-        /*Paladin*/
-        SecretPaladin,
-        MidRangePaladin,
-        DragonPaladin,
-        AggroPaladin,
-        AnyfinMurglMurgl,
-        RenoPaladin,
-        CThunPaladin,
-        
-        /*Druid*/
-        RampDruid,
-        AggroDruid,
-        DragonDruid,
-        MidRangeDruid,
-        TokenDruid,
-        SilenceDruid,
-        MechDruid,
-        AstralDruid,
-        MillDruid,
-        BeastDruid,
-        RenoDruid,
-        CThunDruid,
-        /*Warlock*/
-        Handlock,
-        RenoLock,
-        Zoolock,
-        DemonHandlock,
-        DragonHandlock,
-        MalyLock,
-        ControlWarlock,
-        CThunLock,
-        /*Mage*/
-        TempoMage,
-        FreezeMage,
-        FaceFreezeMage,
-        DragonMage,
-        MechMage,
-        EchoMage,
-        RenoMage,
-        CThunMage,
-        /*Priest*/
-        DragonPriest,
-        ControlPriest,
-        ComboPriest,
-        MechPriest,
-        
-        /*Huntard*/
-        MidRangeHunter,
-        HybridHunter,
-        FaceHunter,
-        CamelHunter,
-        RenoHunter,
-        DragonHunter,
-        CThunHunter,
-        /*Rogue*/
-        OilRogue,
-        PirateRogue,
-        FaceRogue,
-        MalyRogue,
-        RaptorRogue,
-        MiracleRogue,
-        MechRogue,
-        RenoRogue,
-        MillRogue,
-        CThunRogue,
-        /*Chaman*/
-        FaceShaman,
-        MechShaman,
-        DragonShaman,
-        MidrangeShaman,
-        MalygosShaman,
-        ControlShaman,
-        
-        BattleryShaman,
-        RenoShaman,
-        CThunShaman,
 
-        Basic,
-    }
-
-    public enum Style
-    {
-        Unknown,
-        Face,
-        Aggro,
-        Control,
-        Midrange,
-        Combo,
-        Tempo,
-        Fatigue,
-    }
 
     public enum IdentityMode
     {
         Auto,
         Manual
     }
-        
+
     public enum Locale
     {
         English, Russian
@@ -1669,4 +1451,111 @@ namespace SmartBot.Plugins
         Hard, Soft
     }
 
+}
+public enum DeckType
+{
+    Custom,
+    Unknown,
+    Arena,
+    /*Warrior*/
+    ControlWarrior,
+    FatigueWarrior,
+    DragonWarrior,
+    PatronWarrior,
+    WorgenOTKWarrior,
+    MechWarrior,
+    FaceWarrior,
+    RenoWarrior,
+    CThunWarrior,
+    TempoWarrior,
+    /*Paladin*/
+    SecretPaladin,
+    MidRangePaladin,
+    DragonPaladin,
+    AggroPaladin,
+    AnyfinMurglMurgl,
+    RenoPaladin,
+    CThunPaladin,
+
+    /*Druid*/
+    RampDruid,
+    AggroDruid,
+    DragonDruid,
+    MidRangeDruid,
+    TokenDruid,
+    SilenceDruid,
+    MechDruid,
+    AstralDruid,
+    MillDruid,
+    BeastDruid,
+    RenoDruid,
+    CThunDruid,
+    /*Warlock*/
+    Handlock,
+    RenoLock,
+    Zoolock,
+    DemonHandlock,
+    DragonHandlock,
+    MalyLock,
+    ControlWarlock,
+    CThunLock,
+    /*Mage*/
+    TempoMage,
+    FreezeMage,
+    FaceFreezeMage,
+    DragonMage,
+    MechMage,
+    EchoMage,
+    RenoMage,
+    CThunMage,
+    /*Priest*/
+    DragonPriest,
+    ControlPriest,
+    ComboPriest,
+    MechPriest,
+
+    /*Huntard*/
+    MidRangeHunter,
+    HybridHunter,
+    FaceHunter,
+    CamelHunter,
+    RenoHunter,
+    DragonHunter,
+    CThunHunter,
+    /*Rogue*/
+    OilRogue,
+    PirateRogue,
+    FaceRogue,
+    MalyRogue,
+    RaptorRogue,
+    MiracleRogue,
+    MechRogue,
+    RenoRogue,
+    MillRogue,
+    CThunRogue,
+    /*Chaman*/
+    FaceShaman,
+    MechShaman,
+    DragonShaman,
+    MidrangeShaman,
+    MalygosShaman,
+    ControlShaman,
+
+    BattleryShaman,
+    RenoShaman,
+    CThunShaman,
+
+    Basic,
+}
+
+public enum Style
+{
+    Unknown,
+    Face,
+    Aggro,
+    Control,
+    Midrange,
+    Combo,
+    Tempo,
+    Fatigue,
 }
