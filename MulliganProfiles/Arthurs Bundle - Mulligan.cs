@@ -643,7 +643,7 @@ namespace MulliganProfiles
                 var eDeckType =
                     allDeckTypes.FirstOrDefault(q => q != DeckType.Unknown && q != DeckType.Basic && DeckClass[q] == op);
                 if (!Bot.CurrentMode().IsShitfest())
-                    Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
+                    Bot.Log(string.Format("[ABTracker] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
                 return eDeckType;
             }
             foreach (var q in history)
@@ -979,9 +979,9 @@ namespace MulliganProfiles
 
         private void MulliganLog(List<Card.Cards> choices, List<Card.Cards> cardsToKeep, GameContainer gc)
         {
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\Arthurs' Bundle: Mulligan\\"))
-                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\Arthurs' Bundle: Mulligan\\");
-            using (StreamWriter ml = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\Arthurs' Bundle: Mulligan\\MulliganHistory.txt", true))
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"))
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\");
+            using (StreamWriter ml = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\MulliganHistory.txt", true))
             {
                 Bot.Log("=========================================");
                 Bot.Log(string.Format("[{0}||{1} vs {2}:{3}]", Bot.CurrentMode(), gc.MyDeckType, gc.OpponentClass, gc.EneDeckType));
@@ -1386,7 +1386,7 @@ namespace MulliganProfiles
             _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.HasTurnThree ? Cards.CThun : Nothing, false);
             if (gc.Choices.Contains(Cards.CThun) && gc.HasTurnOne && gc.HasTurnThree)
             {
-                Bot.Log("[Arthurs' Bundle: Mulligan] You have both, 2 and 3 drops, so we are keeping C'Thun");
+                Bot.Log("[ABTracker] You have both, 2 and 3 drops, so we are keeping C'Thun");
             }
         }
 

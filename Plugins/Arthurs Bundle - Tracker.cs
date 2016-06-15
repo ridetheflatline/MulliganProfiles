@@ -425,16 +425,16 @@ namespace SmartBot.Plugins
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
             if (((ABTracker)DataContainer).AutoUpdate)
             {
-                CheckForUpdates();
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
             }
 
 
         }
-        private void CheckForUpdates()
+        private void CheckForUpdates(string str)
         {
             try
             {
-                String pluginPath = "Plugins\\GameRecorder.cs";
+                String pluginPath = AppDomain.CurrentDomain.BaseDirectory +"\\Plugins\\Arthurs Bundle - Tracker.cs";
 
                 // Get first line of local plugin
                 String firstLine;
@@ -446,21 +446,24 @@ namespace SmartBot.Plugins
 
                 // Get SHA of latest GameRecorder plugin
                 var branchesJson = fetchUrl("https://api.github.com/repos/ArthurFairchild/MulliganProfiles/branches");
+                string NewBranch = branchesJson.Substring(branchesJson.IndexOf("SmartMulliganV3"));
                 String shaPrefix = "\"sha\":\"";
-                int shaIndex = branchesJson.IndexOf(shaPrefix);
-                String gitCommitSha = branchesJson.Substring(shaIndex + shaPrefix.Length, 40);
-
+                int shaIndex = NewBranch.IndexOf(shaPrefix, NewBranch.IndexOf(shaPrefix));
+                String gitCommitSha = NewBranch.Substring(shaIndex + shaPrefix.Length, 40);
+                Bot.Log(" =============" +gitCommitSha);
                 // If sha's are different then update
-                String newFirstLine = "/** " + gitCommitSha + " */";
-                if (!firstLine.Equals(newFirstLine))
+                String RemoteSha = gitCommitSha;
+                //return;
+                if (!GetLocalSha().Equals(RemoteSha))
                 {
-                    String latestSource = fetchUrl("https://raw.githubusercontent.com/levinson/GameRecorder/master/GameRecorder.cs");
+                    String latestSource = fetchUrl(str);
                     using (var stream = new FileStream(pluginPath, FileMode.Create, FileAccess.Write))
                     using (var writer = new StreamWriter(stream))
                     {
-                        writer.WriteLine(newFirstLine);
+                        UpdateLocalSha(RemoteSha);
                         writer.Write(latestSource);
                         Log("Updated GameRecorder to latest version. Reload plugins for changes to take effect.");
+                        Bot.ReloadPlugins();
                     }
                 }
             }
@@ -479,7 +482,27 @@ namespace SmartBot.Plugins
                 return reader.ReadToEnd();
             }
         }
-
+        private string GetLocalSha()
+        {
+            try
+            {
+                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\ShaKey"))
+                {
+                    return sha.ReadLine();
+                }
+            }catch(FileNotFoundException)
+            {
+                Bot.Log("[Arthurs Bundle] First use detected" );
+                return "";
+            }
+        }
+        private void UpdateLocalSha(string str)
+        {
+            using(StreamWriter sha = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\ShaKey"))
+            {
+                sha.WriteLine(str);
+            }
+        }
         private Dictionary<Card.Cards, Statistics> CardStats = new Dictionary<Card.Cards, Statistics>();
         private void CreateCardReport(List<string> cards)
         {
