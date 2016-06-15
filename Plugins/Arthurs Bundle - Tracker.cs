@@ -1,4 +1,4 @@
-using SmartBot.Plugins.API;
+﻿using SmartBot.Plugins.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -95,27 +95,18 @@ namespace SmartBot.Plugins
         private const bool DebugTesting = true;
         [Browsable(false)]
         public Style ArenaStyle { get; set; }
-        [DisplayName("[A]---------------------")]
-        public string sectionA { get; private set; }
 
         [DisplayName(Russian ? "[A] Донат Трекеру" : "[A] Donation link")]
         public string donation { get; set; }
-        [DisplayName("[B]---------------------")]
-        public string sectionB { get; private set; }
+        [DisplayName(Russian ? "[A] Дискорд" : "[A] Discord link")]
+        public string discord { get; set; }
         [DisplayName(Russian ? "[B] Авто-Обновление" : "[B] Auto Update")]
         public bool AutoUpdate { get; set; }
         [DisplayName(Russian ? "[B] Режим Обновления" : "[B] Update Mode")]
-        public Update UpdateMode { get; set; }
-        [DisplayName(Russian ? "[B] Описание" : "[B] Description")]
-        public string UpdateGlossary { get; private set; }
-        [Browsable(false)]
-        public double Mversion { get; private set; }
-        [Browsable(false)]
-        public double Tversion { get; private set; }
+        public Update UpdateMode { get; private set; }
+        
         [DisplayName(Russian ? "[B] Версии" : "[B] Version")]
         public string Versions { get; private set; }
-        [DisplayName("[C]---------------------")]
-        public string sectionC { get; private set; }
 
         [DisplayName(Russian ? "[C] Определение Колоды" : "[C] ID Mode")]
         public IdentityMode Mode { get; set; }
@@ -131,14 +122,6 @@ namespace SmartBot.Plugins
         [DisplayName(Russian ? "[C] Тренер" : "[C] Coach")]
         public bool PredictionDisplay { get; set; }
 
-        [DisplayName(Russian ? "Словарь" : "Glossary")]
-        public string Dictionary { get; private set; }
-
-        [Browsable(false)]
-        public string LMulliganBundle { get; private set; }
-        [Browsable(false)]
-        public string LABTracker { get; private set; }
-
         [Browsable(false)]
         public DeckType AutoFriendlyDeckType { get; set; }
         [Browsable(false)]
@@ -151,16 +134,7 @@ namespace SmartBot.Plugins
         public int SynchEnums { get; set; }
         [DisplayName("Hall of Fame")]
         public string HallOfFame { get; private set; }
-
-        [DisplayName("[E]---------------------")]
-
-        public string sectionE { get; private set; }
-        [DisplayName("[E] Show Glossary Button ")]
-        public bool GlossaryButton { get; set; }
-        [DisplayName("[E] Stop after Legend")]
-        public bool StopLegend { get; set; }
-        [DisplayName("[E] Stop at Legend Rank")]
-        public int StopLegendX { get; set; }
+               
         [DisplayName("[E] Predict enemy from turn")]
         public int ProfilePredictionTurn { get; set; }
 
@@ -174,6 +148,7 @@ namespace SmartBot.Plugins
         {
             Name = "Arthurs Bundle - Tracker";
             donation = "http://bit.ly/ABTrackerDonation";
+            discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
             ForcedDeckType = DeckType.Unknown;
             MulliganTEsterEnemyDeck = DeckType.Unknown;
             MulliganTesterYourDeck = DeckType.Arena;
@@ -181,30 +156,20 @@ namespace SmartBot.Plugins
             AutoFriendlyDeckType = DeckType.Unknown;
             EnemyDeckTypeGuess = DeckType.Unknown;
             Enemy = Card.CClass.JARAXXUS;
-            LMulliganBundle = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/AB%20-%20Mulligan/version.txt";
-            LABTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/ABTracker/tracker.version";
+            HallOfFame = "Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai, Lo-fi";
 
         }
         public void RefreshMenu()
         {
             donation = "http://bit.ly/ABTrackerDonation";
+            discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
+            Versions = "4.001";
         }
         public void ReloadDictionary()
 
         {
             RefreshMenu();
-            Dictionary = "Detailed Summary: winrate vs decks + classes\nMinimal: winrate against decks\n"
-                + "Card Breakdown is currently unavailable\nMystery Button: Enable at your own risk";
-            UpdateGlossary = "Hard Update: fully overwrtites mulligan file. [Recomended for casual botters]"
-                + "\nSoft Update: Will keep your customly defined mulligans [Recomended for advanced users]";
-            sectionA = "[DONATION SECTION]";
-            sectionB = "[AUTO UPDATE SECTION]";
-            sectionC = "[IDENTIFICATION SECTION]";
-            sectionE = "[EXTRA FEATURES]";
-            if (Russian)
-            {
-                Dictionary = "[placeholder]";
-            }
+            
         }
         public bool Ru()
         {
@@ -212,36 +177,7 @@ namespace SmartBot.Plugins
         }
 
 
-        public void VersionCheck()
-        {
-            try
-            {
-                using (StreamReader Tversionl = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Plugins\\ABTracker\\tracker.version"))
-                using (StreamReader Mversionl = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\AB - Mulligan\\version.txt"))
-
-                {
-                    NumberFormatInfo format = new NumberFormatInfo
-                    {
-                        NumberGroupSeparator = ",",
-                        NumberDecimalSeparator = "."
-                    };
-                    Tversion = double.Parse(Tversionl.ReadLine(), format);
-                    Mversion = double.Parse(Mversionl.ReadLine(), format);
-                    //Bot.Log(string.Format("[Debug] saving {0} and {1}", Tversion, Mversion));
-                    Versions = string.Format("ABTracker: {0}\nArthurs' Bundle: Mulligan: {1}", Tversion, Mversion);
-                    HallOfFame = "[Arthurs' Bundle: Mulligan]" +
-                                 "\nTruci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai" +
-                                 "\n[ABTracker]" +
-                                 "\nWirmate";
-                }
-            }
-
-            catch (Exception e)
-            {
-                Bot.Log("[Version Update Failed]" + e.Message);
-            }
-            RefreshMenu();
-        }
+       
     }
     public enum Plugins
     {
@@ -322,13 +258,7 @@ namespace SmartBot.Plugins
         {
             ((ABTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
             ((ABTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
-            if (((ABTracker)DataContainer).StopLegend && Bot.GetPlayerDatas().GetRank() == 0)
-            {
-                Bot.Log("[ABTracker] You are Legend, bot will now stop. ");
-                Bot.StopBot();
-            }
-            if (((ABTracker)DataContainer).StopLegendX <= Bot.GetPlayerDatas().GetLegendIndex())
-                base.OnGameEnd();
+            
         }
 
         public override void OnGameBegin()
@@ -364,7 +294,6 @@ namespace SmartBot.Plugins
             CheckDirectory(TrackerVersion);
             CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs\\ABTracker\\");
             CheckFiles();
-            ((ABTracker)DataContainer).VersionCheck();
             ((ABTracker)DataContainer).ReloadDictionary();
             ((ABTracker)DataContainer).SynchEnums = Enum.GetNames(typeof(DeckType)).Length;
         }
