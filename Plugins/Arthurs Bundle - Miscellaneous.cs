@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 
 namespace SmartBot.Plugins
@@ -16,9 +17,11 @@ namespace SmartBot.Plugins
         [DisplayName("Stop at rank X legend")]
         public int sLegendRank { get; set; }
         [DisplayName("Auto-Concede\nUnwinable games")]
-        public bool AC { get; private set; } 
+        public bool AC { get; private set; }
         [DisplayName("Auto Concede:")]
-        public string ACDetails{ get; private set;}
+        public string ACDetails { get; private set; }
+        [DisplayName("Transfer SmartTracker History")]
+        public bool STTransfer { get; set; }
         public ArthursBundleMiscellaneous()
         {
             Name = "Arthurs Bundle - Miscellaneous";
@@ -33,6 +36,28 @@ namespace SmartBot.Plugins
 
     public class Miscellaneous : Plugin
     {
+        public override void OnStarted()
+        {
+            if (((ArthursBundleMiscellaneous)DataContainer).STTransfer && Bot.GetPlugins().Exists(c => c.DataContainer.Name == "SmartTracker"))
+            {
+                String directoryName = AppDomain.CurrentDomain.BaseDirectory+"\\Plugins\\ABTracker";
+                DirectoryInfo dirInfo = new DirectoryInfo(directoryName);
+                if (!dirInfo.Exists)
+                    Directory.CreateDirectory(directoryName);
+
+                List<String> AllHistoryFiles = Directory
+                                   .GetFiles(AppDomain.CurrentDomain.BaseDirectory+"\\Plugins\\SmartTracker", "*.*", SearchOption.AllDirectories).ToList();
+
+                foreach (string file in AllHistoryFiles)
+                {
+                    FileInfo mFile = new FileInfo(file);
+                    // to remove name collusion
+                    if (!new FileInfo(dirInfo + "\\" + mFile.Name).Exists)
+                        mFile.MoveTo(dirInfo + "\\" + mFile.Name);
+                }
+            }
+            base.OnStarted();
+        }
         public override void OnGameEnd()
         {
             if (((ArthursBundleMiscellaneous)DataContainer).sLegend && Bot.GetPlayerDatas().GetRank() == 0)
