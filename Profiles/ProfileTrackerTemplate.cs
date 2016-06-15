@@ -82,6 +82,7 @@ namespace TrackerExampleProfile
             {DaggerMastery, 1}
         };
         public TrackerValues st;
+        //Dictionary<DeckType, List<Card.Cards> SingleAoeClears = new Dictionary<DeckType, List<Card.Cards>>();
         /// <summary>
         /// Gets the parameters.
         /// </summary>
@@ -93,7 +94,12 @@ namespace TrackerExampleProfile
             //setup parameters with default as baseprofile
             var parameters = new ProfileParameters(BaseProfile.Default);
             //=====================TRACKER EXAMPLE=========================
-
+            Bot.Log("[--------------------------------------] Enemy Hand " +board.EnemyHand);
+            
+            foreach(var q in board.EnemyHand)
+            {
+               
+            }
             try
             {
                 st = new TrackerValues();
@@ -231,6 +237,7 @@ namespace TrackerExampleProfile
             return Mystery;
         }
     }
+   
     public enum DeckType
     {
         Custom,

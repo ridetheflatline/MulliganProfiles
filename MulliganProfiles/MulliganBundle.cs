@@ -16,6 +16,8 @@ namespace MulliganProfiles
     #region Extension class
     public static class Extension
     {
+        
+      
 
         /// <summary>
         /// Adds or updates only 1 card
@@ -2144,6 +2146,14 @@ namespace MulliganProfiles
         private void Core(GameContainer gc)
         {
             #region minion handler
+            try
+            {
+                Dictionary<string, object> CoreProperties =
+                    Bot.GetPlugins().Find(c => c.DataContainer.Name == "MulliganCore").GetProperties();
+            }catch(Exception e)
+            {
+                Bot.Log("MulliganCore plugin was not found, reverting to default");
+            }
 
             try
             {
