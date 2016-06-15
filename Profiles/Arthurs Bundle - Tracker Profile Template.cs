@@ -99,8 +99,8 @@ namespace TrackerExampleProfile
             var parameters = new ProfileParameters(BaseProfile.Default);
             //=====================TRACKER EXAMPLE=========================
             Bot.Log("[--------------------------------------] Enemy Hand " + board.EnemyHand);
-            List<Card.Cards> hand = board.Hand.Select(q => q.Template.Id).ToList(); 
-            if (board.Hand.Select(c => c == c.Template.Id).ContainsAll(Cards.TwilightDrake, Cards.TwilightGuardian))
+            
+            if (board.Hand.Select(c => c.Template.Id).ToList().ContainsAll(Cards.TwilightDrake, Cards.TwilightGuardian))
                 foreach (var q in board.EnemyHand)
                 {
 
