@@ -1,4 +1,4 @@
-using SmartBot.Plugins.API;
+﻿using SmartBot.Plugins.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -290,8 +290,8 @@ namespace SmartBot.Plugins
 
         public override void OnPluginCreated()
         {
-            CheckDirectory(MulliganInformation);
-            CheckDirectory(TrackerVersion);
+            CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\AB - Mulligan\\");
+           
             CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs\\ABTracker\\");
             CheckFiles();
             ((ABTracker)DataContainer).ReloadDictionary();
@@ -300,16 +300,7 @@ namespace SmartBot.Plugins
 
         private void CheckFiles()
         {
-            if (!File.Exists(TrackerVersion + "tracker.version"))
-            {
-                string createText = "0.001" + Environment.NewLine;
-                File.WriteAllText(TrackerVersion + "tracker.version", createText);
-            }
-            if (!File.Exists(MulliganInformation + "version.txt"))
-            {
-                string createText = "0.001" + Environment.NewLine;
-                File.WriteAllText(MulliganInformation + "version.txt", createText);
-            }
+
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\MatchHistory.txt"))
             {
                 File.Create(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\MatchHistory.txt");
@@ -362,7 +353,7 @@ namespace SmartBot.Plugins
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
-
+                
                 timer.Stop();
                 
                 Bot.Log(string.Format("[Checking for updates took] {0}" ,timer.Elapsed));
@@ -376,22 +367,14 @@ namespace SmartBot.Plugins
 
 
         }
+        
         private void CheckForUpdates(string str, bool mulligan = false)
         {
             string name = str.Substring(str.LastIndexOf('/')+1).Replace("%20", " ");
             try
             {
                 String pluginPath = AppDomain.CurrentDomain.BaseDirectory + (mulligan ? "\\MulliganProfiles" : "\\Plugins\\") +name;
-
-                // Get first line of local plugin
-                String firstLine;
-                using (var stream = new FileStream(pluginPath, FileMode.Open, FileAccess.Read))
-                using (var reader = new StreamReader(stream))
-                {
-                    firstLine = reader.ReadLine();
-                }
-
-                // Get SHA of latest GameRecorder plugin
+                                
                 var branchesJson = fetchUrl("https://api.github.com/repos/ArthurFairchild/MulliganProfiles/branches");
                 string NewBranch = branchesJson.Substring(branchesJson.IndexOf("SmartMulliganV3"));
                 String shaPrefix = "\"sha\":\"";
@@ -403,16 +386,18 @@ namespace SmartBot.Plugins
                 //return;
                 if (!GetLocalSha().Equals(RemoteSha))
                 {
+                    UpdateLocalSha(RemoteSha);
                     String latestSource = fetchUrl(str);
                     using (var stream = new FileStream(pluginPath, FileMode.Create, FileAccess.Write))
                     using (var writer = new StreamWriter(stream))
                     {
-                        UpdateLocalSha(RemoteSha);
+                        
                         writer.Write(latestSource);
                         Log("Update was succesfull");
-                        Bot.ReloadPlugins();
+                        
                     }
                 }
+               
             }
             catch (Exception e)
             {
