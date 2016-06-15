@@ -53,6 +53,7 @@ namespace SmartBot.Plugins
             Max4DropsCoin = 1;
 
             NoChange = true;
+            Enabled = true;
         }
 
     }

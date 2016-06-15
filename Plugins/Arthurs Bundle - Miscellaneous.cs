@@ -25,6 +25,7 @@ namespace SmartBot.Plugins
         public ArthursBundleMiscellaneous()
         {
             Name = "Arthurs Bundle - Miscellaneous";
+            Enabled = true;
             sLegend = false;
             sLegendRank = 1000;
             AC = false;

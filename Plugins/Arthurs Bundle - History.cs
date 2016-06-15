@@ -43,6 +43,7 @@ namespace SmartBot.Plugins
             RGT = true;
             print = true;
             details = Details.Minimal;
+            Enabled = true;
         }
     }
     public class HistoryDisplay : Plugin

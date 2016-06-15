@@ -157,6 +157,7 @@ namespace SmartBot.Plugins
             EnemyDeckTypeGuess = DeckType.Unknown;
             Enemy = Card.CClass.JARAXXUS;
             HallOfFame = "Truci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai, Lo-fi";
+            Enabled = true;
 
         }
         public void RefreshMenu()
@@ -352,7 +353,9 @@ namespace SmartBot.Plugins
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
+
                 
                 timer.Stop();
                 
