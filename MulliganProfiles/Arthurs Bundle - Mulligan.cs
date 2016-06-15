@@ -591,13 +591,7 @@ namespace MulliganProfiles
             {Cards.MidnightDrake, 0 },
             {Cards.PollutedHoarder, 0 },
             {Cards.TwilightSummoner, 0 },
-
-
-
-
-
-
-        };
+         };
         public static void Report(string msg)
         {
             using (StreamWriter log = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\DebugLog.txt", true))

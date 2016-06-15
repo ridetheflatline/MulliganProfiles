@@ -432,7 +432,7 @@ namespace SmartBot.Plugins
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
-                //CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
 
                 timer.Stop();
                 
@@ -452,7 +452,7 @@ namespace SmartBot.Plugins
             string name = str.Substring(str.LastIndexOf('/')+1).Replace("%20", " ");
             try
             {
-                String pluginPath = AppDomain.CurrentDomain.BaseDirectory +"\\Plugins\\" +name;
+                String pluginPath = AppDomain.CurrentDomain.BaseDirectory + (mulligan ? "\\MulliganProfiles" : "\\Plugins\\") +name;
 
                 // Get first line of local plugin
                 String firstLine;
