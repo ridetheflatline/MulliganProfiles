@@ -133,7 +133,7 @@ namespace MulliganProfiles
         public static bool IsCthusWhatever(this DeckType dt)
         {
             return dt.IsOneOf(DeckType.CThunDruid, DeckType.CThunHunter, DeckType.CThunLock,
-                DeckType.CThunPriest, DeckType.CThunPaladin, DeckType.CThunMage,
+                DeckType.CThunPaladin, DeckType.CThunMage,
                 DeckType.CThunRogue, DeckType.CThunShaman, DeckType.CThunWarrior);
         }
         /// <summary>
@@ -700,12 +700,12 @@ namespace MulliganProfiles
             {DeckType.SecretPaladin, Card.CClass.PALADIN}, {DeckType.MidRangePaladin, Card.CClass.PALADIN}, {DeckType.DragonPaladin, Card.CClass.PALADIN}, {DeckType.AggroPaladin, Card.CClass.PALADIN}, {DeckType.AnyfinMurglMurgl, Card.CClass.PALADIN}, {DeckType.RenoPaladin, Card.CClass.PALADIN}, /*Druid*/
             {DeckType.RampDruid, Card.CClass.DRUID}, {DeckType.AggroDruid, Card.CClass.DRUID}, {DeckType.DragonDruid, Card.CClass.DRUID}, {DeckType.MidRangeDruid, Card.CClass.DRUID}, {DeckType.TokenDruid, Card.CClass.DRUID}, {DeckType.SilenceDruid, Card.CClass.DRUID}, {DeckType.MechDruid, Card.CClass.DRUID}, {DeckType.AstralDruid, Card.CClass.DRUID}, {DeckType.MillDruid, Card.CClass.DRUID}, {DeckType.BeastDruid, Card.CClass.DRUID}, {DeckType.RenoDruid, Card.CClass.DRUID}, /*Warlock*/
             {DeckType.Handlock, Card.CClass.WARLOCK}, {DeckType.RenoLock, Card.CClass.WARLOCK}, {DeckType.Zoolock, Card.CClass.WARLOCK}, //Same handler as flood zoo and reliquary
-            {DeckType.DemonHandlock, Card.CClass.WARLOCK}, {DeckType.DemonZooWarlock, Card.CClass.WARLOCK}, {DeckType.DragonHandlock, Card.CClass.WARLOCK}, {DeckType.MalyLock, Card.CClass.WARLOCK}, {DeckType.RenoComboLock, Card.CClass.WARLOCK}, {DeckType.ControlWarlock, Card.CClass.WARLOCK}, /*Mage*/
-            {DeckType.TempoMage, Card.CClass.MAGE}, {DeckType.FreezeMage, Card.CClass.MAGE}, {DeckType.FaceFreezeMage, Card.CClass.MAGE}, {DeckType.DragonMage, Card.CClass.MAGE}, {DeckType.MechMage, Card.CClass.MAGE}, {DeckType.EchoMage, Card.CClass.MAGE}, {DeckType.FatigueMage, Card.CClass.MAGE}, {DeckType.RenoMage, Card.CClass.MAGE}, /*Priest*/
-            {DeckType.DragonPriest, Card.CClass.PRIEST}, {DeckType.ControlPriest, Card.CClass.PRIEST}, {DeckType.ComboPriest, Card.CClass.PRIEST}, {DeckType.MechPriest, Card.CClass.PRIEST}, {DeckType.ShadowPriest, Card.CClass.PRIEST}, /*Hunter*/
-            {DeckType.MidRangeHunter, Card.CClass.HUNTER}, {DeckType.HybridHunter, Card.CClass.HUNTER}, {DeckType.FaceHunter, Card.CClass.HUNTER}, {DeckType.HatHunter, Card.CClass.HUNTER}, {DeckType.CamelHunter, Card.CClass.HUNTER}, {DeckType.DragonHunter, Card.CClass.HUNTER}, {DeckType.RenoHunter, Card.CClass.HUNTER}, /*Rogue*/
-            {DeckType.OilRogue, Card.CClass.ROGUE}, {DeckType.PirateRogue, Card.CClass.ROGUE}, {DeckType.FaceRogue, Card.CClass.ROGUE}, {DeckType.MalyRogue, Card.CClass.ROGUE}, {DeckType.RaptorRogue, Card.CClass.ROGUE}, {DeckType.FatigueRogue, Card.CClass.ROGUE}, {DeckType.MiracleRogue, Card.CClass.ROGUE}, {DeckType.RenoRogue, Card.CClass.ROGUE}, {DeckType.MechRogue, Card.CClass.ROGUE}, {DeckType.MillRogue, Card.CClass.ROGUE}, /*Cance... I mean Shaman*/
-            {DeckType.FaceShaman, Card.CClass.SHAMAN}, {DeckType.MechShaman, Card.CClass.SHAMAN}, {DeckType.DragonShaman, Card.CClass.SHAMAN}, {DeckType.TotemShaman, Card.CClass.SHAMAN}, {DeckType.MalygosShaman, Card.CClass.SHAMAN}, {DeckType.ControlShaman, Card.CClass.SHAMAN}, {DeckType.BloodlustShaman, Card.CClass.SHAMAN}, {DeckType.RenoShaman, Card.CClass.SHAMAN}, {DeckType.BattleryShaman, Card.CClass.SHAMAN}, /*Poor Kids*/
+            {DeckType.DemonHandlock, Card.CClass.WARLOCK}, {DeckType.DragonHandlock, Card.CClass.WARLOCK}, {DeckType.MalyLock, Card.CClass.WARLOCK}, {DeckType.ControlWarlock, Card.CClass.WARLOCK}, /*Mage*/
+            {DeckType.TempoMage, Card.CClass.MAGE}, {DeckType.FreezeMage, Card.CClass.MAGE}, {DeckType.FaceFreezeMage, Card.CClass.MAGE}, {DeckType.DragonMage, Card.CClass.MAGE}, {DeckType.MechMage, Card.CClass.MAGE}, {DeckType.EchoMage, Card.CClass.MAGE},  {DeckType.RenoMage, Card.CClass.MAGE}, /*Priest*/
+            {DeckType.DragonPriest, Card.CClass.PRIEST}, {DeckType.ControlPriest, Card.CClass.PRIEST}, {DeckType.ComboPriest, Card.CClass.PRIEST}, {DeckType.MechPriest, Card.CClass.PRIEST}, /*Hunter*/
+            {DeckType.MidRangeHunter, Card.CClass.HUNTER}, {DeckType.HybridHunter, Card.CClass.HUNTER}, {DeckType.FaceHunter, Card.CClass.HUNTER},  {DeckType.CamelHunter, Card.CClass.HUNTER}, {DeckType.DragonHunter, Card.CClass.HUNTER}, {DeckType.RenoHunter, Card.CClass.HUNTER}, /*Rogue*/
+            {DeckType.OilRogue, Card.CClass.ROGUE}, {DeckType.PirateRogue, Card.CClass.ROGUE}, {DeckType.FaceRogue, Card.CClass.ROGUE}, {DeckType.MalyRogue, Card.CClass.ROGUE}, {DeckType.RaptorRogue, Card.CClass.ROGUE}, {DeckType.MiracleRogue, Card.CClass.ROGUE}, {DeckType.RenoRogue, Card.CClass.ROGUE}, {DeckType.MechRogue, Card.CClass.ROGUE}, {DeckType.MillRogue, Card.CClass.ROGUE}, /*Cance... I mean Shaman*/
+            {DeckType.FaceShaman, Card.CClass.SHAMAN}, {DeckType.MechShaman, Card.CClass.SHAMAN}, {DeckType.DragonShaman, Card.CClass.SHAMAN},  {DeckType.MalygosShaman, Card.CClass.SHAMAN}, {DeckType.ControlShaman, Card.CClass.SHAMAN},  {DeckType.RenoShaman, Card.CClass.SHAMAN}, {DeckType.BattleryShaman, Card.CClass.SHAMAN}, /*Poor Kids*/
         };
 
         #endregion
@@ -895,12 +895,12 @@ namespace MulliganProfiles
             {DeckType.SecretPaladin, Style.Tempo}, {DeckType.MidRangePaladin, Style.Control}, {DeckType.DragonPaladin, Style.Control}, {DeckType.AggroPaladin, Style.Aggro}, {DeckType.AnyfinMurglMurgl, Style.Combo}, {DeckType.RenoPaladin, Style.Control}, /*Druid*/
             {DeckType.RampDruid, Style.Control}, {DeckType.AggroDruid, Style.Aggro}, {DeckType.DragonDruid, Style.Control}, {DeckType.MidRangeDruid, Style.Combo}, {DeckType.TokenDruid, Style.Tempo}, {DeckType.SilenceDruid, Style.Control}, {DeckType.MechDruid, Style.Aggro}, {DeckType.AstralDruid, Style.Control}, {DeckType.MillDruid, Style.Fatigue}, {DeckType.BeastDruid, Style.Tempo}, {DeckType.RenoDruid, Style.Control}, /*Warlock*/
             {DeckType.Handlock, Style.Control}, {DeckType.RenoLock, Style.Control}, {DeckType.Zoolock, Style.Tempo}, //Same handler as flood zoo and reliquary
-            {DeckType.DemonHandlock, Style.Control}, {DeckType.DemonZooWarlock, Style.Tempo}, {DeckType.DragonHandlock, Style.Control}, {DeckType.MalyLock, Style.Combo}, {DeckType.RenoComboLock, Style.Combo}, {DeckType.ControlWarlock, Style.Control}, /*Mage*/
-            {DeckType.TempoMage, Style.Tempo}, {DeckType.FreezeMage, Style.Control}, {DeckType.FaceFreezeMage, Style.Aggro}, {DeckType.DragonMage, Style.Control}, {DeckType.MechMage, Style.Aggro}, {DeckType.EchoMage, Style.Control}, {DeckType.FatigueMage, Style.Fatigue}, {DeckType.RenoMage, Style.Control}, /*Priest*/
-            {DeckType.DragonPriest, Style.Tempo}, {DeckType.ControlPriest, Style.Control}, {DeckType.ComboPriest, Style.Combo}, {DeckType.MechPriest, Style.Aggro}, {DeckType.ShadowPriest, Style.Combo}, /*Hunter*/
-            {DeckType.MidRangeHunter, Style.Tempo}, {DeckType.HybridHunter, Style.Aggro}, {DeckType.FaceHunter, Style.Face}, {DeckType.HatHunter, Style.Control}, {DeckType.CamelHunter, Style.Control}, {DeckType.DragonHunter, Style.Control}, {DeckType.RenoHunter, Style.Control}, /*Rogue*/
-            {DeckType.OilRogue, Style.Combo}, {DeckType.PirateRogue, Style.Aggro}, {DeckType.FaceRogue, Style.Face}, {DeckType.MalyRogue, Style.Combo}, {DeckType.RaptorRogue, Style.Tempo}, {DeckType.FatigueRogue, Style.Combo}, {DeckType.MiracleRogue, Style.Combo}, {DeckType.RenoRogue, Style.Control}, {DeckType.MechRogue, Style.Tempo}, {DeckType.MillRogue, Style.Fatigue}, /*Cance... I mean Shaman*/
-            {DeckType.FaceShaman, Style.Face}, {DeckType.MechShaman, Style.Aggro}, {DeckType.DragonShaman, Style.Control}, {DeckType.TotemShaman, Style.Tempo}, {DeckType.MalygosShaman, Style.Combo}, {DeckType.ControlShaman, Style.Control}, {DeckType.BloodlustShaman, Style.Combo}, {DeckType.RenoShaman, Style.Combo}, {DeckType.BattleryShaman, Style.Control}, /*Poor Kids*/
+            {DeckType.DemonHandlock, Style.Control}, {DeckType.DragonHandlock, Style.Control}, {DeckType.MalyLock, Style.Combo},  {DeckType.ControlWarlock, Style.Control}, /*Mage*/
+            {DeckType.TempoMage, Style.Tempo}, {DeckType.FreezeMage, Style.Control}, {DeckType.FaceFreezeMage, Style.Aggro}, {DeckType.DragonMage, Style.Control}, {DeckType.MechMage, Style.Aggro}, {DeckType.EchoMage, Style.Control},  {DeckType.RenoMage, Style.Control}, /*Priest*/
+            {DeckType.DragonPriest, Style.Tempo}, {DeckType.ControlPriest, Style.Control}, {DeckType.ComboPriest, Style.Combo}, {DeckType.MechPriest, Style.Aggro}, /*Hunter*/
+            {DeckType.MidRangeHunter, Style.Tempo}, {DeckType.HybridHunter, Style.Aggro}, {DeckType.FaceHunter, Style.Face},  {DeckType.CamelHunter, Style.Control}, {DeckType.DragonHunter, Style.Control}, {DeckType.RenoHunter, Style.Control}, /*Rogue*/
+            {DeckType.OilRogue, Style.Combo}, {DeckType.PirateRogue, Style.Aggro}, {DeckType.FaceRogue, Style.Face}, {DeckType.MalyRogue, Style.Combo}, {DeckType.RaptorRogue, Style.Tempo},  {DeckType.MiracleRogue, Style.Combo}, {DeckType.RenoRogue, Style.Control}, {DeckType.MechRogue, Style.Tempo}, {DeckType.MillRogue, Style.Fatigue}, /*Cance... I mean Shaman*/
+            {DeckType.FaceShaman, Style.Face}, {DeckType.MechShaman, Style.Aggro}, {DeckType.DragonShaman, Style.Control},  {DeckType.MalygosShaman, Style.Combo}, {DeckType.ControlShaman, Style.Control},  {DeckType.RenoShaman, Style.Combo}, {DeckType.BattleryShaman, Style.Control}, /*Poor Kids*/
             {DeckType.Basic, Style.Tempo}
         };
 
@@ -1036,9 +1036,6 @@ namespace MulliganProfiles
                 case DeckType.RenoWarrior:
                 HandleRenoWarrior(gc);
                 break;
-                case DeckType.TauntWarrior:
-                HandleTauntWarrior(gc);
-                break;
                 case DeckType.SecretPaladin:
                 HandleSecretPaladin(gc);
                 break;
@@ -1096,20 +1093,11 @@ namespace MulliganProfiles
                 case DeckType.RenoLock:
                 HandleRenoLock(gc);
                 break;
-                case DeckType.RenoComboLock:
-                HandleRenoComboLock(gc);
-                break;
                 case DeckType.Zoolock:
-                HandleZoolock(gc);
-                break;
-                case DeckType.RelinquaryZoo:
                 HandleZoolock(gc);
                 break;
                 case DeckType.DemonHandlock:
                 HandleDemonHandlock(gc);
-                break;
-                case DeckType.DemonZooWarlock:
-                HandleDemonZooWarlock(gc);
                 break;
                 case DeckType.DragonHandlock:
                 HandleDragonHandlock(gc);
@@ -1138,9 +1126,6 @@ namespace MulliganProfiles
                 case DeckType.EchoMage:
                 HandleEchoMage(gc);
                 break;
-                case DeckType.FatigueMage:
-                HandleFatigueMage(gc);
-                break;
                 case DeckType.RenoMage:
                 HandleRenoMage(gc);
                 break;
@@ -1156,9 +1141,6 @@ namespace MulliganProfiles
                 case DeckType.MechPriest:
                 HandleMechPriest(gc);
                 break;
-                case DeckType.ShadowPriest:
-                HandleShadowPriest(gc);
-                break;
                 case DeckType.MidRangeHunter:
                 HandleMidrangeHunter(gc);
                 break;
@@ -1167,9 +1149,6 @@ namespace MulliganProfiles
                 break;
                 case DeckType.FaceHunter:
                 HandleFaceHunter(gc);
-                break;
-                case DeckType.HatHunter:
-                HandleHatHunter(gc);
                 break;
                 case DeckType.CamelHunter:
                 HandleCamelHunter(gc);
@@ -1195,9 +1174,6 @@ namespace MulliganProfiles
                 case DeckType.RaptorRogue:
                 HandleRaptorRogue(gc);
                 break;
-                case DeckType.FatigueRogue:
-                HandleFatigueRogue(gc);
-                break;
                 case DeckType.MiracleRogue:
                 HandleMiracleRogue(gc);
                 break;
@@ -1219,16 +1195,10 @@ namespace MulliganProfiles
                 case DeckType.DragonShaman:
                 HandleDragonShaman(gc);
                 break;
-                case DeckType.TotemShaman:
-                HandleTotemShaman(gc);
-                break;
                 case DeckType.MalygosShaman:
                 HandleMalyShaman(gc);
                 break;
                 case DeckType.ControlShaman:
-                HandleControlShaman(gc);
-                break;
-                case DeckType.BloodlustShaman:
                 HandleControlShaman(gc);
                 break;
                 case DeckType.BattleryShaman:
@@ -1255,9 +1225,6 @@ namespace MulliganProfiles
                 case DeckType.CThunMage:
                 HandleCThunDecks(gc);
                 break;
-                case DeckType.CThunPriest:
-                HandleCThunDecks(gc);
-                break;
                 case DeckType.CThunHunter:
                 HandleCThunDecks(gc);
                 break;
@@ -1266,9 +1233,6 @@ namespace MulliganProfiles
                 break;
                 case DeckType.CThunShaman:
                 HandleCThunDecks(gc);
-                break;
-                case DeckType.NZothPaladin:
-                HandleNZothPaladin(gc);
                 break;
                 case DeckType.TempoWarrior:
                     HandleTempoWarrior(gc);
@@ -1396,7 +1360,7 @@ namespace MulliganProfiles
                 _whiteList.AddInOrder(3, gc.Choices, false, Cards.WildPyromancer, Cards.Equality, Cards.AcolyteofPain, Cards.HarvestGolem, Cards.ArgentLance);
 
             if (gc.OpponentClass.WeaponClass()) _whiteList.AddOrUpdate(Cards.AcidicSwampOoze, false);
-            if (gc.EneDeckType.IsOneOf(TempoMage, Zoolock, RelinquaryZoo, RenoLock)) _whiteList.AddOrUpdate(Cards.TruesilverChampion, false);
+            if (gc.EneDeckType.IsOneOf(TempoMage, Zoolock, RenoLock)) _whiteList.AddOrUpdate(Cards.TruesilverChampion, false);
             if (gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.Consecration, false);
             if (gc.OpponentClass.IsOneOf(Shaman, Druid)) _whiteList.AddOrUpdate(Cards.AldorPeacekeeper, false);
         }
@@ -2403,7 +2367,6 @@ namespace MulliganProfiles
         private DeckType MechWarrior = DeckType.MechWarrior;
         private DeckType FaceWarrior = DeckType.FaceWarrior;
         private DeckType RenoWarrior = DeckType.RenoWarrior;
-        private DeckType TauntWarrior = DeckType.TauntWarrior;
         /*Paladin*/
         private DeckType SecretPaladin = DeckType.SecretPaladin;
         private DeckType MidRangePaladin = DeckType.MidRangePaladin;
@@ -2426,11 +2389,11 @@ namespace MulliganProfiles
         /*Warlock*/
         private DeckType Handlock = DeckType.Handlock;
         private DeckType RenoLock = DeckType.RenoLock;
-        private DeckType RenoComboLock = DeckType.RenoComboLock;
+        
         private DeckType Zoolock = DeckType.Zoolock;
-        private DeckType RelinquaryZoo = DeckType.RelinquaryZoo;
+       
         private DeckType DemonHandlock = DeckType.DemonHandlock;
-        private DeckType DemonZooWarlock = DeckType.DemonZooWarlock;
+        
         private DeckType DragonHandlock = DeckType.DragonHandlock;
         private DeckType MalyLock = DeckType.MalyLock;
         private DeckType ControlWarlock = DeckType.ControlWarlock;
@@ -2441,19 +2404,17 @@ namespace MulliganProfiles
         private DeckType DragonMage = DeckType.DragonMage;
         private DeckType MechMage = DeckType.MechMage;
         private DeckType EchoMage = DeckType.EchoMage;
-        private DeckType FatigueMage = DeckType.FatigueMage;
         private DeckType RenoMage = DeckType.RenoMage;
         /*Priest*/
         private DeckType DragonPriest = DeckType.DragonPriest;
         private DeckType ControlPriest = DeckType.ControlPriest;
         private DeckType ComboPriest = DeckType.ComboPriest;
         private DeckType MechPriest = DeckType.MechPriest;
-        private DeckType ShadowPriest = DeckType.ShadowPriest;
+        
         /*Huntard*/
         private DeckType MidRangeHunter = DeckType.MidRangeHunter;
         private DeckType HybridHunter = DeckType.HybridHunter;
         private DeckType FaceHunter = DeckType.FaceHunter;
-        private DeckType HatHunter = DeckType.HatHunter;
         private DeckType CamelHunter = DeckType.CamelHunter;
         private DeckType RenoHunter = DeckType.RenoHunter;
         private DeckType DragonHunter = DeckType.DragonHunter;
@@ -2463,7 +2424,6 @@ namespace MulliganProfiles
         private DeckType FaceRogue = DeckType.FaceRogue;
         private DeckType MalyRogue = DeckType.MalyRogue;
         private DeckType RaptorRogue = DeckType.RaptorRogue;
-        private DeckType FatigueRogue = DeckType.FatigueRogue;
         private DeckType MiracleRogue = DeckType.MiracleRogue;
         private DeckType MechRogue = DeckType.MechRogue;
         private DeckType RenoRogue = DeckType.RenoRogue;
@@ -2472,10 +2432,9 @@ namespace MulliganProfiles
         private DeckType FaceShaman = DeckType.FaceShaman;
         private DeckType MechShaman = DeckType.MechShaman;
         private DeckType DragonShaman = DeckType.DragonShaman;
-        private DeckType TotemShaman = DeckType.TotemShaman;
+        private DeckType MidrangeShaman = DeckType.MidrangeShaman;
         private DeckType MalygosShaman = DeckType.MalygosShaman;
         private DeckType ControlShaman = DeckType.ControlShaman;
-        private DeckType BloodlustShaman = DeckType.BloodlustShaman;
         private DeckType BattleryShaman = DeckType.BattleryShaman;
         private DeckType RenoShaman = DeckType.RenoShaman;
 
@@ -2520,7 +2479,6 @@ namespace MulliganProfiles
         MechWarrior,
         FaceWarrior,
         RenoWarrior,
-        TauntWarrior,
         CThunWarrior,
         TempoWarrior,
         /*Paladin*/
@@ -2531,7 +2489,7 @@ namespace MulliganProfiles
         AnyfinMurglMurgl,
         RenoPaladin,
         CThunPaladin,
-        NZothPaladin,
+        
         /*Druid*/
         RampDruid,
         AggroDruid,
@@ -2548,11 +2506,8 @@ namespace MulliganProfiles
         /*Warlock*/
         Handlock,
         RenoLock,
-        RenoComboLock,
         Zoolock,
-        RelinquaryZoo,
         DemonHandlock,
-        DemonZooWarlock,
         DragonHandlock,
         MalyLock,
         ControlWarlock,
@@ -2564,7 +2519,6 @@ namespace MulliganProfiles
         DragonMage,
         MechMage,
         EchoMage,
-        FatigueMage,
         RenoMage,
         CThunMage,
         /*Priest*/
@@ -2572,13 +2526,11 @@ namespace MulliganProfiles
         ControlPriest,
         ComboPriest,
         MechPriest,
-        ShadowPriest,
-        CThunPriest,
+        
         /*Huntard*/
         MidRangeHunter,
         HybridHunter,
         FaceHunter,
-        HatHunter,
         CamelHunter,
         RenoHunter,
         DragonHunter,
@@ -2589,7 +2541,6 @@ namespace MulliganProfiles
         FaceRogue,
         MalyRogue,
         RaptorRogue,
-        FatigueRogue,
         MiracleRogue,
         MechRogue,
         RenoRogue,
@@ -2599,10 +2550,10 @@ namespace MulliganProfiles
         FaceShaman,
         MechShaman,
         DragonShaman,
-        TotemShaman,
+        MidrangeShaman,
         MalygosShaman,
         ControlShaman,
-        BloodlustShaman,
+        
         BattleryShaman,
         RenoShaman,
         CThunShaman,
