@@ -355,7 +355,7 @@ namespace SmartBot.Plugins
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
-
+                UpdateLocalSha(Sha);
                 
                 timer.Stop();
                 
@@ -370,7 +370,7 @@ namespace SmartBot.Plugins
 
 
         }
-        
+        public static string Sha = "";
         private void CheckForUpdates(string str, bool mulligan = false)
         {
             string name = str.Substring(str.LastIndexOf('/')+1).Replace("%20", " ");
@@ -387,9 +387,9 @@ namespace SmartBot.Plugins
                 // If sha's are different then update
                 String RemoteSha = gitCommitSha;
                 //return;
+                Sha = gitCommitSha;
                 if (!GetLocalSha().Equals(RemoteSha))
                 {
-                    UpdateLocalSha(RemoteSha);
                     String latestSource = fetchUrl(str);
                     using (var stream = new FileStream(pluginPath, FileMode.Create, FileAccess.Write))
                     using (var writer = new StreamWriter(stream))
