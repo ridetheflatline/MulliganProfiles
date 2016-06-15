@@ -49,6 +49,8 @@ namespace SmartBot.Plugins
     {
         public override void OnStarted()
         {
+            if ((bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Miscellaneous").GetProperties()["STTransfer"])
+                return;
             CheckHistory();
             base.OnStarted();
         }

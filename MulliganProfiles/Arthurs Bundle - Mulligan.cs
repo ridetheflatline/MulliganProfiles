@@ -2096,7 +2096,7 @@ namespace MulliganProfiles
                 _whiteList.AddOrUpdate(gc.HasTurnTwo || gc.Coin ? Cards.HarrisonJones : Nothing, false);
         }
 
-        public static MulliganCoreData data;
+        public static MulliganCoreData data = null;
         private void Core(GameContainer gc)
         {
             bool Custom = false;

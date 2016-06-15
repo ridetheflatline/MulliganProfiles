@@ -20,7 +20,7 @@ namespace SmartBot.Plugins
         public bool AC { get; private set; }
         [DisplayName("Auto Concede:")]
         public string ACDetails { get; private set; }
-        [DisplayName("Transfer SmartTracker History")]
+        [DisplayName("Transfer SM and ST History")]
         public bool STTransfer { get; set; }
         public ArthursBundleMiscellaneous()
         {
@@ -38,25 +38,74 @@ namespace SmartBot.Plugins
     {
         public override void OnStarted()
         {
-            if (((ArthursBundleMiscellaneous)DataContainer).STTransfer && Bot.GetPlugins().Exists(c => c.DataContainer.Name == "SmartTracker"))
+            bool complication = false;
+            try
             {
-                String directoryName = AppDomain.CurrentDomain.BaseDirectory+"\\Plugins\\ABTracker";
-                DirectoryInfo dirInfo = new DirectoryInfo(directoryName);
-                if (!dirInfo.Exists)
-                    Directory.CreateDirectory(directoryName);
-
-                List<String> AllHistoryFiles = Directory
-                                   .GetFiles(AppDomain.CurrentDomain.BaseDirectory+"\\Plugins\\SmartTracker", "*.*", SearchOption.AllDirectories).ToList();
-
-                foreach (string file in AllHistoryFiles)
+                if (((ArthursBundleMiscellaneous)DataContainer).STTransfer && Bot.GetPlugins().Exists(c => c.DataContainer.Name == "SmartTracker"))
                 {
-                    FileInfo mFile = new FileInfo(file);
-                    // to remove name collusion
-                    if (!new FileInfo(dirInfo + "\\" + mFile.Name).Exists)
-                        mFile.MoveTo(dirInfo + "\\" + mFile.Name);
+                    if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\"))
+                    {
+                        Bot.Log("[MISC] Nothing to Transfer");
+                        return;
+                    }
+                    Bot.Log("TIME TO MOVE SOME FILES AROUND CUZ WHY NOT");
+                    String directoryName = AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker";
+                    DirectoryInfo dirInfo = new DirectoryInfo(directoryName);
+                    if (!dirInfo.Exists)
+                        Directory.CreateDirectory(directoryName);
+
+                    List<String> AllHistoryFiles = Directory
+                                       .GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker", "*.*", SearchOption.AllDirectories).ToList();
+
+
+                    foreach (var q in dirInfo.GetFiles())
+                    {
+                        if (q.Name == "ShaKey") continue;
+                        q.Delete();
+                    }
+                    foreach (string file in AllHistoryFiles)
+                    {
+
+                        FileInfo mFile = new FileInfo(file);
+                        // to remove name collusion
+                        if (!new FileInfo(dirInfo + "\\" + mFile.Name).Exists)
+                            mFile.MoveTo(dirInfo + "\\" + mFile.Name);
+                        else mFile.Replace(dirInfo + "\\" + mFile.Name, dirInfo + "\\" + mFile.Name + ".bc");
+                        Bot.Log(string.Format("[MISC] Succesfully moved {0} to {1}", mFile.Name, file));
+                    }
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SmartTracker.cs");
                 }
+                ((ArthursBundleMiscellaneous)DataContainer).STTransfer = false;
+                base.OnStarted();
             }
-            base.OnStarted();
+            catch (Exception e)
+            {
+                Bot.Log("Could not transfer files :(" + e.Message);
+                complication = true;
+            }
+            if (complication) return;
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\"))
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\", true);
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\"))
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\", true);
+
+        }
+        private bool IsFileLocked(string filename)
+        {
+            bool Locked = false;
+            try
+            {
+                FileStream fs =
+                    File.Open(filename, FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite, FileShare.None);
+                fs.Close();
+            }
+            catch (IOException ex)
+            {
+                Bot.Log("Hello Masterwai " + ex.Message);
+                Locked = true;
+            }
+            return Locked;
         }
         public override void OnGameEnd()
         {
