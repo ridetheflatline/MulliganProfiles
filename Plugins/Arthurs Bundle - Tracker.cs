@@ -9,6 +9,7 @@ using System.Net;
 using System.Reflection;
 using SmartBot.Database;
 using SmartBot.Plugins;
+using System.Diagnostics;
 
 public static class Extension
 {
@@ -425,16 +426,33 @@ namespace SmartBot.Plugins
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
             if (((ABTracker)DataContainer).AutoUpdate)
             {
+                Stopwatch timer = new Stopwatch();
+                timer.Start();
+                string PreUpdatesLocalSha = GetLocalSha();
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
+                //CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
+
+                timer.Stop();
+                
+                Bot.Log(string.Format("[Checking for updates took] {0}" ,timer.Elapsed));
+                if (!PreUpdatesLocalSha.Equals(GetLocalSha()))
+                {
+                    Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
+                    Bot.ReloadPlugins();
+                    Bot.RefreshMulliganProfiles();
+                }
             }
 
 
         }
-        private void CheckForUpdates(string str)
+        private void CheckForUpdates(string str, bool mulligan = false)
         {
+            string name = str.Substring(str.LastIndexOf('/')+1).Replace("%20", " ");
             try
             {
-                String pluginPath = AppDomain.CurrentDomain.BaseDirectory +"\\Plugins\\Arthurs Bundle - Tracker.cs";
+                String pluginPath = AppDomain.CurrentDomain.BaseDirectory +"\\Plugins\\" +name;
 
                 // Get first line of local plugin
                 String firstLine;
@@ -462,14 +480,14 @@ namespace SmartBot.Plugins
                     {
                         UpdateLocalSha(RemoteSha);
                         writer.Write(latestSource);
-                        Log("Updated GameRecorder to latest version. Reload plugins for changes to take effect.");
+                        Log("Update was succesfull");
                         Bot.ReloadPlugins();
                     }
                 }
             }
             catch (Exception e)
             {
-                Log("Failed to check for updates due to: " + e);
+                Log("Update failed: " + e);
             }
         }
         private String fetchUrl(String url)
