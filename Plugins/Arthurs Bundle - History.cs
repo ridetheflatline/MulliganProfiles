@@ -18,7 +18,7 @@ namespace SmartBot.Plugins
             map[key] = value;
         }
 
-        
+         //lol
         public static bool IsArena(this Bot.Mode mode)
         {
             return mode == Bot.Mode.Arena || mode == Bot.Mode.ArenaAuto;  
