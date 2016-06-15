@@ -135,7 +135,7 @@ namespace SmartBot.Plugins
         public string Dictionary { get; private set; }
 
         [Browsable(false)]
-        public string LSmartMulligan { get; private set; }
+        public string LMulliganBundle { get; private set; }
         [Browsable(false)]
         public string LABTracker { get; private set; }
 
@@ -181,8 +181,8 @@ namespace SmartBot.Plugins
             AutoFriendlyDeckType = DeckType.Unknown;
             EnemyDeckTypeGuess = DeckType.Unknown;
             Enemy = Card.CClass.JARAXXUS;
-            LSmartMulligan = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/SmartMulliganV3/version.txt";
-            LABTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/ABTracker/tracker.version";
+            LMulliganBundle = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/Arthurs' Bundle: MulliganV3/MulliganProfiles/Arthurs' Bundle: MulliganV3/version.txt";
+            LABTracker = "https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/Arthurs' Bundle: MulliganV3/Plugins/ABTracker/tracker.version";
 
         }
         public void RefreshMenu()
@@ -217,7 +217,7 @@ namespace SmartBot.Plugins
             try
             {
                 using (StreamReader Tversionl = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "Plugins\\ABTracker\\tracker.version"))
-                using (StreamReader Mversionl = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\version.txt"))
+                using (StreamReader Mversionl = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\AB - Mulligan\\version.txt"))
 
                 {
                     NumberFormatInfo format = new NumberFormatInfo
@@ -228,8 +228,8 @@ namespace SmartBot.Plugins
                     Tversion = double.Parse(Tversionl.ReadLine(), format);
                     Mversion = double.Parse(Mversionl.ReadLine(), format);
                     //Bot.Log(string.Format("[Debug] saving {0} and {1}", Tversion, Mversion));
-                    Versions = string.Format("ABTracker: {0}\nSmartMulligan: {1}", Tversion, Mversion);
-                    HallOfFame = "[SmartMulligan]" +
+                    Versions = string.Format("ABTracker: {0}\nArthurs' Bundle: Mulligan: {1}", Tversion, Mversion);
+                    HallOfFame = "[Arthurs' Bundle: Mulligan]" +
                                  "\nTruci, Wirmate, Botfanatic, TheBeast792, Sylvanas2077, Masterwai" +
                                  "\n[ABTracker]" +
                                  "\nWirmate";
@@ -254,7 +254,7 @@ namespace SmartBot.Plugins
         public bool pregameEnemyIdentified = false;
         private DeckData informationData;
         private readonly string MulliganDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
-        private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\SmartMulliganV3\\";
+        private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\Arthurs' Bundle: MulliganV3\\";
         private readonly string TrackerDir = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\";
         private readonly string TrackerVersion = AppDomain.CurrentDomain.BaseDirectory + "Plugins\\ABTracker\\";
         private int _screenWidth;
@@ -351,7 +351,7 @@ namespace SmartBot.Plugins
                 DeckType tempType = informationData.DeckType;
                 informationData.DeckType = ((ABTracker)DataContainer).ForcedDeckType;
                 informationData.DeckStyle = DeckStyles[((ABTracker)DataContainer).ForcedDeckType];
-                Bot.Log(string.Format("[ABTracker] You are forcing SmartMulligan to treat your deck as {0}, {1}," + "\n\t\t[Debug] Tracker would have recognized it as {2}, {3}", informationData.DeckType, informationData.DeckStyle, tempType, DeckStyles[tempType]));
+                Bot.Log(string.Format("[ABTracker] You are forcing Arthurs' Bundle: Mulligan to treat your deck as {0}, {1}," + "\n\t\t[Debug] Tracker would have recognized it as {2}, {3}", informationData.DeckType, informationData.DeckStyle, tempType, DeckStyles[tempType]));
             }
 
             identified = true;
@@ -426,7 +426,7 @@ namespace SmartBot.Plugins
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
             if (((ABTracker)DataContainer).AutoUpdate)
             {
-                CheckUpdatesMulligan(((ABTracker)DataContainer).LSmartMulligan);
+                CheckUpdatesMulligan(((ABTracker)DataContainer).LMulliganBundle);
                 ((ABTracker)DataContainer).VersionCheck();
 
                 CheckUpdatesTracker(((ABTracker)DataContainer).LABTracker);
@@ -450,7 +450,7 @@ namespace SmartBot.Plugins
             using (
                 StreamWriter mt =
                     new StreamWriter(AppDomain.CurrentDomain.BaseDirectory +
-                                     "\\MulliganProfiles\\SmartMulliganV3\\mt.txt"))
+                                     "\\MulliganProfiles\\Arthurs' Bundle: MulliganV3\\mt.txt"))
             {
                 mt.WriteLine("{0}:{1}:{2}:{3}",
                     ((ABTracker)DataContainer).MulliganTesterYourDeck,
@@ -506,7 +506,7 @@ namespace SmartBot.Plugins
         {
             Report(string.Format("Updater is using {0} remote version and {1} local version [origin:tracker]", remoteVer, localVer));
             Bot.Log(string.Format("[ABTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
-            HttpWebRequest trackeRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/ArthursBundleTracker.cs") as HttpWebRequest;     //new
+            HttpWebRequest trackeRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/Arthurs' Bundle: MulliganV3/Plugins/ArthursBundleTracker.cs") as HttpWebRequest;     //new
             if (trackeRequest == null)
             {
                 Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lABTracker));
@@ -524,12 +524,12 @@ namespace SmartBot.Plugins
             }
         }
 
-        private void CheckUpdatesMulligan(string lSmartMulligan)
+        private void CheckUpdatesMulligan(string LMulliganBundle)
         {
-            HttpWebRequest request = WebRequest.Create(lSmartMulligan) as HttpWebRequest;
+            HttpWebRequest request = WebRequest.Create(LMulliganBundle) as HttpWebRequest;
             if (request == null)
             {
-                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartMulligan));
+                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", LMulliganBundle));
                 return;
             }
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
@@ -547,50 +547,50 @@ namespace SmartBot.Plugins
                 string l_version = local__major + "." + remote_minor;
                 if (remote_major == local__major && remote_minor == local__minor)
                 {
-                    Bot.Log("[SmartMulligan] SmartMulligan is up to date");
+                    Bot.Log("[Arthurs' Bundle: Mulligan] Arthurs' Bundle: Mulligan is up to date");
                     return;
                 }
                 if (remote_major < local__major ||
                     (remote_major == local__major && remote_minor < local__minor))
                 {
-                    Bot.Log(string.Format("[SmartMulligan] Local Version: {0}.{1} Remote Version {2}.{3}",
+                    Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] Local Version: {0}.{1} Remote Version {2}.{3}",
                         remote_major, remote_minor, local__major, local__minor));
-                    Bot.Log("[SmartMulligan] Arthur, you are an idiot. Push new update");
+                    Bot.Log("[Arthurs' Bundle: Mulligan] Arthur, you are an idiot. Push new update");
                     return;
                 }
                 localVersion.Close();
-                UpdateMulligan(lSmartMulligan, r_version, l_version);
+                UpdateMulligan(LMulliganBundle, r_version, l_version);
 
 
             }
         }
 
-        private void UpdateMulligan(string lSmartMulligan, string remoteVer, string localVer)
+        private void UpdateMulligan(string LMulliganBundle, string remoteVer, string localVer)
         {
             Report(string.Format(" Updater is using {0} remote version and {1} local version [origin:uMulligan]", remoteVer, localVer));
             Bot.Log(string.Format("[ABTracker] Local Version: {0} Remote Version {1}\n\t\tUpdating...", localVer, remoteVer));
-            HttpWebRequest MulliganRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/MulliganBundle.cs") as HttpWebRequest;
+            HttpWebRequest MulliganRequest = WebRequest.Create("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/Arthurs' Bundle: MulliganV3/MulliganProfiles/MulliganBundle.cs") as HttpWebRequest;
             if (MulliganRequest == null)
             {
-                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", lSmartMulligan));
+                Bot.Log(string.Format("[SmartAutoUpdater] Could not get data from gitlink {0}", LMulliganBundle));
                 return;
             }
 
             string myCustom = "";
             try
             {
-                string myLocalFile = File.ReadAllText(MulliganDir + "SmartMulligan.cs");
+                string myLocalFile = File.ReadAllText(MulliganDir + "Arthurs' Bundle: Mulligan.cs");
                 myCustom = myLocalFile.Substring(myLocalFile.IndexOf("#region Custom") + "#region Custom".Length, myLocalFile.LastIndexOf("#endregion Custom")
                     - (myLocalFile.IndexOf("#region Custom") + "#region Custom".Length));
                 Bot.Log(myCustom);
                 Bot.Log("==============================");
             }catch(FileNotFoundException)
             {
-                Bot.Log("[ABTracker] This is your first time running tracker, downloading SmartMulligan");
+                Bot.Log("[ABTracker] This is your first time running tracker, downloading Arthurs' Bundle: Mulligan");
             }
             using (HttpWebResponse mulResponse = MulliganRequest.GetResponse() as HttpWebResponse)
             using (StreamReader mulFile = new StreamReader(mulResponse.GetResponseStream()))
-            using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "SmartMulligan.cs"))
+            using (StreamWriter updateLocalCopy = new StreamWriter(MulliganDir + "Arthurs' Bundle: Mulligan.cs"))
             {
 
                 string tempfile = mulFile.ReadToEnd();
@@ -601,7 +601,7 @@ namespace SmartBot.Plugins
                     updateLocalCopy.WriteLine(final);
                 else updateLocalCopy.WriteLine(tempfile);
                 Bot.RefreshMulliganProfiles();
-                Bot.Log("[ABTracker] SmartMulligan is now fully updated");
+                Bot.Log("[ABTracker] Arthurs' Bundle: Mulligan is now fully updated");
                 UpdateVersion(remoteVer);
             }
 
