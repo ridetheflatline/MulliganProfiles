@@ -31,6 +31,7 @@ namespace SmartBot.Plugins
             Name = "Arthurs Bundle - Miscellaneous";
             Enabled = true;
             sLegend = false;
+            STTransfer = true;
             sLegendRank = 1000;
             AC = false;
             ACDetails = "It's more of a todo list than a working feature.\nDon't expect it to be updated anytime soon ";
@@ -47,7 +48,7 @@ namespace SmartBot.Plugins
             bool complication = false;
             try
             {
-                if (((ArthursBundleMiscellaneous)DataContainer).STTransfer && Bot.GetPlugins().Exists(c => c.DataContainer.Name == "SmartTracker"))
+                if (((ArthursBundleMiscellaneous)DataContainer).STTransfer && File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SmartTracker.cs"))
                 {
                     if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\"))
                     {
