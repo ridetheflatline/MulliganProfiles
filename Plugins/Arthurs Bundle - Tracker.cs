@@ -183,7 +183,7 @@ namespace SmartBot.Plugins
         {
             try
             {
-                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+str+"Sha"))
+                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+str.Replace(".cs", "")+" Validity Key"))
                 {
                     return sha.ReadLine();
                 }
@@ -439,7 +439,7 @@ namespace SmartBot.Plugins
         {
             try
             {
-                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+str+"Sha"))
+                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+str.Replace(".cs", "")+" Validity Key"))
                 {
                     return sha.ReadLine();
                 }
@@ -451,7 +451,7 @@ namespace SmartBot.Plugins
         }
         private void UpdateLocalSha(string name, string shastr)
         {
-            using(StreamWriter sha = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+name.Replace(".cs", "")+"Sha"))
+            using(StreamWriter sha = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+name.Replace(".cs", "")+" Validity Key"))
             {
                 sha.WriteLine(shastr);
             }
