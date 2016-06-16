@@ -2174,7 +2174,7 @@ namespace MulliganProfiles
                 Report(string.Format("{0}:{1}", e.HelpLink, e.TargetSite));
                 Report(e.Message);
             }
-            Bot.Log("WHATTTTTTTTTTTTTTT " + data.ToString());
+            //Bot.Log("WHATTTTTTTTTTTTTTT " + data.ToString());
             #endregion
 
             HandleSpellsAndWeapons(gc);
