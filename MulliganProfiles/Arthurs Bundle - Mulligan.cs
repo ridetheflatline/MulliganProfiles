@@ -2132,10 +2132,10 @@ namespace MulliganProfiles
                 int num2Drops = 0;
                 int num3Drops = 0;
                 int num4Drops = 0;
-                int allowed1Drops = gc.Coin ? 2 : 1;
-                int allowed2Drops = gc.Coin ? 3 : 2;
-                int allowed3Drops = gc.Coin ? 2 : 1;
-                int allowed4Drops = 1;
+                int allowed1Drops = gc.Coin ? data.Max1DropsCoin : data.Max1Drops;
+                int allowed2Drops = gc.Coin ? data.Max2DropsCoin : data.Max2Drops;
+                int allowed3Drops = gc.Coin ? data.Max3DropsCoin : data.Max3Drops;
+                int allowed4Drops = gc.Coin ? data.Max4DropsCoin : data.Max4Drops;
 
                 foreach (var q in gc.OneDrops)
                 {
