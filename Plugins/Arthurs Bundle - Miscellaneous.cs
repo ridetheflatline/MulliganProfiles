@@ -80,6 +80,10 @@ namespace SmartBot.Plugins
                         Bot.Log(string.Format("[MISC] Succesfully moved {0} to {1}", mFile.Name, file));
                     }
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SmartTracker.cs");
+                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SmartTracker.settings"))
+                        File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SmartTracker.settings");
+                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\SmartMulligan.cs"))
+                        File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\SmartMulligan.cs");
                 }
                 ((ArthursBundleMiscellaneous)DataContainer).STTransfer = false;
                 base.OnStarted();

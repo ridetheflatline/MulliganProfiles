@@ -16,8 +16,8 @@ namespace MulliganProfiles
     #region Extension class
     public static class Extension
     {
-        
-      
+
+
 
         /// <summary>
         /// Adds or updates only 1 card
@@ -186,7 +186,7 @@ namespace MulliganProfiles
             Report("Entered Priority");
             return id.IsMinion() ? (CardTable[id] + modifier) : 0;
         }
-        public static bool IsStandard (this Bot.Mode mode)
+        public static bool IsStandard(this Bot.Mode mode)
         {
             return mode == Bot.Mode.RankedStandard || mode == Bot.Mode.UnrankedStandard;
         }
@@ -650,7 +650,7 @@ namespace MulliganProfiles
             DeckType unknownPrediction = prediction.GetMostFacedDeckType(op);
             if (!Bot.CurrentMode().IsShitfest())
                 Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
-            
+
             return unknownPrediction;
         }
 
@@ -942,7 +942,7 @@ namespace MulliganProfiles
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             ClearReport();
-           
+
             Report("Mulligan Stage Entered");
 
             GameContainer mtgc = new GameContainer(true, choices, opponentClass, ownClass);
@@ -1225,8 +1225,8 @@ namespace MulliganProfiles
                 HandleCThunDecks(gc);
                 break;
                 case DeckType.TempoWarrior:
-                    HandleTempoWarrior(gc);
-                    break;
+                HandleTempoWarrior(gc);
+                break;
                 default:
                 throw new ArgumentOutOfRangeException();
             }
@@ -1235,10 +1235,10 @@ namespace MulliganProfiles
         private void HandleTempoWarrior(GameContainer gc)
         {
             Core(gc);
-            if(gc.EneDeckType.IsOneOf(DeckType.BeastDruid, DeckType.MidRangeDruid, DeckType.RampDruid))
+            if (gc.EneDeckType.IsOneOf(DeckType.BeastDruid, DeckType.MidRangeDruid, DeckType.RampDruid))
             {
-                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.FierceMonkey, Cards.RavagingGhoul, Cards.FrothingBerserker, 
-                    gc.Coin || gc.HasTurnTwo ? Cards.KorkronElite: Nothing);
+                _whiteList.AddAll(false, Cards.BloodToIchor, Cards.FierceMonkey, Cards.RavagingGhoul, Cards.FrothingBerserker,
+                    gc.Coin || gc.HasTurnTwo ? Cards.KorkronElite : Nothing);
             }
             if (gc.OpponentClass.Is(Hunter))
             {
@@ -1296,7 +1296,7 @@ namespace MulliganProfiles
 
         private void TurnChecker(GameContainer gc)
         {
-            foreach(var q in gc.Choices.Intersect(_whiteList.Keys))
+            foreach (var q in gc.Choices.Intersect(_whiteList.Keys))
             {
                 switch (q.Cost())
                 {
@@ -1319,7 +1319,7 @@ namespace MulliganProfiles
         #region Custom
         private void HandleCustomDeck(GameContainer gc)
         {
-           
+
             //false denotes that you don't want to keep 2 copies of the same minion
             gc.HasTurnOne = gc.OneDrops.Any(); // this will check if you have any one drops
             _whiteList.AddAll(false, Cards.ArgentSquire, Cards.SelflessHero);
@@ -1396,7 +1396,8 @@ namespace MulliganProfiles
             try
             {
                 HandleDragonLogicCore(gc);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Bot.Log("++++++++++++++++++++++++++ FAIKLED" + e.Message);
                 Core(gc);
@@ -1498,7 +1499,7 @@ namespace MulliganProfiles
         {
             Core(gc);
             _whiteList.AddOrUpdate(Cards.FieryWarAxe, true);
-            foreach(var q in gc.Choices.Where(card => card.Cost() == 1 && card.IsMinion()))
+            foreach (var q in gc.Choices.Where(card => card.Cost() == 1 && card.IsMinion()))
             {
                 _whiteList.AddOrUpdate(q, q.Priority() > 3 && gc.Coin);
             }
@@ -1509,7 +1510,7 @@ namespace MulliganProfiles
             Core(gc);
             if (gc.EnemyStyle.Aggresive()) _whiteList.AddInOrder(3, gc.Choices, false, Cards.FierceMonkey, Cards.SenjinShieldmasta, Cards.Revenge, Cards.Slam, Cards.SludgeBelcher);
             if (!gc.EnemyStyle.Aggresive()) _whiteList.AddInOrder(3, gc.Choices, false, Cards.AcolyteofPain, Cards.FieryWarAxe, Cards.DeathsBite, Cards.PilotedShredder, Cards.Slam);
-            if (gc.OpponentClass.IsOneOf(Paladin, Warlock) && Bot.CurrentMode().IsStandard()) _whiteList.AddOrUpdate(Cards.Revenge, false); 
+            if (gc.OpponentClass.IsOneOf(Paladin, Warlock) && Bot.CurrentMode().IsStandard()) _whiteList.AddOrUpdate(Cards.Revenge, false);
         }
 
         private void HandleTauntWarrior(GameContainer gc)
@@ -1575,7 +1576,7 @@ namespace MulliganProfiles
         {
             Core(gc);
             bool gotone = false;
-            foreach(var q in gc.Choices.Where(c=> c.IsMinion() && c.Cost().Range(4, 5)))
+            foreach (var q in gc.Choices.Where(c => c.IsMinion() && c.Cost().Range(4, 5)))
             {
                 if (!gc.Choices.HasRamp() || gotone) break;
                 _whiteList.AddOrUpdate(q, false);
@@ -1669,7 +1670,7 @@ namespace MulliganProfiles
         private void HandleHandlock(GameContainer gc)
         {
             HandleRenoLock(gc);
-            
+
         }
 
         private void HandleRenoLock(GameContainer gc)
@@ -1709,7 +1710,7 @@ namespace MulliganProfiles
         {
             HandleHandlock(gc);
             bool voidcaller = gc.Choices.HasAny(Cards.Voidcaller);
-            if (voidcaller) _whiteList.AddInOrder(1, gc.Choices, false, Cards.MalGanis, Cards.LordJaraxxus, Cards.Doomguard, Cards.FearsomeDoomguard, Cards.DreadInfernal); 
+            if (voidcaller) _whiteList.AddInOrder(1, gc.Choices, false, Cards.MalGanis, Cards.LordJaraxxus, Cards.Doomguard, Cards.FearsomeDoomguard, Cards.DreadInfernal);
         }
 
         private void HandleDemonZooWarlock(GameContainer gc)
@@ -1775,7 +1776,7 @@ namespace MulliganProfiles
             if (gc.EnemyStyle.Aggresive()) _whiteList.AddAll(false, Cards.ExplosiveSheep, Cards.SunfuryProtector);
             if (gc.Choices.HasAny(Cards.EmperorThaurissan, Cards.Duplicate) && gc.EnemyStyle == Style.Control) _whiteList.AddAll(false, Cards.EmperorThaurissan, Cards.Duplicate);
             if (gc.OpponentClass.IsOneOf(Priest, Mage) && !gc.EnemyStyle.Aggresive()) _whiteList.Remove(Cards.Doomsayer);
-             
+
         }
 
         private void HandleFatigueMage(GameContainer gc)
@@ -2103,72 +2104,67 @@ namespace MulliganProfiles
                 _whiteList.AddOrUpdate(gc.HasTurnTwo || gc.Coin ? Cards.HarrisonJones : Nothing, false);
         }
 
-        public static MulliganCoreData data = null;
+
         private void Core(GameContainer gc)
         {
-            bool Custom = false;
-            #region minion handler
+
+            MulliganCoreData data;
             try
             {
-                
-                if (!data.NoChange)
-                {
-                    Custom = data.control;
+                if ((bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["NoChange"])
                     data = new MulliganCoreData(2, 1, 3, 2, 2, 1, 1, 1, false, true);
-                }
-                else
-                {
-                    data = new MulliganCoreData();
-                }
-            }catch(Exception e)
+                else data = new MulliganCoreData();
+
+                #region minion handler
+                
+            }
+            catch (Exception e)
             {
-                Bot.Log("[FAILED] "+e.Message);
-                Custom = false;
+                Bot.Log("[FAILED] " + e.Message);
                 data = new MulliganCoreData(2, 1, 3, 2, 2, 1, 1, 1, false, true);
-            }                                                  
+            }
             try
             {
-                int num1Drops = 0;
-                int num2Drops = 0;
-                int num3Drops = 0;
-                int num4Drops = 0;
+
                 int allowed1Drops = gc.Coin ? data.Max1DropsCoin : data.Max1Drops;
                 int allowed2Drops = gc.Coin ? data.Max2DropsCoin : data.Max2Drops;
-                int allowed3Drops = gc.Coin ? data.Max3DropsCoin : data.Max3Drops;
-                int allowed4Drops = gc.Coin ? data.Max4DropsCoin : data.Max4Drops;
+                int allowed3Drops = 0;
+                int allowed4Drops = 0;
 
-                foreach (var q in gc.OneDrops)
+                foreach (var q in gc.OneDrops.Where(q => q.IsMinion() && q.Priority() >= 2).OrderByDescending(q => q.Priority()).Take(allowed1Drops))
                 {
-                    var priority = q.Priority();
-                    if (priority <= 1 || (num1Drops == allowed1Drops)) continue;
-                    num1Drops++;
-
                     gc.HasTurnOne = true;
-                    _whiteList.AddOrUpdate(q, gc.Coin && priority > 5);
+                    _whiteList.AddOrUpdate(q, gc.Coin && q.Priority() > 5);
                 }
-                foreach (var q in from q in gc.TwoDrops let priority = q.Priority() where (priority > 1) && (num2Drops != allowed2Drops) select q)
+                foreach (var q in gc.TwoDrops.Where(q => q.IsMinion() && q.Priority() >= 2).OrderByDescending(q => q.Priority()).Take(allowed2Drops))
                 {
                     gc.HasTurnTwo = true;
-                    num2Drops++;
                     _whiteList.AddOrUpdate(q, q.Priority() > 5);
                 }
-                foreach (var q in from q in gc.ThreeDrops let priority = q.Priority() where (priority > 0) && (num3Drops != allowed3Drops) select q)
+                allowed3Drops = gc.Coin && (gc.HasTurnOne || gc.HasTurnTwo)
+                    ? data.Max3DropsCoin
+                    : (gc.HasTurnOne || gc.HasTurnTwo) ? data.Max3Drops : 0;
+                if (!data.NoChange && data.control)
+                    allowed3Drops = gc.Coin
+                        ? data.Max3DropsCoin
+                        : data.Max3Drops;
+
+
+                foreach (var q in gc.ThreeDrops.Where(q => q.IsMinion() && q.Priority() >= 1).OrderByDescending(q => q.Priority()).Take(allowed3Drops))
                 {
-                    
-                    if (((gc.HasTurnOne && gc.Coin) || (gc.HasTurnTwo)) || Custom)
-                        _whiteList.AddOrUpdate(q, false);
-                    if ((!(gc.HasTurnOne && gc.Coin) || !gc.HasTurnTwo))
-                        continue;
+                    _whiteList.AddOrUpdate(q, false);
                     gc.HasTurnThree = true;
-                    num3Drops++;
                 }
-                foreach (var q in from q in gc.FourDrops let priority = q.Priority() where (priority > 3) && (num4Drops != allowed4Drops) select q)
+                allowed4Drops = gc.Coin && gc.HasTurnThree
+                    ? data.Max4DropsCoin
+                    : gc.HasTurnThree ? data.Max4Drops : 0;
+                if (!data.NoChange && data.control)
+                    allowed4Drops = gc.Coin
+                        ? data.Max4DropsCoin
+                        : data.Max4Drops;
+                foreach (var q in gc.FourDrops.Where(q => q.IsMinion() && q.Priority() >= 4).OrderByDescending(q => q.Priority()).Take(allowed4Drops))
                 {
-                    if ((gc.HasTurnOne && gc.HasTurnTwo) || gc.HasTurnThree)
-                        _whiteList.AddOrUpdate(q, gc.Coin);
-                    if (!(gc.HasTurnOne && gc.HasTurnTwo) || !gc.HasTurnThree)
-                        continue;
-                    num4Drops++;
+                    _whiteList.AddOrUpdate(q, gc.Coin);
                 }
             }
             catch (Exception e)
@@ -2178,7 +2174,7 @@ namespace MulliganProfiles
                 Report(string.Format("{0}:{1}", e.HelpLink, e.TargetSite));
                 Report(e.Message);
             }
-
+            Bot.Log("WHATTTTTTTTTTTTTTT " + data.ToString());
             #endregion
 
             HandleSpellsAndWeapons(gc);
@@ -2397,11 +2393,11 @@ namespace MulliganProfiles
         /*Warlock*/
         private DeckType Handlock = DeckType.Handlock;
         private DeckType RenoLock = DeckType.RenoLock;
-        
+
         private DeckType Zoolock = DeckType.Zoolock;
-       
+
         private DeckType DemonHandlock = DeckType.DemonHandlock;
-        
+
         private DeckType DragonHandlock = DeckType.DragonHandlock;
         private DeckType MalyLock = DeckType.MalyLock;
         private DeckType ControlWarlock = DeckType.ControlWarlock;
@@ -2418,7 +2414,7 @@ namespace MulliganProfiles
         private DeckType ControlPriest = DeckType.ControlPriest;
         private DeckType ComboPriest = DeckType.ComboPriest;
         private DeckType MechPriest = DeckType.MechPriest;
-        
+
         /*Huntard*/
         private DeckType MidRangeHunter = DeckType.MidRangeHunter;
         private DeckType HybridHunter = DeckType.HybridHunter;
@@ -2475,7 +2471,7 @@ namespace MulliganProfiles
     }
     public class MulliganCoreData
     {
-        
+
         public int Max1Drops { get; set; }
         public int Max1DropsCoin { get; set; }
         public int Max2Drops { get; set; }
@@ -2486,20 +2482,20 @@ namespace MulliganProfiles
         public int Max4DropsCoin { get; set; }
         public bool control { get; set; }
         public bool NoChange { get; set; }
-       
-        
+
+
 
         public MulliganCoreData()
         {
             Dictionary<string, object> data = Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties();
-            Max1Drops = (int) data["Max1Drops"];
-            Max1DropsCoin = (int) data["Max1Drops"];
-            Max2Drops = (int) data["Max2Drops"];
-            Max2DropsCoin = (int) data["Max2Drops"];
-            Max3Drops = (int) data["Max3Drops"];
-            Max3DropsCoin = (int) data["Max3Drops"];
-            Max4Drops = (int) data["Max4Drops"];
-            Max4DropsCoin = (int) data["Max4Drops"];
+            Max1Drops = (int)data["Max1Drops"];
+            Max1DropsCoin = (int)data["Max1DropsCoin"];
+            Max2Drops = (int)data["Max2Drops"];
+            Max2DropsCoin = (int)data["Max2DropsCoin"];
+            Max3Drops = (int)data["Max3Drops"];
+            Max3DropsCoin = (int)data["Max3DropsCoin"];
+            Max4Drops = (int)data["Max4Drops"];
+            Max4DropsCoin = (int)data["Max4DropsCoin"];
             control = (bool)data["control"];
             NoChange = (bool)data["NoChange"];
         }
@@ -2510,120 +2506,125 @@ namespace MulliganProfiles
             Max2Drops = v3;
             Max2DropsCoin = v4;
             Max3Drops = v5;
-            Max3DropsCoin =v6;
+            Max3DropsCoin = v6;
             Max4Drops = v7;
             Max4DropsCoin = v8;
             control = v9;
             NoChange = v10;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Container " + Max1Drops + Max1DropsCoin + Max2Drops + Max2DropsCoin + Max3Drops + Max3DropsCoin + Max4Drops + Max4DropsCoin + NoChange + control);
+        }
     }
     public enum DeckType
-{
-    Custom,
-    Unknown,
-    Arena,
-    /*Warrior*/
-    ControlWarrior,
-    FatigueWarrior,
-    DragonWarrior,
-    PatronWarrior,
-    WorgenOTKWarrior,
-    MechWarrior,
-    FaceWarrior,
-    RenoWarrior,
-    CThunWarrior,
-    TempoWarrior,
-    /*Paladin*/
-    SecretPaladin,
-    MidRangePaladin,
-    DragonPaladin,
-    AggroPaladin,
-    AnyfinMurglMurgl,
-    RenoPaladin,
-    CThunPaladin,
+    {
+        Custom,
+        Unknown,
+        Arena,
+        /*Warrior*/
+        ControlWarrior,
+        FatigueWarrior,
+        DragonWarrior,
+        PatronWarrior,
+        WorgenOTKWarrior,
+        MechWarrior,
+        FaceWarrior,
+        RenoWarrior,
+        CThunWarrior,
+        TempoWarrior,
+        /*Paladin*/
+        SecretPaladin,
+        MidRangePaladin,
+        DragonPaladin,
+        AggroPaladin,
+        AnyfinMurglMurgl,
+        RenoPaladin,
+        CThunPaladin,
 
-    /*Druid*/
-    RampDruid,
-    AggroDruid,
-    DragonDruid,
-    MidRangeDruid,
-    TokenDruid,
-    SilenceDruid,
-    MechDruid,
-    AstralDruid,
-    MillDruid,
-    BeastDruid,
-    RenoDruid,
-    CThunDruid,
-    /*Warlock*/
-    Handlock,
-    RenoLock,
-    Zoolock,
-    DemonHandlock,
-    DragonHandlock,
-    MalyLock,
-    ControlWarlock,
-    CThunLock,
-    /*Mage*/
-    TempoMage,
-    FreezeMage,
-    FaceFreezeMage,
-    DragonMage,
-    MechMage,
-    EchoMage,
-    RenoMage,
-    CThunMage,
-    /*Priest*/
-    DragonPriest,
-    ControlPriest,
-    ComboPriest,
-    MechPriest,
+        /*Druid*/
+        RampDruid,
+        AggroDruid,
+        DragonDruid,
+        MidRangeDruid,
+        TokenDruid,
+        SilenceDruid,
+        MechDruid,
+        AstralDruid,
+        MillDruid,
+        BeastDruid,
+        RenoDruid,
+        CThunDruid,
+        /*Warlock*/
+        Handlock,
+        RenoLock,
+        Zoolock,
+        DemonHandlock,
+        DragonHandlock,
+        MalyLock,
+        ControlWarlock,
+        CThunLock,
+        /*Mage*/
+        TempoMage,
+        FreezeMage,
+        FaceFreezeMage,
+        DragonMage,
+        MechMage,
+        EchoMage,
+        RenoMage,
+        CThunMage,
+        /*Priest*/
+        DragonPriest,
+        ControlPriest,
+        ComboPriest,
+        MechPriest,
 
-    /*Huntard*/
-    MidRangeHunter,
-    HybridHunter,
-    FaceHunter,
-    CamelHunter,
-    RenoHunter,
-    DragonHunter,
-    CThunHunter,
-    /*Rogue*/
-    OilRogue,
-    PirateRogue,
-    FaceRogue,
-    MalyRogue,
-    RaptorRogue,
-    MiracleRogue,
-    MechRogue,
-    RenoRogue,
-    MillRogue,
-    CThunRogue,
-    /*Chaman*/
-    FaceShaman,
-    MechShaman,
-    DragonShaman,
-    MidrangeShaman,
-    MalygosShaman,
-    ControlShaman,
+        /*Huntard*/
+        MidRangeHunter,
+        HybridHunter,
+        FaceHunter,
+        CamelHunter,
+        RenoHunter,
+        DragonHunter,
+        CThunHunter,
+        /*Rogue*/
+        OilRogue,
+        PirateRogue,
+        FaceRogue,
+        MalyRogue,
+        RaptorRogue,
+        MiracleRogue,
+        MechRogue,
+        RenoRogue,
+        MillRogue,
+        CThunRogue,
+        /*Chaman*/
+        FaceShaman,
+        MechShaman,
+        DragonShaman,
+        MidrangeShaman,
+        MalygosShaman,
+        ControlShaman,
 
-    BattleryShaman,
-    RenoShaman,
-    CThunShaman,
+        BattleryShaman,
+        RenoShaman,
+        CThunShaman,
 
-    Basic,
-}
+        Basic,
+    }
 
-public enum Style
-{
-    Unknown,
-    Face,
-    Aggro,
-    Control,
-    Midrange,
-    Combo,
-    Tempo,
-    Fatigue,
-}
+    public enum Style
+    {
+        Unknown,
+        Face,
+        Aggro,
+        Control,
+        Midrange,
+        Combo,
+        Tempo,
+        Fatigue,
+    }
 
     #endregion
 }

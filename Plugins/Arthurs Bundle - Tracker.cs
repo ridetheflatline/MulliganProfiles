@@ -96,13 +96,13 @@ namespace SmartBot.Plugins
         [Browsable(false)]
         public Style ArenaStyle { get; set; }
 
-        [DisplayName(Russian ? "[A] Донат Трекеру" : "[A] Donation link")]
+        [DisplayName(Russian ? "[B] Донат Трекеру" : "[B] Donation link")]
         public string donation { get; set; }
-        [DisplayName(Russian ? "[A] Дискорд" : "[A] Discord link")]
+        [DisplayName(Russian ? "[B] Дискорд" : "[B] Discord link")]
         public string discord { get; set; }
-        [DisplayName(Russian ? "[B] Авто-Обновление" : "[B] Auto Update")]
+        [DisplayName(Russian ? "[A] Авто-Обновление" : "[A] Auto Update")]
         public bool AutoUpdate { get; set; }
-        [DisplayName(Russian ? "[B] Режим Обновления" : "[B] Update Mode")]
+        [DisplayName(Russian ? "[A] Режим Обновления" : "[A] Update Mode")]
         public Update UpdateMode { get; private set; }
         
         [DisplayName(Russian ? "[B] Версии" : "[B] Version")]
@@ -121,7 +121,7 @@ namespace SmartBot.Plugins
 
         [DisplayName(Russian ? "[C] Тренер" : "[C] Coach")]
         public bool PredictionDisplay { get; set; }
-        [DisplayName("Display Instruction OnStart")]
+        [DisplayName("[A] Display Instruction OnStart")]
         public bool instr { get; set; }
         [Browsable(false)]
         public DeckType AutoFriendlyDeckType { get; set; }
@@ -138,7 +138,7 @@ namespace SmartBot.Plugins
                
         [DisplayName("[E] Predict enemy from turn")]
         public int ProfilePredictionTurn { get; set; }
-        [DisplayName("Validation Key: Sha")]
+        [DisplayName("[A] Validity Key")]
         public string vKey { get; private set; }
 
         [Browsable(false)]
