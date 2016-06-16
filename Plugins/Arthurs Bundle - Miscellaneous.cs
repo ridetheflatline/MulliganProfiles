@@ -22,6 +22,10 @@ namespace SmartBot.Plugins
         public string ACDetails { get; private set; }
         [DisplayName("Transfer SM and ST History")]
         public bool STTransfer { get; set; }
+        [DisplayName("Bundle Language")]
+        public Localization locale { get; private set; }
+        [DisplayName("Hush... What Whaaaat.")]
+        public bool Mystery { get; set; }
         public ArthursBundleMiscellaneous()
         {
             Name = "Arthurs Bundle - Miscellaneous";
@@ -30,6 +34,7 @@ namespace SmartBot.Plugins
             sLegendRank = 1000;
             AC = false;
             ACDetails = "It's more of a todo list than a working feature.\nDon't expect it to be updated anytime soon ";
+            locale = Localization.English;
 
         }
 
@@ -122,5 +127,9 @@ namespace SmartBot.Plugins
             base.OnGameEnd();
         }
 
+    }
+    public enum Localization
+    {
+        English, Russian
     }
 }

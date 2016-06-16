@@ -121,7 +121,8 @@ namespace SmartBot.Plugins
 
         [DisplayName(Russian ? "[C] Тренер" : "[C] Coach")]
         public bool PredictionDisplay { get; set; }
-
+        [DisplayName("Display Instruction OnStart")]
+        public bool instr { get; set; }
         [Browsable(false)]
         public DeckType AutoFriendlyDeckType { get; set; }
         [Browsable(false)]
@@ -328,7 +329,38 @@ namespace SmartBot.Plugins
         private static bool _supported = false;
         public override void OnStarted()
         {
-            //System.Windows.Forms.MessageBox.Show("Hello Darkness my old friend");
+            if (((ABTracker)DataContainer).instr)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    "Step 1: Enable Auto Update\nStep 2: Click Start button\nStep 3: After it finishes updating all files stop the bot"+
+                    "\nStep 4: navigate to Bundle: Miscellaneous in plugins and tick 'Transfer SM and ST values'\nStep 5: Start the bot."+ 
+                    "\nIf you followed instructions you should have 4 (5 for developers)new plugins and 1 updated mulligan files while retaining previous values from SM and ST"
+                    );
+
+            }
+             if (((ABTracker)DataContainer).AutoUpdate)
+            {
+                Stopwatch timer = new Stopwatch();
+                timer.Start();
+                
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
+                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
+                              
+                if (NewSha)
+                {
+                    Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
+                    Bot.ReloadPlugins();
+                    Bot.RefreshMulliganProfiles();
+                    NewSha = false;
+                    ((ABTracker)DataContainer).ReloadDictionary();
+                }
+                timer.Stop();
+                Bot.Log(string.Format("[Update elapsed] {0}" ,timer.Elapsed.Seconds));
+            }
+
             Russian = ((ABTracker)DataContainer).Ru();
             SetupMulliganTester();
             CreateCardReport(Bot.CurrentDeck().Cards);
@@ -361,30 +393,7 @@ namespace SmartBot.Plugins
                         "Prediction: " + ((ABTracker)DataContainer).EnemyDeckTypeGuess + "|" +
                         ((ABTracker)DataContainer).EnemyDeckStyleGuess
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
-            if (((ABTracker)DataContainer).AutoUpdate)
-            {
-                Stopwatch timer = new Stopwatch();
-                timer.Start();
-                
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
-                
-                
-               
-                if (NewSha)
-                {
-                    Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
-                    Bot.ReloadPlugins();
-                    Bot.RefreshMulliganProfiles();
-                    NewSha = false;
-                    ((ABTracker)DataContainer).ReloadDictionary();
-                }
-                timer.Stop();
-                Bot.Log(string.Format("[Update elapsed] {0}" ,timer.Elapsed.Seconds));
-            }
+           
 
 
         }
@@ -394,7 +403,7 @@ namespace SmartBot.Plugins
             string name = str.Substring(str.LastIndexOf('/')+1).Replace("%20", " ");
             try
             {
-                String pluginPath = AppDomain.CurrentDomain.BaseDirectory + (mulligan ? "\\MulliganProfiles" : "\\Plugins\\") +name;
+                String pluginPath = AppDomain.CurrentDomain.BaseDirectory + (mulligan ? "\\MulliganProfiles\\" : "\\Plugins\\") +name;
                                 
                 var branchesJson = fetchUrl("https://api.github.com/repos/ArthurFairchild/MulliganProfiles/branches");
                 string NewBranch = branchesJson.Substring(branchesJson.IndexOf("SmartMulliganV3"));
