@@ -99,6 +99,9 @@ namespace SmartBot.Plugins
                 Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\", true);
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\"))
                 Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\", true);
+            Bot.ReloadPlugins();
+            Bot.RefreshMulliganProfiles();
+            Bot.RefreshProfiles();
 
         }
         private bool IsFileLocked(string filename)
