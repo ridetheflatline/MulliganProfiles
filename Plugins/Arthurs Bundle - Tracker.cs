@@ -137,6 +137,8 @@ namespace SmartBot.Plugins
                
         [DisplayName("[E] Predict enemy from turn")]
         public int ProfilePredictionTurn { get; set; }
+        [DisplayName("Validation Key: Sha")]
+        public string vKey { get; private set; }
 
         [Browsable(false)]
         public int CurrentTurn { get; set; }
@@ -164,6 +166,7 @@ namespace SmartBot.Plugins
         {
             donation = "http://bit.ly/ABTrackerDonation";
             discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
+            vKey = GetLocalSha("Arthurs Bundle - Tracker.cs");
             Versions = "4.001";
         }
         public void ReloadDictionary()
@@ -176,7 +179,20 @@ namespace SmartBot.Plugins
         {
             return Russian;
         }
-
+        private string GetLocalSha(string str)
+        {
+            try
+            {
+                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+str+"Sha"))
+                {
+                    return sha.ReadLine();
+                }
+            }catch(FileNotFoundException)
+            {
+                Bot.Log(string.Format("[Arthurs Bundle] First run of {0} detected", str ));
+                return "";
+            }
+        }
 
        
     }
@@ -349,28 +365,30 @@ namespace SmartBot.Plugins
             {
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-                string PreUpdatesLocalSha = GetLocalSha();
+                
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
                 CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
-                UpdateLocalSha(Sha);
                 
-                timer.Stop();
                 
-                Bot.Log(string.Format("[Checking for updates took] {0}" ,timer.Elapsed));
-                if (!PreUpdatesLocalSha.Equals(GetLocalSha()))
+               
+                if (NewSha)
                 {
                     Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
                     Bot.ReloadPlugins();
                     Bot.RefreshMulliganProfiles();
+                    NewSha = false;
+                    ((ABTracker)DataContainer).ReloadDictionary();
                 }
+                timer.Stop();
+                Bot.Log(string.Format("[Update elapsed] {0}" ,timer.Elapsed.Seconds));
             }
 
 
         }
-        public static string Sha = "";
+        public static bool NewSha = false;
         private void CheckForUpdates(string str, bool mulligan = false)
         {
             string name = str.Substring(str.LastIndexOf('/')+1).Replace("%20", " ");
@@ -383,13 +401,13 @@ namespace SmartBot.Plugins
                 String shaPrefix = "\"sha\":\"";
                 int shaIndex = NewBranch.IndexOf(shaPrefix, NewBranch.IndexOf(shaPrefix));
                 String gitCommitSha = NewBranch.Substring(shaIndex + shaPrefix.Length, 40);
-                Bot.Log(" =============" +gitCommitSha);
-                // If sha's are different then update
+                //Bot.Log(" =============" +gitCommitSha);
                 String RemoteSha = gitCommitSha;
-                //return;
-                Sha = gitCommitSha;
-                if (!GetLocalSha().Equals(RemoteSha))
+                                
+                if (!GetLocalSha(name).Equals(RemoteSha))
                 {
+                    NewSha = true;
+                    UpdateLocalSha(name, gitCommitSha);
                     String latestSource = fetchUrl(str);
                     using (var stream = new FileStream(pluginPath, FileMode.Create, FileAccess.Write))
                     using (var writer = new StreamWriter(stream))
@@ -417,25 +435,25 @@ namespace SmartBot.Plugins
                 return reader.ReadToEnd();
             }
         }
-        private string GetLocalSha()
+        private string GetLocalSha(string str)
         {
             try
             {
-                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\ShaKey"))
+                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+str+"Sha"))
                 {
                     return sha.ReadLine();
                 }
             }catch(FileNotFoundException)
             {
-                Bot.Log("[Arthurs Bundle] First use detected" );
+                Bot.Log(string.Format("[Arthurs Bundle] First run of {0} detected", str ));
                 return "";
             }
         }
-        private void UpdateLocalSha(string str)
+        private void UpdateLocalSha(string name, string shastr)
         {
-            using(StreamWriter sha = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\ShaKey"))
+            using(StreamWriter sha = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+name.Replace(".cs", "")+"Sha"))
             {
-                sha.WriteLine(str);
+                sha.WriteLine(shastr);
             }
         }
         private Dictionary<Card.Cards, Statistics> CardStats = new Dictionary<Card.Cards, Statistics>();
