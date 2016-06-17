@@ -566,19 +566,7 @@ namespace SmartBot.Plugins
                 int local__minor = int.Parse(local__version[1]);
                 string r_version = remote_major + "." + remote_minor;
                 string l_version = local__major + "." + remote_minor;
-                if (remote_major == local__major && remote_minor == local__minor)
-                {
-                    Bot.Log("[SmartTracker] SmartTracker is up to date");
-                    return;
-                }
-                if (remote_major < local__major ||
-                    (remote_major == local__major && remote_minor < local__minor))
-                {
-                    Bot.Log(string.Format("[SmartTracker] Remote Version: {0}.{1} Local Version {2}.{3}",
-                        remote_major, remote_minor, local__major, local__minor));
-                    Bot.Log("[SmartTracker] Arthur, you are an idiot. Push new update");
-                    return;
-                }
+                
                 localVersion.Close();
                 UpdateTracker(lSmartTracker, r_version, l_version);
             }
