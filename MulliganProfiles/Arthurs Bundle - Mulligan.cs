@@ -699,7 +699,7 @@ namespace MulliganProfiles
             {DeckType.DragonPriest, Card.CClass.PRIEST}, {DeckType.ControlPriest, Card.CClass.PRIEST}, {DeckType.ComboPriest, Card.CClass.PRIEST}, {DeckType.MechPriest, Card.CClass.PRIEST}, /*Hunter*/
             {DeckType.MidRangeHunter, Card.CClass.HUNTER}, {DeckType.HybridHunter, Card.CClass.HUNTER}, {DeckType.FaceHunter, Card.CClass.HUNTER},  {DeckType.CamelHunter, Card.CClass.HUNTER}, {DeckType.DragonHunter, Card.CClass.HUNTER}, {DeckType.RenoHunter, Card.CClass.HUNTER}, /*Rogue*/
             {DeckType.OilRogue, Card.CClass.ROGUE}, {DeckType.PirateRogue, Card.CClass.ROGUE}, {DeckType.FaceRogue, Card.CClass.ROGUE}, {DeckType.MalyRogue, Card.CClass.ROGUE}, {DeckType.RaptorRogue, Card.CClass.ROGUE}, {DeckType.MiracleRogue, Card.CClass.ROGUE}, {DeckType.RenoRogue, Card.CClass.ROGUE}, {DeckType.MechRogue, Card.CClass.ROGUE}, {DeckType.MillRogue, Card.CClass.ROGUE}, /*Cance... I mean Shaman*/
-            {DeckType.FaceShaman, Card.CClass.SHAMAN}, {DeckType.MechShaman, Card.CClass.SHAMAN}, {DeckType.DragonShaman, Card.CClass.SHAMAN},  {DeckType.MalygosShaman, Card.CClass.SHAMAN}, {DeckType.ControlShaman, Card.CClass.SHAMAN},  {DeckType.RenoShaman, Card.CClass.SHAMAN}, {DeckType.BattleryShaman, Card.CClass.SHAMAN}, /*Poor Kids*/
+            { DeckType.MidrangeShaman, Card.CClass.SHAMAN}, {DeckType.FaceShaman, Card.CClass.SHAMAN}, {DeckType.MechShaman, Card.CClass.SHAMAN}, {DeckType.DragonShaman, Card.CClass.SHAMAN},  {DeckType.MalygosShaman, Card.CClass.SHAMAN}, {DeckType.ControlShaman, Card.CClass.SHAMAN},  {DeckType.RenoShaman, Card.CClass.SHAMAN}, {DeckType.BattleryShaman, Card.CClass.SHAMAN}, /*Poor Kids*/
         };
 
         #endregion
@@ -882,19 +882,98 @@ namespace MulliganProfiles
             return string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n{10}", Choices.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), OpponentClass, OwnClass, Coin, MyDeckType, MyStyle, EneDeckType, EnemyStyle, ZeroDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), OneDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), TwoDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
         }
 
-        public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
+         public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
         {
-            { DeckType.Custom, Style.Unknown},{DeckType.Unknown, Style.Unknown}, {DeckType.Arena, Style.Control}, /*Warrior*/
-            {DeckType.ControlWarrior, Style.Control}, {DeckType.FatigueWarrior, Style.Fatigue}, {DeckType.DragonWarrior, Style.Control}, {DeckType.PatronWarrior, Style.Tempo}, {DeckType.WorgenOTKWarrior, Style.Combo}, {DeckType.MechWarrior, Style.Aggro}, {DeckType.FaceWarrior, Style.Face}, {DeckType.RenoWarrior, Style.Control}, /*Paladin*/
-            {DeckType.SecretPaladin, Style.Tempo}, {DeckType.MidRangePaladin, Style.Control}, {DeckType.DragonPaladin, Style.Control}, {DeckType.AggroPaladin, Style.Aggro}, {DeckType.AnyfinMurglMurgl, Style.Combo}, {DeckType.RenoPaladin, Style.Control}, /*Druid*/
-            {DeckType.RampDruid, Style.Control}, {DeckType.AggroDruid, Style.Aggro}, {DeckType.DragonDruid, Style.Control}, {DeckType.MidRangeDruid, Style.Combo}, {DeckType.TokenDruid, Style.Tempo}, {DeckType.SilenceDruid, Style.Control}, {DeckType.MechDruid, Style.Aggro}, {DeckType.AstralDruid, Style.Control}, {DeckType.MillDruid, Style.Fatigue}, {DeckType.BeastDruid, Style.Tempo}, {DeckType.RenoDruid, Style.Control}, /*Warlock*/
-            {DeckType.Handlock, Style.Control}, {DeckType.RenoLock, Style.Control}, {DeckType.Zoolock, Style.Tempo}, //Same handler as flood zoo and reliquary
-            {DeckType.DemonHandlock, Style.Control}, {DeckType.DragonHandlock, Style.Control}, {DeckType.MalyLock, Style.Combo},  {DeckType.ControlWarlock, Style.Control}, /*Mage*/
-            {DeckType.TempoMage, Style.Tempo}, {DeckType.FreezeMage, Style.Control}, {DeckType.FaceFreezeMage, Style.Aggro}, {DeckType.DragonMage, Style.Control}, {DeckType.MechMage, Style.Aggro}, {DeckType.EchoMage, Style.Control},  {DeckType.RenoMage, Style.Control}, /*Priest*/
-            {DeckType.DragonPriest, Style.Tempo}, {DeckType.ControlPriest, Style.Control}, {DeckType.ComboPriest, Style.Combo}, {DeckType.MechPriest, Style.Aggro}, /*Hunter*/
-            {DeckType.MidRangeHunter, Style.Tempo}, {DeckType.HybridHunter, Style.Aggro}, {DeckType.FaceHunter, Style.Face},  {DeckType.CamelHunter, Style.Control}, {DeckType.DragonHunter, Style.Control}, {DeckType.RenoHunter, Style.Control}, /*Rogue*/
-            {DeckType.OilRogue, Style.Combo}, {DeckType.PirateRogue, Style.Aggro}, {DeckType.FaceRogue, Style.Face}, {DeckType.MalyRogue, Style.Combo}, {DeckType.RaptorRogue, Style.Tempo},  {DeckType.MiracleRogue, Style.Combo}, {DeckType.RenoRogue, Style.Control}, {DeckType.MechRogue, Style.Tempo}, {DeckType.MillRogue, Style.Fatigue}, /*Cance... I mean Shaman*/
-            {DeckType.FaceShaman, Style.Face}, {DeckType.MechShaman, Style.Aggro}, {DeckType.DragonShaman, Style.Control},  {DeckType.MalygosShaman, Style.Combo}, {DeckType.ControlShaman, Style.Control},  {DeckType.RenoShaman, Style.Combo}, {DeckType.BattleryShaman, Style.Control}, /*Poor Kids*/
+            {DeckType.Custom, Style.Unknown},
+            {DeckType.Unknown, Style.Unknown},
+            {DeckType.Arena, Style.Control},
+            /*Warrior*/
+            {DeckType.ControlWarrior, Style.Control},
+            {DeckType.FatigueWarrior, Style.Fatigue},
+            {DeckType.DragonWarrior, Style.Control},
+            {DeckType.PatronWarrior, Style.Tempo},
+            {DeckType.WorgenOTKWarrior, Style.Combo},
+            {DeckType.MechWarrior, Style.Aggro},
+            {DeckType.FaceWarrior, Style.Face},
+            {DeckType.RenoWarrior, Style.Control },
+            {DeckType.CThunWarrior, Style.Control },
+            {DeckType.TempoWarrior, Style.Tempo },
+
+            /*Paladin*/
+            {DeckType.SecretPaladin, Style.Tempo},
+            {DeckType.MidRangePaladin, Style.Control},
+            {DeckType.DragonPaladin, Style.Control},
+            {DeckType.AggroPaladin, Style.Aggro},
+            {DeckType.AnyfinMurglMurgl, Style.Combo},
+            {DeckType.RenoPaladin, Style.Control},
+            {DeckType.CThunPaladin, Style.Combo },
+            /*Druid*/
+            {DeckType.RampDruid, Style.Control},
+            {DeckType.AggroDruid, Style.Aggro},
+            {DeckType.DragonDruid, Style.Control},
+            {DeckType.MidRangeDruid, Style.Tempo},
+            {DeckType.TokenDruid, Style.Tempo},
+            {DeckType.SilenceDruid, Style.Control},
+            {DeckType.MechDruid, Style.Aggro},
+            {DeckType.AstralDruid, Style.Control},
+            {DeckType.MillDruid, Style.Fatigue},
+            {DeckType.BeastDruid, Style.Tempo},
+            {DeckType.RenoDruid, Style.Control},
+            {DeckType.CThunDruid, Style.Combo },
+            /*Warlock*/
+            {DeckType.Handlock, Style.Control},
+            {DeckType.RenoLock, Style.Control},
+            {DeckType.Zoolock, Style.Aggro}, //Same handler as flood zoo and reliquary
+            {DeckType.DemonHandlock, Style.Control},
+            {DeckType.DragonHandlock, Style.Control},
+            {DeckType.MalyLock, Style.Combo},
+            {DeckType.ControlWarlock, Style.Control},
+            {DeckType.CThunLock, Style.Combo },
+            /*Mage*/
+            {DeckType.TempoMage, Style.Tempo},
+            {DeckType.FreezeMage, Style.Control},
+            {DeckType.FaceFreezeMage, Style.Aggro},
+            {DeckType.DragonMage, Style.Control},
+            {DeckType.MechMage, Style.Aggro},
+            {DeckType.EchoMage, Style.Control},
+            {DeckType.CThunMage, Style.Combo},
+            {DeckType.RenoMage, Style.Control},
+            /*Priest*/
+            {DeckType.DragonPriest, Style.Tempo},
+            {DeckType.ControlPriest, Style.Control},
+            {DeckType.ComboPriest, Style.Combo},
+            {DeckType.MechPriest, Style.Aggro},
+            /*Hunter*/
+            {DeckType.MidRangeHunter, Style.Tempo},
+            {DeckType.HybridHunter, Style.Aggro},
+            {DeckType.FaceHunter, Style.Face},
+            {DeckType.CamelHunter, Style.Control},
+            {DeckType.DragonHunter, Style.Control},
+            {DeckType.RenoHunter, Style.Control},
+            {DeckType.CThunHunter, Style.Combo },
+            /*Rogue*/
+            {DeckType.OilRogue, Style.Combo},
+            {DeckType.PirateRogue, Style.Aggro},
+            {DeckType.FaceRogue, Style.Face},
+            {DeckType.MalyRogue, Style.Combo},
+            {DeckType.RaptorRogue, Style.Tempo},
+            {DeckType.MiracleRogue, Style.Combo},
+            {DeckType.RenoRogue, Style.Control},
+            {DeckType.MechRogue, Style.Tempo},
+            {DeckType.MillRogue, Style.Fatigue},
+            {DeckType.CThunRogue, Style.Combo },
+            /*Cance... I mean Shaman*/
+            {DeckType.FaceShaman, Style.Face},
+            {DeckType.MidrangeShaman, Style.Tempo},
+            {DeckType.MechShaman, Style.Aggro},
+            {DeckType.DragonShaman, Style.Control},
+            {DeckType.MalygosShaman, Style.Combo},
+            {DeckType.ControlShaman, Style.Control},
+            {DeckType.RenoShaman, Style.Combo},
+            {DeckType.BattleryShaman, Style.Control},
+            {DeckType.CThunShaman, Style.Combo },
+
+            /*Poor Kids*/
             {DeckType.Basic, Style.Tempo}
         };
 
