@@ -150,7 +150,7 @@ namespace SmartBot.Plugins
         public ABTracker()
         {
             Name = "Arthurs Bundle - Tracker";
-            donation = "http://bit.ly/ABTrackerDonation";
+            donation = "http://bit.ly/ABDonationLink";
             discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
             ForcedDeckType = DeckType.Unknown;
             MulliganTEsterEnemyDeck = DeckType.Unknown;
@@ -165,7 +165,7 @@ namespace SmartBot.Plugins
         }
         public void RefreshMenu()
         {
-            donation = "http://bit.ly/ABTrackerDonation";
+            donation = "http://bit.ly/ABDonationLink";
             discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
             vKey = GetLocalSha("Arthurs Bundle - Tracker.cs");
             Versions = "4.001";
