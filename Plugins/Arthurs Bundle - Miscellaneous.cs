@@ -85,6 +85,14 @@ namespace SmartBot.Plugins
                         File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SmartTracker.settings");
                     if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\SmartMulligan.cs"))
                         File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\SmartMulligan.cs");
+                    ((ArthursBundleMiscellaneous)DataContainer).STTransfer = false;
+                    System.Windows.Forms.MessageBox.Show("\t[IMPORTANT Arthurs' Bundle Post Data Transfer message]\n\n"
+                        + "If you are seeing this box, that means update went smoothly and your old history safely transfered."
+
+                        + "\nNow you need to navigate to Miscellaneous plugin and disable 'Transfer SM and ST'");
+                    Bot.ReloadPlugins();
+                    Bot.RefreshMulliganProfiles();
+                    Bot.RefreshProfiles();
                 }
                 ((ArthursBundleMiscellaneous)DataContainer).STTransfer = false;
                 base.OnStarted();
@@ -99,10 +107,7 @@ namespace SmartBot.Plugins
                 Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartTracker\\", true);
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\"))
                 Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\SmartMulligan\\", true);
-            ((ArthursBundleMiscellaneous)DataContainer).STTransfer = false;
-            Bot.ReloadPlugins();
-            Bot.RefreshMulliganProfiles();
-            Bot.RefreshProfiles();
+
 
         }
         private bool IsFileLocked(string filename)
