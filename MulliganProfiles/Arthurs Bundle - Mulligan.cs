@@ -754,6 +754,16 @@ namespace MulliganProfiles
         //needed
         public GameContainer(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
+           
+            var value = Enum.GetValues(typeof(DeckType)).Cast<DeckType>().ToList();
+            foreach (var q in value)
+            {
+                if (q == DeckType.Count) continue;
+                if (!DeckStyles.ContainsKey(q))
+                {
+                    Bot.Log("[URGENT] MISSING " + q +" in styles");
+                }
+            }
             try
             {
                 Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("Enemy", opponentClass);
@@ -778,9 +788,9 @@ namespace MulliganProfiles
             }
             Dictionary<string, object> properties = tracker.GetProperties();
             //PrintDebug(properties);
-            if (Enum.GetNames(typeof(DeckType)).Length != (int)properties[EnumsCount])
+            if ((int) DeckType.Count != (int)properties[EnumsCount])
             {
-                Bot.Log("[URGENT!!!!] Arthur, your enums are out of synch");
+                Bot.Log(string.Format("[URGENT!!!!] Arthur, your enums are out of synch: {0} vs {1}", (int)DeckType.Count, (int)properties[EnumsCount] ));
             }
             MyDeckType = properties[Mode].ToString() == "Manual" ? (DeckType)properties[TrackerForceMyType] //if Manual
                 : (DeckType)properties[TrackerMyType]; //if Auto
@@ -1021,7 +1031,6 @@ namespace MulliganProfiles
         public List<Card.Cards> HandleMulligan(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
             ClearReport();
-
             Report("Mulligan Stage Entered");
 
             GameContainer mtgc = new GameContainer(true, choices, opponentClass, ownClass);
@@ -2597,113 +2606,114 @@ namespace MulliganProfiles
             return string.Format("Container " + Max1Drops + Max1DropsCoin + Max2Drops + Max2DropsCoin + Max3Drops + Max3DropsCoin + Max4Drops + Max4DropsCoin + NoChange + control);
         }
     }
-    public enum DeckType
-    {
-        Custom,
-        Unknown,
-        Arena,
-        /*Warrior*/
-        ControlWarrior,
-        FatigueWarrior,
-        DragonWarrior,
-        PatronWarrior,
-        WorgenOTKWarrior,
-        MechWarrior,
-        FaceWarrior,
-        RenoWarrior,
-        CThunWarrior,
-        TempoWarrior,
-        /*Paladin*/
-        SecretPaladin,
-        MidRangePaladin,
-        DragonPaladin,
-        AggroPaladin,
-        AnyfinMurglMurgl,
-        RenoPaladin,
-        CThunPaladin,
+   public enum DeckType
+{
+    Custom,
+    Unknown,
+    Arena,
+    /*Warrior*/
+    ControlWarrior,
+    FatigueWarrior,
+    DragonWarrior,
+    PatronWarrior,
+    WorgenOTKWarrior,
+    MechWarrior,
+    FaceWarrior,
+    RenoWarrior,
+    CThunWarrior,
+    TempoWarrior,
+    /*Paladin*/
+    SecretPaladin,
+    MidRangePaladin,
+    DragonPaladin,
+    AggroPaladin,
+    AnyfinMurglMurgl,
+    RenoPaladin,
+    CThunPaladin,
 
-        /*Druid*/
-        RampDruid,
-        AggroDruid,
-        DragonDruid,
-        MidRangeDruid,
-        TokenDruid,
-        SilenceDruid,
-        MechDruid,
-        AstralDruid,
-        MillDruid,
-        BeastDruid,
-        RenoDruid,
-        CThunDruid,
-        /*Warlock*/
-        Handlock,
-        RenoLock,
-        Zoolock,
-        DemonHandlock,
-        DragonHandlock,
-        MalyLock,
-        ControlWarlock,
-        CThunLock,
-        /*Mage*/
-        TempoMage,
-        FreezeMage,
-        FaceFreezeMage,
-        DragonMage,
-        MechMage,
-        EchoMage,
-        RenoMage,
-        CThunMage,
-        /*Priest*/
-        DragonPriest,
-        ControlPriest,
-        ComboPriest,
-        MechPriest,
+    /*Druid*/
+    RampDruid,
+    AggroDruid,
+    DragonDruid,
+    MidRangeDruid,
+    TokenDruid,
+    SilenceDruid,
+    MechDruid,
+    AstralDruid,
+    MillDruid,
+    BeastDruid,
+    RenoDruid,
+    CThunDruid,
+    /*Warlock*/
+    Handlock,
+    RenoLock,
+    Zoolock,
+    DemonHandlock,
+    DragonHandlock,
+    MalyLock,
+    ControlWarlock,
+    CThunLock,
+    /*Mage*/
+    TempoMage,
+    FreezeMage,
+    FaceFreezeMage,
+    DragonMage,
+    MechMage,
+    EchoMage,
+    RenoMage,
+    CThunMage,
+    /*Priest*/
+    DragonPriest,
+    ControlPriest,
+    ComboPriest,
+    MechPriest,
 
-        /*Huntard*/
-        MidRangeHunter,
-        HybridHunter,
-        FaceHunter,
-        CamelHunter,
-        RenoHunter,
-        DragonHunter,
-        CThunHunter,
-        /*Rogue*/
-        OilRogue,
-        PirateRogue,
-        FaceRogue,
-        MalyRogue,
-        RaptorRogue,
-        MiracleRogue,
-        MechRogue,
-        RenoRogue,
-        MillRogue,
-        CThunRogue,
-        /*Chaman*/
-        FaceShaman,
-        MechShaman,
-        DragonShaman,
-        MidrangeShaman,
-        MalygosShaman,
-        ControlShaman,
+    /*Huntard*/
+    MidRangeHunter,
+    HybridHunter,
+    FaceHunter,
+    CamelHunter,
+    RenoHunter,
+    DragonHunter,
+    CThunHunter,
+    /*Rogue*/
+    OilRogue,
+    PirateRogue,
+    FaceRogue,
+    MalyRogue,
+    RaptorRogue,
+    MiracleRogue,
+    MechRogue,
+    RenoRogue,
+    MillRogue,
+    CThunRogue,
+    /*Chaman*/
+    FaceShaman,
+    MechShaman,
+    DragonShaman,
+    MidrangeShaman,
+    MalygosShaman,
+    ControlShaman,
 
-        BattleryShaman,
-        RenoShaman,
-        CThunShaman,
+    BattleryShaman,
+    RenoShaman,
+    CThunShaman,
 
-        Basic,
-    }
+    Basic,
+    Count,
+}
 
-    public enum Style
-    {
-        Unknown,
-        Face,
-        Aggro,
-        Control,
-        Midrange,
-        Combo,
-        Tempo,
-        Fatigue,
-    }
+public enum Style
+{
+    Unknown,
+    Face,
+    Aggro,
+    Control,
+    Midrange,
+    Combo,
+    Tempo,
+    Fatigue,
+}
 
     #endregion
 }

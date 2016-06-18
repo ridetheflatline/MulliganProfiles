@@ -313,7 +313,7 @@ namespace SmartBot.Plugins
             CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs\\ABTracker\\");
             CheckFiles();
             ((ABTracker)DataContainer).ReloadDictionary();
-            ((ABTracker)DataContainer).SynchEnums = Enum.GetNames(typeof(DeckType)).Length;
+            ((ABTracker)DataContainer).SynchEnums = (int) DeckType.Count;
         }
 
         private void CheckFiles()
@@ -1537,6 +1537,7 @@ public enum DeckType
     CThunShaman,
 
     Basic,
+    Count,
 }
 
 public enum Style
