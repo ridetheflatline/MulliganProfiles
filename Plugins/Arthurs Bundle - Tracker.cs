@@ -28,8 +28,7 @@ public static class Extension
     {
         return list.Find(c => c.DataContainer.Name == name).GetProperties()[data];
     }
-
-    //kappa
+        
     public static bool ContainsAll<T1>(this IList<T1> list, params T1[] items)
     {
         return !items.Except(list).Any();
@@ -205,7 +204,7 @@ namespace SmartBot.Plugins
     public class SmTracker : Plugin
     {
         public bool identified = false;
-        public bool pregameEnemyIdentified = false;
+        public bool pregameEnemyIdentified = false;   
         private DeckData informationData;
         private readonly string MulliganDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
         private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\AB - Mulligan\\";

@@ -2,12 +2,9 @@ using SmartBot.Plugins.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using SmartBot.Database;
+
 
 namespace SmartBot.Plugins
 {

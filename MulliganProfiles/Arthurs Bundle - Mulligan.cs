@@ -164,6 +164,10 @@ namespace MulliganProfiles
         {
             return deck.Count(cards => CardTemplate.LoadFromId(cards).Cost == turn);
         }
+        public static object Fetch(this List<Plugin> list, string name, string data)
+        {
+            return list.Find(c => c.DataContainer.Name == name).GetProperties()[data];
+        }
         /// <summary>
         /// Not to be confused as end conditions. Checks if you have a turn X with a minimum priority of minPriority
         /// </summary>
@@ -631,26 +635,49 @@ namespace MulliganProfiles
             Prediction prediction = new Prediction();
 
             List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
+            Report("FHF: 1.0");
             List<DeckType> allDeckTypes = (from q in history select q.Split(new[] { "||" }, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId select (DeckType)Enum.Parse(typeof(DeckType), information[8])).ToList();
+            Report("FHF: 2.0");
             if (allDeckTypes.Count >= 1)
             {
+                Report("FHF: 2.1");
+                Report("FHF: " + allDeckTypes.Count);
+                foreach (var q in allDeckTypes)
+                {
+                    Report(q.ToString());
+                } 
                 var eDeckType =
-                    allDeckTypes.FirstOrDefault(q => q != DeckType.Unknown && q != DeckType.Basic && DeckClass[q] == op);
+                    allDeckTypes.FirstOrDefault(q => q != DeckType.Unknown && DeckClass[q] == op);
+                Report("FHF: 2.2");
                 if (!Bot.CurrentMode().IsShitfest())
                     Bot.Log(string.Format("[ABTracker] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
+                Report("FHF: 2.3");
                 return eDeckType;
             }
+            Report("FHF: 3.0");
             foreach (var q in history)
             {
-                var info = q.Split(new[] { "||" }, StringSplitOptions.None);
-                if ((Card.CClass)Enum.Parse(typeof(Card.CClass), info[7]) != op) continue;
-                if (info[3] != Bot.CurrentMode().ToString()) continue;
-                prediction.Update(op, (DeckType)Enum.Parse(typeof(DeckType), info[8]));
+                try
+                {
+                    var info = q.Split(new[] { "||" }, StringSplitOptions.None);
+
+                    if ((Card.CClass)Enum.Parse(typeof(Card.CClass), info[7]) != op) continue;
+                    if (info[3] != Bot.CurrentMode().ToString()) continue;
+
+                    prediction.Update(op, (DeckType)Enum.Parse(typeof(DeckType), info[8]));
+                }
+                catch (Exception e)
+                {
+                    Report(e.Message);
+                    continue;
+                }
             }
+             Report("FHF: 4.0");
             DeckType unknownPrediction = prediction.GetMostFacedDeckType(op);
+             Report("FHF: 5.0");
             if (!Bot.CurrentMode().IsShitfest())
                 Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
-
+                            Report("FHF: 6.0");
             return unknownPrediction;
         }
 
@@ -690,7 +717,7 @@ namespace MulliganProfiles
         public static Dictionary<DeckType, Card.CClass> DeckClass = new Dictionary<DeckType, Card.CClass>
         {
             {DeckType.Unknown, Card.CClass.NONE}, {DeckType.Arena, Card.CClass.NONE}, /*Warrior*/
-            {DeckType.ControlWarrior, Card.CClass.WARRIOR}, {DeckType.FatigueWarrior, Card.CClass.WARRIOR}, {DeckType.DragonWarrior, Card.CClass.WARRIOR}, {DeckType.PatronWarrior, Card.CClass.WARRIOR}, {DeckType.WorgenOTKWarrior, Card.CClass.WARRIOR}, {DeckType.MechWarrior, Card.CClass.WARRIOR}, {DeckType.FaceWarrior, Card.CClass.WARRIOR}, {DeckType.RenoWarrior, Card.CClass.WARRIOR}, /*Paladin*/
+            {DeckType.TempoWarrior, Card.CClass.WARRIOR }, {DeckType.ControlWarrior, Card.CClass.WARRIOR}, {DeckType.FatigueWarrior, Card.CClass.WARRIOR}, {DeckType.DragonWarrior, Card.CClass.WARRIOR}, {DeckType.PatronWarrior, Card.CClass.WARRIOR}, {DeckType.WorgenOTKWarrior, Card.CClass.WARRIOR}, {DeckType.MechWarrior, Card.CClass.WARRIOR}, {DeckType.FaceWarrior, Card.CClass.WARRIOR}, {DeckType.RenoWarrior, Card.CClass.WARRIOR}, /*Paladin*/
             {DeckType.SecretPaladin, Card.CClass.PALADIN}, {DeckType.MidRangePaladin, Card.CClass.PALADIN}, {DeckType.DragonPaladin, Card.CClass.PALADIN}, {DeckType.AggroPaladin, Card.CClass.PALADIN}, {DeckType.AnyfinMurglMurgl, Card.CClass.PALADIN}, {DeckType.RenoPaladin, Card.CClass.PALADIN}, /*Druid*/
             {DeckType.RampDruid, Card.CClass.DRUID}, {DeckType.AggroDruid, Card.CClass.DRUID}, {DeckType.DragonDruid, Card.CClass.DRUID}, {DeckType.MidRangeDruid, Card.CClass.DRUID}, {DeckType.TokenDruid, Card.CClass.DRUID}, {DeckType.SilenceDruid, Card.CClass.DRUID}, {DeckType.MechDruid, Card.CClass.DRUID}, {DeckType.AstralDruid, Card.CClass.DRUID}, {DeckType.MillDruid, Card.CClass.DRUID}, {DeckType.BeastDruid, Card.CClass.DRUID}, {DeckType.RenoDruid, Card.CClass.DRUID}, /*Warlock*/
             {DeckType.Handlock, Card.CClass.WARLOCK}, {DeckType.RenoLock, Card.CClass.WARLOCK}, {DeckType.Zoolock, Card.CClass.WARLOCK}, //Same handler as flood zoo and reliquary
@@ -754,14 +781,14 @@ namespace MulliganProfiles
         //needed
         public GameContainer(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
-           
+            Bot.Log("=======================================]]]]]]]]]]]]]]]]]]]" + (int)Bot.GetPlugins().Fetch("Arthurs Bundle - History", "GTA"));
             var value = Enum.GetValues(typeof(DeckType)).Cast<DeckType>().ToList();
             foreach (var q in value)
             {
                 if (q == DeckType.Count) continue;
                 if (!DeckStyles.ContainsKey(q))
                 {
-                    Bot.Log("[URGENT] MISSING " + q +" in styles");
+                    Bot.Log("[URGENT] MISSING " + q + " in styles");
                 }
             }
             try
@@ -788,10 +815,11 @@ namespace MulliganProfiles
             }
             Dictionary<string, object> properties = tracker.GetProperties();
             //PrintDebug(properties);
-            if ((int) DeckType.Count != (int)properties[EnumsCount])
+            if ((int)DeckType.Count != (int)properties[EnumsCount])
             {
-                Bot.Log(string.Format("[URGENT!!!!] Arthur, your enums are out of synch: {0} vs {1}", (int)DeckType.Count, (int)properties[EnumsCount] ));
+                Bot.Log(string.Format("[URGENT!!!!] Arthur, your enums are out of synch: {0} vs {1}", (int)DeckType.Count, (int)properties[EnumsCount]));
             }
+            Report("DID FINE 5");
             MyDeckType = properties[Mode].ToString() == "Manual" ? (DeckType)properties[TrackerForceMyType] //if Manual
                 : (DeckType)properties[TrackerMyType]; //if Auto
 
@@ -800,10 +828,13 @@ namespace MulliganProfiles
             Bot.Log(string.Format("[You chose {0} Detection] {1} [Default: AutoDetection] {2}", properties[Mode], MyDeckType, properties[TrackerMyType]));
 
             #endregion
-
+            Report("DID FIUNE 6");
             MyStyle = (Style)properties[TrackerMyStyle];
-            EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int)properties[nGames]);
+            Report("DID FINE 6.1");
+            EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int)Bot.GetPlugins().Fetch("Arthurs Bundle - History", "GTA"));
+            Report("DID FINE 6.2");
             EnemyStyle = DeckStyles[EneDeckType];
+            Report("DID FINE 6.3");
             try
             {
                 Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("EnemyDeckTypeGuess", EneDeckType);
@@ -813,6 +844,7 @@ namespace MulliganProfiles
             {
                 //ignored
             }
+            Report("DID FINE 7");
             ZeroDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 0).ToList();
             OneDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 1).ToList();
             TwoDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 2).ToList();
@@ -892,7 +924,7 @@ namespace MulliganProfiles
             return string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n{10}", Choices.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), OpponentClass, OwnClass, Coin, MyDeckType, MyStyle, EneDeckType, EnemyStyle, ZeroDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), OneDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")), TwoDrops.Aggregate("", (current, q) => current + ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
         }
 
-         public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
+        public readonly Dictionary<DeckType, Style> DeckStyles = new Dictionary<DeckType, Style>
         {
             {DeckType.Custom, Style.Unknown},
             {DeckType.Unknown, Style.Unknown},
@@ -1034,21 +1066,24 @@ namespace MulliganProfiles
             Report("Mulligan Stage Entered");
 
             GameContainer mtgc = new GameContainer(true, choices, opponentClass, ownClass);
-            Report("Mulligan Tester Container created");
+            //Report("Mulligan Tester Container created");
             try
             {
                 GameContainer gc = new GameContainer(choices, opponentClass, ownClass);
+                Report("Normal gc created");
                 Mulliganaccordingly(gc);
+                Report("Finished Mulliganing accordingly");
                 mtgc = gc;
-                Report("Succesfully created normal Game Container");
+                
             }
             catch (NotImplementedException e)
             {
                 Report(string.Format("[Arthurs' Bundle: Mulligan] Current deck is not implemented: {0}", e.TargetSite));
                 Core(mtgc);
             }
-            catch (Exception)
+            catch (Exception q)
             {
+                Report(q.Message);
                 Report("[Arthurs' Bundle: Mulligan] Entering Mulligan Tester mode");
                 Mulliganaccordingly(mtgc);
             }
@@ -1279,6 +1314,9 @@ namespace MulliganProfiles
                 case DeckType.ControlShaman:
                 HandleControlShaman(gc);
                 break;
+                case DeckType.MidrangeShaman:
+                HandleTotemShaman(gc);
+                break;
                 case DeckType.BattleryShaman:
                 HandleBattlecryShaman(gc);
                 break;
@@ -1323,7 +1361,7 @@ namespace MulliganProfiles
         private void HandleTempoWarrior(GameContainer gc)
         {
             Core(gc);
-            
+
             if (gc.EneDeckType.IsOneOf(DeckType.BeastDruid, DeckType.MidRangeDruid, DeckType.RampDruid))
             {
                 _whiteList.AddAll(false, Cards.BloodToIchor, Cards.FierceMonkey, Cards.RavagingGhoul, Cards.FrothingBerserker,
@@ -1406,14 +1444,14 @@ namespace MulliganProfiles
         ///ALL CHANGES MUST BE BETWEEN CUSTOM REGIONS
         /// </summary>
         /// <param name="gc"></param>
-        
+
         private void HandleCustomDeck(GameContainer gc)
         {
             #region Custom
-            
+
             #endregion Custom
         }
-       
+
         private void HandleNZothPaladin(GameContainer gc)
         {
             Core(gc);
@@ -2189,7 +2227,7 @@ namespace MulliganProfiles
                 else data = new MulliganCoreData();
 
                 #region minion handler
-                
+
             }
             catch (Exception e)
             {
@@ -2591,114 +2629,114 @@ namespace MulliganProfiles
             return string.Format("Container " + Max1Drops + Max1DropsCoin + Max2Drops + Max2DropsCoin + Max3Drops + Max3DropsCoin + Max4Drops + Max4DropsCoin + NoChange + control);
         }
     }
-   public enum DeckType
-{
-    Custom,
-    Unknown,
-    Arena,
-    /*Warrior*/
-    ControlWarrior,
-    FatigueWarrior,
-    DragonWarrior,
-    PatronWarrior,
-    WorgenOTKWarrior,
-    MechWarrior,
-    FaceWarrior,
-    RenoWarrior,
-    CThunWarrior,
-    TempoWarrior,
-    /*Paladin*/
-    SecretPaladin,
-    MidRangePaladin,
-    DragonPaladin,
-    AggroPaladin,
-    AnyfinMurglMurgl,
-    RenoPaladin,
-    CThunPaladin,
+    public enum DeckType
+    {
+        Custom,
+        Unknown,
+        Arena,
+        /*Warrior*/
+        ControlWarrior,
+        FatigueWarrior,
+        DragonWarrior,
+        PatronWarrior,
+        WorgenOTKWarrior,
+        MechWarrior,
+        FaceWarrior,
+        RenoWarrior,
+        CThunWarrior,
+        TempoWarrior,
+        /*Paladin*/
+        SecretPaladin,
+        MidRangePaladin,
+        DragonPaladin,
+        AggroPaladin,
+        AnyfinMurglMurgl,
+        RenoPaladin,
+        CThunPaladin,
 
-    /*Druid*/
-    RampDruid,
-    AggroDruid,
-    DragonDruid,
-    MidRangeDruid,
-    TokenDruid,
-    SilenceDruid,
-    MechDruid,
-    AstralDruid,
-    MillDruid,
-    BeastDruid,
-    RenoDruid,
-    CThunDruid,
-    /*Warlock*/
-    Handlock,
-    RenoLock,
-    Zoolock,
-    DemonHandlock,
-    DragonHandlock,
-    MalyLock,
-    ControlWarlock,
-    CThunLock,
-    /*Mage*/
-    TempoMage,
-    FreezeMage,
-    FaceFreezeMage,
-    DragonMage,
-    MechMage,
-    EchoMage,
-    RenoMage,
-    CThunMage,
-    /*Priest*/
-    DragonPriest,
-    ControlPriest,
-    ComboPriest,
-    MechPriest,
+        /*Druid*/
+        RampDruid,
+        AggroDruid,
+        DragonDruid,
+        MidRangeDruid,
+        TokenDruid,
+        SilenceDruid,
+        MechDruid,
+        AstralDruid,
+        MillDruid,
+        BeastDruid,
+        RenoDruid,
+        CThunDruid,
+        /*Warlock*/
+        Handlock,
+        RenoLock,
+        Zoolock,
+        DemonHandlock,
+        DragonHandlock,
+        MalyLock,
+        ControlWarlock,
+        CThunLock,
+        /*Mage*/
+        TempoMage,
+        FreezeMage,
+        FaceFreezeMage,
+        DragonMage,
+        MechMage,
+        EchoMage,
+        RenoMage,
+        CThunMage,
+        /*Priest*/
+        DragonPriest,
+        ControlPriest,
+        ComboPriest,
+        MechPriest,
 
-    /*Huntard*/
-    MidRangeHunter,
-    HybridHunter,
-    FaceHunter,
-    CamelHunter,
-    RenoHunter,
-    DragonHunter,
-    CThunHunter,
-    /*Rogue*/
-    OilRogue,
-    PirateRogue,
-    FaceRogue,
-    MalyRogue,
-    RaptorRogue,
-    MiracleRogue,
-    MechRogue,
-    RenoRogue,
-    MillRogue,
-    CThunRogue,
-    /*Chaman*/
-    FaceShaman,
-    MechShaman,
-    DragonShaman,
-    MidrangeShaman,
-    MalygosShaman,
-    ControlShaman,
+        /*Huntard*/
+        MidRangeHunter,
+        HybridHunter,
+        FaceHunter,
+        CamelHunter,
+        RenoHunter,
+        DragonHunter,
+        CThunHunter,
+        /*Rogue*/
+        OilRogue,
+        PirateRogue,
+        FaceRogue,
+        MalyRogue,
+        RaptorRogue,
+        MiracleRogue,
+        MechRogue,
+        RenoRogue,
+        MillRogue,
+        CThunRogue,
+        /*Chaman*/
+        FaceShaman,
+        MechShaman,
+        DragonShaman,
+        MidrangeShaman,
+        MalygosShaman,
+        ControlShaman,
 
-    BattleryShaman,
-    RenoShaman,
-    CThunShaman,
+        BattleryShaman,
+        RenoShaman,
+        CThunShaman,
 
-    Basic,
-    Count,
-}
+        Basic,
+        Count,
+    }
 
-public enum Style
-{
-    Unknown,
-    Face,
-    Aggro,
-    Control,
-    Midrange,
-    Combo,
-    Tempo,
-    Fatigue,
-}
+    public enum Style
+    {
+        Unknown,
+        Face,
+        Aggro,
+        Control,
+        Midrange,
+        Combo,
+        Tempo,
+        Fatigue,
+    }
 
     #endregion
 }
