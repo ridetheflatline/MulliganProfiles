@@ -18,10 +18,10 @@ namespace SmartBot.Plugins
             map[key] = value;
         }
 
-         //lol
+        //lol
         public static bool IsArena(this Bot.Mode mode)
         {
-            return mode == Bot.Mode.Arena || mode == Bot.Mode.ArenaAuto;  
+            return mode == Bot.Mode.Arena || mode == Bot.Mode.ArenaAuto;
         }
     }
     [Serializable]
@@ -87,17 +87,24 @@ namespace SmartBot.Plugins
             {
                 foreach (var q in text)
                 {
-                    var information = q.Split(new[] { "||" }, StringSplitOptions.None);
-                    DeckType dt = (DeckType)Enum.Parse(typeof(DeckType), information[8]);
-                    if (information[5].ToString().Contains("Cards")) continue;
-                    Card.CClass enemy = (Card.CClass)Enum.Parse(typeof(Card.CClass), information[7]);
-                    if (Stats.ContainsKey(dt))
+                    try
                     {
-                        Stats[dt].UpdateData(dt, enemy, information[1]);
+                        var information = q.Split(new[] { "||" }, StringSplitOptions.None);
+                        DeckType dt = (DeckType)Enum.Parse(typeof(DeckType), information[8]);
+                        if (information[5].ToString().Contains("Cards")) continue;
+                        Card.CClass enemy = (Card.CClass)Enum.Parse(typeof(Card.CClass), information[7]);
+                        if (Stats.ContainsKey(dt))
+                        {
+                            Stats[dt].UpdateData(dt, enemy, information[1]);
+                        }
+                        else
+                        {
+                            Stats.AddOrUpdate(dt, new Statistics(dt, enemy, information[1]));
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        Stats.AddOrUpdate(dt, new Statistics(dt, enemy, information[1]));
+                        continue;
                     }
                 }
             }
@@ -254,113 +261,113 @@ namespace SmartBot.Plugins
     {
         Minimal, Detailed
     }
-public enum DeckType
-{
-    Custom,
-    Unknown,
-    Arena,
-    /*Warrior*/
-    ControlWarrior,
-    FatigueWarrior,
-    DragonWarrior,
-    PatronWarrior,
-    WorgenOTKWarrior,
-    MechWarrior,
-    FaceWarrior,
-    RenoWarrior,
-    CThunWarrior,
-    TempoWarrior,
-    /*Paladin*/
-    SecretPaladin,
-    MidRangePaladin,
-    DragonPaladin,
-    AggroPaladin,
-    AnyfinMurglMurgl,
-    RenoPaladin,
-    CThunPaladin,
+    public enum DeckType
+    {
+        Custom,
+        Unknown,
+        Arena,
+        /*Warrior*/
+        ControlWarrior,
+        FatigueWarrior,
+        DragonWarrior,
+        PatronWarrior,
+        WorgenOTKWarrior,
+        MechWarrior,
+        FaceWarrior,
+        RenoWarrior,
+        CThunWarrior,
+        TempoWarrior,
+        /*Paladin*/
+        SecretPaladin,
+        MidRangePaladin,
+        DragonPaladin,
+        AggroPaladin,
+        AnyfinMurglMurgl,
+        RenoPaladin,
+        CThunPaladin,
 
-    /*Druid*/
-    RampDruid,
-    AggroDruid,
-    DragonDruid,
-    MidRangeDruid,
-    TokenDruid,
-    SilenceDruid,
-    MechDruid,
-    AstralDruid,
-    MillDruid,
-    BeastDruid,
-    RenoDruid,
-    CThunDruid,
-    /*Warlock*/
-    Handlock,
-    RenoLock,
-    Zoolock,
-    DemonHandlock,
-    DragonHandlock,
-    MalyLock,
-    ControlWarlock,
-    CThunLock,
-    /*Mage*/
-    TempoMage,
-    FreezeMage,
-    FaceFreezeMage,
-    DragonMage,
-    MechMage,
-    EchoMage,
-    RenoMage,
-    CThunMage,
-    /*Priest*/
-    DragonPriest,
-    ControlPriest,
-    ComboPriest,
-    MechPriest,
+        /*Druid*/
+        RampDruid,
+        AggroDruid,
+        DragonDruid,
+        MidRangeDruid,
+        TokenDruid,
+        SilenceDruid,
+        MechDruid,
+        AstralDruid,
+        MillDruid,
+        BeastDruid,
+        RenoDruid,
+        CThunDruid,
+        /*Warlock*/
+        Handlock,
+        RenoLock,
+        Zoolock,
+        DemonHandlock,
+        DragonHandlock,
+        MalyLock,
+        ControlWarlock,
+        CThunLock,
+        /*Mage*/
+        TempoMage,
+        FreezeMage,
+        FaceFreezeMage,
+        DragonMage,
+        MechMage,
+        EchoMage,
+        RenoMage,
+        CThunMage,
+        /*Priest*/
+        DragonPriest,
+        ControlPriest,
+        ComboPriest,
+        MechPriest,
 
-    /*Huntard*/
-    MidRangeHunter,
-    HybridHunter,
-    FaceHunter,
-    CamelHunter,
-    RenoHunter,
-    DragonHunter,
-    CThunHunter,
-    /*Rogue*/
-    OilRogue,
-    PirateRogue,
-    FaceRogue,
-    MalyRogue,
-    RaptorRogue,
-    MiracleRogue,
-    MechRogue,
-    RenoRogue,
-    MillRogue,
-    CThunRogue,
-    /*Chaman*/
-    FaceShaman,
-    MechShaman,
-    DragonShaman,
-    MidrangeShaman,
-    MalygosShaman,
-    ControlShaman,
+        /*Huntard*/
+        MidRangeHunter,
+        HybridHunter,
+        FaceHunter,
+        CamelHunter,
+        RenoHunter,
+        DragonHunter,
+        CThunHunter,
+        /*Rogue*/
+        OilRogue,
+        PirateRogue,
+        FaceRogue,
+        MalyRogue,
+        RaptorRogue,
+        MiracleRogue,
+        MechRogue,
+        RenoRogue,
+        MillRogue,
+        CThunRogue,
+        /*Chaman*/
+        FaceShaman,
+        MechShaman,
+        DragonShaman,
+        MidrangeShaman,
+        MalygosShaman,
+        ControlShaman,
 
-    BattleryShaman,
-    RenoShaman,
-    CThunShaman,
+        BattleryShaman,
+        RenoShaman,
+        CThunShaman,
 
-    Basic,
-    Count,
-}
+        Basic,
+        Count,
+    }
 
-public enum Style
-{
-    Unknown,
-    Face,
-    Aggro,
-    Control,
-    Midrange,
-    Combo,
-    Tempo,
-    Fatigue,
-}
+    public enum Style
+    {
+        Unknown,
+        Face,
+        Aggro,
+        Control,
+        Midrange,
+        Combo,
+        Tempo,
+        Fatigue,
+    }
 }
 

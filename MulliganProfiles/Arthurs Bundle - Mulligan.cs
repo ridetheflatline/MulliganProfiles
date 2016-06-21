@@ -1323,6 +1323,7 @@ namespace MulliganProfiles
         private void HandleTempoWarrior(GameContainer gc)
         {
             Core(gc);
+            
             if (gc.EneDeckType.IsOneOf(DeckType.BeastDruid, DeckType.MidRangeDruid, DeckType.RampDruid))
             {
                 _whiteList.AddAll(false, Cards.BloodToIchor, Cards.FierceMonkey, Cards.RavagingGhoul, Cards.FrothingBerserker,
@@ -1402,33 +1403,17 @@ namespace MulliganProfiles
         }
         /// <summary>
         ///DO NOT REMOVE CUSTOM REGION BREAKS 
+        ///ALL CHANGES MUST BE BETWEEN CUSTOM REGIONS
         /// </summary>
         /// <param name="gc"></param>
-        #region Custom
+        
         private void HandleCustomDeck(GameContainer gc)
         {
-
-            //false denotes that you don't want to keep 2 copies of the same minion
-            gc.HasTurnOne = gc.OneDrops.Any(); // this will check if you have any one drops
-            _whiteList.AddAll(false, Cards.ArgentSquire, Cards.SelflessHero);
-            _whiteList.AddOrUpdate(Cards.SelflessHero, gc.Coin); // this will keep 2 selfless heroes on coin
-            if (gc.OpponentClass.Is(Druid) && gc.HasTurnOne)
-            {
-                _whiteList.AddOrUpdate(Cards.KeeperofUldaman, false);
-
-            }
-            if (gc.OpponentClass.IsOneOf(Shaman, Mage))
-            {
-                _whiteList.AddOrUpdate(Cards.AbusiveSergeant, false);
-                _whiteList.AddOrUpdate(Cards.RallyingBlade, false);
-            }
-            if (gc.OpponentClass.Is(Warrior))
-            {
-                _whiteList.AddOrUpdate(Cards.BilefinTidehunter, false);
-            }
-
+            #region Custom
+            
+            #endregion Custom
         }
-        #endregion Custom
+       
         private void HandleNZothPaladin(GameContainer gc)
         {
             Core(gc);

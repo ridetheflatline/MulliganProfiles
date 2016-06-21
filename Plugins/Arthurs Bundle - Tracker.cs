@@ -378,14 +378,20 @@ namespace SmartBot.Plugins
             }
             _supported = true;
             _started = true;
+            try
+            {
+                IdentifyMyStuff();
+                Bot.Log("--------------This is the deck that Tracker Picked up -------------------" +
+                "\n" + Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current +
+                  ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
+                Bot.Log("---------------If it's wrong, just start the bot again------------------------");
 
-            IdentifyMyStuff();
-            Bot.Log("--------------This is the deck that Tracker Picked up -------------------" +
-            "\n" + Bot.CurrentDeck().Cards.Aggregate("", (current, q) => current +
-              ("Cards." + CardTemplate.LoadFromId(q).Name.Replace(" ", "") + ", ")));
-            Bot.Log("---------------If it's wrong, just start the bot again------------------------");
-            if (((ABTracker)DataContainer).Mode == IdentityMode.Auto)
-                Bot.Log(string.Format("[ABTracker] Succesfully Identified your deck as: [{0}:{1}]", informationData.DeckType, informationData.DeckStyle));
+                if (((ABTracker)DataContainer).Mode == IdentityMode.Auto)
+                    Bot.Log(string.Format("[ABTracker] Succesfully Identified your deck as: [{0}:{1}]", informationData.DeckType, informationData.DeckStyle));
+            }catch(Exception e)
+            {
+                Bot.Log("ERROR: " + e.Message +" " +e.Source);
+            }
             GUI.ClearUI();
             if (((ABTracker)DataContainer).PredictionDisplay)
                 GUI.AddElement(

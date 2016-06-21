@@ -129,6 +129,7 @@ namespace SmartBot.Plugins
         }
         public override void OnGameEnd()
         {
+            if (Bot.CurrentMode() != Bot.Mode.RankedWild || Bot.CurrentMode() != Bot.Mode.RankedStandard) return;
             if (((ArthursBundleMiscellaneous)DataContainer).sLegend && Bot.GetPlayerDatas().GetRank() == 0)
             {
                 Bot.Log("[AB - Miscellaneous] You are Legend, go pat yourself on the back.");
