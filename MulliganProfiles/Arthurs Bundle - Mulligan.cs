@@ -781,14 +781,14 @@ namespace MulliganProfiles
         //needed
         public GameContainer(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
-            Bot.Log("=======================================]]]]]]]]]]]]]]]]]]]" + (int)Bot.GetPlugins().Fetch("Arthurs Bundle - History", "GTA"));
+            
             var value = Enum.GetValues(typeof(DeckType)).Cast<DeckType>().ToList();
             foreach (var q in value)
             {
                 if (q == DeckType.Count) continue;
                 if (!DeckStyles.ContainsKey(q))
                 {
-                    Bot.Log("[URGENT] MISSING " + q + " in styles");
+                    Bot.Log("[URGENT!!!] MISSING " + q + " IN STYLES, IT MIGHT CRASH THE BOT WHEN ENCOUNTERED");
                 }
             }
             try
@@ -819,7 +819,7 @@ namespace MulliganProfiles
             {
                 Bot.Log(string.Format("[URGENT!!!!] Arthur, your enums are out of synch: {0} vs {1}", (int)DeckType.Count, (int)properties[EnumsCount]));
             }
-            Report("DID FINE 5");
+            Report("Tracker Properties table was succesfully generated");
             MyDeckType = properties[Mode].ToString() == "Manual" ? (DeckType)properties[TrackerForceMyType] //if Manual
                 : (DeckType)properties[TrackerMyType]; //if Auto
 
@@ -828,23 +828,24 @@ namespace MulliganProfiles
             Bot.Log(string.Format("[You chose {0} Detection] {1} [Default: AutoDetection] {2}", properties[Mode], MyDeckType, properties[TrackerMyType]));
 
             #endregion
-            Report("DID FIUNE 6");
+            Report("Deck Recognition via tracker was succesful");
             MyStyle = (Style)properties[TrackerMyStyle];
-            Report("DID FINE 6.1");
+            Report("Deck Style recognition via tracker was succesful");
             EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int)Bot.GetPlugins().Fetch("Arthurs Bundle - History", "GTA"));
-            Report("DID FINE 6.2");
+            Report("Number of games fetched from History Extension was succesful");
             EnemyStyle = DeckStyles[EneDeckType];
-            Report("DID FINE 6.3");
+            Report("Enemy Style was succesfully found");
             try
             {
                 Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("EnemyDeckTypeGuess", EneDeckType);
                 Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("EnemyDeckStyleGuess", EnemyStyle);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //ignored
+                Report("Something horrible happend during communication with Tracker :" + e.Message);
+                
             }
-            Report("DID FINE 7");
+            Report("Communicated enemy deck and style to tracker succesfully");
             ZeroDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 0).ToList();
             OneDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 1).ToList();
             TwoDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 2).ToList();

@@ -328,6 +328,7 @@ namespace SmartBot.Plugins
         private static bool _supported = false;
         public override void OnStarted()
         {
+            NewSha = false;
             if (((ABTracker)DataContainer).instr)
             {
                 System.Windows.Forms.MessageBox.Show(
@@ -337,29 +338,34 @@ namespace SmartBot.Plugins
                     );
 
             }
-             if (((ABTracker)DataContainer).AutoUpdate)
+            try
             {
-                Stopwatch timer = new Stopwatch();
-                timer.Start();
-                
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
-                CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
-                              
-                if (NewSha)
+                if (((ABTracker)DataContainer).AutoUpdate)
                 {
-                    Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
-                    Bot.ReloadPlugins();
-                    Bot.RefreshMulliganProfiles();
-                    NewSha = false;
-                    ((ABTracker)DataContainer).ReloadDictionary();
-                }
-                timer.Stop();
-                Bot.Log(string.Format("[Update elapsed] {0}" ,timer.Elapsed.Seconds));
-            }
+                    Stopwatch timer = new Stopwatch();
+                    timer.Start();
 
+                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
+                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
+                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
+                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
+                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
+
+                    if (NewSha)
+                    {
+                        Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
+                        Bot.ReloadPlugins();
+                        Bot.RefreshMulliganProfiles();
+                        NewSha = false;
+                        ((ABTracker)DataContainer).ReloadDictionary();
+                    }
+                    timer.Stop();
+                    Bot.Log(string.Format("[Update elapsed] {0}", timer.Elapsed.Seconds));
+                }
+            }catch(Exception e)
+            {
+                Bot.Log(string.Format("[Requires Arthurs Attention] {0} and {1}", e.Message, e.Source));
+            }
             Russian = ((ABTracker)DataContainer).Ru();
             SetupMulliganTester();
             CreateCardReport(Bot.CurrentDeck().Cards);
