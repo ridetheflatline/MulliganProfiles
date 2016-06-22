@@ -472,6 +472,7 @@ namespace SmartBot.Plugins
         {
             var request = HttpWebRequest.CreateHttp(url);
             request.UserAgent = "ArthursBundle"; // User-Agent is required by github API
+            request.UseDefaultCredentials = true;
             using (var response = request.GetResponse())
             using (var reader = new StreamReader(response.GetResponseStream()))
             {
