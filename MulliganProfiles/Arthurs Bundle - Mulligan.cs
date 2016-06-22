@@ -687,10 +687,10 @@ namespace MulliganProfiles
                 Report("FHF: 2.2");
                 if (!Bot.CurrentMode().IsShitfest())
                     Bot.Log(string.Format("[ABTracker] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
-                Report("FHF: 2.3");
+                Report("Mulligan Stage 2 Completed without accident");
                 return eDeckType;
             }
-            Report("FHF: 3.0");
+            Report("History: Never seen the guy territory");
             foreach (var q in history)
             {
                 try
@@ -711,11 +711,21 @@ namespace MulliganProfiles
                 }
             }
              Report("FHF: 4.0");
-            DeckType unknownPrediction = prediction.GetMostFacedDeckType(op);
+            DeckType unknownPrediction;
+            try
+            {
+                unknownPrediction = prediction.GetMostFacedDeckType(op);
+            }
+            catch (Exception notfound)
+            {
+                Report("History didn't yield to any worthwhile results");
+                unknownPrediction = GetDefault(op);
+            }
              Report("FHF: 5.0");
             if (!Bot.CurrentMode().IsShitfest())
                 Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
                             Report("FHF: 6.0");
+            Report("Mulligan Stage 2 Completed without accident");
             return unknownPrediction;
         }
 
@@ -954,6 +964,9 @@ namespace MulliganProfiles
             HasTurnOne = false;
             HasTurnTwo = false;
             HasTurnThree = false;
+            Report("==========================");
+            Report("Parties of Interest " + MyDeck + MyStyle + EneDeckType + EnemyStyle);
+            Report("==========================");
         }
         public static void Report(string msg)
         {
@@ -962,10 +975,7 @@ namespace MulliganProfiles
                 log.WriteLine("[{0}] {1}", DateTime.Now, msg);
             }
         }
-        public string PrintDebug(Dictionary<string, object> properties)
-        {
-            return string.Format("==============" + "\nMy Type: {0}" + "\nMy Forced Type: {1}" + "\nMy Style: {2}" + "\nEnemy Type: {3}" + "\nEnemy Style: {4}" + "\nMulligan Tester <me>: {5}" + "\nMulligan Tester <him>: {6}" + "\nEnum Count: {7}" + "\t", properties[TrackerMyType], properties[TrackerForceMyType], properties[TrackerMyStyle], properties[TrackerEnemyType], properties[TrackerEnemyStyle], properties[MulliganTesterMyDeck], properties[MulliganTesterEnemyDeck], properties[EnumsCount]);
-        }
+       
 
         /// <summary>
         /// Mulligan Tester
@@ -1183,10 +1193,10 @@ namespace MulliganProfiles
             }
             catch (Exception q)
             {
-                Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
+                Bot.Log("[Possibly Harmless] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur to varify few things");
 
                 Report("Deck Implementation " +q.Message + " " + q.TargetSite);
-                Report("[Arthurs' Bundle: Mulligan] Entering Mulligan Tester mode");
+                Report("[Critical Event] Using Mulligan Tester values to preserve the bot flow");
                 Mulliganaccordingly(mtgc);
             }
 
