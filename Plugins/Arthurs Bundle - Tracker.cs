@@ -372,11 +372,13 @@ namespace SmartBot.Plugins
                             Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
                             Bot.ReloadPlugins();
                             Bot.RefreshMulliganProfiles();
+                            Bot.Log(string.Format("[Updater] Update lasted {0} seconds", (double)timer.Elapsed.Milliseconds / 1000));
+
                             NewSha = false;
                             ((ABTracker)DataContainer).ReloadDictionary();
                         }
+                        else Bot.Log("[Updater] No new updates.");
                         timer.Stop();
-                        Bot.Log(string.Format("[Update Check Elapsed] {0} seconds", (double)timer.Elapsed.Milliseconds / 1000));
                      }, 100, 100, 100, 45);
                     GUI.AddElement(catcher);
                 }
