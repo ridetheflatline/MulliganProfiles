@@ -2344,15 +2344,17 @@ namespace MulliganProfiles
                             Bot.Log(string.Format("[AB - Mulligan] Keeping {0} because it's on forceful whitelist", CardTemplate.LoadFromId(q).Name));
                     }
                 }
-            }catch(Exception formaterro)
+            }catch(Exception)
             {
                 //Bot.Log("[AB - Mulligan] Was unable to forcefully keep cards " + formaterro.Message);
             }
-            bool strict = (string) Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "StrictCurve";
+            bool noChange = (bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["NoChange"];
+            bool strict = (string) Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "StrictCurve" 
+                && !noChange;
             MulliganCoreData data;
             try
             {
-                if ((bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["NoChange"])
+                if (noChange)
                     data = new MulliganCoreData(2, 1, 3, 2, 2, 1, 1, 1, false, true);
                 else data = new MulliganCoreData();
 
@@ -2435,7 +2437,7 @@ namespace MulliganProfiles
                 Report(string.Format("{0}:{1}", e.HelpLink, e.TargetSite));
                 Report(e.Message);
             }
-            //Bot.Log("WHATTTTTTTTTTTTTTT " + data.ToString());
+            
             #endregion
 
             HandleSpellsAndWeapons(gc);
