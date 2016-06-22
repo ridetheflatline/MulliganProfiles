@@ -24,8 +24,8 @@ namespace SmartBot.Plugins
         public bool STTransfer { get; set; }
         [DisplayName("Bundle Language")]
         public Localization locale { get; private set; }
-        [DisplayName("Hush... What Whaaaat.")]
-        public bool Mystery { get; set; }
+        [DisplayName("Auto Concede vs Arthur")]
+        public bool CVA { get; set; }
         public ArthursBundleMiscellaneous()
         {
             Name = "Arthurs Bundle - Miscellaneous";
@@ -34,6 +34,7 @@ namespace SmartBot.Plugins
             STTransfer = true;
             sLegendRank = 1000;
             AC = false;
+            CVA = false;
             ACDetails = "It's more of a todo list than a working feature.\nDon't expect it to be updated anytime soon ";
             locale = Localization.English;
 
@@ -43,6 +44,16 @@ namespace SmartBot.Plugins
 
     public class Miscellaneous : Plugin
     {
+        public override void OnTurnEnd()
+        {
+            if (((ArthursBundleMiscellaneous)DataContainer).CVA)
+            {
+                 if (Bot.GetCurrentOpponentId() == -4057046260809111675) Bot.Concede();
+            }
+            base.OnTurnBegin();
+        }
+
+
         public override void OnStarted()
         {
             bool complication = false;

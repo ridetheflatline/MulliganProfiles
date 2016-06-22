@@ -103,6 +103,10 @@ namespace MulliganProfiles
         {
             return CardTemplate.LoadFromId(card).Type == Card.CType.MINION;
         }
+        public static CardTemplate Template(this Card.Cards card)
+        {
+            return CardTemplate.LoadFromId(card);
+        }
         /// <summary>
         /// Same as above, lazyness
         /// </summary>
@@ -187,7 +191,7 @@ namespace MulliganProfiles
         /// <returns></returns>
         public static int Priority(this Card.Cards id, int modifier = 0)
         {
-            Report("Entered Priority");
+            Report(string.Format("Entered Priority for {0}:{1}", id.Template().Name,id.IsMinion() ? (CardTable[id] + modifier) : 0 ));
             return id.IsMinion() ? (CardTable[id] + modifier) : 0;
         }
         public static bool IsStandard(this Bot.Mode mode)
@@ -637,17 +641,49 @@ namespace MulliganProfiles
             List<string> history = File.ReadLines(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\MatchHistory.txt").Reverse().Take(n).ToList();
             Report("FHF: 1.0");
             List<DeckType> allDeckTypes = (from q in history select q.Split(new[] { "||" }, StringSplitOptions.None) into information let enemyId = long.Parse(information[2]) where id == enemyId select (DeckType)Enum.Parse(typeof(DeckType), information[8])).ToList();
-            Report("FHF: 2.0");
+            Report("History Search generated all deck types from history");
             if (allDeckTypes.Count >= 1)
             {
-                Report("FHF: 2.1");
-                Report("FHF: " + allDeckTypes.Count);
+                Report("Going through all deck types in history");
                 foreach (var q in allDeckTypes)
                 {
-                    Report(q.ToString());
+                    try
+                    {
+                        Report(string.Format("{0}:{1}", q.ToString(), DeckClass[q]));
+                    }
+                    catch (Exception)
+                    {
+
+                        continue;
+                    }
                 } 
-                var eDeckType =
-                    allDeckTypes.FirstOrDefault(q => q != DeckType.Unknown && DeckClass[q] == op);
+                Report("==================>" +allDeckTypes.First());
+                Report(op.ToString());
+                Report((DeckClass[allDeckTypes.First()] == op).ToString());
+                DeckType eDeckType = DeckType.Unknown;//                   allDeckTypes.First(q => DeckClass[q] == op);
+                foreach(var q in allDeckTypes)
+                {
+                    
+                    if (q == DeckType.Basic) continue;
+                    if (DeckClass[q] == op)
+                    {
+                        eDeckType = q;
+                        break;
+                    }
+                    
+                }
+                Report("FHF: 2.1");
+                
+                try
+                {
+                    eDeckType = prediction.GetMostFacedDeckType(op);
+                }catch(Exception)
+                {
+                    eDeckType = GetDefault(op);
+                    if (!Bot.CurrentMode().IsShitfest())
+                    Bot.Log("[ABTracker] You have faced this opponent before, but he was playing a different class, so going to guees he is "+eDeckType);
+                    return eDeckType;
+                }
                 Report("FHF: 2.2");
                 if (!Bot.CurrentMode().IsShitfest())
                     Bot.Log(string.Format("[ABTracker] You have faced this opponent before, his last played deck with {0} was {1}", op.ToString().ToLower(), eDeckType));
@@ -668,7 +704,9 @@ namespace MulliganProfiles
                 }
                 catch (Exception e)
                 {
-                    Report(e.Message);
+                    Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
+
+                    Report("history check error: "+e.Message);
                     continue;
                 }
             }
@@ -692,7 +730,7 @@ namespace MulliganProfiles
                 case Card.CClass.MAGE:
                 return DeckType.TempoMage; ;
                 case Card.CClass.PALADIN:
-                return DeckType.SecretPaladin; ;
+                return DeckType.MidRangePaladin; ;
                 case Card.CClass.WARRIOR:
                 return DeckType.ControlWarrior; ;
                 case Card.CClass.WARLOCK:
@@ -700,9 +738,9 @@ namespace MulliganProfiles
                 case Card.CClass.HUNTER:
                 return DeckType.MidRangeHunter; ;
                 case Card.CClass.ROGUE:
-                return DeckType.OilRogue; ;
+                return DeckType.MiracleRogue; ;
                 case Card.CClass.DRUID:
-                return DeckType.MidRangeDruid; ;
+                return DeckType.CThunDruid; ;
                 case Card.CClass.NONE:
                 return DeckType.Unknown; ;
                 case Card.CClass.JARAXXUS:
@@ -716,17 +754,74 @@ namespace MulliganProfiles
 
         public static Dictionary<DeckType, Card.CClass> DeckClass = new Dictionary<DeckType, Card.CClass>
         {
-            {DeckType.Unknown, Card.CClass.NONE}, {DeckType.Arena, Card.CClass.NONE}, /*Warrior*/
-            {DeckType.TempoWarrior, Card.CClass.WARRIOR }, {DeckType.ControlWarrior, Card.CClass.WARRIOR}, {DeckType.FatigueWarrior, Card.CClass.WARRIOR}, {DeckType.DragonWarrior, Card.CClass.WARRIOR}, {DeckType.PatronWarrior, Card.CClass.WARRIOR}, {DeckType.WorgenOTKWarrior, Card.CClass.WARRIOR}, {DeckType.MechWarrior, Card.CClass.WARRIOR}, {DeckType.FaceWarrior, Card.CClass.WARRIOR}, {DeckType.RenoWarrior, Card.CClass.WARRIOR}, /*Paladin*/
-            {DeckType.SecretPaladin, Card.CClass.PALADIN}, {DeckType.MidRangePaladin, Card.CClass.PALADIN}, {DeckType.DragonPaladin, Card.CClass.PALADIN}, {DeckType.AggroPaladin, Card.CClass.PALADIN}, {DeckType.AnyfinMurglMurgl, Card.CClass.PALADIN}, {DeckType.RenoPaladin, Card.CClass.PALADIN}, /*Druid*/
-            {DeckType.RampDruid, Card.CClass.DRUID}, {DeckType.AggroDruid, Card.CClass.DRUID}, {DeckType.DragonDruid, Card.CClass.DRUID}, {DeckType.MidRangeDruid, Card.CClass.DRUID}, {DeckType.TokenDruid, Card.CClass.DRUID}, {DeckType.SilenceDruid, Card.CClass.DRUID}, {DeckType.MechDruid, Card.CClass.DRUID}, {DeckType.AstralDruid, Card.CClass.DRUID}, {DeckType.MillDruid, Card.CClass.DRUID}, {DeckType.BeastDruid, Card.CClass.DRUID}, {DeckType.RenoDruid, Card.CClass.DRUID}, /*Warlock*/
-            {DeckType.Handlock, Card.CClass.WARLOCK}, {DeckType.RenoLock, Card.CClass.WARLOCK}, {DeckType.Zoolock, Card.CClass.WARLOCK}, //Same handler as flood zoo and reliquary
-            {DeckType.DemonHandlock, Card.CClass.WARLOCK}, {DeckType.DragonHandlock, Card.CClass.WARLOCK}, {DeckType.MalyLock, Card.CClass.WARLOCK}, {DeckType.ControlWarlock, Card.CClass.WARLOCK}, /*Mage*/
-            {DeckType.TempoMage, Card.CClass.MAGE}, {DeckType.FreezeMage, Card.CClass.MAGE}, {DeckType.FaceFreezeMage, Card.CClass.MAGE}, {DeckType.DragonMage, Card.CClass.MAGE}, {DeckType.MechMage, Card.CClass.MAGE}, {DeckType.EchoMage, Card.CClass.MAGE},  {DeckType.RenoMage, Card.CClass.MAGE}, /*Priest*/
-            {DeckType.DragonPriest, Card.CClass.PRIEST}, {DeckType.ControlPriest, Card.CClass.PRIEST}, {DeckType.ComboPriest, Card.CClass.PRIEST}, {DeckType.MechPriest, Card.CClass.PRIEST}, /*Hunter*/
-            {DeckType.MidRangeHunter, Card.CClass.HUNTER}, {DeckType.HybridHunter, Card.CClass.HUNTER}, {DeckType.FaceHunter, Card.CClass.HUNTER},  {DeckType.CamelHunter, Card.CClass.HUNTER}, {DeckType.DragonHunter, Card.CClass.HUNTER}, {DeckType.RenoHunter, Card.CClass.HUNTER}, /*Rogue*/
-            {DeckType.OilRogue, Card.CClass.ROGUE}, {DeckType.PirateRogue, Card.CClass.ROGUE}, {DeckType.FaceRogue, Card.CClass.ROGUE}, {DeckType.MalyRogue, Card.CClass.ROGUE}, {DeckType.RaptorRogue, Card.CClass.ROGUE}, {DeckType.MiracleRogue, Card.CClass.ROGUE}, {DeckType.RenoRogue, Card.CClass.ROGUE}, {DeckType.MechRogue, Card.CClass.ROGUE}, {DeckType.MillRogue, Card.CClass.ROGUE}, /*Cance... I mean Shaman*/
-            { DeckType.MidrangeShaman, Card.CClass.SHAMAN}, {DeckType.FaceShaman, Card.CClass.SHAMAN}, {DeckType.MechShaman, Card.CClass.SHAMAN}, {DeckType.DragonShaman, Card.CClass.SHAMAN},  {DeckType.MalygosShaman, Card.CClass.SHAMAN}, {DeckType.ControlShaman, Card.CClass.SHAMAN},  {DeckType.RenoShaman, Card.CClass.SHAMAN}, {DeckType.BattleryShaman, Card.CClass.SHAMAN}, /*Poor Kids*/
+            { DeckType.Unknown, Card.CClass.NONE}, {DeckType.Arena, Card.CClass.NONE}, /*Warrior*/
+            { DeckType.TempoWarrior, Card.CClass.WARRIOR },
+            { DeckType.ControlWarrior, Card.CClass.WARRIOR},
+            { DeckType.FatigueWarrior, Card.CClass.WARRIOR},
+            { DeckType.DragonWarrior, Card.CClass.WARRIOR},
+            { DeckType.PatronWarrior, Card.CClass.WARRIOR},
+            { DeckType.WorgenOTKWarrior, Card.CClass.WARRIOR},
+            { DeckType.MechWarrior, Card.CClass.WARRIOR},
+            { DeckType.FaceWarrior, Card.CClass.WARRIOR},
+            { DeckType.RenoWarrior, Card.CClass.WARRIOR}, /*Paladin*/
+            { DeckType.SecretPaladin, Card.CClass.PALADIN},
+            { DeckType.MidRangePaladin, Card.CClass.PALADIN},
+            { DeckType.DragonPaladin, Card.CClass.PALADIN},
+            { DeckType.AggroPaladin, Card.CClass.PALADIN},
+            { DeckType.AnyfinMurglMurgl, Card.CClass.PALADIN},
+            { DeckType.RenoPaladin, Card.CClass.PALADIN}, /*Druid*/
+            { DeckType.RampDruid, Card.CClass.DRUID},
+            { DeckType.AggroDruid, Card.CClass.DRUID},
+            { DeckType.DragonDruid, Card.CClass.DRUID},
+            { DeckType.MidRangeDruid, Card.CClass.DRUID},
+            { DeckType.TokenDruid, Card.CClass.DRUID},
+            { DeckType.SilenceDruid, Card.CClass.DRUID},
+            { DeckType.MechDruid, Card.CClass.DRUID},
+            { DeckType.AstralDruid, Card.CClass.DRUID},
+            { DeckType.MillDruid, Card.CClass.DRUID},
+            { DeckType.BeastDruid, Card.CClass.DRUID},
+            { DeckType.RenoDruid, Card.CClass.DRUID}, /*Warlock*/
+            { DeckType.Handlock, Card.CClass.WARLOCK},
+            { DeckType.RenoLock, Card.CClass.WARLOCK},
+            { DeckType.Zoolock, Card.CClass.WARLOCK}, //Same handler as flood zoo and reliquary
+            { DeckType.DemonHandlock, Card.CClass.WARLOCK},
+            { DeckType.DragonHandlock, Card.CClass.WARLOCK},
+            { DeckType.MalyLock, Card.CClass.WARLOCK},
+            { DeckType.ControlWarlock, Card.CClass.WARLOCK}, /*Mage*/
+            { DeckType.TempoMage, Card.CClass.MAGE},
+            { DeckType.FreezeMage, Card.CClass.MAGE},
+            { DeckType.FaceFreezeMage, Card.CClass.MAGE},
+            { DeckType.DragonMage, Card.CClass.MAGE},
+            { DeckType.MechMage, Card.CClass.MAGE},
+            { DeckType.EchoMage, Card.CClass.MAGE},
+            { DeckType.RenoMage, Card.CClass.MAGE}, /*Priest*/
+            { DeckType.DragonPriest, Card.CClass.PRIEST},
+            { DeckType.ControlPriest, Card.CClass.PRIEST},
+            { DeckType.ComboPriest, Card.CClass.PRIEST},
+            { DeckType.MechPriest, Card.CClass.PRIEST}, /*Hunter*/
+            { DeckType.MidRangeHunter, Card.CClass.HUNTER},
+            { DeckType.HybridHunter, Card.CClass.HUNTER},
+            { DeckType.FaceHunter, Card.CClass.HUNTER},
+            { DeckType.CamelHunter, Card.CClass.HUNTER},
+            { DeckType.DragonHunter, Card.CClass.HUNTER},
+            { DeckType.RenoHunter, Card.CClass.HUNTER}, /*Rogue*/
+            { DeckType.OilRogue, Card.CClass.ROGUE},
+            { DeckType.PirateRogue, Card.CClass.ROGUE},
+            { DeckType.FaceRogue, Card.CClass.ROGUE},
+            { DeckType.MalyRogue, Card.CClass.ROGUE},
+            { DeckType.RaptorRogue, Card.CClass.ROGUE},
+            { DeckType.MiracleRogue, Card.CClass.ROGUE},
+            { DeckType.RenoRogue, Card.CClass.ROGUE},
+            { DeckType.MechRogue, Card.CClass.ROGUE},
+            { DeckType.MillRogue, Card.CClass.ROGUE}, /*Cance... I mean Shaman*/
+            { DeckType.MidrangeShaman, Card.CClass.SHAMAN},
+            { DeckType.FaceShaman, Card.CClass.SHAMAN},
+            { DeckType.MechShaman, Card.CClass.SHAMAN},
+            { DeckType.DragonShaman, Card.CClass.SHAMAN},
+            { DeckType.MalygosShaman, Card.CClass.SHAMAN},
+            { DeckType.ControlShaman, Card.CClass.SHAMAN},
+            { DeckType.RenoShaman, Card.CClass.SHAMAN},
+            { DeckType.BattleryShaman, Card.CClass.SHAMAN}, /*Poor Kids*/
         };
 
         #endregion
@@ -795,9 +890,11 @@ namespace MulliganProfiles
             {
                 Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("Enemy", opponentClass);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignored
+               Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
+                Report("Writing Enemy to tracker error "+ e.Message);
+
             }
             Choices = choices;
             OpponentClass = opponentClass;
@@ -819,7 +916,7 @@ namespace MulliganProfiles
             {
                 Bot.Log(string.Format("[URGENT!!!!] Arthur, your enums are out of synch: {0} vs {1}", (int)DeckType.Count, (int)properties[EnumsCount]));
             }
-            Report("Tracker Properties table was succesfully generated");
+            Report("Tracker Properties table was successfully generated");
             MyDeckType = properties[Mode].ToString() == "Manual" ? (DeckType)properties[TrackerForceMyType] //if Manual
                 : (DeckType)properties[TrackerMyType]; //if Auto
 
@@ -828,13 +925,13 @@ namespace MulliganProfiles
             Bot.Log(string.Format("[You chose {0} Detection] {1} [Default: AutoDetection] {2}", properties[Mode], MyDeckType, properties[TrackerMyType]));
 
             #endregion
-            Report("Deck Recognition via tracker was succesful");
+            Report("Deck Recognition via tracker was successful");
             MyStyle = (Style)properties[TrackerMyStyle];
-            Report("Deck Style recognition via tracker was succesful");
+            Report("Deck Style recognition via tracker was successful");
             EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int)Bot.GetPlugins().Fetch("Arthurs Bundle - History", "GTA"));
-            Report("Number of games fetched from History Extension was succesful");
+            Report("Number of games fetched from History Extension was successful");
             EnemyStyle = DeckStyles[EneDeckType];
-            Report("Enemy Style was succesfully found");
+            Report("Enemy Style was successfully found");
             try
             {
                 Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Tracker").TryToWriteProperty("EnemyDeckTypeGuess", EneDeckType);
@@ -842,10 +939,12 @@ namespace MulliganProfiles
             }
             catch (Exception e)
             {
+                Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
+
                 Report("Something horrible happend during communication with Tracker :" + e.Message);
                 
             }
-            Report("Communicated enemy deck and style to tracker succesfully");
+            Report("Communicated enemy deck and style to tracker successfully");
             ZeroDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 0).ToList();
             OneDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 1).ToList();
             TwoDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 2).ToList();
@@ -907,7 +1006,7 @@ namespace MulliganProfiles
             #endregion
             foreach (var q in choices)
                 Report("" + q);
-            Report("Split of choices succesful");
+            Report("Split of choices successful");
             ZeroDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 0).ToList();
             OneDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 1).ToList();
             TwoDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 2).ToList();
@@ -1084,7 +1183,9 @@ namespace MulliganProfiles
             }
             catch (Exception q)
             {
-                Report(q.Message);
+                Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
+
+                Report("Deck Implementation " +q.Message + " " + q.TargetSite);
                 Report("[Arthurs' Bundle: Mulligan] Entering Mulligan Tester mode");
                 Mulliganaccordingly(mtgc);
             }
@@ -1471,7 +1572,7 @@ namespace MulliganProfiles
         {
             Report("Entered CThun VIP club");
             HandleSpellsAndWeapons(gc);
-            Report("Succesfully parsed weapons and spells");
+            Report("successfully parsed weapons and spells");
             foreach (var q in gc.OneDrops.Where(c => c.IsMinion()))
             {
                 gc.HasTurnOne = true;
@@ -1511,7 +1612,8 @@ namespace MulliganProfiles
             }
             catch (Exception e)
             {
-                Bot.Log("++++++++++++++++++++++++++ FAIKLED" + e.Message);
+                                Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
+
                 Core(gc);
             }
         }
@@ -2219,7 +2321,24 @@ namespace MulliganProfiles
 
         private void Core(GameContainer gc)
         {
-
+            try
+            {
+                string[] fKeep = ((string)Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["fck"]).Split('~');
+                if (fKeep.Length > 1)
+                {
+                    foreach (var q in fKeep.Where(c => CardTemplate.LoadFromId((Card.Cards)Enum.Parse(typeof(Card.Cards), c)).IsCollectible))
+                    {
+                        if (q == "" || q == null) continue;
+                        _whiteList.AddOrUpdate((Card.Cards)Enum.Parse(typeof(Card.Cards), q), false);
+                        if (gc.Choices.Contains((Card.Cards)Enum.Parse(typeof(Card.Cards), q)))
+                            Bot.Log(string.Format("[AB - Mulligan] Keeping {0} because it's on forceful whitelist", CardTemplate.LoadFromId(q).Name));
+                    }
+                }
+            }catch(Exception formaterro)
+            {
+                //Bot.Log("[AB - Mulligan] Was unable to forcefully keep cards " + formaterro.Message);
+            }
+            bool strict = (string) Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "StrictCurve";
             MulliganCoreData data;
             try
             {
@@ -2248,11 +2367,21 @@ namespace MulliganProfiles
                     gc.HasTurnOne = true;
                     _whiteList.AddOrUpdate(q, gc.Coin && q.Priority() > 5);
                 }
+                if (strict && !gc.HasTurnOne)
+                {
+                    HandleSpellsAndWeapons(gc);
+                    return;
+                };
                 foreach (var q in gc.TwoDrops.Where(q => q.IsMinion() && q.Priority() >= 2).OrderByDescending(q => q.Priority()).Take(allowed2Drops))
                 {
                     gc.HasTurnTwo = true;
                     _whiteList.AddOrUpdate(q, q.Priority() > 5);
                 }
+                if (strict && !gc.HasTurnTwo)
+                {
+                    HandleSpellsAndWeapons(gc);
+                    return;
+                };
                 allowed3Drops = gc.Coin && (gc.HasTurnOne || gc.HasTurnTwo)
                     ? data.Max3DropsCoin
                     : (gc.HasTurnOne || gc.HasTurnTwo) ? data.Max3Drops : 0;
@@ -2261,12 +2390,21 @@ namespace MulliganProfiles
                         ? data.Max3DropsCoin
                         : data.Max3Drops;
 
-
+                if (strict && !gc.HasTurnThree)
+                {
+                    HandleSpellsAndWeapons(gc);
+                    return;
+                };
                 foreach (var q in gc.ThreeDrops.Where(q => q.IsMinion() && q.Priority() >= 1).OrderByDescending(q => q.Priority()).Take(allowed3Drops))
                 {
                     _whiteList.AddOrUpdate(q, false);
                     gc.HasTurnThree = true;
                 }
+                if (strict && !gc.HasTurnThree)
+                {
+                    HandleSpellsAndWeapons(gc);
+                    return;
+                };
                 allowed4Drops = gc.Coin && gc.HasTurnThree
                     ? data.Max4DropsCoin
                     : gc.HasTurnThree ? data.Max4Drops : 0;
@@ -2281,6 +2419,7 @@ namespace MulliganProfiles
             }
             catch (Exception e)
             {
+                Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
                 Report("---------- Core Handler encountered an error ----------");
                 Report(e.Message);
                 Report(string.Format("{0}:{1}", e.HelpLink, e.TargetSite));

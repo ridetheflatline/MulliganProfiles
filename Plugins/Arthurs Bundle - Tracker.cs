@@ -28,7 +28,7 @@ public static class Extension
     {
         return list.Find(c => c.DataContainer.Name == name).GetProperties()[data];
     }
-        
+
     public static bool ContainsAll<T1>(this IList<T1> list, params T1[] items)
     {
         return !items.Except(list).Any();
@@ -82,6 +82,7 @@ namespace SmartBot.Plugins
     [Serializable]
     public class ABTracker : PluginDataContainer
     {
+
         /// <summary>
         /// Русские пользователи должны поменять 'false' на 'true' 
         /// для локализации трекера
@@ -99,11 +100,11 @@ namespace SmartBot.Plugins
         public string donation { get; set; }
         [DisplayName(Russian ? "[B] Дискорд" : "[B] Discord link")]
         public string discord { get; set; }
-        [DisplayName(Russian ? "[A] Авто-Обновление" : "[A] Auto Update")]
+        [DisplayName(Russian ? "[A] Кнопка обновления" : "[A] Check Updates Button")]
         public bool AutoUpdate { get; set; }
         [DisplayName(Russian ? "[A] Режим Обновления" : "[A] Update Mode")]
         public Update UpdateMode { get; private set; }
-        
+
         [DisplayName(Russian ? "[B] Версии" : "[B] Version")]
         public string Versions { get; private set; }
 
@@ -134,10 +135,10 @@ namespace SmartBot.Plugins
         public int SynchEnums { get; set; }
         [DisplayName("Hall of Fame")]
         public string HallOfFame { get; private set; }
-               
+
         [DisplayName("[E] Predict enemy from turn")]
         public int ProfilePredictionTurn { get; set; }
-        [DisplayName("[A] Validity Key")]
+        [DisplayName("[A] Synch Key")]
         public string vKey { get; private set; }
 
         [Browsable(false)]
@@ -167,13 +168,13 @@ namespace SmartBot.Plugins
             donation = "http://bit.ly/ABDonationLink";
             discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
             vKey = GetLocalSha("Arthurs Bundle - Tracker.cs");
-            Versions = "4.003";
+            Versions = "4.011";
         }
         public void ReloadDictionary()
 
         {
             RefreshMenu();
-            
+
         }
         public bool Ru()
         {
@@ -183,18 +184,19 @@ namespace SmartBot.Plugins
         {
             try
             {
-                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+str.Replace(".cs", "")+" Validity Key"))
+                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\" + str.Replace(".cs", "") + " Validity Key"))
                 {
                     return sha.ReadLine();
                 }
-            }catch(FileNotFoundException)
+            }
+            catch (FileNotFoundException)
             {
-                Bot.Log(string.Format("[Arthurs Bundle] First run of {0} detected", str ));
+                Bot.Log(string.Format("[Arthurs Bundle] First run of {0} detected", str));
                 return "";
             }
         }
 
-       
+
     }
     public enum Plugins
     {
@@ -203,8 +205,9 @@ namespace SmartBot.Plugins
     }
     public class SmTracker : Plugin
     {
+        private GuiElementButton catcher;
         public bool identified = false;
-        public bool pregameEnemyIdentified = false;   
+        public bool pregameEnemyIdentified = false;
         private DeckData informationData;
         private readonly string MulliganDir = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\";
         private readonly string MulliganInformation = AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\AB - Mulligan\\";
@@ -242,6 +245,15 @@ namespace SmartBot.Plugins
         #region GameEvents()
         public override void OnTick()
         {
+            if (catcher != null)
+            {
+
+                if (_started && ((ABTracker)DataContainer).AutoUpdate)
+                    GUI.AddElement(catcher);
+                else 
+                    GUI.RemoveElement(catcher);
+
+            }
             if (!_started || !_supported) return;
             if (((ABTracker)DataContainer).PredictionDisplay && ((ABTracker)DataContainer).EnemyDeckTypeGuess != DeckType.Unknown && !talkedWithMulligan)
             {
@@ -275,7 +287,7 @@ namespace SmartBot.Plugins
         {
             ((ABTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
             ((ABTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
-            
+
         }
 
         public override void OnGameBegin()
@@ -308,11 +320,11 @@ namespace SmartBot.Plugins
         public override void OnPluginCreated()
         {
             CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "MulliganProfiles\\AB - Mulligan\\");
-           
+
             CheckDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs\\ABTracker\\");
             CheckFiles();
             ((ABTracker)DataContainer).ReloadDictionary();
-            ((ABTracker)DataContainer).SynchEnums = (int) DeckType.Count;
+            ((ABTracker)DataContainer).SynchEnums = (int)DeckType.Count;
         }
 
         private void CheckFiles()
@@ -332,8 +344,8 @@ namespace SmartBot.Plugins
             if (((ABTracker)DataContainer).instr)
             {
                 System.Windows.Forms.MessageBox.Show(
-                    "Step 1: Enable Auto Update\nStep 2: Click Start button\nStep 3: After it finishes updating all files stop the bot"+
-                    "\nStep 4: navigate to Bundle: Miscellaneous in plugins and tick 'Transfer SM and ST values'\nStep 5: Start the bot."+ 
+                    "Step 1: Enable Auto Update\nStep 2: Click Start button\nStep 3: After it finishes updating all files stop the bot" +
+                    "\nStep 4: navigate to Bundle: Miscellaneous in plugins and tick 'Transfer SM and ST values'\nStep 5: Start the bot." +
                     "\nIf you followed instructions you should have 4 (5 for developers)new plugins and 1 updated mulligan files while retaining previous values from SM and ST"
                     );
 
@@ -342,27 +354,34 @@ namespace SmartBot.Plugins
             {
                 if (((ABTracker)DataContainer).AutoUpdate)
                 {
-                    Stopwatch timer = new Stopwatch();
-                    timer.Start();
-
-                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
-                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
-                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
-                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
-                    CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
-
-                    if (NewSha)
+                    catcher = new GuiElementButton("Check Bundle\n Updates", delegate
                     {
-                        Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
-                        Bot.ReloadPlugins();
-                        Bot.RefreshMulliganProfiles();
-                        NewSha = false;
-                        ((ABTracker)DataContainer).ReloadDictionary();
-                    }
-                    timer.Stop();
-                    Bot.Log(string.Format("[Update elapsed] {0}", timer.Elapsed.Seconds));
+
+
+                        Stopwatch timer = new Stopwatch();
+                        timer.Start();
+
+                        CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
+                        CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
+                        CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
+                        CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
+                        CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
+
+                        if (NewSha)
+                        {
+                            Bot.Log("[Auto Updater] Arthurs Bundle has been updated. Reloading Plugins and Mulligans");
+                            Bot.ReloadPlugins();
+                            Bot.RefreshMulliganProfiles();
+                            NewSha = false;
+                            ((ABTracker)DataContainer).ReloadDictionary();
+                        }
+                        timer.Stop();
+                        Bot.Log(string.Format("[Update Check Elapsed] {0} seconds", (double)timer.Elapsed.Milliseconds / 1000));
+                     }, 100, 100, 100, 45);
+                    GUI.AddElement(catcher);
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Bot.Log(string.Format("[Requires Arthurs Attention] {0} and {1}", e.Message, e.Source));
             }
@@ -393,9 +412,10 @@ namespace SmartBot.Plugins
 
                 if (((ABTracker)DataContainer).Mode == IdentityMode.Auto)
                     Bot.Log(string.Format("[ABTracker] Succesfully Identified your deck as: [{0}:{1}]", informationData.DeckType, informationData.DeckStyle));
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
-                Bot.Log("ERROR: " + e.Message +" " +e.Source);
+                Bot.Log("ERROR: " + e.Message + " " + e.Source);
             }
             GUI.ClearUI();
             if (((ABTracker)DataContainer).PredictionDisplay)
@@ -404,18 +424,18 @@ namespace SmartBot.Plugins
                         "Prediction: " + ((ABTracker)DataContainer).EnemyDeckTypeGuess + "|" +
                         ((ABTracker)DataContainer).EnemyDeckStyleGuess
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
-           
+
 
 
         }
         public static bool NewSha = false;
         private void CheckForUpdates(string str, bool mulligan = false)
         {
-            string name = str.Substring(str.LastIndexOf('/')+1).Replace("%20", " ");
+            string name = str.Substring(str.LastIndexOf('/') + 1).Replace("%20", " ");
             try
             {
-                String pluginPath = AppDomain.CurrentDomain.BaseDirectory + (mulligan ? "\\MulliganProfiles\\" : "\\Plugins\\") +name;
-                                
+                String pluginPath = AppDomain.CurrentDomain.BaseDirectory + (mulligan ? "\\MulliganProfiles\\" : "\\Plugins\\") + name;
+
                 var branchesJson = fetchUrl("https://api.github.com/repos/ArthurFairchild/MulliganProfiles/branches");
                 string NewBranch = branchesJson.Substring(branchesJson.IndexOf("SmartMulliganV3"));
                 String shaPrefix = "\"sha\":\"";
@@ -423,26 +443,27 @@ namespace SmartBot.Plugins
                 String gitCommitSha = NewBranch.Substring(shaIndex + shaPrefix.Length, 40);
                 //Bot.Log(" =============" +gitCommitSha);
                 String RemoteSha = gitCommitSha;
-                                
+
                 if (!GetLocalSha(name).Equals(RemoteSha))
                 {
                     NewSha = true;
+                    Bot.Log(string.Format("[Auto Updater] New version of {0} is available. Update in process.", name.Replace(".cs", "")));
                     UpdateLocalSha(name, gitCommitSha);
                     String latestSource = fetchUrl(str);
                     using (var stream = new FileStream(pluginPath, FileMode.Create, FileAccess.Write))
                     using (var writer = new StreamWriter(stream))
                     {
-                        
+
                         writer.Write(latestSource);
                         Log("Update was succesfull");
-                        
+
                     }
                 }
-               
+
             }
             catch (Exception e)
             {
-                Log("Update failed: " + e);
+                Bot.Log("[Auto Updater] Update failed: " + e);
             }
         }
         private String fetchUrl(String url)
@@ -459,19 +480,20 @@ namespace SmartBot.Plugins
         {
             try
             {
-                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+str.Replace(".cs", "")+" Validity Key"))
+                using (StreamReader sha = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\" + str.Replace(".cs", "") + " Validity Key"))
                 {
                     return sha.ReadLine();
                 }
-            }catch(FileNotFoundException)
+            }
+            catch (FileNotFoundException)
             {
-                Bot.Log(string.Format("[Arthurs Bundle] First run of {0} detected", str ));
+                Bot.Log(string.Format("[Arthurs Bundle] First run of {0} detected", str));
                 return "";
             }
         }
         private void UpdateLocalSha(string name, string shastr)
         {
-            using(StreamWriter sha = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\"+name.Replace(".cs", "")+" Validity Key"))
+            using (StreamWriter sha = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\" + name.Replace(".cs", "") + " Validity Key"))
             {
                 sha.WriteLine(shastr);
             }
@@ -519,27 +541,32 @@ namespace SmartBot.Plugins
         public override void OnTurnBegin()
         {
             base.OnTurnBegin();
-            if (Bot.CurrentMode() == Bot.Mode.Arena || Bot.CurrentMode() == Bot.Mode.ArenaAuto)
-            {
-                ((ABTracker)DataContainer).ArenaStyle = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards).DeckStyle;
-                Bot.Log(string.Format("[ST_Debug] Your arena deck mostly resembles {0} type deck", ((ABTracker)DataContainer).ArenaStyle));
-            }
-            ((ABTracker)DataContainer).CurrentTurn += 1;
-            if (!_supported) return;
-            Turn = ((ABTracker)DataContainer).CurrentTurn;
-            ShowPrediction();
-            Bot.Log("========" + Bot.CurrentBoard.TurnCount);
-            if (Bot.CurrentBoard.TurnCount < ((ABTracker)DataContainer).ProfilePredictionTurn) return;
             try
             {
-                CheckOpponentDeck();
-            }
-            catch (Exception e)
+                if (Bot.CurrentMode() == Bot.Mode.Arena || Bot.CurrentMode() == Bot.Mode.ArenaAuto)
+                {
+                    ((ABTracker)DataContainer).ArenaStyle = GetDeckInfo(Bot.CurrentBoard.FriendClass, Bot.CurrentDeck().Cards).DeckStyle;
+                    Bot.Log(string.Format("[ST_Debug] Your arena deck mostly resembles {0} type deck", ((ABTracker)DataContainer).ArenaStyle));
+                }
+            ((ABTracker)DataContainer).CurrentTurn += 1;
+                if (!_supported) return;
+                Turn = ((ABTracker)DataContainer).CurrentTurn;
+                ShowPrediction();
+                
+                if (Bot.CurrentBoard.TurnCount < ((ABTracker)DataContainer).ProfilePredictionTurn) return;
+                try
+                {
+                    CheckOpponentDeck();
+                }
+                catch (Exception e)
+                {
+                    Bot.Log(string.Format("{0} || {1} || {2}", e.Message, e.TargetSite, e.InnerException));
+                }
+                ShowPrediction();
+            }catch(Exception)
             {
-                Bot.Log(string.Format("{0} || {1} || {2}", e.Message, e.TargetSite, e.InnerException));
+                Bot.Log("[Tracker] Minor setback, if you keep seeing this, talk to Arthur");
             }
-            ShowPrediction();
-
 
         }
         public void ShowPrediction()
@@ -824,7 +851,7 @@ namespace SmartBot.Plugins
         private readonly List<Card.Cards> fatigueWarrior = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Gorehowl, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Brawl, Cards.BaronGeddon, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Revenge, Cards.Bash, Cards.Bash, Cards.BouncingBlade, Cards.DeathsBite, Cards.DeathsBite, Cards.Shieldmaiden, Cards.Shieldmaiden, Cards.Deathlord, Cards.Deathlord, Cards.JusticarTrueheart, Cards.SludgeBelcher, Cards.SludgeBelcher, Cards.UnstableGhoul, Cards.RenoJackson, };
         private readonly List<Card.Cards> faceWar = new List<Card.Cards> { Cards.HeroicStrike, Cards.HeroicStrike, Cards.ArcaneGolem, Cards.ArcaneGolem, Cards.SouthseaDeckhand, Cards.SouthseaDeckhand, Cards.KorkronElite, Cards.KorkronElite, Cards.Wolfrider, Cards.DreadCorsair, Cards.DreadCorsair, Cards.MortalStrike, Cards.MortalStrike, Cards.IronbeakOwl, Cards.LeperGnome, Cards.LeperGnome, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.BloodsailRaider, Cards.BloodsailRaider, Cards.Upgrade, Cards.Upgrade, Cards.DeathsBite, Cards.DeathsBite, Cards.ArgentHorserider, Cards.ArgentHorserider, Cards.Bash, Cards.Bash, Cards.SirFinleyMrrgglton, Cards.CursedBlade, };
         private readonly List<Card.Cards> dragonWarrior = new List<Card.Cards> { Cards.SylvanasWindrunner, Cards.ShieldSlam, Cards.ShieldSlam, Cards.BigGameHunter, Cards.Execute, Cards.Execute, Cards.Brawl, Cards.Alexstrasza, Cards.Deathwing, Cards.Ysera, Cards.BaronGeddon, Cards.HarrisonJones, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.DeathsBite, Cards.DeathsBite, Cards.Shieldmaiden, Cards.EmperorThaurissan, Cards.Nefarian, Cards.Revenge, Cards.Revenge, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.JusticarTrueheart, Cards.Chillmaw, Cards.Bash, Cards.Bash, Cards.TwilightGuardian, Cards.TwilightGuardian, };
-        private readonly List<Card.Cards> dragonWarrior2 = new List<Card.Cards>{Cards.FrothingBerserker,Cards.KorkronElite,Cards.KorkronElite,Cards.FaerieDragon,Cards.FaerieDragon,Cards.Slam,Cards.Slam,Cards.Execute,Cards.Execute,Cards.AzureDrake,Cards.AzureDrake,Cards.RagnarostheFirelord,Cards.FieryWarAxe,Cards.FieryWarAxe,Cards.GrommashHellscream,Cards.BlackwingTechnician,Cards.BlackwingTechnician,Cards.BlackwingCorruptor,Cards.BlackwingCorruptor,Cards.DrakonidCrusher,Cards.DrakonidCrusher,Cards.AlexstraszasChampion,Cards.AlexstraszasChampion,Cards.TwilightGuardian,Cards.TwilightGuardian,Cards.SirFinleyMrrgglton,Cards.RavagingGhoul,Cards.RavagingGhoul,Cards.BloodToIchor,Cards.BloodToIchor,};
+        private readonly List<Card.Cards> dragonWarrior2 = new List<Card.Cards> { Cards.FrothingBerserker, Cards.KorkronElite, Cards.KorkronElite, Cards.FaerieDragon, Cards.FaerieDragon, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.AzureDrake, Cards.AzureDrake, Cards.RagnarostheFirelord, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.BlackwingTechnician, Cards.BlackwingTechnician, Cards.BlackwingCorruptor, Cards.BlackwingCorruptor, Cards.DrakonidCrusher, Cards.DrakonidCrusher, Cards.AlexstraszasChampion, Cards.AlexstraszasChampion, Cards.TwilightGuardian, Cards.TwilightGuardian, Cards.SirFinleyMrrgglton, Cards.RavagingGhoul, Cards.RavagingGhoul, Cards.BloodToIchor, Cards.BloodToIchor, };
         private readonly List<Card.Cards> patronWarrior = new List<Card.Cards> { Cards.FrothingBerserker, Cards.KorkronElite, Cards.Whirlwind, Cards.Whirlwind, Cards.Slam, Cards.Slam, Cards.Execute, Cards.Execute, Cards.DreadCorsair, Cards.DreadCorsair, Cards.InnerRage, Cards.InnerRage, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.GrommashHellscream, Cards.Armorsmith, Cards.Armorsmith, Cards.BattleRage, Cards.BattleRage, Cards.DeathsBite, Cards.DeathsBite, Cards.Loatheb, Cards.SludgeBelcher, Cards.UnstableGhoul, Cards.DrBoom, Cards.GrimPatron, Cards.GrimPatron, Cards.ArchThiefRafaam, };
         private readonly List<Card.Cards> worgen = new List<Card.Cards> { Cards.ShieldSlam, Cards.RagingWorgen, Cards.RagingWorgen, Cards.Whirlwind, Cards.Execute, Cards.Execute, Cards.GnomishInventor, Cards.GnomishInventor, Cards.Brawl, Cards.Brawl, Cards.CruelTaskmaster, Cards.CruelTaskmaster, Cards.InnerRage, Cards.InnerRage, Cards.AcolyteofPain, Cards.AcolyteofPain, Cards.NoviceEngineer, Cards.NoviceEngineer, Cards.Rampage, Cards.Rampage, Cards.ShieldBlock, Cards.ShieldBlock, Cards.IronbeakOwl, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.Charge, Cards.Charge, Cards.DeathsBite, Cards.DeathsBite, Cards.AntiqueHealbot, };
         private readonly List<Card.Cards> mechWar = new List<Card.Cards> { Cards.HeroicStrike, Cards.HeroicStrike, Cards.KorkronElite, Cards.KorkronElite, Cards.ArcaniteReaper, Cards.ArcaniteReaper, Cards.MortalStrike, Cards.MortalStrike, Cards.FieryWarAxe, Cards.FieryWarAxe, Cards.DeathsBite, Cards.DeathsBite, Cards.Cogmaster, Cards.Cogmaster, Cards.AnnoyoTron, Cards.AnnoyoTron, Cards.SpiderTank, Cards.SpiderTank, Cards.Mechwarper, Cards.Mechwarper, Cards.PilotedShredder, Cards.PilotedShredder, Cards.TinkertownTechnician, Cards.ScrewjankClunker, Cards.ScrewjankClunker, Cards.Warbot, Cards.Warbot, Cards.FelReaver, Cards.FelReaver, Cards.ClockworkKnight, };
