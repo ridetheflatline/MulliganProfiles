@@ -248,7 +248,7 @@ namespace SmartBot.Plugins
             if (catcher != null)
             {
 
-                if (_started && ((ABTracker)DataContainer).AutoUpdate)
+                if (_update && _started && ((ABTracker)DataContainer).AutoUpdate)
                     GUI.AddElement(catcher);
                 else 
                     GUI.RemoveElement(catcher);
@@ -285,6 +285,7 @@ namespace SmartBot.Plugins
 
         public override void OnGameEnd()
         {
+            
             ((ABTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
             ((ABTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
 
@@ -338,6 +339,7 @@ namespace SmartBot.Plugins
 
         private static bool _started = false;
         private static bool _supported = false;
+        private static bool _update = false;
         public override void OnStarted()
         {
             NewSha = false;
@@ -350,6 +352,7 @@ namespace SmartBot.Plugins
                     );
 
             }
+            _update = true;
             try
             {
                 if (((ABTracker)DataContainer).AutoUpdate)
@@ -379,8 +382,10 @@ namespace SmartBot.Plugins
                         }
                         else Bot.Log("[Updater] No new updates.");
                         timer.Stop();
+                        _update = false;
                      }, 100, 100, 100, 45);
                     GUI.AddElement(catcher);
+                    
                 }
             }
             catch (Exception e)
@@ -544,6 +549,7 @@ namespace SmartBot.Plugins
         public override void OnTurnBegin()
         {
             base.OnTurnBegin();
+            _update = true;
             try
             {
                 if (Bot.CurrentMode() == Bot.Mode.Arena || Bot.CurrentMode() == Bot.Mode.ArenaAuto)
