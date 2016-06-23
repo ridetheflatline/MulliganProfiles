@@ -56,6 +56,7 @@ namespace SmartBot.Plugins
 
         public override void OnStarted()
         {
+            Bot.SetHoverRoutineEnabled(false);
             bool complication = false;
             try
             {
