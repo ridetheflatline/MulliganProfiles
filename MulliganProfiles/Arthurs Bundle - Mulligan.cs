@@ -2368,7 +2368,6 @@ namespace MulliganProfiles
             }
             try
             {
-
                 int allowed1Drops = gc.Coin ? data.Max1DropsCoin : data.Max1Drops;
                 int allowed2Drops = gc.Coin ? data.Max2DropsCoin : data.Max2Drops;
                 int allowed3Drops = 0;
@@ -2386,6 +2385,8 @@ namespace MulliganProfiles
                 };
                 foreach (var q in gc.TwoDrops.Where(q => q.IsMinion() && q.Priority() >= 2).OrderByDescending(q => q.Priority()).Take(allowed2Drops))
                 {
+                    if (gc.TwoDrops.Where(w => w.IsMinion() && w.Priority() >= 2).OrderByDescending(w => w.Priority()).Take(allowed2Drops).Count() >= 2)
+                        gc.HasTurnOne = true;
                     gc.HasTurnTwo = true;
                     _whiteList.AddOrUpdate(q, q.Priority() > 5);
                 }
