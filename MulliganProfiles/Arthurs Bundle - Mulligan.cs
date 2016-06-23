@@ -2379,7 +2379,7 @@ namespace MulliganProfiles
                     gc.HasTurnOne = true;
                     _whiteList.AddOrUpdate(q, gc.Coin && q.Priority() > 5);
                 }
-                if (strict && !gc.HasTurnOne)
+                if (strict && !gc.HasTurnOne && !gc.Coin)
                 {
                     HandleSpellsAndWeapons(gc);
                     return;
