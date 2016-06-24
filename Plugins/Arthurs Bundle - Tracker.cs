@@ -251,7 +251,7 @@ namespace SmartBot.Plugins
 
                 if (_update && _started && ((ABTracker)DataContainer).AutoUpdate)
                     GUI.AddElement(catcher);
-                else 
+                else
                     GUI.RemoveElement(catcher);
 
             }
@@ -286,7 +286,7 @@ namespace SmartBot.Plugins
 
         public override void OnGameEnd()
         {
-            
+
             ((ABTracker)DataContainer).EnemyDeckTypeGuess = DeckType.Unknown;
             ((ABTracker)DataContainer).EnemyDeckStyleGuess = Style.Unknown;
 
@@ -354,10 +354,7 @@ namespace SmartBot.Plugins
 
             }
             _update = true;
-            //string custom = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\Arthurs Bundle - Mulligan.cs");
-            //var matches = Regex.Matches(custom, "#region CustomMulligan.*?#endregion CustomMulligan", RegexOptions.Singleline);
 
-            //Bot.Log("=======================================\n"+matches[0]);
             try
             {
                 if (((ABTracker)DataContainer).AutoUpdate)
@@ -388,9 +385,9 @@ namespace SmartBot.Plugins
                         else Bot.Log("[Updater] No new updates.");
                         timer.Stop();
                         _update = false;
-                     }, 100, 100, 100, 45);
+                    }, 100, 100, 100, 45);
                     GUI.AddElement(catcher);
-                    
+
                 }
             }
             catch (Exception e)
@@ -444,6 +441,12 @@ namespace SmartBot.Plugins
         private void CheckForUpdates(string str, bool mulligan = false)
         {
             string name = str.Substring(str.LastIndexOf('/') + 1).Replace("%20", " ");
+            MatchCollection matches = null;
+            //if (mulligan)
+            //{
+            //    string custom = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\Arthurs Bundle - Mulligan.cs");
+            //    matches = Regex.Matches(custom, "#region CustomMulligan.*?#endregion CustomMulligan", RegexOptions.Singleline);
+            //}
             try
             {
                 String pluginPath = AppDomain.CurrentDomain.BaseDirectory + (mulligan ? "\\MulliganProfiles\\" : "\\Plugins\\") + name;
@@ -465,7 +468,12 @@ namespace SmartBot.Plugins
                     using (var stream = new FileStream(pluginPath, FileMode.Create, FileAccess.Write))
                     using (var writer = new StreamWriter(stream))
                     {
-
+                        //if (mulligan)
+                        //{
+                            
+                        //    latestSource = latestSource.Replace("#region CustomMulligan\n#endregion CustomMulligan", "fucking hell");
+                        //    Bot.Log("=======================================\n" + matches[0]);
+                        //}
                         writer.Write(latestSource);
                         Log("Update was succesfull");
 
@@ -566,7 +574,7 @@ namespace SmartBot.Plugins
                 if (!_supported) return;
                 Turn = ((ABTracker)DataContainer).CurrentTurn;
                 ShowPrediction();
-                
+
                 if (Bot.CurrentBoard.TurnCount < ((ABTracker)DataContainer).ProfilePredictionTurn) return;
                 try
                 {
@@ -577,7 +585,8 @@ namespace SmartBot.Plugins
                     Bot.Log(string.Format("{0} || {1} || {2}", e.Message, e.TargetSite, e.InnerException));
                 }
                 ShowPrediction();
-            }catch(Exception)
+            }
+            catch (Exception)
             {
                 Bot.Log("[Tracker] Minor setback, if you keep seeing this, talk to Arthur");
             }
