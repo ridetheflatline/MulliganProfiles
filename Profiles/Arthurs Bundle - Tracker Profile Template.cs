@@ -97,14 +97,7 @@ namespace TrackerExampleProfile
 
             //setup parameters with default as baseprofile
             var parameters = new ProfileParameters(BaseProfile.Default);
-            //=====================TRACKER EXAMPLE=========================
-            Bot.Log("[--------------------------------------] Enemy Hand " + board.EnemyHand);
-            
-            if (board.Hand.Select(c => c.Template.Id).ToList().ContainsAll(Cards.TwilightDrake, Cards.TwilightGuardian))
-                foreach (var q in board.EnemyHand)
-                {
-
-                }
+           
             
             try
             {
@@ -124,25 +117,20 @@ namespace TrackerExampleProfile
                     );
             }
 
-            if (st.GetEnemyStyle().IsOneOf(Style.Control, Style.Combo, Style.Tempo))
+            if (st.EnemyStyle.IsOneOf(Style.Control, Style.Combo, Style.Tempo))
             {
                 //do something
             }
-            if (st.GetEnemyStyle().IsAggresive())
+            if (st.EnemyStyle.IsAggresive())
             {
                 //Do Something
             }
-            if (st.GetEnemyDeckType().Is(DeckType.Basic))
+            if (st.EnemyDeckType.Is(DeckType.Basic))
             {
                 Bot.Log("===========Opponent is Basic");
 
             }
-            if (st.MysteryValue())
-            {
-                //Bot.Concede(); //Because you are a monster. 
-            }
-            //=====================END OF TRACKER EXAMPLE===================
-            // return new ProfileParameters(BaseProfile.Test);
+            
 
 
 
@@ -162,12 +150,12 @@ namespace TrackerExampleProfile
     /// </summary>
     public class TrackerValues
     {
-        private DeckType EnemyDeckType { get; set; }
-        private Style EnemyStyle { get; set; }
-        private DeckType MyDeckType { get; set; }
-        private Style MyStyle { get; set; }
-        private bool Mystery { get; set; }
-        private Style ArenaStyle { get; set; }
+        public DeckType EnemyDeckType { get; set; }
+        public Style EnemyStyle { get; set; }
+        public DeckType MyDeckType { get; set; }
+        public Style MyStyle { get; set; }
+        public bool Mystery { get; set; }
+        public Style ArenaStyle { get; set; }
         public TrackerValues()
         {
             Dictionary<string, object> values =
@@ -188,175 +176,115 @@ namespace TrackerExampleProfile
             ArenaStyle = ar;
             Mystery = false;
         }
-        /// <summary>
-        /// Getter method
-        /// </summary>
-        /// <returns>DeckType guessed by tracker </returns>
-        public DeckType GetMyDeckType()
-        {
-            return MyDeckType;
-        }
-        /// <summary>
-        /// Getter method for our style
-        /// </summary>
-        /// <returns>Style of our deck as predicted by Arthurs' Tracker</returns>
-        public Style GetMyDeckStyle()
-        {
-            return MyStyle;
-        }
-        /// <summary>
-        /// Getter method for EnemyDeckType
-        /// </summary>
-        /// <returns>DeckType of our opponents deck type as guessed by Arthur's Tracker</returns>
-        public DeckType GetEnemyDeckType()
-        {
-            return EnemyDeckType;
-        }
-        /// <summary>
-        /// Getter Method for enemy Style
-        /// </summary>
-        /// <returns>Style of opponents deck</returns>
-        public Style GetEnemyStyle()
-        {
-            return EnemyStyle;
-        }
-        /// <summary>
-        /// Getter for our arena deck style
-        /// </summary>
-        /// <returns>Style of our arena deck</returns>
-        public Style GetArenaStyle()
-        {
-            return ArenaStyle;
-        }
-        /// <summary>
-        /// Those brave souls that chose to use mystery button. 
-        /// And yes, mystery button is not used in SmartTracker, or SmartMulligan. As a matter of fact, it's kind of a placebo
-        /// button that I intended to use later one, but I enjoyed the scavenger hunt that some users went on. 
-        /// 
-        /// Anyway you can use this button as experimental features in your profile. 
-        /// if(Mystery) do something you are not certain on. 
-        /// else do nothing
-        /// </summary>
-        /// <returns></returns>
-        public bool MysteryValue()
-        {
-            return Mystery;
-        }
+       
     }
 
-    public enum DeckType
-    {
-        Custom,
-        Unknown,
-        Arena,
-        /*Warrior*/
-        ControlWarrior,
-        FatigueWarrior,
-        DragonWarrior,
-        PatronWarrior,
-        WorgenOTKWarrior,
-        MechWarrior,
-        FaceWarrior,
-        RenoWarrior,
-        TauntWarrior,
-        CThunWarrior,
-        TempoWarrior,
-        /*Paladin*/
-        SecretPaladin,
-        MidRangePaladin,
-        DragonPaladin,
-        AggroPaladin,
-        AnyfinMurglMurgl,
-        RenoPaladin,
-        CThunPaladin,
-        NZothPaladin,
-        /*Druid*/
-        RampDruid,
-        AggroDruid,
-        DragonDruid,
-        MidRangeDruid,
-        TokenDruid,
-        SilenceDruid,
-        MechDruid,
-        AstralDruid,
-        MillDruid,
-        BeastDruid,
-        RenoDruid,
-        CThunDruid,
-        /*Warlock*/
-        Handlock,
-        RenoLock,
-        RenoComboLock,
-        Zoolock,
-        RelinquaryZoo,
-        DemonHandlock,
-        DemonZooWarlock,
-        DragonHandlock,
-        MalyLock,
-        ControlWarlock,
-        CThunLock,
-        /*Mage*/
-        TempoMage,
-        FreezeMage,
-        FaceFreezeMage,
-        DragonMage,
-        MechMage,
-        EchoMage,
-        FatigueMage,
-        RenoMage,
-        CThunMage,
-        /*Priest*/
-        DragonPriest,
-        ControlPriest,
-        ComboPriest,
-        MechPriest,
-        ShadowPriest,
-        CThunPriest,
-        /*Huntard*/
-        MidRangeHunter,
-        HybridHunter,
-        FaceHunter,
-        HatHunter,
-        CamelHunter,
-        RenoHunter,
-        DragonHunter,
-        CThunHunter,
-        /*Rogue*/
-        OilRogue,
-        PirateRogue,
-        FaceRogue,
-        MalyRogue,
-        RaptorRogue,
-        FatigueRogue,
-        MiracleRogue,
-        MechRogue,
-        RenoRogue,
-        MillRogue,
-        CThunRogue,
-        /*Chaman*/
-        FaceShaman,
-        MechShaman,
-        DragonShaman,
-        TotemShaman,
-        MalygosShaman,
-        ControlShaman,
-        BloodlustShaman,
-        BattleryShaman,
-        RenoShaman,
-        CThunShaman,
+   public enum DeckType
+{
+    Custom,
+    Unknown,
+    Arena,
+    /*Warrior*/
+    ControlWarrior,
+    FatigueWarrior,
+    DragonWarrior,
+    PatronWarrior,
+    WorgenOTKWarrior,
+    MechWarrior,
+    FaceWarrior,
+    RenoWarrior,
+    CThunWarrior,
+    TempoWarrior,
+    /*Paladin*/
+    SecretPaladin,
+    MidRangePaladin,
+    DragonPaladin,
+    AggroPaladin,
+    AnyfinMurglMurgl,
+    RenoPaladin,
+    CThunPaladin,
 
-        Basic,
-    }
+    /*Druid*/
+    RampDruid,
+    AggroDruid,
+    DragonDruid,
+    MidRangeDruid,
+    TokenDruid,
+    SilenceDruid,
+    MechDruid,
+    AstralDruid,
+    MillDruid,
+    BeastDruid,
+    RenoDruid,
+    CThunDruid,
+    /*Warlock*/
+    Handlock,
+    RenoLock,
+    Zoolock,
+    DemonHandlock,
+    DragonHandlock,
+    MalyLock,
+    ControlWarlock,
+    CThunLock,
+    /*Mage*/
+    TempoMage,
+    FreezeMage,
+    FaceFreezeMage,
+    DragonMage,
+    MechMage,
+    EchoMage,
+    RenoMage,
+    CThunMage,
+    /*Priest*/
+    DragonPriest,
+    ControlPriest,
+    ComboPriest,
+    MechPriest,
 
-    public enum Style
-    {
-        Unknown,
-        Face,
-        Aggro,
-        Control,
-        Midrange,
-        Combo,
-        Tempo,
-        Fatigue,
-    }
+    /*Huntard*/
+    MidRangeHunter,
+    HybridHunter,
+    FaceHunter,
+    CamelHunter,
+    RenoHunter,
+    DragonHunter,
+    CThunHunter,
+    /*Rogue*/
+    OilRogue,
+    PirateRogue,
+    FaceRogue,
+    MalyRogue,
+    RaptorRogue,
+    MiracleRogue,
+    MechRogue,
+    RenoRogue,
+    MillRogue,
+    CThunRogue,
+    /*Chaman*/
+    FaceShaman,
+    MechShaman,
+    DragonShaman,
+    MidrangeShaman,
+    MalygosShaman,
+    ControlShaman,
+
+    BattleryShaman,
+    RenoShaman,
+    CThunShaman,
+
+    Basic,
+    Count,
+}
+
+public enum Style
+{
+    Unknown,
+    Face,
+    Aggro,
+    Control,
+    Midrange,
+    Combo,
+    Tempo,
+    Fatigue,
+}
 }

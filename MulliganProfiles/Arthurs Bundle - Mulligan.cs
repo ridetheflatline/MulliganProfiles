@@ -938,9 +938,11 @@ namespace MulliganProfiles
             Report("Deck Recognition via tracker was successful");
             MyStyle = (Style)properties[TrackerMyStyle];
             Report("Deck Style recognition via tracker was successful");
-            EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int)Bot.GetPlugins().Fetch("Arthurs Bundle - History", "GTA"));
+            if (Bot.CurrentMode().IsShitfest()) EneDeckType = DeckType.Arena;
+            else EneDeckType = Bot.GetCurrentOpponentId().FindHimInHistory(opponentClass, (int)Bot.GetPlugins().Fetch("Arthurs Bundle - History", "GTA"));
             Report("Number of games fetched from History Extension was successful");
-            EnemyStyle = DeckStyles[EneDeckType];
+            if (Bot.CurrentMode().IsShitfest()) EnemyStyle = Style.Tempo;
+            else EnemyStyle = DeckStyles[EneDeckType];
             Report("Enemy Style was successfully found");
             try
             {
