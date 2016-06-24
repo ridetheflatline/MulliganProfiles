@@ -599,6 +599,7 @@ namespace MulliganProfiles
             {Cards.MidnightDrake, 0 },
             {Cards.PollutedHoarder, 0 },
             {Cards.TwilightSummoner, 0 },
+            {Cards.BladedCultist, 5}
          };
         public static void Report(string msg)
         {

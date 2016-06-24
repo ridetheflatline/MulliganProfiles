@@ -365,7 +365,7 @@ namespace SmartBot.Plugins
 
                         Stopwatch timer = new Stopwatch();
                         timer.Start();
-
+                        
                         CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Tracker.cs");
                         CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
                         CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
@@ -441,11 +441,12 @@ namespace SmartBot.Plugins
         private void CheckForUpdates(string str, bool mulligan = false)
         {
             string name = str.Substring(str.LastIndexOf('/') + 1).Replace("%20", " ");
-            MatchCollection matches = null;
             //if (mulligan)
             //{
-            //    string custom = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\Arthurs Bundle - Mulligan.cs");
-            //    matches = Regex.Matches(custom, "#region CustomMulligan.*?#endregion CustomMulligan", RegexOptions.Singleline);
+            //    //Regex.Matches(custom, "#region CustomMulligan.*?#endregion CustomMulligan", RegexOptions.Singleline);
+            //    var qwe = Regex.Matches(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory+"\\MulliganProfiles\\Arthurs Bundle - Mulligan.cs"),
+            //        "#region CustomMulligan.*?#endregion CustomMulligan", RegexOptions.Singleline);
+            //    Bot.Log("==========================" + qwe[0]);
             //}
             try
             {
@@ -468,12 +469,6 @@ namespace SmartBot.Plugins
                     using (var stream = new FileStream(pluginPath, FileMode.Create, FileAccess.Write))
                     using (var writer = new StreamWriter(stream))
                     {
-                        //if (mulligan)
-                        //{
-                            
-                        //    latestSource = latestSource.Replace("#region CustomMulligan\n#endregion CustomMulligan", "fucking hell");
-                        //    Bot.Log("=======================================\n" + matches[0]);
-                        //}
                         writer.Write(latestSource);
                         Log("Update was succesfull");
 
@@ -483,7 +478,7 @@ namespace SmartBot.Plugins
             }
             catch (Exception e)
             {
-                Bot.Log("[Auto Updater] Update failed: " + e);
+                Bot.Log("[Auto Updater] Update failed: " + e.Message);
             }
         }
         private String fetchUrl(String url)
