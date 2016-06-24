@@ -168,7 +168,7 @@ namespace SmartBot.Plugins
             donation = "http://bit.ly/ABDonationLink";
             discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
             vKey = GetLocalSha("Arthurs Bundle - Tracker.cs");
-            Versions = "4.013";
+            Versions = "4.014";
         }
         public void ReloadDictionary()
 
