@@ -10,6 +10,7 @@ using System.Reflection;
 using SmartBot.Database;
 using SmartBot.Plugins;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 public static class Extension
 {
@@ -353,6 +354,10 @@ namespace SmartBot.Plugins
 
             }
             _update = true;
+            //string custom = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\MulliganProfiles\\Arthurs Bundle - Mulligan.cs");
+            //var matches = Regex.Matches(custom, "#region CustomMulligan.*?#endregion CustomMulligan", RegexOptions.Singleline);
+
+            //Bot.Log("=======================================\n"+matches[0]);
             try
             {
                 if (((ABTracker)DataContainer).AutoUpdate)

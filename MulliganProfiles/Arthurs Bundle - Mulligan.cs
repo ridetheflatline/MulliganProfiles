@@ -1561,9 +1561,8 @@ namespace MulliganProfiles
 
         private void HandleCustomDeck(GameContainer gc)
         {
-            #region Custom
-
-            #endregion Custom
+            #region CustomMulligan
+            #endregion CustomMulligan
         }
 
         private void HandleNZothPaladin(GameContainer gc)
