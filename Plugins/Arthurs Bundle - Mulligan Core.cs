@@ -70,7 +70,8 @@ namespace SmartBot.Plugins
         {
             message = "If [Automatic Default] is ticked, Mulligan Bundle will automatically\nfigure out number of max drops for your deck\nand ignore anything you change below" +
               "\n[Disclaimer] Mulligan Core changes here will only affect Arena and few not well refined decks ";
-            cmode = "Standard: default logic, if card is good it keeps it\nStrictCurve: Requires 1 drop to keep a 2 drop, 2 drop to keep a 3 drops, and so on.";
+            cmode = "Standard: Default logic, if a card is good it's keept\nDeep Mulligan: Requires 1 drop to keep a 2 drop, 2 drop to keep a 3 drops, and so on. In all modes except arena"+
+                "\nStrict Mulligan: Same as deep mulligan, but also applies to Arena";
             fck2 = "All CARD_ID are separated by '~', for example:\n"
                 + "OG_311~CS2_188\nLine above will forcefully keep Abusive sergent {CS2_188} and A Light in the Darkness {OG_311}\nIf you are forcing only 1 card, you will need to add '~' on the end";
             fckapi = "http://hearthstoneapi.com/cards";
@@ -94,6 +95,7 @@ namespace SmartBot.Plugins
     public enum MulliganMode
     {
         Standard,
-        StrictCurve,
+        DeepMulligan,
+        StrictMulligan,
     }
 }

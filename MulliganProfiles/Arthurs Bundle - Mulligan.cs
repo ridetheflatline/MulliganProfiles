@@ -2352,8 +2352,10 @@ namespace MulliganProfiles
                 //Bot.Log("[AB - Mulligan] Was unable to forcefully keep cards " + formaterro.Message);
             }
             bool noChange = (bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["NoChange"];
-            bool strict = (string) Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "StrictCurve" 
-                && !noChange;
+            bool strict = (string) Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "DeepMulligan" 
+                && !noChange && !Bot.CurrentMode().IsShitfest();
+            bool VeryStrict = (string) Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "StrictMulligan" 
+                && !noChange ;
             MulliganCoreData data;
             try
             {
@@ -2381,7 +2383,7 @@ namespace MulliganProfiles
                     gc.HasTurnOne = true;
                     _whiteList.AddOrUpdate(q, gc.Coin && q.Priority() > 5);
                 }
-                if (strict && !gc.HasTurnOne && !gc.Coin)
+                if ((strict || VeryStrict) && !gc.HasTurnOne && !gc.Coin)
                 {
                     HandleSpellsAndWeapons(gc);
                     return;
@@ -2393,7 +2395,7 @@ namespace MulliganProfiles
                     gc.HasTurnTwo = true;
                     _whiteList.AddOrUpdate(q, q.Priority() > 5);
                 }
-                if (strict && !gc.HasTurnTwo)
+                if ((strict || VeryStrict) && !gc.HasTurnTwo)
                 {
                     HandleSpellsAndWeapons(gc);
                     return;
