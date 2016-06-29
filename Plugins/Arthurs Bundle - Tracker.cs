@@ -10,7 +10,7 @@ using System.Reflection;
 using SmartBot.Database;
 using SmartBot.Plugins;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
+
 
 public static class Extension
 {
@@ -113,6 +113,8 @@ namespace SmartBot.Plugins
         public IdentityMode Mode { get; set; }
         [DisplayName(Russian ? "[C] Ваша Колода" : "[C] Manual -f Deck")]
         public DeckType ForcedDeckType { get; set; }
+        [DisplayName(Russian ? "[C] Ваш Стиль" : "[C] Your Style")]
+        public Style ForcedStyle { get; set; }
         [Browsable(DebugTesting ? true : false)]
         [DisplayName("Mulligan Tester: you")]
         public DeckType MulliganTesterYourDeck { get; set; }
@@ -154,6 +156,7 @@ namespace SmartBot.Plugins
             donation = "http://bit.ly/ABDonationLink";
             discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
             ForcedDeckType = DeckType.Unknown;
+            ForcedStyle = Style.Unknown;
             MulliganTEsterEnemyDeck = DeckType.Unknown;
             MulliganTesterYourDeck = DeckType.Arena;
             AutoUpdate = true;
@@ -542,6 +545,7 @@ namespace SmartBot.Plugins
 
         public override void OnStopped()
         {
+            
             GUI.ClearUI();
             ((ABTracker)DataContainer).Enemy = Card.CClass.JARAXXUS;
             identified = false;
@@ -557,7 +561,6 @@ namespace SmartBot.Plugins
         public override void OnTurnBegin()
         {
             base.OnTurnBegin();
-            _update = true;
             try
             {
                 if (Bot.CurrentMode() == Bot.Mode.Arena || Bot.CurrentMode() == Bot.Mode.ArenaAuto)
@@ -597,11 +600,7 @@ namespace SmartBot.Plugins
                         ((ABTracker)DataContainer).EnemyDeckStyleGuess
                         , (_screenWidth) / 64, PercToPixHeight(40), 155, 30, 16, 255, 215, 0));
         }
-        public override void OnFriendRequestReceived(FriendRequest request)
-        {
-
-            Bot.Log(string.Format("[ABTracker] FRIEND REQUEST: {0} {1} {2}", request.GetId(), request.GetPlayerName(), request.ToString()));
-        }
+        
         public void CheckOpponentDeck()
         {
             List<Card.Cards> graveyard = Bot.CurrentBoard.EnemyGraveyard.ToList();
@@ -658,9 +657,8 @@ namespace SmartBot.Plugins
             List<Card> board = Bot.CurrentBoard.MinionFriend.ToList();
             List<Card.Cards> secrets = Bot.CurrentBoard.Secret.ToList();
             Card weapon = Bot.CurrentBoard.WeaponFriend;
-            Bot.Log("=============Finished Played cards");
             List<Card> hand = Bot.CurrentBoard.Hand.ToList();
-            Bot.Log("=============Finished Drawn cards");
+            
 
             List<string> played = new List<string> { };
             played.AddRange(graveyard.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
@@ -668,19 +666,20 @@ namespace SmartBot.Plugins
             played.AddRange(secrets.Where(card => CardTemplate.LoadFromId(card).IsCollectible).Select(q => q.ToString()));
             if (Bot.CurrentBoard.HasWeapon())
                 played.Add(weapon.Template.Id.ToString());
-            Bot.Log("=============Created Played");
+            
 
             List<string> drawn = new List<string>();
             drawn.AddRange(hand.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
-            Bot.Log("=============Created Drawn");
+            
 
             if (played.Count == 0) return;
             if (drawn.Count == 0) return;
             string splayed = played.Aggregate("", (current, q) => current + "," + q);
             string sdrawn = drawn.Aggregate("", (current, q) => current + "," + q);
-            using (StreamWriter DeckPerformanceHistory = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\DeckPerformanceHistory.txt", true))
+            using (StreamWriter DeckPerformanceHistory = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\CardPerformance.txt", true))
             {
-                DeckPerformanceHistory.WriteLine("{0}~{1}~{2}~{3}~{4}~{5}", res, Bot.CurrentMode(), Bot.CurrentBoard.EnemyClass, Bot.CurrentBoard.FriendClass, sdrawn, splayed);
+                DeckPerformanceHistory.WriteLine("{0}~{1}~{2}~{3}~{4}~{5}~{6}~{7}", res, Bot.CurrentMode(), 
+                    Bot.CurrentBoard.FriendClass, ((ABTracker)DataContainer).AutoFriendlyDeckType, Bot.CurrentBoard.EnemyClass, ((ABTracker)DataContainer).EnemyDeckTypeGuess, sdrawn, splayed);
 
 
             }

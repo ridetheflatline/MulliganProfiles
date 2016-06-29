@@ -15,7 +15,6 @@ namespace SmartBot.Plugins
             map[key] = value;
         }
 
-        //lol
         public static bool IsArena(this Bot.Mode mode)
         {
             return mode == Bot.Mode.Arena || mode == Bot.Mode.ArenaAuto;
@@ -32,7 +31,7 @@ namespace SmartBot.Plugins
         public bool print { get; set; }
         [DisplayName("Detailed Summary")]
         public Details details { get; set; }
-
+        
         public Arthurs_Bundle___History()
         {
             Name = "Arthurs Bundle - History";
