@@ -2400,6 +2400,8 @@ namespace MulliganProfiles
                     return;
                 };
                 Report("[Core] Finished with 1 drops");
+                //============================================TWO DROPS=============================================
+
                 foreach (var q in gc.TwoDrops.Where(q => q.IsMinion() && q.Priority() >= 2).OrderByDescending(q => q.Priority()).Take(allowed2Drops))
                 {
                     if (gc.TwoDrops.Where(w => w.IsMinion() && w.Priority() >= 2).OrderByDescending(w => w.Priority()).Take(allowed2Drops).Count() >= 2)
@@ -2415,6 +2417,8 @@ namespace MulliganProfiles
                     HandleSpellsAndWeapons(gc);
                     return;
                 };
+                 //============================================Three DROPS=============================================
+
                 allowed3Drops = gc.Coin && (gc.HasTurnOne || gc.HasTurnTwo)
                     ? data.Max3DropsCoin
                     : (gc.HasTurnOne || gc.HasTurnTwo) ? data.Max3Drops : 0;
@@ -2440,6 +2444,8 @@ namespace MulliganProfiles
                     HandleSpellsAndWeapons(gc);
                     return;
                 };
+                 //============================================Four DROPS=============================================
+
                 allowed4Drops = gc.Coin && gc.HasTurnThree
                     ? data.Max4DropsCoin
                     : gc.HasTurnThree ? data.Max4Drops : 0;
