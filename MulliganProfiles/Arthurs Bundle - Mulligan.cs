@@ -191,7 +191,7 @@ namespace MulliganProfiles
         /// <returns></returns>
         public static int Priority(this Card.Cards id, int modifier = 0)
         {
-            Report(string.Format("Entered Priority for {0}:{1}", id.Template().Name,id.IsMinion() ? (CardTable[id] + modifier) : 0 ));
+            Report(string.Format("Entered Priority for {0}:{1}", id.Template().Name, id.IsMinion() ? (CardTable[id] + modifier) : 0));
             return id.IsMinion() ? (CardTable[id] + modifier) : 0;
         }
         public static bool IsStandard(this Bot.Mode mode)
@@ -657,32 +657,33 @@ namespace MulliganProfiles
 
                         continue;
                     }
-                } 
-                Report("==================>" +allDeckTypes.First());
+                }
+                Report("==================>" + allDeckTypes.First());
                 Report(op.ToString());
                 Report((DeckClass[allDeckTypes.First()] == op).ToString());
                 DeckType eDeckType = DeckType.Unknown;//                   allDeckTypes.First(q => DeckClass[q] == op);
-                foreach(var q in allDeckTypes)
+                foreach (var q in allDeckTypes)
                 {
-                    
+
                     if (q == DeckType.Basic) continue;
                     if (DeckClass[q] == op)
                     {
                         eDeckType = q;
                         break;
                     }
-                    
+
                 }
                 Report("FHF: 2.1");
-                
+
                 try
                 {
                     eDeckType = prediction.GetMostFacedDeckType(op);
-                }catch(Exception)
+                }
+                catch (Exception)
                 {
                     eDeckType = GetDefault(op);
                     if (!Bot.CurrentMode().IsShitfest())
-                    Bot.Log("[ABTracker] You have faced this opponent before, but he was playing a different class, so going to guees he is "+eDeckType);
+                        Bot.Log("[ABTracker] You have faced this opponent before, but he was playing a different class, so going to guees he is " + eDeckType);
                     return eDeckType;
                 }
                 Report("FHF: 2.2");
@@ -707,11 +708,11 @@ namespace MulliganProfiles
                 {
                     Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
 
-                    Report("history check error: "+e.Message);
+                    Report("history check error: " + e.Message);
                     continue;
                 }
             }
-             Report("FHF: 4.0");
+            Report("FHF: 4.0");
             DeckType unknownPrediction;
             try
             {
@@ -722,10 +723,10 @@ namespace MulliganProfiles
                 Report("History didn't yield to any worthwhile results");
                 unknownPrediction = GetDefault(op);
             }
-             Report("FHF: 5.0");
+            Report("FHF: 5.0");
             if (!Bot.CurrentMode().IsShitfest())
                 Bot.Log(string.Format("[Arthurs' Bundle: Mulligan] You have not faced this opponent in the past {0} games. From your history, you mostly face {1} decks, so that is what we will go with.", n, unknownPrediction));
-                            Report("FHF: 6.0");
+            Report("FHF: 6.0");
             Report("Mulligan Stage 2 Completed without accident");
             return unknownPrediction;
         }
@@ -887,7 +888,7 @@ namespace MulliganProfiles
         //needed
         public GameContainer(List<Card.Cards> choices, Card.CClass opponentClass, Card.CClass ownClass)
         {
-            
+
             var value = Enum.GetValues(typeof(DeckType)).Cast<DeckType>().ToList();
             foreach (var q in value)
             {
@@ -903,8 +904,8 @@ namespace MulliganProfiles
             }
             catch (Exception e)
             {
-               Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
-                Report("Writing Enemy to tracker error "+ e.Message);
+                //Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
+                Report("Writing Enemy to tracker error " + e.Message);
 
             }
             Choices = choices;
@@ -955,7 +956,7 @@ namespace MulliganProfiles
                 Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
 
                 Report("Something horrible happend during communication with Tracker :" + e.Message);
-                
+
             }
             Report("Communicated enemy deck and style to tracker successfully");
             ZeroDrops = Choices.Where(card => CardTemplate.LoadFromId(card).Cost == 0).ToList();
@@ -978,7 +979,7 @@ namespace MulliganProfiles
                 log.WriteLine("[{0}] {1}", DateTime.Now, msg);
             }
         }
-       
+
 
         /// <summary>
         /// Mulligan Tester
@@ -1029,7 +1030,7 @@ namespace MulliganProfiles
             HasTurnOne = false;
             HasTurnTwo = false;
             HasTurnThree = false;
-            Report("Finished setup");
+            Report("Finished Mulligan Tester setup");
         }
 
         public override string ToString()
@@ -1179,7 +1180,7 @@ namespace MulliganProfiles
             Report("Mulligan Stage Entered");
 
             GameContainer mtgc = new GameContainer(true, choices, opponentClass, ownClass);
-            //Report("Mulligan Tester Container created");
+            Report("Mulligan Tester Container created");
             try
             {
                 GameContainer gc = new GameContainer(choices, opponentClass, ownClass);
@@ -1187,7 +1188,7 @@ namespace MulliganProfiles
                 Mulliganaccordingly(gc);
                 Report("Finished Mulliganing accordingly");
                 mtgc = gc;
-                
+
             }
             catch (NotImplementedException e)
             {
@@ -1198,7 +1199,7 @@ namespace MulliganProfiles
             {
                 Bot.Log("[Possibly Harmless] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur to varify few things");
 
-                Report("Deck Implementation " +q.Message + " " + q.TargetSite);
+                Report("Deck Implementation " + q.Message + " " + q.TargetSite);
                 Report("[Critical Event] Using Mulligan Tester values to preserve the bot flow");
                 Mulliganaccordingly(mtgc);
             }
@@ -1625,7 +1626,7 @@ namespace MulliganProfiles
             }
             catch (Exception e)
             {
-                                Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
+                Bot.Log("[URGENT] Please locate DebugLog.txt in Logs/ABTracker/ folder and show it to Arthur");
 
                 Core(gc);
             }
@@ -1929,7 +1930,9 @@ namespace MulliganProfiles
             Report("Entered Zoo mulligan");
             List<Card.Cards> needActivation = new List<Card.Cards> { Cards.NerubianEgg };
             _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.NerubianEgg) ? Cards.PowerOverwhelming : Nothing, false);
+            Report("Pre Core");
             Core(gc);
+            Report("Post Core");
             _whiteList.AddOrUpdate(gc.HasTurnTwo && gc.Coin && gc.Choices.Intersect(needActivation).Any() ? Cards.DefenderofArgus : Nothing, false);
         }
 
@@ -2347,18 +2350,23 @@ namespace MulliganProfiles
                             Bot.Log(string.Format("[AB - Mulligan] Keeping {0} because it's on forceful whitelist", CardTemplate.LoadFromId(q).Name));
                     }
                 }
-            }catch(Exception)
+            }
+            catch (Exception)
             {
                 //Bot.Log("[AB - Mulligan] Was unable to forcefully keep cards " + formaterro.Message);
             }
-            bool noChange = (bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["NoChange"];
-            bool strict = (string) Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "DeepMulligan" 
-                && !noChange && !Bot.CurrentMode().IsShitfest();
-            bool VeryStrict = (string) Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "StrictMulligan" 
-                && !noChange ;
             MulliganCoreData data;
+            bool strict = false;
+            bool VeryStrict = false;
+            bool noChange = true;
             try
             {
+                noChange = (bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["NoChange"];
+                strict = (string)Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "DeepMulligan"
+                    && !noChange && !Bot.CurrentMode().IsShitfest();
+                VeryStrict = (string)Bot.GetPlugins().Fetch("Arthurs Bundle - Mulligan Core", "mode").ToString() == "StrictMulligan"
+                    && !noChange;
+
                 if (noChange)
                     data = new MulliganCoreData(2, 1, 3, 2, 2, 1, 1, 1, false, true);
                 else data = new MulliganCoreData();
@@ -2373,11 +2381,12 @@ namespace MulliganProfiles
             }
             try
             {
+
                 int allowed1Drops = gc.Coin ? data.Max1DropsCoin : data.Max1Drops;
                 int allowed2Drops = gc.Coin ? data.Max2DropsCoin : data.Max2Drops;
                 int allowed3Drops = 0;
                 int allowed4Drops = 0;
-
+                 //============================================ONE DROPS=============================================
                 foreach (var q in gc.OneDrops.Where(q => q.IsMinion() && q.Priority() >= 2).OrderByDescending(q => q.Priority()).Take(allowed1Drops))
                 {
                     gc.HasTurnOne = true;
@@ -2385,18 +2394,24 @@ namespace MulliganProfiles
                 }
                 if ((strict || VeryStrict) && !gc.HasTurnOne && !gc.Coin)
                 {
+                    Report(string.Format("Strict? {0} VeryStrict? {1} Has 2 drop? {2}", strict, VeryStrict, gc.HasTurnOne));
+
                     HandleSpellsAndWeapons(gc);
                     return;
                 };
+                Report("[Core] Finished with 1 drops");
                 foreach (var q in gc.TwoDrops.Where(q => q.IsMinion() && q.Priority() >= 2).OrderByDescending(q => q.Priority()).Take(allowed2Drops))
                 {
                     if (gc.TwoDrops.Where(w => w.IsMinion() && w.Priority() >= 2).OrderByDescending(w => w.Priority()).Take(allowed2Drops).Count() >= 2)
                         gc.HasTurnOne = true;
-                    gc.HasTurnTwo = true;
+                    
                     _whiteList.AddOrUpdate(q, q.Priority() > 5);
+                    gc.HasTurnTwo = true;
                 }
+                Report("[Core] Finished with 2 drops");
                 if ((strict || VeryStrict) && !gc.HasTurnTwo)
                 {
+                    Report(string.Format("Strict? {0} VeryStrict? {1} Has 2 drop? {2}", strict, VeryStrict, gc.HasTurnTwo));
                     HandleSpellsAndWeapons(gc);
                     return;
                 };
@@ -2408,16 +2423,18 @@ namespace MulliganProfiles
                         ? data.Max3DropsCoin
                         : data.Max3Drops;
 
-                if (strict && !gc.HasTurnThree)
-                {
-                    HandleSpellsAndWeapons(gc);
-                    return;
-                };
                 foreach (var q in gc.ThreeDrops.Where(q => q.IsMinion() && q.Priority() >= 1).OrderByDescending(q => q.Priority()).Take(allowed3Drops))
                 {
                     _whiteList.AddOrUpdate(q, false);
                     gc.HasTurnThree = true;
                 }
+                if (strict && !gc.HasTurnThree)
+                {
+                    Report(string.Format("Strict? {0} VeryStrict? {1} Has 3 drop? {2}", strict, VeryStrict, gc.HasTurnThree));
+                    HandleSpellsAndWeapons(gc);
+                    return;
+                };
+                Report("[Core] Finished with 3 drops");
                 if (strict && !gc.HasTurnThree)
                 {
                     HandleSpellsAndWeapons(gc);
@@ -2434,6 +2451,7 @@ namespace MulliganProfiles
                 {
                     _whiteList.AddOrUpdate(q, gc.Coin);
                 }
+                Report("[Core] Finished with 4 drops");
             }
             catch (Exception e)
             {
@@ -2443,7 +2461,7 @@ namespace MulliganProfiles
                 Report(string.Format("{0}:{1}", e.HelpLink, e.TargetSite));
                 Report(e.Message);
             }
-            
+
             #endregion
 
             HandleSpellsAndWeapons(gc);
