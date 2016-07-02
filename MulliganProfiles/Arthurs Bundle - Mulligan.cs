@@ -1132,7 +1132,10 @@ namespace MulliganProfiles
             /*Poor Kids*/
             {DeckType.Basic, Style.Tempo}
         };
-
+        public string PrintDrops()
+        {
+            return string.Format("\n[1] : {0}\n[2] : {1}\n[3] : {2}\n", HasTurnOne, HasTurnTwo, HasTurnThree);
+        }
         public GameContainer()
         {
         }
@@ -1555,12 +1558,27 @@ namespace MulliganProfiles
                 }
             }
         }
+        private void TurnChecker(GameContainer gc, bool strict)
+        {
+            var Num1Drops = gc.Choices.Intersect(_whiteList.Keys).Count(c => c.Cost() == 1);
+            var Num2Drops = gc.Choices.Intersect(_whiteList.Keys).Count(c => c.Cost() == 2);
+            var Num3Drops = gc.Choices.Intersect(_whiteList.Keys).Count(c => c.Cost() == 3);
+            var Num4Drops = gc.Choices.Intersect(_whiteList.Keys).Count(c => c.Cost() == 4);
+            gc.HasTurnOne = Num1Drops > 0 || Num2Drops >=1 && gc.Coin;
+            if (Num2Drops >= 1 && gc.Coin) Num2Drops--;
+            if (gc.Coin)
+            {
+                gc.HasTurnTwo = strict ? (Num2Drops >= 2 && Num1Drops == 0) || (gc.HasTurnOne && Num2Drops >= 1)
+                                        : Num2Drops >= 1;
+            }
+            else gc.HasTurnTwo = strict ? gc.HasTurnOne && Num2Drops >= 1 : Num2Drops >= 1;
+            gc.HasTurnThree = Num3Drops >= 1;
+        }
         /// <summary>
         ///DO NOT REMOVE CUSTOM REGION BREAKS 
         ///ALL CHANGES MUST BE BETWEEN CUSTOM REGIONS
         /// </summary>
         /// <param name="gc"></param>
-
         private void HandleCustomDeck(GameContainer gc)
         {
             #region CustomMulligan
@@ -2356,9 +2374,14 @@ namespace MulliganProfiles
                 //Bot.Log("[AB - Mulligan] Was unable to forcefully keep cards " + formaterro.Message);
             }
             MulliganCoreData data;
+            bool noChange = true;
             bool strict = false;
             bool VeryStrict = false;
-            bool noChange = true;
+            if (noChange)
+            {
+                strict = false;
+                VeryStrict = false;
+            }
             try
             {
                 noChange = (bool)Bot.GetPlugins().Find(c => c.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["NoChange"];
@@ -2411,12 +2434,16 @@ namespace MulliganProfiles
                     gc.HasTurnTwo = true;
                 }
                 Report("[Core] Finished with 2 drops");
+                TurnChecker(gc, strict || VeryStrict);
                 if ((strict || VeryStrict) && !gc.HasTurnTwo)
                 {
                     Report(string.Format("Strict? {0} VeryStrict? {1} Has 2 drop? {2}", strict, VeryStrict, gc.HasTurnTwo));
                     HandleSpellsAndWeapons(gc);
+                    Report(gc.PrintDrops());
                     return;
                 };
+                
+                
                  //============================================Three DROPS=============================================
 
                 allowed3Drops = gc.Coin && (gc.HasTurnOne || gc.HasTurnTwo)

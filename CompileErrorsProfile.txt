@@ -27,3 +27,4 @@ c:\Users\artur\AppData\Local\Temp\ayaqlxcn.0.cs(29,28) : warning CS0162: Unreach
 c:\Users\artur\AppData\Local\Temp\ayaqlxcn.0.cs(318,20) : error CS0103: The name 'result' does not exist in the current context
 c:\Users\artur\AppData\Local\Temp\quxicmse.0.cs(31,56) : error CS1502: The best overloaded method match for 'System.Collections.Generic.Dictionary<ArthursBundle.DeckType,double>.this[ArthursBundle.DeckType]' has some invalid arguments
 c:\Users\artur\AppData\Local\Temp\quxicmse.0.cs(31,75) : error CS1503: Argument 1: cannot convert from 'SmartBot.Plugins.API.Card.CClass' to 'ArthursBundle.DeckType'
+c:\Users\artur\AppData\Local\Temp\duzed1ow.0.cs(115,44) : error CS0840: 'ArthursBundle.Tracker.TrackerUpdateMode.get' must declare a body because it is not marked abstract or extern. Automatically implemented properties must define both get and set accessors.
