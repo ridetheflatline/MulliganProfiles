@@ -670,7 +670,7 @@ namespace SmartBot.Plugins
 
             List<string> drawn = new List<string>();
             drawn.AddRange(hand.Where(card => card.Template.IsCollectible).Select(q => q.Template.Id.ToString()));
-            
+            drawn.AddRange(played);
 
             if (played.Count == 0) return;
             if (drawn.Count == 0) return;

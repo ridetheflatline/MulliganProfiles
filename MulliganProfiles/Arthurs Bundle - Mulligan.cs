@@ -2374,8 +2374,8 @@ namespace MulliganProfiles
                 //Bot.Log("[AB - Mulligan] Was unable to forcefully keep cards " + formaterro.Message);
             }
             MulliganCoreData data;
-            bool noChange = true;
-            bool strict = false;
+            bool noChange = false;
+            bool strict = true;
             bool VeryStrict = false;
             if (noChange)
             {
