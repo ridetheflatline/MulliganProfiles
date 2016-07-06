@@ -172,7 +172,7 @@ namespace SmartBot.Plugins
             donation = "http://bit.ly/ABDonationLink";
             discord = "https://discord.gg/0wJubFLk1fKTb4Vx";
             vKey = GetLocalSha("Arthurs Bundle - Tracker.cs");
-            Versions = "4.015";
+            Versions = "4.100";
         }
         public void ReloadDictionary()
 
@@ -373,6 +373,8 @@ namespace SmartBot.Plugins
                         CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Mulligan%20Core.cs");
                         CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20History.cs");
                         CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Miscellaneous.cs");
+                        CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/Plugins/Arthurs%20Bundle%20-%20Sir%20Mrrgglton.cs");
+                        
                         CheckForUpdates("https://raw.githubusercontent.com/ArthurFairchild/MulliganProfiles/SmartMulliganV3/MulliganProfiles/Arthurs%20Bundle%20-%20Mulligan.cs", true);
 
                         if (NewSha)
