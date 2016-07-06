@@ -25,6 +25,8 @@ namespace SmartBot.Plugins
     [Serializable]
     public class ABHistory : PluginDataContainer
     {
+        [DisplayName("[--] First Time User")]
+        public bool ftu { get; set; }
         [DisplayName("[A] Games to Analyze")]
         public int GTA { get; set; }
         [DisplayName("[B] Record Game Time")]
@@ -85,9 +87,17 @@ namespace SmartBot.Plugins
         public override void OnStarted()
         {
             base.OnStarted();
+            
             bd = new BundleData(Bot.Mode.RankedStandard);
+            
             var data = DataContainer as ABHistory;
-
+            if (data.ftu)
+            {
+                System.Windows.Forms.MessageBox.Show(string.Format("All Card Breakdowns are stored in\n\n"
+                      + "{0}\n\nFormat is Comma Seperated Values which can be opened with your Microsoft Excel or similar tools.\nPS: No, I will not print them to logs because they are huge. "
+                      , AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ABTracker\\CardBreakdown\\"));
+                data.ftu = false;
+            }
             if (data.print)
             {
                 if (((ABHistory)DataContainer).details == Details.Classes)
