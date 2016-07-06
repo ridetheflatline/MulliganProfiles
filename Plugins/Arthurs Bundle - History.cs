@@ -100,6 +100,7 @@ namespace SmartBot.Plugins
             }
             if (data.print)
             {
+                Bot.Log(string.Format("Overall Winrate for the past {0} gamse is {1}", data.GTA, bd.MatchHistory.GetTotalWinrate()));
                 if (((ABHistory)DataContainer).details == Details.Classes)
                     Bot.Log(bd.MatchHistory.ClassPerformance());
                 else if (((ABHistory)DataContainer).details == Details.DeckTypes)
