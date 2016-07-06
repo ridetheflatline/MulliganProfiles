@@ -111,8 +111,10 @@ namespace SmartBot.Plugins
                     Bot.Log(bd.MatchHistory.DeckTypePerformance());
                 };
             }
-            bd.CardStat.ToCSV(); //default is always generated
-            Dictionary<Card.CClass, bool> GenerateClassStats = new Dictionary<Card.CClass, bool>
+            try
+            {
+                bd.CardStat.ToCSV(); //default is always generated
+                Dictionary<Card.CClass, bool> GenerateClassStats = new Dictionary<Card.CClass, bool>
             {
                 {Card.CClass.SHAMAN, data.Shaman },
                 {Card.CClass.DRUID, data.Druid },
@@ -126,12 +128,15 @@ namespace SmartBot.Plugins
                 {Card.CClass.HUNTER, data.Hunter },
                 {Card.CClass.PALADIN, data.Paladin },
             };
-            foreach(var q in GenerateClassStats.Where(c=> c.Value == true))
+                foreach (var q in GenerateClassStats.Where(c => c.Value == true))
+                {
+                    Bot.Log("[Bundle History] Generated CSV card performance against " + q.Key);
+                    bd.MatchHistory.PerformanceAgainstClass[q.Key].ToCSV(q.Key.ToString());
+                }
+            }catch(Exception e)
             {
-                Bot.Log("[Bundle History] Generated CSV card performance against " + q.Key);
-                bd.MatchHistory.PerformanceAgainstClass[q.Key].ToCSV(q.Key.ToString());
+                Bot.Log("Could not generate new CSV because you currently have them open " +e.Message);
             }
-           
             
 
             
