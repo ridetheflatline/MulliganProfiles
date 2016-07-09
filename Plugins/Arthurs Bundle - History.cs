@@ -87,7 +87,7 @@ namespace SmartBot.Plugins
         public override void OnStarted()
         {
             base.OnStarted();
-            
+            if (Bot.CurrentMode().IsArena()) return;
             bd = new BundleData(Bot.Mode.RankedStandard);
             
             var data = DataContainer as ABHistory;
@@ -179,6 +179,15 @@ namespace Bundle
         public static List<Card.Cards> ToCardList(this List<string> list)
         {
             return list.Select(card => (Card.Cards)Enum.Parse(typeof(Card.Cards), card)).ToList();
+        }
+        public static Dictionary<Card.Cards, int> ToDictList(this List<Card.Cards> list)
+        {
+            var ret = new Dictionary<Card.Cards, int>();
+            foreach(var q in list.Distinct())
+            {
+                ret[q] = list.Count(c => c == q);
+            }
+            return ret;    
         }
         public static String Name(this Card.Cards card)
         {
@@ -439,31 +448,46 @@ namespace Bundle
                 if ((DeckType)Enum.Parse(typeof(DeckType), line[3]) != AutomaticFriendlyDeckType) continue; //check if it's my current deck
                 Report("MyDeck check was fine");
                 Report(line[6]);
-                var drawn = line[6].Split(',').Skip(1).ToList().ToCardList(); //get all drawn Card.Cards
+                var drawn = line[6].Split(',').Skip(1).ToList().ToCardList().ToDictList(); //get all drawn Card.Cards  and then to dictionary Card, Count
+                
                 Report("Drawn Created");
                 if (drawn.Count < 1) continue;
 
-                var played = line[7].Split(',').Skip(1).ToList().ToCardList(); //get all played Card.Cards
+                var played = line[7].Split(',').Skip(1).ToList().ToCardList().ToDictList(); //get all played Card.Cards
+                
                 Report("Played created");
                 if (played.Count < 1) continue;
                 Report("Pre card calculations set up");
                 if (line[0] == "won") TotalWins++;
                 else TotalLosses++;
-                foreach (var card in CardDeck.Distinct())
-                {
-                    if (played.Contains(card)) AverageCardPlayed[card]++;
-                    if (drawn.Contains(card)) AverageCardDrawn[card]++;
-                    if (line[0] == "won" && (drawn.Contains(card) || played.Contains(card))) CardVictories[card]++;
-                    else if (drawn.Contains(card) || played.Contains(card)) CardDefeats[card]++;
-                }
                 dCards.Add(drawn.Count);
+
+                foreach (var card in drawn.Keys.ToList().Distinct())
+                {                                    
+                        Report("=========CARDDECK>>>>>>> " + card.ToString());
+                        if (line[0] == "won" && drawn.ContainsKey(card) && drawn[card] > 0) CardVictories[card]++;
+                        else if (drawn.ContainsKey(card)&& drawn[card] > 0) CardDefeats[card]++;
+                        if (played.ContainsKey(card) && played[card] > 0)
+                        {
+                            AverageCardPlayed[card]+=played.Count(c=> c.Key==card);
+                            played[card]--;
+                        }
+                        if (drawn.ContainsKey(card) && drawn[card] > 0)
+                        {
+                            AverageCardDrawn[card]+=drawn.Count(c=> c.Key==card);
+                            drawn[card]--;
+                        }
+                                                    
+                }
                 TotalGames++;
 
             }
             AverageCardsDrawn = (double) dCards.Sum()/TotalGames;
             TotalWinrate = ((double)TotalWins / (TotalWins + TotalLosses))*100;
-            foreach (var card in CardDeck.Distinct())
+            
+            foreach (var card in AverageCardDrawn.Keys.ToList())
             {
+                Report("===========================>>>>>>>>"+card.ToString());
                 double wr = (double)CardVictories[card] / (CardVictories[card] + CardDefeats[card]);
                 AverageCardWinRate[card] = wr * 100;
             }
@@ -484,7 +508,7 @@ namespace Bundle
             Report("CamesToCheck accessed");
             CardDeck = Bot.CurrentDeck().Cards.ToCardList();
             Report("DeckSelected");
-            foreach (var q in CardDeck)
+            foreach (var q in CardTemplate.TemplateList.Keys.Where(c=> CardTemplate.LoadFromId(c).IsCollectible))
             {
                 Report(q.Name());
                 try
@@ -537,7 +561,7 @@ namespace Bundle
                 log.WriteLine("Winrate, {0}%,Against,{1}", TotalWinrate, param);
                 log.WriteLine("Cards Drawn/Game,{0}\n", AverageCardsDrawn);
                 log.WriteLine("Card Name, Played, Drawn, Victories, Defeats, Winrate, Deviation, Unplayed, Winrate with Unplayed");
-                foreach (var q in CardDeck.Distinct())
+                foreach (var q in AverageCardDrawn.Keys.Where(c=> AverageCardDrawn[c]> 0).OrderByDescending(w=>AverageCardWinRate[w] - TotalWinrate))
                     log.WriteLine("{0},{1},{2},{3},{4},{5}%,{6},{7},{8}%", q.Name(), AverageCardPlayed[q], AverageCardDrawn[q], CardVictories[q],
                         CardDefeats[q], AverageCardWinRate[q].ToString("#0.00"), (AverageCardWinRate[q] - TotalWinrate).ToString("#0.##"),  TotalGames-AverageCardPlayed[q],
                         (((double)CardVictories[q]/(CardDefeats[q] +CardVictories[q] + (TotalGames-AverageCardPlayed[q])))*100).ToString("#0.##"));

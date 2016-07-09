@@ -1564,15 +1564,11 @@ namespace MulliganProfiles
             var Num2Drops = gc.Choices.Intersect(_whiteList.Keys).Count(c => c.Cost() == 2);
             var Num3Drops = gc.Choices.Intersect(_whiteList.Keys).Count(c => c.Cost() == 3);
             var Num4Drops = gc.Choices.Intersect(_whiteList.Keys).Count(c => c.Cost() == 4);
-            gc.HasTurnOne = Num1Drops > 0 || Num2Drops >=1 && gc.Coin;
-            if (Num2Drops >= 1 && gc.Coin) Num2Drops--;
-            if (gc.Coin)
-            {
-                gc.HasTurnTwo = strict ? (Num2Drops >= 2 && Num1Drops == 0) || (gc.HasTurnOne && Num2Drops >= 1)
-                                        : Num2Drops >= 1;
-            }
-            else gc.HasTurnTwo = strict ? gc.HasTurnOne && Num2Drops >= 1 : Num2Drops >= 1;
-            gc.HasTurnThree = Num3Drops >= 1;
+            gc.HasTurnOne = Num1Drops > 0 || (gc.Coin && Num2Drops > 1);
+            gc.HasTurnTwo = strict ? (Num1Drops >= 0 && Num2Drops > 1 && gc.Coin) || (!gc.Coin && Num1Drops > 0 && Num2Drops > 0)||(Num1Drops> 0 && Num2Drops> 0) : Num2Drops > 0;
+
+
+            gc.HasTurnThree = Num3Drops > 0;
         }
         /// <summary>
         ///DO NOT REMOVE CUSTOM REGION BREAKS 
@@ -2355,6 +2351,7 @@ namespace MulliganProfiles
 
         private void Core(GameContainer gc)
         {
+            
             try
             {
                 string[] fKeep = ((string)Bot.GetPlugins().Find(p => p.DataContainer.Name == "Arthurs Bundle - Mulligan Core").GetProperties()["fck"]).Split('~');
