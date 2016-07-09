@@ -561,7 +561,7 @@ namespace Bundle
                 log.WriteLine("Winrate, {0}%,Against,{1}", TotalWinrate, param);
                 log.WriteLine("Cards Drawn/Game,{0}\n", AverageCardsDrawn);
                 log.WriteLine("Card Name, Played, Drawn, Victories, Defeats, Winrate, Deviation, Unplayed, Winrate with Unplayed");
-                foreach (var q in AverageCardDrawn.Keys.Where(c=> AverageCardDrawn[c]> 0).OrderByDescending(w=>AverageCardWinRate[w] - TotalWinrate))
+                foreach (var q in AverageCardDrawn.Keys.Where(c=> AverageCardDrawn[c]> 0 && CardTemplate.LoadFromId(c).Type != Card.CType.HERO).OrderByDescending(w=>AverageCardWinRate[w] - TotalWinrate))
                     log.WriteLine("{0},{1},{2},{3},{4},{5}%,{6},{7},{8}%", q.Name(), AverageCardPlayed[q], AverageCardDrawn[q], CardVictories[q],
                         CardDefeats[q], AverageCardWinRate[q].ToString("#0.00"), (AverageCardWinRate[q] - TotalWinrate).ToString("#0.##"),  TotalGames-AverageCardPlayed[q],
                         (((double)CardVictories[q]/(CardDefeats[q] +CardVictories[q] + (TotalGames-AverageCardPlayed[q])))*100).ToString("#0.##"));
