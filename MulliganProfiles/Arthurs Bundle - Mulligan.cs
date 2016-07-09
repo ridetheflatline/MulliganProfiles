@@ -2278,7 +2278,7 @@ namespace MulliganProfiles
             if (gc.OpponentClass.IsOneOf(Druid, Mage)) _whiteList.AddOrUpdate(Cards.Hex, false);
             //Cleric and Mana wyrm might get out of hand, so we try to kill them asap with biter.
             if (gc.OpponentClass.IsOneOf(Priest, Mage)) _whiteList.AddOrUpdate(Cards.RockbiterWeapon, false);
-            if (gc.OpponentClass.Is(Warrior) && gc.HasTurnOne) _whiteList.AddOrUpdate(Cards.FlametongueTotem, false);
+            if (gc.OpponentClass.IsOneOf(Warrior, Warlock)) _whiteList.AddOrUpdate(Cards.Stormcrack, false);
             if (gc.OpponentClass.Is(Warlock) && gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.LightningStorm, false);
             if (gc.HasTurnOne && gc.HasTurnTwo && gc.Coin) _whiteList.AddOrUpdate(Cards.FlamewreathedFaceless, false);
 
@@ -2371,7 +2371,7 @@ namespace MulliganProfiles
                 //Bot.Log("[AB - Mulligan] Was unable to forcefully keep cards " + formaterro.Message);
             }
             MulliganCoreData data;
-            bool noChange = false;
+            bool noChange = true;
             bool strict = true;
             bool VeryStrict = false;
             if (noChange)
