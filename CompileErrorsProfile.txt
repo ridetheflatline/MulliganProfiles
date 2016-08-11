@@ -1,0 +1,2 @@
+c:\Users\artur\AppData\Local\Temp\jdjdflc1.0.cs(14,7) : error CS0246: The type or namespace name 'ArthursBundle' could not be found (are you missing a using directive or an assembly reference?)
+c:\Users\artur\AppData\Local\Temp\jdjdflc1.0.cs(29,16) : error CS0246: The type or namespace name 'BundleData' could not be found (are you missing a using directive or an assembly reference?)

@@ -599,7 +599,30 @@ namespace MulliganProfiles
             {Cards.MidnightDrake, 0 },
             {Cards.PollutedHoarder, 0 },
             {Cards.TwilightSummoner, 0 },
-            {Cards.BladedCultist, 5}
+            {Cards.BladedCultist, 5},
+
+            {Cards.EnchantedRaven, 5},
+            {Cards.CloakedHuntress, 3},
+            {Cards.KindlyGrandmother, 4},
+            {Cards.BabblingBook, 2},
+            {Cards.MedivhsValet, 2},
+            {Cards.NightbaneTemplar, 4},
+            {Cards.DeadlyFork, 0},
+            {Cards.Swashburglar, 4},
+            {Cards.SilverwareGolem, 1},
+            {Cards.MalchezaarsImp, 3},
+            {Cards.Barnes, 4},
+            {Cards.Moroes, 2},
+            {Cards.VioletIllusionist, 2},
+            {Cards.Zoobot, 1},
+            {Cards.Arcanosmith, 2},
+            {Cards.PantrySpider, 2},
+            {Cards.NetherspiteHistorian, 2},
+            {Cards.PompousThespian, 3},
+            {Cards.ArcaneAnomaly, 4},
+            {Cards.RunicEgg, 2},
+            {Cards.PriestoftheFeast, 5},
+           
          };
         public static void Report(string msg)
         {
@@ -2512,7 +2535,7 @@ namespace MulliganProfiles
               //Warrior
               Cards.Execute,
               //Shaman
-              Cards.Hex,
+              Cards.Hex, Cards.MaelstromPortal,
               //Hunter
               Cards.DeadlyShot,Cards.HuntersMark,
               //Druid
