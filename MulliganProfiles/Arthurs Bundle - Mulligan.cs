@@ -622,6 +622,7 @@ namespace MulliganProfiles
             {Cards.ArcaneAnomaly, 4},
             {Cards.RunicEgg, 2},
             {Cards.PriestoftheFeast, 5},
+            {Cards.WickedWitchdoctor, 2 },
            
          };
         public static void Report(string msg)
