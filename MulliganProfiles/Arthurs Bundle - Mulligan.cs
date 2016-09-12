@@ -2277,7 +2277,7 @@ namespace MulliganProfiles
             if (!gc.MyDeck.Contains(Cards.SpiritClaws)) return;
             if (gc.OpponentClass.Is(Shaman) && gc.Choices.Contains(Cards.SpiritClaws)) _whiteList.AddAll(false, Cards.SpiritClaws, Cards.BloodmageThalnos); //Anti Totem Golem mechanism
             if (!gc.OpponentClass.IsOneOf(Paladin, Priest)) _whiteList.AddOrUpdate(Cards.SpiritClaws, false);
-            if (gc.Choices.ContainsAll(Cards.SpiritClaws, Cards.BloodmageThalnos)) _whiteList.AddAll(false, Cards.SpiritClaws, Cards.BloodmageThalnos);
+            if (gc.Choices.HasAll(Cards.SpiritClaws, Cards.BloodmageThalnos)) _whiteList.AddAll(false, Cards.SpiritClaws, Cards.BloodmageThalnos);
         }
 
 
