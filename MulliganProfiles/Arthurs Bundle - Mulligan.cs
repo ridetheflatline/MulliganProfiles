@@ -2273,6 +2273,11 @@ namespace MulliganProfiles
                 _whiteList.AddOrUpdate(gc.HasTurnOne && gc.HasTurnTwo && gc.HasTurnThree ? Cards.Doomhammer : Nothing, false);
             if (gc.OpponentClass.IsOneOf(Mage, Druid))
                 _whiteList.AddOrUpdate(gc.Choices.HasAny(Cards.LightningBolt) ? Cards.LightningBolt : gc.HasTurnOne && gc.Coin ? Cards.RockbiterWeapon : Nothing, false);
+            //Spirit Claw Variation
+            if (!gc.MyDeck.Contains(Cards.SpiritClaws)) return;
+            if (gc.OpponentClass.Is(Shaman) && gc.Choices.Contains(Cards.SpiritClaws)) _whiteList.AddAll(false, Cards.SpiritClaws, Cards.BloodmageThalnos); //Anti Totem Golem mechanism
+            if (!gc.OpponentClass.IsOneOf(Paladin, Priest)) _whiteList.AddOrUpdate(Cards.SpiritClaws, false);
+            if (gc.Choices.ContainsAll(Cards.SpiritClaws, Cards.BloodmageThalnos)) _whiteList.AddAll(false, Cards.SpiritClaws, Cards.BloodmageThalnos);
         }
 
 
@@ -2305,6 +2310,11 @@ namespace MulliganProfiles
             if (gc.OpponentClass.IsOneOf(Warrior, Warlock)) _whiteList.AddOrUpdate(Cards.Stormcrack, false);
             if (gc.OpponentClass.Is(Warlock) && gc.EnemyStyle.Aggresive()) _whiteList.AddOrUpdate(Cards.LightningStorm, false);
             if (gc.HasTurnOne && gc.HasTurnTwo && gc.Coin) _whiteList.AddOrUpdate(Cards.FlamewreathedFaceless, false);
+            //Spirit Claw Variation
+            if (!gc.MyDeck.Contains(Cards.SpiritClaws)) return;
+            if (gc.OpponentClass.Is(Shaman) && gc.Choices.Contains(Cards.SpiritClaws)) _whiteList.AddAll(false, Cards.SpiritClaws, Cards.BloodmageThalnos); //Anti Totem Golem mechanism
+            if (!gc.OpponentClass.IsOneOf(Paladin, Priest)) _whiteList.AddOrUpdate(Cards.SpiritClaws, false);
+            if (gc.Choices.ContainsAll(Cards.SpiritClaws, Cards.BloodmageThalnos)) _whiteList.AddAll(false, Cards.SpiritClaws, Cards.BloodmageThalnos);
 
         }
 
@@ -2566,6 +2576,7 @@ namespace MulliganProfiles
                 _whiteList.AddOrUpdate(Cards.PowerWordShield, false); // [1 Cost] 
                 _whiteList.AddOrUpdate(Cards.ShadowWordPain, false); // [2 Cost]
                 _whiteList.AddOrUpdate(Cards.Shadowform, false); // [3 Cost]
+                
                 _whiteList.AddOrUpdate((hasGood1Or2 && gc.Coin) || hasGood2 ? Cards.VelensChosen : Card.Cards.GAME_005, false); // [3 Cost]
                 break;
                 case Card.CClass.MAGE:
